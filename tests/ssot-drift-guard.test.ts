@@ -372,6 +372,9 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     for (const tier of sitDown) {
       expect(tier.min_guests).toBe(xmas.booking_rules.min_party_size)
       expect(tier.price_per_head_gbp).toBe('LIVE_FROM_DB')
+      // No catering_packages row holds these tiers (mirrored 11 September 2026):
+      // they live on the Christmas menu and the Christmas booking period.
+      expect(tier.not_a_catering_packages_row).toBe(true)
     }
     // The retired weekday/weekend two-price split must not come back.
     const names = ssot.private_hire.catering_packages.christmas
@@ -379,6 +382,18 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
       .join(' ')
     expect(names).not.toContain('Festive Menu (weekday)')
     expect(names).not.toContain('Festive Menu (weekend)')
+  })
+
+  it('records the old Festive Menu catering packages as switched off', () => {
+    // Both rows (a weekday and a weekend price, minimum 6) are inactive in the
+    // management app, mirrored 11 September 2026. The SSOT had said they must
+    // stay active, which would have brought back the two-price split and the 6.
+    expect(xmas.festive_menu_catering_packages).toMatch(/^SWITCHED OFF\./)
+    expect(xmas.festive_menu_catering_packages).toContain('1, 2 and 3 course Christmas menu')
+    expect(mdPlain).toContain('The old Festive Menu catering packages are switched off.')
+    expect(mdPlain).toContain('refers only to the latest offer, the 1, 2 and 3 course Christmas menu')
+    expect(mdPlain).not.toContain('The festive menu catering packages stay.')
+    expect(JSON.stringify(ssot)).not.toMatch(/REMAIN ACTIVE|Do not deactivate them/)
   })
 
   it('menu dishes are published, and only the API may name one', () => {
@@ -494,6 +509,55 @@ describe('SSOT drift guard — banned strings absent from customer-facing JSON',
 
   it.each(banned)('does not contain %s', (_label, re) => {
     expect(custBlob).not.toMatch(re)
+  })
+})
+
+describe("SSOT drift guard, the owner's answers of 11 September 2026", () => {
+  const events = ssot.events
+
+  it('gives the quiz winners a £25 bar voucher, not a bar tab', () => {
+    // A tab is spent on the night and a voucher later, so they are different
+    // promises. The quiz records said voucher while the SSOT said tab.
+    expect(events.quiz_night.prizes.first).toBe('£25 bar voucher')
+    expect(events.quiz_night.prizes.second_from_last).toBe('Bottle of house wine')
+    expect(mdPlain).toContain('the winning team gets a £25 bar voucher, not a bar tab')
+    expect(mdPlain).not.toMatch(/£25 bar tab/i)
+  })
+
+  it('seats each quiz team at its own table', () => {
+    expect(events.quiz_night.seating).toContain('each team has its own table')
+    expect(mdPlain).toContain('Seating: team tables. Each team has its own table, so book one table per team.')
+  })
+
+  it('finishes every event by 10pm, bar the special nights', () => {
+    expect(events.finish_rule).toMatch(/^Events finish by 10pm/)
+    expect(events._finish_rule_confirmed).toContain('Owner-confirmed 2026-09-11')
+    expect(events.music_bingo.end).toMatch(/^Runs until 10pm/)
+    expect(mdPlain).toContain('Events finish by 10pm.')
+    expect(mdPlain).toContain('Runs until 10pm, under the finish rule at the top of this section')
+    // New Year's Eve keeps its 1am, reconfirmed the same day.
+    expect(mdPlain).toContain("We stay open until 1am on New Year's Eve. (Owner-confirmed, 16 August 2026, and reconfirmed 11 September 2026.)")
+  })
+
+  it('names Peter Pitcher as the karaoke host', () => {
+    expect(events.karaoke.host).toMatch(/^Peter Pitcher, the owner\./)
+    expect(events.karaoke.host).toContain('NOT hosted by Nikki Manfadge')
+    expect(mdPlain).toContain('Host: Peter Pitcher, the owner. (Owner-confirmed, 11 September 2026.)')
+    expect(mdPlain).not.toContain('Karaoke has no fixed host')
+    expect(JSON.stringify(ssot)).not.toContain('No fixed host')
+  })
+
+  it('records Curry Club as discontinued in both files', () => {
+    expect(events.curry_club.status).toBe('DISCONTINUED')
+    expect(events.curry_club.retired_routes).toEqual([
+      '/blog/curry-club-the-anchor redirects to /food-menu (owner-approved 2026-09-11)',
+    ])
+    expect(events.curry_club.schedule).toBeUndefined()
+    expect(ssot.do_not_use.curry_club).toMatch(/^DISCONTINUED/)
+    expect(md).toContain('### Curry Club, DISCONTINUED')
+    expect(mdPlain).toContain('Curry Club is discontinued. (Owner-confirmed, 11 Sep 2026.)')
+    expect(mdPlain).toContain('Curry Club, or a curry night, discontinued')
+    expect(mdPlain).not.toContain('Monthly rotating curry-night specials')
   })
 })
 

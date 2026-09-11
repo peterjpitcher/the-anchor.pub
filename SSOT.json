@@ -826,7 +826,7 @@
     {
       "name": "Shared Christmas Party Nights",
       "description": "Shared/mixed-table festive party nights",
-      "status": "DISCONTINUED as of 2026-07-21. Remove from all pages, schemas, enquiry forms and data shapes. Do not confuse with the festive menu catering packages, which are the real sit-down set menu and REMAIN ACTIVE."
+      "status": "DISCONTINUED as of 2026-07-21. Remove from all pages, schemas, enquiry forms and data shapes. Do not confuse with the Christmas menu (1, 2 and 3 courses), which is the sit-down Christmas offer for a group's own table."
     },
     {
       "name": "All the Trimmings Board",
@@ -856,6 +856,8 @@
   ],
   "events": {
     "_source_note": "Event details cross-referenced with anchor-management-tools database 2026-09-11. Actual event dates, prices, and times are managed per-event in the management app, the values below are defaults.",
+    "finish_rule": "Events finish by 10pm: quiz nights, both bingos, karaoke and tasting nights. Only special nights such as the Halloween party and New Year's Eve run later. Never publish a later finish (10:30pm, 11pm, 11:30pm, 'until late') for any other event. Where an event record ends later on an ordinary night, the record needs correcting in the management app; do not repeat its time in copy.",
+    "_finish_rule_confirmed": "Owner-confirmed 2026-09-11: 'all events run until 10pm except for things like the Halloween party and New Year's Eve'.",
     "quiz_night": {
       "schedule": "Monthly, on a Wednesday, plus the occasional themed quiz on another night. Rest of 2026: Wednesday 2026-09-16, Friday 2026-09-25 (an Only Fools and Horses charity quiz for Macmillan Cancer Support), Wednesday 2026-10-07, Wednesday 2026-11-04 and Wednesday 2026-12-02. Mirrored from the management app 2026-09-11; owner-confirmed 2026-09-11 that 2026 dates will not move. Take any later date from the event records.",
       "arrive": "Usually from 6:30pm, confirm against event listing",
@@ -866,11 +868,15 @@
       "entry_fee_gbp": 3,
       "team_size_max": 6,
       "solo_players": "Solo players and pairs are found a team to join on the night. Owner-confirmed 2026-09-11.",
+      "seating": "Team tables: each team has its own table, so book one table per team. Never describe quiz seating as communal, or say a team may share its table with another team. Owner-confirmed 2026-09-11.",
       "rounds": "4 rounds x 10 questions + interactive quick-fire round + comfort break",
       "capacity": 60,
       "prizes": {
-        "first": "£25 bar tab",
-        "second_from_last": "Bottle of house wine"
+        "first": "£25 bar voucher",
+        "second_from_last": "Bottle of house wine",
+        "every_round": "A closest-answer question for a free drink",
+        "spot_prizes": "Spot prizes through the night",
+        "_confirmed": "First prize owner-confirmed 2026-09-11: a £25 bar voucher, not a bar tab. The closest-answer drink and the spot prizes are mirrored from the management app's quiz records 2026-09-11."
       },
       "rules": "Phones away during the question rounds: 5 points off for using one. The interactive round is played on phones (three records say one phone per player; the 2026-09-25 charity quiz says one phone per team). Mirrored from the management app 2026-09-11.",
       "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11. Question One Quiz Masters is retired."
@@ -895,6 +901,7 @@
       "schedule": "Once a month on a Friday. Rest of 2026: 2026-10-16, 2026-11-13, 2026-12-11; the 2026-09-11 night was cancelled in the management app on the day. Mirrored from the management app 2026-09-11; owner-confirmed 2026-09-11 that 2026 dates will not move. Take any later date from the event records.",
       "arrive": "From 6:30pm",
       "start": "7:00pm unless event record says otherwise",
+      "end": "Runs until 10pm (events.finish_rule, owner-confirmed 2026-09-11). Anything saying 10:30pm or 11pm is wrong.",
       "entry_fee_gbp": 5,
       "RESOLVED": "£5 per person, owner-confirmed 17 August 2026 and matched by every scheduled Music Bingo in the management DB. The earlier £3 figure is retired: anything still saying £3 is wrong.",
       "format": "Two games with interactive music games and quizzes too; song clips replace bingo numbers.",
@@ -932,7 +939,8 @@
         "Communal seating, no reserved tables",
         "All ages welcome with a supervising adult"
       ],
-      "host": "No fixed host. NOT hosted by Nikki Manfadge, who hosts Music Bingo. Take the host from the event record or name nobody.",
+      "host": "Peter Pitcher, the owner. NOT hosted by Nikki Manfadge, who hosts Music Bingo.",
+      "_host_confirmed": "Owner-confirmed 2026-09-11. The older 'no fixed host' line is retired.",
       "schema_rule": "Do not publish a recurring EventSeries for karaoke. Individual nights get their own Event schema when listed.",
       "_confirmed": "Owner-confirmed 11 August 2026"
     },
@@ -941,9 +949,13 @@
       "note": "Do not promote Nikki hosted/games nights as a recurring format. Nikki currently hosts Music Bingo only."
     },
     "curry_club": {
-      "schedule": "Monthly",
-      "description": "Rotating curry night specials",
-      "note": "Chef described as having decades of authentic Indian cooking experience"
+      "status": "DISCONTINUED",
+      "_confirmed": "Owner-confirmed 11 September 2026: Curry Club has stopped. The management app holds no Curry Club category, event record or menu special (checked 2026-09-11).",
+      "rule": "Curry Club is discontinued: there are no curry nights and no rotating curry specials. Do not list, promote, schedule or link to it, and do not target curry club or curry night keywords. The Chicken Katsu Curry on the menu and the Indian-Inspired Curry Buffet are not Curry Club and are unaffected.",
+      "retired_routes": [
+        "/blog/curry-club-the-anchor redirects to /food-menu (owner-approved 2026-09-11)"
+      ],
+      "superseded_details": "The previously published details (monthly, rotating curry-night specials, a chef with decades of Indian cooking experience) are superseded and must not be restored."
     },
     "tasting_nights": {
       "schedule": "Occasional (not fixed frequency)",
@@ -1068,27 +1080,31 @@
           "min_guests": 30
         }
       ],
+      "_christmas_sit_down_note": "The three Christmas Dinner entries below are NOT catering_packages rows: no such rows exist. The 1, 2 and 3 course tiers and their prices live on the Christmas menu and the Christmas booking period (mirrored from the management app 2026-09-11). They stay here, flagged not_a_catering_packages_row, to pin the 4-guest minimum for a private-hire Christmas set menu (owner-confirmed 2026-09-10). The old Festive Menu rows (weekday and weekend, minimum 6) are inactive; see christmas_2026.festive_menu_catering_packages.",
       "christmas": [
         {
           "name": "Christmas Dinner (1 course)",
           "price_per_head_gbp": "LIVE_FROM_DB",
           "min_guests": 4,
           "style": "sit-down",
-          "pre_order_required": false
+          "pre_order_required": false,
+          "not_a_catering_packages_row": true
         },
         {
           "name": "Christmas Dinner (2 course)",
           "price_per_head_gbp": "LIVE_FROM_DB",
           "min_guests": 4,
           "style": "sit-down",
-          "pre_order_required": true
+          "pre_order_required": true,
+          "not_a_catering_packages_row": true
         },
         {
           "name": "Christmas Dinner (3 course)",
           "price_per_head_gbp": "LIVE_FROM_DB",
           "min_guests": 4,
           "style": "sit-down",
-          "pre_order_required": true
+          "pre_order_required": true,
+          "not_a_catering_packages_row": true
         },
         {
           "name": "Festive Sandwich & Salad",
@@ -1376,7 +1392,7 @@
         "Festive Premium Grazing"
       ]
     },
-    "festive_menu_catering_packages": "ACTIVE. These are the real sit-down set menu. They are NOT the discontinued shared party nights. Do not deactivate them.",
+    "festive_menu_catering_packages": "SWITCHED OFF. The two old Festive Menu rows (a weekday and a weekend price, minimum 6) are inactive in the management app, and no private-hire catering package holds the 1, 2 and 3 course Christmas menu. The tiers and their prices live on the Christmas menu and the Christmas booking period. Mirrored from the management app 2026-09-11. Switching the old rows back on as they stand would bring back the retired two-price split and a minimum of 6, where the minimum is 4. For the sit-down Christmas meal, /christmas-parties refers only to the 1, 2 and 3 course Christmas menu, never to the old packages (owner-confirmed 2026-09-11). The festive buffets are separate and stay.",
     "allergen_fallback": "See menu or contact us for allergen information",
     "allergen_rule": "Never render 'no allergens' when allergen data is missing. Missing data means unknown, not safe. Use the allergen_fallback string instead.",
     "groups_above_20": "More than 20 guests is not a table booking, it is private hire. Route to manager@the-anchor.pub, 01753 682707, or WhatsApp 01753 682707.",
@@ -1645,7 +1661,7 @@
     "champions_league_claim": "INCORRECT. The pub does not have Sky/TNT Sports and cannot show Champions League. Fix pizza Tuesday blog post.",
     "pravha": "DISCONTINUED. No longer stocked. Remove from all pages and blog posts.",
     "ev_charging_coming_soon": "EV charging is NOT coming soon. Remove any 'coming soon' references.",
-    "christmas_discontinued_formats": "DISCONTINUED 2026-07-21, remove every trace from copy, schema and data shapes: shared Christmas party nights; All the Trimmings Board; XL Board; per-person add-ons (pigs in blankets, stuffing balls, cauliflower cheese pot, extra roast potatoes, extra Yorkshire puddings); Bundle A (prosecco plus coffee and mince pie); standalone drinks bundles. The festive menu catering packages and the festive buffets are NOT discontinued.",
+    "christmas_discontinued_formats": "DISCONTINUED 2026-07-21, remove every trace from copy, schema and data shapes: shared Christmas party nights; All the Trimmings Board; XL Board; per-person add-ons (pigs in blankets, stuffing balls, cauliflower cheese pot, extra roast potatoes, extra Yorkshire puddings); Bundle A (prosecco plus coffee and mince pie); standalone drinks bundles. The festive buffets are NOT discontinued. The old Festive Menu catering packages are switched off (christmas_2026.festive_menu_catering_packages); the sit-down Christmas offer is the 1, 2 and 3 course Christmas menu.",
     "christmas_window_1nov_23dec": "SUPERSEDED. The Christmas 2026 window is 10 November to 20 December 2026 inclusive. Remove every '1 November to 23 December' string from copy, constants, schema and tests.",
     "christmas_blanket_pre_order_only": "SUPERSEDED 2026-08-04. Courses are chosen per person: every guest has a main, a starter and a dessert are optional, and guests at the same table can have different numbers of courses. Never publish whole-table course copy such as '1 course is pre-book only, no pre-order' in copy, constants, schema or tests.",
     "christmas_kids_multi_course_price": "DOES NOT EXIST. There is no kids 2 course and no kids 3 course, no child portion and no child price. Never invent one. Children may order the adult tiers at the adult price.",
@@ -1653,7 +1669,8 @@
     "buffet_minimum_25_or_26": "WRONG. The festive buffet minimum is 30 guests everywhere. Correct any 25 or 26 figure in the management database, in this file or in page copy.",
     "no_allergens_when_data_missing": "Never render 'no allergens' when allergen data is missing. Use 'See menu or contact us for allergen information'.",
     "wedding_receptions": "Updated 2026-08-17: we WILL take wedding reception bookings, so do not deny the offer on enquiry. We do NOT market or optimise for them yet: no landing page, no keywords, no venue positioning in page copy, meta or schema.",
-    "christmas_sub_4_or_same_day": "Christmas bookings under 4 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise."
+    "christmas_sub_4_or_same_day": "Christmas bookings under 4 guests, or with less than 24 hours notice, are not accepted. Never imply otherwise.",
+    "curry_club": "DISCONTINUED (owner-confirmed 2026-09-11). Curry Club has stopped: no curry nights and no rotating curry specials. Remove every reference from pages, schemas and blog posts. /blog/curry-club-the-anchor redirects to /food-menu. The Chicken Katsu Curry on the menu and the Indian-Inspired Curry Buffet are unaffected."
   },
   "resolved_inconsistencies": [
     {

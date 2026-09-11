@@ -445,7 +445,7 @@ The threshold was 10 guests until 9 August 2026; §18 records why it moved.
 - **Prices:** live from the management database via the menu API. **Never hardcode a Christmas price in website page code.** Christmas set-menu tier prices quoted in prose may carry the £ symbol; per-item menu prices stay symbol-free per the price display policy at the top of this document.
 - **Weekday / weekend definition:** weekday means Tuesday to Thursday. Weekend means Friday to Saturday.
 - **Festive buffets stay:** Festive Sandwich & Salad, Festive Hot Finger, Festive Premium Grazing. **Minimum 30 guests, everywhere, no exceptions.** That minimum is for the festive buffets only: the year-round buffets carry their own minimums, several below 30 (§11).
-- **The festive menu catering packages stay.** They are the real sit-down set menu. They are **not** the discontinued shared party nights, do not deactivate them.
+- **The old Festive Menu catering packages are switched off.** The two rows (a weekday and a weekend price, minimum 6) are inactive in the management app, and no private-hire catering package holds the 1, 2 and 3 course Christmas menu. The tiers and their prices live on the Christmas menu and the Christmas booking period. (Mirrored from the management app on 11 September 2026.) Switching the old rows back on as they stand would bring back the retired two-price split (§14) and a minimum of 6, where the minimum is 4. **For the sit-down Christmas meal, `/christmas-parties` refers only to the latest offer, the 1, 2 and 3 course Christmas menu, and never to the old packages.** (Owner-confirmed, 11 September 2026.) The festive buffets above are separate and stay.
 
 #### Christmas 2026 price structure, provenance only
 
@@ -591,15 +591,25 @@ step from the bar, ramp on request.
 > and costs the earlier food trade. Write **"arrive from 6:30pm"** instead, and
 > never label an event time "Doors" or "Doors open" in customer-facing copy.
 
+> **Events finish by 10pm.** (Owner-confirmed, 11 September 2026: "all events run
+> until 10pm except for things like the Halloween party and New Year's Eve".) That
+> covers quiz nights, both bingos, karaoke and tasting nights; the quiz and cash
+> bingo finish earlier, at about 9:30pm (below). Only special nights such as the
+> Halloween party and New Year's Eve (both below) run later. Never write a later
+> finish for any other event, whether 10:30pm, 11pm, 11:30pm or "until late".
+> Where an event record ends later on an ordinary night, the record needs
+> correcting in the management app: do not repeat its time in copy.
+
 ### Quiz Night
 
 - Monthly, on a Wednesday, plus the occasional themed quiz on another night. The rest of 2026 is fixed: Wednesday 16 September, Friday 25 September (an Only Fools and Horses charity quiz for Macmillan Cancer Support), Wednesday 7 October, Wednesday 4 November and Wednesday 2 December. (Dates mirrored from the management app on 11 September 2026; owner-confirmed 11 September 2026 that they will not move.) Take any later date from the event records.
 - Arrive from 6:30pm · Start usually 7pm · **Aims to finish 9:30pm** (owner-confirmed 17 August 2026, and matches `end_time` 21:30 on every scheduled quiz in the management DB). The older "~9:45pm" is retired: anything still saying 9:45pm is wrong.
 - £3 per person. Team size max 6.
 - Solo players and pairs are found a team to join on the night. (Owner-confirmed 11 September 2026.)
+- **Seating: team tables.** Each team has its own table, so book one table per team. Never describe quiz seating as communal, or say a team may share its table with another team. (Owner-confirmed 11 September 2026.)
 - Format: 4 rounds × 10 questions + interactive quick-fire round + comfort break.
 - Capacity 60, mirrored from the management app on 6 September 2026 (owner-confirmed the same day, corrected from 80). Every scheduled quiz record carries 60. Anything still saying 80 is wrong. **This is a mirror, not a source: page code must read capacity from the API, never from this line.**
-- Prizes: 1st place £25 bar tab; second from last gets a bottle of house wine.
+- Prizes: the winning team gets a **£25 bar voucher**, not a bar tab (owner-confirmed 11 September 2026), and second from last gets a bottle of house wine. Every round has a closest-answer question for a free drink, and there are spot prizes. (Mirrored from the management app on 11 September 2026.)
 - **Phones away during the question rounds:** 5 points off for using one. The interactive round is played on phones. (Mirrored from the management app on 11 September 2026. Three records say one phone per player; the 25 September charity quiz says one phone per team.)
 - Host: Peter Pitcher, the owner, hosts quiz night himself. (Owner-confirmed 11 September 2026.) The older Question One Quiz Masters line is retired: anything still naming them is wrong.
 
@@ -621,6 +631,7 @@ step from the bar, ramp on request.
 - Arrive from 6:30pm · **Start 7pm** unless the event record says otherwise. (Start
   time corrected from 8pm, owner-confirmed 16 August 2026. Anything still saying
   8pm is wrong.)
+- **Runs until 10pm**, under the finish rule at the top of this section (owner-confirmed 11 September 2026). Anything saying 10:30pm or 11pm is wrong.
 - **£5 per person** unless the event record says otherwise. (Owner-confirmed 17 August 2026, and every scheduled Music Bingo in the management DB is priced at 5. Corrected from £3: anything still saying £3 is wrong.) Two games with interactive music games and quizzes too; song clips replace bingo numbers.
 - Capacity 60, mirrored from the management app on 6 September 2026 (owner-confirmed the same day, corrected from 90). Every scheduled Music Bingo record carries 60. Anything still saying 90 is wrong. **Mirror only: page code reads capacity from the API.** Host: Nikki Manfadge.
 - **Music Bingo does not reliably sell out, and no page may claim it does.** (Owner-confirmed 6 September 2026.) The `/music-bingo` page asserted it five times, including in its meta description, against live records showing every seat free on most upcoming dates. Motivate booking with communal seating and group seating instead. Honest live remaining counts are permitted; a fixed scarcity claim is not.
@@ -636,7 +647,8 @@ step from the bar, ramp on request.
 ### Karaoke
 
 - **Not a regular feature in 2026.** Karaoke happens occasionally, nothing more. Only promote it when a specific event record lists it. Never imply a weekly, monthly or Friday slot. (Owner-confirmed, 11 August 2026.)
-- **Not hosted by Nikki Manfadge.** Nikki hosts Music Bingo. Karaoke has no fixed host. Take the host from the event record, or name nobody. (Owner-confirmed, 11 August 2026.)
+- **Host: Peter Pitcher, the owner.** (Owner-confirmed, 11 September 2026.) The older "no fixed host" line is retired.
+- **Not hosted by Nikki Manfadge.** Nikki hosts Music Bingo. (Owner-confirmed, 11 August 2026.)
 - Free entry.
 - **Ticketed with communal seating, and no reserved tables.** (Owner-confirmed 17 August 2026, and `booking_mode` is `communal` on the listed night.) Book a free place per person so we know how many seats to lay out. Never promise a guest "a table waiting for you" on karaoke: that claim is retired.
 - **All ages are welcome at all times, with under-18s accompanied by a supervising adult.** (Owner-confirmed 17 August 2026.) The older "strictly 18+ after 9pm" rule is retired and must not be republished.
@@ -651,12 +663,16 @@ step from the bar, ramp on request.
 
 ### New Year's Eve
 
-- **We stay open until 1am on New Year's Eve.** (Owner-confirmed, 16 August 2026.) New Year's Eve and Halloween are the nights where a closing time may be stated in copy, and `/new-years-eve` does so throughout, including in its page title. Each is a licensed exception to the rule in §3 that opening hours only ever come from the API, so do not strip either as a hardcoded hours claim. Halloween's times are under Party nights below.
+- **We stay open until 1am on New Year's Eve.** (Owner-confirmed, 16 August 2026, and reconfirmed 11 September 2026.) New Year's Eve and Halloween are the nights where a closing time may be stated in copy, and `/new-years-eve` does so throughout, including in its page title. Each is a licensed exception to the rule in §3 that opening hours only ever come from the API, so do not strip either as a hardcoded hours claim. Halloween's times are under Party nights below.
 - A DJ and a midnight countdown are confirmed for the night, see the DJ entry above.
 
-### Curry Club
+### Curry Club, DISCONTINUED
 
-- Monthly rotating curry-night specials.
+- **Curry Club has stopped.** (Owner-confirmed, 11 September 2026.) This is not a pause: there are no curry nights and no rotating curry specials. The management app holds no Curry Club category, event record or menu special (checked 11 September 2026).
+- Do not list, promote, schedule or link to Curry Club or a curry night, and do not target curry club or curry night keywords.
+- `/blog/curry-club-the-anchor` is retired and redirects to `/food-menu` (owner-approved, 11 September 2026).
+- Previously published details (monthly, rotating curry-night specials, a chef with decades of Indian cooking experience) are **superseded and must not be restored**.
+- The Chicken Katsu Curry on the menu and the Indian-Inspired Curry Buffet (§11) are not Curry Club, and are unaffected.
 
 ### Nikki's Games Night
 
@@ -688,6 +704,7 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 - **Open mic is discontinued.** Do not list, promote, or link to open mic nights. The retired `/open-mic` route redirects to `/whats-on`.
 - **Live music is discontinued.** (Owner-confirmed, 11 Aug 2026.) Do not list, promote, schedule or link to live music, live bands, acoustic sets, tribute acts or solo performers. Do not target live music keywords or call The Anchor a live music venue or music pub. `/live-music` and `/blog/live-music-pubs-near-heathrow` are retired and redirect to `/whats-on`. Karaoke and a DJ still happen occasionally, but only promote either when a specific event record lists it.
 - **Drag cabaret is discontinued.** Do not list, promote, or link to drag cabaret nights, and do not target drag cabaret or drag show keywords. **Music Bingo is the only drag night.** (Owner-confirmed, 9 Aug 2026.) The retired `/whats-on/drag-shows` route and the `/blog/drag-cabaret-nikki` post (retired 10 September 2026, owner-approved) redirect to `/whats-on`, and past "Drag Cabaret & Karaoke" event pages stay live but out of search. Music Bingo copy may still refer to its drag host.
+- **Curry Club is discontinued.** (Owner-confirmed, 11 Sep 2026.) Do not list, promote, schedule or link to Curry Club or a curry night. `/blog/curry-club-the-anchor` is retired and redirects to `/food-menu`. See the Curry Club entry above.
 
 ### Nations Championship screenings, owner decision 5 September 2026
 
@@ -842,7 +859,8 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 
 Remove every trace of these from copy, schema, JSON-LD and data shapes:
 
-- **Shared Christmas party nights**, discontinued. The festive menu catering packages are a sit-down set menu, not a party night; do not conflate the two.
+- **Shared Christmas party nights**, discontinued. The Christmas menu (1, 2 and 3 courses) is a sit-down meal for your own group, not a party night; do not conflate the two.
+- **The old Festive Menu catering packages** (a weekday and a weekend price, minimum 6), switched off in the management app (§7, mirrored 11 September 2026). The sit-down Christmas offer is the 1, 2 and 3 course Christmas menu; never list or describe the old packages.
 - **All the Trimmings Board**, discontinued.
 - **XL Board**, discontinued.
 - **Per-person Christmas add-ons**, discontinued: pigs in blankets, stuffing balls, cauliflower cheese pot, extra roast potatoes, extra Yorkshire puddings. (Pigs in blankets and stuffing remain as **trimmings included in the meal**, they are no longer paid add-ons.)
@@ -866,6 +884,9 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **Stanwell Moor Brew**, discontinued.
 - **Pravha beer**, no longer stocked.
 - **Champions League viewing**, we cannot show it (no Sky/TNT). Fix any old pizza-Tuesday content that implies otherwise.
+
+### Events
+- **Curry Club, or a curry night**, discontinued (owner-confirmed 11 September 2026, §10). Never list, promote or link to either. The Chicken Katsu Curry on the menu and the curry buffet in §11 are unaffected.
 
 ### Operations
 - **A ULEZ saving figure**, in any form: "£12.50 a day", "save £12.50", "saves each driver £12.50". Retired 10 September 2026 (owner decision). Whether someone pays the charge depends on their vehicle and their route, so no figure is true for everyone. Say "we're outside the ULEZ zone" and stop. The tests fail on any ULEZ sentence that carries a £ figure.
@@ -1026,6 +1047,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **11 September 2026, the owner's answers to the open questions.** The quiz winners get a £25 bar voucher, not a bar tab, and second from last still gets the wine; the closest-answer drink in every round and the spot prizes are mirrored from the quiz records (§10). Every event finishes by 10pm, except special nights such as the Halloween party and New Year's Eve, which stays open until 1am (reconfirmed); the `/music-bingo` schema had said 11pm (§10). Quiz seating is team tables, one table per team, where the quiz page had said a long table might be shared with another team (§10). Peter Pitcher hosts karaoke, so the "no fixed host" line is retired (§10). Curry Club has stopped: it is recorded as discontinued (§10, §14), and `/blog/curry-club-the-anchor`, which still said the nights sell out, now redirects to `/food-menu` (owner-approved). The old Festive Menu catering packages are switched off in the management app, and `/christmas-parties` refers only to the 1, 2 and 3 course Christmas menu (§7, §14); `SSOT.json` now flags its three Christmas Dinner entries as not being catering-package rows. All owner-confirmed, except what is marked as mirrored.
 
 - **11 September 2026.** Brought into line with the management app at the owner's request, with the owner's answers of the same day. Peter Pitcher, the owner, hosts quiz night and runs cash bingo himself, so the Question One Quiz Masters line is retired; solo quiz players and pairs are found a team on the night; half of all cash bingo book sales go into the final cash jackpot (all owner-confirmed, §10). The rest of 2026's quiz, cash bingo and Music Bingo dates are set and will not move (owner-confirmed), and §10 now lists them. Cash bingo is not monthly, with none in October, and its Snowball rolls over to the next cash bingo night, not the next month. Mirrored from the app the same day: those dates (the 11 September Music Bingo was cancelled), the festive nights listed beside the owner-confirmed Christmas quiz, which is Tinsel & Trivia on 2 December (§7), the Halloween hours and party, which join New Year's Eve as a night whose closing time copy may state (§10), the quiz phone rule, the scope of the arrival wording (§16), the kids menu (§5), the optics scope of the £2 double-up (§6), the four spaces that can be hired and the renamed Welcome Prosecco (§11). `SSOT.json` also gained the Sunday roast menu names and the three kids roasts, the six current pizzas, and price, payment and capacity mirrors for tasting and party nights.
 
