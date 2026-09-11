@@ -860,16 +860,17 @@
       "team_size_max": 6,
       "solo_players": "Solo players and pairs are found a team to join on the night. Owner-confirmed 2026-09-11.",
       "seating": "Team tables: each team has its own table, so book one table per team. Never describe quiz seating as communal, or say a team may share its table with another team. Owner-confirmed 2026-09-11.",
-      "rounds": "4 rounds x 10 questions + interactive quick-fire round + comfort break",
+      "rounds": "Five rounds: 4 rounds x 10 questions, plus an interactive quick-fire round in the middle, played on your phone, and a comfort break",
+      "_rounds_confirmed": "Owner-confirmed 2026-09-11: five rounds, with one interactive, phone-based round in the middle.",
       "capacity": 60,
       "prizes": {
         "first": "£25 bar voucher",
         "second_from_last": "Bottle of house wine",
-        "every_round": "A closest-answer question for a free drink",
-        "spot_prizes": "Spot prizes through the night",
-        "_confirmed": "First prize owner-confirmed 2026-09-11: a £25 bar voucher, not a bar tab. The closest-answer drink and the spot prizes are mirrored from the management app's quiz records 2026-09-11."
+        "scope": "First place and second from last only",
+        "_confirmed": "Owner-confirmed 2026-09-11: prizes for first and second from last only, and the first prize is a £25 bar voucher, not a bar tab. No league tables, quiz food deals, rollover jackpot, spot prizes, free-drink questions or best team name prize. This retires the closest-answer drink in every round and the spot prizes mirrored from the management app's quiz records earlier the same day; the records still carry both (checked 2026-09-11) and need correcting in the app."
       },
-      "rules": "Phones away during the question rounds: 5 points off for using one. The interactive round is played on phones (three records say one phone per player; the 2026-09-25 charity quiz says one phone per team). Mirrored from the management app 2026-09-11.",
+      "rules": "Phones away during the quiz, except in the interactive round in the middle, which is played on your phone. Using a phone at any other time costs 5 points.",
+      "_rules_confirmed": "Owner-confirmed 2026-09-11: the interactive round is phone-based and comes in the middle. The 5-point penalty is mirrored from the management app 2026-09-11; three records say one phone per player in the interactive round, and the 2026-09-25 charity quiz says one phone per team.",
       "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11. Question One Quiz Masters is retired."
     },
     "cash_bingo": {
@@ -896,6 +897,8 @@
       "entry_fee_gbp": 5,
       "RESOLVED": "£5 per person, owner-confirmed 17 August 2026 and matched by every scheduled Music Bingo in the management DB. The earlier £3 figure is retired: anything still saying £3 is wrong.",
       "format": "Two games with interactive music games and quizzes too; song clips replace bingo numbers.",
+      "prizes": "Winners get a £25 voucher to spend with us, the same as the quiz.",
+      "_prizes_confirmed": "Owner-confirmed 2026-09-11. Never describe Music Bingo prizes as anything else, such as bar tabs, meal vouchers, wine, merchandise, a rollover jackpot or a bigger headline prize.",
       "capacity": 60,
       "host": "Nikki Manfadge",
       "private_nights": "Available on request"
