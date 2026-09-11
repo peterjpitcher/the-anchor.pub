@@ -1,3 +1,33 @@
+# Quiz night and Music Bingo facts, 11 September 2026
+
+Branch `fix/quiz-and-music-bingo-facts-2026-09-11` (worktree `OJ-The-Anchor.pub-wt-quizfacts`), local only.
+Owner-confirmed 11 September 2026: the quiz has five rounds, with one interactive, phone-based round in the
+middle; prizes for first and second from last only; no league tables or quiz food deals; no best team name
+prize. Music Bingo winners get a £25 voucher to spend with us, the same as the quiz.
+
+- [x] SSOT §10 (format, prizes, phone rule, Music Bingo prize) and §18, then `SSOT.json`; drift guard
+- [x] Remove the "Best team name" prize from `/quiz-night`
+- [x] Sweep the site for round counts, extra prizes, rollover jackpots, league tables, quiz food deals, spot
+      prizes, free-drink questions, phone rules without the interactive round, and Music Bingo prizes
+- [x] Guard the retired claims in `tests/ssot-drift-guard.test.ts`, and prove the guard fails on the old copy
+- [x] Lint, `npm test`, `npm run test:utc`, build; commit in logical pieces; no push
+
+Results:
+- Nine commits on the branch before this record, not pushed. Lint passes; `npm test` and `npm run test:utc`
+  both 224 suites, 2,654 passed, 1 skipped; the build makes 279 pages. The drift guard has 83 tests (five
+  new); with origin/main's copy restored all five fail and the 78 others pass.
+- Read from a local production build (`next start`): `/quiz-night` shows two prize cards in a two-column
+  grid, "Ready to play for the voucher?" and the phone exception; `/quiz-night/themed`, `/music-bingo` and `/whats-on`
+  show the new lines; the three blog posts render corrected.
+- The five upcoming quiz records in the management app still say "a closest-wins free drink question in
+  every round" and "spot prizes" (the 25 September one also "free drinks during the night"), read from
+  the live events API on 11 September 2026. They publish on the event pages until corrected in the app,
+  which is a data change for the owner to approve.
+- Left as outside these facts: `/blog/music-bingo-nights` still gives the last Wednesday at 7:30pm, five
+  rounds and "sells out"; `/music-bingo` keeps its own "phones away during the rounds"; the comparison
+  guide's generic no-phones tip; the `/reviews` quote that mentions quiz cash prizes; the closed 22 July
+  WhatsApp guessing competition terms; `lib/static-events.ts`, which nothing renders.
+
 # Owner answers of 11 September 2026, applied
 
 Branch `fix/owner-answers-2026-09-11` (worktree `OJ-The-Anchor.pub-wt-answers`), local only. SSOT first, then
