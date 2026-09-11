@@ -90,7 +90,7 @@ If your group is coming off shift or off a flight, the numbers are short: 7 minu
 
 Access is worth settling before you commit forty people to a date. The car park, the bar and the dining area are step-free, and assistance dogs are always welcome. The beer garden is step free from the car park; from the bar there's one step, with a ramp if you ask ahead. We do not have an accessible toilet. There is a format question in here too: a standing buffet asks a lot more of people than a seated meal does, so if anyone in your group would struggle to stand for a couple of hours, seat them or go seated altogether rather than waiting for them to raise it.
 
-One thing to be clear about before you enquire: we are a village pub, not a party-night venue. There is no DJ, no party night and no entertainment package attached to a Christmas booking. We do run a Christmas quiz in December, and a group that wants a bit of structure to the evening can ask us when it is on and book around it. If your group wants the big organised night, an airport hotel will serve you better, and we set out that choice properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
+One thing to be clear about before you enquire: we are a village pub, not a party-night venue. There is no party night and no entertainment package attached to a Christmas booking, though we can arrange a DJ if your group asks. In December our quiz, music bingo and cash bingo nights take a festive turn, and a group that wants a bit of structure to the evening can book around one of them. If your group wants the big organised night, an airport hotel will serve you better, and we set out that choice properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
 
 ## How to actually decide
 
@@ -126,4 +126,4 @@ No. Anything over 20 guests is private hire, not a table booking. Email manager@
 
 ### Is there entertainment at Christmas?
 
-Nothing attached to your booking. We are a pub rather than a party-night venue, so there is no DJ and no entertainment package bundled in. Our Christmas quiz does run in December, and you are welcome to plan a date around it. If a big organised party night is what your group wants, an airport hotel will suit you better than we will.
+Nothing is bundled into your booking. We are a pub rather than a party-night venue, so there is no entertainment package, though we can arrange a DJ if your group asks. In December our quiz, music bingo and cash bingo nights take a festive turn, and you are welcome to plan a date around one of them. If a big organised party night is what your group wants, an airport hotel will suit you better than we will.

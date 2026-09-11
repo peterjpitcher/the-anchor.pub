@@ -501,7 +501,7 @@ function buildFaqItems(
     },
     {
       question: 'What Christmas entertainment do you run?',
-      answer: 'A Christmas quiz, and we can arrange a DJ if your group wants one. Ask when you enquire and we will tell you what is running around your date. A DJ is not included as standard, it is something you request. There is no Christmas karaoke and no Christmas live band. If your group wants a full production with a dance floor and a ticketed room of strangers, a hotel will suit you better than we will.'
+      answer: 'In December our quiz, music bingo and cash bingo nights take a festive turn, and What\u2019s On has the dates. We can also arrange a DJ if your group wants one. Ask when you enquire and we will tell you what is running around your date. A DJ is not included as standard, it is something you request. There is no Christmas karaoke and no Christmas live band. If your group wants a full production with a dance floor and a ticketed room of strangers, a hotel will suit you better than we will.'
     },
     {
       question: 'Is parking available?',
@@ -567,11 +567,12 @@ const WHY_BOOK_REASONS = [
 /**
  * The formats a Christmas booking here can actually take.
  *
- * Owner-confirmed 11 August 2026: the Christmas quiz is the festive
- * entertainment we put on, and a DJ can be arranged ON REQUEST. There is no
- * Christmas karaoke and no live band, and those entries were removed on that
- * date and must not come back. Music bingo is a year-round format with no
- * Christmas edition, so it is not listed here as a Christmas event either.
+ * docs/SSOT.md §7 (mirrored from the management app, 11 September 2026): the
+ * December quiz, music bingo and cash bingo nights carry a festive theme, and
+ * the quiz is our normal quiz with a festive nod, not a fully themed Christmas
+ * quiz. A DJ can be arranged ON REQUEST (owner-confirmed 11 August 2026).
+ * There is no Christmas karaoke and no live band, and those entries must not
+ * come back.
  *
  * A DJ must never be presented as included, as a package, or as a scheduled
  * part of the evening. It is something a group asks for. Never add a dance
@@ -580,8 +581,8 @@ const WHY_BOOK_REASONS = [
 function buildPartyIdeas(facts: ChristmasFactsView) {
   return [
     {
-      title: 'The Christmas quiz',
-      description: 'Our Christmas quiz is the festive entertainment we run, and it is the one thing here you can build a night around. Ask when you enquire and we will tell you what is on around your date, with food before or after.',
+      title: 'Festive game nights',
+      description: 'In December our quiz, music bingo and cash bingo nights take a festive turn, and they are open to everyone. Book your group in for one of them, with food before or after. What\u2019s On has the dates.',
       ideal: 'Groups that enjoy friendly competition'
     },
     {
@@ -764,7 +765,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   <h3 className="mt-4 text-2xl font-semibold text-ink-strong">Plan a Christmas party</h3>
                   <p className="mt-3 text-sm text-ink-muted">
                     Tell us about your group, preferred date and party style. Choose a private space, a drinks-only booking,
-                    our Christmas quiz, or a festive buffet for {facts.buffetMinimumGuests} or more guests.
+                    one of our festive game nights, or a festive buffet for {facts.buffetMinimumGuests} or more guests.
                   </p>
                   <p className="mt-3 text-sm font-semibold text-accent-text">Christmas capacity: up to {facts.maxSeated} seated or {facts.maxStanding} standing.</p>
                   <Button
@@ -862,7 +863,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">Is there a DJ or entertainment?</dt>
-                  <dd className="mt-1 text-sm text-ink-muted">A Christmas quiz runs, and a DJ can be arranged on request. Neither is bundled into a package you did not choose.</dd>
+                  <dd className="mt-1 text-sm text-ink-muted">Our December quiz, music bingo and cash bingo nights take a festive turn, and a DJ can be arranged on request. Neither is bundled into a package you did not choose.</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">What time does the party finish?</dt>
@@ -1296,7 +1297,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Department celebration (21 to {facts.maxSeated})</h4>
-                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Ask about our Christmas quiz if your team wants more than a meal.</p>
+                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Ask about our festive game nights if your team wants more than a meal.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Full venue hire ({facts.maxSeated} to {facts.maxStanding})</h4>
