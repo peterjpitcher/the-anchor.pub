@@ -322,10 +322,14 @@ function buildCourseChoicesView(source: ChristmasPreorderMenu | null): Christmas
  * The festive buffet packages, priced live from the catering source.
  *
  * Matched on a "Festive" name prefix rather than a hardcoded list, so
- * activating or retiring one in the management app is the only step needed:
- * the sit-down "Festive Menu" packages are excluded because they are the set
- * menu, not a buffet, and are retired. Returns [] when none are active, which
- * hides the cards rather than advertising something nobody can book.
+ * activating or retiring one in the management app is the only step needed.
+ * The old sit-down "Festive Menu" packages (a weekday and a weekend price,
+ * minimum 6) share the prefix, but their serving style is "sit-down", so the
+ * buffet filter keeps them off this page even if they were switched back on.
+ * They are switched off, and the sit-down Christmas offer on this page is the
+ * 1, 2 and 3 course Christmas menu only (docs/SSOT.md §7, owner-confirmed
+ * 11 September 2026). Returns [] when none are active, which hides the cards
+ * rather than advertising something nobody can book.
  */
 function buildBuffetView(packages: CateringPackage[]): ChristmasBuffetView[] {
   return packages

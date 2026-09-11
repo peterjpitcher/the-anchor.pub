@@ -237,7 +237,12 @@ describe('Christmas 2026 discontinued products', () => {
     ['extra Yorkshire puddings add-on', /extra\s+yorkshire/i],
     ['Bundle A', /\bbundle\s+a\b/i],
     ['standalone drinks bundles', /drinks?\s+bundle/i],
-    ['per-person add-ons', /add[-\s]?ons?\b/i]
+    ['per-person add-ons', /add[-\s]?ons?\b/i],
+    // Switched off in the management app (mirrored 11 September 2026): a weekday
+    // and a weekend price at a minimum of 6. The sit-down offer is the 1, 2 and
+    // 3 course Christmas menu only (owner-confirmed 11 September 2026). Matched
+    // by the package name, so "no festive menu on the 25th" still passes.
+    ['the old Festive Menu catering packages', /\bFestive Menu\b/]
   ]
 
   it.each(DISCONTINUED)('keeps %s off the rendered page', (_label, pattern) => {
@@ -251,10 +256,15 @@ describe('Christmas 2026 discontinued products', () => {
   it('keeps the surviving products in place, so the guard is not vacuous', () => {
     const text = renderPage()
 
-    // Buffets and the festive set menu stay. Pigs in blankets stay too, but as
-    // an included trimming rather than a paid add-on. The Yorkshire pudding,
-    // mash and peas joined the list on 13 August 2026, owner-confirmed.
+    // Buffets and the 1, 2 and 3 course Christmas menu stay. Pigs in blankets
+    // stay too, but as an included trimming rather than a paid add-on. The
+    // Yorkshire pudding, mash and peas joined the list on 13 August 2026,
+    // owner-confirmed.
     expect(text).toMatch(/festive buffet/i)
+    // Asked about "packages", the page names the Christmas menu instead.
+    expect(text).toContain(
+      `Teams book our Christmas menu, with each guest choosing 1, 2 or 3 courses, for ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests or more.`
+    )
     expect(text).toContain(
       'Trimmings: pigs in blankets, stuffing, brussels sprouts, yorkshire pudding, roast potatoes, mashed potato, peas.'
     )

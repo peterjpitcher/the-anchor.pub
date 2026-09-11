@@ -517,7 +517,10 @@ function buildFaqItems(
     },
     {
       question: 'Do you offer corporate Christmas party packages near Heathrow?',
-      answer: "We do. Tell us your headcount, your budget and your date, and we will set out the options and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent."
+      // The sit-down offer is the 1, 2 and 3 course Christmas menu, never the
+      // old Festive Menu packages (docs/SSOT.md §7, owner-confirmed 11 September
+      // 2026), so the answer names it rather than agreeing to "packages".
+      answer: `Teams book our Christmas menu, with each guest choosing 1, 2 or 3 courses, for ${facts.minPartySize} guests or more. From ${facts.buffetMinimumGuests} guests a festive buffet is an option too. Tell us your headcount, your budget and your date, and we will set out the options and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent.`
     },
     {
       question: 'Where is The Anchor for Christmas party guests?',
