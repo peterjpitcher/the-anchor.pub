@@ -52,7 +52,7 @@ describe('getEventBookingCopy', () => {
     )
     expect(getEventShortPaymentReassurance(event)).toBe('No payment now, pay £3 on arrival')
     expect(getEventBookingHeroStatement(event)).toBe(
-      'Reserve a table for Friday 8 May. No payment now, pay £3 on arrival.'
+      'Book a table for Friday 8 May. No payment now, pay £3 on arrival.'
     )
   })
 
@@ -124,7 +124,7 @@ describe('getEventBookingCopy', () => {
     expect(copy.policy).toContain('Seated places are full')
     expect(getEventBookingReassurance(event)).toBe('No payment now. Book online and pay £10 per person on arrival.')
     expect(getEventBookingHeroStatement(event)).toBe(
-      'Book tickets for Friday 8 May. No payment now, pay £10 on arrival.'
+      'Book your places for Friday 8 May. No payment now, pay £10 on arrival.'
     )
     expect(
       getEventSeatAvailabilityLabel({

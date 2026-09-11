@@ -135,7 +135,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
     await screen.findByText('Event booking confirmed')
 
     const payload = sent[0]
@@ -168,7 +168,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByLabelText('Would you like to discuss food?')).not.toBeInTheDocument()
     expect(screen.queryByLabelText('I would like to discuss arriving early')).not.toBeInTheDocument()
     expect(screen.queryByText('Early arrival (optional)')).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
     await screen.findByText('Event booking confirmed')
     expect(sent[0].early_arrival_request).toBeUndefined()
     expect(sent[0].dining_request).toBeUndefined()
@@ -191,7 +191,7 @@ describe('ManagementEventBookingForm', () => {
         { id: 'child', name: 'Child', price: 6, sort_order: 1, remaining: 10 },
       ],
     }} />)
-    expect(screen.getByRole('button', { name: 'Reserve my seats' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Book a table' })).toBeDisabled()
     fireEvent.click(screen.getByRole('button', { name: 'Add one Adult ticket' }))
     fireEvent.click(screen.getByRole('button', { name: 'Add one Adult ticket' }))
     fireEvent.click(screen.getByRole('button', { name: 'Add one Child ticket' }))
@@ -202,7 +202,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
     expect(screen.getAllByLabelText(/ticket .* name/i)).toHaveLength(3)
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
     await screen.findByText('Event booking confirmed')
     expect(sent[0]).toMatchObject({
       seats: 3, first_name: 'Jane', last_name: 'Guest',
@@ -273,7 +273,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByLabelText('Ticket 2 name')).not.toBeInTheDocument()
     expect(screen.queryByText(/photo ID/i)).not.toBeInTheDocument()
     await waitFor(() =>
-      expect(screen.getByRole('button', { name: 'Reserve my seats' })).not.toBeDisabled()
+      expect(screen.getByRole('button', { name: 'Book a table' })).not.toBeDisabled()
     )
   })
 
@@ -294,7 +294,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
     // Error message from the API should appear inline in the form
     await waitFor(() => expect(screen.getByText('Sunday lunch only')).toBeInTheDocument())
@@ -341,7 +341,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
     // The friendly closed panel replaces the form; the generic error is not shown.
     await waitFor(() => expect(screen.getByText('Online ticket sales have closed')).toBeInTheDocument())
@@ -437,7 +437,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
     await waitFor(() => expect(screen.getByText('Your seats are confirmed for Music Bingo.')).toBeInTheDocument())
 
@@ -537,7 +537,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book your places' }))
     await screen.findByText(/No booking has been made/)
     expect(sent).toHaveLength(1)
     expect(sent[0].seating_preference).toBe('seated')
@@ -707,7 +707,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
     await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
     fireEvent.click(screen.getByRole('button', { name: 'Join Waitlist' }))
@@ -776,9 +776,9 @@ describe('ManagementEventBookingForm', () => {
     }
 
     it.each([
-      ['a table night', { booking_mode: 'table', seats_remaining: 0 }],
-      ['a communal night', { booking_mode: 'communal', seated_remaining: 0, standing_remaining: 0, total_remaining: 0 }]
-    ])('sends %s with a waitlist to the API, then offers the waitlist', async (_label, capacity) => {
+      ['a table night', { booking_mode: 'table', seats_remaining: 0 }, 'Book a table'],
+      ['a communal night', { booking_mode: 'communal', seated_remaining: 0, standing_remaining: 0, total_remaining: 0 }, 'Book your places']
+    ])('sends %s with a waitlist to the API, then offers the waitlist', async (_label, capacity, submitLabel) => {
       const sent = answerBookingWith(FULL_ANSWER)
       render(<ManagementEventBookingForm event={{ ...FULL_EVENT, ...capacity, waitlist_enabled: true }} />)
 
@@ -788,7 +788,7 @@ describe('ManagementEventBookingForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: '4' }))
       fillDetails()
-      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+      fireEvent.click(screen.getByRole('button', { name: submitLabel }))
 
       fireEvent.click(await screen.findByRole('button', { name: 'Join Waitlist' }))
       await screen.findByText(/on the waitlist/)
@@ -809,7 +809,7 @@ describe('ManagementEventBookingForm', () => {
       render(<ManagementEventBookingForm event={{ ...FULL_EVENT, booking_mode: 'table', seats_remaining: 0, waitlist_enabled: true }} />)
 
       fillDetails()
-      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
       await screen.findByText('Event booking confirmed')
       expect(sent.booking).toHaveLength(1)
@@ -827,7 +827,7 @@ describe('ManagementEventBookingForm', () => {
       expect(screen.getByRole('button', { name: '1' })).toBeDisabled()
 
       fillDetails()
-      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
       await screen.findByText('That many tickets are no longer available. Please choose fewer tickets or call us.')
       expect(global.fetch).not.toHaveBeenCalled()
@@ -835,31 +835,33 @@ describe('ManagementEventBookingForm', () => {
   })
 
   // /karaoke is free entry, and the email field still promised "any payment
-  // follow-up". There is no payment on a free event, so there is no follow-up.
-  it('promises a payment follow-up only when the event can actually charge', () => {
-    const { unmount } = render(
+  // follow-up". The same promise sat on every cash-on-arrival quiz and bingo
+  // night, where nothing is ever charged online either: the management app only
+  // holds a booking for payment when the record is prepaid.
+  it.each([
+    ['a free night', { payment_mode: 'free' }],
+    ['a cash-on-arrival night', { payment_mode: 'cash_only', price_per_seat: 3 }],
+    ['a priced night with no payment mode', { price_per_seat: 3 }]
+  ])('promises no payment follow-up on %s', (_label, payment) => {
+    render(
       <ManagementEventBookingForm
-        event={{
-          id: 'karaoke-fixture',
-          name: 'Karaoke Night',
-          startDate: '2999-01-01T20:00:00Z',
-          payment_mode: 'free'
-        }}
+        event={{ id: 'no-charge-fixture', name: 'Quiz Night', startDate: '2999-01-01T19:00:00Z', ...payment }}
       />
     )
 
     expect(screen.getByText('So we can send your confirmation.')).toBeInTheDocument()
     expect(screen.queryByText(/payment follow-up/)).not.toBeInTheDocument()
+  })
 
-    unmount()
-
+  it('promises a payment follow-up only on a prepaid night, which is charged online', () => {
     render(
       <ManagementEventBookingForm
         event={{
-          id: 'quiz-fixture',
-          name: 'Quiz Night',
+          id: 'prepaid-fixture',
+          name: 'Tasting Night',
           startDate: '2999-01-01T19:00:00Z',
-          price_per_seat: 3
+          payment_mode: 'prepaid',
+          price_per_seat: 45
         }}
       />
     )
@@ -867,7 +869,23 @@ describe('ManagementEventBookingForm', () => {
     expect(
       screen.getByText('So we can send your confirmation and any payment follow-up.')
     ).toBeInTheDocument()
-    expect(screen.queryByText('So we can send your confirmation.')).not.toBeInTheDocument()
+  })
+
+  // One action used to carry four labels: "Reserve table" or "Book tickets" on
+  // the page, "Reserve my seats" here, "Book your places" on the hubs.
+  it.each([
+    ['a communal night', { booking_mode: 'communal', seated_remaining: 40, standing_remaining: 11 }, 'Book your places'],
+    ['a table night', { booking_mode: 'table', seats_remaining: 40 }, 'Book a table'],
+    ['a night with no booking mode, which the management app books as a table', {}, 'Book a table']
+  ])('names the submit button by the booking mode on %s', (_label, mode, expected) => {
+    render(
+      <ManagementEventBookingForm
+        event={{ id: 'label-fixture', name: 'Music Bingo', startDate: '2999-01-01T19:00:00Z', ...mode }}
+      />
+    )
+
+    expect(screen.getByRole('button', { name: expected })).toHaveAttribute('type', 'submit')
+    expect(screen.queryByRole('button', { name: 'Reserve my seats' })).not.toBeInTheDocument()
   })
 
   // Both of these point at real customer URLs on the management domain and must
@@ -913,7 +931,7 @@ describe('ManagementEventBookingForm', () => {
       fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
       await screen.findByText('Your seats are currently on hold.')
 
@@ -992,7 +1010,7 @@ describe('ManagementEventBookingForm', () => {
       fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
     }
 
     function queryCalendarLinks(): HTMLElement[] {
@@ -1239,7 +1257,7 @@ describe('ManagementEventBookingForm security check recovery', () => {
   }
 
   function submitButton(): HTMLElement {
-    return screen.getByRole('button', { name: 'Reserve my seats' })
+    return screen.getByRole('button', { name: 'Book a table' })
   }
 
   function expectRecoveryPanel(message: string) {

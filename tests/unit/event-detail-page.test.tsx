@@ -47,8 +47,13 @@ jest.mock('@/lib/api/events', () => {
   return { ...actual, getUpcomingEventsByCategory: async () => [] }
 })
 
+const mockBookingFormProps = jest.fn()
+
 jest.mock('@/components/features/EventBooking/ManagementEventBookingForm', () => ({
-  ManagementEventBookingForm: () => <div data-testid="booking-form" />
+  ManagementEventBookingForm: (props: Record<string, unknown>) => {
+    mockBookingFormProps(props)
+    return <div data-testid="booking-form" />
+  }
 }))
 
 jest.mock('@/components/events/RelatedEvents', () => ({
@@ -290,6 +295,26 @@ describe('event detail page, what a customer reads', () => {
     for (let index = 1; index < levels.length; index += 1) {
       expect(levels[index] - levels[index - 1]).toBeLessThanOrEqual(1)
     }
+  })
+
+  // One action used to carry four labels: "Reserve table" or "Book tickets" on
+  // this page, "Reserve my seats" on the form's button, "Book your places" on
+  // the hubs. docs/SSOT.md §1: never promise a table on a shared-seating night.
+  it.each([
+    ['a communal night books places', {}, 'Book your places', 'Ready to book your places?'],
+    ['a table night books a table', { booking_mode: 'table' }, 'Book a table', 'Ready to book a table?']
+  ])('names the booking action once: %s', async (_label, overrides, action, bandTitle) => {
+    mockBookingFormProps.mockClear()
+    const container = await renderEventPage(makeEvent(overrides as Partial<Event>))
+
+    // The hero button and the closing band's button.
+    expect(screen.getAllByRole('link', { name: new RegExp(`^${action} for `) })).toHaveLength(2)
+    expect(screen.getByText(bandTitle)).toBeInTheDocument()
+    // The hero lead and the closing band's copy.
+    expect(screen.getAllByText(new RegExp(`^${action} for Friday 11 September\\.`))).toHaveLength(2)
+    // The form's heading is the same words.
+    expect(mockBookingFormProps).toHaveBeenCalledWith(expect.objectContaining({ title: action }))
+    expect(visibleText(container)).not.toMatch(/Book tickets|Reserve table|Reserve my seats/)
   })
 
   it('names the map frame', async () => {

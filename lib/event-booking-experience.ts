@@ -311,6 +311,21 @@ export function getEventBookingAnchorHref(event: Pick<Event, 'id'> & Partial<Pic
   return `/events/${encodeURIComponent(idOrSlug)}#event-booking`
 }
 
+/**
+ * The one name for booking a place at an event night, by booking mode.
+ *
+ * The same action used to carry four labels: "Reserve table" or "Book
+ * tickets" on the page, "Reserve my seats" on the form's button and "Book your
+ * places" on the hubs. docs/SSOT.md §1: buttons say what happens next, match
+ * how the booking really works, and never promise a table on a night with
+ * shared seating. A communal night books places; any other night books a
+ * table, which is also what the management app assumes when a record names no
+ * mode. Standing tickets keep their own label in the form.
+ */
+export function getEventBookingActionLabel(event: Pick<EventBookingPaymentSource, 'booking_mode'>): string {
+  return isCommunalBookingMode(event.booking_mode) ? 'Book your places' : 'Book a table'
+}
+
 export function getEventBookingHeroStatement(
   event: Pick<Event, 'startDate'> & EventBookingPaymentSource
 ): string {
@@ -319,8 +334,7 @@ export function getEventBookingHeroStatement(
     day: 'numeric',
     month: 'long'
   })
-  const action = isCommunalBookingMode(event.booking_mode) ? 'Book tickets' : 'Reserve a table'
-  return `${action} for ${date}. ${getEventShortPaymentReassurance(event)}.`
+  return `${getEventBookingActionLabel(event)} for ${date}. ${getEventShortPaymentReassurance(event)}.`
 }
 
 export function getEventSeatsRemaining(event: EventBookingAvailabilitySource): number | null {

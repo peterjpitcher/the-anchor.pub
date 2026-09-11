@@ -15,7 +15,13 @@ import { AddToCalendar } from '@/components/events/AddToCalendar'
 import type { Event, EventTicketType } from '@/lib/api'
 import { getEventTicketTypes } from '@/lib/api'
 import { isEventBookingClosed } from '@/lib/event-lifecycle'
-import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney, isPrepaidEvent } from '@/lib/event-booking-experience'
+import {
+  formatEventBookingMoney,
+  getEventBookingActionLabel,
+  getEventBookingReassurance,
+  getEventUnitPrice,
+  isPrepaidEvent
+} from '@/lib/event-booking-experience'
 import {
   getMaxForType,
   getSelectionBreakdown,
@@ -1079,8 +1085,12 @@ export function ManagementEventBookingForm({
             onChange={(event) => setEmail(event.target.value)}
             placeholder="jane@example.com"
             autoComplete="email"
+            // Only a prepaid night is ever followed up for money: the management
+            // app holds a booking for payment when payment_mode is prepaid and
+            // confirms every other booking outright. A cash-on-arrival night
+            // charges nothing online, so it promises no payment follow-up.
             helperText={
-              eventTakesPayment
+              isPrepaidEvent(event)
                 ? 'So we can send your confirmation and any payment follow-up.'
                 : 'So we can send your confirmation.'
             }
@@ -1180,7 +1190,9 @@ export function ManagementEventBookingForm({
               })
             }}
           >
-            {isCommunalEvent && seatingPreference === 'standing' ? 'Book standing tickets' : 'Reserve my seats'}
+            {isCommunalEvent && seatingPreference === 'standing'
+              ? 'Book standing tickets'
+              : getEventBookingActionLabel(event)}
           </Button>
         </form>
 
