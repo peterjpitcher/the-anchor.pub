@@ -387,6 +387,112 @@ function buildSourceUrl(payload: EventBookingPayload, request: NextRequest): str
   return referer || null
 }
 
+/**
+ * Identifier-shaped values only: SALES_CLOSED, sold_out, insufficient_capacity.
+ *
+ * Upstream messages are prose and can quote what a guest typed, so they are
+ * never logged. A value that is not shaped like a code is dropped instead.
+ */
+const MACHINE_CODE = /^[A-Za-z][A-Za-z0-9_.:-]{0,63}$/
+
+/** Event ids are UUIDs; anything else a caller sends is not logged. */
+const EVENT_IDENTIFIER = /^[A-Za-z0-9_-]{1,64}$/
+
+function asMachineCode(value: unknown): string | null {
+  if (typeof value !== 'string') return null
+  const trimmed = value.trim()
+  return MACHINE_CODE.test(trimmed) ? trimmed : null
+}
+
+function asLoggableEventId(value: unknown): string | null {
+  if (typeof value !== 'string') return null
+  const trimmed = value.trim()
+  return EVENT_IDENTIFIER.test(trimmed) ? trimmed : null
+}
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : null
+}
+
+/** The code or reason an upstream answer carries, wherever the API put it. */
+function getUpstreamRefusalCode(responseBody: unknown): string | null {
+  const payload = asRecord(responseBody)
+  if (!payload) return null
+  const errorObject = asRecord(payload.error)
+  const dataObject = asRecord(payload.data)
+  const candidates = [
+    errorObject?.code,
+    payload.code,
+    payload.error_code,
+    dataObject?.code,
+    dataObject?.reason,
+    payload.reason
+  ]
+
+  for (const candidate of candidates) {
+    const code = asMachineCode(candidate)
+    if (code) return code
+  }
+  return null
+}
+
+/**
+ * The path of the page the booking came from (an event page or a hub), never
+ * its query string, which can carry click ids. The Referer header is the page
+ * the form was on; `landing_path` is the fallback, and with marketing consent
+ * it is the first page of the visit instead.
+ */
+function getBookingSource(request: NextRequest, landingPath: unknown): string | null {
+  const referer = request.headers.get('referer')?.trim()
+  if (referer) {
+    try {
+      return new URL(referer).pathname
+    } catch {
+      // An unreadable Referer falls back to the landing path below.
+    }
+  }
+
+  if (typeof landingPath === 'string') {
+    const path = landingPath.trim().split(/[?#]/)[0]
+    if (path.startsWith('/')) return path.slice(0, 200)
+  }
+
+  return null
+}
+
+type BookingNotCompletedLog = {
+  status: number
+  /** A machine-readable code from the API or from this route. */
+  code: string | null
+  /** The booking state the API answered with, when it answered with one. */
+  state?: string | null
+  /** This route's own validation message. Fixed wording, never guest input. */
+  reason?: string | null
+  eventId: string | null
+  bookingSource: string | null
+}
+
+/**
+ * Every booking that does not complete is logged here, so that a refusal the
+ * guest can see is one we can see too. Upstream refusals used to be passed
+ * through to the guest with their message and logged nowhere, so a management
+ * side 5xx or a string of sold-out answers left no trace on this side.
+ *
+ * `refused` is a deliberate no (a 4xx, or a blocked or full answer); `failed`
+ * is anything that broke (a 5xx, an unreadable answer, a missing key). No
+ * personal data: the status, a code, the event id and the page path only,
+ * never the phone number, name, email or anything else the guest typed.
+ */
+function logBookingNotCompleted(kind: 'refused' | 'failed', details: BookingNotCompletedLog): void {
+  logError(
+    `api/event-bookings/${kind}`,
+    new Error(`Event booking ${kind}: ${details.status} ${details.code ?? details.state ?? 'no code'}`),
+    details
+  )
+}
+
 async function forwardConfirmedBookingConversion(
   request: NextRequest,
   payload: EventBookingPayload,
@@ -458,6 +564,12 @@ async function forwardConfirmedBookingConversion(
 
 export async function POST(request: NextRequest) {
   if (!API_KEY) {
+    logBookingNotCompleted('failed', {
+      status: 503,
+      code: 'API_KEY_MISSING',
+      eventId: null,
+      bookingSource: getBookingSource(request, null)
+    })
     return createApiErrorResponse('Event booking service unavailable', 503)
   }
 
@@ -468,17 +580,36 @@ export async function POST(request: NextRequest) {
     // Turnstile for callers with no API key, and does it with a different
     // widget's secret, so a forwarded token was never validated on the happy
     // path and could only fail when it was. See app/api/table-bookings/route.ts.
+    // A blocked submission is logged inside checkSpamProtection.
     const spam = await checkSpamProtection(request, body)
     if (spam.blocked) return spam.response
 
+    const rawBody = asRecord(body)
+    const bookingSource = getBookingSource(request, rawBody?.landing_path)
     const normalized = normalizePayload(body)
 
     if (!normalized.payload) {
-      return createApiErrorResponse(normalized.error || 'Invalid event booking payload', 400)
+      const message = normalized.error || 'Invalid event booking payload'
+      logBookingNotCompleted('refused', {
+        status: 400,
+        code: 'INVALID_PAYLOAD',
+        reason: message,
+        eventId: asLoggableEventId(rawBody?.event_id ?? rawBody?.eventId),
+        bookingSource
+      })
+      return createApiErrorResponse(message, 400)
     }
 
+    const eventId = asLoggableEventId(normalized.payload.event_id)
     const validationError = validatePayload(normalized.payload)
     if (validationError) {
+      logBookingNotCompleted('refused', {
+        status: 400,
+        code: 'VALIDATION_ERROR',
+        reason: validationError,
+        eventId,
+        bookingSource
+      })
       return createApiErrorResponse(validationError, 400)
     }
 
@@ -521,6 +652,7 @@ export async function POST(request: NextRequest) {
     // Handle BOOKINGS_DISABLED rejection from management API
     const bookingsDisabled = upstream.status === 409 && hasErrorCode(parsed, 'BOOKINGS_DISABLED')
     if (bookingsDisabled) {
+      logBookingNotCompleted('refused', { status: 409, code: 'BOOKINGS_DISABLED', eventId, bookingSource })
       return NextResponse.json(
         { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed, just turn up!' } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
@@ -530,6 +662,7 @@ export async function POST(request: NextRequest) {
     // Handle SALES_CLOSED rejection from management API (online ticket-sales cutoff)
     const salesClosed = upstream.status === 409 && hasErrorCode(parsed, 'SALES_CLOSED')
     if (salesClosed) {
+      logBookingNotCompleted('refused', { status: 409, code: 'SALES_CLOSED', eventId, bookingSource })
       return NextResponse.json(
         { success: false, error: { code: 'SALES_CLOSED', message: 'Online ticket sales for this event have closed.' } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
@@ -538,6 +671,7 @@ export async function POST(request: NextRequest) {
 
     const policyViolation = upstream.status === 409 && hasPolicyViolation(parsed)
     if (policyViolation) {
+      logBookingNotCompleted('refused', { status: 409, code: 'POLICY_VIOLATION', eventId, bookingSource })
       const message =
         (parsed && typeof parsed === 'object'
           ? (parsed as Record<string, unknown>)?.error &&
@@ -553,6 +687,29 @@ export async function POST(request: NextRequest) {
     }
 
     const responseBody = parsed ?? fallbackPayload
+    const responseState = pickResponseData(parsed)?.state
+    const bookingState = typeof responseState === 'string' ? responseState : null
+
+    // Anything the guest will see as "Booking not completed". A 2xx is not
+    // enough on its own: the API answers a full or blocked night with 200 and
+    // a state, and the form treats `success: false` or a missing state as a
+    // failure too.
+    const upstreamFailed = upstream.status >= 500 || parsed === null || (upstream.ok && !bookingState)
+    const upstreamRefused =
+      !upstream.ok ||
+      asRecord(parsed)?.success === false ||
+      bookingState === 'blocked' ||
+      bookingState === 'full_with_waitlist_option'
+
+    if (upstreamFailed || upstreamRefused) {
+      logBookingNotCompleted(upstreamFailed ? 'failed' : 'refused', {
+        status: upstream.status,
+        code: parsed === null ? 'UNREADABLE_RESPONSE' : getUpstreamRefusalCode(parsed),
+        state: bookingState,
+        eventId,
+        bookingSource
+      })
+    }
 
     if (upstream.ok) {
       await forwardConfirmedBookingConversion(request, normalized.payload, responseBody)
