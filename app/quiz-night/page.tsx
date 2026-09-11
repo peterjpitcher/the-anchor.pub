@@ -77,7 +77,7 @@ const FAQS = [
   {
     question: 'Can kids or dogs come to quiz night?',
     answer:
-      'Yes to both. Families are welcome all evening and well-behaved dogs can curl up under the table. It is a phone-free quiz during the rounds, with a 5 point penalty for a sneaky scroll.'
+      'Yes to both. Families are welcome all evening and well-behaved dogs can curl up under the table. Phones stay away, except in the interactive round in the middle, which you play on your phone. At any other time, a sneaky scroll costs 5 points.'
   },
   {
     question: 'What food and drink is available?',
@@ -215,7 +215,9 @@ export default async function QuizNightPage() {
                   <ul className="space-y-3 text-ink-muted">
                     <li><strong>6:30pm</strong> · tables set, soundtrack on, order food while you settle in.</li>
                     <li><strong>7pm</strong> · first round. Four rounds of ten questions, general knowledge, no specialist subjects.</li>
-                    <li><strong>8:15pm</strong> · interactive quick-fire round to get everyone on their feet.</li>
+                    {/* Five rounds in all: four of ten questions, and this one in the
+                        middle, played on phones (owner-confirmed 11 September 2026). */}
+                    <li><strong>8:15pm</strong> · interactive quick-fire round, played on your phone.</li>
                     <li><strong>8:30pm</strong> · comfort break, time to top up drinks.</li>
                     {/* 9:30pm, owner-confirmed 17 August 2026 and matching end_time
                         21:30 in the management DB. This said 9:45pm while the event
@@ -223,8 +225,8 @@ export default async function QuizNightPage() {
                     <li><strong>9:30pm</strong> · final scores and prizes.</li>
                   </ul>
                   <p className="text-sm text-ink-muted">
-                    Teams up to six. House rule: phones away during the rounds, or it is a cheeky 5
-                    point penalty. Friendly rather than serious, with the odd bit of adult humour.
+                    Teams up to six. House rule: phones away, except in the interactive round, or
+                    it&rsquo;s a 5 point penalty. Friendly rather than serious, with the odd bit of adult humour.
                   </p>
                 </CardBody>
               </Card>

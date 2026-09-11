@@ -3,13 +3,17 @@ import type { GameNightConfig } from './types'
 /**
  * Quiz night. Facts from docs/SSOT.md §10: monthly, currently Wednesdays, arrive
  * from 6:30pm, start usually 7pm, aims to finish 9:30pm, £3 per person, teams
- * capped at six, four rounds of ten questions plus an interactive quick-fire round
- * and a comfort break, capacity 60, a £25 bar voucher for the winners and a bottle
- * of house wine for second from last, phone-free with a 5 point penalty.
+ * capped at six, five rounds (four of ten questions plus an interactive quick-fire
+ * round in the middle, played on your phone) and a comfort break, capacity 60, a
+ * £25 bar voucher for the winners and a bottle of house wine for second from last,
+ * and phones away except in the interactive round, with a 5 point penalty.
  *
  * Owner-confirmed 11 September 2026: the prize is a voucher, not a bar tab, and
  * seating is team tables. Each team has its own table, so nothing here may say a
- * team shares its table with another team or that quiz seating is communal.
+ * team shares its table with another team or that quiz seating is communal. Also
+ * owner-confirmed that day: five rounds, with the phone-based interactive round in
+ * the middle, and prizes for first and second from last only, so no league tables,
+ * quiz food deals, spot prizes, free-drink questions or best team name prize.
  *
  * Finish time corrected from ~9:45pm to 9:30pm on 17 August 2026, owner-confirmed
  * and matching `end_time` 21:30 on every scheduled quiz in the management DB. The
@@ -33,7 +37,7 @@ export const quizNight: GameNightConfig = {
     crumb: 'Quiz Night',
     title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
     lead:
-      'A proper monthly pub quiz, 7pm to 9:30pm. Four rounds, a £25 bar voucher for the winners, and a bottle of house wine for whoever comes second from last.'
+      'A proper monthly pub quiz, 7pm to 9:30pm. Five rounds, a £25 bar voucher for the winners, and a bottle of house wine for whoever comes second from last.'
   },
 
   share: {
@@ -48,7 +52,7 @@ export const quizNight: GameNightConfig = {
     { label: 'Entry', value: '£3 per player, cash' },
     { label: 'Teams', value: 'Up to 6 players' },
     { label: 'Time', value: '7pm to 9:30pm' },
-    { label: 'House rule', value: 'Phones away in the rounds' },
+    { label: 'House rule', value: 'Phones away, except the interactive round' },
     { label: 'Parking', value: 'Free, 20 spaces' }
   ],
 
@@ -107,7 +111,7 @@ export const quizNight: GameNightConfig = {
     {
       src: '/images/events/quiz-night/quiz-night-host-and-room.jpg',
       alt: 'The quizmaster reading a question to a room of seated teams at The Anchor',
-      caption: 'Four rounds, read by a proper quizmaster'
+      caption: 'Five rounds, run by a proper quizmaster'
     },
     {
       src: '/images/events/quiz-night/quiz-night-team-writing.jpg',

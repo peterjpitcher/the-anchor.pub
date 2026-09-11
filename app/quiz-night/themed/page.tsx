@@ -200,7 +200,8 @@ export default function ThemedQuizNightsPage() {
             </p>
             <p className="leading-relaxed text-ink-muted">
               The format stays the same: £3 a player paid in cash, teams of up to six, 7pm start, and a
-              comfort break in the middle. Phones stay in pockets during the rounds. Food is served
+              comfort break in the middle. Phones stay in pockets, apart from the interactive round,
+              which you play on your phone. Food is served
               before and during, and parking is free.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2">
