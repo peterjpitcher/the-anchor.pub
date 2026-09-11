@@ -29,10 +29,11 @@ import { BookTableButton } from '@/components/BookTableButton'
  * See tasks/keyword-plan-game-nights-2026-08-17.md.
  *
  * That does not license claiming a cadence. docs/SSOT.md §10 is explicit that
- * karaoke is occasional, has no fixed host and gets no recurring EventSeries
- * schema. The page therefore targets the query while telling the truth about how
- * often it runs, and leans on the two things that are always true: it is free,
- * and nobody has to sing.
+ * karaoke is occasional and gets no recurring EventSeries schema. Peter Pitcher
+ * hosts it (owner-confirmed 11 September 2026); the page does not name him, as
+ * the quiz and cash bingo pages do not. It targets the query while telling the
+ * truth about how often it runs, and leans on the two things that are always
+ * true: it is free, and nobody has to sing.
  */
 export const metadata: Metadata = buildGameNightMetadata(karaoke, {
   title: 'Karaoke Near Me | Free Entry, Stanwell Moor',
@@ -155,10 +156,11 @@ export default async function KaraokePage() {
     <>
       {/*
         * No EventSeries schema here on purpose. Owner-confirmed 11 August 2026:
-        * karaoke is not a regular feature this year and has no fixed host. The
-        * schema previously declared a monthly series ("repeatFrequency": "P1M")
-        * running to 2026-12-31 with Nikki Manfadge as the performer, none of
-        * which is true. Nikki hosts Music Bingo, not karaoke.
+        * karaoke is not a regular feature this year. The schema previously
+        * declared a monthly series ("repeatFrequency": "P1M") running to
+        * 2026-12-31 with Nikki Manfadge as the performer, none of which is
+        * true. Nikki hosts Music Bingo, not karaoke; Peter Pitcher hosts
+        * karaoke (owner-confirmed 11 September 2026).
         *
         * Individual karaoke nights still get their own Event schema from the
         * events system whenever one is actually listed, which is the honest

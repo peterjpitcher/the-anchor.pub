@@ -137,10 +137,11 @@ export interface GameNightConfig {
    * False for formats that run only occasionally rather than to a schedule.
    *
    * Karaoke is the case this exists for. docs/SSOT.md: karaoke is "not a
-   * regular feature in 2026", has no fixed host, and must never be presented
-   * as a weekly, monthly or Friday slot. When false, the page must not emit a
-   * recurring EventSeries schema and must not imply a cadence, while still
-   * being free to convert anyone who lands on it.
+   * regular feature in 2026" and must never be presented as a weekly, monthly
+   * or Friday slot. It does have a host, Peter Pitcher (owner-confirmed
+   * 11 September 2026), but a host is not a schedule. When false, the page
+   * must not emit a recurring EventSeries schema and must not imply a cadence,
+   * while still being free to convert anyone who lands on it.
    */
   promotable: boolean
 }
