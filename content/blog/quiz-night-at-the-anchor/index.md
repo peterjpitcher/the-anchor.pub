@@ -38,7 +38,7 @@ Our **pub quiz near Heathrow Airport** has become the highlight of the week for 
 
 **Quiz Night Details:**
 - **Monthly quiz nights** starting at 7:00 PM
-- **Professional quiz masters** from Question One
+- **Hosted by the owner**, Peter Pitcher
 - **6 rounds** of varied questions
 - **Prizes every week** for top teams
 - **Drinks prizes** scattered throughout

@@ -1,5 +1,7 @@
 import { quizNightEventSeries, bingoEventSeries, webSiteSchema } from '@/lib/schema'
 import { getEnhancedSchemas } from '@/lib/schema-with-reviews'
+import { generateEventSchema } from '@/lib/schema-utils'
+import { staticEvents } from '@/lib/static-events'
 
 // Mock next/cache so unstable_cache passes through the function directly in tests
 jest.mock('next/cache', () => ({
@@ -24,6 +26,31 @@ describe('schema dates', () => {
     expect(endDate.getTime()).toBeGreaterThan(Date.now() + 90 * 24 * 60 * 60 * 1000)
   })
 
+})
+
+describe('quiz host', () => {
+  // Owner-confirmed 11 September 2026: the owner hosts the quiz. The series
+  // markup named "Question One Quiz Masters" while every quiz event record
+  // named Peter Pitcher, so the site described two different hosts.
+  it('names the owner as the quiz series performer', () => {
+    expect(quizNightEventSeries.performer).toEqual({ '@type': 'Person', name: 'Peter Pitcher' })
+  })
+
+  it('names nobody else anywhere in the quiz data', () => {
+    const everything = JSON.stringify([
+      quizNightEventSeries,
+      generateEventSchema('quiz'),
+      staticEvents.quizNight
+    ])
+
+    expect(everything).not.toMatch(/Question One/)
+    // The helper returns a quiz or bingo shape; only the quiz one has a performer.
+    expect((generateEventSchema('quiz') as { performer?: unknown }).performer).toEqual({
+      '@type': 'Person',
+      name: 'Peter Pitcher'
+    })
+    expect(staticEvents.quizNight.performer).toMatchObject({ '@type': 'Person', name: 'Peter Pitcher' })
+  })
 })
 
 describe('webSiteSchema', () => {

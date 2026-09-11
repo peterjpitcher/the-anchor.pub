@@ -190,9 +190,10 @@ export const staticEvents = {
       color: '#3b82f6',
       icon: ''
     },
+    // The owner hosts the quiz (owner-confirmed 11 September 2026).
     performer: {
-      name: 'Question One Quiz Masters',
-      type: 'Organization'
+      name: 'Peter Pitcher',
+      type: 'Person'
     },
     startTime: '19:00',
     endTime: '22:00',

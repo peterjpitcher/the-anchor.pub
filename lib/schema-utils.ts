@@ -228,9 +228,10 @@ export function generateEventSchema(eventType: 'quiz' | 'bingo') {
         "name": "The Anchor",
         "url": "https://www.the-anchor.pub"
       },
+      // The owner hosts the quiz (owner-confirmed 11 September 2026).
       "performer": {
-        "@type": "Organization",
-        "name": "Question One Quiz Masters"
+        "@type": "Person",
+        "name": "Peter Pitcher"
       },
       "maximumAttendeeCapacity": 80,
       "typicalAgeRange": "18+",

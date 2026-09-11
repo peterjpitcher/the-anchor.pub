@@ -242,9 +242,11 @@ export const quizNightEventSeries = {
   "organizer": {
     "@id": "https://www.the-anchor.pub/#organization"
   },
+  // The owner hosts the quiz (owner-confirmed 11 September 2026). This named
+  // "Question One Quiz Masters".
   "performer": {
-    "@type": "Organization",
-    "name": "Question One Quiz Masters"
+    "@type": "Person",
+    "name": "Peter Pitcher"
   },
   "potentialAction": {
     "@type": "ReserveAction",
