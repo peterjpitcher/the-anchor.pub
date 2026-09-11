@@ -216,6 +216,22 @@ describe('event detail page, what a customer reads', () => {
     expect(jsonLdText(container)).toContain('School disco anthems, played on the big screen.')
   })
 
+  // docs/SSOT.md §10 bans "Doors" for an event time. The record behind
+  // /events/quiz-night-2026-03-04 reads, verbatim, "secure your spot[em dash]
+  // doors open at 6:45pm", and the page served it as ", doors open at 6:45pm".
+  it('rewrites door wording in record prose to an arrival time', async () => {
+    const container = await renderEventPage(
+      makeEvent({
+        longDescription: `Arrive early to secure your spot${EM_DASH}doors open at 6:45pm, and we recommend being seated by 6:55pm.`
+      })
+    )
+    const text = visibleText(container)
+
+    expect(text).toContain('Arrive early to secure your spot, arrive from 6:45pm, and we recommend being seated by 6:55pm.')
+    expect(text).not.toMatch(/\bdoors?\b/i)
+    expect(jsonLdText(container)).not.toMatch(/\bdoors?\b/i)
+  })
+
   it('offers the diary and the share control at every breakpoint, beside the booking action', async () => {
     const container = await renderEventPage()
 

@@ -76,13 +76,15 @@ const CLOCK_TIME = String.raw`\d{1,2}(?:[:.]\d{2})?\s?[ap]\.?\s?m\b\.?|\d{1,2}[:
 
 /**
  * Where a clause starts: the start of the value or a line, after sentence or
- * list punctuation, or after "and" or "then". Rewriting a door phrase anywhere
- * else would break the sentence around it ("we will have the doors open from
- * 6pm" cannot become "we will have arrive from 6pm"), so those are left
- * alone. Captured and put back rather than looked behind, because lookbehind
- * breaks older Safari and this module also ships in the browser bundle.
+ * list punctuation (dashes included: both live records read "secure your
+ * spot[em dash]doors open at ..."), or after "and" or "then". Rewriting a door
+ * phrase anywhere else would break the sentence around it ("we will have the
+ * doors open from 6pm" cannot become "we will have arrive from 6pm"), so those
+ * are left alone. Captured and put back rather than looked behind, because
+ * lookbehind breaks older Safari and this module also ships in the browser
+ * bundle.
  */
-const CLAUSE_START = String.raw`^|[.!?,;:(\[*${BULLET}-]\s*|\band\s+|\bthen\s+`
+const CLAUSE_START = String.raw`^|[.!?,;:(\[*${BULLET}${EN_DASH}${EM_DASH}-]\s*|\band\s+|\bthen\s+`
 
 /**
  * "Doors", "The doors", "Doors will open", "doors opening", and what joins it

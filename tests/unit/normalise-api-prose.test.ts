@@ -143,15 +143,24 @@ describe('normaliseProseField', () => {
  */
 describe('normaliseProseField, "doors" as an event time', () => {
   it.each([
-    // Verbatim from /events/gavin-and-stacey-quiz-night-2026-05-15 and
-    // /events/quiz-night-2026-03-04, live on 11 September 2026.
+    // Verbatim from the records behind /events/gavin-and-stacey-quiz-night-2026-05-15
+    // and /events/quiz-night-2026-03-04 on 11 September 2026. The record has
+    // an em dash before "doors"; the served page showed it as a comma.
     [
-      'Arrive early to soak in the atmosphere and secure a good spot, doors open at 7:15 PM, and we encourage you to be seated by 7:45',
-      'Arrive early to soak in the atmosphere and secure a good spot, arrive from 7:15 PM, and we encourage you to be seated by 7:45'
+      `Arrive early to soak in the atmosphere and secure a good spot${EM}doors open at 7:15 PM, and we encourage you to be seated by 7:45 PM`,
+      'Arrive early to soak in the atmosphere and secure a good spot, arrive from 7:15 PM, and we encourage you to be seated by 7:45 PM'
     ],
     [
-      'Arrive early to secure your spot, doors open at 6:45pm, and we recommend being seated by 6:55pm for',
-      'Arrive early to secure your spot, arrive from 6:45pm, and we recommend being seated by 6:55pm for'
+      `Arrive early to secure your spot${EM}doors open at 6:45pm, and we recommend being seated by 6:55pm`,
+      'Arrive early to secure your spot, arrive from 6:45pm, and we recommend being seated by 6:55pm'
+    ],
+    [
+      'Arrive early to secure a good spot, doors open at 7:15 PM, and we encourage you to be seated',
+      'Arrive early to secure a good spot, arrive from 7:15 PM, and we encourage you to be seated'
+    ],
+    [
+      `Quiz night. \r\n\r\nArrive early to secure your spot ${EN} doors open at 6:45pm.`,
+      `Quiz night. \r\n\r\nArrive early to secure your spot ${EN} arrive from 6:45pm.`
     ],
     ['Doors from 6:30pm.', 'Arrive from 6:30pm.'],
     ['The doors open at 7pm for an 8pm start.', 'Arrive from 7pm for an 8pm start.'],
