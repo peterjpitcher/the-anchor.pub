@@ -371,6 +371,25 @@ describe('event detail page head', () => {
     expect(openGraph?.modifiedTime).toBeUndefined()
   })
 
+  it('dates a title the record left undated, and keeps it short', async () => {
+    const metadata = await generateMetadata({ params: { id: EVENT_SLUG } })
+
+    // The record has no metaTitle and the full name plus the date runs long,
+    // so the part of the name after its colon carries the date.
+    expect(metadata.title).toBe('Back to School Music Bingo, Fri 11 Sept')
+  })
+
+  it('keeps an em dash in the record title out of the page title', async () => {
+    mockGetEvent.mockResolvedValue(
+      makeEvent({ metaTitle: `Cash Bingo Night ${EM_DASH} 1 July 2026 | The Anchor` } as Partial<Event>)
+    )
+
+    const metadata = await generateMetadata({ params: { id: EVENT_SLUG } })
+
+    expect(metadata.title).toBe('Cash Bingo Night, 1 July 2026')
+    expect(String(metadata.title)).not.toContain(EM_DASH)
+  })
+
   it('carries no em dash into the head', async () => {
     const metadata = await generateMetadata({ params: { id: EVENT_SLUG } })
     const openGraph = metadata.openGraph as { description?: string } | undefined

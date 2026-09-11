@@ -19,6 +19,8 @@ import {
   getBannedClaims,
   getSafeAccessibilityNotes,
   getDiscontinuedFormatReplacement,
+  getEventPageTitle,
+  EVENT_TITLE_MAX_LENGTH,
   RECENT_EVENT_WINDOW_DAYS,
   CANCELLED_INDEX_DAYS,
 } from '@/lib/event-seo-strategy'
@@ -404,6 +406,98 @@ describe('getEventSeoStrategy', () => {
         category: { id: 'c9', slug: 'games-night', name: 'Games Night', color: '#000' },
       })
       expect(result.index).toBe(false)
+    })
+  })
+
+  /**
+   * Titles came straight from the record's metaTitle. On 11 September 2026 six
+   * of the thirteen upcoming quiz, bingo and karaoke nights had no date in
+   * theirs, and one was just "Music Bingo | The Anchor". These are those
+   * records (the audit's title table), with the London date added where the
+   * record left it out.
+   */
+  describe('event page titles', () => {
+    it.each([
+      [
+        'Autumn Kick-Off Quiz Night | The Anchor',
+        'Autumn Kick-Off Quiz Night',
+        '2026-09-16T19:00:00+01:00',
+        'Autumn Kick-Off Quiz Night, Wed 16 Sept'
+      ],
+      [
+        'Music Bingo | The Anchor',
+        'Sequins & Showstoppers: Strictly-Season Music Bingo',
+        '2026-11-13T19:00:00Z',
+        'Strictly-Season Music Bingo, Fri 13 Nov'
+      ],
+      [
+        'Only Fools and Horses Charity Quiz | The Anchor',
+        'Lovely Jubbly: Only Fools and Horses Charity Quiz Night',
+        '2026-09-25T19:00:00+01:00',
+        'Only Fools and Horses Charity Quiz, Fri 25 Sept'
+      ],
+      [
+        'Screams & Soundtracks: Classic Horror Music Bingo | The Anchor',
+        'Screams & Soundtracks: Classic Horror Music Bingo',
+        '2026-10-16T19:00:00+01:00',
+        'Classic Horror Music Bingo, Fri 16 Oct'
+      ],
+      [
+        'Back to School Music Bingo | The Anchor',
+        'Detention Disco: Back to School Music Bingo',
+        '2026-09-11T19:00:00+01:00',
+        'Back to School Music Bingo, Fri 11 Sept'
+      ],
+      [
+        'Sleigh My Name: Festive Music Bingo | The Anchor',
+        'Sleigh My Name: Festive Music Bingo',
+        '2026-12-11T19:00:00Z',
+        'Sleigh My Name: Festive Music Bingo, Fri 11 Dec'
+      ]
+    ])('dates %j', (metaTitle, name, startDate, expected) => {
+      const title = getEventPageTitle({ metaTitle, name, startDate })
+
+      expect(title).toBe(expected)
+      expect(title.length).toBeLessThanOrEqual(EVENT_TITLE_MAX_LENGTH)
+    })
+
+    it.each([
+      ['A Hint of Halloween Quiz Night | 7 October | The Anchor', 'A Hint of Halloween Quiz Night | 7 October'],
+      ['Big Sing Friday: Karaoke Night | 18 September | The Anchor', 'Big Sing Friday: Karaoke Night | 18 September'],
+      ['Cash Bingo Night, 1 July 2026 | The Anchor', 'Cash Bingo Night, 1 July 2026']
+    ])('keeps a record title that already has its date: %j', (metaTitle, expected) => {
+      expect(getEventPageTitle({ metaTitle, name: 'Any Name', startDate: '2026-10-07T19:00:00+01:00' })).toBe(expected)
+    })
+
+    it('adds the year once the night is over, because past pages stay indexed', () => {
+      expect(
+        getEventPageTitle({
+          metaTitle: 'Quiz Night - Join Us for Fun and Prizes! | The Anchor',
+          name: 'Quiz Night',
+          startDate: isoDaysAgo(58)
+        })
+      ).toBe('Quiz Night, 4 March 2026')
+    })
+
+    it('uses the date in the name when the record title has none', () => {
+      expect(
+        getEventPageTitle({ metaTitle: 'Cash Bingo | The Anchor', name: 'Cash Bingo 30 September', startDate: isoDaysFromNow(10) })
+      ).toBe('Cash Bingo 30 September')
+    })
+
+    it('never drops the date to fit, it takes the shortest instead', () => {
+      const title = getEventPageTitle({
+        name: 'An Exceptionally Long Themed Evening of Questions About Everything',
+        startDate: '2026-10-07T19:00:00+01:00'
+      })
+
+      expect(title).toBe('An Exceptionally Long Themed Evening of Questions About Everything, Wed 7 Oct')
+    })
+
+    it('keeps the record title when the start date is unusable', () => {
+      expect(getEventPageTitle({ metaTitle: 'Quiz Night | The Anchor', name: 'Quiz Night', startDate: 'nonsense' })).toBe(
+        'Quiz Night'
+      )
     })
   })
 

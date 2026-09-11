@@ -1,5 +1,7 @@
 import type { Event } from '@/lib/api/events'
+import { formatEventLocalDate } from '@/lib/event-calendar'
 import { normalizeEventStatus, isEventInPast } from '@/lib/event-lifecycle'
+import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 
 /**
  * How long a past event counts as "recent" for presentation purposes: the
@@ -411,6 +413,74 @@ export const CATEGORY_ROUTES: Record<string, string> = {
 export function getCategoryPageUrl(categorySlug: string | undefined | null): string {
   if (!categorySlug) return '/whats-on'
   return CATEGORY_ROUTES[categorySlug] || '/whats-on'
+}
+
+/**
+ * Room for an event page's own words in its <title>. The site template in
+ * app/layout.tsx adds " | The Anchor" (13 characters), so 47 keeps the whole
+ * title within 60, about where search results start cutting titles short. The
+ * date sits at the end, so it is the first thing a cut would lose.
+ */
+export const EVENT_TITLE_MAX_LENGTH = 47
+
+const TITLE_MONTH = String.raw`(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)`
+
+/** A day of a month: "7 October", "Wed 16 Sept", "1st July 2026", "October 7", "16/09". */
+const TITLE_DATE = new RegExp(
+  String.raw`\b\d{1,2}(?:st|nd|rd|th)?\s+${TITLE_MONTH}\b|\b${TITLE_MONTH}\s+\d{1,2}(?:st|nd|rd|th)?\b|\b\d{1,2}\/\d{1,2}(?:\/\d{2,4})?\b|\b\d{4}-\d{2}-\d{2}\b`,
+  'i'
+)
+
+/**
+ * The <title> for an event page, before the site template adds the brand.
+ *
+ * Titles came straight from the record's `metaTitle`, and six of the thirteen
+ * upcoming quiz, bingo and karaoke nights on 11 September 2026 had no date in
+ * theirs; one was just "Music Bingo", competing with the /music-bingo hub. A
+ * record title that already carries a date is kept as the owner wrote it.
+ * Otherwise the title is the event name and its London date ("Autumn Kick-Off
+ * Quiz Night, Wed 16 Sept"). Once the night is over the date carries its year
+ * instead of its weekday ("Quiz Night, 4 March 2026"), because past pages stay
+ * indexed and "Wed 16 Sept" alone would read as the next one.
+ *
+ * Kept within EVENT_TITLE_MAX_LENGTH by trying, in order: the full name, the
+ * part of the name after its colon (these names run "Theme: Format", as in
+ * "Sequins & Showstoppers: Strictly-Season Music Bingo"), then the record's own
+ * shorter title. If none fits, the shortest is used, so the date is never
+ * dropped. Pass the normalised event, so no em dash from the record can reach
+ * the title.
+ */
+export function getEventPageTitle(
+  event: Pick<Event, 'name' | 'startDate'> & { metaTitle?: string | null }
+): string {
+  const recordTitle = stripBrandSuffix(event.metaTitle || event.name)
+  if (TITLE_DATE.test(recordTitle)) return recordTitle
+
+  const name = stripBrandSuffix(event.name)
+  if (TITLE_DATE.test(name)) return name
+
+  // "Wed 16 Sept" while it is on sale; "4 March 2026" once it has been.
+  const dateLabel = formatEventLocalDate(
+    event.startDate,
+    isEventInPast(event)
+      ? { day: 'numeric', month: 'long', year: 'numeric' }
+      : { weekday: 'short', day: 'numeric', month: 'short' }
+  )
+  // An unusable start date gives nothing honest to add.
+  if (dateLabel === 'Date TBC' || !name) return recordTitle
+
+  const colon = name.indexOf(':')
+  const afterColon = colon > 0 ? name.slice(colon + 1).trim() : ''
+  const recordStem = event.metaTitle ? stripBrandSuffix(event.metaTitle) : ''
+  const stems = [name, afterColon, recordStem].filter(
+    (stem, index, all) => stem.length > 0 && all.indexOf(stem) === index
+  )
+  const titles = stems.map((stem) => `${stem}, ${dateLabel}`)
+
+  return (
+    titles.find((title) => title.length <= EVENT_TITLE_MAX_LENGTH) ??
+    titles.reduce((shortest, title) => (title.length < shortest.length ? title : shortest))
+  )
 }
 
 export interface EventSeoStrategy {

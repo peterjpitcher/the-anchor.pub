@@ -50,9 +50,8 @@ import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
-import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 import { rethrowIfTransient } from '@/lib/api/error-kind'
-import { getRetiredEventRedirect } from '@/lib/event-seo-strategy'
+import { getEventPageTitle, getRetiredEventRedirect } from '@/lib/event-seo-strategy'
 import { normaliseEventProse } from '@/lib/text/normalise-api-prose'
 
 type Props = {
@@ -323,7 +322,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ].join(', ') || undefined
 
     return {
-      title: stripBrandSuffix(event.metaTitle || event.name),
+      // Dated and length-checked; see getEventPageTitle. `event` is the
+      // normalised record, so no em dash from the name or metaTitle gets in.
+      title: getEventPageTitle(event),
       description,
       keywords,
       ...(shouldNoindex ? { robots: { index: false, follow: true } } : {}),

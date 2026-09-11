@@ -126,8 +126,15 @@ export interface ProseFaqEntry {
  * The event fields that are prose, and therefore the only string fields
  * normaliseEventProse() will touch. Everything else on an event, id, slug, url,
  * startDate, keywords, image paths, is left exactly as the API sent it.
+ *
+ * `name` and `metaTitle` are here because they are typed by hand too and they
+ * become the page title and the H1. Three indexable past pages served an em
+ * dash in their <title> on 11 September 2026, for example "Cash Bingo Night
+ * [em dash] 1 July 2026".
  */
 export const NORMALISED_PROSE_FIELDS = [
+  'name',
+  'metaTitle',
   'brief',
   'description',
   'shortDescription',
