@@ -120,6 +120,13 @@ export function WeekHours({
   const londonNow = DateTime.now().setZone('Europe/London')
   const londonToday = londonNow.startOf('day')
   const isOpenNow = hours.currentStatus?.isOpen === true
+  // Open on yesterday's hours: between midnight and a late close (1am on New Year's Eve), when
+  // today's row below can read "Closed". Say when the night ends so the two do not contradict.
+  const openFromYesterday =
+    isOpenNow &&
+    Boolean(hours.currentStatus?.tradingDate) &&
+    hours.currentStatus?.tradingDate !== londonToday.toISODate() &&
+    Boolean(hours.currentStatus?.closes)
 
   const sundayLunchOverrides = (hours.serviceOverrides?.sunday_lunch ?? []) as Array<{
     startDate: string
@@ -269,7 +276,11 @@ export function WeekHours({
             {isOpenNow ? 'Open now' : 'Closed now'}
           </Badge>
           <span className="text-sm text-ink-muted">
-            {isOpenNow ? 'The bar is open, come on in.' : 'See this week’s hours below.'}
+            {isOpenNow
+              ? openFromYesterday
+                ? `The bar is open until ${formatTime(hours.currentStatus?.closes)}, come on in.`
+                : 'The bar is open, come on in.'
+              : 'See this week’s hours below.'}
           </span>
         </div>
       )}
