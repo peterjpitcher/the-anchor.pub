@@ -43,6 +43,14 @@ export const CANCELLED_INDEX_DAYS = 7
  * exactly the visit nobody can now make. Deliberately 'live music' only, not
  * 'band' or 'acoustic': those words turn up in copy for nights that still run.
  *
+ * Music Bingo still runs, and its records carry the search phrase "live music
+ * bingo" in their keywords. Read as a substring, that phrase contains 'live
+ * music', which noindexed the 14 August 2026 Music Bingo page, dropped it from
+ * the sitemap and told visitors "We no longer host live music". So the live
+ * music token ignores any "music bingo" phrase before it looks: a Music Bingo
+ * record is never read as live music, and a record that genuinely mentions
+ * live music is still caught.
+ *
  * Open mic is the other retired format, handled separately by isRetiredEvent()
  * because that route 301s rather than staying live. A games night has no
  * equivalent, so the page stays live for anyone with the link and is simply
@@ -50,6 +58,11 @@ export const CANCELLED_INDEX_DAYS = 7
  */
 const DISCONTINUED_FORMATS: ReadonlyArray<{
   token: string
+  /**
+   * Phrases taken out of the text before the token is looked for, because they
+   * contain the token without meaning the discontinued format.
+   */
+  ignoredPhrases?: ReadonlyArray<string>
   /** Where to send anyone who lands on the page anyway. */
   replacement: string
   replacementLabel: string
@@ -72,6 +85,8 @@ const DISCONTINUED_FORMATS: ReadonlyArray<{
   },
   {
     token: 'live music',
+    // "Live music bingo" is a Music Bingo search phrase, not a live music night.
+    ignoredPhrases: ['music bingo'],
     // No equivalent format replaced it, so this is the one case that genuinely
     // points at the general listing rather than a like-for-like night.
     replacement: '/whats-on',
@@ -227,9 +242,22 @@ function discontinuedHaystack(event: DiscontinuedFields): string {
     .replace(/\s+/g, ' ')
 }
 
-export function isDiscontinuedFormatEvent(event: DiscontinuedFields): boolean {
+/** The discontinued format an event belongs to, or undefined when it still runs. */
+function findDiscontinuedFormat(
+  event: DiscontinuedFields
+): (typeof DISCONTINUED_FORMATS)[number] | undefined {
   const haystack = discontinuedHaystack(event)
-  return DISCONTINUED_FORMATS.some((format) => haystack.includes(format.token))
+  return DISCONTINUED_FORMATS.find((format) => {
+    const text = (format.ignoredPhrases ?? []).reduce(
+      (remaining, phrase) => remaining.split(phrase).join(' '),
+      haystack
+    )
+    return text.includes(format.token)
+  })
+}
+
+export function isDiscontinuedFormatEvent(event: DiscontinuedFields): boolean {
+  return findDiscontinuedFormat(event) !== undefined
 }
 
 /**
@@ -243,8 +271,7 @@ export function isDiscontinuedFormatEvent(event: DiscontinuedFields): boolean {
 export function getDiscontinuedFormatReplacement(
   event: DiscontinuedFields
 ): { href: string; label: string; copy: string } | null {
-  const haystack = discontinuedHaystack(event)
-  const match = DISCONTINUED_FORMATS.find((format) => haystack.includes(format.token))
+  const match = findDiscontinuedFormat(event)
   return match
     ? { href: match.replacement, label: match.replacementLabel, copy: match.replacementCopy }
     : null

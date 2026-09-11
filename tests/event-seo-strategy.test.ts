@@ -222,6 +222,69 @@ describe('getEventSeoStrategy', () => {
       expect(result.redirect).toBeUndefined()
       expect(result.showEndedBanner).toBe(true)
     })
+
+    // The 14 August 2026 Music Bingo page carried the search phrase "live music
+    // bingo" in its keywords (live meta keywords, 11 September 2026). Read as a
+    // substring it contains "live music", so the page was noindexed, left out
+    // of the sitemap and told visitors "We no longer host live music".
+    it('keeps a past Music Bingo night indexable when its keywords say "live music bingo"', () => {
+      const cowboysAndQueens = {
+        startDate: isoDaysAgo(200),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Cowboys & Queens Country Music Bingo',
+        slug: 'cowboys-queens-country-music-bingo-2026-08-14',
+        category: MUSIC_BINGO,
+        keywords: ['music bingo', 'music bingo near me', 'live music bingo', 'pub music bingo'],
+      }
+
+      expect(getEventSeoStrategy(cowboysAndQueens).index).toBe(true)
+      expect(getDiscontinuedFormatReplacement(cowboysAndQueens)).toBeNull()
+    })
+
+    it('keeps an upcoming Music Bingo night indexable with the same keyword', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysFromNow(30),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Sequins & Showstoppers: Strictly-Season Music Bingo',
+        category: MUSIC_BINGO,
+        keywords: 'music bingo, live music bingo',
+      })
+
+      expect(result.index).toBe(true)
+    })
+
+    // docs/SSOT.md §"Live Music, DISCONTINUED": the policy itself must survive.
+    it('still noindexes a real live music night and says the format has stopped', () => {
+      const liveMusic = {
+        startDate: isoDaysAgo(200),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Friday Live Music with The Wanderers',
+        slug: 'friday-live-music-with-the-wanderers-2025-06-20',
+        category: { id: 'c-live', slug: 'live-music', name: 'Live Music', color: '#000' },
+      }
+
+      expect(getEventSeoStrategy(liveMusic).index).toBe(false)
+      expect(getDiscontinuedFormatReplacement(liveMusic)).toEqual({
+        href: '/whats-on',
+        label: 'See what is on',
+        copy: 'This night is no longer running. We no longer host live music.',
+      })
+    })
+
+    it('ignores only the Music Bingo phrase, not a live music mention beside it', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(200),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Summer Garden Party',
+        description: 'Live music in the garden, then music bingo inside.',
+      })
+
+      expect(result.index).toBe(false)
+    })
   })
 
   describe('SSOT banned claims', () => {
