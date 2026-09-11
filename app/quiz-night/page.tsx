@@ -220,7 +220,7 @@ export default async function QuizNightPage() {
                     {/* 9:30pm, owner-confirmed 17 August 2026 and matching end_time
                         21:30 in the management DB. This said 9:45pm while the event
                         pages said 9:30pm. */}
-                    <li><strong>9:30pm</strong> · final scores, prizes and best team name.</li>
+                    <li><strong>9:30pm</strong> · final scores and prizes.</li>
                   </ul>
                   <p className="text-sm text-ink-muted">
                     Teams up to six. House rule: phones away during the rounds, or it is a cheeky 5
@@ -284,10 +284,12 @@ export default async function QuizNightPage() {
         <Container>
           <div className="mx-auto">
             <h2 className="mb-6 text-center text-h3 text-ink-strong">What you are playing for</h2>
-            <div className="grid gap-4 md:grid-cols-3">
+            {/* Two prizes only: first place and second from last (owner-confirmed
+                11 September 2026, docs/SSOT.md §10). A third card offered a prize
+                for the best team name, which the quiz does not have. */}
+            <div className="grid gap-4 md:grid-cols-2">
               <PrizeCard title="Champions" reward="£25 Bar Voucher" copy="For the winning team, to spend at our bar." />
               <PrizeCard title="Second from last" reward="Bottle of House Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
-              <PrizeCard title="Best team name" reward="Seasonal Prop" copy="Worth the effort. The room decides whether you earned it." />
             </div>
           </div>
         </Container>
