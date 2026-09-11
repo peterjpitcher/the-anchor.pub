@@ -299,6 +299,12 @@ export function getEventSeatsRemaining(event: EventBookingAvailabilitySource): n
   return null
 }
 
+/** "55 seats available", or "Only 4 seats left" once ten or fewer remain. */
+function formatSeatCount(seats: number): string {
+  if (seats <= 10) return `Only ${seats} seat${seats === 1 ? '' : 's'} left`
+  return `${seats} seats available`
+}
+
 export function getEventSeatAvailabilityLabel(event: EventBookingAvailabilitySource): string | null {
   const seatsRemaining = getEventSeatsRemaining(event)
   const seatedRemaining = parseRemaining(event.seated_remaining)
@@ -315,29 +321,24 @@ export function getEventSeatAvailabilityLabel(event: EventBookingAvailabilitySou
       return 'Sold out'
     }
 
-    if (seatedRemaining !== null && standingRemaining !== null) {
-      if (seatedRemaining > 0 && standingRemaining > 0) {
-        return `${seatedRemaining} seated, ${standingRemaining} standing left`
-      }
+    // Standing is offered only once every seat has sold (docs/SSOT.md §10,
+    // owner decision 6 September 2026). So while seats remain the count is the
+    // seated one alone. The page used to read "49 seated, 11 standing left" on
+    // every communal night, which put standing in front of people who would
+    // get a seat and made a nearly empty room look constrained.
+    if (seatedRemaining !== null && seatedRemaining > 0) return formatSeatCount(seatedRemaining)
 
-      if (seatedRemaining > 0) {
-        return `${seatedRemaining} seated left`
-      }
-
-      if (standingRemaining > 0) {
-        return `${standingRemaining} standing left`
-      }
+    // Seats sold out, standing still on sale. The form carries the notice that
+    // no table seat is included.
+    if (seatedRemaining === 0 && standingRemaining !== null && standingRemaining > 0) {
+      return `${standingRemaining} standing left`
     }
-
-    if (seatedRemaining !== null && seatedRemaining > 0) return `${seatedRemaining} seated left`
-    if (standingRemaining !== null && standingRemaining > 0) return `${standingRemaining} standing left`
   }
 
   const soldOut = event.is_full === true || seatsRemaining === 0 || schemaSoldOut
   if (soldOut) return 'Sold out'
   if (seatsRemaining === null) return null
-  if (seatsRemaining <= 10) return `Only ${seatsRemaining} seat${seatsRemaining === 1 ? '' : 's'} left`
-  return `${seatsRemaining} seats available`
+  return formatSeatCount(seatsRemaining)
 }
 
 export function getEventFoodArrivalLabel(
