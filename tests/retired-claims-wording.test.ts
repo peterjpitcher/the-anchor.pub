@@ -115,6 +115,18 @@ describe('retired claims stay retired', () => {
     expect(offenders).toEqual([])
   })
 
+  it('keeps the voice the owner confirmed on 11 September 2026, in section 1 and its JSON mirror', () => {
+    const ssot = readFileSync(join(ROOT, 'docs/SSOT.md'), 'utf8').replace(/\s+/g, ' ')
+    expect(ssot).toContain("**It's about them, not us.**")
+    expect(ssot).toContain('2. Is it about them, not us?')
+
+    const json = JSON.parse(readFileSync(join(ROOT, 'SSOT.json'), 'utf8'))
+    const voice = json.brand_guidelines.voice
+    expect(voice.tone).not.toContain('Cheeky')
+    expect(voice.principles[0]).toMatch(/^It's about them, not us/)
+    expect(JSON.stringify(voice.principles)).not.toMatch(/Lead with feeling|Cheeky, never snide/)
+  })
+
   it('keeps the rules and the approved wording in the SSOT', () => {
     const ssot = readFileSync(join(ROOT, 'docs/SSOT.md'), 'utf8').replace(/\s+/g, ' ')
     expect(ssot).toContain('**A ULEZ saving figure**, in any form')

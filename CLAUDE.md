@@ -39,7 +39,8 @@ Key files: `lib/api/client.ts` holds the `anchorAPI` client (`lib/api.ts` is onl
 
 ## Critical business rules (full detail in docs/SSOT.md)
 
-- Brand: "The Anchor", never "The Anchor Pub". Contact manager@the-anchor.pub, 01753 682707. Stanwell Moor, near Heathrow Airport.
+- Brand: "The Anchor" in copy; "The Anchor Pub" only in page titles, alt text and schema names (SSOT §1). Contact manager@the-anchor.pub, 01753 682707. Stanwell Moor, near Heathrow Airport.
+- Voice: SSOT §1 is the only definition. It's about them, not us: write from the customer's side, "you" not "guests", short sentences, contractions, one exclamation mark at most, never "cheeky". Read §1 before writing any copy, not just the facts.
 - Monday kitchen: always closed unless a special-hours record explicitly opens it.
 - Sunday lunch: walk-ins welcome 1pm to 6pm. No pre-order, no Saturday cutoff, no per-roast prepayment (since the 17 May 2026 walk-in launch). Blocked only if the kitchen is closed that date.
 - Sunday roast menu: Beef Topside, Pork Leg, Turkey with Stuffing Ball, Beef and Ale Pie, Chicken and Wild Mushroom Pie, Vegan Wellington (vegan, never "vegetarian"), Kids Roast. Prices are always live from the management DB; never hardcode them. Menu prices are shown bare, with no currency symbol, by design.

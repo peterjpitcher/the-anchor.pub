@@ -190,10 +190,12 @@
       "web_serif": "Merriweather (--font-merriweather, weights: 300/400/700/900)"
     },
     "voice": {
+      "_source": "A short mirror of docs/SSOT.md section 1 (version 2.0, confirmed by the owner 11 September 2026). Section 1 is the voice; if this block and section 1 ever disagree, section 1 wins.",
+      "in_one_line": "We sound like a friendly local telling you about their favourite pub. Warm, a bit excited, easy to read, and never showing off.",
       "tone": [
         "Warm",
-        "Excited",
-        "Cheeky",
+        "A bit excited",
+        "Plain",
         "Inclusive"
       ],
       "emotional_core": [
@@ -202,16 +204,19 @@
         "Simple joy: proper roasts, the beer garden, planes overhead"
       ],
       "principles": [
-        "Lead with feeling, then facts",
-        "Enthusiasm is on-brand; never flat or corporate",
-        "Cheeky, never snide; jokes never at guests' expense",
+        "It's about them, not us: write from the customer's side, what they'll enjoy and why they'll want to come",
+        "Lead with what the reader needs: for an invitation, why it's worth coming, then the details",
+        "Plain simple English: short sentences, one idea each, contractions, 'you' rather than 'guests'",
+        "Energy comes from verbs and specifics, not punctuation or adjectives",
+        "Never open with a command: no 'Indulge in', 'Savour', 'Delight in', 'Enjoy', 'Discover' or 'Experience'",
         "Concrete beats generic; no 'great atmosphere' or 'hidden gem' filler",
         "Inclusive by default; no in-jokes or assumed knowledge",
         "Excitement never invents facts; banned claims still apply"
       ],
-      "perspective": "Use 'we' language",
+      "not_cheeky": "Cheeky is not part of the voice (dropped in version 2.0, owner decision 11 September 2026).",
+      "perspective": "'We' means the team and the regulars, not the business. Address the reader as 'you'.",
       "language": "British English",
-      "punctuation": "Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed. At most one exclamation mark per section, never stacked.",
+      "punctuation": "Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or brackets. One exclamation mark per page at most, usually none.",
       "notes": "Responds to local demographic change including growing Indian community. Full voice guide in docs/SSOT.md section 1."
     }
   },

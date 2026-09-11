@@ -84,6 +84,8 @@ The facts most copy needs. Each is detailed, with its source, further down.
 
 If the copy could belong to any pub chain, it is wrong. Rewrite it.
 
+**It's about them, not us.** Write from the customer's side: what they'll enjoy, why they'll want to come, and what to do next. Talk about the pub only as far as it matters to them. The job of every line is to make them want to come. (Owner-confirmed, 11 September 2026.)
+
 ### What we stand for
 
 Copy should make people **feel invited, not just informed**.
@@ -199,14 +201,15 @@ Never hedge a confirmed number. It's "20 free spaces", not "around 20".
 ### The 60-second check before publishing
 
 1. Does the first sentence give the reader what they came for?
-2. Is any sentence over 25 words?
-3. Have I used contractions?
-4. Could this copy belong to any pub chain? If yes, rewrite.
-5. Is every fact in this SSOT?
-6. Any banned word from Rules 1 and 2?
-7. Is every "no" followed by a next step?
-8. Exclamation marks: one, or none?
-9. Does every button say what happens next, and match the real booking?
+2. Is it about them, not us?
+3. Is any sentence over 25 words?
+4. Have I used contractions?
+5. Could this copy belong to any pub chain? If yes, rewrite.
+6. Is every fact in this SSOT?
+7. Any banned word from Rules 1 and 2?
+8. Is every "no" followed by a next step?
+9. Exclamation marks: one, or none?
+10. Does every button say what happens next, and match the real booking?
 
 ### Scope
 
@@ -1047,6 +1050,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **11 September 2026.** The voice (§1) is confirmed by the owner, with one rule added in their words: it's about them, not us. Copy is written from the customer's side, and the 60-second check now asks it. "Cheeky" stays out of the voice: version 2.0 had dropped it, and the owner decided on 11 September 2026 to leave it out. Everything else that described the voice was brought into line the same day: `SSOT.json`'s voice block, the site's agent rules and blog guide; in the management app, the two AI prompts that write event pages and Facebook and Google posts, the older booking and parking texts, the event copy checker (now one exclamation mark, and a banned claim goes back for repair) and the runbook; The Anchor's profile in CheersAI; and the tone sections of the Brand Guidelines, the identity-and-tone reference and the 2024 knowledge file, with older guides marked superseded.
 - **11 September 2026.** The pie roasts are off the Sunday menu (owner-confirmed; §4, §14). They had gone back on the day before. Three pages and four posts that listed pies among the Sunday roasts, and `/llms.txt`, no longer do. The weekday pies stay. The pricing note at the top no longer lists a ULEZ saving among the figures that may be quoted; the figure was retired on 10 September.
 - **11 September 2026, the owner's answers to the open questions.** The quiz winners get a £25 bar voucher, not a bar tab, and second from last still gets the wine; the closest-answer drink in every round and the spot prizes are mirrored from the quiz records (§10). Every event finishes by 10pm, except special nights such as the Halloween party and New Year's Eve, which stays open until 1am (reconfirmed); the `/music-bingo` schema had said 11pm (§10). Quiz seating is team tables, one table per team, where the quiz page had said a long table might be shared with another team (§10). Peter Pitcher hosts karaoke, so the "no fixed host" line is retired (§10). Curry Club has stopped: it is recorded as discontinued (§10, §14), and `/blog/curry-club-the-anchor`, which still said the nights sell out, now redirects to `/food-menu` (owner-approved). The old Festive Menu catering packages are switched off in the management app, and `/christmas-parties` refers only to the 1, 2 and 3 course Christmas menu (§7, §14); `SSOT.json` now flags its three Christmas Dinner entries as not being catering-package rows. All owner-confirmed, except what is marked as mirrored.
 
