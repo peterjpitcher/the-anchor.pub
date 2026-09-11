@@ -39,9 +39,8 @@ Our **pub quiz near Heathrow Airport** has become the highlight of the week for 
 **Quiz Night Details:**
 - **Monthly quiz nights** starting at 7:00 PM
 - **Hosted by the owner**, Peter Pitcher
-- **Four rounds** of ten questions, plus an interactive quick-fire round
+- **Five rounds**: four of ten questions, plus an interactive quick-fire round in the middle, played on your phone
 - **A £25 bar voucher** for the winning team, and a bottle of house wine for second from last
-- **Spot prizes** through the night
 - **Maximum 6 people** per team
 
 Join us for an evening of brain-teasing fun, friendly competition, and great prizes!
@@ -51,7 +50,7 @@ Join us for an evening of brain-teasing fun, friendly competition, and great pri
 ### More Than Just Questions and Answers
 
 **Run properly:**
-- Phones away during the rounds, so it stays fair
+- Phones away, except in the interactive round, so it stays fair
 - Balanced questions for all knowledge levels
 - Picture rounds and music rounds
 - Current events and classic trivia
@@ -69,19 +68,17 @@ Join us for an evening of brain-teasing fun, friendly competition, and great pri
 ### Everything You Need to Know
 
 **Format:**
-- **Round 1**: General Knowledge
-- **Round 2**: Picture Round
-- **Round 3**: Sports & Entertainment
-- **Round 4**: Music Round
-- **Round 5**: Current Affairs
-- **Round 6**: Specialist Subject
+- Five rounds in all
+- Four rounds of ten questions
+- One interactive quick-fire round in the middle, played on your phone
+- A comfort break
 
 **Scoring:**
 - Points awarded per correct answer
 - Bonus points for perfect rounds
 - Half-time scores announced
 - Final standings at the end
-- Prizes for 1st, 2nd, and 3rd place
+- Prizes for the winners and for second from last
 
 ## Prizes and Rewards
 
@@ -92,14 +89,6 @@ Our **monthly pub quiz** offers fantastic prizes:
 **Prizes:**
 - **Winning team**: a £25 bar voucher
 - **Second from last**: a bottle of house wine
-- **Spot prizes** through the night
-
-**Special Events:**
-- Monthly rollover jackpot
-- Seasonal prize upgrades
-- Champion of Champions quarterly
-- Special themed quiz prizes
-- Team of the Year competition
 
 ## Perfect for Groups
 
@@ -117,8 +106,6 @@ Our quiz night attracts diverse groups:
 
 **Team Benefits:**
 - Reserved tables for regular teams
-- Team name hall of fame
-- League table tracking
 - Food and drink available throughout
 - Birthday team celebrations
 
@@ -128,18 +115,14 @@ Our quiz night attracts diverse groups:
 
 Keep your team fed and focused:
 
-**Quiz Night Specials:**
+**On the Night:**
 - **Pre-quiz dinner** from 6:30 PM
-- **Quiz platters** perfect for sharing
-- **Brain food** snacks menu
 - **Full bar service** throughout
 - **Table service** during quiz
-- **Special quiz combo deals**
 
 **Popular Choices:**
 - Cheesy chips
 - Mixed platters
-- Burger and quiz deal
 - Pizza perfect for teams
 - Vegetarian options available
 
@@ -197,7 +180,6 @@ Keep your team fed and focused:
 
 **Charity Quiz Nights:**
 - Quarterly charity specials
-- Bigger prizes
 - Auction rounds
 - All proceeds to local causes
 

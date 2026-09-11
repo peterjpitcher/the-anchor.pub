@@ -51,7 +51,7 @@ Some popular events include:
 
 *   **Special Event Nights Near Heathrow**: Enjoy hosted nights like Music Bingo with Nikki Manfadge, plus quiz nights and one-off events. Perfect for **Heathrow staff** unwinding after shifts or **Staines locals** seeking weekend entertainment just **7 minutes from Terminal 5**. See /whats-on for the latest.
     
-*   **Monthly Quiz Nights**: Test your knowledge at our **pub near the airport**. Popular with **airport workers** and **Stanwell Moor residents**, prizes include drinks vouchers and free meals.
+*   **Monthly Quiz Nights**: Test your knowledge at our **pub near the airport**. Popular with **airport workers** and **Stanwell Moor residents**. The winners get a £25 bar voucher, and second from last gets a bottle of house wine.
     
 *   **Family Fun Days**: Weekend events designed for families from **Staines** and surrounding areas. Face painting, games, and activities provide a safe, fun environment away from busy Heathrow.
     
