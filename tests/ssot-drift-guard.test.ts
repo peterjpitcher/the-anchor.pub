@@ -505,6 +505,10 @@ describe('SSOT drift guard — banned strings absent from customer-facing JSON',
     ['Stanwell Moor Brew as a current product', /stanwell moor brew/],
     ['a heated beer garden', /heated areas|heated (?:beer )?garden/],
     ['a covered beer garden', /covered (?:seating|section|garden|patio)|sheltered areas/],
+    [
+      'a quiz extra the owner ruled out on 11 September 2026',
+      /spot prizes?|closest[- ]answer|free[- ]drink questions?|league tables?|roll-?over jackpots?|quiz (?:food )?deals?|best team name/,
+    ],
   ]
 
   it.each(banned)('does not contain %s', (_label, re) => {
@@ -522,6 +526,35 @@ describe("SSOT drift guard, the owner's answers of 11 September 2026", () => {
     expect(events.quiz_night.prizes.second_from_last).toBe('Bottle of house wine')
     expect(mdPlain).toContain('the winning team gets a £25 bar voucher, not a bar tab')
     expect(mdPlain).not.toMatch(/£25 bar tab/i)
+  })
+
+  it('gives quiz prizes to first place and second from last only', () => {
+    // The owner, later the same day: "prizes for first and second from last only,
+    // no league tables or quiz food deals". That retired the closest-answer drink in
+    // every round and the spot prizes mirrored from the quiz records that morning.
+    const prizeKeys = Object.keys(events.quiz_night.prizes).filter((key) => !key.startsWith('_'))
+    expect(prizeKeys.sort()).toEqual(['first', 'scope', 'second_from_last'])
+    expect(events.quiz_night.prizes.scope).toBe('First place and second from last only')
+    expect(mdPlain).toContain('Prizes for first place and second from last only: the winning team gets a £25 bar voucher')
+    expect(mdPlain).toContain(
+      'There are no league tables, quiz food deals, rollover jackpot, spot prizes or free-drink questions, and no prize for the best team name.',
+    )
+    expect(mdPlain).not.toContain('Every round has a closest-answer question for a free drink')
+  })
+
+  it('runs five quiz rounds, with phones out only for the interactive round in the middle', () => {
+    expect(events.quiz_night.rounds).toMatch(/^Five rounds: .*an interactive quick-fire round in the middle, played on your phone/)
+    expect(events.quiz_night.rules).toMatch(/^Phones away during the quiz, except in the interactive round in the middle/)
+    expect(mdPlain).toContain(
+      'Format: five rounds. Four rounds of 10 questions, plus an interactive quick-fire round in the middle, played on your phone',
+    )
+    expect(mdPlain).toContain('Phones away during the quiz, except in the interactive round in the middle, which is played on your phone.')
+    expect(mdPlain).not.toContain('Phones away during the question rounds')
+  })
+
+  it('gives Music Bingo winners a £25 voucher to spend with us', () => {
+    expect(events.music_bingo.prizes).toBe('Winners get a £25 voucher to spend with us, the same as the quiz.')
+    expect(mdPlain).toContain('Prize: winners get a £25 voucher to spend with us, the same as the quiz. (Owner-confirmed 11 September 2026.)')
   })
 
   it('seats each quiz team at its own table', () => {
@@ -604,12 +637,17 @@ describe('SSOT drift guard — high-risk site copy', () => {
   // won't be lingering in a t-shirt" still fails. A question passes too: "Do
   // you do gluten free bases?" asks rather than claims. `files` skips whole
   // files (an entry ending in "/" skips a directory); `sentence` lets through a
-  // sentence about something the claim is true of.
+  // sentence about something the claim is true of; `within` checks only the
+  // files whose path matches it, for a claim that is wrong about one night alone.
   const DENIAL = /\b(?:no|not|never|without|false|cannot)\b|n't\b/i
 
-  function claimSentences(claim: RegExp, exempt: { files?: string[]; sentence?: RegExp } = {}): string[] {
+  function claimSentences(
+    claim: RegExp,
+    exempt: { files?: string[]; sentence?: RegExp; within?: RegExp } = {},
+  ): string[] {
     const skipFile = (file: string) =>
-      (exempt.files ?? []).some((entry) => (entry.endsWith('/') ? file.startsWith(entry) : file === entry))
+      (exempt.files ?? []).some((entry) => (entry.endsWith('/') ? file.startsWith(entry) : file === entry)) ||
+      (exempt.within !== undefined && !exempt.within.test(file))
     return siteFiles
       .map((file) => path.relative(process.cwd(), file))
       .filter((file) => !skipFile(file))
@@ -789,8 +827,51 @@ describe('SSOT drift guard — high-risk site copy', () => {
     // Owner-confirmed 11 September 2026. Until then the quiz prize was a "£25 bar
     // tab" in page copy, JSON-LD, llms.txt and two posts, and the quiz FAQ said a
     // long table may be shared with another team. The private-hire Bar Tab
-    // package is a different thing, and nothing here matches it.
-    expect(matchingFiles(/(?:£|&pound;)\s?25 bar tab|quiz night\W+win bar tabs|shared with another team/i)).toEqual([])
+    // package is a different thing, and nothing here matches it. /quiz-night's
+    // closing band still asked "Ready to play for the tab?" later that day.
+    expect(
+      matchingFiles(/(?:£|&pound;)\s?25 bar tab|quiz night\W+win bar tabs|play for the (?:bar )?tab\b|shared with another team/i),
+    ).toEqual([])
+  })
+
+  it('keeps the quiz to five rounds and two prizes, and Music Bingo to its voucher (section 10)', () => {
+    // Owner-confirmed 11 September 2026: five rounds, with an interactive round
+    // in the middle played on your phone, and phones away the rest of the time;
+    // prizes for first place and second from last only, so no league tables,
+    // quiz food deals, rollover jackpot, spot prizes, free-drink questions or
+    // best team name prize; and Music Bingo winners get a £25 voucher to spend
+    // with us. Until then /quiz-night offered a best team name prize, a 2019 post
+    // promised six rounds, prizes for 1st, 2nd and 3rd, a rollover jackpot and
+    // league tables, three pages said phones away "during the rounds", and the
+    // Music Bingo post offered bar tabs, wine and meal vouchers. Cash bingo's
+    // spot prizes belong to a different night, so its page is exempt.
+    expect(
+      claimSentences(
+        /spot prizes?|league tables?|team of the year|champion of champions|hall of fame|roll-?over jackpots?|closest[- ](?:answer|wins)|free[- ]drinks? questions?|quiz (?:combo |food )?deals?|quiz (?:night )?specials|quiz platters?|burger and quiz|best team name|prizes? for (?:the )?(?:1st|first)\b[^.\n]{0,30}\b(?:2nd|3rd|second|third)\b(?! from last)/i,
+        { files: ['app/cash-bingo/page.tsx'] },
+      ),
+    ).toEqual([])
+
+    // "Four rounds of ten questions" stays true: with the interactive round, that
+    // is the five. Party-planning posts that suggest a number of rounds for your
+    // own quiz are not about ours, so only the quiz's own files are read.
+    expect(
+      claimSentences(/\b(?:three|four|six|seven|eight|[34678]) rounds\b(?! of (?:ten|10) questions)|\bround (?:six|6)\b/i, {
+        within: /quiz/,
+      }),
+    ).toEqual([])
+    expect(
+      claimSentences(/phone-free|phones? (?:away|stay in (?:your )?pockets)[^.\n]{0,20}\b(?:during|in) the rounds\b/i, {
+        within: /quiz/,
+      }),
+    ).toEqual([])
+
+    expect(
+      claimSentences(
+        /bar tabs?|bottles? of wine|meal vouchers?|merchandise|mystery prizes|roll-?over|bonus prizes|team prizes|desserts for winners|headline prize|extra prizes|prize selection|prizes (?:land )?every round/i,
+        { within: /music-bingo/ },
+      ),
+    ).toEqual([])
   })
 
   it('finishes every event schedule and every event sentence by 10pm (section 10)', () => {

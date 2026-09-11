@@ -12,8 +12,8 @@ import type { GameNightConfig } from './types'
  * seating is team tables. Each team has its own table, so nothing here may say a
  * team shares its table with another team or that quiz seating is communal. Also
  * owner-confirmed that day: five rounds, with the phone-based interactive round in
- * the middle, and prizes for first and second from last only, so no league tables,
- * quiz food deals, spot prizes, free-drink questions or best team name prize.
+ * the middle, and prizes for first and second from last only. SSOT §10 lists what
+ * that rules out.
  *
  * Finish time corrected from ~9:45pm to 9:30pm on 17 August 2026, owner-confirmed
  * and matching `end_time` 21:30 on every scheduled quiz in the management DB. The
