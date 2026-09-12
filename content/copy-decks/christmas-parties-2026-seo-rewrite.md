@@ -279,7 +279,7 @@
 
 **Card 5, Character:**
 > **A Proper Village Pub Christmas**
-> No soulless hotel function rooms. No identikit chains. A genuine village local with real fires, warm hospitality and food that actually tastes of Christmas. This is what a Christmas do should feel like.
+> No soulless hotel function rooms. No identikit chains. A genuine village local with warm hospitality and food that actually tastes of Christmas. This is what a Christmas do should feel like.
 
 **Card 6, Organisers:**
 > **Easy for Organisers**

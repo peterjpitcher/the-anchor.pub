@@ -976,6 +976,23 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
+  it('does not claim a fire, a fireplace or a log burner (owner-confirmed 2026-09-12)', () => {
+    // There is no fire anywhere in the pub. Two marketing round-ups and seven places on
+    // the site said there was, so this guards the words rather than the amenity list.
+    // Only the claim wording matches: a fire as a thing the pub has. "Quick-fire round",
+    // "Bonfire Night", fire safety and code that talks about an event "firing" never do.
+    expect(
+      claimSentences(
+        /\b(?:real|log|open|roaring|crackling|our|the)\s+fires?\b(?!\s+(?:safety|exit|door|alarm|risk|extinguisher|brigade))|\bfires?\s+lit\b|\bfireplace|\b(?:log|wood)\s+burner/i,
+      ).filter(
+        (sentence) =>
+          // A 2019 post describes someone miming a fireplace in a game of charades. That is a
+          // story about a night, not a claim that the pub has one.
+          !/quick-?fire|bonfire|charades/i.test(sentence),
+      ),
+    ).toEqual([])
+  })
+
   it('does not show the old food photo with a lamb shank on it (section 4)', () => {
     // Lamb is not served on any menu, but this photo has a lamb shank on it. On
     // 10 September 2026 it was still the hero on four pages and DEFAULT_FOOD_IMAGE,

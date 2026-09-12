@@ -151,7 +151,7 @@ What makes The Anchor truly cosy:
 **Atmosphere & Decor:**
 - Comfortable, well-worn furniture
 - Local photographs and memorabilia
-- Warm lighting and real fires (seasonal)
+- Warm lighting and a warm room when it's cold out
 - Quiet corners for intimate chats
 - Lively bar for making new friends
 
