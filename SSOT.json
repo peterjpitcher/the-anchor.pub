@@ -869,8 +869,8 @@
         "scope": "First place and second from last only",
         "_confirmed": "Owner-confirmed 2026-09-11: prizes for first and second from last only, and the first prize is a £25 bar voucher, not a bar tab. No league tables, quiz food deals, rollover jackpot, spot prizes, free-drink questions or best team name prize. This retires the closest-answer drink in every round and the spot prizes mirrored from the management app's quiz records earlier the same day; the upcoming quiz records there were corrected the same evening (checked 2026-09-11)."
       },
-      "rules": "Phones away during the quiz, except in the interactive round in the middle, which is played on your phone. Using a phone at any other time costs 5 points.",
-      "_rules_confirmed": "Owner-confirmed 2026-09-11: the interactive round is phone-based and comes in the middle. The 5-point penalty is mirrored from the management app 2026-09-11; three records say one phone per player in the interactive round, and the 2026-09-25 charity quiz says one phone per team.",
+      "rules": "Phones away during the quiz, except in the interactive round in the middle, which is played on your phone. That interactive round is one phone per player. Using a phone at any other time costs 5 points.",
+      "_rules_confirmed": "Owner-confirmed 2026-09-11: the interactive round is phone-based and comes in the middle. Owner-confirmed 2026-09-12: that round is one phone per player. The 5-point penalty is mirrored from the management app 2026-09-11, where three records also say one phone per player; the 2026-09-25 charity quiz record says one phone per team, which is that night's exception.",
       "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11. Question One Quiz Masters is retired."
     },
     "cash_bingo": {
@@ -885,7 +885,8 @@
       "games": 10,
       "capacity": 60,
       "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11.",
-      "prizes": "Drinks, chocolate, vouchers and cash boosts may vary by event. Snowball increases by £20 and 2 calls at the next cash bingo night when unclaimed. Current jackpot values belong in event records only.",
+      "prizes": "Not every game is played for cash: some are played for a free drink and some for a £10 food voucher. Drinks, chocolate, vouchers and cash boosts may vary by event. Snowball increases by £20 and 2 calls at the next cash bingo night when unclaimed. Current jackpot values belong in event records only.",
+      "_prizes_confirmed": "Owner-confirmed 2026-09-12: some games are played for a free drink and some for a £10 food voucher. Which games those are varies by event, so name the prize type without promising a game number. The £10 book, the jackpot_rule and the snowball_rule are unchanged.",
       "jackpot_rule": "Half of all book sales (£5 of every £10 book) go into the final game's cash jackpot, so the prize grows with the room. Owner-confirmed 2026-09-11.",
       "snowball_rule": "Grows by £20 and 2 calls at the next cash bingo night when unclaimed. Only players from one of the previous three cash bingo nights can win it. Mirrored from the management app 2026-09-11."
     },
@@ -899,6 +900,8 @@
       "format": "Two games with interactive music games and quizzes too; song clips replace bingo numbers.",
       "prizes": "Winners get a £25 voucher to spend with us, the same as the quiz.",
       "_prizes_confirmed": "Owner-confirmed 2026-09-11. Never describe Music Bingo prizes as anything else, such as bar tabs, meal vouchers, wine, merchandise, a rollover jackpot or a bigger headline prize.",
+      "fancy_dress": "Fancy dress earns extra points. Offer it as a way to score more, never as a condition of entry.",
+      "_fancy_dress_confirmed": "Owner-confirmed 2026-09-12.",
       "capacity": 60,
       "host": "Nikki Manfadge",
       "private_nights": "Available on request"

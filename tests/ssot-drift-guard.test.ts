@@ -594,6 +594,36 @@ describe("SSOT drift guard, the owner's answers of 11 September 2026", () => {
   })
 })
 
+describe("SSOT drift guard, the owner's answers of 12 September 2026", () => {
+  const events = ssot.events
+
+  it('gives Music Bingo fancy dress extra points, and never makes it a condition of entry', () => {
+    expect(events.music_bingo.fancy_dress).toMatch(/^Fancy dress earns extra points\./)
+    expect(events.music_bingo._fancy_dress_confirmed).toContain('Owner-confirmed 2026-09-12')
+    expect(mdPlain).toContain('Fancy dress earns extra points. (Owner-confirmed 12 September 2026.)')
+  })
+
+  it('plays some cash bingo games for a free drink and some for a £10 food voucher', () => {
+    // The £10 book, the half of book sales that builds the jackpot and the
+    // Snowball are unchanged, so they are asserted here too: the new prize
+    // types must not be read as a replacement for any of them.
+    expect(events.cash_bingo.prizes).toMatch(/^Not every game is played for cash/)
+    expect(events.cash_bingo._prizes_confirmed).toContain('Owner-confirmed 2026-09-12')
+    expect(events.cash_bingo.entry_fee_gbp).toBe(10)
+    expect(events.cash_bingo.jackpot_rule).toContain('Half of all book sales (£5 of every £10 book)')
+    expect(events.cash_bingo.snowball_rule).toMatch(/^Grows by £20 and 2 calls/)
+    expect(mdPlain).toContain('Some games are played for a free drink, and some for a £10 food voucher. (Owner-confirmed 12 September 2026.)')
+  })
+
+  it('plays the quiz interactive round one phone per player', () => {
+    // Recorded on 11 September only as a mirror of the management app. The
+    // 25 September charity quiz record stays one phone per team.
+    expect(events.quiz_night.rules).toContain('That interactive round is one phone per player.')
+    expect(events.quiz_night._rules_confirmed).toContain('Owner-confirmed 2026-09-12')
+    expect(mdPlain).toContain('That interactive round is one phone per player. (Owner-confirmed 12 September 2026.)')
+  })
+})
+
 describe('SSOT drift guard — high-risk site copy', () => {
   const CUSTOMER_DIRS = ['app', 'components', 'content/blog', 'lib']
   const CUSTOMER_EXTS = new Set(['.ts', '.tsx', '.md', '.json'])
