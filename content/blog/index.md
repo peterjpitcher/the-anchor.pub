@@ -31,19 +31,19 @@ Welcome to The Anchor's blog, where we share the latest news, events, and happen
 
 ## What You'll Find Here
 
-### 🍺 Latest News & Updates
+### Latest News & Updates
 Stay informed about new menu items, seasonal drinks, opening hours, and special announcements from The Anchor.
 
-### 🎉 Upcoming Events
+### Upcoming Events
 From quiz nights to Music Bingo hosted by Nikki Manfadge to charity fundraisers - find out what's happening at your local pub.
 
-### 🍕 Food & Drink Features
+### Food & Drink Features
 Discover our latest culinary offerings, from traditional British pub classics to international cuisines, well-kept draught beers, and premium spirits.
 
-### 💰 Special Offers
+### Special Offers
 Keep up with our regular deals including monthly manager's specials and seasonal offers.
 
-### 🏘️ Community Stories
+### Community Stories
 Read about local happenings, charity events, and the people who make Stanwell Moor special.
 
 ## Why Follow The Anchor Blog?
@@ -73,11 +73,11 @@ Read about local happenings, charity events, and the people who make Stanwell Mo
 
 ## Connect With The Anchor
 
-📍 **Location**: Horton Road, Stanwell Moor, TW19 6AQ
-📞 **Phone**: 01753 682707
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-📧 **Email**: manager@the-anchor.pub
+**Location**: Horton Road, Stanwell Moor, TW19 6AQ
+**Phone**: 01753 682707
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Email**: manager@the-anchor.pub
 
 ### Stay Updated
 

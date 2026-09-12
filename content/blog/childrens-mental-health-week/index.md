@@ -1,7 +1,7 @@
 ---
 title: Children's Mental Health Week Near Heathrow | Free Kids Meals
 slug: childrens-mental-health-week
-description: "Children’s Mental Health Week\_(3rd – 9th February 2025) is an opportunity to raise awareness, encourage open conversations, and promote positive mental well-being for young minds.At The Anchor, we understand how important it is for families to spend quality time together. That’s why, for one week only, we’re offering free meals for children\_when dining with an adult who orders from our mains, burgers, or 12” pizza menus.\U0001F4C5 Offer valid from Tuesday 4th to Sunday 9th February 2025\U0001F37D️ Available for"
+description: "Children’s Mental Health Week\_(3rd – 9th February 2025) is an opportunity to raise awareness, encourage open conversations, and promote positive mental well-being for young minds.At The Anchor, we understand how important it is for families to spend quality time together. That’s why, for one week only, we’re offering free meals for children\_when dining with an adult who orders from our mains, burgers, or 12” pizza menus. Offer valid from Tuesday 4th to Sunday 9th February 2025 Available for"
 date: '2025-01-27'
 oldUrl: >-
   https://www.the-anchor.pub/post/children-s-mental-health-week-supporting-young-min
@@ -38,9 +38,9 @@ At **The Anchor**, we understand how important it is for families to spend quali
 
   
 
-📅 **Offer valid from Tuesday 4th to Sunday 9th February 2025**
+**Offer valid from Tuesday 4th to Sunday 9th February 2025**
 
-🍽️ **Available for dine-in and takeaway**
+**Available for dine-in and takeaway**
 
   
 
@@ -65,7 +65,7 @@ With **one in six children aged 5–16 facing mental health challenges**, this w
 
   
 
-👉 Learn more at [**Place2Be**](https://www.place2be.org.uk/).
+Learn more at [**Place2Be**](https://www.place2be.org.uk/).
 
   
 
@@ -172,15 +172,15 @@ If you need additional guidance, these **organisations provide expert advice, he
 
   
 
-📌 [**YoungMinds**](https://www.youngminds.org.uk/), UK’s leading charity for children’s mental health.
+[**YoungMinds**](https://www.youngminds.org.uk/), UK’s leading charity for children’s mental health.
 
-📌 [**Childline**](https://www.childline.org.uk/), Free, confidential helpline for children (**Call 0800 1111**).
+[**Childline**](https://www.childline.org.uk/), Free, confidential helpline for children (**Call 0800 1111**).
 
-📌 [**NSPCC**](https://www.nspcc.org.uk/), Support for child well-being and safety.
+[**NSPCC**](https://www.nspcc.org.uk/), Support for child well-being and safety.
 
-📌 [**Place2Be**](https://www.place2be.org.uk/), Mental health support for schools.
+[**Place2Be**](https://www.place2be.org.uk/), Mental health support for schools.
 
-📌 [**MindEd for Families**](https://www.minded.org.uk/), Free online resources for parents.
+[**MindEd for Families**](https://www.minded.org.uk/), Free online resources for parents.
 
   
 
@@ -194,25 +194,25 @@ At **The Anchor**, we know that **quality time together is essential for a child
 
   
 
-### **🍕 Free Kids' Meals Offer 🍕**
+### ** Free Kids' Meals Offer **
 
-📅 **Date:** Tuesday 4th – Sunday 9th February 2025
+**Date:** Tuesday 4th – Sunday 9th February 2025
 
-🎉 **Offer:** Free meal for children with any **adult meal purchase** from our mains, burgers, or 12” pizza menus.
+**Offer:** Free meal for children with any **adult meal purchase** from our mains, burgers, or 12” pizza menus.
 
-📍 **Where:** The Anchor, Stanwell Moor
-
-  
-
-✅ **Available for dine-in and takeaway**.
-
-✅ **Children can choose from our Snack Pot options**.
-
-✅ **Terms and conditions apply** (see below).
+**Where:** The Anchor, Stanwell Moor
 
   
 
-📌 **For full terms & conditions, see the bottom of this page.**
+**Available for dine-in and takeaway**.
+
+**Children can choose from our Snack Pot options**.
+
+**Terms and conditions apply** (see below).
+
+  
+
+**For full terms & conditions, see the bottom of this page.**
 
   
 
@@ -226,9 +226,9 @@ At **The Anchor**, we believe that **small moments, like sharing a meal together
 
   
 
-📍 **Book your table now and make the most of this special week!**
+**Book your table now and make the most of this special week!**
 
-👉 [www.the-anchor.pub](https://www.the-anchor.pub/book-table)
+[www.the-anchor.pub](https://www.the-anchor.pub/book-table)
 
   
 

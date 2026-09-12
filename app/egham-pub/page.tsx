@@ -154,7 +154,7 @@ export default function EghamPubPage() {
                     'Our celebrated Sunday roasts worth the journey',
                   ].map((item) => (
                     <li key={item} className="flex items-start">
-                      <span className="text-accent-text font-bold mr-3">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span>{item}</span>
                     </li>
                   ))}

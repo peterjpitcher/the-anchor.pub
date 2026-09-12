@@ -100,11 +100,11 @@ This year’s theme for International Women's Day is “Choose to Challenge”. 
 
 **Join our celebration near Heathrow Airport:**
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-👩 **Date**: March 8th annually (special events)
-✈️ **Near**: 7 minutes from Heathrow Terminal 5
-🅿️ **Parking**: Free, well-lit parking
-📞 **Bookings**: 01753 682707
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Date**: March 8th annually (special events)
+**Near**: 7 minutes from Heathrow Terminal 5
+**Parking**: Free, well-lit parking
+**Bookings**: 01753 682707
 
 **Why Choose The Anchor:**
 - Female-led hospitality excellence

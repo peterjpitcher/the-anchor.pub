@@ -110,7 +110,7 @@ The Polash is a great takeaway that offers a wide range of Bangladeshi and India
 
 Tallula’s is run by Amanda and her team of technicians and beauty therapists. They offer a beautiful range of nail services and sunbeds and have been trading for just 4 months.
 
-The businesses serving us all will only survive with support. If they’re lost, they rarely ever come back, and we could lose valuable service for us all. Please make sure to consider your local small business over the festive season and beyond ❤️
+The businesses serving us all will only survive with support. If they’re lost, they rarely ever come back, and we could lose valuable service for us all. Please make sure to consider your local small business over the festive season and beyond
 
 There are a lot of other small businesses in the Moor; if you run your own business and would like to include a mention on this page, please email manager@the-anchor.pub
 

@@ -108,13 +108,13 @@ While our 5-star hygiene rating ensures safety, we also promise:
 
 ## Visit The Anchor for Safe, Quality Dining Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-⭐ **Hygiene Rating**: 5 Stars (4.5+ years maintained)
-👨‍🍳 **Staff**: All Level 2 food hygiene qualified
-🍽️ **Menu**: Full menu available during kitchen hours
-📞 **Bookings**: 01753 682707
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Hygiene Rating**: 5 Stars (4.5+ years maintained)
+**Staff**: All Level 2 food hygiene qualified
+**Menu**: Full menu available during kitchen hours
+**Bookings**: 01753 682707
 
 ### Why Choose The Anchor for Dining Near Terminal 5
 

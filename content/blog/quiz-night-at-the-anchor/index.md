@@ -214,17 +214,17 @@ Contact us for bespoke quiz packages.
 
 Don't miss out on **quiz night in Stanwell Moor**! Whether you're a quiz veteran or first-timer, The Anchor's Monthly Quiz Night offers:
 
-✓ A quiz hosted by the owner  
-✓ A £25 bar voucher for the winners  
-✓ Friendly atmosphere  
-✓ Delicious food and drinks  
-✓ Free parking  
-✓ Just 10 minutes from Heathrow  
+A quiz hosted by the owner  
+A £25 bar voucher for the winners  
+Friendly atmosphere  
+Delicious food and drinks  
+Free parking  
+Just 10 minutes from Heathrow  
 
 **Register your team today!**
 
-📞 Call: 01753 682707  
-📍 Visit: The Anchor, Horton Road, Stanwell Moor  
+Call: 01753 682707  
+Visit: The Anchor, Horton Road, Stanwell Moor  
 ⏰ Monthly quiz nights - check What's On for dates
 
 *The Anchor - Where knowledge meets fun at our monthly quiz nights!*

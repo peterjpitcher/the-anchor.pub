@@ -48,7 +48,7 @@ Planning your festive season near **Heathrow Airport**? The Anchor in **Stanwell
 - **Atmosphere**: Christmas songs and festive cheer
 - **Ideal for**: Last-minute gatherings before the big day
 
-**Christmas Day** 🎅
+**Christmas Day**
 - **Hours**: 12:00 noon - 3:00 PM (last orders 2:45 PM)
 - **Service**: Drinks only - no food service
 - **Note**: Perfect for a festive drink with neighbours
@@ -90,11 +90,11 @@ Planning your festive season near **Heathrow Airport**? The Anchor in **Stanwell
 
 **Essential Information:**
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: 7 minutes from T5, 10 from T4
-🅿️ **Parking**: Free customer parking
-📞 **Bookings**: 01753 682707
-🐶 **Dog-Friendly**: Yes, throughout
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: 7 minutes from T5, 10 from T4
+**Parking**: Free customer parking
+**Bookings**: 01753 682707
+**Dog-Friendly**: Yes, throughout
 
 **Getting Here:**
 - From Terminal 5: A3044 to Stanwell Moor

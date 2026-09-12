@@ -128,7 +128,7 @@ Kraken Black Cherry introduces a new layer to our rum offerings. It's deep, smoo
 
   
 
-🎟️ **Tickets: £30**
+**Tickets: £30**
 
 Available exclusively at the bar, this price covers all tastings, supper, and activities, no extra fees, just a fantastic night!
 
@@ -180,9 +180,9 @@ Every month at The Anchor brings new manager's specials and exciting rum offers.
 
   
 
-✨ **Check our current monthly specials** - Ask at the bar or call 01753 682707
+**Check our current monthly specials** - Ask at the bar or call 01753 682707
 
-🎟️ **Join our next rum tasting night** - Regular events featuring Caribbean spirits
+**Join our next rum tasting night** - Regular events featuring Caribbean spirits
 
   
 

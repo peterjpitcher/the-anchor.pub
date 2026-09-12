@@ -155,16 +155,16 @@ As you plan your next outing, consider checking out what's happening at The Anch
 
 ### Visit The Anchor for Events Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-📅 **Regular Events**: 
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Regular Events**:
 - Quiz nights
 - Music Bingo hosted by Nikki Manfadge
 - Family days
 - Beer tastings
 See /whats-on for dates and details.
-📞 **Bookings**: 01753 682707
+**Bookings**: 01753 682707
 
 ### Why Choose The Anchor for Entertainment Near Terminal 5
 

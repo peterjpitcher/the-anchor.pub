@@ -165,10 +165,10 @@ While we keep upcoming selections secret, expect:
 
 Don't miss this month's Manager's Special:
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
-🚗 **Parking**: Free for all customers  
-🕒 **Available**: Throughout the month (updated monthly)  
-💷 **Saving**: 25% off RRP  
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
+**Parking**: Free for all customers  
+**Available**: Throughout the month (updated monthly)  
+**Saving**: 25% off RRP  
 
 ### Getting Here
 
@@ -205,10 +205,10 @@ Don't miss this month's Manager's Special:
 
 Never miss a Manager's Special:
 
-📱 **Facebook**: [@theanchorpubsm](https://www.facebook.com/theanchorpubsm)  
-📷 **Instagram**: [@theanchor.pub](https://www.instagram.com/theanchor.pub/)  
-📧 **Newsletter**: Ask at the bar to join  
-🗣️ **Word of mouth**: Our regulars always know!  
+**Facebook**: [@theanchorpubsm](https://www.facebook.com/theanchorpubsm)  
+**Instagram**: [@theanchor.pub](https://www.instagram.com/theanchor.pub/)  
+**Newsletter**: Ask at the bar to join  
+**Word of mouth**: Our regulars always know!  
 
 ## Experience Premium Without the Premium Price
 

@@ -170,13 +170,13 @@ We're more than just a local pub; we're a place where stories are shared, laught
 
 ### St Patrick's Day at The Anchor Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-📅 **Date**: March 17th annually
-🍀 **Dress Code**: Wear green for the craic!
-🎵 **Entertainment**: Live Irish music all day
-📞 **Bookings**: 01753 682707
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Date**: March 17th annually
+**Dress Code**: Wear green for the craic!
+**Entertainment**: Live Irish music all day
+**Bookings**: 01753 682707
 
 ### Why Celebrate St Patrick's Day at The Anchor
 

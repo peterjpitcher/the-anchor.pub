@@ -85,10 +85,10 @@ Looking for a **warm winter retreat near Heathrow Airport**? The Anchor in **Sta
 
 ### Contact Us About Winter Hours
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-📞 **Call**: 01753 682707
-❄️ **Winter Tip**: Call ahead on very cold days - we sometimes extend hours!
-🅿️ **Parking**: Free and right outside
-✈️ **From Heathrow**: Just 7 minutes from Terminal 5
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Call**: 01753 682707
+**Winter Tip**: Call ahead on very cold days - we sometimes extend hours!
+**Parking**: Free and right outside
+**From Heathrow**: Just 7 minutes from Terminal 5
 
 *Escape the winter cold at The Anchor - your cozy local near Heathrow Airport!*

@@ -25,7 +25,7 @@ If you travel regularly through Heathrow on business, you already know the routi
 
 Business travellers at Heathrow face a straightforward dilemma. Your options are broadly:
 
-1. **Hotel restaurants**, convenient but expensive (£25–40 for a main course is typical at 4★+ hotels) and sterile in atmosphere
+1. **Hotel restaurants**, convenient but expensive (£25–40 for a main course is typical at 4+ hotels) and sterile in atmosphere
 2. **Airport terminals**, fine for a quick bite, dreadful for a proper dinner or client meal
 3. **Delivery apps**, limited coverage near airport hotels, and eating alone in a hotel room is no one's highlight
 

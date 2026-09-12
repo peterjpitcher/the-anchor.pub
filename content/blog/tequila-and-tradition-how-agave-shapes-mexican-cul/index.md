@@ -154,8 +154,8 @@ Ready to explore the world of agave? Contact us to arrange:
 - Corporate tequila experiences
 - Special occasion celebrations
 
-📞 Call: 01753 682707  
-📍 Visit: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+Call: 01753 682707  
+Visit: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 
 ## The Anchor: Where Tradition Meets Quality
 

@@ -69,25 +69,25 @@ Never miss a moment of the action at Stanwell Moor's favourite sports pub!
 Our **sports pub near Heathrow** covers every free-to-air fixture we can tune in:
 
 **Football:**
-- ⚽ BBC & ITV live fixtures
-- 🏆 FA Cup (BBC/ITV matches)
-- 🏴󐁧󐁢󐁥󐁮󐁧󐁿 England internationals on free-to-air
-- 🌍 World Cup & Euros (tournament coverage)
-- 📺 Match of the Day highlights
+- BBC & ITV live fixtures
+- FA Cup (BBC/ITV matches)
+- 󐁧󐁢󐁥󐁮󐁧󐁿 England internationals on free-to-air
+- World Cup & Euros (tournament coverage)
+- Match of the Day highlights
 
 **Rugby:**
-- 🏉 Six Nations Championship (BBC/ITV)
-- 🏉 Rugby World Cup free-to-air matches
-- 🏉 Gallagher Premiership games selected for ITV
-- 🏉 Autumn internationals shown on terrestrial channels
+- Six Nations Championship (BBC/ITV)
+- Rugby World Cup free-to-air matches
+- Gallagher Premiership games selected for ITV
+- Autumn internationals shown on terrestrial channels
 
 **Other Sports:**
-- 🏏 Cricket highlights on BBC and major ICC finals on free-to-air
-- 🏁 Formula 1 British Grand Prix & highlights on Channel 4
-- 🥊 Major boxing nights broadcast on terrestrial TV
-- 🎾 Wimbledon & Queen's coverage
-- 🏌️ The Open Championship on free-to-air
-- 🏇 Cheltenham Festival & Grand National coverage
+- Cricket highlights on BBC and major ICC finals on free-to-air
+- Formula 1 British Grand Prix & highlights on Channel 4
+- Major boxing nights broadcast on terrestrial TV
+- Wimbledon & Queen's coverage
+- The Open Championship on free-to-air
+- Cheltenham Festival & Grand National coverage
 
 ## The Perfect Match Day Experience
 
@@ -163,10 +163,10 @@ Keep energized throughout the match:
 Popular matches fill up fast! Here's how to guarantee your seat:
 
 **Booking Options:**
-- 📞 Call: 01753 682707
-- 💬 WhatsApp: [Message us](https://api.whatsapp.com/send?phone=4401753682707)
-- 🌐 Online: [Book your table](https://bit.ly/3VhJzzy)
-- 📧 Email: manager@the-anchor.pub
+- Call: 01753 682707
+- WhatsApp: [Message us](https://api.whatsapp.com/send?phone=4401753682707)
+- Online: [Book your table](https://bit.ly/3VhJzzy)
+- Email: manager@the-anchor.pub
 
 **Group Bookings:**
 - Reserve areas for 10+ people
@@ -302,9 +302,9 @@ Many traveling fans make us their first or last stop!
 Ready for a **sports viewing experience near Heathrow**? Join us at The Anchor where every match matters and every fan is welcome.
 
 **Essential Information:**
-📍 Location: Horton Road, Stanwell Moor, TW19 6AQ  
-📞 Bookings: 01753 682707  
-🚗 Parking: Free on-site  
+Location: Horton Road, Stanwell Moor, TW19 6AQ  
+Bookings: 01753 682707  
+Parking: Free on-site  
 ⏰ Open: Daily (check match times)  
 
 **Book your table now for the next big match!**

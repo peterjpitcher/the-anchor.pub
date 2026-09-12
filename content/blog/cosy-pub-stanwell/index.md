@@ -190,14 +190,14 @@ Make the most of a cosy pub visit by checking the pages that matter before you s
 
 When searching for a **cosy pub near Heathrow**, The Anchor offers:
 
-✓ **Authentic village pub atmosphere**  
-✓ **Warm, friendly welcome**  
-✓ **Quality food and local drinks**  
-✓ **Dog and family friendly**  
-✓ **Regular events and entertainment**  
-✓ **Easy access from Heathrow**  
-✓ **Free parking**  
-✓ **Beautiful countryside location**
+**Authentic village pub atmosphere**  
+**Warm, friendly welcome**  
+**Quality food and local drinks**  
+**Dog and family friendly**  
+**Regular events and entertainment**  
+**Easy access from Heathrow**  
+**Free parking**  
+**Beautiful countryside location**
 
 Whether you're a weary traveler seeking authentic British hospitality, a local looking for your regular haunt, or anyone in between - The Anchor provides the perfect cosy pub experience just minutes from Heathrow Airport.
 

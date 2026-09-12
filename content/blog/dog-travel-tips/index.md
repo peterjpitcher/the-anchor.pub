@@ -126,12 +126,12 @@ When travelling with dogs near **Heathrow Terminal 5**, The Anchor provides the 
 
 ### Visit The Anchor with Your Dog
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: 7 minutes via A3044
-🚗 **Parking**: Free on-site parking
-🐕 **Dog Policy**: Well-behaved dogs welcome
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: 7 minutes via A3044
+**Parking**: Free on-site parking
+**Dog Policy**: Well-behaved dogs welcome
 ⏰ **Perfect For**: Pre-flight meals or post-arrival refreshment
-📞 **Information**: 01753 682707
+**Information**: 01753 682707
 
 ### Local Dog Travel Services Near Heathrow
 

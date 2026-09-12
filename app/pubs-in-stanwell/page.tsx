@@ -231,23 +231,23 @@ export default async function PubsInStanwellPage() {
                     <h3 className="font-display text-h4 text-ink-strong mb-4">The Anchor Advantages</h3>
                     <ul className="space-y-3 text-ink">
                       <li className="flex items-start gap-2">
-                        <span className="text-accent-text mt-1">✓</span>
+                        <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                         <div><strong>Free Parking:</strong> 20 spaces always available</div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-accent-text mt-1">✓</span>
+                        <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                         <div><strong>Kitchen Hours:</strong> Food served lunch & dinner most days</div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-accent-text mt-1">✓</span>
+                        <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                         <div><strong>Outdoor Space:</strong> Large beer garden</div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-accent-text mt-1">✓</span>
+                        <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                         <div><strong>Value:</strong> Proper pub prices, not tourist rates</div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-accent-text mt-1">✓</span>
+                        <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                         <div><strong>Entertainment:</strong> Regular quiz nights and hosted events</div>
                       </li>
                     </ul>

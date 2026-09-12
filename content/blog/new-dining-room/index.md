@@ -142,12 +142,12 @@ We acknowledge that the transformation journey might bring a bit of hustle and b
 
 ## Visit The Anchor's New Dining Room Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-🏗️ **Opening**: Spring 2024
-📞 **Bookings**: 01753 682707
-💼 **Private Hire**: Available for groups
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Opening**: Spring 2024
+**Bookings**: 01753 682707
+**Private Hire**: Available for groups
 
 ### Why Choose The Anchor's New Dining Room
 

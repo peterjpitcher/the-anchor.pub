@@ -143,13 +143,13 @@ At The Anchor in **Stanwell Moor**, we honour Mexican traditions with an extensi
 
 ### Visit The Anchor for Authentic Mexican Culture Near Terminal 5
 
-🏮 **Day of the Dead Events**: October 31 - November 2 annually
-🎭 **Traditional Decorations**: Marigolds, papel picado, and altars
-🎵 **Mexican Music**: Live performances during celebrations
-🌮 **Mexican Food**: Special menu with traditional offerings
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-📞 **Reservations**: 01753 682707
+**Day of the Dead Events**: October 31 - November 2 annually
+**Traditional Decorations**: Marigolds, papel picado, and altars
+**Mexican Music**: Live performances during celebrations
+**Mexican Food**: Special menu with traditional offerings
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Reservations**: 01753 682707
 
 ### Why Choose The Anchor for Day of the Dead Near Heathrow
 

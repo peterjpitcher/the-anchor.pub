@@ -184,8 +184,8 @@ Our **pub events** sell out quickly due to limited capacity:
 3. **Book directly** at the bar or by phone
 4. **Group bookings** - Reserve 4+ spots
 
-📞 **Call**: 01753 682707
-📍 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Call**: 01753 682707
+**Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 
 ### Can't Wait? Create Your Own Tasting
 

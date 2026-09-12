@@ -111,12 +111,12 @@ Looking for authentic **British apple cider near Heathrow Airport**? The Anchor 
 
 ### Essential Information
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-🍎 **Cider**: Inches on draught, always fresh
-🌳 **Garden**: Perfect for cider drinking
-🚗 **Parking**: Free on-site
-✈️ **From Heathrow**: 7 minutes from T5
-💷 **Price**: Ask at the bar for today's price
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Cider**: Inches on draught, always fresh
+**Garden**: Perfect for cider drinking
+**Parking**: Free on-site
+**From Heathrow**: 7 minutes from T5
+**Price**: Ask at the bar for today's price
 
 ### Why Choose The Anchor for Cider
 

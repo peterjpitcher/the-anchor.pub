@@ -117,10 +117,10 @@ Don't miss our next **artisan jewellery showcase** at The Anchor! Whether you're
 
 ### Book Your Visit
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor
-📞 **Information**: 01753 682707
-🚗 **Parking**: Free on-site
-✈️ **From Heathrow**: Just 7 minutes from Terminal 5
+**Location**: The Anchor, Horton Road, Stanwell Moor
+**Information**: 01753 682707
+**Parking**: Free on-site
+**From Heathrow**: Just 7 minutes from Terminal 5
 
 Follow us on social media for event announcements and featured artisan previews.
 

@@ -132,9 +132,9 @@ Flying in for the rugby? Skip the expensive **Heathrow food** and enjoy proper *
 
 Don't miss out on the rugby action! Book your table now for popular fixtures:
 
-📞 **Call**: 01753 682707  
-📍 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
-🚗 **Parking**: Free for all guests
+**Call**: 01753 682707  
+**Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
+**Parking**: Free for all guests
 
 **Popular matches book up fast** - especially England games. Reserve your spot at our **pub near Heathrow Airport** for rugby.
 

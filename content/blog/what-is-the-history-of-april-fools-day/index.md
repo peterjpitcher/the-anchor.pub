@@ -110,13 +110,13 @@ Different countries have their own April Fools' traditions:
 
 ## Visit The Anchor This April Fools' Day
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-🃏 **April 1st**: Share your pranks over a pint
-👨‍👩‍👧‍👦 **Family-Friendly**: All ages welcome
-🐕 **Dog-Friendly**: Bring your four-legged friends
-📞 **Info**: 01753 682707
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**April 1st**: Share your pranks over a pint
+**Family-Friendly**: All ages welcome
+**Dog-Friendly**: Bring your four-legged friends
+**Info**: 01753 682707
 
 ### Why Celebrate at The Anchor
 

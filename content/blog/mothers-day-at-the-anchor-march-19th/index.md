@@ -48,9 +48,9 @@ Looking for the perfect **Mother's Day lunch near Heathrow Airport**? The Anchor
 ### How to Book Your Mother's Day Table Near Heathrow
 
 **Booking Options:**
-- 📞 **Call**: 01753 682707
-- 💬 **Facebook**: [Message us](http://m.me/theanchorpubsm)
-- 📱 **WhatsApp**: [01753 682707](https://api.whatsapp.com/send?phone=4401753682707)
+- **Call**: 01753 682707
+- **Facebook**: [Message us](http://m.me/theanchorpubsm)
+- **WhatsApp**: [01753 682707](https://api.whatsapp.com/send?phone=4401753682707)
 - Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
 
 **Important**: Walk-ins are welcome, but Mother's Day fills quickly. Book ahead for peak slots.
@@ -134,13 +134,13 @@ The idea of Mother's Day as a holiday honouring mothers spread to other countrie
 
 ### Visit Information
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-🚗 **Parking**: Free on-site parking available
-✈️ **From Heathrow**: Just 7 minutes from Terminal 5
-🚌 **Public Transport**: Bus routes 441 & 442
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Parking**: Free on-site parking available
+**From Heathrow**: Just 7 minutes from Terminal 5
+**Public Transport**: Bus routes 441 & 442
 
 **Contact us today to reserve your table:**
-- 📞 01753 682707
-- 📧 manager@the-anchor.pub
+- 01753 682707
+- manager@the-anchor.pub
 
 *Make this Mother's Day special at your local pub near Heathrow Airport!*

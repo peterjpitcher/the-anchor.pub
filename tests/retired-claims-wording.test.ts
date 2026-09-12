@@ -127,6 +127,33 @@ describe('retired claims stay retired', () => {
     expect(JSON.stringify(voice.principles)).not.toMatch(/Lead with feeling|Cheeky, never snide/)
   })
 
+  it('keeps emojis out of every page, post and shared component', () => {
+    // 566 of them were swept out of 62 files on 12 September 2026, most of them line markers
+    // in the blog archive ("📍 **Location**"). This is what stops them coming back.
+    // The one exception is deliberate and named below: a share message is a social message.
+    const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{20E3}\u{E0020}-\u{E007F}]/u
+    const ALLOWED = new Set(['lib/event-social-copy.ts'])
+
+    const offenders: string[] = []
+    for (const file of customerFacingFiles()) {
+      // A test's own fixture is not copy: two of them use an emoji as a stand-in icon.
+      if (ALLOWED.has(file) || /__tests__\/|\.(?:test|spec)\.tsx?$/.test(file)) continue
+      for (const line of copyLines(file)) {
+        const found = line.match(new RegExp(EMOJI.source, 'gu'))
+        if (found) offenders.push(`${file}: ${found.join('')} in "${line.trim().slice(0, 70)}"`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
+  it('allows one emoji in a share message, which is the one place section 1 permits it', () => {
+    const share = readFileSync(join(ROOT, 'lib/event-social-copy.ts'), 'utf8')
+    for (const title of share.match(/title: '[^']*'/g) ?? []) {
+      const count = (title.match(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}]/gu) ?? []).length
+      expect(count).toBeLessThanOrEqual(2)
+    }
+  })
+
   it('keeps the emoji rule the owner decided on 12 September 2026', () => {
     const ssot = readFileSync(join(ROOT, 'docs/SSOT.md'), 'utf8').replace(/\s+/g, ' ')
     expect(ssot).toContain('**None on the website, in emails or in texts. One or two at most in a social post.**')

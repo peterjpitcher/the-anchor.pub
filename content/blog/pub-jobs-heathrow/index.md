@@ -218,12 +218,12 @@ We are keen to fill the roles quickly so please pick whichever works best for yo
 
 ### Work at The Anchor Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking for staff
-🚌 **Public Transport**: Well-connected to Staines and airport
-💼 **Positions**: Bar Staff (18+) and Sunday Runner (16-18)
-📞 **Apply**: WhatsApp 01753 682707 or email manager@the-anchor.pub
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking for staff
+**Public Transport**: Well-connected to Staines and airport
+**Positions**: Bar Staff (18+) and Sunday Runner (16-18)
+**Apply**: WhatsApp 01753 682707 or email manager@the-anchor.pub
 
 ### Why Work at The Anchor
 

@@ -122,11 +122,11 @@ So, dear villagers and friends from the **Heathrow area**, as the clock ticks cl
 ## Visit The Anchor - Your Photography Hub Near Terminal 5
 
 **Location & Details:**
-📍 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
-🚗 Just 7 minutes from Heathrow Terminal 5  
-🚌 Bus routes 441 & 442  
-🅿️ Free parking for photographers  
-📸 Indoor and outdoor photo opportunities  
+The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
+Just 7 minutes from Heathrow Terminal 5  
+Bus routes 441 & 442  
+Free parking for photographers  
+Indoor and outdoor photo opportunities  
 
 Arm yourself with a camera or phone, let your creativity run wild, and let's make this World Photography Day a memorable chapter in the story of **Stanwell Moor near Heathrow**.
 

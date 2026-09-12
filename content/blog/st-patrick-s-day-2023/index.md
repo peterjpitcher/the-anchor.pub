@@ -154,10 +154,10 @@ Join us for a proper **Irish pub experience near Heathrow Airport**:
 
 **Make The Anchor your St Patrick's Day destination:**
 
-📍 **Location**: Horton Road, Stanwell Moor, TW19 6AQ  
-🚗 **Parking**: Free on-site parking  
-✈️ **From Heathrow**: Just 7 minutes from Terminal 5  
-📞 **Bookings**: 01753 682707  
+**Location**: Horton Road, Stanwell Moor, TW19 6AQ  
+**Parking**: Free on-site parking  
+**From Heathrow**: Just 7 minutes from Terminal 5  
+**Bookings**: 01753 682707  
 
 **Why celebrate with us:**
 - Authentic Irish atmosphere without airport prices

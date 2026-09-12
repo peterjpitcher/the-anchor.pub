@@ -38,10 +38,10 @@ Experience authentic **Day of the Dead celebrations near Heathrow** at The Ancho
 Our **Día de los Muertos events** bring authentic Mexican traditions to Stanwell Moor:
 
 **October Celebration Schedule:**
-- 🎃 Oct 9: Halloween Quiz Night kickoff
-- 🥃 Oct 18: Premium Tequila Tasting
-- 🎮 Oct 30: Gameshow House Party
-- 💀 Nov 2: Grand Fancy Dress Party
+- Oct 9: Halloween Quiz Night kickoff
+- Oct 18: Premium Tequila Tasting
+- Oct 30: Gameshow House Party
+- Nov 2: Grand Fancy Dress Party
 
 Join us for a month-long celebration of life, remembrance, and Mexican culture!
 
@@ -70,11 +70,11 @@ At The Anchor, we're bringing these traditions to life with respect and authenti
 Kick off the festivities with our **Halloween-themed quiz**:
 
 **Event Details:**
-- 📅 Wednesday, October 9th, 2024
+- Wednesday, October 9th, 2024
 - ⏰ 7:00 PM - 10:00 PM
-- 💷 £3 per person entry
-- 🏆 Prizes for winning teams
-- 🎭 Costumes encouraged!
+- £3 per person entry
+- Prizes for winning teams
+- Costumes encouraged!
 
 **Quiz Features:**
 - Horror movie rounds
@@ -94,12 +94,12 @@ Book your table: [https://bit.ly/3VhJzzy](https://bit.ly/3VhJzzy)
 Our exclusive **tequila tasting near Heathrow** offers:
 
 **What's Included:**
-- 🥃 Six premium tequilas to taste
-- 🍹 Two cocktail-making sessions
-- 🌮 Mexican-inspired dinner
-- 🎯 Fun tequila quiz
-- 📚 Learn about agave spirits
-- 🎁 Take-home recipe cards
+- Six premium tequilas to taste
+- Two cocktail-making sessions
+- Mexican-inspired dinner
+- Fun tequila quiz
+- Learn about agave spirits
+- Take-home recipe cards
 
 **Tequila Selection:**
 - Traditional Blanco
@@ -134,11 +134,11 @@ Our tasting honours these traditions while creating new memories.
 Join Nikki Manfadge for an unforgettable evening:
 
 **Event Highlights:**
-- 📅 Wednesday, October 30th
+- Wednesday, October 30th
 - ⏰ From 7:30 PM (ish!)
-- 🎭 Outrageous entertainment
-- 🏆 Prizes and surprises
-- 😂 Non-stop laughter
+- Outrageous entertainment
+- Prizes and surprises
+- Non-stop laughter
 
 In true Day of the Dead spirit, we celebrate life with joy and laughter!
 
@@ -151,12 +151,12 @@ In true Day of the Dead spirit, we celebrate life with joy and laughter!
 Our **Day of the Dead fancy dress party** includes:
 
 **Party Features:**
-- 💀 Fancy dress competition
-- 🎵 DJ playing 80s to now
-- 🏆 Best costume prizes
-- 🎨 Face painting awards
-- 👨‍👩‍👧‍👦 Family-friendly fun
-- 🕐 8 PM - 1 AM
+- Fancy dress competition
+- DJ playing 80s to now
+- Best costume prizes
+- Face painting awards
+- Family-friendly fun
+- 8 PM - 1 AM
 
 Come dressed as:
 - Traditional Catrina/Catrin
@@ -267,9 +267,9 @@ Choose us for:
 Ready to experience **Mexican culture near Heathrow**? Join our Día de los Muertos celebrations and create memories that honour tradition while having incredible fun.
 
 **Reserve Your Spot:**
-📞 Call: 01753 682707  
-🎫 Tickets: Available at the bar  
-📍 Visit: The Anchor, Stanwell Moor  
-🌐 Book tables: [https://bit.ly/3VhJzzy](https://bit.ly/3VhJzzy)
+Call: 01753 682707  
+Tickets: Available at the bar  
+Visit: The Anchor, Stanwell Moor  
+Book tables: [https://bit.ly/3VhJzzy](https://bit.ly/3VhJzzy)
 
 *The Anchor - Where cultures meet and celebrations come alive, minutes from Heathrow*
