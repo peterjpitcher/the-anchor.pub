@@ -127,6 +127,14 @@ describe('retired claims stay retired', () => {
     expect(JSON.stringify(voice.principles)).not.toMatch(/Lead with feeling|Cheeky, never snide/)
   })
 
+  it('keeps the emoji rule the owner decided on 12 September 2026', () => {
+    const ssot = readFileSync(join(ROOT, 'docs/SSOT.md'), 'utf8').replace(/\s+/g, ' ')
+    expect(ssot).toContain('**None on the website, in emails or in texts. One or two at most in a social post.**')
+
+    const json = JSON.parse(readFileSync(join(ROOT, 'SSOT.json'), 'utf8'))
+    expect(json.brand_guidelines.voice.emojis).toMatch(/No emojis on the website, in emails or in texts/)
+  })
+
   it('keeps the rules and the approved wording in the SSOT', () => {
     const ssot = readFileSync(join(ROOT, 'docs/SSOT.md'), 'utf8').replace(/\s+/g, ' ')
     expect(ssot).toContain('**A ULEZ saving figure**, in any form')

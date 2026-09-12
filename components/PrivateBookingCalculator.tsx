@@ -302,7 +302,6 @@ export function PrivateBookingCalculator({
                     <div className="p-4 bg-surface-sunk border-b border-line">
                         <div className="border border-anchor-gold-dark/40 bg-anchor-green/5 p-3">
                             <p className="text-xs font-bold text-accent-text flex items-center gap-2 mb-0.5">
-                                <span className="text-sm">🥂</span>
                                 <span className="uppercase tracking-wider text-xs">Limited Time Offer</span>
                             </p>
                             <p className="text-xs text-ink-muted leading-relaxed">
@@ -331,7 +330,6 @@ export function PrivateBookingCalculator({
                                 <div className="relative z-10 flex min-w-0 flex-col md:flex-row md:items-center gap-4">
                                     <div className="min-w-0 flex-1">
                                         <p className="text-sm font-bold text-accent-text flex items-center gap-2 mb-1">
-                                            <span className="text-lg">🥂</span>
                                             <span className="uppercase tracking-wider text-xs">Limited Time Offer</span>
                                         </p>
                                         <p className="text-sm text-ink-muted leading-relaxed">

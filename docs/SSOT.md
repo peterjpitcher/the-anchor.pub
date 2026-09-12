@@ -190,6 +190,15 @@ Never hedge a confirmed number. It's "20 free spaces", not "around 20".
 - Do not use em dashes in customer-facing copy. Use commas, short sentences, or brackets.
 - Exclamation marks earn their place: one per page at most, never stacked.
 
+### Emojis
+
+**None on the website, in emails or in texts. One or two at most in a social post.** (Owner decision, 12 September 2026.)
+
+- No emojis in page copy, headings, buttons, menu or event descriptions, marketing emails, email subject lines or SMS.
+- Never as a bullet, a section marker or a substitute for a word.
+- A social post may carry one or two, where the platform expects it. Never a row of them, and never inside the pub's name or an event's name.
+- Two reasons beyond taste: a screen reader reads every emoji out loud, and a single emoji in a text cuts what fits in one message segment from 160 characters to 70, so it costs money as well as room.
+
 ### Register dial
 
 - **High energy:** homepage hero, event pages, blog posts, social copy, marketing emails.
@@ -208,7 +217,7 @@ Never hedge a confirmed number. It's "20 free spaces", not "around 20".
 6. Is every fact in this SSOT?
 7. Any banned word from Rules 1 and 2?
 8. Is every "no" followed by a next step?
-9. Exclamation marks: one, or none?
+9. Exclamation marks: one, or none? Any emoji that isn't in a social post?
 10. Does every button say what happens next, and match the real booking?
 
 ### Scope
@@ -1072,6 +1081,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **12 September 2026, the emoji rule.** No emojis on the website, in emails or in texts, and one or two at most in a social post (owner decision, §1). Nothing had ever said, and the documents ranged from none to five a post: the 2024 knowledge file asked for three to five in an Instagram caption, the Google posting guide allowed up to five, and the Language Playbook already said one. All four are now in line, along with the who-we-are file's per-platform rules. `SSOT.json` carries the rule and `tests/retired-claims-wording.test.ts` fails if either loses it. On the site, the private-hire cost estimator no longer marks its offer badge with a glass. In the management app, the Facebook prompt takes one emoji at most and stops using them as line markers, the Google prompt takes none because a listing is read as web copy, and the house-style checker warns on any emoji in a menu row, an event record or a marketing email. The Anchor's CheersAI palette went from ten emojis to three. The old blog archive still carries them, which §1's scope leaves alone until a post is next touched.
 - **12 September 2026, four owner answers from the guest email review.** There is no fire anywhere in the pub, so a fire, a fireplace, a log burner and "by the fire" are banned claims (§8, §14); the October and November 2026 marketing round-ups each carried one, and seven places on the site still do. The local business Christmas food offer is real: 20% off food on Christmas dinner bookings, sent to local businesses by marketing email only, with the booking made before 31 October 2026, and applied by the manager rather than by the app (§7). The 25 September charity quiz donates every £3 entry to Macmillan Cancer Support, funds its prizes separately and runs in partnership with the Stanwell Moor Community Wellbeing Garden (§10). The refund bands the management app already applies are now recorded so emails can state them: full refund 7 or more days before, half 3 to 6 days before, none inside 3 days, for the group deposit and for event seats given up (§7). Separately, the app's 31 December special-hours row was corrected from 22:00 to 01:00 on 11 September so New Year's Eve reads as 1am everywhere (§10). All owner-confirmed.
 - **12 September 2026, three owner answers on the game nights.** Music Bingo fancy dress earns extra points (§10). Cash bingo is not all cash: some games are played for a free drink and some for a £10 food voucher, while the £10 book, the half of book sales that builds the final jackpot and the Snowball rules are unchanged (§10). The quiz's interactive middle round is one phone per player, which had been recorded only as a mirror of the management app; the 25 September charity quiz stays one phone per team (§10). All owner-confirmed. On the site, `/blog/music-bingo-nights` was corrected against §10: it had given the last Wednesday of the month, a 7:30pm start, five rounds and repeated sell-out claims, none of which this document supports. The quiz review on `/reviews` was removed on the owner's instruction because it promised cash prizes, which the quiz does not give.
 - **11 September 2026, quiz night and Music Bingo.** The quiz has five rounds, with one interactive round in the middle that's played on your phone, so phones stay away for the rest of the quiz. Prizes go to first place and second from last only: no league tables, quiz food deals, rollover jackpot, spot prizes, free-drink questions or best team name prize. That retires the closest-answer drink in every round and the spot prizes mirrored from the quiz records earlier the same day; the upcoming quiz records in the management app were corrected the same evening. Music Bingo winners get a £25 voucher to spend with us, the same as the quiz (§10). On the site, `/quiz-night` lost its best team name prize and its "play for the tab" heading, its hero now says five rounds, and it and `/quiz-night/themed` make the interactive round the one exception to the phone rule. A 2019 quiz post no longer promises six rounds, prizes for 2nd and 3rd, spot prizes, a rollover jackpot, league tables or quiz deals. The Music Bingo post, `/music-bingo` and `/whats-on` name the £25 voucher instead of bar tabs, a headline prize or prizes every round. Three blog tag pages, `/staines-pub` and one more post lost spot prizes, quiz night specials or extra prizes. `tests/ssot-drift-guard.test.ts` fails if any of them comes back. All owner-confirmed.
