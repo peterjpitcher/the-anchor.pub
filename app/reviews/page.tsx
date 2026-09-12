@@ -85,13 +85,11 @@ const reviewHighlights: ReviewHighlight[] = [
       'Great pub, amazing beer garden!',
     context: 'General visit',
   },
-  {
-    name: 'Helen',
-    rating: 4,
-    quote:
-      'We go to quiz night most months. Good mix of questions, not too hard, not too easy. Cash prizes are a nice touch. Pizzas are banging as well.',
-    context: 'Quiz night',
-  },
+  // The quiz review that sat here was removed on the owner's instruction,
+  // 12 September 2026: it promised cash prizes, and the quiz gives a £25 bar
+  // voucher to the winners and a bottle of house wine to second from last
+  // (docs/SSOT.md §10). Nothing counts these entries, so the grid just runs one
+  // card shorter.
   {
     name: 'Tom',
     rating: 5,
