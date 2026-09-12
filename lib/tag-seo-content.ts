@@ -432,7 +432,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     description: 'Autumn celebrations and fireworks season',
     metaTitle: 'November Events Stanwell Moor | Bonfire Night at The Anchor',
     metaDescription: 'November at The Anchor Stanwell Moor. Bonfire Night, autumn menu, a warm room & warming drinks. Your local pub for November near Heathrow.',
-    heroContent: 'November at The Anchor brings autumn comforts - from Bonfire Night celebrations to cosy evenings by our fires with seasonal comfort food.',
+    heroContent: 'November at The Anchor brings autumn comforts, from dark evenings in a warm pub to seasonal comfort food.',
     introContent: 'As autumn reaches its peak, November at The Anchor offers a warm welcome in Stanwell Moor. Guy Fawkes Night sees special events and views of local fireworks from our beer garden. Our autumn menu features game dishes, hearty stews, and warming puddings. The pub\'s cosy interior provides the perfect escape from November\'s chill.',
     valueProposition: 'Make The Anchor your November headquarters for Bonfire Night celebrations, cosy dinners, and a cosy autumn atmosphere in Stanwell Moor.',
     keywords: ['november events stanwell moor', 'bonfire night heathrow', 'autumn pub surrey', 'november dining TW19', 'fireworks night stanwell moor']
@@ -774,7 +774,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'September Events Stanwell Moor | Autumn at The Anchor',
     metaDescription: 'September at The Anchor Stanwell Moor. Autumn menu launch, harvest celebrations, cosy atmosphere returns. Welcome autumn near Heathrow.',
     heroContent: 'September at The Anchor marks the beautiful transition to autumn with harvest celebrations, seasonal menus, and the return of cosy pub nights.',
-    introContent: 'As summer fades into autumn, September at The Anchor brings its own special charm. Our autumn menu launches featuring seasonal produce and warming dishes. The beer garden enjoys those last sunny days while inside becomes cosy again with fires lit on cooler evenings. Harvest celebrations and wine events mark the season\'s change, while the return of darker evenings makes our pub atmosphere even more inviting.',
+    introContent: 'As summer fades into autumn, September at The Anchor brings its own special charm. Our autumn menu launches featuring seasonal produce and warming dishes. The beer garden enjoys those last sunny days while inside becomes cosy again on cooler evenings. Harvest celebrations and wine events mark the season\'s change, while the return of darker evenings makes our pub atmosphere even more inviting.',
     valueProposition: 'Experience the magic of September at The Anchor - where summer memories blend with autumn anticipation in the perfect seasonal transition.',
     keywords: ['september events stanwell moor', 'autumn pub heathrow', 'september dining surrey', 'harvest events TW19', 'september activities stanwell moor']
   },

@@ -47,7 +47,7 @@ If you're short on time, here's the overview. If you want the detail, keep scrol
 
 This is the factor that matters most to most people, and it's the hardest to quantify.
 
-A pub celebration has texture. You've got the hum of the bar, the smell of good food, maybe a fire going in winter or doors open onto a garden in summer. People settle in. They move between the bar and the function space. Conversations happen naturally because the environment encourages it. Nobody's sitting in rows of banquet chairs wondering when the speeches will end.
+A pub celebration has texture. You've got the hum of the bar, the smell of good food, a warm room in winter or doors open onto a garden in summer. People settle in. They move between the bar and the function space. Conversations happen naturally because the environment encourages it. Nobody's sitting in rows of banquet chairs wondering when the speeches will end.
 
 A hotel function room is a blank canvas. That's its strength and its weakness. If you're running a corporate event where you need branding on the walls and a specific AV setup, that neutrality is exactly what you want. But for a family celebration -- a birthday, a christening, a retirement -- that same neutrality can feel sterile. Beige walls, strip lighting, stacking chairs. It's functional but forgettable.
 

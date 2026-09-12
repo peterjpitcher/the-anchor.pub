@@ -265,6 +265,7 @@
       "Guest ales",
       "Accessible toilet",
       "EV charging",
+      "Open fire, fireplace or log burner",
       "Heated beer garden",
       "Covered beer garden seating"
     ],
@@ -800,7 +801,16 @@
     ],
     "food_deals_rule": "No current food deals unless explicitly provided by the live management system. Remove stale food-deal claims."
   },
-  "offers": [],
+  "offers": [
+    {
+      "name": "Local business Christmas food offer",
+      "description": "20% off food on Christmas dinner bookings for local businesses.",
+      "channel": "Marketing email only. Never publish on a page, in schema, on social or in a brochure.",
+      "booking_deadline": "2026-10-31",
+      "applied_by": "The manager, on the bill. Nothing in the management app applies it automatically.",
+      "_confirmed": "Owner-confirmed 12 September 2026."
+    }
+  ],
   "discontinued_offers": [
     {
       "name": "BOGOF Pizza",
@@ -871,7 +881,16 @@
       },
       "rules": "Phones away during the quiz, except in the interactive round in the middle, which is played on your phone. That interactive round is one phone per player. Using a phone at any other time costs 5 points.",
       "_rules_confirmed": "Owner-confirmed 2026-09-11: the interactive round is phone-based and comes in the middle. Owner-confirmed 2026-09-12: that round is one phone per player. The 5-point penalty is mirrored from the management app 2026-09-11, where three records also say one phone per player; the 2026-09-25 charity quiz record says one phone per team, which is that night's exception.",
-      "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11. Question One Quiz Masters is retired."
+      "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11. Question One Quiz Masters is retired.",
+      "charity_quiz_2026_09_25": {
+        "date": "2026-09-25",
+        "in_aid_of": "Macmillan Cancer Support",
+        "entry_donated": "Every £3 entry fee is donated",
+        "prizes": "Funded separately",
+        "partner": "Stanwell Moor Community Wellbeing Garden",
+        "scope": "This night only, never the monthly quiz",
+        "_confirmed": "Owner-confirmed 12 September 2026; mirrored from the event record the same day."
+      }
     },
     "cash_bingo": {
       "schedule": "Wednesdays, on set dates. Rest of 2026: 2026-09-30, 2026-11-18, 2026-12-16, none in October. Mirrored from the management app 2026-09-11; owner-confirmed 2026-09-11 that 2026 dates will not move. Take any later date from the event records.",
@@ -1314,7 +1333,8 @@
       "refund_cutoff_days": 7,
       "refund_rule": "Refundable in full if the booking is cancelled more than 7 days before the booking date. Inside 7 days the deposit is not refunded.",
       "_confirmed": "Owner-confirmed 5 September 2026. Supersedes the earlier blanket non-refundable rule, which contradicted the live management setting.",
-      "deducted_from_bill": true
+      "deducted_from_bill": true,
+      "refund_bands_note": "Christmas keeps its own rule above. The general bands are in booking_refund_bands."
     },
     "tiers": {
       "one_course": {
@@ -1759,5 +1779,18 @@
       "source": "Management DB/API/latest approved PDF",
       "rule": "No hardcoded menu or catering prices in evergreen copy."
     }
-  ]
+  ],
+  "booking_refund_bands": {
+    "applies_to": [
+      "Group deposit for 15 or more guests",
+      "Event tickets when seats are given up"
+    ],
+    "seven_or_more_days_before": "Refunded in full",
+    "three_to_six_days_before": "Half refunded",
+    "fewer_than_three_days_before": "Not refunded",
+    "cancelled_event_night": "Refunded in full",
+    "days_counted_in": "Europe/London calendar days",
+    "source": "src/lib/table-bookings/refunds.ts calculateRefundTier, and the manage-booking seat change",
+    "_confirmed": "Owner-confirmed 12 September 2026; recorded so customer-facing copy can state it."
+  }
 }

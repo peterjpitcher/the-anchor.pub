@@ -408,6 +408,21 @@ Applies to non-Christmas bookings. Christmas has its own deposit rule, see the C
 
 The threshold was 10 guests until 9 August 2026; §18 records why it moved.
 
+### Refunds on deposits and event tickets
+
+These are the bands the management app already applies, recorded here so customer-facing copy can
+state them. (Owner-confirmed, 12 September 2026.) Christmas has its own rule, in the block below.
+
+| What | 7 or more days before | 3 to 6 days before | Fewer than 3 days before |
+|---|---|---|---|
+| Group deposit (15 or more guests) | Refunded in full | Half refunded | Not refunded |
+| Event tickets, when seats are given up | Refunded in full | Half refunded | Not refunded |
+
+Days are counted in London calendar days, so the whole day seven days before the booking counts as
+seven days. The bands live in `src/lib/table-bookings/refunds.ts` (`calculateRefundTier`) and the
+manage-booking seat change in the management app; if the code and this table ever disagree, the code
+is right and this table is stale. A cancelled event night is always refunded in full.
+
 ### Christmas 2026 (owner-confirmed 21 July 2026)
 
 - **Service window:** **10 November to 20 December 2026**. The 20th is **inclusive**, a 20 December sitting is bookable. The previously published 1 November to 23 December window is superseded, see §14.
@@ -432,6 +447,7 @@ The threshold was 10 guests until 9 August 2026; §18 records why it moved.
 - **All three dates are already set in the management app**, verified directly against the database on 8 September 2026: 25 December opens 12:00 and closes 15:00 with `is_kitchen_closed` true; 26 December and 1 January are both `is_closed` true. The management app is the source of truth and these entries are it. This section records what it holds so customer-facing copy has a reference; it never overrides it.
 - **`GET /business/hours` only returns special hours for the next 90 days.** A check run before a date enters that window shows no row and an empty `planning.nextClosure`, which looks exactly like "nobody entered it". It is not. On 8 September 2026 the horizon reached only 7 December, so all three festive rows were invisible while being correctly set. Christmas Day enters the window on 26 September, Boxing Day on 27 September and New Year's Day on 3 October. **Query the database before concluding a closure is missing.**
 - **Group size band:** **21 to 29 seated guests is handled as a private booking, not a table booking.** (Owner-confirmed, 6 September 2026. The reason is the no-show exposure at that size, which is too large to carry on a table booking.) It sits between the sit-down maximum of 20 and the 30-guest buffet minimum, so route it to the manager rather than leaving the organiser with no route. Present it as how we look after a group that size, never as a refusal.
+- **Local business Christmas food offer: 20% off food, by email only.** (Owner-confirmed, 12 September 2026.) It went to local businesses on a marketing email for Christmas dinner bookings, and the booking must be made before 31 October 2026. It is an email-only offer: never put it on a page, in schema, on social or in a brochure, and never offer it to a guest who did not receive the email. Nothing in the management app applies the discount automatically, so the manager applies it to the bill.
 - **Drinks-only Christmas party:** **no minimum spend.** (Owner-confirmed, 6 September 2026.) Arranged as a private booking so we can confirm no other services are needed. Never invent a package, a per-head price or a bar-tab minimum for it.
 - **Christmas entertainment:** a **Christmas quiz** runs and may be promoted. (Owner-confirmed, 11 August 2026.) For 2026 it is Tinsel & Trivia Quiz Night on Wednesday 2 December, which its event record describes as our normal quiz with a festive nod, so never call it a fully themed Christmas quiz. The other festive nights for the rest of 2026 are Tinsel & Tipples Christmas Tasting Night (Friday 20 November), Sleigh My Name: Festive Music Bingo (Friday 11 December) and Christmas Jackpot Cash Bingo (Wednesday 16 December). (Dates and descriptions mirrored from the management app on 11 September 2026.) A **DJ can be arranged on request**, but it is never included by default, so offer it as something a group can ask for rather than as part of a package. There is **no Christmas karaoke**, **no live band**, no dance floor and no shared party night. (Owner-confirmed, 11 August 2026.)
 
@@ -518,6 +534,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Guest ales
 - Accessible toilet *(verified NO)*
 - EV charging *(no "coming soon" claims)*
+- An open fire, fireplace or log burner *(verified NO, owner-confirmed 12 September 2026)*
 - Baby changing facilities *(verified NO)*
 - Air conditioning / climate control *(verified NO, heating only)*
 - Heated beer garden *(verified NO, owner-confirmed 10 September 2026; the smoking area's heater is separate, §9)*
@@ -603,6 +620,7 @@ step from the bar, ramp on request.
 
 ### Quiz Night
 
+- **The 25 September charity quiz, in full:** every £3 entry fee is donated to Macmillan Cancer Support, prizes are funded separately, and the night runs in partnership with the Stanwell Moor Community Wellbeing Garden. (Owner-confirmed 12 September 2026; mirrored from the event record the same day.) Say "every £3 entry goes to Macmillan" only about this night, never about the monthly quiz.
 - Monthly, on a Wednesday, plus the occasional themed quiz on another night. The rest of 2026 is fixed: Wednesday 16 September, Friday 25 September (an Only Fools and Horses charity quiz for Macmillan Cancer Support), Wednesday 7 October, Wednesday 4 November and Wednesday 2 December. (Dates mirrored from the management app on 11 September 2026; owner-confirmed 11 September 2026 that they will not move.) Take any later date from the event records.
 - Arrive from 6:30pm · Start usually 7pm · **Aims to finish 9:30pm** (owner-confirmed 17 August 2026, and matches `end_time` 21:30 on every scheduled quiz in the management DB). The older "~9:45pm" is retired: anything still saying 9:45pm is wrong.
 - £3 per person. Team size max 6.
@@ -667,7 +685,7 @@ step from the bar, ramp on request.
 
 ### New Year's Eve
 
-- **We stay open until 1am on New Year's Eve.** (Owner-confirmed, 16 August 2026, and reconfirmed 11 September 2026.) New Year's Eve and Halloween are the nights where a closing time may be stated in copy, and `/new-years-eve` does so throughout, including in its page title. Each is a licensed exception to the rule in §3 that opening hours only ever come from the API, so do not strip either as a hardcoded hours claim. Halloween's times are under Party nights below.
+- **We stay open until 1am on New Year's Eve.** (Owner-confirmed, 16 August 2026, and reconfirmed 11 September 2026.) New Year's Eve and Halloween are the nights where a closing time may be stated in copy, and `/new-years-eve` does so throughout, including in its page title. Each is a licensed exception to the rule in §3 that opening hours only ever come from the API, so do not strip either as a hardcoded hours claim. Halloween's times are under Party nights below. **The management app now holds the 1am close too:** the 31 December 2026 special-hours row was corrected from 22:00 to 01:00 on 11 September 2026 (owner-approved), so the app, this document and `/new-years-eve` agree. Before that, a December marketing email built from the app's hours told both lists that New Year's Eve closed at 10pm.
 - A DJ and a midnight countdown are confirmed for the night, see the DJ entry above.
 
 ### Curry Club, DISCONTINUED
@@ -898,6 +916,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **The private-hire deposit "deducted from the final bill"**, wrong. The £250 is a booking and damage deposit, held separately and refunded after the event (§11). The signed contract says so, and a page saying otherwise contradicts it.
 - **`info@theanchorpub.co.uk`**, legacy email. Use `manager@the-anchor.pub`.
 - **EV charging "coming soon"**, not happening; remove all "coming soon" references.
+- **A fire, a fireplace, a log burner or "by the fire"**, verified **NO** (owner-confirmed 12 September 2026). There is no fire anywhere in the pub. Never write "fires lit", "the fire gets going", "a quiet pint by the fire" or "cold enough to justify the fire". We have heating indoors, so describe warmth instead: "it's warm inside", "somewhere warm". Found in the October and November 2026 marketing round-ups during the 11 September email review, and still live on `/dog-friendly-pub-heathrow`, `lib/tag-seo-content.ts` and five blog posts.
 - **Dog secure fencing**, unverified, do not claim.
 - **Special doggy Sunday dinners**, unverified, do not claim.
 - **Baby changing facilities**, verified **NO**, we do not have them.
@@ -1053,6 +1072,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **12 September 2026, four owner answers from the guest email review.** There is no fire anywhere in the pub, so a fire, a fireplace, a log burner and "by the fire" are banned claims (§8, §14); the October and November 2026 marketing round-ups each carried one, and seven places on the site still do. The local business Christmas food offer is real: 20% off food on Christmas dinner bookings, sent to local businesses by marketing email only, with the booking made before 31 October 2026, and applied by the manager rather than by the app (§7). The 25 September charity quiz donates every £3 entry to Macmillan Cancer Support, funds its prizes separately and runs in partnership with the Stanwell Moor Community Wellbeing Garden (§10). The refund bands the management app already applies are now recorded so emails can state them: full refund 7 or more days before, half 3 to 6 days before, none inside 3 days, for the group deposit and for event seats given up (§7). Separately, the app's 31 December special-hours row was corrected from 22:00 to 01:00 on 11 September so New Year's Eve reads as 1am everywhere (§10). All owner-confirmed.
 - **12 September 2026, three owner answers on the game nights.** Music Bingo fancy dress earns extra points (§10). Cash bingo is not all cash: some games are played for a free drink and some for a £10 food voucher, while the £10 book, the half of book sales that builds the final jackpot and the Snowball rules are unchanged (§10). The quiz's interactive middle round is one phone per player, which had been recorded only as a mirror of the management app; the 25 September charity quiz stays one phone per team (§10). All owner-confirmed. On the site, `/blog/music-bingo-nights` was corrected against §10: it had given the last Wednesday of the month, a 7:30pm start, five rounds and repeated sell-out claims, none of which this document supports. The quiz review on `/reviews` was removed on the owner's instruction because it promised cash prizes, which the quiz does not give.
 - **11 September 2026, quiz night and Music Bingo.** The quiz has five rounds, with one interactive round in the middle that's played on your phone, so phones stay away for the rest of the quiz. Prizes go to first place and second from last only: no league tables, quiz food deals, rollover jackpot, spot prizes, free-drink questions or best team name prize. That retires the closest-answer drink in every round and the spot prizes mirrored from the quiz records earlier the same day; the upcoming quiz records in the management app were corrected the same evening. Music Bingo winners get a £25 voucher to spend with us, the same as the quiz (§10). On the site, `/quiz-night` lost its best team name prize and its "play for the tab" heading, its hero now says five rounds, and it and `/quiz-night/themed` make the interactive round the one exception to the phone rule. A 2019 quiz post no longer promises six rounds, prizes for 2nd and 3rd, spot prizes, a rollover jackpot, league tables or quiz deals. The Music Bingo post, `/music-bingo` and `/whats-on` name the £25 voucher instead of bar tabs, a headline prize or prizes every round. Three blog tag pages, `/staines-pub` and one more post lost spot prizes, quiz night specials or extra prizes. `tests/ssot-drift-guard.test.ts` fails if any of them comes back. All owner-confirmed.
 - **11 September 2026.** The voice (§1) is confirmed by the owner, with one rule added in their words: it's about them, not us. Copy is written from the customer's side, and the 60-second check now asks it. "Cheeky" stays out of the voice: version 2.0 had dropped it, and the owner decided on 11 September 2026 to leave it out. Everything else that described the voice was brought into line the same day: `SSOT.json`'s voice block, the site's agent rules and blog guide; in the management app, the two AI prompts that write event pages and Facebook and Google posts, the older booking and parking texts, the event copy checker (now one exclamation mark, and a banned claim goes back for repair) and the runbook; The Anchor's profile in CheersAI; and the tone sections of the Brand Guidelines, the identity-and-tone reference and the 2024 knowledge file, with older guides marked superseded.

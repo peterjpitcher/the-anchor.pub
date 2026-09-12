@@ -56,7 +56,7 @@ export default async function DogFriendlyPage() {
                     <div className="mx-auto">
                         <SectionHeading
                             title="Dog-Friendly Pub Near Heathrow, Paws Welcome"
-                            lead="A pub isn't a proper pub without a dog sleeping by the fire. We welcome well-behaved dogs throughout the entire venue, bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are."
+                            lead="A pub isn't a proper pub without a dog asleep under the table. We welcome well-behaved dogs throughout the entire venue, bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are."
                         />
                     </div>
                 </Container>
