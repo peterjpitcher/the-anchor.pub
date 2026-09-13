@@ -98,7 +98,9 @@ describe('the navigation', () => {
   it('describes the upcoming events without a weekly cadence', () => {
     const { container } = render(<Navigation promoCtaButtons={NO_PROMOS} />)
 
-    const [upcoming] = screen.getAllByRole('menuitem', { name: /Upcoming Events/, hidden: true })
+    // The dropdown is a disclosure panel of ordinary links, not role="menu" with
+    // menuitems, so this queries by link. The assertion is about the wording.
+    const [upcoming] = screen.getAllByRole('link', { name: /Upcoming Events/, hidden: true })
     expect(upcoming).toHaveTextContent('Every upcoming hosted night, by date')
     expect(container.textContent).not.toMatch(/weekly/i)
   })
