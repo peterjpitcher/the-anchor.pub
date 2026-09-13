@@ -23,8 +23,14 @@ are server-side and need no device storage, so they are out of scope and unchang
    - Without marketing consent: nothing is written to or read from local storage or the cookie, and
      `getBookingAttributionPayload()` returns `{}` (no ad tags, click IDs or landing URL).
    - While the visitor has not chosen, the landing page's tags wait in memory only (a module-level
-     record, never written to the device), so a visitor who accepts later in the same visit, for
-     example on the booking page after the campaign URL has gone, is still attributed.
+     record, never written to the device), so a visitor who accepts later in the same visit is
+     still attributed. Memory survives only client-side navigation (`<Link>`, `router.push`, the
+     on-page quick booking panel). A full page load wipes it, and `BookTableButton` navigates with
+     `window.location.href`, so as first shipped a visitor who tapped "Book a table" and accepted on
+     `/book-table` lost the tags. Corrected 10 September 2026: `withCarriedAttributionParams()`
+     copies the allowed tags from the current URL onto the booking URL (no device storage, same
+     with or without consent), and the booking page's own capture holds them until the visitor
+     chooses. Only the tags travel: the saved landing path for that booking is `/book-table`.
    - New `syncBookingAttributionWithConsent()`: on consent granted it saves the waiting record
      (merged with any record from an earlier consented visit); on consent refused or withdrawn it
      deletes the stored record and discards the waiting one.
@@ -35,6 +41,9 @@ are server-side and need no device storage, so they are out of scope and unchang
 3. `components/features/EventBooking/ManagementEventBookingForm.tsx`: without marketing consent the
    booking carries only the page path, never ad tags, click IDs or the full URL.
 4. `lib/cookies.ts`: `anchor-booking-attribution` joins the cookies removed on "Reject all".
+5. `components/BookTableButton.tsx` (added 10 September 2026): internal navigation goes to
+   `withCarriedAttributionParams(bookingUrl)`. It is the only internal booking CTA that loads a new
+   page; every other link to the booking page is a `<Link>` or `router.push`.
 
 ## Effect on measurement
 
@@ -46,7 +55,10 @@ covers and the staff tally carry the rest. This is the price of doing it lawfull
 
 - Reject or no choice: no `anchor-booking-attribution` in local storage or cookies; booking payload
   has no attribution.
-- Accept later in the same visit: the landing page's tags are saved and reach the booking.
+- Accept later in the same visit: the landing page's tags are saved and reach the booking,
+  including after "Book a table" loads the booking page (tags carried in the URL).
+- The carrying helper copies only the allowed params, drops customer-like query data, keeps a
+  param the booking link already has, leaves external links alone and writes nothing to the device.
 - Returning visitor with consent: the stored record is used.
 - Withdraw: the stored record is deleted and the payload is empty.
 - Reject, then accept: the discarded tags do not come back.

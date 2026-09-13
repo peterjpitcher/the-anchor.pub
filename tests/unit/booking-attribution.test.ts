@@ -5,6 +5,7 @@ import {
   getMarketingConsentSignalPayload,
   resetPendingAttributionForTest,
   syncBookingAttributionWithConsent,
+  withCarriedAttributionParams,
 } from '@/lib/booking-attribution'
 import { setConsentStatus } from '@/lib/cookies'
 
@@ -267,6 +268,140 @@ describe('booking attribution without marketing consent', () => {
       utm_campaign: 'weekday_lunch_a',
       short_code: 'jbozdk',
     })
+  })
+})
+
+/**
+ * BookTableButton loads the booking page with `window.location.href`, which wipes
+ * the in-memory record a visitor without consent is holding. The tags travel in the
+ * booking URL instead, so accepting on the booking page still attributes the booking.
+ */
+describe('carrying ad tags onto internal booking links', () => {
+  const LANDING_HREF = 'https://www.the-anchor.pub/lunch-and-dinner?utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a&utm_content=ad__var_1&utm_term=lunch&fbclid=fb-ad-click&gclid=g-ad-click&short_code=jbozdk&email=jane@example.com&phone=07700900000&name=Jane'
+
+  const storedOnDevice = () => ({
+    localStorage: window.localStorage.getItem('anchor-booking-attribution'),
+    cookie: document.cookie.includes('anchor-booking-attribution='),
+  })
+
+  beforeEach(() => {
+    clearBookingAttributionForTest()
+    window.localStorage.clear()
+    document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
+  })
+
+  afterEach(() => {
+    clearBookingAttributionForTest()
+    window.localStorage.clear()
+    document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
+    window.history.pushState({}, '', '/')
+  })
+
+  it('copies only the allowed ad tags and drops customer-like query data', () => {
+    const carried = withCarriedAttributionParams('/book-table?source=lunch_dinner_lp', LANDING_HREF)
+    const url = new URL(carried, 'https://www.the-anchor.pub')
+
+    expect(carried.startsWith('/book-table?')).toBe(true)
+    expect(Object.fromEntries(url.searchParams)).toEqual({
+      source: 'lunch_dinner_lp',
+      utm_source: 'facebook',
+      utm_medium: 'paid_social',
+      utm_campaign: 'weekday_lunch_a',
+      utm_content: 'ad__var_1',
+      utm_term: 'lunch',
+      fbclid: 'fb-ad-click',
+      gclid: 'g-ad-click',
+      short_code: 'jbozdk',
+    })
+    expect(carried).not.toMatch(/email|phone|name=|jane|07700900000/i)
+  })
+
+  it('keeps a param the booking link already has', () => {
+    const carried = withCarriedAttributionParams('/book-table?utm_campaign=christmas&short_code=xmas1', LANDING_HREF)
+    const params = new URL(carried, 'https://www.the-anchor.pub').searchParams
+
+    expect(params.get('utm_campaign')).toBe('christmas')
+    expect(params.get('short_code')).toBe('xmas1')
+    expect(params.get('utm_source')).toBe('facebook')
+    expect(params.getAll('utm_campaign')).toHaveLength(1)
+  })
+
+  it('leaves the link alone when the page has no ad tags', () => {
+    expect(withCarriedAttributionParams('/book-table?source=hero', 'https://www.the-anchor.pub/lunch-and-dinner?ref=menu')).toBe('/book-table?source=hero')
+    expect(withCarriedAttributionParams('/book-table', 'https://www.the-anchor.pub/')).toBe('/book-table')
+  })
+
+  it('never decorates an external link', () => {
+    expect(withCarriedAttributionParams('https://example.com/book', LANDING_HREF)).toBe('https://example.com/book')
+  })
+
+  it('keeps an absolute internal link absolute and caps over-long values', () => {
+    const long = 'x'.repeat(400)
+    const carried = withCarriedAttributionParams(
+      'https://www.the-anchor.pub/book-table#times',
+      `https://www.the-anchor.pub/lunch-and-dinner?utm_campaign=${long}&utm_source=%20facebook%20`,
+    )
+    const url = new URL(carried)
+
+    expect(url.origin).toBe('https://www.the-anchor.pub')
+    expect(url.hash).toBe('#times')
+    expect(url.searchParams.get('utm_campaign')).toHaveLength(240)
+    expect(url.searchParams.get('utm_source')).toBe('facebook')
+  })
+
+  it('reads the current page when no URL is passed and writes nothing to the device', () => {
+    window.history.pushState({}, '', '/lunch-and-dinner?utm_campaign=weekday_dinner_a&short_code=jse8x1&email=jane@example.com')
+
+    expect(withCarriedAttributionParams('/book-table')).toBe('/book-table?utm_campaign=weekday_dinner_a&short_code=jse8x1')
+    expect(storedOnDevice()).toEqual({ localStorage: null, cookie: false })
+
+    setConsentStatus({ marketing: true })
+    expect(withCarriedAttributionParams('/book-table')).toBe('/book-table?utm_campaign=weekday_dinner_a&short_code=jse8x1')
+    expect(storedOnDevice()).toEqual({ localStorage: null, cookie: false })
+  })
+
+  it('saves the landing tags when the visitor accepts on the booking page after a full page load', () => {
+    // Landing page, no cookie choice yet: the tags wait in memory only.
+    window.history.pushState({}, '', LANDING_HREF.replace('https://www.the-anchor.pub', ''))
+    captureBookingAttributionFromLocation(FIRST_SEEN)
+    const bookingHref = withCarriedAttributionParams('/book-table?source=lunch_dinner_lp')
+
+    // "Book a table" loads a new page: memory is gone, the tags are in the URL.
+    resetPendingAttributionForTest()
+    window.history.pushState({}, '', bookingHref)
+    expect(captureBookingAttributionFromLocation(LATER_SEEN)).toEqual({})
+    expect(storedOnDevice()).toEqual({ localStorage: null, cookie: false })
+
+    // The visitor accepts on the booking page.
+    setConsentStatus({ marketing: true })
+    syncBookingAttributionWithConsent()
+
+    expect(storedOnDevice().localStorage).not.toBeNull()
+    expect(getBookingAttributionPayload()).toMatchObject({
+      utm_source: 'facebook',
+      utm_medium: 'paid_social',
+      utm_campaign: 'weekday_lunch_a',
+      utm_content: 'ad__var_1',
+      fbclid: 'fb-ad-click',
+      short_code: 'jbozdk',
+      // The landing path is the booking page's: only the tags travel, not the path.
+      landing_path: '/book-table',
+    })
+  })
+
+  it('loses the tags on a plain full page load, which is why the link carries them', () => {
+    window.history.pushState({}, '', LANDING_HREF.replace('https://www.the-anchor.pub', ''))
+    captureBookingAttributionFromLocation(FIRST_SEEN)
+
+    resetPendingAttributionForTest()
+    window.history.pushState({}, '', '/book-table?source=lunch_dinner_lp')
+    captureBookingAttributionFromLocation(LATER_SEEN)
+    setConsentStatus({ marketing: true })
+    syncBookingAttributionWithConsent()
+
+    const payload = getBookingAttributionPayload()
+    expect(payload.utm_campaign).toBeUndefined()
+    expect(payload.short_code).toBeUndefined()
   })
 })
 
