@@ -151,7 +151,7 @@ export default function EngagementPartiesPage() {
                                     <li><strong className="text-ink-strong">Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
                                     <li><strong className="text-ink-strong">7 minutes from Heathrow T5</strong>, handy if guests are flying in for the celebration.</li>
                                     <li><strong className="text-ink-strong">AV equipment:</strong> TVs and sound system available for slideshows or speeches.</li>
-                                    <li><strong className="text-ink-strong">Deposit:</strong> &pound;250 to secure your date, deducted from the final bill.</li>
+                                    <li><strong className="text-ink-strong">Deposit:</strong> &pound;250 to secure your date, held separately from your bill and refunded after the event.</li>
                                     <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
                                 </ul>
                             </CardBody></Card>
@@ -278,7 +278,7 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "Do you require a deposit?",
-                        answer: "Yes, we ask for a £250 deposit to secure your date. This is fully deducted from the final bill, so it's not an extra cost, just a commitment to the booking."
+                        answer: "Yes. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions."
                     },
                     {
                         question: "Can we bring a cake?",

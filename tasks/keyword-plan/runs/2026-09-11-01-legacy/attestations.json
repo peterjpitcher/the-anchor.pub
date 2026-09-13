@@ -1,0 +1,11 @@
+{
+  "defaults": {
+    "gkp_language": "English",
+    "gkp_location": "United Kingdom",
+    "gkp_network": "Google Search",
+    "property": "sc-domain:the-anchor.pub",
+    "volume_mode": "banded"
+  },
+  "notes": "Property from tasks/gsc-audit-2026-08-17.md; Keyword Planner settings from tasks/keyword-plan-2026-09-08-seeds.md (United Kingdom, English, Google only, last 12 months) and the 17 August 2026 plan (UK, English); banded because every exported value is 0, 50, 500, 5,000 or 50,000.",
+  "pulls": {}
+}

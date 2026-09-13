@@ -438,8 +438,8 @@ export default function CorporateEventsPage() {
               <h3 className="font-display text-h4 text-ink-strong mb-4">Cost Savings for Your Business</h3>
               <div className="grid md:grid-cols-3 gap-4 text-ink-muted">
                 <div>
-                  <strong className="text-ink-strong">No ULEZ Charges</strong>
-                  <p className="text-sm">Around £12.50 a day saved per attendee against a London venue</p>
+                  <strong className="text-ink-strong">Outside the ULEZ</strong>
+                  <p className="text-sm">Unlike a London venue, there&apos;s no ULEZ charge at our end of the journey</p>
                 </div>
                 <div>
                   <strong className="text-ink-strong">Free Parking</strong>
@@ -519,7 +519,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "What is on the Christmas menu for work parties?",
-            answer: "The festive set menu runs at one, two or three courses, and adults on the two and three course tiers get a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered, so we need everyone's meal choices 7 days before your booking date. The one course tier has no pre-order. The full dish list and the prices are both on the Christmas parties page, served live from our booking system."
+            answer: "The festive set menu runs at one, two or three courses, and adults on the two and three course tiers get a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered, so we need everyone's meal choices 7 days before your booking date. The one course tier has no pre-order, so it's the only one we can book inside that week. The full dish list and the prices are both on the Christmas parties page, served live from our booking system."
           },
           {
             question: "Can you provide a VAT invoice for our company?",

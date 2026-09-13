@@ -1,0 +1,6 @@
+cluster_id,name,head_keyword_id,intent,target_page_id,page_type,local_flag,query_regex,page_regex,business_value,lifecycle,split_from,merged_into,mapping_version,last_reviewed
+cl_0001,Pub quiz,kw_001555,local,pg_0002,event-hub,1,(?i)(quiz|trivia),(?i)/quiz-night$,4,active,,,1,2026-09-11
+cl_0002,Themed quiz nights,,local,pg_0003,event-hub,1,(?i)(gavin (and|&) stacey|only fools|themed quiz|tv (themed )?quiz|sitcom quiz|charity quiz),(?i)/quiz-night/themed,2,active,,,1,2026-09-11
+cl_0003,Music bingo,kw_000052,local,pg_0004,event-hub,1,(?i)(music(al)? bingo|song bingo|singalong bingo|drag bingo|rock (and|n|&) roll bingo|bingo with music),(?i)/music-bingo,4,active,,,1,2026-09-11
+cl_0004,Cash bingo,kw_000427,local,pg_0005,event-hub,1,(?i)(cash bingo|pub bingo|bingo night|prize bingo|jackpot bingo|snowball|bingo near me|bingo in (a )?pubs?|bar bingo|bingo events?),(?i)/cash-bingo,4,active,,,1,2026-09-11
+cl_0005,What's on and pub events,kw_000072,local,pg_0001,events-hub,1,(?i)(what'?s on|pub events|events near me|things to do|entertainment|nights? out),(?i)/whats-on$,4,active,,,1,2026-09-11

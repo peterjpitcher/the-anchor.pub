@@ -131,7 +131,7 @@
   },
   {
     "source": "/post/celebrate-fathers-day-at-the-anchor",
-    "destination": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {
@@ -191,7 +191,7 @@
   },
   {
     "source": "/post/exciting-new-events-offers-the-anchor-2025",
-    "destination": "/blog/events-offers-2025",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -276,12 +276,12 @@
   },
   {
     "source": "/post/tequila-tasting-night",
-    "destination": "/blog/tequila-tasting-events",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
     "source": "/post/experience-the-magic-at-the-anchor-s-christmas-market",
-    "destination": "/blog/christmas-market",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -301,7 +301,7 @@
   },
   {
     "source": "/post/prices-frozen-until-autumn-the-anchor-pub",
-    "destination": "/blog/prices-frozen-until-autumn-theanchor-pub",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -346,7 +346,7 @@
   },
   {
     "source": "/post/what-s-new-at-the-anchor",
-    "destination": "/blog/events-offers-2025",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -381,7 +381,7 @@
   },
   {
     "source": "/post/book-valentines-day-the-anchor",
-    "destination": "/blog/valentines-day-meal-offer-for-two",
+    "destination": "/valentines-day",
     "permanent": true
   },
   {
@@ -411,7 +411,7 @@
   },
   {
     "source": "/post/the-anchor-2024-updates",
-    "destination": "/blog/events-offers-2025",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -436,7 +436,7 @@
   },
   {
     "source": "/post/rum-tasting-night-stanwell-moor",
-    "destination": "/blog/rum-tasting-caribbean",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -501,7 +501,7 @@
   },
   {
     "source": "/post/world-salami-day-pizza-offerings",
-    "destination": "/blog/salami-day-pizza",
+    "destination": "/pizza-menu",
     "permanent": true
   },
   {
@@ -516,7 +516,7 @@
   },
   {
     "source": "/post/arjun-r-piano-performance-christmas-market",
-    "destination": "/blog/christmas-market",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -566,7 +566,7 @@
   },
   {
     "source": "/post/christmas-fair-at-the-anchor",
-    "destination": "/blog/christmas-market",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -586,7 +586,7 @@
   },
   {
     "source": "/post/the-botanist-gin-july-2025-managers-special-stanwell-moor",
-    "destination": "/blog/botanist-gin-july-2025",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
@@ -626,7 +626,7 @@
   },
   {
     "source": "/post/curry-club-september-2019",
-    "destination": "/blog/curry-club-the-anchor",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -651,7 +651,7 @@
   },
   {
     "source": "/post/make-father-s-day-special",
-    "destination": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {
@@ -731,7 +731,7 @@
   },
   {
     "source": "/post/curry-club",
-    "destination": "/blog/curry-club-the-anchor",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -751,7 +751,7 @@
   },
   {
     "source": "/post/valentines-day-meal-offer",
-    "destination": "/blog/valentines-day-meal-offer-for-two",
+    "destination": "/valentines-day",
     "permanent": true
   },
   {

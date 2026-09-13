@@ -53,6 +53,11 @@ export interface EventArtworkHeroProps {
   title: string
   lead?: string
   crumb: string
+  /**
+   * Where the crumb leads: the event's category hub, the same URL the
+   * BreadcrumbList JSON-LD declares. Plain text when absent.
+   */
+  crumbHref?: string
   badges?: ReactNode
   actions?: ReactNode
 }
@@ -77,6 +82,7 @@ export function EventArtworkHero({
   title,
   lead,
   crumb,
+  crumbHref,
   badges,
   actions
 }: EventArtworkHeroProps) {
@@ -118,7 +124,16 @@ export function EventArtworkHero({
             <span aria-hidden className="px-1.5">
               /
             </span>
-            <span>{crumb}</span>
+            {/* A link, as the JSON-LD breadcrumb already declares it. As plain
+                text it was a dead end, and the hub link further down sits
+                below the form on a phone. */}
+            {crumbHref ? (
+              <Link href={crumbHref} className="transition-colors hover:text-anchor-gold-bright">
+                {crumb}
+              </Link>
+            ) : (
+              <span>{crumb}</span>
+            )}
           </nav>
 
           <h1 className="font-display text-h1 text-anchor-cream-text">{title}</h1>

@@ -48,7 +48,7 @@ As a **quality pub near Heathrow Airport**, The Anchor transforms ordinary eveni
 
 ### A Sold-Out Evening of Discovery
 
-Our March **spring spirits tasting** showcased the season's finest flavours in our transformed private dining room. The event earned a stellar **4.8/5 rating** from guests who praised:
+Our March **spring spirits tasting** showcased seasonal flavours in our transformed private dining room. The event earned a stellar **4.8/5 rating** from guests who praised:
 
 - Warm, knowledgeable hosts
 - Premium spirit selection
@@ -184,8 +184,8 @@ Our **pub events** sell out quickly due to limited capacity:
 3. **Book directly** at the bar or by phone
 4. **Group bookings** - Reserve 4+ spots
 
-📞 **Call**: 01753 682707
-📍 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Call**: 01753 682707
+**Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 
 ### Can't Wait? Create Your Own Tasting
 
@@ -222,7 +222,7 @@ Host your own **private tasting event** at our **pub near Heathrow**:
 ### More Than Just Tastings
 
 Beyond our spirit events, The Anchor hosts:
-- **Quiz nights** every Thursday
+- **Quiz nights**, monthly and usually on a Wednesday
 - **Weekend entertainment**
 - **Seasonal celebrations**
 - **Food pairing dinners**

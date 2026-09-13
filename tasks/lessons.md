@@ -19,3 +19,7 @@
 - Event booking forms should collect ticket quantities and lead booker details, without guest-by-guest names or a food discussion question (owner decision, 6 September 2026).
 
 - The event booking simplification also removes the whole early-arrival box, including any follow-up confirmation wording. Do not retain food or early-arrival discussion prompts (owner correction, 6 September 2026).
+
+- When the SSOT and the management records disagree about something the owner controls, ask the owner before calling either one wrong. On 11 September 2026 an audit flagged every quiz page for naming Peter Pitcher as host because the SSOT said Question One Quiz Masters; the records were right and the SSOT was stale. The SSOT is the source for copy, but it is only as current as its last owner confirmation.
+
+- Count event attendance from real bookings only. `bookings.is_reminder_only` rows are "remind me" sign-ups with one seat each, and an August 2026 note that counted them reported a steep fall in seats a night that real bookings do not show: summer 2025 and summer 2026 were level. Cross-check any attendance trend against the daily cash-up before acting on it, and keep the figures themselves out of this public repository.

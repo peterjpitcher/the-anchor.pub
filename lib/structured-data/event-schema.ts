@@ -254,13 +254,14 @@ export function buildEventSchema(event: Event) {
     // inventing a price: it is a fact we are publishing about ourselves that
     // nothing backs.
     //
-    // There is deliberately NO heuristic here for a performer that is present
-    // but wrong. Live quiz records currently name the owner rather than the
-    // host (docs/SSOT.md §10 names Question One Quiz Masters), but "looks like
-    // a staff name" is not something code can decide: quiz nights do take guest
-    // hosts, and karaoke has no fixed host at all, so a guess would overwrite
-    // legitimate values. A present-but-wrong record is corrected at source, in
-    // the management app, under its own approval.
+    // There is deliberately NO heuristic here for a performer that is present:
+    // the record is the source. Quiz Night, Cash Bingo and karaoke records
+    // name the owner, Peter Pitcher, and that is correct, because he hosts
+    // all three (owner-confirmed 11 September 2026); Music Bingo records name
+    // Nikki Manfadge. "Looks like a staff name" is not something code can
+    // decide, so a guess would overwrite legitimate values. A record that is
+    // wrong is corrected at source, in the management app, under its own
+    // approval.
     ...(event.performer?.name
       ? {
           performer: {

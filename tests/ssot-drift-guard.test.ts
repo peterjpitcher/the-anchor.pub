@@ -372,6 +372,9 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
     for (const tier of sitDown) {
       expect(tier.min_guests).toBe(xmas.booking_rules.min_party_size)
       expect(tier.price_per_head_gbp).toBe('LIVE_FROM_DB')
+      // No catering_packages row holds these tiers (mirrored 11 September 2026):
+      // they live on the Christmas menu and the Christmas booking period.
+      expect(tier.not_a_catering_packages_row).toBe(true)
     }
     // The retired weekday/weekend two-price split must not come back.
     const names = ssot.private_hire.catering_packages.christmas
@@ -379,6 +382,18 @@ describe('SSOT drift guard, Christmas 2026 (owner-confirmed 2026-07-21)', () => 
       .join(' ')
     expect(names).not.toContain('Festive Menu (weekday)')
     expect(names).not.toContain('Festive Menu (weekend)')
+  })
+
+  it('records the old Festive Menu catering packages as switched off', () => {
+    // Both rows (a weekday and a weekend price, minimum 6) are inactive in the
+    // management app, mirrored 11 September 2026. The SSOT had said they must
+    // stay active, which would have brought back the two-price split and the 6.
+    expect(xmas.festive_menu_catering_packages).toMatch(/^SWITCHED OFF\./)
+    expect(xmas.festive_menu_catering_packages).toContain('1, 2 and 3 course Christmas menu')
+    expect(mdPlain).toContain('The old Festive Menu catering packages are switched off.')
+    expect(mdPlain).toContain('refers only to the latest offer, the 1, 2 and 3 course Christmas menu')
+    expect(mdPlain).not.toContain('The festive menu catering packages stay.')
+    expect(JSON.stringify(ssot)).not.toMatch(/REMAIN ACTIVE|Do not deactivate them/)
   })
 
   it('menu dishes are published, and only the API may name one', () => {
@@ -490,10 +505,122 @@ describe('SSOT drift guard — banned strings absent from customer-facing JSON',
     ['Stanwell Moor Brew as a current product', /stanwell moor brew/],
     ['a heated beer garden', /heated areas|heated (?:beer )?garden/],
     ['a covered beer garden', /covered (?:seating|section|garden|patio)|sheltered areas/],
+    [
+      'a quiz extra the owner ruled out on 11 September 2026',
+      /spot prizes?|closest[- ]answer|free[- ]drink questions?|league tables?|roll-?over jackpots?|quiz (?:food )?deals?|best team name/,
+    ],
   ]
 
   it.each(banned)('does not contain %s', (_label, re) => {
     expect(custBlob).not.toMatch(re)
+  })
+})
+
+describe("SSOT drift guard, the owner's answers of 11 September 2026", () => {
+  const events = ssot.events
+
+  it('gives the quiz winners a £25 bar voucher, not a bar tab', () => {
+    // A tab is spent on the night and a voucher later, so they are different
+    // promises. The quiz records said voucher while the SSOT said tab.
+    expect(events.quiz_night.prizes.first).toBe('£25 bar voucher')
+    expect(events.quiz_night.prizes.second_from_last).toBe('Bottle of house wine')
+    expect(mdPlain).toContain('the winning team gets a £25 bar voucher, not a bar tab')
+    expect(mdPlain).not.toMatch(/£25 bar tab/i)
+  })
+
+  it('gives quiz prizes to first place and second from last only', () => {
+    // The owner, later the same day: "prizes for first and second from last only,
+    // no league tables or quiz food deals". That retired the closest-answer drink in
+    // every round and the spot prizes mirrored from the quiz records that morning.
+    const prizeKeys = Object.keys(events.quiz_night.prizes).filter((key) => !key.startsWith('_'))
+    expect(prizeKeys.sort()).toEqual(['first', 'scope', 'second_from_last'])
+    expect(events.quiz_night.prizes.scope).toBe('First place and second from last only')
+    expect(mdPlain).toContain('Prizes for first place and second from last only: the winning team gets a £25 bar voucher')
+    expect(mdPlain).toContain(
+      'There are no league tables, quiz food deals, rollover jackpot, spot prizes or free-drink questions, and no prize for the best team name.',
+    )
+    expect(mdPlain).not.toContain('Every round has a closest-answer question for a free drink')
+  })
+
+  it('runs five quiz rounds, with phones out only for the interactive round in the middle', () => {
+    expect(events.quiz_night.rounds).toMatch(/^Five rounds: .*an interactive quick-fire round in the middle, played on your phone/)
+    expect(events.quiz_night.rules).toMatch(/^Phones away during the quiz, except in the interactive round in the middle/)
+    expect(mdPlain).toContain(
+      'Format: five rounds. Four rounds of 10 questions, plus an interactive quick-fire round in the middle, played on your phone',
+    )
+    expect(mdPlain).toContain('Phones away during the quiz, except in the interactive round in the middle, which is played on your phone.')
+    expect(mdPlain).not.toContain('Phones away during the question rounds')
+  })
+
+  it('gives Music Bingo winners a £25 voucher to spend with us', () => {
+    expect(events.music_bingo.prizes).toBe('Winners get a £25 voucher to spend with us, the same as the quiz.')
+    expect(mdPlain).toContain('Prize: winners get a £25 voucher to spend with us, the same as the quiz. (Owner-confirmed 11 September 2026.)')
+  })
+
+  it('seats each quiz team at its own table', () => {
+    expect(events.quiz_night.seating).toContain('each team has its own table')
+    expect(mdPlain).toContain('Seating: team tables. Each team has its own table, so book one table per team.')
+  })
+
+  it('finishes every event by 10pm, bar the special nights', () => {
+    expect(events.finish_rule).toMatch(/^Events finish by 10pm/)
+    expect(events._finish_rule_confirmed).toContain('Owner-confirmed 2026-09-11')
+    expect(events.music_bingo.end).toMatch(/^Runs until 10pm/)
+    expect(mdPlain).toContain('Events finish by 10pm.')
+    expect(mdPlain).toContain('Runs until 10pm, under the finish rule at the top of this section')
+    // New Year's Eve keeps its 1am, reconfirmed the same day.
+    expect(mdPlain).toContain("We stay open until 1am on New Year's Eve. (Owner-confirmed, 16 August 2026, and reconfirmed 11 September 2026.)")
+  })
+
+  it('names Peter Pitcher as the karaoke host', () => {
+    expect(events.karaoke.host).toMatch(/^Peter Pitcher, the owner\./)
+    expect(events.karaoke.host).toContain('NOT hosted by Nikki Manfadge')
+    expect(mdPlain).toContain('Host: Peter Pitcher, the owner. (Owner-confirmed, 11 September 2026.)')
+    expect(mdPlain).not.toContain('Karaoke has no fixed host')
+    expect(JSON.stringify(ssot)).not.toContain('No fixed host')
+  })
+
+  it('records Curry Club as discontinued in both files', () => {
+    expect(events.curry_club.status).toBe('DISCONTINUED')
+    expect(events.curry_club.retired_routes).toEqual([
+      '/blog/curry-club-the-anchor redirects to /food-menu (owner-approved 2026-09-11)',
+    ])
+    expect(events.curry_club.schedule).toBeUndefined()
+    expect(ssot.do_not_use.curry_club).toMatch(/^DISCONTINUED/)
+    expect(md).toContain('### Curry Club, DISCONTINUED')
+    expect(mdPlain).toContain('Curry Club is discontinued. (Owner-confirmed, 11 Sep 2026.)')
+    expect(mdPlain).toContain('Curry Club, or a curry night, discontinued')
+    expect(mdPlain).not.toContain('Monthly rotating curry-night specials')
+  })
+})
+
+describe("SSOT drift guard, the owner's answers of 12 September 2026", () => {
+  const events = ssot.events
+
+  it('gives Music Bingo fancy dress extra points, and never makes it a condition of entry', () => {
+    expect(events.music_bingo.fancy_dress).toMatch(/^Fancy dress earns extra points\./)
+    expect(events.music_bingo._fancy_dress_confirmed).toContain('Owner-confirmed 2026-09-12')
+    expect(mdPlain).toContain('Fancy dress earns extra points. (Owner-confirmed 12 September 2026.)')
+  })
+
+  it('plays some cash bingo games for a free drink and some for a £10 food voucher', () => {
+    // The £10 book, the half of book sales that builds the jackpot and the
+    // Snowball are unchanged, so they are asserted here too: the new prize
+    // types must not be read as a replacement for any of them.
+    expect(events.cash_bingo.prizes).toMatch(/^Not every game is played for cash/)
+    expect(events.cash_bingo._prizes_confirmed).toContain('Owner-confirmed 2026-09-12')
+    expect(events.cash_bingo.entry_fee_gbp).toBe(10)
+    expect(events.cash_bingo.jackpot_rule).toContain('Half of all book sales (£5 of every £10 book)')
+    expect(events.cash_bingo.snowball_rule).toMatch(/^Grows by £20 and 2 calls/)
+    expect(mdPlain).toContain('Some games are played for a free drink, and some for a £10 food voucher. (Owner-confirmed 12 September 2026.)')
+  })
+
+  it('plays the quiz interactive round one phone per player', () => {
+    // Recorded on 11 September only as a mirror of the management app. The
+    // 25 September charity quiz record stays one phone per team.
+    expect(events.quiz_night.rules).toContain('That interactive round is one phone per player.')
+    expect(events.quiz_night._rules_confirmed).toContain('Owner-confirmed 2026-09-12')
+    expect(mdPlain).toContain('That interactive round is one phone per player. (Owner-confirmed 12 September 2026.)')
   })
 })
 
@@ -515,9 +642,15 @@ describe('SSOT drift guard — high-risk site copy', () => {
     })
   }
 
-  const siteFiles = CUSTOMER_DIRS.flatMap((dir) =>
-    collectFiles(path.join(process.cwd(), dir)),
-  )
+  // Customer-facing files outside those folders. llms.txt is how AI assistants
+  // describe the pub, and it claimed gluten-free bases until 10 September 2026
+  // because nothing here read it.
+  const CUSTOMER_FILES = ['public/llms.txt']
+
+  const siteFiles = [
+    ...CUSTOMER_DIRS.flatMap((dir) => collectFiles(path.join(process.cwd(), dir))),
+    ...CUSTOMER_FILES.map((file) => path.join(process.cwd(), file)),
+  ]
 
   function matchingFiles(pattern: RegExp): string[] {
     return siteFiles
@@ -534,12 +667,17 @@ describe('SSOT drift guard — high-risk site copy', () => {
   // won't be lingering in a t-shirt" still fails. A question passes too: "Do
   // you do gluten free bases?" asks rather than claims. `files` skips whole
   // files (an entry ending in "/" skips a directory); `sentence` lets through a
-  // sentence about something the claim is true of.
+  // sentence about something the claim is true of; `within` checks only the
+  // files whose path matches it, for a claim that is wrong about one night alone.
   const DENIAL = /\b(?:no|not|never|without|false|cannot)\b|n't\b/i
 
-  function claimSentences(claim: RegExp, exempt: { files?: string[]; sentence?: RegExp } = {}): string[] {
+  function claimSentences(
+    claim: RegExp,
+    exempt: { files?: string[]; sentence?: RegExp; within?: RegExp } = {},
+  ): string[] {
     const skipFile = (file: string) =>
-      (exempt.files ?? []).some((entry) => (entry.endsWith('/') ? file.startsWith(entry) : file === entry))
+      (exempt.files ?? []).some((entry) => (entry.endsWith('/') ? file.startsWith(entry) : file === entry)) ||
+      (exempt.within !== undefined && !exempt.within.test(file))
     return siteFiles
       .map((file) => path.relative(process.cwd(), file))
       .filter((file) => !skipFile(file))
@@ -547,7 +685,7 @@ describe('SSOT drift guard — high-risk site copy', () => {
         fs
           .readFileSync(file, 'utf8')
           .split(/\n|(?<=[.!?])\s+/)
-          .map((sentence) => sentence.replace(/&apos;|&rsquo;|&#39;|’/g, "'"))
+          .map((sentence) => sentence.replace(/&apos;|&rsquo;|&#39;|’|\\'/g, "'"))
           .filter((sentence) => {
             const match = claim.exec(sentence)
             if (match === null || exempt.sentence?.test(sentence)) return false
@@ -657,14 +795,29 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(matchingFiles(/\b(?:27|09)[LR]\b/)).toEqual([])
   })
 
+  // Shared by the two superlative checks below: guides that rank other places,
+  // the genuine Google reviews, and text that is not our own claim (a
+  // frontmatter keyword, a `keywords:` array, a quote, or a quote's attribution).
+  const COMPARISON_GUIDES = [
+    'content/blog/best-beer-gardens-near-heathrow/index.md',
+    'content/blog/best-places-to-eat-near-heathrow/index.md',
+    'content/blog/best-pub-food-near-heathrow/index.md',
+    'content/blog/best-sunday-roast-surrey/index.md',
+    'content/blog/heathrow-plane-spotting-locations/index.md',
+    'content/blog/pizza-near-heathrow/index.md',
+    'content/blog/quiz-nights-near-heathrow/index.md',
+    'content/blog/things-to-do-near-heathrow/index.md',
+  ]
+  const SUPERLATIVE_EXEMPT_FILES = [...COMPARISON_GUIDES, 'lib/google-reviews.ts', 'lib/google/review-utils.ts']
+  const NOT_OUR_CLAIM = /^\s*- [a-z0-9 &'-]+$|\bkeywords:|^\s*(?:[-*>]\s*)?["“]|["”]\s*-\s*[A-Z]/
+
   it('does not call the pub the best or premier (section 14)', () => {
     // Section 14 bans "best" and "premier" without substantiation: say "highly
     // rated" instead. About 125 had built up by September 2026, in forms like
     // "the best pub near Heathrow", "Stanwell Moor's premier pub" and "one of
     // the best pubs near Egham". Still allowed: a searcher's question ("Looking
     // for the best roast near Heathrow?"), advice ("best for families", "the
-    // best way to get here"), keyword lists, customer quotes, the genuine
-    // Google reviews, and the comparison guides below, which rank other places.
+    // best way to get here"), and everything exempted above.
     const SELF_SUPERLATIVE = new RegExp(
       [
         /\bpremier\b(?![- ](?:league|inn)\b)/,
@@ -678,23 +831,122 @@ describe('SSOT drift guard — high-risk site copy', () => {
         .join('|'),
       'i',
     )
-    const COMPARISON_GUIDES = [
-      'content/blog/best-beer-gardens-near-heathrow/index.md',
-      'content/blog/best-places-to-eat-near-heathrow/index.md',
-      'content/blog/best-pub-food-near-heathrow/index.md',
-      'content/blog/best-sunday-roast-surrey/index.md',
-      'content/blog/heathrow-plane-spotting-locations/index.md',
-      'content/blog/pizza-near-heathrow/index.md',
-      'content/blog/quiz-nights-near-heathrow/index.md',
-      'content/blog/things-to-do-near-heathrow/index.md',
-    ]
     expect(
-      claimSentences(SELF_SUPERLATIVE, {
-        files: [...COMPARISON_GUIDES, 'lib/google-reviews.ts', 'lib/google/review-utils.ts'],
-        // A frontmatter keyword, a `keywords:` array, or a quote.
-        sentence: /^\s*- [a-z0-9 &'-]+$|\bkeywords:|^\s*(?:[-*>]\s*)?["“]/,
+      claimSentences(SELF_SUPERLATIVE, { files: SUPERLATIVE_EXEMPT_FILES, sentence: NOT_OUR_CLAIM }),
+    ).toEqual([])
+  })
+
+  it('does not say "best" in other words either (section 14)', () => {
+    // Owner-approved 10 September 2026, after the "best" and "premier" sweep:
+    // "unbeatable prices", "the ultimate spot", "the warmest welcome in
+    // Stanwell Moor" and "unmatched standards" make the same claim. A line
+    // about someone else ("Scotland's finest distilleries"), a slug and a
+    // code identifier are not ours.
+    expect(
+      claimSentences(
+        /\bunbeatable\b|(?<![-/])\bultimate\b(?!-)|\bfinest\b|\bwarmest\b|\bunmatched\b|\bunrivall?ed\b|\bsecond to none\b|\bno better (?:place|way|spot|pub|venue|setting)\b|\bnowhere better\b|\bhottest\b/i,
+        {
+          files: [...SUPERLATIVE_EXEMPT_FILES, 'app/[...unmatched]/page.tsx'],
+          sentence: new RegExp(`${NOT_OUR_CLAIM.source}|\\b(?:Europe|Scotland|England|Ireland|Wales|Italy|France)'s finest\\b`),
+        },
+      ),
+    ).toEqual([])
+  })
+
+  it('calls the quiz prize a bar voucher and gives each quiz team its own table (section 10)', () => {
+    // Owner-confirmed 11 September 2026. Until then the quiz prize was a "£25 bar
+    // tab" in page copy, JSON-LD, llms.txt and two posts, and the quiz FAQ said a
+    // long table may be shared with another team. The private-hire Bar Tab
+    // package is a different thing, and nothing here matches it. /quiz-night's
+    // closing band still asked "Ready to play for the tab?" later that day.
+    expect(
+      matchingFiles(/(?:£|&pound;)\s?25 bar tab|quiz night\W+win bar tabs|play for the (?:bar )?tab\b|shared with another team/i),
+    ).toEqual([])
+  })
+
+  it('keeps the quiz to five rounds and two prizes, and Music Bingo to its voucher (section 10)', () => {
+    // Owner-confirmed 11 September 2026: five rounds, with an interactive round
+    // in the middle played on your phone, and phones away the rest of the time;
+    // prizes for first place and second from last only, so no league tables,
+    // quiz food deals, rollover jackpot, spot prizes, free-drink questions or
+    // best team name prize; and Music Bingo winners get a £25 voucher to spend
+    // with us. Until then /quiz-night offered a best team name prize, a 2019 post
+    // promised six rounds, prizes for 1st, 2nd and 3rd, a rollover jackpot and
+    // league tables, three pages said phones away "during the rounds", and the
+    // Music Bingo post offered bar tabs, wine and meal vouchers. Cash bingo's
+    // spot prizes belong to a different night, so its page is exempt.
+    expect(
+      claimSentences(
+        /spot prizes?|league tables?|team of the year|champion of champions|hall of fame|roll-?over jackpots?|closest[- ](?:answer|wins)|free[- ]drinks? questions?|quiz (?:combo |food )?deals?|quiz (?:night )?specials|quiz platters?|burger and quiz|best team name|prizes? for (?:the )?(?:1st|first)\b[^.\n]{0,30}\b(?:2nd|3rd|second|third)\b(?! from last)/i,
+        { files: ['app/cash-bingo/page.tsx'] },
+      ),
+    ).toEqual([])
+
+    // "Four rounds of ten questions" stays true: with the interactive round, that
+    // is the five. Party-planning posts that suggest a number of rounds for your
+    // own quiz are not about ours, so only the quiz's own files are read.
+    expect(
+      claimSentences(/\b(?:three|four|six|seven|eight|[34678]) rounds\b(?! of (?:ten|10) questions)|\bround (?:six|6)\b/i, {
+        within: /quiz/,
       }),
     ).toEqual([])
+    expect(
+      claimSentences(/phone-free|phones? (?:away|stay in (?:your )?pockets)[^.\n]{0,20}\b(?:during|in) the rounds\b/i, {
+        within: /quiz/,
+      }),
+    ).toEqual([])
+
+    expect(
+      claimSentences(
+        /bar tabs?|bottles? of wine|meal vouchers?|merchandise|mystery prizes|roll-?over|bonus prizes|team prizes|desserts for winners|headline prize|extra prizes|prize selection|prizes (?:land )?every round/i,
+        { within: /music-bingo/ },
+      ),
+    ).toEqual([])
+  })
+
+  it('finishes every event schedule and every event sentence by 10pm (section 10)', () => {
+    // Owner-confirmed 11 September 2026: "all events run until 10pm except for
+    // things like the Halloween party and New Year's Eve". The /music-bingo
+    // series schema said 23:00, copied from the event records. Both special
+    // nights' pages may state their late close. lib/static-events.ts is not
+    // rendered anywhere (only a unit test imports it), so it is left out.
+    const SPECIAL_NIGHTS = /^app\/(?:halloween|new-years-eve)\//
+    const lateSchedules = siteFiles
+      .map((file) => path.relative(process.cwd(), file))
+      .filter((file) => /^(?:app|lib)\//.test(file) && !SPECIAL_NIGHTS.test(file) && file !== 'lib/static-events.ts')
+      .flatMap((file) =>
+        [...fs.readFileSync(file, 'utf8').matchAll(/["']?endTime["']?\s*:\s*["'](\d{2}):(\d{2})/g)]
+          .filter((match) => Number(match[1]) * 60 + Number(match[2]) > 22 * 60)
+          .map((match) => `${file}: ${match[0]}`),
+      )
+    expect(lateSchedules).toEqual([])
+
+    const FORMAT = String.raw`\b(?:quiz(?:zes)?|bingo|karaoke|tasting)\b[^.!?\n]{0,80}`
+    const lateFinish = new RegExp(`${FORMAT}\\b(?:10[.:]30|11(?:[.:][0-5]\\d)?)\\s?pm\\b|${FORMAT}\\b(?:until|till|til) late\\b`, 'i')
+    expect(claimSentences(lateFinish, { files: ['app/halloween/', 'app/new-years-eve/'] })).toEqual([])
+  })
+
+  it('does not contradict the cash bingo format (section 10)', () => {
+    // Cash bingo runs on set Wednesdays (not every month), with ten games and prizes that
+    // vary by event. Until 10 September 2026 a post promised first Thursdays,
+    // three games and a guaranteed £50 jackpot, and a New Year post repeated
+    // "First Thursday Bingo".
+    expect(
+      claimSentences(/\bfirst thursday\b|\b(?:three|3) games\b|£50 (?:cash )?jackpot|guaranteed £50|win (?:up to )?£50/i),
+    ).toEqual([])
+  })
+
+  it('never says which wind brings the planes (section 9)', () => {
+    // Owner decision, 10 September 2026: nobody here knows which wind brings
+    // aircraft over the garden, so the site does not say. Section 9 had said
+    // westerly operations cover about half the year, and pages turned that into
+    // "westerly winds bring aircraft overhead". The weekly 3pm alternation is
+    // the only timing we give.
+    expect(
+      claimSentences(/\b(?:westerly|easterly|westerlies|easterlies)\b|\bwind direction\b|\bwinds? (?:from the|brings?|favours?)\b/i),
+    ).toEqual([])
+    expect(md).not.toMatch(/\*\*Westerly operations:\*\*/)
+    expect(ssot.beer_garden?.westerly_operations).toBeUndefined()
   })
 
   it('does not hardcode old kitchen-hour or late-food claims', () => {
@@ -722,6 +974,63 @@ describe('SSOT drift guard — high-risk site copy', () => {
         /heated (?:areas?|spots?|(?:beer )?gardens?|terrace|patio|outdoor|outside)|(?:garden|terrace)[^.\n]{0,60}\b(?:is|are) heated|heated in winter|patio heaters?|outdoor heat(?:ing|ers?)/i,
       ),
     ).toEqual([])
+  })
+
+  it('does not claim a fire, a fireplace or a log burner (owner-confirmed 2026-09-12)', () => {
+    // There is no fire anywhere in the pub. Two marketing round-ups and seven places on
+    // the site said there was, so this guards the words rather than the amenity list.
+    // Only the claim wording matches: a fire as a thing the pub has. "Quick-fire round",
+    // "Bonfire Night", fire safety and code that talks about an event "firing" never do.
+    expect(
+      claimSentences(
+        /\b(?:real|log|open|roaring|crackling|our|the)\s+fires?\b(?!\s+(?:safety|exit|door|alarm|risk|extinguisher|brigade))|\bfires?\s+lit\b|\bfireplace|\b(?:log|wood)\s+burner/i,
+      ).filter(
+        (sentence) =>
+          // A 2019 post describes someone miming a fireplace in a game of charades. That is a
+          // story about a night, not a claim that the pub has one.
+          !/quick-?fire|bonfire|charades/i.test(sentence),
+      ),
+    ).toEqual([])
+  })
+
+  it('does not show the old food photo with a lamb shank on it (section 4)', () => {
+    // Lamb is not served on any menu, but this photo has a lamb shank on it. On
+    // 10 September 2026 it was still the hero on four pages and DEFAULT_FOOD_IMAGE,
+    // which puts it in the site-wide Restaurant JSON-LD. The file stays in public/
+    // because Cloudflare caches images for a year; nothing may point at it.
+    expect(matchingFiles(/page-headers\/food-menu\/food-menu\.jpg/)).toEqual([])
+  })
+
+  it('does not list the retired Chicken, Ham Hock & Leek Pie (section 5)', () => {
+    // No longer served, owner-confirmed 10 September 2026. SSOT.json keeps the name
+    // only under food.removed_items, which the customer-facing walk skips.
+    expect(matchingFiles(/ham hock/i)).toEqual([])
+    expect(custBlob).not.toMatch(/ham hock/)
+  })
+
+  it('does not bring back the menu and comparison claims corrected on 10 September 2026', () => {
+    // A pizza the menu does not have, vegan pizzas and a vegan burger the live vegan list
+    // does not include, sandwiches and salads, a 7:30pm quiz start (section 10 says 7pm),
+    // steaks, a roast "at weekends", cheaper-than-hotel figures with no source, and a
+    // veggie burger said not to come from a catering supplier when its patty does.
+    expect(
+      matchingFiles(
+        /meat feast|vegetarian and vegan options (?:are available|such as)|available in vegetarian and vegan options|made vegan on request \(swap the mozzarella|vegan burger\*\*, loaded|fresh sandwiches\*\* and wraps|healthy salads\*\*|The Anchor\*\*, Stanwell Moor \| Monthly \(Wednesdays\) \| 7:30pm|steaks and pub classics|\*\*Sunday Roast\*\* \(weekends\)|40[–-]50% lower than hotel|roughly half what you'd pay|two to six times more at a hotel|frozen disc from a catering supplier/i,
+      ),
+    ).toEqual([])
+  })
+
+  it('keeps discontinued entertainment out of llms.txt (section 10)', () => {
+    // llms.txt still listed live music a month after it stopped in full.
+    const llms = fs.readFileSync(path.join(process.cwd(), 'public/llms.txt'), 'utf8')
+    expect(llms).not.toMatch(/live music|live bands?|open mic|drag cabaret|curry[- ]club|curry nights?/i)
+  })
+
+  it('does not mention Curry Club or a curry night anywhere (sections 10 and 14)', () => {
+    // Curry Club stopped (owner-confirmed 11 September 2026). Its post said
+    // "our curry nights sell out fast", and two more posts listed it as a
+    // monthly night. The Chicken Katsu Curry and the curry buffet never match.
+    expect(matchingFiles(/curry[- ]club|curry[- ]nights?/i)).toEqual([])
   })
 
   it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {

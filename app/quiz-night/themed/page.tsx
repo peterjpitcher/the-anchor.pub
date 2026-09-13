@@ -4,12 +4,12 @@ import { Badge, Container, Card, CardBody } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { BookTableButton } from '@/components/BookTableButton'
-import { PhoneButton } from '@/components/PhoneButton'
+import { GameNightCtaActions } from '@/components/features/GameNight'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { CONTACT } from '@/lib/constants'
+import { londonIsoDate } from '@/lib/table-booking-service-windows'
 
 /**
  * Themed quiz nights hub.
@@ -108,7 +108,7 @@ const FAQS = [
   {
     question: 'How much is entry and do I need to book?',
     answer:
-      'It is £3 per player, paid in cash on the night, the same as our normal quiz. Themed nights fill up faster than the monthly quiz, so booking a table is worth doing. Call 01753 682707 if online booking is closed.'
+      'It is £3 per player, paid in cash on the night, the same as our normal quiz. Booking holds your team’s table. Call 01753 682707 if online booking is closed.'
   },
   {
     question: 'When is the next themed quiz night?',
@@ -127,23 +127,49 @@ const FAQS = [
   }
 ]
 
+/** Where the booking buttons go when no themed night is coming up: the monthly quiz's own form. */
+const MONTHLY_QUIZ_BOOKING_HREF = '/quiz-night#book'
+
 export default function ThemedQuizNightsPage() {
   // Status is DERIVED, never stored. A hardcoded 'upcoming' is true until the
   // night happens and false forever after, and nothing prompts anyone to change
   // it: this page would have kept advertising the 25 September quiz on the 26th.
   // Event slugs end in their own date, which the guard test checks against the
   // stated date, so the slug is the authority.
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
+  //
+  // Compared as Europe/London calendar dates. `setHours(0, 0, 0, 0)` read the
+  // server's own clock, which is UTC on Vercel, so for the first hour after
+  // midnight in British Summer Time a finished night still counted as today.
+  const todayIso = londonIsoDate()
 
   const dated = THEMED_NIGHTS.map((night) => {
-    const iso = night.href.match(/(\d{4}-\d{2}-\d{2})$/)?.[1]
-    const when = iso ? new Date(`${iso}T00:00:00`) : null
-    return { ...night, isUpcoming: when ? when >= today : false }
+    const iso = night.href.match(/(\d{4}-\d{2}-\d{2})$/)?.[1] ?? null
+    return { ...night, iso, isUpcoming: iso ? iso >= todayIso : false }
   })
 
-  const upcoming = dated.filter((n) => n.isUpcoming)
+  const upcoming = dated
+    .filter((n) => n.isUpcoming)
+    .sort((a, b) => (a.iso ?? '').localeCompare(b.iso ?? ''))
   const past = dated.filter((n) => !n.isUpcoming)
+  const next = upcoming[0] ?? null
+
+  // Every booking button books the next themed night itself, on its event
+  // page's own form. All three used to be BookTableButton, which goes to
+  // /book-table, the dining wizard, so the only way to the themed quiz booking
+  // was a text link. With nothing themed coming up they book the monthly quiz.
+  const booking = next
+    ? { label: `Book the ${next.name} quiz`, href: `${next.href}#event-booking` }
+    : { label: 'Book the monthly quiz', href: MONTHLY_QUIZ_BOOKING_HREF }
+
+  const bookingActions = (location: 'hero' | 'body' | 'closing_band') => (
+    <GameNightCtaActions
+      gameSlug="themed_quiz"
+      label={booking.label}
+      href={booking.href}
+      hasBookableDate
+      location={location}
+    />
+  )
 
   return (
     <>
@@ -153,7 +179,7 @@ export default function ThemedQuizNightsPage() {
         kicker="£3 a player, teams of up to six"
         title="Themed quiz nights"
         lead="Every so often we throw out the general knowledge and build the whole quiz around one show. Same £3 entry, same six-a-side teams, considerably more shouting."
-        actions={<BookTableButton source="themed_quiz_hero" />}
+        actions={bookingActions('hero')}
       />
 
       <section className="bg-surface py-section-y">
@@ -174,7 +200,8 @@ export default function ThemedQuizNightsPage() {
             </p>
             <p className="leading-relaxed text-ink-muted">
               The format stays the same: £3 a player paid in cash, teams of up to six, 7pm start, and a
-              comfort break in the middle. Phones stay in pockets during the rounds. Food is served
+              comfort break in the middle. Phones stay in pockets, apart from the interactive round,
+              which you play on your phone. Food is served
               before and during, and parking is free.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -191,7 +218,7 @@ export default function ThemedQuizNightsPage() {
           monthly quiz. Silently hiding the section leaves a page about themed
           quiz nights with no way to attend one, which reads as abandoned. */}
       {upcoming.length === 0 && (
-        <section className="bg-canvas py-section-y">
+        <section id="themed-dates" className="bg-canvas py-section-y">
           <Container>
             <div>
               <h2 className="mb-4 text-h3 text-ink-strong">Nothing themed booked in just yet</h2>
@@ -219,7 +246,7 @@ export default function ThemedQuizNightsPage() {
       )}
 
       {upcoming.length > 0 && (
-        <section className="bg-canvas py-section-y">
+        <section id="themed-dates" className="bg-canvas py-section-y">
           <Container>
             <div>
               <h2 className="mb-6 text-h3 text-ink-strong">Coming up</h2>
@@ -284,8 +311,7 @@ export default function ThemedQuizNightsPage() {
               night where every round is one subject, that is a themed quiz, and they are listed above.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
-              <BookTableButton source="themed_quiz_body" />
-              <PhoneButton phone={CONTACT.phone} source="themed_quiz_body" />
+              {bookingActions('body')}
             </div>
           </div>
         </Container>
@@ -293,11 +319,18 @@ export default function ThemedQuizNightsPage() {
 
       <FAQAccordionWithSchema faqs={FAQS} title="Themed quiz night FAQs" />
 
+      {/* Derived from the next themed night, so it can never name one that has
+          already happened. With none coming up it says nothing dated at all. */}
       <CtaBand
-        title="Next one is Only Fools and Horses"
-        copy="Friday 25 September, £3 a player, and it is a charity night. Book a table and bring the friend who quotes it constantly."
-        primary={<BookTableButton source="themed_quiz_cta" size="lg" />}
-      />
+        title={next ? `Next one is ${next.name}` : 'Fancy the monthly quiz instead?'}
+        copy={
+          next
+            ? `${next.date}, £3 a player. Book your team in and bring the friend who quotes it constantly.`
+            : 'Nothing themed is booked in just yet. The monthly quiz is the same £3 a player, with teams of up to six.'
+        }
+      >
+        {bookingActions('closing_band')}
+      </CtaBand>
 
       <InternalLinkingSection
         title="More nights at The Anchor"

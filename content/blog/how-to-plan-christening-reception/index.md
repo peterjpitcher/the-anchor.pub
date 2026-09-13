@@ -96,7 +96,8 @@ A buffet is the natural choice for christenings. It works for all ages, guests c
 |---|---|
 | Welcome Drinks | 10 guests |
 | Bar Tab | 10 guests |
-| Welcome Prosecco or Orange Juice | 20 guests |
+| Welcome Prosecco | 20 guests |
+| Welcome Orange Juice | 20 guests |
 | Unlimited Tea and Coffee | 20 guests |
 | Kids Unlimited Squash | 20 guests |
 

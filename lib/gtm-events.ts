@@ -146,6 +146,13 @@ export function trackEventDetailImpression(eventData: {
   }, { sendToApi: true })
 }
 
+/**
+ * The guest has started the event booking form: fired once, on their first
+ * real interaction with it (a field changed or a quantity chosen).
+ *
+ * It used to fire at submit, alongside `event_booking_submit`, so "started"
+ * always equalled "submitted" and abandonment could not be seen at all.
+ */
 export function trackEventBookingStart(eventData: {
   eventId: string
   eventName: string
@@ -259,6 +266,32 @@ export function trackEventBookClick(eventData: {
     event: 'event_reserve_click',
     ...payload
   }, { sendToApi: true })
+}
+
+/**
+ * A guest put an event night in their diary, from the Google Calendar link or
+ * the .ics download. Neither was tracked, so the step people take once they
+ * have decided to come was invisible. Default dispatch options: consent-gated
+ * and sent on to GA4 like every other event.
+ */
+export function trackAddToCalendarClick(
+  source: string,
+  data: {
+    eventId: string
+    eventName: string
+    eventDate?: string
+    calendarType: 'google_calendar' | 'ics_file'
+  }
+) {
+  pushToDataLayer({
+    event: 'add_to_calendar',
+    funnel: 'hosted_event_booking',
+    calendar_source: source,
+    calendar_type: data.calendarType,
+    event_id: data.eventId,
+    event_name: data.eventName,
+    event_date: data.eventDate
+  })
 }
 
 export function trackEventCardView(eventData: {

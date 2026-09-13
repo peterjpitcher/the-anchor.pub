@@ -2,17 +2,24 @@ import type { ComponentProps } from 'react'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { GUEST_COMMS_CONSENT_TEXT_VERSION } from '@/lib/communication-consent'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
-import { trackDirectionsClick, trackEventBookingComplete } from '@/lib/gtm-events'
+import {
+  trackDirectionsClick,
+  trackEventBookingComplete,
+  trackEventBookingFunnelStep,
+  trackEventBookingStart
+} from '@/lib/gtm-events'
 import {
   captureBookingAttributionFromLocation,
   clearBookingAttributionForTest,
 } from '@/lib/booking-attribution'
+import { setConsentStatus } from '@/lib/cookies'
 
 jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn(),
   trackEventBookingComplete: jest.fn(),
   trackEventBookingFunnelStep: jest.fn(),
-  trackDirectionsClick: jest.fn()
+  trackDirectionsClick: jest.fn(),
+  trackAddToCalendarClick: jest.fn()
 }))
 
 const TEST_TURNSTILE_SITE_KEY = 'test-turnstile-site-key'
@@ -112,6 +119,40 @@ describe('ManagementEventBookingForm', () => {
   afterEach(() => {
     clearBookingAttributionForTest()
     window.localStorage.clear()
+    document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
+  })
+
+  it('sends no ad tags, click IDs or full URL with a booking made without marketing consent', async () => {
+    const previousFetch = global.fetch
+    const sent: Record<string, unknown>[] = []
+    global.fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+      if (input === '/api/event-bookings') {
+        sent.push(JSON.parse(String(init?.body)))
+        return new Response(JSON.stringify({ success: true, data: { state: 'confirmed', booking_id: 'booking-fixture' } }), { status: 201 })
+      }
+      return previousFetch(input, init)
+    })
+    window.history.pushState({}, '', '/events/music-bingo?utm_source=facebook&utm_medium=paid_social&utm_campaign=music-bingo&fbclid=fb-ad-click&gclid=g-123&short_code=ma-bingo')
+    captureBookingAttributionFromLocation(CAPTURED_AT)
+
+    render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Test event', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' }} />)
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
+    await screen.findByText('Event booking confirmed')
+
+    const payload = sent[0]
+    for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'short_code', 'source_url', 'attribution_captured_at', 'fbp', 'fbc']) {
+      expect(payload[key]).toBeUndefined()
+    }
+    expect(payload.landing_path).toBe('/events/music-bingo')
+    expect(payload.meta_consent_granted).toBe(false)
+    expect(window.localStorage.getItem('anchor-booking-attribution')).toBeNull()
+    expect(document.cookie).not.toContain('anchor-booking-attribution=')
+    window.history.pushState({}, '', '/')
   })
 
   it.each([true, false])('books without food or early-arrival requests regardless of legacy response flag %s', async (recorded) => {
@@ -133,7 +174,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByLabelText('Would you like to discuss food?')).not.toBeInTheDocument()
     expect(screen.queryByLabelText('I would like to discuss arriving early')).not.toBeInTheDocument()
     expect(screen.queryByText('Early arrival (optional)')).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
     await screen.findByText('Event booking confirmed')
     expect(sent[0].early_arrival_request).toBeUndefined()
     expect(sent[0].dining_request).toBeUndefined()
@@ -141,6 +182,60 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByText(/request has been recorded for the team/)).not.toBeInTheDocument()
     expect(screen.queryByText(/early.arrival|arriving early|discuss food/i)).not.toBeInTheDocument()
 
+  })
+
+  /**
+   * `event_booking_started` fired at submit, beside `event_booking_submit`, so
+   * "started" always equalled "submitted" and abandonment was invisible. It now
+   * fires once, on the guest's first real move, and submit stays at submit.
+   */
+  describe('booking start', () => {
+    const START_EVENT = { id: 'start-fixture', name: 'Quiz Night', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' }
+
+    it('fires once on the first field a guest changes, and not again at submit', async () => {
+      global.fetch = jest.fn(async () =>
+        new Response(JSON.stringify({ success: true, data: { state: 'confirmed', booking_id: 'start-booking' } }), { status: 201 })
+      ) as unknown as typeof fetch
+      render(<ManagementEventBookingForm event={START_EVENT} />)
+
+      // Seeing the form is form_view, not a start.
+      expect(trackEventBookingStart).not.toHaveBeenCalled()
+
+      fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+      expect(trackEventBookingStart).toHaveBeenCalledTimes(1)
+      expect(trackEventBookingStart).toHaveBeenCalledWith({
+        eventId: 'start-fixture',
+        eventName: 'Quiz Night',
+        eventDate: '2999-01-01T19:00:00Z',
+        source: 'event_booking_form'
+      })
+
+      fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+      fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
+      await screen.findByText('Event booking confirmed')
+
+      expect(trackEventBookingStart).toHaveBeenCalledTimes(1)
+      expect(trackEventBookingFunnelStep).toHaveBeenCalledWith(expect.objectContaining({ step: 'submit' }))
+    })
+
+    it('counts choosing how many people as a start', () => {
+      render(<ManagementEventBookingForm event={START_EVENT} />)
+
+      fireEvent.click(screen.getByRole('button', { name: '3' }))
+      fireEvent.click(screen.getByRole('button', { name: '4' }))
+
+      expect(trackEventBookingStart).toHaveBeenCalledTimes(1)
+    })
+
+    it('does not count the hidden field only a bot fills', () => {
+      const { container } = render(<ManagementEventBookingForm event={START_EVENT} />)
+
+      fireEvent.change(container.querySelector('#evt-website') as HTMLInputElement, { target: { value: 'spam' } })
+
+      expect(trackEventBookingStart).not.toHaveBeenCalled()
+    })
   })
 
   it('submits mixed tickets with a separate name for every guest', async () => {
@@ -156,7 +251,7 @@ describe('ManagementEventBookingForm', () => {
         { id: 'child', name: 'Child', price: 6, sort_order: 1, remaining: 10 },
       ],
     }} />)
-    expect(screen.getByRole('button', { name: 'Reserve my seats' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Book a table' })).toBeDisabled()
     fireEvent.click(screen.getByRole('button', { name: 'Add one Adult ticket' }))
     fireEvent.click(screen.getByRole('button', { name: 'Add one Adult ticket' }))
     fireEvent.click(screen.getByRole('button', { name: 'Add one Child ticket' }))
@@ -167,7 +262,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
     expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
     expect(screen.getAllByLabelText(/ticket .* name/i)).toHaveLength(3)
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
     await screen.findByText('Event booking confirmed')
     expect(sent[0]).toMatchObject({
       seats: 3, first_name: 'Jane', last_name: 'Guest',
@@ -238,7 +333,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByLabelText('Ticket 2 name')).not.toBeInTheDocument()
     expect(screen.queryByText(/photo ID/i)).not.toBeInTheDocument()
     await waitFor(() =>
-      expect(screen.getByRole('button', { name: 'Reserve my seats' })).not.toBeDisabled()
+      expect(screen.getByRole('button', { name: 'Book a table' })).not.toBeDisabled()
     )
   })
 
@@ -259,7 +354,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
     // Error message from the API should appear inline in the form
     await waitFor(() => expect(screen.getByText('Sunday lunch only')).toBeInTheDocument())
@@ -306,7 +401,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
     // The friendly closed panel replaces the form; the generic error is not shown.
     await waitFor(() => expect(screen.getByText('Online ticket sales have closed')).toBeInTheDocument())
@@ -370,6 +465,8 @@ describe('ManagementEventBookingForm', () => {
       '',
       '/events/music-bingo?utm_source=facebook&utm_medium=paid_social&utm_campaign=music-bingo&gclid=g-123&short_code=ma-bingo&email=jane@example.com',
     )
+    // Ad tags reach the booking only with marketing consent (see the no-consent case above).
+    setConsentStatus({ marketing: true })
     captureBookingAttributionFromLocation(CAPTURED_AT)
     window.history.pushState({}, '', '/events/music-bingo')
 
@@ -400,7 +497,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
     await waitFor(() => expect(screen.getByText('Your seats are confirmed for Music Bingo.')).toBeInTheDocument())
 
@@ -500,7 +597,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book your places' }))
     await screen.findByText(/No booking has been made/)
     expect(sent).toHaveLength(1)
     expect(sent[0].seating_preference).toBe('seated')
@@ -670,7 +767,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
     await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
     fireEvent.click(screen.getByRole('button', { name: 'Join Waitlist' }))
@@ -686,32 +783,145 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.requested_seats).toBe(4)
   })
 
+  /**
+   * The hubs label a full date "Full, join the waitlist", but when the page
+   * said nothing was left the form refused before sending anything, so the
+   * API's full_with_waitlist_option answer and the Join Waitlist button were
+   * never reached. Mocked end to end: nothing here reaches the live API.
+   */
+  describe('a night the page shows as full', () => {
+    const FULL_EVENT = {
+      id: '550e8400-e29b-41d4-a716-446655440000',
+      name: 'Autumn Kick-Off Quiz Night',
+      slug: 'autumn-kick-off-quiz-night-2999-01-01',
+      startDate: '2999-01-01T19:00:00Z',
+      payment_mode: 'cash_only',
+      price_per_seat: 3
+    }
+
+    function fillDetails() {
+      fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+      fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
+      fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    }
+
+    function answerBookingWith(bookingData: Record<string, unknown>) {
+      const sent: { booking: Record<string, unknown>[]; waitlist: Record<string, unknown>[] } = { booking: [], waitlist: [] }
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input)
+        if (url === '/api/event-bookings') {
+          sent.booking.push(JSON.parse(String(init?.body)))
+          return new Response(JSON.stringify({ success: true, data: bookingData }), { status: 200 })
+        }
+        if (url === '/api/event-waitlist') {
+          sent.waitlist.push(JSON.parse(String(init?.body)))
+          return new Response(
+            JSON.stringify({ success: true, data: { queued: true, state: 'queued', waitlist_entry_id: 'waitlist-1', reason: null, seats_remaining: 0 } }),
+            { status: 201 }
+          )
+        }
+        throw new Error(`Unexpected fetch call: ${url}`)
+      })
+      return sent
+    }
+
+    const FULL_ANSWER = {
+      state: 'full_with_waitlist_option',
+      booking_id: null,
+      reason: 'insufficient_capacity',
+      seats_remaining: 0,
+      next_step_url: null,
+      manage_booking_url: null
+    }
+
+    it.each([
+      ['a table night', { booking_mode: 'table', seats_remaining: 0 }, 'Book a table'],
+      ['a communal night', { booking_mode: 'communal', seated_remaining: 0, standing_remaining: 0, total_remaining: 0 }, 'Book your places']
+    ])('sends %s with a waitlist to the API, then offers the waitlist', async (_label, capacity, submitLabel) => {
+      const sent = answerBookingWith(FULL_ANSWER)
+      render(<ManagementEventBookingForm event={{ ...FULL_EVENT, ...capacity, waitlist_enabled: true }} />)
+
+      expect(screen.getByText(/This night is showing as full/)).toBeInTheDocument()
+      expect(screen.queryByText('No tickets are available. Please call us for help.')).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '4' })).toBeEnabled()
+
+      fireEvent.click(screen.getByRole('button', { name: '4' }))
+      fillDetails()
+      fireEvent.click(screen.getByRole('button', { name: submitLabel }))
+
+      fireEvent.click(await screen.findByRole('button', { name: 'Join Waitlist' }))
+      await screen.findByText(/on the waitlist/)
+
+      expect(sent.booking).toHaveLength(1)
+      expect(sent.booking[0].seats).toBe(4)
+      expect(sent.waitlist).toHaveLength(1)
+      expect(sent.waitlist[0]).toMatchObject({
+        event_id: FULL_EVENT.id,
+        requested_seats: 4,
+        first_name: 'Jane',
+        last_name: 'Guest'
+      })
+    })
+
+    it('books the places when some have come free since the page was cached', async () => {
+      const sent = answerBookingWith({ state: 'confirmed', booking_id: 'booking-freed', reason: null, seats_remaining: 3, next_step_url: null, manage_booking_url: null })
+      render(<ManagementEventBookingForm event={{ ...FULL_EVENT, booking_mode: 'table', seats_remaining: 0, waitlist_enabled: true }} />)
+
+      fillDetails()
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
+
+      await screen.findByText('Event booking confirmed')
+      expect(sent.booking).toHaveLength(1)
+      expect(sent.waitlist).toHaveLength(0)
+    })
+
+    it('still stops a full night with no waitlist before sending anything', async () => {
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL) => {
+        throw new Error(`Unexpected fetch call: ${String(input)}`)
+      })
+      render(<ManagementEventBookingForm event={{ ...FULL_EVENT, booking_mode: 'table', seats_remaining: 0 }} />)
+
+      expect(screen.getByText('No tickets are available. Please call us for help.')).toBeInTheDocument()
+      expect(screen.queryByText(/This night is showing as full/)).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '1' })).toBeDisabled()
+
+      fillDetails()
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
+
+      await screen.findByText('That many tickets are no longer available. Please choose fewer tickets or call us.')
+      expect(global.fetch).not.toHaveBeenCalled()
+    })
+  })
+
   // /karaoke is free entry, and the email field still promised "any payment
-  // follow-up". There is no payment on a free event, so there is no follow-up.
-  it('promises a payment follow-up only when the event can actually charge', () => {
-    const { unmount } = render(
+  // follow-up". The same promise sat on every cash-on-arrival quiz and bingo
+  // night, where nothing is ever charged online either: the management app only
+  // holds a booking for payment when the record is prepaid.
+  it.each([
+    ['a free night', { payment_mode: 'free' }],
+    ['a cash-on-arrival night', { payment_mode: 'cash_only', price_per_seat: 3 }],
+    ['a priced night with no payment mode', { price_per_seat: 3 }]
+  ])('promises no payment follow-up on %s', (_label, payment) => {
+    render(
       <ManagementEventBookingForm
-        event={{
-          id: 'karaoke-fixture',
-          name: 'Karaoke Night',
-          startDate: '2999-01-01T20:00:00Z',
-          payment_mode: 'free'
-        }}
+        event={{ id: 'no-charge-fixture', name: 'Quiz Night', startDate: '2999-01-01T19:00:00Z', ...payment }}
       />
     )
 
     expect(screen.getByText('So we can send your confirmation.')).toBeInTheDocument()
     expect(screen.queryByText(/payment follow-up/)).not.toBeInTheDocument()
+  })
 
-    unmount()
-
+  it('promises a payment follow-up only on a prepaid night, which is charged online', () => {
     render(
       <ManagementEventBookingForm
         event={{
-          id: 'quiz-fixture',
-          name: 'Quiz Night',
+          id: 'prepaid-fixture',
+          name: 'Tasting Night',
           startDate: '2999-01-01T19:00:00Z',
-          price_per_seat: 3
+          payment_mode: 'prepaid',
+          price_per_seat: 45
         }}
       />
     )
@@ -719,7 +929,23 @@ describe('ManagementEventBookingForm', () => {
     expect(
       screen.getByText('So we can send your confirmation and any payment follow-up.')
     ).toBeInTheDocument()
-    expect(screen.queryByText('So we can send your confirmation.')).not.toBeInTheDocument()
+  })
+
+  // One action used to carry four labels: "Reserve table" or "Book tickets" on
+  // the page, "Reserve my seats" here, "Book your places" on the hubs.
+  it.each([
+    ['a communal night', { booking_mode: 'communal', seated_remaining: 40, standing_remaining: 11 }, 'Book your places'],
+    ['a table night', { booking_mode: 'table', seats_remaining: 40 }, 'Book a table'],
+    ['a night with no booking mode, which the management app books as a table', {}, 'Book a table']
+  ])('names the submit button by the booking mode on %s', (_label, mode, expected) => {
+    render(
+      <ManagementEventBookingForm
+        event={{ id: 'label-fixture', name: 'Music Bingo', startDate: '2999-01-01T19:00:00Z', ...mode }}
+      />
+    )
+
+    expect(screen.getByRole('button', { name: expected })).toHaveAttribute('type', 'submit')
+    expect(screen.queryByRole('button', { name: 'Reserve my seats' })).not.toBeInTheDocument()
   })
 
   // Both of these point at real customer URLs on the management domain and must
@@ -765,7 +991,7 @@ describe('ManagementEventBookingForm', () => {
       fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
       await screen.findByText('Your seats are currently on hold.')
 
@@ -844,7 +1070,7 @@ describe('ManagementEventBookingForm', () => {
       fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
     }
 
     function queryCalendarLinks(): HTMLElement[] {
@@ -1091,7 +1317,7 @@ describe('ManagementEventBookingForm security check recovery', () => {
   }
 
   function submitButton(): HTMLElement {
-    return screen.getByRole('button', { name: 'Reserve my seats' })
+    return screen.getByRole('button', { name: 'Book a table' })
   }
 
   function expectRecoveryPanel(message: string) {
@@ -1296,6 +1522,87 @@ describe('ManagementEventBookingForm security check recovery', () => {
     expect(mockTurnstileReset).toHaveBeenCalled()
     advanceBy(10_000)
     expectRecoveryPanel(RECOVERY_MESSAGE)
+  })
+
+  /**
+   * Joining the waitlist is a second request, and the booking attempt that
+   * answered "full" spent the only token. A Join Waitlist click without a fresh
+   * one is refused by the security check, so the button waits for it.
+   */
+  describe('on a full night', () => {
+    function renderFullNight() {
+      return render(
+        <ManagementEventBookingForm
+          event={{
+            id: 'turnstile-full-fixture',
+            name: 'Quiz Night',
+            startDate: '2999-01-01T19:00:00Z',
+            price_per_seat: 3,
+            booking_mode: 'table',
+            seats_remaining: 0,
+            waitlist_enabled: true
+          }}
+        />
+      )
+    }
+
+    function answerFullThenQueued(): Array<{ url: string; body: Record<string, unknown> }> {
+      const sent: Array<{ url: string; body: Record<string, unknown> }> = []
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = String(input)
+        if (url === '/api/event-bookings' || url === '/api/event-waitlist') {
+          sent.push({ url, body: JSON.parse(String(init?.body)) })
+          const data = url === '/api/event-bookings'
+            ? { state: 'full_with_waitlist_option', booking_id: null, reason: 'insufficient_capacity', seats_remaining: 0, next_step_url: null, manage_booking_url: null }
+            : { queued: true, state: 'queued', waitlist_entry_id: 'waitlist-1', reason: null, seats_remaining: 0 }
+          return new Response(JSON.stringify({ success: true, data }), { status: 200 })
+        }
+        throw new Error(`Unexpected fetch call: ${url}`)
+      })
+      return sent
+    }
+
+    it('holds Join Waitlist until a fresh token arrives, then spends that token', async () => {
+      const sent = answerFullThenQueued()
+      renderFullNight()
+      fillBookerDetails()
+      emitTurnstile('onSuccess', 'booking-token')
+      fireEvent.click(submitButton())
+
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
+      const joinWaitlist = screen.getByRole('button', { name: 'Join Waitlist' })
+      expect(joinWaitlist).toBeDisabled()
+      expect(mockTurnstileReset).toHaveBeenCalledTimes(1)
+
+      emitTurnstile('onSuccess', 'waitlist-token')
+      expect(joinWaitlist).toBeEnabled()
+      fireEvent.click(joinWaitlist)
+
+      await waitFor(() => expect(screen.getByText(/on the waitlist/)).toBeInTheDocument())
+      expect(sent.map((request) => request.url)).toEqual(['/api/event-bookings', '/api/event-waitlist'])
+      expect(sent[0].body.turnstile_token).toBe('booking-token')
+      expect(sent[1].body.turnstile_token).toBe('waitlist-token')
+      // Spent on the waitlist request, so it is reset for anything that follows.
+      expect(mockTurnstileReset).toHaveBeenCalledTimes(2)
+    })
+
+    it('explains the held button when no fresh token turns up', async () => {
+      answerFullThenQueued()
+      renderFullNight()
+      fillBookerDetails()
+      emitTurnstile('onSuccess', 'booking-token')
+      fireEvent.click(submitButton())
+
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
+      advanceBy(10_000)
+
+      expectRecoveryPanel(RECOVERY_MESSAGE)
+      expect(screen.getByRole('button', { name: 'Join Waitlist' })).toHaveAttribute(
+        'aria-describedby',
+        'event-booking-turnstile-recovery'
+      )
+      expectDetailsSurvived()
+    })
   })
 })
 

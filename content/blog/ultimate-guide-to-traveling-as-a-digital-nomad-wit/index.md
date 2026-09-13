@@ -106,9 +106,8 @@ The Anchor welcomes **digital nomads with dogs**, offering:
 ### Lunch Options for Digital Nomads
 
 **Working Lunch Menu:**
-- **Stone-baked pizzas** from £13
-- **Fresh sandwiches** and wraps
-- **Healthy salads** for lighter meals
+- **Stone-baked pizzas** (see our [food menu](/food-menu) for today's prices)
+- **Wraps**, fish finger or chicken goujon, with chips
 - **Traditional pub classics**
 - **Vegetarian & vegan** options
 - **Quick service** for meeting breaks
@@ -158,16 +157,16 @@ The Anchor welcomes **digital nomads with dogs**, offering:
 
 **Essential Information:**
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
-📶 **WiFi**: Free, reliable, no passwords  
-🔌 **Power**: Dining room tables with built-in power points  
-🚗 **Parking**: Free on-site parking  
-🐕 **Dogs**: Welcome throughout  
-☕ **Coffee**: Proper barista coffee  
-🍕 **Food**: Full menu, not airport prices  
-🎮 **Entertainment**: Pool, darts, jukebox, fruit machine  
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
+**WiFi**: Free, reliable, no passwords  
+**Power**: Dining room tables with built-in power points  
+**Parking**: Free on-site parking  
+**Dogs**: Welcome throughout  
+**Coffee**: Proper barista coffee  
+**Food**: Full menu, not airport prices  
+**Entertainment**: Pool, darts, jukebox, fruit machine  
 ⏰ **Best Hours**: Tuesday to Friday afternoons ([opening hours](/find-us#opening-hours))  
-✈️ **From Heathrow**: Just 7 minutes  
+**From Heathrow**: Just 7 minutes  
 
 **Contact & Planning:**
 - **Call ahead**: 01753 682707

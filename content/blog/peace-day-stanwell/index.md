@@ -106,10 +106,10 @@ Stanwell Moor Village is more than its human inhabitants; it's a naturally beaut
 
 ### Visit The Anchor - Your Village Pub Near Heathrow
 
-🏡 **Community Hub**: The Anchor, Horton Road, Stanwell Moor
-✈️ **Location**: 7 minutes from all Heathrow terminals
-🌳 **Environment**: Peaceful village with nature walks
-👨‍👩‍👧 **Community**: Family-friendly with regular events
-📞 **Contact**: 01753 682707
+**Community Hub**: The Anchor, Horton Road, Stanwell Moor
+**Location**: 7 minutes from all Heathrow terminals
+**Environment**: Peaceful village with nature walks
+**Community**: Family-friendly with regular events
+**Contact**: 01753 682707
 
 Whether you're considering moving near **Heathrow Airport** or just passing through, experience the peace and community spirit that makes **Stanwell Moor** special. Visit The Anchor and discover your potential new neighbourhood!

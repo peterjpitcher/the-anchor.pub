@@ -2,10 +2,9 @@
 title: Music Bingo Near Heathrow | Monthly Prize Night at The Anchor
 slug: music-bingo-nights
 description: >-
-  Play music bingo near Heathrow Airport at The Anchor pub. Last Wednesday
-  monthly featuring song snippets instead of numbers. Win prizes, enjoy dinner,
-  and have fun just 7 minutes from Terminal 5. Book your table for Stanwell
-  Moor's most entertaining bingo twist.
+  Music bingo at The Anchor in Stanwell Moor, once a month on a Friday. Song
+  clips replace the numbers. Entry is £5 cash on the night, and the winners'
+  prize is a £25 voucher to spend with us.
 date: '2023-06-10'
 oldUrl: >-
   https://www.the-anchor.pub/post/monthly-music-bingo-nights-great-food-prizes-and-f
@@ -13,7 +12,7 @@ author: Billy
 keywords:
   - music bingo near heathrow
   - musical bingo stanwell moor
-  - wednesday entertainment pub
+  - friday entertainment pub
   - the anchor music night
   - bingo with songs
   - pub games near airport
@@ -28,298 +27,61 @@ images: []
 noindex: true
 ---
 
-Experience **music bingo near Heathrow** with a melodic twist! Every last Wednesday, The Anchor hosts the area's most entertaining bingo night where songs replace numbers. Test your music knowledge, win prizes, and enjoy great food just 7 minutes from Terminal 5. Join Stanwell Moor's favourite musical game night!
+Music bingo is bingo with the numbers swapped for song clips. We run it once a month on a Friday, hosted by drag queen Nikki Manfadge. You don't need to know anything about music to play.
 
-## What is Music Bingo?
+## What is music bingo?
 
-### Bingo Meets Your Favourite Tunes
+Short bursts of songs play instead of numbers being called. Song titles fill your card, and you mark one off every time you hear it. If you recognise songs, you can play it. There's nothing to learn.
 
-**Music bingo** revolutionizes traditional bingo with an entertaining twist:
+The clips span decades, so a mixed group tends to cover more of the card than a group of the same age.
 
-**How It Works:**
-- 🎵 Song snippets play instead of numbers
-- 📝 Mark songs on your bingo card
-- 🎯 Match patterns to win
-- 🏆 Prizes for winners
-- 🎤 Sing along encouraged!
-- 🍻 Relaxed, fun atmosphere
+## The night in short
 
-It's the perfect blend of music trivia, bingo excitement, and social fun!
-
-## Monthly Music Bingo at The Anchor
-
-### Last Wednesday Entertainment
-
-Our **music bingo nights** have become legendary:
-
-**Event Details:**
-- 📅 **Last Wednesday** of every month
-- ⏰ **7:30 PM** start (arrive early!)
-- 🎫 **Free entry** (booking essential)
-- 🍽️ **Full menu** available
-- 🏆 **Prizes** every round
-- 👥 **All ages** welcome
-
-Join the fun at Surrey's most entertaining Wednesday night!
-
-## How Our Music Bingo Works
-
-### Simple Rules, Maximum Fun
-
-**Game Format:**
-- **Round 1**: Chart Toppers (current hits)
-- **Round 2**: Golden Oldies (classics)
-- **Round 3**: One-Hit Wonders
-- **Round 4**: Theme Round (varies monthly)
-- **Round 5**: Grand Finale Mix
-
-**Winning Patterns:**
-- Single line
-- Two lines
-- Four corners
-- Full house
-- Special patterns (announced each night)
-
-## Prizes and Rewards
-
-### Win While You Sing
-
-Our **music bingo prizes** include:
-
-**Regular Prizes:**
-- Bar tabs for winners
-- Bottles of wine
-- Meal vouchers
-- Anchor merchandise
-- Mystery prizes
-- Rollover jackpots
-
-**Special Rounds:**
-- Bonus prizes for singing along
-- Dance-off challenges
-- Music trivia bonuses
-- Team prizes available
-
-Everyone has multiple chances to win throughout the night!
+- **Once a month on a Friday.** The next date is on the [music bingo page](/music-bingo).
+- **Arrive from 6:30pm**, first game at 7pm. The pub itself is open from 12pm, so come earlier and eat first.
+- **Finished by 10pm.**
+- **£5 per person**, cash on the night, unless the listing for that date says otherwise. There's nothing to pay when you book.
+- **Two themed games**, with interactive music games and quizzes between them.
+- **Winners get a £25 voucher** to spend with us, the same as our quiz night.
+- **Fancy dress earns extra points.** Every date has its own theme. Dressing up is never a condition of getting in.
+- **Communal seating**, so book your group in one booking and we'll seat you together.
 
 ![Friends gathered around a table, engaged in Music Bingo at our village pub.](/content/blog/music-bingo-nights/image-1.jpg)
 
-## Food and Drink
+## Booking your places
 
-### Dine While You Play
+Seating is communal, so booking is how we know how many places to lay out and how we keep your group together. On a busy night a long table may be shared with another group.
 
-Enjoy our full menu during **music bingo**:
+- Online: [book on the music bingo page](/music-bingo)
+- Phone: 01753 682707
+- In person: at the bar
 
-**Kitchen Open:**
-- Full weekday menu available
-- Order before or during games
-- Table service throughout
-- Special game-night deals
-- Sharing platters perfect for teams
+## Food on the night
 
-**Popular Choices:**
-- Cheesy chips to share
-- Burger and chips
-- Fish and chips
-- Vegetarian options
-- Desserts for winners!
-
-**Drinks Specials:**
-- Pre-bingo drink deals
-- Pitcher deals for tables
-- Soft drinks available
-- Coffee for concentration
-
-## The Music Bingo Experience
-
-### More Than Just a Game
-
-What makes our nights special:
-
-**Atmosphere:**
-- Lively, friendly crowd
-- Singalong moments
-- Dancing encouraged
-- Mix of ages and music tastes
-- Community feeling
-
-**Our Host:**
-- Professional bingo caller
-- Music knowledge expert
-- Keeps energy high
-- Fair and fun
-- Interactive hosting style
+Kitchen times vary by date, so order at your table when you arrive, or call 01753 682707 to check that night's times. Your music bingo booking is your seat for the night, so you don't need a separate dining booking. Have a look at the [food menu](/food-menu) before you come.
 
 ![A joyful group of friends celebrating a win at Music Bingo night.](/content/blog/music-bingo-nights/image-2.jpg)
 
-## Perfect for Groups
+## Good for a group
 
-### Ideal Night Out Near Heathrow
+Work crews, birthdays, catch-ups and family nights all work here. Book everyone in one booking and we'll keep you on the same tables. Children are welcome at any hour we're open, so bring the family if you want to.
 
-**Music bingo** suits everyone:
-
-**Great For:**
-- Work colleagues bonding
-- Birthday celebrations
-- Date nights with a difference
-- Friends' catch-ups
-- Family fun (early evening)
-- Meeting new people
-
-**Group Benefits:**
-- Book tables together
-- Team play options
-- Group photo opportunities
-- Celebration packages
-- Reserved seating
-
-## Music Genres Covered
-
-### Something for Every Taste
-
-Our playlists include:
-
-**Decades:**
-- 60s Classics
-- 70s Disco
-- 80s Hits
-- 90s Nostalgia
-- 00s Bangers
-- Current Chart
-
-**Genres:**
-- Pop favourites
-- Rock anthems
-- R&B smooth
-- Country hits
-- Dance floor fillers
-- Indie alternatives
-
-Everyone will hear songs they love!
+Private music bingo nights are available on request. Call 01753 682707 and we'll put one together for your group.
 
 ![Group of smiling friends posing together during Music Bingo night at our village pub.](/content/blog/music-bingo-nights/image-3.jpg)
 
-## Why Choose The Anchor
+## Getting here
 
-### Your Music Bingo Destination
+The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. Seven minutes by car from Heathrow Terminal 5, with 20 free spaces on site. The 441, 442 and 555 buses run from Heathrow Central Bus Station. Dogs are welcome throughout the pub, on a lead.
 
-**Location Benefits:**
-- 10 minutes from Heathrow
-- Free parking available
-- Easy public transport
-- Safe, well-lit venue
-- Convenient for all areas
+## Getting in
 
-**What Sets Us Apart:**
-- Professional sound system
-- Clear music quality
-- Experienced host
-- Fair game play
-- Great prize selection
-- Fantastic atmosphere
-
-## Booking Your Table
-
-### Secure Your Spot
-
-Music bingo fills up fast:
-
-**How to Book:**
-📞 Call: 01753 682707  
-🌐 Online: [Book here](https://bit.ly/3VhJzzy)  
-📱 In person: At the bar
-
-**Booking Tips:**
-- Book early (sells out!)
-- Arrive 30 mins early
-- Groups should book together
-- Mention dietary requirements
-- Request specific seating
+Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on 01753 682707 and we'll help.
 
 ![Cheerful group of Music Bingo participants posing for a photo at our pub.](/content/blog/music-bingo-nights/image-4.jpg)
 
-## Special Theme Nights
+## Come along
 
-### Extra Fun Throughout the Year
-
-**Themed Music Bingo:**
-- Halloween Hits (October)
-- Christmas Classics (December)
-- Love Songs (February)
-- Summer Vibes (July)
-- Back to School (September)
-
-Dress up for themed nights and win extra prizes!
-
-## Tips for Music Bingo Success
-
-### Maximise Your Chances
-
-**Veteran Players Advise:**
-- Listen carefully to intros
-- Don't overthink it
-- Work as a team
-- Stay focused but have fun
-- Sing along for bonus points
-- Arrive early for best seats
-
-## Building Community
-
-### More Than Just Winners
-
-Our **music bingo near Heathrow** creates:
-
-- New friendships
-- Regular social groups
-- Shared memories
-- Local connections
-- Monthly traditions
-
-Many players return every month!
+The next music bingo date, the theme and the booking form are all on the [music bingo page](/music-bingo). Or call 01753 682707 and we'll put your names down.
 
 ![Snapshot of a jovial group of friends, making memories at our Music Bingo event.](/content/blog/music-bingo-nights/image-5.jpg)
-
-## Corporate Bookings
-
-### Team Building with Tunes
-
-Perfect for workplace groups:
-
-**Corporate Packages:**
-- Reserved area
-- Food platters
-- Drinks packages
-- Team competition
-- Prize customisation
-- Invoice payment
-
-Contact us for corporate music bingo events!
-
-## Accessibility
-
-### Everyone Welcome
-
-We ensure all can enjoy:
-
-- Ground floor venue
-- Step free from the car park, with one step from the bar and a ramp on request
-- No accessible toilet, so call 01753 682707 if you'd like to check what will work for you
-- Large print cards available
-- Volume control for needs
-- Helpful staff
-- Inclusive atmosphere
-
-## Join Us for Music Bingo
-
-Ready for the most entertaining **bingo night near Heathrow**? Join us on the last Wednesday of every month for music, laughter, prizes, and memories!
-
-**Next Music Bingo Night:**
-📅 Last Wednesday monthly  
-⏰ 7:30 PM start  
-🎵 Book ahead!  
-📍 The Anchor, Stanwell Moor
-
-**Book your table now:**
-📞 01753 682707
-
-*The Anchor - Where music meets bingo meets brilliant nights out, minutes from Heathrow!*

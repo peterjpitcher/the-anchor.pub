@@ -110,7 +110,7 @@ export default async function FishAndChipsPage() {
       )}
 
       <InteriorHero
-        image="/images/page-headers/food-menu/food-menu.jpg"
+        image="/images/food/weekday-2026/beer-battered-cod-and-chips-hero.jpg"
         crumb="Fish and Chips"
         title="Fish and Chips Near Heathrow"
         lead={signatureFish?.description || 'Current fish and chip options from our latest kitchen menu.'}

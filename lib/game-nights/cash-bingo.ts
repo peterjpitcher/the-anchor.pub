@@ -1,11 +1,11 @@
 import type { GameNightConfig } from './types'
 
 /**
- * Cash bingo. Facts from docs/SSOT.md §10: monthly, dates vary, arrive by 6:30pm,
+ * Cash bingo. Facts from docs/SSOT.md §10: set Wednesdays, not every month, arrive by 6:30pm,
  * first game 7pm, finishes about 9:30pm, £10 per book and £1 daubers both cash
  * only, ten games, capacity 60, 18+ to play with supervised under-18s welcome to
- * attend, prizes vary by event, and a snowball that grows £20 and 2 calls each
- * month it rolls over. Current jackpot values live in the event records only,
+ * attend, prizes vary by event, and a snowball that grows £20 and 2 calls at the
+ * next cash bingo night whenever it rolls over. Current jackpot values live in the event records only,
  * never here.
  *
  * Arrival corrected on 17 August 2026. The page previously carried three
@@ -40,7 +40,7 @@ export const cashBingo: GameNightConfig = {
     crumb: 'Cash Bingo',
     title: 'Cash Bingo at The Anchor, Stanwell Moor',
     lead:
-      'Traditional cash bingo in the pub, not a bingo hall. Ten games, winnings paid out on the night, and a snowball jackpot that grows every month nobody claims it.'
+      'Traditional cash bingo in the pub, not a bingo hall. Ten games, winnings paid out on the night, and a snowball jackpot that grows every night nobody claims it.'
   },
 
   share: {
@@ -98,7 +98,7 @@ export const cashBingo: GameNightConfig = {
     {
       question: 'How does the snowball work?',
       answer:
-        'If nobody claims it, the snowball grows by £20 and two calls the following month. The current value and who is eligible are on the event listing below.'
+        'If nobody claims it, the snowball grows by £20 and two calls at the next cash bingo night. Only players from one of the previous three cash bingo nights can win it, and the current value is on the event listing below.'
     }
   ],
 

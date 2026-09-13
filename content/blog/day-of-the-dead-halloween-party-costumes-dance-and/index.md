@@ -269,15 +269,15 @@ So, if you’re ready for more nights filled with dancing, good food, and fantas
 
 ### Join Our Next Halloween Party Near Heathrow
 
-📅 **When**: Annual Halloween celebration (check for dates)
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-🎵 **Entertainment**: Live DJ from 8pm-1am
-🎭 **Features**: Fancy dress competition with prizes
-🍹 **Bar Specials**: Shot paddles and Halloween cocktails
-🍔 **Food**: Late-night burgers and pub favourites
-📞 **Information**: 01753 682707
+**When**: Annual Halloween celebration (check for dates)
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Entertainment**: Live DJ from 8pm-1am
+**Features**: Fancy dress competition with prizes
+**Bar Specials**: Shot paddles and Halloween cocktails
+**Food**: Late-night burgers and pub favourites
+**Information**: 01753 682707
 
 ### Why Choose The Anchor for Halloween Near Terminal 5
 

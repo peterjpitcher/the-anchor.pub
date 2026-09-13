@@ -3,9 +3,17 @@ import type { GameNightConfig } from './types'
 /**
  * Quiz night. Facts from docs/SSOT.md §10: monthly, currently Wednesdays, arrive
  * from 6:30pm, start usually 7pm, aims to finish 9:30pm, £3 per person, teams
- * capped at six, four rounds of ten questions plus an interactive quick-fire round
- * and a comfort break, capacity 60, £25 bar tab for the winners and a bottle of
- * house wine for second from last, phone-free with a 5 point penalty.
+ * capped at six, five rounds (four of ten questions plus an interactive quick-fire
+ * round in the middle, played on your phone) and a comfort break, capacity 60, a
+ * £25 bar voucher for the winners and a bottle of house wine for second from last,
+ * and phones away except in the interactive round, with a 5 point penalty.
+ *
+ * Owner-confirmed 11 September 2026: the prize is a voucher, not a bar tab, and
+ * seating is team tables. Each team has its own table, so nothing here may say a
+ * team shares its table with another team or that quiz seating is communal. Also
+ * owner-confirmed that day: five rounds, with the phone-based interactive round in
+ * the middle, and prizes for first and second from last only. SSOT §10 lists what
+ * that rules out.
  *
  * Finish time corrected from ~9:45pm to 9:30pm on 17 August 2026, owner-confirmed
  * and matching `end_time` 21:30 on every scheduled quiz in the management DB. The
@@ -29,7 +37,7 @@ export const quizNight: GameNightConfig = {
     crumb: 'Quiz Night',
     title: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
     lead:
-      'A proper monthly pub quiz, 7pm to 9:30pm. Four rounds, a £25 bar tab for the winners, and a bottle of house wine for whoever comes second from last.'
+      'A proper monthly pub quiz, 7pm to 9:30pm. Five rounds, a £25 bar voucher for the winners, and a bottle of house wine for whoever comes second from last.'
   },
 
   share: {
@@ -44,7 +52,7 @@ export const quizNight: GameNightConfig = {
     { label: 'Entry', value: '£3 per player, cash' },
     { label: 'Teams', value: 'Up to 6 players' },
     { label: 'Time', value: '7pm to 9:30pm' },
-    { label: 'House rule', value: 'Phones away' },
+    { label: 'House rule', value: 'Phones away, except the interactive round' },
     { label: 'Parking', value: 'Free, 20 spaces' }
   ],
 
@@ -52,7 +60,7 @@ export const quizNight: GameNightConfig = {
   bookingCtaFallback: 'Call about the next quiz night',
 
   bookingNote:
-    'Your booking is your team’s seats, and you do not need a separate table booking to eat. Entry is £3 per player paid in cash on the night, so there is nothing to pay now.',
+    'Your booking is your team’s table, and you do not need a separate table booking to eat. Entry is £3 per player paid in cash on the night, so there is nothing to pay now.',
 
   objections: [
     {
@@ -71,19 +79,21 @@ export const quizNight: GameNightConfig = {
         'We aim to finish at 9:30pm. Tables are set from 6:30pm and the pub is open from 12pm, so come early and eat first if you want a full evening of it.'
     },
     {
+      // No kitchen closing time: it varies by date and comes from the live
+      // hours (docs/SSOT.md §3). Worded as karaoke's is. This said 9pm.
       question: 'Can we eat first?',
       answer:
-        'Yes. The kitchen runs to 9pm, so order before the first round or during the comfort break.'
+        'Yes, and the pub is open from 12pm. Kitchen times vary by date, so call 01753 682707 if you want to check that night’s times.'
     },
     {
       question: 'Will my team sit together?',
       answer:
-        'Yes. Book everyone in one booking and we will seat your team together. On a busy night a long table may be shared with another team.'
+        'Yes. Every team has its own table. Book your whole team in one booking, and that booking is your table.'
     },
     {
       question: 'Do we have to pay now?',
       answer:
-        'No. It is £3 per player in cash on the night. The booking just holds your team’s seats.'
+        'No. It is £3 per player in cash on the night. The booking just holds your team’s table.'
     }
   ],
 
@@ -101,7 +111,7 @@ export const quizNight: GameNightConfig = {
     {
       src: '/images/events/quiz-night/quiz-night-host-and-room.jpg',
       alt: 'The quizmaster reading a question to a room of seated teams at The Anchor',
-      caption: 'Four rounds, read by a proper quizmaster'
+      caption: 'Five rounds, run by a proper quizmaster'
     },
     {
       src: '/images/events/quiz-night/quiz-night-team-writing.jpg',
@@ -111,12 +121,12 @@ export const quizNight: GameNightConfig = {
     {
       src: '/images/events/quiz-night/quiz-night-food-on-the-table.jpg',
       alt: 'Quiz players with food and drinks on the table before the first round',
-      caption: 'Kitchen runs to 9pm, so eat first'
+      caption: 'Eat before the first round'
     },
     {
       src: '/images/events/quiz-night/quiz-night-winners.jpg',
       alt: 'Quiz night winners with their prize at The Anchor',
-      caption: '£25 bar tab for the winners'
+      caption: '£25 bar voucher for the winners'
     },
     {
       src: '/images/events/quiz-night/quiz-night-second-room.jpg',

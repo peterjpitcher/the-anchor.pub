@@ -5,6 +5,7 @@ import { Button } from '@/components/ui'
 import { buildGoogleCalendarUrl } from '@/lib/event-calendar'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { cn } from '@/lib/utils'
+import { AddToCalendarTracker } from './AddToCalendarTracker'
 
 /**
  * Add-to-calendar for a single event: a Google Calendar link and an .ics
@@ -12,7 +13,9 @@ import { cn } from '@/lib/utils'
  *
  * Presentational and prop-driven, with no data fetching and no `'use client'`,
  * so it renders in a server tree (the event page, category date cards) and
- * inside a client tree (the booking confirmation state) alike.
+ * inside a client tree (the booking confirmation state) alike. The click
+ * tracking lives in the small client wrapper, which is handed only the few
+ * strings it reports rather than the whole event.
  *
  * It gates itself on `getEventPresentation().showAddToCalendar` rather than
  * trusting the caller, so a cancelled, postponed or ended event cannot reach
@@ -65,10 +68,12 @@ export function AddToCalendar({
   const icsUrl = `/api/calendar/event/${encodeURIComponent(segment)}`
 
   return (
-    <div
-      role="group"
-      aria-label={`Add ${event.name} to your calendar`}
-      data-calendar-source={source}
+    <AddToCalendarTracker
+      eventId={event.id}
+      eventName={event.name}
+      eventDate={event.startDate}
+      source={source}
+      ariaLabel={`Add ${event.name} to your calendar`}
       className={cn(addToCalendarVariants({ layout }), className)}
     >
       {label ? <span className="text-sm text-ink-muted">{label}</span> : null}
@@ -95,6 +100,6 @@ export function AddToCalendar({
           Apple or Outlook
         </a>
       </Button>
-    </div>
+    </AddToCalendarTracker>
   )
 }

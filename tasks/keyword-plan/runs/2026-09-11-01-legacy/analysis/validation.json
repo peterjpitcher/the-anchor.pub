@@ -1,0 +1,566 @@
+{
+  "pulls": {
+    "gkp-discover-01": {
+      "attested": {
+        "language": {
+          "source": "defaults",
+          "value": "English"
+        },
+        "location": {
+          "source": "defaults",
+          "value": "United Kingdom"
+        },
+        "network": {
+          "source": "defaults",
+          "value": "Google Search"
+        },
+        "volume_mode": {
+          "source": "defaults",
+          "value": "banded"
+        }
+      },
+      "date_range_text": "August 1, 2025 - July 31, 2026",
+      "encoding": "utf-16",
+      "filter_type": "",
+      "filter_value": "",
+      "found": "raw/gkp-discover-01-whats-on-things-to-do.csv",
+      "layout": "discover",
+      "messages": [],
+      "required": true,
+      "row_counts": {
+        "aggregate_rows": 0,
+        "keyword_rows": 1352
+      },
+      "scope": "gkp-discover",
+      "source": "gkp-discover",
+      "status": "ok",
+      "tabs": [],
+      "truncated": {},
+      "unattested": [],
+      "unverified": [],
+      "verified": {
+        "date_range": {
+          "end": "2026-07-31",
+          "start": "2025-08-01"
+        },
+        "layout": "discover",
+        "row_counts": {
+          "aggregate_rows": 0,
+          "keyword_rows": 1352
+        },
+        "volume_cells": {
+          "dash": 0,
+          "empty": 26,
+          "numeric": 1326,
+          "other": 0,
+          "range": 0
+        }
+      },
+      "volume_mode": {
+        "source": "defaults",
+        "value": "banded"
+      },
+      "window_end": "2026-07-31",
+      "window_start": "2025-08-01"
+    },
+    "gkp-volumes-01": {
+      "attested": {
+        "language": {
+          "source": "defaults",
+          "value": "English"
+        },
+        "location": {
+          "source": "defaults",
+          "value": "United Kingdom"
+        },
+        "network": {
+          "source": "defaults",
+          "value": "Google Search"
+        },
+        "volume_mode": {
+          "source": "defaults",
+          "value": "banded"
+        }
+      },
+      "date_range_text": "August 1, 2025 - July 31, 2026",
+      "encoding": "utf-16",
+      "filter_type": "",
+      "filter_value": "",
+      "found": "raw/gkp-volumes-01-game-nights.csv",
+      "layout": "volumes",
+      "messages": [],
+      "required": true,
+      "row_counts": {
+        "aggregate_rows": 2,
+        "keyword_rows": 60
+      },
+      "scope": "gkp-volumes",
+      "source": "gkp-volumes",
+      "status": "ok",
+      "tabs": [],
+      "truncated": {},
+      "unattested": [],
+      "unverified": [],
+      "verified": {
+        "date_range": {
+          "end": "2026-07-31",
+          "start": "2025-08-01"
+        },
+        "keywords_returned_exact": 60,
+        "keywords_submitted": 60,
+        "layout": "volumes",
+        "row_counts": {
+          "aggregate_rows": 2,
+          "keyword_rows": 60
+        },
+        "volume_cells": {
+          "dash": 0,
+          "empty": 24,
+          "numeric": 36,
+          "other": 0,
+          "range": 0
+        }
+      },
+      "volume_mode": {
+        "source": "defaults",
+        "value": "banded"
+      },
+      "window_end": "2026-07-31",
+      "window_start": "2025-08-01"
+    },
+    "gsc-16m-p-pg_0001": {
+      "attested": {
+        "property": {
+          "source": "defaults",
+          "value": "sc-domain:the-anchor.pub"
+        }
+      },
+      "date_filter": "Last 16 months",
+      "filter_text": "https://www.the-anchor.pub/whats-on",
+      "filter_type": "page",
+      "filter_value": "https://www.the-anchor.pub/whats-on",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 16 months"
+        },
+        {
+          "filter": "Page",
+          "value": "https://www.the-anchor.pub/whats-on"
+        }
+      ],
+      "found": "raw/gsc-16m-p-pg_0001",
+      "messages": [
+        {
+          "code": "ZIP_EXTRACTED",
+          "severity": "informational",
+          "text": "extracted gsc-16m-p-pg_0001.zip into raw/gsc-16m-p-pg_0001"
+        },
+        {
+          "code": "COUNTRY_FILTER_MISSING",
+          "severity": "limiting",
+          "text": "raw/gsc-16m-p-pg_0001 has no Country filter; expected GB (United Kingdom); recorded as all countries"
+        }
+      ],
+      "reporting_country": "all",
+      "required": true,
+      "row_counts": {
+        "Chart.csv": 488,
+        "Countries.csv": 88,
+        "Devices.csv": 3,
+        "Pages.csv": 1,
+        "Queries.csv": 206,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "totals": {
+        "chart_clicks": 91,
+        "named_query_clicks": 29
+      },
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [],
+      "unverified": [],
+      "verified": {
+        "filter_text": "https://www.the-anchor.pub/whats-on",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "https://www.the-anchor.pub/whats-on"
+        },
+        "row_counts": {
+          "Chart.csv": 488,
+          "Countries.csv": 88,
+          "Devices.csv": 3,
+          "Pages.csv": 1,
+          "Queries.csv": 206,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ],
+        "window": {
+          "end": "2026-09-08",
+          "start": "2025-05-09"
+        }
+      },
+      "window_end": "2026-09-08",
+      "window_start": "2025-05-09"
+    },
+    "gsc-16m-p-pg_0002": {
+      "attested": {
+        "property": {
+          "source": "defaults",
+          "value": "sc-domain:the-anchor.pub"
+        }
+      },
+      "date_filter": "Last 16 months",
+      "filter_text": "https://www.the-anchor.pub/quiz-night",
+      "filter_type": "page",
+      "filter_value": "https://www.the-anchor.pub/quiz-night",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 16 months"
+        },
+        {
+          "filter": "Page",
+          "value": "https://www.the-anchor.pub/quiz-night"
+        }
+      ],
+      "found": "raw/gsc-16m-p-pg_0002",
+      "messages": [
+        {
+          "code": "ZIP_EXTRACTED",
+          "severity": "informational",
+          "text": "extracted gsc-16m-p-pg_0002.zip into raw/gsc-16m-p-pg_0002"
+        },
+        {
+          "code": "COUNTRY_FILTER_MISSING",
+          "severity": "limiting",
+          "text": "raw/gsc-16m-p-pg_0002 has no Country filter; expected GB (United Kingdom); recorded as all countries"
+        }
+      ],
+      "reporting_country": "all",
+      "required": true,
+      "row_counts": {
+        "Chart.csv": 488,
+        "Countries.csv": 15,
+        "Devices.csv": 3,
+        "Pages.csv": 1,
+        "Queries.csv": 131,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "totals": {
+        "chart_clicks": 30,
+        "named_query_clicks": 4
+      },
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [],
+      "unverified": [],
+      "verified": {
+        "filter_text": "https://www.the-anchor.pub/quiz-night",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "https://www.the-anchor.pub/quiz-night"
+        },
+        "row_counts": {
+          "Chart.csv": 488,
+          "Countries.csv": 15,
+          "Devices.csv": 3,
+          "Pages.csv": 1,
+          "Queries.csv": 131,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ],
+        "window": {
+          "end": "2026-09-08",
+          "start": "2025-05-09"
+        }
+      },
+      "window_end": "2026-09-08",
+      "window_start": "2025-05-09"
+    },
+    "gsc-16m-p-pg_0004": {
+      "attested": {
+        "property": {
+          "source": "defaults",
+          "value": "sc-domain:the-anchor.pub"
+        }
+      },
+      "date_filter": "Last 16 months",
+      "filter_text": "https://www.the-anchor.pub/music-bingo",
+      "filter_type": "page",
+      "filter_value": "https://www.the-anchor.pub/music-bingo",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 16 months"
+        },
+        {
+          "filter": "Page",
+          "value": "https://www.the-anchor.pub/music-bingo"
+        }
+      ],
+      "found": "raw/gsc-16m-p-pg_0004",
+      "messages": [
+        {
+          "code": "ZIP_EXTRACTED",
+          "severity": "informational",
+          "text": "extracted gsc-16m-p-pg_0004.zip into raw/gsc-16m-p-pg_0004"
+        },
+        {
+          "code": "COUNTRY_FILTER_MISSING",
+          "severity": "limiting",
+          "text": "raw/gsc-16m-p-pg_0004 has no Country filter; expected GB (United Kingdom); recorded as all countries"
+        }
+      ],
+      "reporting_country": "all",
+      "required": true,
+      "row_counts": {
+        "Chart.csv": 488,
+        "Countries.csv": 5,
+        "Devices.csv": 3,
+        "Pages.csv": 1,
+        "Queries.csv": 18,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "totals": {
+        "chart_clicks": 5,
+        "named_query_clicks": 0
+      },
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [],
+      "unverified": [],
+      "verified": {
+        "filter_text": "https://www.the-anchor.pub/music-bingo",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "https://www.the-anchor.pub/music-bingo"
+        },
+        "row_counts": {
+          "Chart.csv": 488,
+          "Countries.csv": 5,
+          "Devices.csv": 3,
+          "Pages.csv": 1,
+          "Queries.csv": 18,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ],
+        "window": {
+          "end": "2026-09-08",
+          "start": "2025-05-09"
+        }
+      },
+      "window_end": "2026-09-08",
+      "window_start": "2025-05-09"
+    },
+    "gsc-16m-p-pg_0005": {
+      "attested": {
+        "property": {
+          "source": "defaults",
+          "value": "sc-domain:the-anchor.pub"
+        }
+      },
+      "date_filter": "Last 16 months",
+      "filter_text": "https://www.the-anchor.pub/cash-bingo",
+      "filter_type": "page",
+      "filter_value": "https://www.the-anchor.pub/cash-bingo",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 16 months"
+        },
+        {
+          "filter": "Page",
+          "value": "https://www.the-anchor.pub/cash-bingo"
+        }
+      ],
+      "found": "raw/gsc-16m-p-pg_0005",
+      "messages": [
+        {
+          "code": "ZIP_EXTRACTED",
+          "severity": "informational",
+          "text": "extracted gsc-16m-p-pg_0005.zip into raw/gsc-16m-p-pg_0005"
+        },
+        {
+          "code": "COUNTRY_FILTER_MISSING",
+          "severity": "limiting",
+          "text": "raw/gsc-16m-p-pg_0005 has no Country filter; expected GB (United Kingdom); recorded as all countries"
+        }
+      ],
+      "reporting_country": "all",
+      "required": true,
+      "row_counts": {
+        "Chart.csv": 488,
+        "Countries.csv": 9,
+        "Devices.csv": 3,
+        "Pages.csv": 1,
+        "Queries.csv": 44,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "totals": {
+        "chart_clicks": 6,
+        "named_query_clicks": 0
+      },
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [],
+      "unverified": [],
+      "verified": {
+        "filter_text": "https://www.the-anchor.pub/cash-bingo",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "https://www.the-anchor.pub/cash-bingo"
+        },
+        "row_counts": {
+          "Chart.csv": 488,
+          "Countries.csv": 9,
+          "Devices.csv": 3,
+          "Pages.csv": 1,
+          "Queries.csv": 44,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ],
+        "window": {
+          "end": "2026-09-08",
+          "start": "2025-05-09"
+        }
+      },
+      "window_end": "2026-09-08",
+      "window_start": "2025-05-09"
+    }
+  },
+  "run_id": "2026-09-11-01-legacy",
+  "summary": {
+    "attestations_present": true,
+    "by_status": {
+      "limiting": 4,
+      "ok": 2
+    },
+    "pulls_total": 6,
+    "required_fatal": [],
+    "required_total": 6,
+    "stage_after": "validated",
+    "stage_before": "requested",
+    "unmatched_inputs": []
+  }
+}

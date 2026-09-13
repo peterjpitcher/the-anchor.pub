@@ -152,7 +152,7 @@ export default function WindsorPubPage() {
               {[
                 { title: "Near Windsor", description: "15 minutes from Windsor Castle via M4 or B376" },
                 { title: "Better Value", description: "Avoid Windsor tourist prices - proper pub rates" },
-                { title: "ULEZ Free", description: "Save £12.50 - we're outside the zone!" },
+                { title: "Outside the ULEZ", description: "No ULEZ charge at our end of the journey" },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">

@@ -42,27 +42,27 @@ VE Day, or **Victory in Europe Day**, commemorates 8 May 1945, the moment when p
 
 That spirit lives on at **The Anchor**, your traditional British pub just minutes from Heathrow Terminal 5. Located in the heart of Stanwell Moor, we're the perfect venue for Heathrow workers, Staines residents, and visitors to experience authentic British heritage. This VE Day, we're proud to carry on the tradition of marking this important moment in history, creating a welcoming space where locals and airport staff come together to celebrate.
 
-🔗 Learn more about the significance of VE Day from the Imperial War Museums
+Learn more about the significance of VE Day from the Imperial War Museums
 
 ## What's On During VE Day Week Near Heathrow
 
 ### Quiz Night With a Patriotic Twist
 
-🗓 **Wednesday 7 May** | 🕖 **From 7 PM**  
+**Wednesday 7 May** | **From 7 PM**  
 Gather your mates and test your wits at our classic pub quiz, featuring a special **VE Day-themed round** that nods to the music, events, and icons of wartime Britain. Whether you know your Churchill from your Chamberlain or just fancy a giggle, you'll fit right in.
 
-👉 [**Book your quiz team now**](https://bit.ly/4lER6WF), spaces go fast!
+[**Book your quiz team now**](https://bit.ly/4lER6WF), spaces go fast!
 
 ### Sing-Along Karaoke to Stir the Soul
 
-🗓 **Thursday 8 May** | 🕗 **From 8 PM**  
+**Thursday 8 May** | **From 8 PM**  
 Our beloved karaoke night returns, but with a twist. Some songs will be performed solo, and others will be _group sing-alongs_, where the entire pub joins in. Expect everything from _We'll Meet Again_ to _Hey Jude_. Whether you're brave enough for the mic or just want to sway with your pint, you'll be part of something special.
 
 ## VE Day Traditional British Food Near Terminal 5
 
 ### A Proper British Menu
 
-🗓 Historical offer from Tuesday 6 May to Sunday 11 May. Check current kitchen hours before visiting.
+Historical offer from Tuesday 6 May to Sunday 11 May. Check current kitchen hours before visiting.
 
 For current dishes and prices, use the live food menu.
 
@@ -70,7 +70,7 @@ Our menu is built on comfort and nostalgia, recipes that feel like Sunday aftern
 
 ### Don't Miss the Sunday Roast Tradition
 
-🗓 **Sunday 11 May** | 🍽 **Walk in or book ahead**
+**Sunday 11 May** | **Walk in or book ahead**
 
 Our Sunday kitchen service runs during regular kitchen hours. Browse the full menu and ask the team about any specials running that week.
 
@@ -78,7 +78,7 @@ Our Sunday kitchen service runs during regular kitchen hours. Browse the full me
 
 Check the bar for current drinks availability and pricing.
 
-🔗 [Discover the history of Gordon's Gin](https://www.gordonsgin.com/)
+[Discover the history of Gordon's Gin](https://www.gordonsgin.com/)
 
 ## Creating the Perfect Atmosphere for VE Day
 
@@ -90,10 +90,10 @@ Pete will be on the mic for karaoke, and our team will be on hand with smiles an
 
 ### When to Join Us
 
-* 📅 **5–11 May** - Annual VE Day Week
-* 🍽 **Food:** Check current kitchen hours before visiting
-* 🎤 **Quiz Night:** Booking recommended, [book here](https://bit.ly/4lER6WF)
-* 🎶 **Karaoke:** Free and open to all
+* **5–11 May** - Annual VE Day Week
+* **Food:** Check current kitchen hours before visiting
+* **Quiz Night:** Booking recommended, [book here](https://bit.ly/4lER6WF)
+* **Karaoke:** Free and open to all
 
 ### Who It's For
 
@@ -107,10 +107,10 @@ Whether you're 18 or 80, come for the food, the music, or the memories. Our door
 ## Getting to The Anchor from Heathrow
 
 **Location & Transport:**
-📍 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
-🚗 Just 7 minutes from Heathrow Terminal 5  
-🚌 Bus routes 441 & 442 from airport  
-🅿️ Free parking available  
+The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
+Just 7 minutes from Heathrow Terminal 5  
+Bus routes 441 & 442 from airport  
+Free parking available  
 
 ## Final Thoughts: Join Us for VE Day Near Heathrow
 
@@ -118,6 +118,6 @@ At The Anchor, we believe in keeping tradition alive, not through speeches, but 
 
 So bring your appetite. Bring your voice. Bring someone who needs a good night out. Whether you're clinking glasses with neighbours or singing your heart out to _Sweet Caroline_, our **VE Day celebrations near Heathrow** are your invitation to step back into the good old days, and make new memories along the way.
 
-👉 [**Book your quiz team**](https://bit.ly/4lER6WF) | [**Book your roast**](/sunday-roast)
+[**Book your quiz team**](https://bit.ly/4lER6WF) | [**Book your roast**](/sunday-roast)
 
 We can't wait to see you at our **traditional British pub near Heathrow Airport**!

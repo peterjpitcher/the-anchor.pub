@@ -122,6 +122,8 @@ import {
   buildTableBookingPayload,
   confirmationDeliveryCopy,
   parseLookupResponse,
+  paymentLinkDestination,
+  paymentLinkReminderCopy,
   type CustomerLookupState,
   type ManagementTableBookingResult,
 } from '@/lib/table-booking/submission'
@@ -1498,7 +1500,7 @@ export function ManagementTableBookingForm({
               </li>
               {result?.fallback_payment_url ? (
                 <li>
-                  Or open the secure payment link we've sent to your phone, or{' '}
+                  Or open the secure payment link we've sent {paymentLinkDestination(result.notification_channel)}, or{' '}
                   <a
                     href={result.fallback_payment_url}
                     className="font-semibold underline"
@@ -1509,7 +1511,7 @@ export function ManagementTableBookingForm({
                   .
                 </li>
               ) : (
-                <li>Or check your phone, we've sent you a secure payment link by SMS.</li>
+                <li>{paymentLinkReminderCopy(result?.notification_channel)}</li>
               )}
             </ul>
             <p className="mt-2 text-xs">

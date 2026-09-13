@@ -15,7 +15,7 @@ import {
   GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { karaoke, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
+import { karaoke, readGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventDate, formatEventTime, type Event } from '@/lib/api'
@@ -29,10 +29,11 @@ import { BookTableButton } from '@/components/BookTableButton'
  * See tasks/keyword-plan-game-nights-2026-08-17.md.
  *
  * That does not license claiming a cadence. docs/SSOT.md §10 is explicit that
- * karaoke is occasional, has no fixed host and gets no recurring EventSeries
- * schema. The page therefore targets the query while telling the truth about how
- * often it runs, and leans on the two things that are always true: it is free,
- * and nobody has to sing.
+ * karaoke is occasional and gets no recurring EventSeries schema. Peter Pitcher
+ * hosts it (owner-confirmed 11 September 2026); the page does not name him, as
+ * the quiz and cash bingo pages do not. It targets the query while telling the
+ * truth about how often it runs, and leans on the two things that are always
+ * true: it is free, and nobody has to sing.
  */
 export const metadata: Metadata = buildGameNightMetadata(karaoke, {
   title: 'Karaoke Near Me | Free Entry, Stanwell Moor',
@@ -101,10 +102,11 @@ const FAQS = [
   }
 ]
 
-function KaraokeEventCards({ events }: { events: Event[] }) {
+function KaraokeEventCards({ events, datesUnavailable }: { events: Event[]; datesUnavailable: boolean }) {
   return (
     <GameNightDateCards
       events={events}
+      datesUnavailable={datesUnavailable ? { gameName: karaoke.name } : undefined}
       eyebrow="Karaoke night"
       bookingSource="karaoke_event_card"
       calendarSource="karaoke_date_card"
@@ -134,23 +136,31 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function KaraokePage() {
-  const events = await getGameNightEvents(karaoke)
+  // The outcome travels with the list: an outage must not reach the page as an
+  // empty diary (lib/game-nights/events.ts logs anything short of `ok`).
+  const eventsRead = await readGameNightEvents(karaoke)
+  const events = eventsRead.events
+  const datesUnavailable = eventsRead.status !== 'ok'
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : null
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : null
 
+  // "Nothing in the diary" is only sayable when the diary answered.
   const heroDescription = nextEvent
     ? `The next one is ${nextEvent.name} on ${nextEventDate} at ${nextEventTime}. Free entry, and you can book your places below.`
-    : 'There is no karaoke night in the diary at the moment. Call 01753 682707 and we will let you know when the next one is confirmed.'
+    : datesUnavailable
+      ? 'We could not load the karaoke dates just now. Call 01753 682707 and we will tell you when the next one is on.'
+      : 'There is no karaoke night in the diary at the moment. Call 01753 682707 and we will let you know when the next one is confirmed.'
 
   return (
     <>
       {/*
         * No EventSeries schema here on purpose. Owner-confirmed 11 August 2026:
-        * karaoke is not a regular feature this year and has no fixed host. The
-        * schema previously declared a monthly series ("repeatFrequency": "P1M")
-        * running to 2026-12-31 with Nikki Manfadge as the performer, none of
-        * which is true. Nikki hosts Music Bingo, not karaoke.
+        * karaoke is not a regular feature this year. The schema previously
+        * declared a monthly series ("repeatFrequency": "P1M") running to
+        * 2026-12-31 with Nikki Manfadge as the performer, none of which is
+        * true. Nikki hosts Music Bingo, not karaoke; Peter Pitcher hosts
+        * karaoke (owner-confirmed 11 September 2026).
         *
         * Individual karaoke nights still get their own Event schema from the
         * events system whenever one is actually listed, which is the honest
@@ -199,6 +209,7 @@ export default async function KaraokePage() {
                   gameName={karaoke.name}
                   gameSlug={karaoke.slug}
                   bookingNote={karaoke.bookingNote}
+                  datesUnavailable={datesUnavailable}
                 />
               </SectionViewTracker>
               {/* The rating badge used to sit in its own band under the hero,
@@ -249,7 +260,7 @@ export default async function KaraokePage() {
               or call 01753 682707.
             </p>
             <SectionViewTracker sectionId="karaoke_dates">
-              <KaraokeEventCards events={events} />
+              <KaraokeEventCards events={events} datesUnavailable={datesUnavailable} />
             </SectionViewTracker>
           </div>
         </Container>
@@ -349,7 +360,7 @@ export default async function KaraokePage() {
               <Link href="/quiz-night" className="font-semibold text-accent-text transition hover:text-accent-text">
                 Wednesday pub quiz
               </Link>{' '}
-              with a £25 bar tab for the winners,{' '}
+              with a £25 bar voucher for the winners,{' '}
               <Link href="/music-bingo" className="font-semibold text-accent-text transition hover:text-accent-text">
                 music bingo
               </Link>{' '}

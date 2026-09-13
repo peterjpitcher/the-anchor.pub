@@ -9,13 +9,13 @@ interface ValueProofStripProps {
 
 const ITEMS: Record<ValueProofVariant, Array<{ icon: string; text: string }>> = {
   food: [
-    { icon: '', text: 'Skip the ULEZ charge (£12.50/day)' },
+    { icon: '', text: 'Outside the ULEZ zone' },
     { icon: '', text: 'Free on-site parking' },
     { icon: '', text: 'Free WiFi throughout' },
   ],
   'private-hire': [
     { icon: '', text: 'Free parking for all your guests' },
-    { icon: '', text: 'Outside ULEZ, saves each driver £12.50' },
+    { icon: '', text: 'Outside the ULEZ zone' },
     { icon: '', text: 'Free WiFi throughout' },
   ],
 }

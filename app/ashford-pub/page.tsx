@@ -148,7 +148,7 @@ export default function AshfordPubPage() {
               {[
                 { title: "Easy Access", description: "10 minutes via A30 with 20 free parking spaces" },
                 { title: "Real Pub Feel", description: "Traditional atmosphere Ashford chain pubs can't match" },
-                { title: "ULEZ Free", description: "Save £12.50 - we're outside the zone!" },
+                { title: "Outside the ULEZ", description: "No ULEZ charge at our end of the journey" },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -289,19 +289,19 @@ export default function AshfordPubPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Why Ashford Chooses The Anchor</h3>
                   <ul className="space-y-3 text-ink">
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong>Avoid town traffic</strong> - Easy access, ample parking</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong>Better value</strong> - No inflated town centre prices</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong>Flexible spaces</strong> - Private hire for 10+ to 150 guests</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong>Tailored pricing for every event</strong> - Let's discuss your needs</span>
                     </li>
                   </ul>
@@ -542,7 +542,7 @@ export default function AshfordPubPage() {
           },
           {
             question: "What makes The Anchor different from pubs in Ashford?",
-            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone, saving you £12.50 if coming from London."
+            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone."
           },
           {
             question: "Do you get many customers from Ashford?",

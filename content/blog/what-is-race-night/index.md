@@ -26,7 +26,7 @@ Looking for exciting **race night events near Heathrow**? The Anchor in Stanwell
 
 ## What is a Race Night at The Anchor?
 
-### The Ultimate Pub Entertainment Experience
+### Pub Entertainment with a Difference
 
 A **race night** at our **pub near Heathrow** isn't just another quiz or karaoke evening - it's an immersive racing experience that combines:
 
@@ -170,7 +170,7 @@ Race nights typically held:
 - **Special charity events** - Throughout year
 - **Private race nights** - Book your own
 
-📅 **Next Race Night**: Check our events page or ask at the bar
+**Next Race Night**: Check our events page or ask at the bar
 
 ## Book Your Race Night Experience
 
@@ -178,10 +178,10 @@ Race nights typically held:
 
 Don't miss our next **race night event** at The Anchor:
 
-📞 **Call**: 01753 682707 to book tables
-🏇 **Pre-event betting**: Available now at the bar
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-🚗 **Parking**: Free for all race night guests
+**Call**: 01753 682707 to book tables
+**Pre-event betting**: Available now at the bar
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Parking**: Free for all race night guests
 
 ### Getting Here
 

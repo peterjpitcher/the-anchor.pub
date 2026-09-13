@@ -1,7 +1,7 @@
 [
   {
     "source": "/blog/5-star-tequila-tasting-night-at-the-anchor-an-unfo",
-    "destination": "/blog/tequila-tasting-events",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -21,7 +21,7 @@
   },
   {
     "source": "/blog/arjun-r-s-piano-performance-at-the-anchor-s-christ",
-    "destination": "/blog/piano-christmas-performance",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -46,7 +46,7 @@
   },
   {
     "source": "/blog/celebrate-father-s-day-at-the-anchor-unforgettable",
-    "destination": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {
@@ -85,6 +85,26 @@
     "permanent": true
   },
   {
+    "source": "/blog/christmas-market",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/christmas-fair-at-the-anchor",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/piano-christmas-performance",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/this-december-at-the-anchor",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
     "source": "/blog/creations-by-lee-jewellery-event-at-the-anchor-exc",
     "destination": "/blog/jewellery-event",
     "permanent": true
@@ -106,7 +126,7 @@
   },
   {
     "source": "/blog/drag-cabaret-at-the-anchor-a-night-of-fun-with-nik",
-    "destination": "/blog/drag-cabaret-nikki",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -131,7 +151,7 @@
   },
   {
     "source": "/blog/exciting-new-events-offers-at-the-anchor-for-2025-",
-    "destination": "/blog/events-offers-2025",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -141,7 +161,7 @@
   },
   {
     "source": "/blog/experience-the-magic-at-the-anchor-s-christmas-mar",
-    "destination": "/blog/christmas-market",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -177,6 +197,61 @@
   {
     "source": "/blog/live-music-pubs-near-heathrow",
     "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
+    "permanent": true
+  },
+  {
+    "source": "/blog/prices-frozen-until-autumn-theanchor-pub",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/blog/events-offers-2025",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/botanist-gin-july-2025",
+    "destination": "/drinks/managers-special",
+    "permanent": true
+  },
+  {
+    "source": "/blog/salami-day-pizza",
+    "destination": "/pizza-menu",
+    "permanent": true
+  },
+  {
+    "source": "/blog/rum-tasting-caribbean",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/the-boys-are-back-in-town",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/blog/valentines-day-meal-offer-for-two",
+    "destination": "/valentines-day",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tequila-tasting-events",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/drag-cabaret-nikki",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/curry-club-the-anchor",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -221,7 +296,7 @@
   },
   {
     "source": "/blog/rum-tasting-night-stanwell-moor-explore-caribbean-",
-    "destination": "/blog/rum-tasting-caribbean",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -286,7 +361,7 @@
   },
   {
     "source": "/blog/the-botanist-gin-special-offer-july-2025-the-ancho",
-    "destination": "/blog/botanist-gin-july-2025",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
@@ -326,7 +401,7 @@
   },
   {
     "source": "/blog/world-salami-day-pizza-dive-into-exclusive-pizza-d",
-    "destination": "/blog/salami-day-pizza",
+    "destination": "/pizza-menu",
     "permanent": true
   },
   {
@@ -336,7 +411,7 @@
   },
   {
     "source": "/post/5-star-tequila-tasting-night-at-the-anchor-an-unfo",
-    "destination": "/blog/tequila-tasting-events",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -356,7 +431,7 @@
   },
   {
     "source": "/post/arjun-r-s-piano-performance-at-the-anchor-s-christ",
-    "destination": "/blog/piano-christmas-performance",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -366,7 +441,7 @@
   },
   {
     "source": "/post/bombay-sapphire-special-this-month-theanchor-pub",
-    "destination": "/blog/bombay-sapphire-special-this-month-theanchor-pub",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
@@ -376,7 +451,7 @@
   },
   {
     "source": "/post/buy-one-get-one-free-pizza-deal-every-tuesday-at-t",
-    "destination": "/blog/buy-one-get-one-free-pizza-deal-every-tuesday-at-t",
+    "destination": "/pizza-menu",
     "permanent": true
   },
   {
@@ -401,7 +476,7 @@
   },
   {
     "source": "/post/celebrate-father-s-day-at-the-anchor-unforgettable",
-    "destination": "/blog/fathers-day-celebration",
+    "destination": "/fathers-day",
     "permanent": true
   },
   {
@@ -431,7 +506,7 @@
   },
   {
     "source": "/post/curry-club-the-anchor",
-    "destination": "/blog/curry-club-the-anchor",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -456,7 +531,7 @@
   },
   {
     "source": "/post/drag-cabaret-at-the-anchor-a-night-of-fun-with-nik",
-    "destination": "/blog/drag-cabaret-nikki",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -466,7 +541,7 @@
   },
   {
     "source": "/post/easter-2024-at-the-anchor-family-dog-friendly-fun-",
-    "destination": "/blog/easter-2024-at-the-anchor-family-dog-friendly-fun-",
+    "destination": "/easter-sunday",
     "permanent": true
   },
   {
@@ -491,7 +566,7 @@
   },
   {
     "source": "/post/exciting-new-events-offers-at-the-anchor-for-2025-",
-    "destination": "/blog/events-offers-2025",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -506,7 +581,7 @@
   },
   {
     "source": "/post/experience-the-magic-at-the-anchor-s-christmas-mar",
-    "destination": "/blog/christmas-market",
+    "destination": "/christmas-parties",
     "permanent": true
   },
   {
@@ -521,12 +596,12 @@
   },
   {
     "source": "/post/gameshow-house-party-success-snatch-phrase-edition",
-    "destination": "/blog/gameshow-house-party-success-snatch-phrase-edition",
+    "destination": "/blog/gameshow-house-party",
     "permanent": true
   },
   {
     "source": "/post/get-ready-for-the-ultimate-zombie-apocalypse-hallo",
-    "destination": "/blog/get-ready-for-the-ultimate-zombie-apocalypse-hallo",
+    "destination": "/halloween",
     "permanent": true
   },
   {
@@ -551,7 +626,7 @@
   },
   {
     "source": "/post/introducing-affordable-foster-s-lager-budget-frien",
-    "destination": "/blog/introducing-affordable-foster-s-lager-budget-frien",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -561,7 +636,7 @@
   },
   {
     "source": "/post/january-opening-dates",
-    "destination": "/blog/january-opening-dates",
+    "destination": "/find-us#opening-hours",
     "permanent": true
   },
   {
@@ -571,7 +646,7 @@
   },
   {
     "source": "/post/latest-updates-from-the-anchor-pub",
-    "destination": "/blog/latest-updates-from-the-anchor-pub",
+    "destination": "/blog",
     "permanent": true
   },
   {
@@ -581,7 +656,7 @@
   },
   {
     "source": "/post/mother-s-day-lunch-near-heathrow-a-day-to-remember",
-    "destination": "/blog/mother-s-day-lunch-near-heathrow-a-day-to-remember",
+    "destination": "/mothers-day",
     "permanent": true
   },
   {
@@ -591,7 +666,7 @@
   },
   {
     "source": "/post/new-menu-launch-postponed",
-    "destination": "/blog/new-menu-launch-postponed",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -601,7 +676,7 @@
   },
   {
     "source": "/post/opihr-gin-a-journey-through-spice-at-the-anchor-th",
-    "destination": "/blog/opihr-gin-a-journey-through-spice-at-the-anchor-th",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -616,7 +691,7 @@
   },
   {
     "source": "/post/prices-frozen-until-autumn-theanchor-pub",
-    "destination": "/blog/prices-frozen-until-autumn-theanchor-pub",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -636,7 +711,7 @@
   },
   {
     "source": "/post/pub-quiz-embrace-the-new-wave-with-pub-pursuit-liv",
-    "destination": "/blog/pub-quiz-embrace-the-new-wave-with-pub-pursuit-liv",
+    "destination": "/quiz-night",
     "permanent": true
   },
   {
@@ -651,12 +726,12 @@
   },
   {
     "source": "/post/relive-the-laughter-at-the-anchor-s-gameshow-house",
-    "destination": "/blog/relive-the-laughter-at-the-anchor-s-gameshow-house",
+    "destination": "/blog/gameshow-house-party",
     "permanent": true
   },
   {
     "source": "/post/rum-tasting-night-stanwell-moor-explore-caribbean-",
-    "destination": "/blog/rum-tasting-caribbean",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -666,7 +741,7 @@
   },
   {
     "source": "/post/spring-tasting-night-a-celebration-of-exquisite-sp",
-    "destination": "/blog/spring-tasting-night-a-celebration-of-exquisite-sp",
+    "destination": "/blog/spring-tasting-night",
     "permanent": true
   },
   {
@@ -736,12 +811,12 @@
   },
   {
     "source": "/post/the-botanist-gin-special-offer-july-2025-the-ancho",
-    "destination": "/blog/botanist-gin-july-2025",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
     "source": "/post/the-boys-are-back-in-town",
-    "destination": "/blog/the-boys-are-back-in-town",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -756,12 +831,12 @@
   },
   {
     "source": "/post/unforgettable-gameshow-house-party-at-the-anchor",
-    "destination": "/blog/unforgettable-gameshow-house-party-at-the-anchor",
+    "destination": "/blog/gameshow-house-party",
     "permanent": true
   },
   {
     "source": "/post/unveiling-our-april-2019-pricing-update-at-the-anc",
-    "destination": "/blog/unveiling-our-april-2019-pricing-update-at-the-anc",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -771,7 +846,7 @@
   },
   {
     "source": "/post/valentines-day-meal-offer-for-two",
-    "destination": "/blog/valentines-day-meal-offer-for-two",
+    "destination": "/valentines-day",
     "permanent": true
   },
   {
@@ -796,7 +871,7 @@
   },
   {
     "source": "/post/women-s-world-cup-final-at-the-anchor-football-fev",
-    "destination": "/blog/women-s-world-cup-final-at-the-anchor-football-fev",
+    "destination": "/live-sport",
     "permanent": true
   },
   {
@@ -811,7 +886,7 @@
   },
   {
     "source": "/post/world-salami-day-pizza-dive-into-exclusive-pizza-d",
-    "destination": "/blog/salami-day-pizza",
+    "destination": "/pizza-menu",
     "permanent": true
   },
   {

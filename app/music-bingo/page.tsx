@@ -17,7 +17,7 @@ import {
   GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { musicBingo, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
+import { musicBingo, readGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import {
@@ -130,10 +130,11 @@ function getEntryLabel(event: Event) {
   return 'Entry details announced'
 }
 
-function MusicBingoEventCards({ events }: { events: Event[] }) {
+function MusicBingoEventCards({ events, datesUnavailable }: { events: Event[]; datesUnavailable: boolean }) {
   return (
     <GameNightDateCards
       events={events}
+      datesUnavailable={datesUnavailable ? { gameName: musicBingo.name } : undefined}
       eyebrow="Music bingo night"
       bookingSource="music_bingo_event_card"
       calendarSource="music_bingo_date_card"
@@ -160,7 +161,11 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function MusicBingoPage() {
-  const events = await getGameNightEvents(musicBingo)
+  // The outcome travels with the list: an outage must not reach the page as an
+  // empty diary (lib/game-nights/events.ts logs anything short of `ok`).
+  const eventsRead = await readGameNightEvents(musicBingo)
+  const events = eventsRead.events
+  const datesUnavailable = eventsRead.status !== 'ok'
   const nextEvent = events[0]
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
@@ -191,11 +196,13 @@ export default async function MusicBingoPage() {
             "repeatFrequency": "P1M",
             // 7pm start, owner-confirmed 16 August 2026. This said 20:00, which
             // is where the "starts at 8pm" copy across the page came from. End
-            // time is 23:00 to match `end_time` on the scheduled events in the
-            // management DB, rather than the 21:00 that was carried over from an
-            // older version of this block.
+            // time is 22:00: the owner confirmed on 11 September 2026 that all
+            // events run until 10pm, bar special nights such as Halloween and
+            // New Year's Eve (docs/SSOT.md §10). This said 23:00, copied from
+            // `end_time` on the scheduled events in the management DB, and
+            // those records need correcting there too.
             "startTime": "19:00:00",
-            "endTime": "23:00:00",
+            "endTime": "22:00:00",
             "scheduleTimezone": "Europe/London"
           },
           "location": {
@@ -271,6 +278,7 @@ export default async function MusicBingoPage() {
                   gameName={musicBingo.name}
                   gameSlug={musicBingo.slug}
                   bookingNote={musicBingo.bookingNote}
+                  datesUnavailable={datesUnavailable}
                 />
               </SectionViewTracker>
               <GameNightSocialProof gameName={musicBingo.name} />
@@ -290,7 +298,9 @@ export default async function MusicBingoPage() {
                         to claim five rounds, which the SSOT does not support. */}
                     <li><strong>Two games</strong> · song clips instead of numbers, with interactive music games and quizzes between them.</li>
                     <li><strong>Breaks between games</strong> · order food, top up drinks, and compare answers.</li>
-                    <li><strong>Finale</strong> · last card of the night with the headline prize.</li>
+                    {/* No "headline prize": winners get a £25 voucher to spend with
+                        us, the same as the quiz (owner-confirmed 11 September 2026). */}
+                    <li><strong>Finale</strong> · last card of the night. Winners get a £25 voucher to spend with us.</li>
                   </ul>
                   <p className="text-sm text-ink-muted">
                     Song clips are short, so keep ears open and phones away during the rounds.
@@ -331,7 +341,7 @@ export default async function MusicBingoPage() {
               or on 01753 682707.
             </p>
             <SectionViewTracker sectionId="music_bingo_dates">
-              <MusicBingoEventCards events={events} />
+              <MusicBingoEventCards events={events} datesUnavailable={datesUnavailable} />
             </SectionViewTracker>
           </div>
         </Container>
@@ -364,10 +374,12 @@ export default async function MusicBingoPage() {
         <Container>
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">Eat before the first game</h2>
+            {/* Kitchen times vary by date and come from the live hours
+                (docs/SSOT.md §3), so none is written here, as on /karaoke. */}
             <p className="mb-5 text-ink-muted">
-              The full menu runs until 9pm, so order at your table before the first game or during the
-              break between them. You do not need a separate dining booking, because your music bingo
-              booking is your seat for the night.
+              Kitchen times vary by date, so order at your table when you arrive, or call 01753 682707
+              to check that night&rsquo;s times. You do not need a separate dining booking, because
+              your music bingo booking is your seat for the night.
             </p>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <BookTableButton source="music_bingo_food_cta" variant="outline" size="sm">
@@ -458,7 +470,7 @@ export default async function MusicBingoPage() {
       </section>
 
       {/* No <JsonLd data={bingoEventSeries} /> here. That constant describes the
-          CASH bingo series ("Monthly Cash Bingo Night", £10 per book, cash only)
+          CASH bingo series (£10 per book, cash only)
           and this page was publishing it alongside its own music bingo series, so
           the music bingo URL declared itself to be a £10 cash bingo night as well
           as a £5 music bingo one. It belongs on /cash-bingo only. */}

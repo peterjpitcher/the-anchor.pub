@@ -97,12 +97,12 @@ For the latest updates on our Autumn Winter Menu and other happenings, make sure
 
 ### **Find Winter Warmth at The Anchor**
 
-🍽️ **Winter Menu**: October through March
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from Terminal 5
-🏯 **Parking**: Free on-site parking
+**Winter Menu**: October through March
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from Terminal 5
+**Parking**: Free on-site parking
 ⏰ **Serving Times**: Lunch & dinner daily
-📞 **Reservations**: 01753 682707
+**Reservations**: 01753 682707
 
 Whether you're a **Heathrow worker** needing warming food after a shift, a **traveler** seeking authentic British cuisine, or a **local** from Staines enjoying seasonal specials, The Anchor provides the perfect winter dining experience near the airport.
 

@@ -139,12 +139,12 @@ Use standard Markdown syntax:
 
 ## Example Blog Post
 
-Here's a complete example:
+Write every post in the voice in `docs/SSOT.md` §1, and use only facts the SSOT holds (§14 lists what we never say). It's about the reader, not us: why they'll want to come, then the details. Here's a complete example that follows both:
 
 ```markdown
 ---
-title: "Summer Beer Garden Now Open"
-description: "Our beautiful beer garden is now open for summer with stunning views and regular plane spotting"
+title: "The Beer Garden's Ready for Summer"
+description: "Pint in hand, planes overhead and a seat in the sun: the beer garden at The Anchor in Stanwell Moor."
 date: "2024-06-01"
 author: "The Anchor Team"
 keywords:
@@ -163,28 +163,21 @@ images:
   - "plane-spotting.jpg"
 ---
 
-# Summer Beer Garden Now Open
+# The Beer Garden's Ready for Summer
 
-We're thrilled to announce that our beer garden is now fully open for the summer season!
+Pint in hand, planes roaring overhead, and a seat in the sun. The beer garden's our favourite place to be when the weather turns, and we think it'll be yours too.
 
-## Perfect for Plane Spotting
+## Planes all afternoon
 
-Our unique location near Heathrow means you can enjoy your drink while watching planes fly overhead every 90 seconds. It's a plane spotter's paradise!
+Heathrow is just up the road, and the garden sits under the flight path. Bring the kids, bring a camera, and see how many airlines you can spot.
 
-## What to Expect
+## Good to know
 
-- Comfortable outdoor seating for up to 50 guests
-- Full table service
-- Dog-friendly space with water bowls provided
+- Step free straight from the car park
+- Dogs welcome, on a lead
+- Food from the kitchen while it's open
 
-## Summer Specials
-
-Throughout June, we're offering:
-- Pimm's jugs for £15
-- BBQ menu every weekend
-- Live acoustic music on Sunday afternoons
-
-Visit us soon and make the most of the summer weather!
+Come and grab a table.
 ```
 
 ## Common Tag Categories

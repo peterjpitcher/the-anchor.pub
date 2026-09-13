@@ -24,7 +24,7 @@ Whether you're a trivia obsessive or just want a fun night out, there's a pub qu
 
 | Pub | Day | Start | Entry | Prize | Team Size | Distance from T5 |
 | --- | --- | --- | --- | --- | --- | --- |
-| **The Anchor**, Stanwell Moor | Monthly (Wednesdays) | 7:30pm | £3 pp | £25 bar tab | Up to 6 | 7 mins |
+| **The Anchor**, Stanwell Moor | Monthly (Wednesdays) | 7pm | £3 pp | £25 bar voucher | Up to 6 | 7 mins |
 | **Greene King pubs** (various) | Usually Tue/Wed | 7–8pm | Free–£2 | £50–£100 voucher | Open | 10–20 mins |
 | **Independent pubs**, Staines | Various | 7–8pm | £1–£3 | Varies | Varies | 15 mins |
 | **Wetherspoon**, Staines | Usually Thurs | 8pm | Free | Drinks vouchers | Open | 15 mins |
@@ -35,7 +35,7 @@ Whether you're a trivia obsessive or just want a fun night out, there's a pub qu
 
 **Best for:** Smaller teams, friendly atmosphere, a proper pub setting
 
-The Anchor runs a monthly quiz night on Wednesdays, and it's become one of the better-known pub quizzes near Heathrow. Entry is £3 per person, teams can have up to six players, and the winning team takes home a £25 bar tab. It's general knowledge, no niche specialist rounds that leave half the room baffled, with a few picture and music rounds thrown in to keep things interesting.
+The Anchor runs a monthly quiz night on Wednesdays, and it's become one of the better-known pub quizzes near Heathrow. Entry is £3 per person, teams can have up to six players, and the winning team takes home a £25 bar voucher. It's general knowledge, no niche specialist rounds that leave half the room baffled, with a few picture and music rounds thrown in to keep things interesting.
 
 ### What makes it different
 
@@ -43,13 +43,13 @@ This isn't a chain quiz run off an app by someone who'd rather be somewhere else
 
 ### Food and drink
 
-You can book a table if you want to eat during the quiz. The full food menu is available, so you're not limited to chips and nuts. There's a good range of draught beers, wines, and spirits. If you're driving, soft drinks and coffee are sorted.
+Every team has its own table, and you can eat at it during the quiz. The full food menu is available, so you're not limited to chips and nuts. There's a good range of draught beers, wines, and spirits. If you're driving, soft drinks and coffee are sorted.
 
 ### Practical details
 
 - **Free parking**, about 20 spaces in the pub car park
 - **Location:** Horton Road, Stanwell Moor, TW19 6AQ, seven minutes from Heathrow Terminal 5
-- **Booking:** Not essential for the quiz itself, but recommended if you want a table for food
+- **Booking:** worth doing, one table per team. Your booking holds your team's table, and you eat at the same table
 - **Dates:** Check The Anchor's social media or website for the next quiz date
 
 ---
@@ -80,7 +80,7 @@ The local Wetherspoon runs a free quiz, usually on Thursday evenings. It's no-fr
 
 ### Arrive early
 
-Wherever you go, the best tables go first. If the quiz starts at 7:30pm, aim for 7pm. This is especially true at smaller pubs like The Anchor where seating is limited.
+Wherever you go, the best tables go first. If the quiz starts at 7pm, aim for 6:30pm. That matters most at smaller pubs like The Anchor, where seating is limited.
 
 ### Team size matters
 
@@ -104,7 +104,7 @@ It's a pub quiz, not Mastermind. The best quiz teams are the ones having the mos
 
 ### Do I need to book for a pub quiz near Heathrow?
 
-For most pub quizzes, you can just turn up. At The Anchor, you don't need to book for the quiz itself, but it's worth booking a table if you want to eat. At busier chain pubs, arriving early is your best bet to get a decent spot.
+For most pub quizzes, you can just turn up. At The Anchor, booking is worth doing: each team has its own table, your booking holds it, and you eat at the same table. At busier chain pubs, arriving early is your best bet to get a decent spot.
 
 ### Are pub quizzes suitable for couples or small groups?
 

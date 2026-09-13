@@ -177,17 +177,17 @@ We'd love to hear what you think about our renovations:
 ## Find Our Transformed Venue
 
 **Location & Details:**
-📍 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
-🚗 Just 7 minutes from Heathrow Terminal 5  
-🚌 Bus routes 441 & 442  
-🅿️ Newly renovated parking  
-🌳 Beautiful garden area  
-✨ Fresh new look!
+The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
+Just 7 minutes from Heathrow Terminal 5  
+Bus routes 441 & 442  
+Newly renovated parking  
+Beautiful garden area  
+Fresh new look!
 
 **Contact Us:**
-📞 01753 682707  
-💬 Facebook: @theanchorpubsm  
-📧 manager@the-anchor.pub
+01753 682707  
+Facebook: @theanchorpubsm  
+manager@the-anchor.pub
 
 Thanks for your patience during our renovation journey. We're open as usual and can't wait to welcome you to our refreshed venue!
 

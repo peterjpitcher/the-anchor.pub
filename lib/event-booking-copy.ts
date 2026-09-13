@@ -51,6 +51,11 @@ function isCommunalBooking(event: EventBookingCopySource): boolean {
   return typeof event.booking_mode === 'string' && event.booking_mode.trim().toLowerCase() === 'communal'
 }
 
+/** General admission: nothing is seated or held, so no copy may promise a table. */
+function isGeneralAdmission(event: EventBookingCopySource): boolean {
+  return typeof event.booking_mode === 'string' && event.booking_mode.trim().toLowerCase() === 'general'
+}
+
 export function getEventBookingCopy(event: EventBookingCopySource): EventBookingCopy {
   const text = eventText(event)
   const unitPrice = getEventUnitPrice(event)
@@ -72,7 +77,7 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
   if (text.includes('cash bingo')) {
     return {
       label: 'Reserve a table, buy bingo book on arrival',
-      policy: 'Reserve your table online. Buy your £10 bingo book on arrival. Players must be 18+.',
+      policy: 'Reserve your table online. Buy your £10 bingo book on arrival. 18+ to play; supervised under-18s are welcome to come along.',
       // docs/SSOT.md: arrive by 6:30pm, first game 7pm. The older "arrive from
       // 6pm" line is explicitly superseded there, owner-confirmed 17 August 2026.
       foodPrompt: 'Arrive by 6:30pm for food before eyes down at 7pm.',
@@ -114,6 +119,15 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
     }
   }
 
+  if (hasFreeSignal(event) && isGeneralAdmission(event)) {
+    return {
+      label: 'Free entry, book your place',
+      policy: 'No payment needed. Book a free place for each person so we know how many to expect. Food and drinks are paid for on the night.',
+      foodPrompt: 'Food is available before most hosted events. Arrive early if your group wants to eat first.',
+      suppressRawCancellationPolicy: true
+    }
+  }
+
   if (hasFreeSignal(event)) {
     return {
       label: 'Free entry, reserve table',
@@ -124,7 +138,7 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
   }
 
   return {
-    label: 'Reserve event table',
+    label: isGeneralAdmission(event) ? 'Book your place' : 'Reserve event table',
     policy: arrivalReassurance,
     foodPrompt: 'Food is available before most hosted events. Arrive early if your group wants to eat first.',
     suppressRawCancellationPolicy: true

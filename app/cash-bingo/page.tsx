@@ -16,7 +16,7 @@ import {
   GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { cashBingo, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
+import { cashBingo, readGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventTime, formatDoorClockTime, type Event } from '@/lib/api'
@@ -63,11 +63,11 @@ const WHAT_IT_IS = [
   },
   {
     title: 'Winnings paid on the night',
-    body: 'Cash prizes are handed over there and then, alongside spot prizes and the odd bit of chocolate. Prizes vary from month to month.'
+    body: 'Cash prizes are handed over there and then, alongside spot prizes and the odd bit of chocolate. Prizes vary from night to night.'
   },
   {
     title: 'The rolling snowball',
-    body: 'Every month nobody claims it, the snowball grows by £20 and gains two extra calls, which makes it easier to win the longer it survives. The current target is on the event listing.'
+    body: 'Every cash bingo night nobody claims it, the snowball grows by £20 and gains two extra calls for the next one, which makes it easier to win the longer it survives. The current target is on the event listing.'
   }
 ]
 
@@ -90,7 +90,7 @@ const FAQS = [
   {
     question: 'How does the snowball jackpot work?',
     answer:
-      'It is a full house within a set number of calls. Each month it goes unclaimed it grows by £20 and gains two extra calls, so it gets easier to win over time. The current target and who is eligible are on the event listing below, because those change every month.'
+      'It is a full house within a set number of calls. Each night it goes unclaimed it grows by £20 and gains two extra calls at the next cash bingo, so it gets easier to win over time. To win it you need to have played at one of the previous three cash bingo nights. The current target is on the event listing below, because it changes from night to night.'
   },
   {
     question: 'Do I need to book in advance?',
@@ -104,11 +104,12 @@ const FAQS = [
   }
 ]
 
-function BingoEventCards({ events }: { events: Event[] }) {
+function BingoEventCards({ events, datesUnavailable }: { events: Event[]; datesUnavailable: boolean }) {
   return (
     <GameNightDateCards
       events={events}
-      eyebrow="Monthly cash bingo"
+      datesUnavailable={datesUnavailable ? { gameName: cashBingo.name } : undefined}
+      eyebrow="Cash bingo nights"
       bookingSource="cash_bingo_event_card"
       calendarSource="cash_bingo_date_card"
       imageAltSuffix="cash bingo night at The Anchor"
@@ -134,7 +135,11 @@ function BingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function CashBingoPage() {
-  const events = await getGameNightEvents(cashBingo)
+  // The outcome travels with the list: an outage must not reach the page as an
+  // empty diary (lib/game-nights/events.ts logs anything short of `ok`).
+  const eventsRead = await readGameNightEvents(cashBingo)
+  const events = eventsRead.events
+  const datesUnavailable = eventsRead.status !== 'ok'
   const nextEvent = events[0]
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
   // 6:30pm, owner-confirmed 17 August 2026: "I want people in for 6:30pm so they
@@ -195,6 +200,7 @@ export default async function CashBingoPage() {
                   gameName={cashBingo.name}
                   gameSlug={cashBingo.slug}
                   bookingNote={cashBingo.bookingNote}
+                  datesUnavailable={datesUnavailable}
                 />
               </SectionViewTracker>
               <GameNightSocialProof gameName={cashBingo.name} />
@@ -239,7 +245,7 @@ export default async function CashBingoPage() {
         gameName={cashBingo.name}
         gameSlug={cashBingo.slug}
         title="What a cash bingo night looks like"
-        intro="Real photos from recent nights. Ten games, winnings paid out on the night, and a snowball that grows every month nobody claims it."
+        intro="Real photos from recent nights. Ten games, winnings paid out on the night, and a snowball that grows every night nobody claims it."
       />
 
       <section id="bingo-dates" className="py-section-y bg-surface">
@@ -255,7 +261,7 @@ export default async function CashBingoPage() {
               or call 01753 682707.
             </p>
             <SectionViewTracker sectionId="cash_bingo_dates">
-              <BingoEventCards events={events} />
+              <BingoEventCards events={events} datesUnavailable={datesUnavailable} />
             </SectionViewTracker>
           </div>
         </Container>
@@ -289,10 +295,12 @@ export default async function CashBingoPage() {
         <Container>
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">Eat before the first game</h2>
+            {/* Kitchen times vary by date and come from the live hours
+                (docs/SSOT.md §3), so none is written here, as on /karaoke. */}
             <p className="mb-5 text-ink-muted">
-              The full menu runs until 9pm, so order at your table when you arrive or during one of
-              the breaks. You do not need a separate dining booking, because your bingo booking is
-              your seat for the night.
+              Kitchen times vary by date, so order at your table when you arrive, or call 01753 682707
+              to check that night&rsquo;s times. You do not need a separate dining booking, because
+              your bingo booking is your seat for the night.
             </p>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <BookTableButton source="bingo_food_cta" variant="outline" size="sm">

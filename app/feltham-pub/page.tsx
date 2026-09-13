@@ -170,23 +170,23 @@ export default function FelthamPubPage() {
                 </h3>
                 <ul className="space-y-4 text-ink">
                   <li className="flex items-start">
-                    <span className="text-accent-text font-bold mr-3">✓</span>
+                    <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                     <span>Free parking - no time limits or charges</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-accent-text font-bold mr-3">✓</span>
+                    <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                     <span>Traditional pub atmosphere you won't find in chain venues</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-accent-text font-bold mr-3">✓</span>
+                    <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                     <span>Celebrated Sunday roasts {sunday.isLive ? 'served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `start ${SUNDAY_ROAST.launchDateLabel}.`}</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-accent-text font-bold mr-3">✓</span>
+                    <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                     <span>Regular entertainment including Music Bingo hosted by Nikki Manfadge, quiz nights and one-off events (see /whats-on)</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-accent-text font-bold mr-3">✓</span>
+                    <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                     <span>Perfect for Feltham work colleagues' gatherings</span>
                   </li>
                 </ul>
@@ -289,19 +289,19 @@ export default function FelthamPubPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Why Feltham Chooses Us</h3>
                   <ul className="space-y-3 text-ink">
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong>Quick 10-minute drive</strong> - Closer than central London venues</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong>Free parking for all guests</strong> - Save on town centre fees</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong>Affordable pricing</strong> - Better value than Feltham High Street</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong>Trusted by locals</strong> - Regular venue for Feltham groups</span>
                     </li>
                   </ul>

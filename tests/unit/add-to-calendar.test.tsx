@@ -8,9 +8,14 @@
  * a later page mounts the component without checking first.
  */
 
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import type { Event } from '@/lib/api'
 import { AddToCalendar } from '@/components/events/AddToCalendar'
+import { trackAddToCalendarClick } from '@/lib/gtm-events'
+
+jest.mock('@/lib/gtm-events', () => ({
+  trackAddToCalendarClick: jest.fn()
+}))
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000
 const FIXED_NOW = Date.UTC(2026, 4, 1, 12, 0, 0) // 2026-05-01T12:00:00Z
@@ -148,5 +153,43 @@ describe('AddToCalendar', () => {
 
     expect(screen.queryByText('Add to calendar')).not.toBeInTheDocument()
     expect(screen.getAllByRole('link')).toHaveLength(2)
+  })
+
+  describe('click tracking', () => {
+    beforeEach(() => {
+      jest.mocked(trackAddToCalendarClick).mockClear()
+    })
+
+    /** Clicks a link without jsdom trying to navigate or download. */
+    function clickWithoutLeaving(link: HTMLElement) {
+      link.addEventListener('click', (clickEvent) => clickEvent.preventDefault())
+      fireEvent.click(link)
+    }
+
+    it.each([
+      [/Google Calendar/i, 'google_calendar'],
+      [/calendar file/i, 'ics_file']
+    ])('reports which diary the guest chose: %s', (linkName, calendarType) => {
+      const event = makeEvent()
+      render(<AddToCalendar event={event} source="event_page_booking_actions" />)
+
+      clickWithoutLeaving(screen.getByRole('link', { name: linkName }))
+
+      expect(trackAddToCalendarClick).toHaveBeenCalledTimes(1)
+      expect(trackAddToCalendarClick).toHaveBeenCalledWith('event_page_booking_actions', {
+        eventId: 'evt-123',
+        eventName: 'Quiz Night',
+        eventDate: event.startDate,
+        calendarType
+      })
+    })
+
+    it('reports nothing for a click on the group that is not on a link', () => {
+      render(<AddToCalendar event={makeEvent()} source="event_detail" />)
+
+      fireEvent.click(screen.getByText('Add to calendar'))
+
+      expect(trackAddToCalendarClick).not.toHaveBeenCalled()
+    })
   })
 })

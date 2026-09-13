@@ -22,6 +22,7 @@ import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { StickyDrawer } from '@/components/ui'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { CONTACT } from '@/lib/constants'
+import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
 
 const CONTACT_EMAIL = CONTACT.email
 const CONTACT_PHONE = CONTACT.phone
@@ -448,7 +449,7 @@ function buildFaqItems(
     },
     {
       question: 'Do we have to pre-order our meals?',
-      answer: `One course needs a booking but no pre-order. Two or three courses need a pre-order ${deadlineDays} days before your booking date. Courses are picked per person, not for the whole table, so guests can have different numbers of courses.`
+      answer: `One course needs a booking but no pre-order. Two or three courses need a pre-order ${deadlineDays} days before your booking date, so a booking made after that is 1 course. Courses are picked per person, not for the whole table, so guests can have different numbers of courses.`
     },
     {
       question: 'When is the Christmas pre-order deadline?',
@@ -500,7 +501,7 @@ function buildFaqItems(
     },
     {
       question: 'What Christmas entertainment do you run?',
-      answer: 'A Christmas quiz, and we can arrange a DJ if your group wants one. Ask when you enquire and we will tell you what is running around your date. A DJ is not included as standard, it is something you request. There is no Christmas karaoke and no Christmas live band. If your group wants a full production with a dance floor and a ticketed room of strangers, a hotel will suit you better than we will.'
+      answer: 'In December our quiz, music bingo and cash bingo nights take a festive turn, and What\u2019s On has the dates. We can also arrange a DJ if your group wants one. Ask when you enquire and we will tell you what is running around your date. A DJ is not included as standard, it is something you request. There is no Christmas karaoke and no Christmas live band. If your group wants a full production with a dance floor and a ticketed room of strangers, a hotel will suit you better than we will.'
     },
     {
       question: 'Is parking available?',
@@ -516,7 +517,10 @@ function buildFaqItems(
     },
     {
       question: 'Do you offer corporate Christmas party packages near Heathrow?',
-      answer: "We do. Tell us your headcount, your budget and your date, and we will set out the options and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent."
+      // The sit-down offer is the 1, 2 and 3 course Christmas menu, never the
+      // old Festive Menu packages (docs/SSOT.md §7, owner-confirmed 11 September
+      // 2026), so the answer names it rather than agreeing to "packages".
+      answer: `Teams book our Christmas menu, with each guest choosing 1, 2 or 3 courses, for ${facts.minPartySize} guests or more. From ${facts.buffetMinimumGuests} guests a festive buffet is an option too. Tell us your headcount, your budget and your date, and we will set out the options and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent.`
     },
     {
       question: 'Where is The Anchor for Christmas party guests?',
@@ -566,11 +570,12 @@ const WHY_BOOK_REASONS = [
 /**
  * The formats a Christmas booking here can actually take.
  *
- * Owner-confirmed 11 August 2026: the Christmas quiz is the festive
- * entertainment we put on, and a DJ can be arranged ON REQUEST. There is no
- * Christmas karaoke and no live band, and those entries were removed on that
- * date and must not come back. Music bingo is a year-round format with no
- * Christmas edition, so it is not listed here as a Christmas event either.
+ * docs/SSOT.md §7 (mirrored from the management app, 11 September 2026): the
+ * December quiz, music bingo and cash bingo nights carry a festive theme, and
+ * the quiz is our normal quiz with a festive nod, not a fully themed Christmas
+ * quiz. A DJ can be arranged ON REQUEST (owner-confirmed 11 August 2026).
+ * There is no Christmas karaoke and no live band, and those entries must not
+ * come back.
  *
  * A DJ must never be presented as included, as a package, or as a scheduled
  * part of the evening. It is something a group asks for. Never add a dance
@@ -579,8 +584,8 @@ const WHY_BOOK_REASONS = [
 function buildPartyIdeas(facts: ChristmasFactsView) {
   return [
     {
-      title: 'The Christmas quiz',
-      description: 'Our Christmas quiz is the festive entertainment we run, and it is the one thing here you can build a night around. Ask when you enquire and we will tell you what is on around your date, with food before or after.',
+      title: 'Festive game nights',
+      description: 'In December our quiz, music bingo and cash bingo nights take a festive turn, and they are open to everyone. Book your group in for one of them, with food before or after. What\u2019s On has the dates.',
       ideal: 'Groups that enjoy friendly competition'
     },
     {
@@ -763,7 +768,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   <h3 className="mt-4 text-2xl font-semibold text-ink-strong">Plan a Christmas party</h3>
                   <p className="mt-3 text-sm text-ink-muted">
                     Tell us about your group, preferred date and party style. Choose a private space, a drinks-only booking,
-                    our Christmas quiz, or a festive buffet for {facts.buffetMinimumGuests} or more guests.
+                    one of our festive game nights, or a festive buffet for {facts.buffetMinimumGuests} or more guests.
                   </p>
                   <p className="mt-3 text-sm font-semibold text-accent-text">Christmas capacity: up to {facts.maxSeated} seated or {facts.maxStanding} standing.</p>
                   <Button
@@ -861,7 +866,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">Is there a DJ or entertainment?</dt>
-                  <dd className="mt-1 text-sm text-ink-muted">A Christmas quiz runs, and a DJ can be arranged on request. Neither is bundled into a package you did not choose.</dd>
+                  <dd className="mt-1 text-sm text-ink-muted">Our December quiz, music bingo and cash bingo nights take a festive turn, and a DJ can be arranged on request. Neither is bundled into a package you did not choose.</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">What time does the party finish?</dt>
@@ -916,7 +921,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">Two and three course pre-orders are due {deadlineDays} days before your date.</strong> One course needs no pre-order. Send dietary requirements with any pre-order.</span>
+                  <span><strong className="text-ink-strong">Two and three course pre-orders are due {deadlineDays} days before your date.</strong> One course needs no pre-order, and it&apos;s the only choice for a booking made inside that. Send dietary requirements with any pre-order.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
@@ -1295,7 +1300,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Department celebration (21 to {facts.maxSeated})</h4>
-                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Ask about our Christmas quiz if your team wants more than a meal.</p>
+                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Ask about our festive game nights if your team wants more than a meal.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Full venue hire ({facts.maxSeated} to {facts.maxStanding})</h4>
@@ -2028,6 +2033,8 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
   const minimumGuests = context.mode === 'party' && partyFormat === 'buffet_party'
     ? facts.buffetMinimumGuests
     : facts.minPartySize
+  // Inside the 2 and 3 course deadline only the 1 course menu can be booked (SSOT §7).
+  const onlyOneCourse = context.mode === 'meal' && preferredDate !== '' && !christmasMultipleCoursesAvailable(preferredDate)
 
   useEffect(() => {
     if (timeOptions.some(option => option.value === preferredTime)) return
@@ -2054,6 +2061,12 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
     if (isMondayIsoDate(preferredDate)) {
       setStatus('error')
       setMessage(MONDAY_UNAVAILABLE_MESSAGE)
+      return
+    }
+
+    if (onlyOneCourse && (context.courseTier === 'two_course' || context.courseTier === 'three_course')) {
+      setStatus('error')
+      setMessage(`${LATE_CHRISTMAS_ONE_COURSE_NOTE} Please change the courses to 1 course each, or not decided yet.`)
       return
     }
 
@@ -2247,9 +2260,16 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
                 className="mt-1 w-full rounded-sm border-[1.5px] border-amber-400 bg-white px-3 py-2 text-sm text-amber-950 focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
               >
                 {COURSE_TIER_OPTIONS.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
+                  <option
+                    key={option.value}
+                    value={option.value}
+                    disabled={onlyOneCourse && (option.value === 'two_course' || option.value === 'three_course')}
+                  >
+                    {option.label}
+                  </option>
                 ))}
               </select>
+              {onlyOneCourse ? <p className="mt-1 text-xs font-semibold">{LATE_CHRISTMAS_ONE_COURSE_NOTE}</p> : null}
             </div>
           </div>
         ) : (
@@ -2537,6 +2557,9 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
     }
   }, [closeLightbox, visible])
 
+  // The lightbox has no course picker, so inside the 2 and 3 course deadline it sends the only
+  // tier that can be booked, and says so beside the date (SSOT §7).
+  const lateOneCourse = context.mode === 'meal' && preferredDate !== '' && !christmasMultipleCoursesAvailable(preferredDate)
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!name.trim() || !email.trim() || !phone.trim() || !partySize.trim() || !preferredDate.trim()) {
@@ -2581,7 +2604,9 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
           ...getBookingAttributionPayload(),
           mode: context.mode,
           service: context.mode === 'meal' ? context.service : undefined,
-          courseTier: context.mode === 'meal' ? context.courseTier : undefined,
+          courseTier: context.mode === 'meal'
+            ? (lateOneCourse && (context.courseTier === 'two_course' || context.courseTier === 'three_course') ? 'one_course' : context.courseTier)
+            : undefined,
           partyFormat: undefined,
           source: 'lightbox',
           name: name.trim(),
@@ -2765,6 +2790,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
                 <p className="text-xs font-semibold text-amber-950">
                   Courses are chosen per person. A main each, starter and dessert optional.
                 </p>
+                {lateOneCourse ? <p className="mt-1 text-xs text-amber-950">{LATE_CHRISTMAS_ONE_COURSE_NOTE}</p> : null}
                 <div className="mt-2 grid grid-cols-2 gap-2">
                   {(['lunch', 'dinner'] as MealService[]).map(service => (
                     <button

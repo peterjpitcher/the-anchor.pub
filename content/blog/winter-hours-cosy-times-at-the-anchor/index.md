@@ -2,7 +2,7 @@
 title: Winter Opening Hours Near Heathrow | Cozy Pub The Anchor
 description: >-
   Check winter opening hours at The Anchor pub near Heathrow Airport. Cozy
-  atmosphere, warm fires, and adjusted seasonal hours in Stanwell Moor. Perfect
+  atmosphere, a warm welcome, and adjusted seasonal hours in Stanwell Moor. Perfect
   winter retreat just 7 minutes from Terminal 5. Your local pub for cold
   evenings near Staines.
 date: '2019-10-03'
@@ -51,7 +51,7 @@ Looking for a **warm winter retreat near Heathrow Airport**? The Anchor in **Sta
 ### Why Visit The Anchor This Winter
 
 **Cozy Features:**
-- **Real fires** keeping you warm
+- **A warm pub** to come in out of the cold
 - **Hot food** including warming soups and stews
 - **Winter warmers** behind the bar
 - **Covered areas** for smokers
@@ -85,10 +85,10 @@ Looking for a **warm winter retreat near Heathrow Airport**? The Anchor in **Sta
 
 ### Contact Us About Winter Hours
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-📞 **Call**: 01753 682707
-❄️ **Winter Tip**: Call ahead on very cold days - we sometimes extend hours!
-🅿️ **Parking**: Free and right outside
-✈️ **From Heathrow**: Just 7 minutes from Terminal 5
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Call**: 01753 682707
+**Winter Tip**: Call ahead on very cold days - we sometimes extend hours!
+**Parking**: Free and right outside
+**From Heathrow**: Just 7 minutes from Terminal 5
 
 *Escape the winter cold at The Anchor - your cozy local near Heathrow Airport!*

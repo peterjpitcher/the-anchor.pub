@@ -108,13 +108,13 @@ The Anchor is proud to have:
 
 ### Join Us for International Women's Day Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-📅 **Date**: March 8th annually
-💜 **Dress Code**: Wear purple to show support
-🥂 **Special Offers**: Complimentary prosecco for women
-📞 **Bookings**: 01753 682707
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Date**: March 8th annually
+**Dress Code**: Wear purple to show support
+**Special Offers**: Complimentary prosecco for women
+**Bookings**: 01753 682707
 
 ### Why Celebrate at The Anchor
 

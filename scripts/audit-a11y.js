@@ -114,6 +114,25 @@ async function main() {
         continue
       }
 
+      // Wait for React to hydrate before touching anything.
+      //
+      // Before this, the keyboard checks raced hydration: the run fired Enter at
+      // server-rendered markup that had no handlers attached yet and reported
+      // three failures on whichever page the dev server happened to compile
+      // slowest that run. The failures moved between pages run to run, which is
+      // how it was spotted. React stamps `__react*` keys onto DOM nodes as it
+      // hydrates, so that is the signal, not a fixed sleep.
+      let hydrated = true
+      try {
+        await page.waitForFunction(() => {
+          const el = document.querySelector('button[aria-expanded]') || document.body
+          return Object.keys(el).some((k) => k.startsWith('__react'))
+        }, null, { timeout: 15000 })
+      } catch {
+        hydrated = false
+        keyboardProblems.push({ pathname, issue: 'page never hydrated, so nothing on it is operable' })
+      }
+
       const results = await new AxeBuilder({ page }).withTags(WCAG).analyze()
       for (const v of results.violations) {
         violations.push({ pathname, label, id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.length })
@@ -122,19 +141,37 @@ async function main() {
         incomplete.push({ pathname, id: v.id, help: v.help, nodes: v.nodes.length })
       }
 
-      // Keyboard: FAQ accordion triggers must be reachable and operable.
+      // Every disclosure control must be a button, not a link.
       //
-      // Deliberately `button[aria-expanded]`, not `[aria-expanded]`. The header
-      // nav uses <a aria-expanded> for its dropdowns, and pressing Enter on a
-      // link NAVIGATES: the follow-up attribute read then hits a detached node
-      // and every page looks broken. The first version of this check did
-      // exactly that and reported 30 false failures.
-      const triggers = await page.locator('button[aria-expanded]:visible').all()
-      for (const t of triggers.slice(0, 3)) {
+      // The header nav used to open its four dropdowns from <a aria-expanded>,
+      // which only ever worked on hover: Enter on a link navigates, so
+      // aria-expanded never moved and the submenu links could not be reached
+      // without a pointer. The check below could not catch it either, because
+      // pressing Enter on a link detaches the node mid-read and makes every
+      // page look broken, so it was scoped to buttons and the real defect sat
+      // behind that exclusion. Assert the shape instead: a link carrying
+      // aria-expanded is the bug, whatever it does afterwards.
+      const linkDisclosures = await page.locator('a[aria-expanded]').all()
+      for (const link of linkDisclosures) {
+        const name = await link.evaluate((el) => (el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 40))
+        keyboardProblems.push({
+          pathname,
+          issue: `"${name}" is a link carrying aria-expanded; a disclosure must be a <button>`
+        })
+      }
+
+      // Keyboard: disclosure controls must be reachable and operable.
+      //
+      // Six, not three: the header contributes four (Food, Private Hire, What's
+      // On, Find Us) on every page, so a smaller sample would test the nav and
+      // nothing else. Escape after each one closes the panel it just opened, so
+      // an open dropdown is not left covering the next control.
+      const triggers = hydrated ? await page.locator('button[aria-expanded]:visible').all() : []
+      for (const t of triggers.slice(0, 6)) {
         try {
           await t.focus()
           if (!(await t.evaluate((el) => el === document.activeElement))) {
-            keyboardProblems.push({ pathname, issue: 'accordion control cannot take focus' })
+            keyboardProblems.push({ pathname, issue: 'disclosure control cannot take focus' })
             continue
           }
           // A visible focus ring is a WCAG 2.2 requirement, not a nicety.
@@ -143,8 +180,26 @@ async function main() {
             return { outline: s.outlineStyle, width: s.outlineWidth, shadow: s.boxShadow }
           })
           if (ring.outline === 'none' && (!ring.shadow || ring.shadow === 'none')) {
-            keyboardProblems.push({ pathname, issue: 'focused accordion control shows no visible focus indicator' })
+            keyboardProblems.push({ pathname, issue: 'focused disclosure control shows no visible focus indicator' })
           }
+          // Wait for THIS control to be wired, not just for the page to have
+          // started hydrating. React attaches handlers as it walks the tree, so
+          // the page-level probe above can pass on the first button while a
+          // control further down is still inert. That is the same race in a
+          // smaller window, and pressing Enter into it produces exactly the
+          // false "aria-expanded stayed false" this check exists to avoid.
+          // Caught on a deployed preview, where the header disclosures wire up
+          // after the burger the page-level probe happens to find first.
+          try {
+            await page.waitForFunction((el) => {
+              const key = Object.keys(el).find((k) => k.startsWith('__reactProps$'))
+              return Boolean(key && typeof el[key].onClick === 'function')
+            }, await t.elementHandle(), { timeout: 10000 })
+          } catch {
+            keyboardProblems.push({ pathname, issue: 'disclosure control never had a handler attached' })
+            continue
+          }
+
           const before = await t.getAttribute('aria-expanded')
           await t.press('Enter')
           await page.waitForTimeout(150)
@@ -152,6 +207,7 @@ async function main() {
           if (before === after) {
             keyboardProblems.push({ pathname, issue: `aria-expanded stayed "${before}" after Enter` })
           }
+          await t.press('Escape')
         } catch (e) {
           keyboardProblems.push({ pathname, issue: `keyboard interaction threw: ${e.message.slice(0, 60)}` })
         }

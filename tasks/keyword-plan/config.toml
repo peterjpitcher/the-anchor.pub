@@ -1,0 +1,128 @@
+# The Anchor keyword programme, configuration.
+# Written 11 September 2026 at the first v2.1 run, which is a targeted run for the hosted
+# event pages (/whats-on, /quiz-night, /quiz-night/themed, /music-bingo, /cash-bingo).
+# Earlier keyword work on this site (tasks/keyword-plan-*.md) was v1 and has no workspace.
+# Change a setting only with a reason recorded in run-log.md; changing gkp.location or
+# gkp.window starts a new lens and breaks comparability with every earlier observation.
+
+schema_version = 1
+
+# established-local: a pub with a Google Business Profile, serving a catchment around
+# Stanwell Moor. Search Console has data since July 2025 for the event pages.
+profile = "established-local"
+
+site = "the-anchor.pub"
+
+# Recorded in tasks/gsc-audit-2026-08-17.md and tasks/spec-2026-09-05-gsc-triage.md, and
+# consistent with the export file names ("the-anchor.pub-Performance-on-Search-..."),
+# which is how a domain property names its exports. Attested per run in the request.
+gsc_property = "sc-domain:the-anchor.pub"
+
+reporting_country = "GB"
+audience_countries = ["GB"]
+language = "en"
+
+# Substring match. Any query containing "anchor" is navigational towards an Anchor pub,
+# ours or another, and belongs in defend and repair, never in a growth cluster.
+brand_terms = ["anchor"]
+
+# No competitor list has been confirmed by the owner. Context for discovery seeds only;
+# no competitor metric is ever quoted as fact.
+competitors = []
+
+[gkp]
+location = "United Kingdom"
+local_lens_location = ""          # empty: no local lens this run (the catchment spans Surrey and west London)
+language = "English"
+network = "Google Search"
+window = "last 12 months"
+
+# banded: every exported value in the 17 August and 8 September 2026 exports is 0, 50,
+# 500, 5,000 or 50,000, which is the band encoding, not a search count.
+volume_mode = "banded"
+
+[gsc]
+search_type = "web"
+country_filter = "GB"
+run_day_earliest = 5
+
+[cadence]
+review_months = 1
+expansion_months = 3
+
+[gbp]
+# Enabled because the local "near me" demand for these nights resolves through the
+# profile, not page copy (tasks/keyword-plan-2026-09-08-site-wide.md). The location id
+# has not been supplied yet; the profile pulls are optional and never block a run.
+enabled = true
+location_id = ""
+
+[repo]
+# github.com/peterjpitcher/the-anchor.pub is PUBLIC. Raw exports stay out of git
+# (tasks/keyword-plan/.gitignore excludes runs/*/raw/). Normalised and analysis files
+# carry only search data, never takings, bookings or customer data.
+visibility = "public"
+raw_in_git = false
+
+[thresholds]
+# No overrides. The defaults in scripts/common.py apply.
+
+[[avoid]]
+term = "live music"
+reason = "Live music is discontinued in full, owner-confirmed 11 August 2026 (docs/SSOT.md section 10)."
+scope = "all"
+
+[[avoid]]
+term = "open mic"
+reason = "Open mic is discontinued (docs/SSOT.md section 10, Retired entertainment formats)."
+scope = "all"
+
+[[avoid]]
+term = "drag show"
+reason = "Drag cabaret is discontinued, owner-confirmed 9 August 2026; Music Bingo is the only drag night, so drag bingo stays eligible."
+scope = "all"
+
+[[avoid]]
+term = "drag cabaret"
+reason = "Drag cabaret is discontinued, owner-confirmed 9 August 2026 (docs/SSOT.md section 10)."
+scope = "all"
+
+[[avoid]]
+term = "games night"
+reason = "Nikki's Games Night is discontinued as a public format (docs/SSOT.md section 10)."
+scope = "all"
+
+[[avoid]]
+term = "free pub quiz"
+reason = "The quiz is 3 pounds a player (docs/SSOT.md section 10); a free-quiz target misleads."
+scope = "cl_0001"
+
+[[avoid]]
+term = "quiz questions"
+reason = "Question-writing intent from people running their own quiz, not people coming to one."
+scope = "cl_0001"
+
+[[avoid]]
+term = "how to run"
+reason = "Operator intent (running your own quiz or bingo), not attendance."
+scope = "all"
+
+[[avoid]]
+term = "online bingo"
+reason = "Remote gambling intent; The Anchor runs in-person bingo only."
+scope = "all"
+
+[[avoid]]
+term = "bingo hall"
+reason = "Unqualified bingo searches belong to bingo clubs such as Buzz Bingo Feltham (tasks/keyword-plan-game-nights-2026-08-17.md); The Anchor is not a bingo hall."
+scope = "cl_0004"
+
+[[avoid]]
+term = "bongo"
+reason = "Bongo's Bingo is another operator's club-night brand; its searchers want that brand, not a pub bingo night. Added 11 September 2026 after the auto-fill picked it as the cash bingo head term."
+scope = "all"
+
+[[avoid]]
+term = "wedding"
+reason = "Owner declined wedding receptions (docs/SSOT.md banned claims)."
+scope = "all"

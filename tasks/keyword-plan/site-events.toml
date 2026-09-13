@@ -1,0 +1,53 @@
+registry_version = 1
+
+# Site-side changes that touch the event pages inside the sixteen months Search Console holds.
+# Dates are the day the change reached production, taken from git history on main.
+
+[[event]]
+id = "2026-08-11-whats-on-live-music-retired"
+type = "repositioning"
+date = "2026-08-11"
+path_pattern = "^/whats-on$"
+note = "Live music retired in full; /whats-on retitled to Quiz, Music Bingo & Cash Bingo Near Heathrow. PR #103."
+
+[[event]]
+id = "2026-08-11-live-music-open-mic-purged"
+type = "content-purge"
+date = "2026-08-11"
+path_pattern = "^/(live-music|open-mic|blog/live-music-pubs-near-heathrow)$"
+note = "Retired pages 301 to /whats-on, so their residual search traffic lands on /whats-on from this date. PR #103."
+
+[[event]]
+id = "2026-08-12-game-night-template"
+type = "redesign"
+date = "2026-08-12"
+path_pattern = "^/(quiz-night|cash-bingo|music-bingo|karaoke)$"
+note = "Quiz, cash bingo, music bingo and karaoke moved onto one shared game-night template with inline booking (commits 4b03f842, 496b321a)."
+
+[[event]]
+id = "2026-08-17-game-pages-rewritten"
+type = "repositioning"
+date = "2026-08-17"
+path_pattern = "^/(quiz-night|cash-bingo|music-bingo|karaoke)$"
+note = "The four game pages rewritten around the 17 August 2026 Keyword Planner data; titles changed (commit c9176f3d)."
+
+[[event]]
+id = "2026-08-26-listing-event-schema-dropped"
+type = "redesign"
+date = "2026-08-26"
+path_pattern = "^/(whats-on|quiz-night|cash-bingo|music-bingo|karaoke)$"
+note = "33 Event objects removed from listing pages because Google does not support them there (commit bdd8a1e5). Rich-result eligibility on these URLs changed."
+
+[[event]]
+id = "2026-09-07-event-pages-wave-1"
+type = "redesign"
+date = "2026-09-07"
+path_pattern = "^/events/"
+note = "Event detail pages: event sold above the desktop fold, pitch before the booking form, simplified booking (fix/event-pages-wave-1, merged 7 September 2026)."
+
+[[event]]
+id = "2026-09-10-drag-pages-purged"
+type = "content-purge"
+date = "2026-09-10"
+path_pattern = "^/(whats-on/drag-shows|blog/drag-cabaret-nikki)$"
+note = "Retired and 301'd to /whats-on (docs/SSOT.md section 10, retired entertainment formats)."

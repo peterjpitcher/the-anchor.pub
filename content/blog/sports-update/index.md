@@ -98,13 +98,13 @@ We remain in active negotiations with these providers and are hopeful for a posi
 
 ### **Visit The Anchor for Sports Near Heathrow Terminal 5**
 
-🏆 **Sky/TNT Sports**: Available until January 24th, 2025
-📺 **Terrestrial Sports**: Continuing indefinitely
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🅿️ **Parking**: Free on-site parking
-🍻 **Facilities**: Multiple screens, great atmosphere
-📞 **Information**: 01753 682707
+**Sky/TNT Sports**: Available until January 24th, 2025
+**Terrestrial Sports**: Continuing indefinitely
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Facilities**: Multiple screens, great atmosphere
+**Information**: 01753 682707
 
 Whether you're an **airport worker** catching the match after your shift or a **local sports fan** from Staines, we remain committed to showing major sporting events at our **family pub near Heathrow**.
 

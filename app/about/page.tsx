@@ -199,7 +199,7 @@ export default function AboutPage() {
               {
                 title: 'Outside the ULEZ Zone',
                 description:
-                  'Drive here without paying the \u00a312.50 daily ULEZ charge. One less thing to worry about.',
+                  "We're outside the ULEZ, so there's no charge at our end of the journey. One less thing to worry about.",
               },
             ].map(({ title, description }) => (
               <Card key={title} accent hover className="h-full">
@@ -422,7 +422,7 @@ export default function AboutPage() {
           {
             question: 'Is The Anchor inside the ULEZ zone?',
             answer:
-              'No. The Anchor is outside the ULEZ zone, so you can drive here without paying the \u00a312.50 daily charge.',
+              'No. The Anchor is outside the ULEZ zone. Whether you pay the charge on the way depends on your car and your route.',
           },
         ]}
       />

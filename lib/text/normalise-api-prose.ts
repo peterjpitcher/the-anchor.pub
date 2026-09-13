@@ -21,6 +21,15 @@
  * Only the em dash (U+2014) is replaced. The en dash (U+2013) is left alone:
  * the house rule bans em dashes only, and the en dash carries ranges in shipped
  * copy (see components/WeekHours.tsx), where a comma would be a corruption.
+ *
+ * The same boundary rewrites "doors" as an event time. docs/SSOT.md §10 bans
+ * it (owner-confirmed 16 August 2026): the pub is open from midday, so "doors
+ * open at 7:15 PM" tells a guest it is shut until then. Record copy still says
+ * it on indexable past pages, so "doors open at 7:15 PM" and "Doors from
+ * 6:30pm" become "arrive from 7:15 PM" and "Arrive from 6:30pm". Only a door
+ * phrase that is followed by a clock time and starts a clause is rewritten, so
+ * "French doors open onto the garden" and "we open the doors early" are left
+ * as they are.
  */
 
 /**
@@ -55,6 +64,48 @@ const PROTECTED_SEGMENT_OR_EM_DASH_RUN = new RegExp(
   'gi',
 )
 
+/** U+2013 and U+2022, from their code points for the same reason as EM_DASH. */
+const EN_DASH = String.fromCharCode(0x2013)
+const BULLET = String.fromCharCode(0x2022)
+
+/**
+ * A clock time as record copy writes one: 7pm, 7.15pm, 6:45 PM, 7 p.m., 19:15.
+ * Minutes or am/pm are required, so a bare number is never read as a time.
+ */
+const CLOCK_TIME = String.raw`\d{1,2}(?:[:.]\d{2})?\s?[ap]\.?\s?m\b\.?|\d{1,2}[:.]\d{2}\b`
+
+/**
+ * Where a clause starts: the start of the value or a line, after sentence or
+ * list punctuation (dashes included: both live records read "secure your
+ * spot[em dash]doors open at ..."), or after "and" or "then". Rewriting a door
+ * phrase anywhere else would break the sentence around it ("we will have the
+ * doors open from 6pm" cannot become "we will have arrive from 6pm"), so those
+ * are left alone. Captured and put back rather than looked behind, because
+ * lookbehind breaks older Safari and this module also ships in the browser
+ * bundle.
+ */
+const CLAUSE_START = String.raw`^|[.!?,;:(\[*${BULLET}${EN_DASH}${EM_DASH}-]\s*|\band\s+|\bthen\s+`
+
+/**
+ * "Doors", "The doors", "Doors will open", "doors opening", and what joins it
+ * to the time: a colon or a dash of any length, "at", "from", or a space.
+ */
+const DOORS_PHRASE = String.raw`(?:the\s+)?doors?(?:\s+will)?(?:\s+(?:open|opens|opening))?`
+const DOORS_JOIN = String.raw`(?:\s*[:${EN_DASH}${EM_DASH}-]\s*|\s+(?:at|from)\s+|\s+)`
+
+/** Cheap test, so a value with no door phrase in it is returned untouched. */
+const DOORS_TIME = new RegExp(String.raw`\bdoors?\b[^\n]{0,24}?(?:${CLOCK_TIME})`, 'i')
+
+/**
+ * Either a segment to step over (a tag or a URL, exactly as for em dashes), or
+ * a door phrase at the start of a clause followed by a clock time. Groups: the
+ * protected segment, the clause start, the door phrase, the time.
+ */
+const PROTECTED_SEGMENT_OR_DOORS_TIME = new RegExp(
+  `(<[^>]*>|(?:https?:\\/\\/|www\\.|mailto:|tel:)\\S+)|(${CLAUSE_START})(${DOORS_PHRASE})${DOORS_JOIN}(${CLOCK_TIME})`,
+  'gim',
+)
+
 /** Openers that should sit flush against the following word. */
 const OPENING_BEFORE = /[([{]/
 
@@ -77,8 +128,15 @@ export interface ProseFaqEntry {
  * The event fields that are prose, and therefore the only string fields
  * normaliseEventProse() will touch. Everything else on an event, id, slug, url,
  * startDate, keywords, image paths, is left exactly as the API sent it.
+ *
+ * `name` and `metaTitle` are here because they are typed by hand too and they
+ * become the page title and the H1. Three indexable past pages served an em
+ * dash in their <title> on 11 September 2026, for example "Cash Bingo Night
+ * [em dash] 1 July 2026".
  */
 export const NORMALISED_PROSE_FIELDS = [
+  'name',
+  'metaTitle',
   'brief',
   'description',
   'shortDescription',
@@ -163,6 +221,29 @@ function replaceEmDashRuns(value: string): string {
 }
 
 /**
+ * "doors open at 7:15 PM" becomes "arrive from 7:15 PM", keeping the time
+ * exactly as it was written and the capital when the phrase had one.
+ */
+function replaceDoorsTimes(value: string): string {
+  return value.replace(
+    PROTECTED_SEGMENT_OR_DOORS_TIME,
+    (
+      match: string,
+      protectedSegment: string | undefined,
+      clauseStart: string | undefined,
+      doorsPhrase: string | undefined,
+      time: string | undefined,
+    ): string => {
+      if (protectedSegment !== undefined) return protectedSegment
+      if (doorsPhrase === undefined || time === undefined) return match
+
+      const arrive = /^[A-Z]/.test(doorsPhrase) ? 'Arrive' : 'arrive'
+      return `${clauseStart ?? ''}${arrive} from ${time}`
+    },
+  )
+}
+
+/**
  * Normalise one named prose field.
  *
  * Pass a single field value, never a whole payload: description, about, one
@@ -178,10 +259,15 @@ export function normaliseProseField(value: string | undefined): string | undefin
 export function normaliseProseField(value: string | null | undefined): string | null | undefined
 export function normaliseProseField(value: string | null | undefined): string | null | undefined {
   if (typeof value !== 'string') return value
-  if (!value.includes(EM_DASH)) return value
+  const hasEmDash = value.includes(EM_DASH)
+  const hasDoorsTime = DOORS_TIME.test(value)
+  if (!hasEmDash && !hasDoorsTime) return value
   if (!isNormalisableProse(value)) return value
 
-  return replaceEmDashRuns(value)
+  // Door phrases first, so "Doors [em dash] 7pm" is read as one phrase before
+  // its dash is turned into a comma.
+  const withArrivalTimes = hasDoorsTime ? replaceDoorsTimes(value) : value
+  return hasEmDash ? replaceEmDashRuns(withArrivalTimes) : withArrivalTimes
 }
 
 /**

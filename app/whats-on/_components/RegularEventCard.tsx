@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Card, CardBody } from '@/components/ui/layout/Card'
+import { Card, CardBody, CardFooter } from '@/components/ui/layout/Card'
 import { Badge } from '@/components/ui/primitives/Badge'
 
 export interface RegularEventCardProps {
@@ -15,6 +15,12 @@ export interface RegularEventCardProps {
   tag: string
   /** Link to the event's own page. */
   href: string
+  /**
+   * A second, closely related page, linked in the card's footer. Quiz night
+   * uses it for /quiz-night/themed, which was otherwise reachable only from
+   * body copy on /quiz-night.
+   */
+  related?: { label: string; href: string }
 }
 
 /**
@@ -23,6 +29,11 @@ export interface RegularEventCardProps {
  *
  * Only renders verified, SSOT/existing-page-backed values (see O4); callers
  * must not pass invented figures (exact times, song counts, etc.).
+ *
+ * The card holds its links rather than being one: a link cannot sit inside
+ * another, and the related link has to live beside the main one. The main link
+ * still covers everything the whole card used to, so its accessible name and
+ * click area are unchanged.
  */
 export function RegularEventCard({
   cadence,
@@ -30,15 +41,16 @@ export function RegularEventCard({
   meta,
   price,
   tag,
-  href
+  href,
+  related
 }: RegularEventCardProps) {
   return (
-    <Link href={href} className="group block h-full focus:outline-none">
-      <Card
-        hover
-        accent
-        className="h-full transition-colors group-focus-visible:border-accent"
-      >
+    <Card
+      hover
+      accent
+      className="flex h-full flex-col transition-colors has-[a:focus-visible]:border-accent"
+    >
+      <Link href={href} className="group flex flex-1 flex-col focus:outline-none">
         <CardBody className="flex h-full flex-col gap-3">
           <span className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-accent-text">
             {cadence}
@@ -57,7 +69,18 @@ export function RegularEventCard({
             <Badge variant="sand">{tag}</Badge>
           </div>
         </CardBody>
-      </Card>
-    </Link>
+      </Link>
+
+      {related ? (
+        <CardFooter className="py-3">
+          <Link
+            href={related.href}
+            className="text-sm font-semibold text-accent-text underline decoration-dotted hover:text-anchor-gold"
+          >
+            {related.label}
+          </Link>
+        </CardFooter>
+      ) : null}
+    </Card>
   )
 }

@@ -30,7 +30,7 @@ We've put together this honest comparison so you can decide what actually makes 
 |--------|-------------------|---------|-------------------|----------|
 | Airport restaurants (Plane Food, The Perfectionist's Cafe, Wagamama) | £15--35 | N/A (airside) | Inside the terminal | Quick pre-flight bite when you're already through security |
 | Hotel restaurants (Sofitel, Hilton, Marriott) | £18--30 + service charge | £15--25/day | 5--15 mins | Business dinners, convenience if you're already staying |
-| Local pubs and restaurants (The Anchor, The Three Magpies) | £10--20 | Free to £5 | 7--15 mins | Real food, proper atmosphere, genuine value |
+| Local pubs and restaurants | £10--20 | Free to £5 | 7--15 mins | Real food, proper atmosphere, genuine value |
 
 ## Option 1: Airport Restaurants
 
@@ -68,7 +68,7 @@ The Anchor sits in Stanwell Moor, about seven minutes from Terminal 5 by car. It
 
 **What it costs:** Check the [live food menu](/food-menu) for current prices. Sunday roast is walk-in friendly, served 1pm to 6pm, with booking recommended for peak slots. It's a proper roast with all the trimmings, not a microwaved approximation.
 
-**What you get that you won't find at the airport:** A log fire in winter. A beer garden in summer. Dogs welcome. Bottled beers alongside draught lagers and ciders. A kitchen that makes its own food rather than reheating pre-prepped dishes. And no one hovering to turn your table.
+**What you get that you won't find at the airport:** A warm pub in winter. A beer garden in summer. Dogs welcome. Bottled beers alongside draught lagers and ciders. A kitchen that makes its own food rather than reheating pre-prepped dishes. And no one hovering to turn your table.
 
 **Practical details:** Free car park (20 spaces), current bar and kitchen hours live on our website, about seven minutes from Terminal 5 via the A3044. [Directions are here](/find-us), you can [book a table](/book-table) in about a minute, or call 01753 682707 if you would rather check availability first. Email manager@the-anchor.pub for anything larger.
 
@@ -88,7 +88,7 @@ Here's where the comparison becomes concrete. A meal for two -- two mains, two d
 |-----------|----------------------|
 | Airport restaurant (e.g. Plane Food) | £65--80 |
 | Hotel restaurant (e.g. Hilton) + parking | £55--70 |
-| Local pub (e.g. The Anchor) | £35--50 |
+| Local pub | £35--50 |
 
 That's a meaningful difference, especially if you're eating out before or after a holiday when every pound counts. The local pub option isn't just cheaper -- in most cases, the food is better too, because you're eating at a place that relies on repeat customers rather than a captive audience.
 

@@ -254,8 +254,8 @@ export default async function StanwellPubPage() {
             <Card accent className="mt-8 text-center">
               <CardBody className="p-6">
                 <p className="text-lg text-ink-muted">
-                  <span className="font-bold text-ink">Outside ULEZ Zone</span> - Perfect for visitors from
-                  London without the £12.50 daily charge
+                  <span className="font-bold text-ink">Outside the ULEZ zone.</span> No ULEZ charge at
+                  our end of the journey.
                 </p>
               </CardBody>
             </Card>

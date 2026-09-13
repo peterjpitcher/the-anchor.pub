@@ -25,7 +25,7 @@ If you travel regularly through Heathrow on business, you already know the routi
 
 Business travellers at Heathrow face a straightforward dilemma. Your options are broadly:
 
-1. **Hotel restaurants**, convenient but expensive (£25–40 for a main course is typical at 4★+ hotels) and sterile in atmosphere
+1. **Hotel restaurants**, convenient but expensive (£25–40 for a main course is typical at 4+ hotels) and sterile in atmosphere
 2. **Airport terminals**, fine for a quick bite, dreadful for a proper dinner or client meal
 3. **Delivery apps**, limited coverage near airport hotels, and eating alone in a hotel room is no one's highlight
 
@@ -39,16 +39,16 @@ There is a fourth option most travellers don't know about.
 - **Quieter dining room** separated from the main bar, suitable for client dinners
 - **Free WiFi**, useful if you need to review materials over dinner
 - **Group bookings**, easy to arrange for teams of 6 to 30+
-- **Prices 40–50% lower than hotel restaurants**, better for budgets and more defensible on expenses
+- **Pub prices, not hotel prices**, better for budgets and more defensible on expenses
 
-Mains start from £8.99. A proper client dinner for two with drinks typically comes to £40–60, versus £100–150 at a hotel restaurant.
+You'll find today's prices on our [food menu](/food-menu).
 
 ## What to Order for a Business Dinner
 
 For client entertaining, The Anchor works best when you book the dining room rather than eating in the main bar area. Recommended dishes:
 
-- **Sunday Roast** (weekends), impressive, traditional, and genuinely British. Excellent for international clients who want an authentic UK experience.
-- **Steaks and pub classics**, reliable, freshly cooked, and crowd-pleasing
+- **Sunday Roast** (Sundays), impressive, traditional, and genuinely British. Excellent for international clients who want an authentic UK experience.
+- **Pies, burgers and pub classics**, reliable, freshly cooked, and crowd-pleasing
 - **Fish & chips**, the quintessentially British meal; always a talking point with overseas clients
 
 Call ahead on **01753 682707** and mention you want a quieter table for a business meal. The team will sort it.

@@ -1,0 +1,118 @@
+export_id,country,clicks,impressions,ctr,position,scope,window_start,window_end,filter_type,filter_value,source_file
+gsc-16m-p-pg_0001,United Kingdom,28,7349,0.0038,7.34,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Portugal,1,16,0.0625,6.25,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,United States,0,145,0,4.68,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Germany,0,69,0,10.64,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,France,0,68,0,8.21,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Italy,0,68,0,11.07,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Spain,0,53,0,8.94,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Canada,0,30,0,2.57,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Brazil,0,27,0,9.7,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Cyprus,0,27,0,2.37,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Netherlands,0,22,0,9.64,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Russia,0,19,0,47.11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Australia,0,18,0,4.17,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Greece,0,15,0,5.33,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,India,0,14,0,8.14,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Ireland,0,14,0,4.29,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Poland,0,14,0,8.43,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Switzerland,0,14,0,5.86,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Mexico,0,13,0,7.46,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Finland,0,11,0,9.27,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Japan,0,10,0,5.9,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Sweden,0,10,0,6.1,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Vietnam,0,10,0,12.6,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Austria,0,8,0,9.5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Belgium,0,8,0,8.75,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Denmark,0,8,0,8.38,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Philippines,0,8,0,23,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Indonesia,0,6,0,11.83,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Morocco,0,6,0,4.33,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Norway,0,6,0,7,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Singapore,0,6,0,8,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Kenya,0,5,0,1.8,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Malaysia,0,5,0,4,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Malta,0,5,0,9.6,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,New Zealand,0,5,0,18.8,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Croatia,0,4,0,7.5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Egypt,0,4,0,12.5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Romania,0,4,0,9,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Saudi Arabia,0,4,0,16,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Turkey,0,4,0,24.25,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,United Arab Emirates,0,4,0,7,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Argentina,0,3,0,11.67,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Guatemala,0,3,0,10.33,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Israel,0,3,0,10.67,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Nigeria,0,3,0,8.33,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Taiwan,0,3,0,8,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Bulgaria,0,2,0,7,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Chile,0,2,0,6,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Costa Rica,0,2,0,10.5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Czechia,0,2,0,7,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Guernsey,0,2,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Jersey,0,2,0,2.5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Pakistan,0,2,0,3.5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Peru,0,2,0,9,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,South Africa,0,2,0,8,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Thailand,0,2,0,6,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Trinidad & Tobago,0,2,0,4,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Venezuela,0,2,0,5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Albania,0,1,0,14,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Anguilla,0,1,0,13,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Azerbaijan,0,1,0,11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Bahrain,0,1,0,9,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Bangladesh,0,1,0,5,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Bermuda,0,1,0,12,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Bolivia,0,1,0,1,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Cambodia,0,1,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Cayman Islands,0,1,0,12,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Colombia,0,1,0,7,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Ecuador,0,1,0,4,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Gibraltar,0,1,0,11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Honduras,0,1,0,11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Hong Kong,0,1,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Iraq,0,1,0,11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Kazakhstan,0,1,0,1,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Kuwait,0,1,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Latvia,0,1,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Mauritius,0,1,0,11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Nicaragua,0,1,0,12,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Paraguay,0,1,0,1,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Qatar,0,1,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Senegal,0,1,0,11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Serbia,0,1,0,10,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Slovenia,0,1,0,7,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Tunisia,0,1,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Unknown Region,0,1,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Uruguay,0,1,0,10,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Zambia,0,1,0,8,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0001,Zimbabwe,0,1,0,2,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/whats-on,raw/gsc-16m-p-pg_0001/Countries.csv
+gsc-16m-p-pg_0002,United Kingdom,4,562,0.0071,9.73,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Indonesia,0,12,0,15.33,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,United States,0,9,0,50.89,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Brazil,0,4,0,24.75,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Singapore,0,3,0,18.67,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Spain,0,2,0,3,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Vietnam,0,2,0,45,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Australia,0,1,0,28,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Egypt,0,1,0,34,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,India,0,1,0,7,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Malaysia,0,1,0,73,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Pakistan,0,1,0,41,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Philippines,0,1,0,50,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Saudi Arabia,0,1,0,47,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0002,Sweden,0,1,0,11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/quiz-night,raw/gsc-16m-p-pg_0002/Countries.csv
+gsc-16m-p-pg_0004,United Kingdom,0,30,0,20.9,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Countries.csv
+gsc-16m-p-pg_0004,Singapore,0,3,0,20.33,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Countries.csv
+gsc-16m-p-pg_0004,Azerbaijan,0,1,0,20,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Countries.csv
+gsc-16m-p-pg_0004,Pakistan,0,1,0,20,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Countries.csv
+gsc-16m-p-pg_0004,United States,0,1,0,18,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/music-bingo,raw/gsc-16m-p-pg_0004/Countries.csv
+gsc-16m-p-pg_0005,United Kingdom,0,161,0,30.76,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv
+gsc-16m-p-pg_0005,Singapore,0,3,0,31.33,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv
+gsc-16m-p-pg_0005,Vietnam,0,2,0,51,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv
+gsc-16m-p-pg_0005,Albania,0,1,0,48,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv
+gsc-16m-p-pg_0005,Australia,0,1,0,55,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv
+gsc-16m-p-pg_0005,Brazil,0,1,0,31,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv
+gsc-16m-p-pg_0005,Philippines,0,1,0,87,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv
+gsc-16m-p-pg_0005,Spain,0,1,0,11,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv
+gsc-16m-p-pg_0005,United States,0,1,0,10,page-group,2025-05-09,2026-09-08,page,https://www.the-anchor.pub/cash-bingo,raw/gsc-16m-p-pg_0005/Countries.csv

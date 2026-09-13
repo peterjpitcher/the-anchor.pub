@@ -141,10 +141,11 @@ describe('Event JSON-LD performer', () => {
     expect(schema.performer).toEqual({ '@type': 'Person', name: 'Nikki Manfadge' })
   })
 
-  // Deliberately no heuristic for a performer that is present but wrong. Live
-  // quiz records name the owner rather than Question One Quiz Masters, but quiz
-  // nights do take guest hosts and karaoke has no fixed host, so "looks like a
-  // staff name" would overwrite legitimate values. That is corrected at source.
+  // Deliberately no heuristic for a performer that is present. Quiz Night, Cash
+  // Bingo and karaoke records name the owner, Peter Pitcher, and that is
+  // correct: he hosts all three (owner-confirmed 11 September 2026). Code
+  // cannot decide who should be named. A wrong record is corrected at source,
+  // never guessed at here.
   it('does not second-guess a performer that is present', () => {
     const schema = buildEventSchema(
       makeEvent({ performer: { '@type': 'Person', name: 'Peter Pitcher' } as Event['performer'] })

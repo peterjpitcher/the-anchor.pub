@@ -35,9 +35,9 @@ noindex: true
 
   
 
-**🎉Happy Diwali!**
+**Happy Diwali!**
 
-**🎉**_ਦੀਵਾਲੀ ਦੀਆਂ ਲੱਖ ਲੱਖ ਵਧਾਈਆਂ!_
+****_ਦੀਵਾਲੀ ਦੀਆਂ ਲੱਖ ਲੱਖ ਵਧਾਈਆਂ!_
 
 _दिवाली की हार्दिक शुभकामनाएँ!_
 
@@ -113,13 +113,13 @@ At The Anchor **near Heathrow Airport**, we celebrate our diverse community with
 ## **Join Our Annual Diwali Celebrations Near Heathrow**
 
 ### Event Details:
-🎪 **Venue**: Stanwell Moor Village Hall & The Anchor
-📅 **When**: October/November annually (check for dates)
-📍 **Location**: Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🎆 **Features**: Entertainment, food, activities, cultural performances
-👨‍👩‍👧‍👦 **For**: All ages and backgrounds welcome
-📞 **Information**: 01753 682707
+**Venue**: Stanwell Moor Village Hall & The Anchor
+**When**: October/November annually (check for dates)
+**Location**: Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Features**: Entertainment, food, activities, cultural performances
+**For**: All ages and backgrounds welcome
+**Information**: 01753 682707
 
 ### Why Celebrate Diwali at The Anchor Near Terminal 5
 

@@ -26,7 +26,7 @@ We have pulled together an honest comparison of the main pizza options within st
 
 | Where | Style | Price Range | Delivery? | Eat In? | Parking |
 |-------|-------|-------------|-----------|---------|---------|
-| **The Anchor** (Stanwell Moor) | Stone-baked, pub | From £13 | No | Yes | Free |
+| **The Anchor** (Stanwell Moor) | Stone-baked, pub | [See our menu](/food-menu) | No | Yes | Free |
 | **Domino's** (Staines/Feltham) | Chain delivery | £12–18 | Yes | Takeaway | N/A |
 | **Pizza Hut** (Staines) | Chain | £14–20 | Yes | Yes | Retail park |
 | **Pizza Express** (Staines) | Restaurant chain | £13–18 | Via Deliveroo | Yes | Paid |
@@ -38,15 +38,15 @@ There is no single best answer for everyone. It depends whether you want deliver
 
 The Anchor is a proper village pub in Stanwell Moor, about seven minutes from Heathrow Terminal 5. The pizzas are stone-baked to order, thin base, proper crust, fresh toppings. Nothing fancy, nothing pretentious. Just a good pizza done well.
 
-Prices start from **£13**. The pizzas are good value for what you get, proper stone-baked quality at pub prices rather than chain prices.
+You'll find today's prices on our [food menu](/food-menu). The pizzas are good value for what you get, proper stone-baked quality at pub prices rather than chain prices.
 
-The menu covers the classics, Margherita, pepperoni, BBQ chicken, meat feast, plus a few specials that rotate. Vegetarian and vegan options are available too.
+The menu covers the classics: Margherita, pepperoni, BBQ chicken, spicy meatball, smoky chilli chicken and a Veggie Classic.
 
 You can eat inside in the bar or dining room, or head out to the **beer garden** where you get a front-row seat to planes landing at Heathrow. Free parking on site, dog-friendly, and they have a full bar with draught lagers, bottled ales, wines and spirits. It is a proper evening out rather than just a pizza.
 
 The catch? No delivery. You have to get yourself there. But if you are within ten minutes of Heathrow, it is worth the trip for proper stone-baked pizza at pub prices.
 
-**Prices:** From £13 | **Parking:** Free | [View the full menu](/food-menu)
+**Parking:** Free | [View the full menu and prices](/food-menu)
 
 ## Domino's, Staines and Feltham
 
@@ -85,7 +85,7 @@ Different situations call for different pizza. Here is a rough guide:
 - **Delivery to a hotel room:** Domino's or an independent via Just Eat. Fastest, easiest, no travel required.
 - **Family dinner out:** Pizza Hut if the kids want the salad bar experience. The Anchor if you want somewhere less corporate with a beer garden.
 - **Date night:** Pizza Express for a polished chain feel, or The Anchor for something with more character and a better price.
-- **Good value:** The Anchor, stone-baked pizzas from £13 at pub prices, with free parking. Check the website for any current offers.
+- **Good value:** The Anchor, stone-baked pizzas at pub prices, with free parking. Check the website for any current offers.
 - **Quick solo meal:** Domino's collection deal or an independent takeaway.
 - **Before or after a flight:** The Anchor is seven minutes from Terminal 5 with free parking. Grab a pizza and a pint before you fly.
 
@@ -93,7 +93,7 @@ Different situations call for different pizza. Here is a rough guide:
 
 ### Where can I get the cheapest pizza near Heathrow?
 
-The Anchor's stone-baked pizzas start from £13. Independent takeaways tend to be around £10–12. Check The Anchor's website for any current offers.
+Prices for The Anchor's stone-baked pizzas are on our [food menu](/food-menu). Independent takeaways tend to be around £10–12. Check The Anchor's website for any current offers.
 
 ### Is there anywhere near Heathrow that does stone-baked pizza?
 

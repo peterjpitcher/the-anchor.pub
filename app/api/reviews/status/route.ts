@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { mockReviews } from '@/lib/google/review-utils'
+import { approvedReviews } from '@/lib/google/review-utils'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,7 +12,7 @@ export async function GET() {
         source: 'static',
         rating: null,
         totalReviews: null,
-        reviewsAvailable: mockReviews.length
+        reviewsAvailable: approvedReviews.length
       },
       timestamp: new Date().toISOString()
     })

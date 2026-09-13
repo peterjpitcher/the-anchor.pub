@@ -18,7 +18,7 @@
  * pattern as tests/unit/parking-page-prices.test.tsx.
  */
 
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import type { Event } from '@/lib/api'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 
@@ -47,8 +47,13 @@ jest.mock('@/lib/api/events', () => {
   return { ...actual, getUpcomingEventsByCategory: async () => [] }
 })
 
+const mockBookingFormProps = jest.fn()
+
 jest.mock('@/components/features/EventBooking/ManagementEventBookingForm', () => ({
-  ManagementEventBookingForm: () => <div data-testid="booking-form" />
+  ManagementEventBookingForm: (props: Record<string, unknown>) => {
+    mockBookingFormProps(props)
+    return <div data-testid="booking-form" />
+  }
 }))
 
 jest.mock('@/components/events/RelatedEvents', () => ({
@@ -211,6 +216,22 @@ describe('event detail page, what a customer reads', () => {
     expect(jsonLdText(container)).toContain('School disco anthems, played on the big screen.')
   })
 
+  // docs/SSOT.md §10 bans "Doors" for an event time. The record behind
+  // /events/quiz-night-2026-03-04 reads, verbatim, "secure your spot[em dash]
+  // doors open at 6:45pm", and the page served it as ", doors open at 6:45pm".
+  it('rewrites door wording in record prose to an arrival time', async () => {
+    const container = await renderEventPage(
+      makeEvent({
+        longDescription: `Arrive early to secure your spot${EM_DASH}doors open at 6:45pm, and we recommend being seated by 6:55pm.`
+      })
+    )
+    const text = visibleText(container)
+
+    expect(text).toContain('Arrive early to secure your spot, arrive from 6:45pm, and we recommend being seated by 6:55pm.')
+    expect(text).not.toMatch(/\bdoors?\b/i)
+    expect(jsonLdText(container)).not.toMatch(/\bdoors?\b/i)
+  })
+
   it('offers the diary and the share control at every breakpoint, beside the booking action', async () => {
     const container = await renderEventPage()
 
@@ -292,6 +313,52 @@ describe('event detail page, what a customer reads', () => {
     }
   })
 
+  // One action used to carry four labels: "Reserve table" or "Book tickets" on
+  // this page, "Reserve my seats" on the form's button, "Book your places" on
+  // the hubs. docs/SSOT.md §1: never promise a table on a shared-seating night.
+  it.each([
+    ['a communal night books places', {}, 'Book your places', 'Ready to book your places?'],
+    ['a table night books a table', { booking_mode: 'table' }, 'Book a table', 'Ready to book a table?']
+  ])('names the booking action once: %s', async (_label, overrides, action, bandTitle) => {
+    mockBookingFormProps.mockClear()
+    const container = await renderEventPage(makeEvent(overrides as Partial<Event>))
+
+    // The hero button and the closing band's button.
+    expect(screen.getAllByRole('link', { name: new RegExp(`^${action} for `) })).toHaveLength(2)
+    expect(screen.getByText(bandTitle)).toBeInTheDocument()
+    // The hero lead and the closing band's copy.
+    expect(screen.getAllByText(new RegExp(`^${action} for Friday 11 September\\.`))).toHaveLength(2)
+    // The form's heading is the same words.
+    expect(mockBookingFormProps).toHaveBeenCalledWith(expect.objectContaining({ title: action }))
+    expect(visibleText(container)).not.toMatch(/Book tickets|Reserve table|Reserve my seats/)
+  })
+
+  // The visible crumb was plain text while the BreadcrumbList JSON-LD declared
+  // it as the hub's URL, so the two trails disagreed and a phone visitor had no
+  // quick route back to the hub above the form.
+  it.each([
+    ['its hub', {}, 'Music Bingo', '/music-bingo'],
+    [
+      'the listing when the category has no hub',
+      { category: { id: 'cat-tasting', name: 'Tasting Nights', slug: 'tasting-nights' } },
+      'Tasting Nights',
+      '/whats-on'
+    ]
+  ])('links the category crumb to %s, as the JSON-LD breadcrumb does', async (_label, overrides, crumbName, href) => {
+    const container = await renderEventPage(makeEvent(overrides as Partial<Event>))
+
+    const trail = container.querySelector('nav[aria-label="Breadcrumb"]') as HTMLElement
+    expect(within(trail).getByRole('link', { name: crumbName })).toHaveAttribute('href', href)
+
+    const breadcrumbJsonLd = Array.from(container.querySelectorAll('script[type="application/ld+json"]'))
+      .map((script) => JSON.parse(script.textContent || '{}'))
+      .find((block) => block['@type'] === 'BreadcrumbList')
+    expect(breadcrumbJsonLd.itemListElement[1]).toMatchObject({
+      name: crumbName,
+      item: `https://www.the-anchor.pub${href}`
+    })
+  })
+
   it('names the map frame', async () => {
     const container = await renderEventPage()
     const frame = container.querySelector('iframe')
@@ -344,6 +411,25 @@ describe('event detail page head', () => {
 
     expect(openGraph?.publishedTime).toBeUndefined()
     expect(openGraph?.modifiedTime).toBeUndefined()
+  })
+
+  it('dates a title the record left undated, and keeps it short', async () => {
+    const metadata = await generateMetadata({ params: { id: EVENT_SLUG } })
+
+    // The record has no metaTitle and the full name plus the date runs long,
+    // so the part of the name after its colon carries the date.
+    expect(metadata.title).toBe('Back to School Music Bingo, Fri 11 Sept')
+  })
+
+  it('keeps an em dash in the record title out of the page title', async () => {
+    mockGetEvent.mockResolvedValue(
+      makeEvent({ metaTitle: `Cash Bingo Night ${EM_DASH} 1 July 2026 | The Anchor` } as Partial<Event>)
+    )
+
+    const metadata = await generateMetadata({ params: { id: EVENT_SLUG } })
+
+    expect(metadata.title).toBe('Cash Bingo Night, 1 July 2026')
+    expect(String(metadata.title)).not.toContain(EM_DASH)
   })
 
   it('carries no em dash into the head', async () => {

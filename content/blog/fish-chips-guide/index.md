@@ -159,9 +159,9 @@ Check our website for current kitchen hours, as they may vary by season and for 
 
 Don't miss out on our **fish and chips near Heathrow Airport**:
 
-📞 **Call**: 01753 682707  
-🍽️ **Book online**: Via our website  
-🚗 **Parking**: Free for all guests
+**Call**: 01753 682707  
+**Book online**: Via our website  
+**Parking**: Free for all guests
 
 ### Takeaway Service
 - Phone ahead for collection

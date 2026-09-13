@@ -101,7 +101,8 @@ const defaultItems: NavigationItem[] = [
     label: "What's On",
     href: '/whats-on',
     items: [
-      { label: 'Upcoming Events', href: '/whats-on#upcoming-events', description: 'The next hosted events and weekly nights' },
+      // Nothing at The Anchor runs weekly (docs/SSOT.md §10), so no cadence here.
+      { label: 'Upcoming Events', href: '/whats-on#upcoming-events', description: 'Every upcoming hosted night, by date' },
       { label: 'Quiz Night', href: '/quiz-night', description: 'Pub quiz nights, teams and prizes' },
       { label: 'Music Bingo', href: '/music-bingo', description: 'Hosted music bingo with food and prizes' },
       { label: 'Cash Bingo', href: '/cash-bingo', description: 'Classic bingo sessions with cash prizes' },
@@ -134,10 +135,21 @@ const defaultLogo = {
 const toMenuId = (label: string) =>
   `nav-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
 
+/**
+ * One shared empty array, not a fresh `[]` per render.
+ *
+ * The promo-CTA effect depends on `promoCtaButtons` and sets state on every run.
+ * A default written inline as `promoCtaButtons = []` is a new array on each
+ * render, so the effect saw a changed dependency, set state, and re-rendered,
+ * forever. The only call site passes the prop, which is why the live header has
+ * never spun; anything that omits it, a test included, hangs.
+ */
+const NO_PROMO_CTAS: ScheduledCtaButton[] = []
+
 export function Navigation({
   logo = defaultLogo,
   items = defaultItems,
-  promoCtaButtons = [],
+  promoCtaButtons = NO_PROMO_CTAS,
   statusComponent,
   className
 }: NavigationProps) {
@@ -147,6 +159,9 @@ export function Navigation({
   const [activePromoCtaButtons, setActivePromoCtaButtons] = useState<HeaderCtaButton[]>([])
 
   const focusTrapRef = useFocusTrap(isMobileMenuOpen)
+  // Keyed by nav label so Escape can put focus back on the control that opened
+  // the panel, rather than dropping the user at the top of the document.
+  const dropdownTriggerRefs = useRef<Record<string, HTMLButtonElement | null>>({})
   const mobileMenuPreviouslyOpen = useRef(false)
   const mobileMenuEngaged = useRef(false)
   const mobileMenuCloseReason = useRef<ModalCloseReason | null>(null)
@@ -252,6 +267,8 @@ export function Navigation({
   const renderDesktopItem = (item: NavigationItem) => {
     const hasChildren = Boolean(item.items && item.items.length > 0)
     const dropdownId = toMenuId(item.label)
+    const disclosureId = `${dropdownId}-disclosure`
+    const isDropdownOpen = openDropdown === item.label
 
     const triggerClass = cn(
       'inline-flex items-center gap-1 py-2 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2 rounded'
@@ -281,78 +298,123 @@ export function Navigation({
         className="relative"
         onMouseEnter={() => setOpenDropdown(item.label)}
         onMouseLeave={() => setOpenDropdown(null)}
-        onFocus={() => setOpenDropdown(item.label)}
         onBlur={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget as Node)) {
             setOpenDropdown(null)
           }
         }}
         onKeyDown={(event) => {
-          if (event.key === 'Escape') setOpenDropdown(null)
+          if (event.key !== 'Escape') return
+          setOpenDropdown(null)
+          dropdownTriggerRefs.current[item.label]?.focus()
         }}
       >
-        <Link
-          href={item.href}
-          className={triggerClass}
-          aria-haspopup="menu"
-          aria-expanded={openDropdown === item.label}
-          aria-controls={dropdownId}
-          onClick={trackTopLevel}
-        >
-          {item.label}
-          <svg
-            className={cn('h-4 w-4 transition-transform', openDropdown === item.label && 'rotate-180')}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </Link>
+        {/*
+          The label and the submenu control are two separate elements on purpose.
 
-        {/* Panel starts flush at the trigger (top-full) and uses pt-2 padding for the
-            visual offset, so the hover region is continuous — there is no dead zone
-            between the trigger and the panel for the cursor to fall into. */}
+          Until September 2026 the label was a single <a aria-expanded>, opened
+          only on hover. Pressing Enter on it navigated to the landing page
+          instead of expanding anything, so aria-expanded never changed and the
+          submenu links were unreachable without a pointer. A disclosure has to
+          be a <button>: Enter and Space then operate it for free, and the link
+          keeps taking people to the section landing page.
+        */}
+        <div className="flex items-center gap-0.5">
+          <Link href={item.href} className={triggerClass} onClick={trackTopLevel}>
+            {item.label}
+          </Link>
+          <button
+            type="button"
+            id={disclosureId}
+            ref={(node) => {
+              dropdownTriggerRefs.current[item.label] = node
+            }}
+            // 24px square meets the WCAG 2.2 minimum target size (2.5.8).
+            className="flex h-6 w-6 items-center justify-center rounded text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2"
+            aria-expanded={isDropdownOpen}
+            aria-controls={dropdownId}
+            aria-label={`${item.label} submenu`}
+            onClick={() => setOpenDropdown(isDropdownOpen ? null : item.label)}
+            onKeyDown={(event) => {
+              if (event.key !== 'ArrowDown') return
+              // Open and step straight into the panel, so the first submenu link
+              // is one key away rather than one more Tab.
+              event.preventDefault()
+              setOpenDropdown(item.label)
+              // Two frames, not one. React commits the class change on the first,
+              // but the panel is still resolving from `invisible`, and focus() on
+              // a hidden element is a no-op that drops focus onto the body.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  document.getElementById(dropdownId)?.querySelector('a')?.focus()
+                })
+              })
+            }}
+          >
+            <svg
+              className={cn('h-4 w-4 transition-transform', isDropdownOpen && 'rotate-180')}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+
+        {/*
+          Panel starts flush at the trigger (top-full) and uses pt-2 padding for
+          the visual offset, so the hover region is continuous: there is no dead
+          zone between the trigger and the panel for the cursor to fall into.
+
+          A list of links, not role="menu". A menu role promises arrow-key roving
+          focus and takes the links out of the normal tab order, which is not what
+          this is: it is a disclosure panel full of ordinary links, so Tab moves
+          through them as a screen reader user would expect. `invisible` keeps the
+          closed panel out of the tab order.
+        */}
         <div
           id={dropdownId}
-          role="menu"
-          aria-label={item.label}
+          aria-labelledby={disclosureId}
           className={cn(
-            'absolute right-0 top-full z-[70] pt-2 transition-all duration-150',
-            openDropdown === item.label
+            // Fade and slide only. Transitioning `visibility` as well left the
+            // panel unfocusable for the first frame after it opened, which is
+            // exactly when a keyboard user is trying to step into it.
+            'absolute right-0 top-full z-[70] pt-2 transition-[opacity,transform] duration-150',
+            isDropdownOpen
               ? 'visible translate-y-0 opacity-100'
               : 'pointer-events-none invisible -translate-y-2 opacity-0'
           )}
         >
-          <div className="grid min-w-[460px] grid-cols-2 gap-1 rounded-md border border-line bg-surface p-3 shadow-lg">
+          <ul className="grid min-w-[460px] grid-cols-2 gap-1 rounded-md border border-line bg-surface p-3 shadow-lg">
             {item.items!.map((subItem) => (
-              <Link
-                key={`${subItem.href}-${subItem.label}`}
-                href={subItem.href}
-                role="menuitem"
-                className="block rounded-sm px-3 py-2 transition-colors hover:bg-surface-sunk focus:outline-none focus-visible:bg-surface-sunk focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
-                onClick={() => {
-                  trackNavigationClick({
-                    label: subItem.label,
-                    url: subItem.href,
-                    level: 'dropdown',
-                    deviceType: 'desktop',
-                    isExternal: false,
-                    location: 'header'
-                  })
-                  setOpenDropdown(null)
-                }}
-              >
-                <span className="block font-sans text-sm font-semibold text-ink-strong">{subItem.label}</span>
-                {subItem.description && (
-                  <span className="mt-0.5 block font-sans text-xs leading-snug text-ink-muted">
-                    {subItem.description}
-                  </span>
-                )}
-              </Link>
+              <li key={`${subItem.href}-${subItem.label}`}>
+                <Link
+                  href={subItem.href}
+                  className="block rounded-sm px-3 py-2 transition-colors hover:bg-surface-sunk focus:outline-none focus-visible:bg-surface-sunk focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                  onClick={() => {
+                    trackNavigationClick({
+                      label: subItem.label,
+                      url: subItem.href,
+                      level: 'dropdown',
+                      deviceType: 'desktop',
+                      isExternal: false,
+                      location: 'header'
+                    })
+                    setOpenDropdown(null)
+                  }}
+                >
+                  <span className="block font-sans text-sm font-semibold text-ink-strong">{subItem.label}</span>
+                  {subItem.description && (
+                    <span className="mt-0.5 block font-sans text-xs leading-snug text-ink-muted">
+                      {subItem.description}
+                    </span>
+                  )}
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     )

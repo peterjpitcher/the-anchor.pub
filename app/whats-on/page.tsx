@@ -7,6 +7,7 @@ import { AmenityStrip } from '@/components/AmenityStrip'
 import { CtaBand } from '@/components/CtaBand'
 import { UpcomingEvents } from '@/components/events/UpcomingEvents'
 import { RegularEventCard } from './_components/RegularEventCard'
+import { WhatsOnUpcomingButton, WHATS_ON_UPCOMING_ANCHOR } from './_components/WhatsOnUpcomingButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
@@ -90,24 +91,33 @@ const HUB_NIGHTS: ReadonlyArray<{
   price?: string
   tag: string
   href: string
+  related?: { label: string; href: string }
 }> = [
   {
+    // docs/SSOT.md §10: once a month on a Friday for the rest of 2026
+    // (mirrored from the management app, 11 September 2026).
     cadence: 'Monthly',
     title: 'Music Bingo with Nikki Manfadge',
-    meta: 'Song clips instead of numbers, singalong rounds and prizes every round.',
+    // Owner-confirmed 11 September 2026: winners get a £25 voucher to spend
+    // with us. This said "prizes every round", which nothing supports.
+    meta: 'Song clips instead of numbers, singalong rounds and a £25 voucher for the winners.',
     tag: 'Hosted night',
     href: '/music-bingo'
   },
   {
     cadence: 'Monthly',
     title: 'Quiz Night',
-    meta: 'Test your knowledge for a £25 bar tab, with a bottle of house wine for the second-from-last team.',
+    meta: 'Test your knowledge for a £25 bar voucher, with a bottle of house wine for the second-from-last team.',
     price: '£3 entry',
-    tag: '£25 bar tab',
-    href: '/quiz-night'
+    tag: '£25 bar voucher',
+    href: '/quiz-night',
+    // Beside the quiz, where someone looking for a show-themed quiz will look.
+    // The themed page was linked only from body copy on /quiz-night.
+    related: { label: 'Themed quiz nights', href: '/quiz-night/themed' }
   },
   {
-    cadence: 'Monthly',
+    // docs/SSOT.md §10: set Wednesdays, not every month (no October night in 2026).
+    cadence: 'Set Wednesdays',
     title: 'Cash Prize Bingo',
     meta: 'Cash-only books with prizes throughout the night and a jackpot to finish.',
     price: '£10 a book',
@@ -227,23 +237,10 @@ export default async function WhatsOnPage() {
                 "postalCode": "TW19 6AQ",
                 "addressCountry": "GB"
               },
-              "maximumAttendeeCapacity": 100,
+              // No maximumAttendeeCapacity and no stage, sound system or
+              // lighting features: none of those is in docs/SSOT.md §8, which
+              // says a capacity not in its table is wrong. This said 100.
               "amenityFeature": [
-                {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Stage Area",
-                  "value": true
-                },
-                {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Sound System",
-                  "value": true
-                },
-                {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Lighting",
-                  "value": true
-                },
                 {
                   "@type": "LocationFeatureSpecification",
                   "name": "Bar Service",
@@ -266,21 +263,18 @@ export default async function WhatsOnPage() {
         crumb="What's On"
         kicker="What's on"
         title="What's On at The Anchor"
-        lead="Quiz nights, Music Bingo and cash bingo in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking. Pick a night, check the date and reserve your table."
+        lead="Quiz nights, Music Bingo and cash bingo in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking. Pick a night, check the date and book your places."
         badges={
+          // No "Free entry nights" chip: quiz, Music Bingo and cash bingo are
+          // all paid (docs/SSOT.md §10), and only karaoke is free.
           <>
-            <Badge variant="sand">Free entry nights</Badge>
             <Badge variant="sand">Family friendly</Badge>
             <Badge variant="sand">Free parking</Badge>
           </>
         }
         actions={
           <>
-            <Button asChild variant="primary" size="lg" fullWidth>
-              <Link href="/book-table?source=whats_on_hero" className="w-full sm:w-auto">
-                Reserve an event table
-              </Link>
-            </Button>
+            <WhatsOnUpcomingButton />
             <Button asChild variant="outline" size="lg" fullWidth>
               <Link href="/food-menu" className="w-full sm:w-auto">
                 See the food menu
@@ -289,13 +283,12 @@ export default async function WhatsOnPage() {
           </>
         }
       />
-      <TournamentLink />
-
-      {/* 2. AmenityStrip (§7.3.2) */}
-      <AmenityStrip/>
-
-      {/* 3. Next up (§7.3.3): cream, live events from the management API. */}
-      <section id="upcoming-events" className="bg-canvas py-section-y">
+      {/* 2. Next up (§7.3.3): cream, live events from the management API.
+          Directly under the hero on purpose. It used to sit below the Nations
+          Championship card and the amenity strip, which put the first event
+          card 1,522px down on a 375px phone, on the page people open to find
+          out what is on. */}
+      <section id={WHATS_ON_UPCOMING_ANCHOR} className="bg-canvas py-section-y">
         <Container>
           {/* The heading says nothing about how far ahead the list reaches.
               "This month's headline nights" sat above fifteen events running
@@ -355,13 +348,18 @@ export default async function WhatsOnPage() {
         </Container>
       </section>
 
+      <TournamentLink />
+
+      {/* 3. AmenityStrip (§7.3.2) */}
+      <AmenityStrip/>
+
       {/* 4. The regulars (§7.3.4): white, verified recurring nights only (O4). */}
       <section className="bg-surface py-section-y">
         <Container>
           <SectionHeading
-            kicker="The regulars"
+            kicker="Game nights"
             title="Our nights"
-            lead="Three that come round every month, plus karaoke when we run it. See each page for the next date and to book your places."
+            lead="Quiz night and Music Bingo are monthly, cash bingo runs on set Wednesdays, and karaoke is occasional. See each page for the next date and to book your places."
           />
 
           <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -374,6 +372,7 @@ export default async function WhatsOnPage() {
                 price={night.price}
                 tag={night.tag}
                 href={night.href}
+                related={night.related}
               />
             ))}
           </div>

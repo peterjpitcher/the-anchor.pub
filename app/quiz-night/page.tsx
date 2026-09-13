@@ -17,7 +17,7 @@ import {
   GameNightSocialProof,
   buildGameNightCtaLabel
 } from '@/components/features/GameNight'
-import { quizNight, getGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
+import { quizNight, readGameNightEvents, buildGameNightMetadata } from '@/lib/game-nights'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventTime, formatDoorClockTime, type Event } from '@/lib/api'
@@ -33,8 +33,9 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
  * tasks/keyword-plan-game-nights-2026-08-17.md.
  *
  * "Cash Prizes" was removed from the title on 17 August 2026. The advertised
- * prize is a £25 bar tab, not cash, so the old title promised something the page
- * does not deliver and would have been earning clicks it then disappointed.
+ * prize is a £25 bar voucher, not cash, so the old title promised something the
+ * page does not deliver and would have been earning clicks it then disappointed.
+ * It is a voucher, not a bar tab (owner-confirmed 11 September 2026).
  */
 export const metadata: Metadata = buildGameNightMetadata(quizNight, {
   title: 'Pub Quiz Near Me | Wednesday Quiz Night',
@@ -42,7 +43,7 @@ export const metadata: Metadata = buildGameNightMetadata(quizNight, {
     'Monthly Wednesday pub quiz in Stanwell Moor. £3 a player, teams of up to six, 7pm to 9:30pm. Free parking, and we match up solo players.',
   shareTitle: 'Wednesday Pub Quiz at The Anchor, Stanwell Moor',
   shareDescription:
-    'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar tab for the winners.'
+    'Monthly Wednesday pub quiz. £3 a player, teams of up to six, 7pm to 9:30pm, £25 bar voucher for the winners.'
 })
 
 // Category lookup, fetching and sorting all live in lib/game-nights/events.ts,
@@ -66,7 +67,7 @@ const FAQS = [
   {
     question: 'How much is entry and do we need to book?',
     answer:
-      'It is £3 per player, paid in cash on the night. Booking is worth doing because it holds your team’s seats: if booking is open you will see a button above, and if not, call 01753 682707.'
+      'It is £3 per player, paid in cash on the night. Booking is worth doing because it holds your team’s table: if booking is open you will see a button above, and if not, call 01753 682707.'
   },
   {
     question: 'How many players can we bring?',
@@ -76,12 +77,14 @@ const FAQS = [
   {
     question: 'Can kids or dogs come to quiz night?',
     answer:
-      'Yes to both. Families are welcome all evening and well-behaved dogs can curl up under the table. It is a phone-free quiz during the rounds, with a 5 point penalty for a sneaky scroll.'
+      'Yes to both. Families are welcome all evening and well-behaved dogs can curl up under the table. Phones stay away, except in the interactive round in the middle, which you play on your phone. At any other time, a sneaky scroll costs 5 points.'
   },
   {
     question: 'What food and drink is available?',
+    // No kitchen closing time: it comes from the live hours and varies by date
+    // (docs/SSOT.md §3). This said 9pm in fixed text.
     answer:
-      'The kitchen runs to 9pm, so order before the first round or during the comfort break. Cocktails, mocktails and bottled ales are available from the bar all evening.'
+      'Kitchen times vary by date, so order when you arrive, or call 01753 682707 to check that night’s times. Cocktails, mocktails and bottled ales are available from the bar all evening.'
   },
   {
     question: 'Do you host private or corporate quiz nights?',
@@ -102,10 +105,11 @@ function PrizeCard({ title, reward, copy }: { title: string; reward: string; cop
   )
 }
 
-function QuizNightEvents({ events }: { events: Event[] }) {
+function QuizNightEvents({ events, datesUnavailable }: { events: Event[]; datesUnavailable: boolean }) {
   return (
     <GameNightDateCards
       events={events}
+      datesUnavailable={datesUnavailable ? { gameName: quizNight.name } : undefined}
       eyebrow="Monthly quiz night"
       bookingSource="quiz_night_event_card"
       calendarSource="quiz_night_date_card"
@@ -119,7 +123,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
       renderDetails={() => (
         <>
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <Badge variant="success">£25 bar tab for winners</Badge>
+            <Badge variant="success">£25 bar voucher for winners</Badge>
             <Badge variant="sand">Bottle of wine for second-from-last</Badge>
           </div>
           <p className="text-sm text-ink-muted">
@@ -140,7 +144,11 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 }
 
 export default async function QuizNightPage() {
-  const events = await getGameNightEvents(quizNight)
+  // The outcome travels with the list: an outage must not reach the page as an
+  // empty diary (lib/game-nights/events.ts logs anything short of `ok`).
+  const eventsRead = await readGameNightEvents(quizNight)
+  const events = eventsRead.events
+  const datesUnavailable = eventsRead.status !== 'ok'
   const nextEvent = events[0]
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7pm'
   const doorTime = nextEvent ? formatDoorClockTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
@@ -177,7 +185,7 @@ export default async function QuizNightPage() {
           <p className="mx-auto text-center text-lg leading-relaxed text-ink-muted md:text-xl">
             The Anchor runs a monthly Wednesday pub quiz in Stanwell Moor, near Staines. Entry is
             &pound;3 per player, teams are up to six, the quiz runs 7pm to 9:30pm, and the winners
-            take a &pound;25 bar tab.
+            take a &pound;25 bar voucher.
           </p>
         </Container>
       </section>
@@ -192,6 +200,7 @@ export default async function QuizNightPage() {
                   gameName={quizNight.name}
                   gameSlug={quizNight.slug}
                   bookingNote={quizNight.bookingNote}
+                  datesUnavailable={datesUnavailable}
                 />
               </SectionViewTracker>
               <GameNightSocialProof gameName={quizNight.name} />
@@ -206,16 +215,18 @@ export default async function QuizNightPage() {
                   <ul className="space-y-3 text-ink-muted">
                     <li><strong>6:30pm</strong> · tables set, soundtrack on, order food while you settle in.</li>
                     <li><strong>7pm</strong> · first round. Four rounds of ten questions, general knowledge, no specialist subjects.</li>
-                    <li><strong>8:15pm</strong> · interactive quick-fire round to get everyone on their feet.</li>
-                    <li><strong>8:30pm</strong> · comfort break and last call for the kitchen, which closes at 9pm.</li>
+                    {/* Five rounds in all: four of ten questions, and this one in the
+                        middle, played on phones (owner-confirmed 11 September 2026). */}
+                    <li><strong>8:15pm</strong> · interactive quick-fire round, played on your phone.</li>
+                    <li><strong>8:30pm</strong> · comfort break, time to top up drinks.</li>
                     {/* 9:30pm, owner-confirmed 17 August 2026 and matching end_time
                         21:30 in the management DB. This said 9:45pm while the event
                         pages said 9:30pm. */}
-                    <li><strong>9:30pm</strong> · final scores, prizes and best team name.</li>
+                    <li><strong>9:30pm</strong> · final scores and prizes.</li>
                   </ul>
                   <p className="text-sm text-ink-muted">
-                    Teams up to six. House rule: phones away during the rounds, or it is a cheeky 5
-                    point penalty. Friendly rather than serious, with the odd bit of adult humour.
+                    Teams up to six. House rule: phones away, except in the interactive round, or
+                    it&rsquo;s a 5 point penalty. Friendly rather than serious, with the odd bit of adult humour.
                   </p>
                 </CardBody>
               </Card>
@@ -237,7 +248,7 @@ export default async function QuizNightPage() {
         gameName={quizNight.name}
         gameSlug={quizNight.slug}
         title="What quiz night actually looks like"
-        intro="Real photos from recent quizzes. Teams of up to six, solo players matched up on arrival, and a £25 bar tab on the line."
+        intro="Real photos from recent quizzes. Teams of up to six, solo players matched up on arrival, and a £25 bar voucher on the line."
       />
 
       <section className="py-section-y bg-surface">
@@ -247,7 +258,7 @@ export default async function QuizNightPage() {
           </PageTitle>
           <p className="mx-auto text-center text-lg text-ink-muted">
             Once a month we turn The Anchor into a proper pub quiz for Stanwell Moor, Staines,
-            Ashford and Bedfont. No app, no specialist rounds, no need for a full team.{' '}
+            Ashford and Bedfont. No specialist rounds, and no need for a full team.{' '}
             {heroDescription}
           </p>
         </Container>
@@ -265,7 +276,7 @@ export default async function QuizNightPage() {
               or call 01753 682707.
             </p>
             <SectionViewTracker sectionId="quiz_night_dates">
-              <QuizNightEvents events={events} />
+              <QuizNightEvents events={events} datesUnavailable={datesUnavailable} />
             </SectionViewTracker>
           </div>
         </Container>
@@ -275,10 +286,12 @@ export default async function QuizNightPage() {
         <Container>
           <div className="mx-auto">
             <h2 className="mb-6 text-center text-h3 text-ink-strong">What you are playing for</h2>
-            <div className="grid gap-4 md:grid-cols-3">
-              <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
+            {/* Two prizes only: first place and second from last (owner-confirmed
+                11 September 2026, docs/SSOT.md §10). A third card offered a prize
+                for the best team name, which the quiz does not have. */}
+            <div className="grid gap-4 md:grid-cols-2">
+              <PrizeCard title="Champions" reward="£25 Bar Voucher" copy="For the winning team, to spend at our bar." />
               <PrizeCard title="Second from last" reward="Bottle of House Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
-              <PrizeCard title="Best team name" reward="Seasonal Prop" copy="Worth the effort. The room decides whether you earned it." />
             </div>
           </div>
         </Container>
@@ -292,10 +305,13 @@ export default async function QuizNightPage() {
         <Container>
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">Eat before you quiz</h2>
+            {/* Kitchen times vary by date and come from the live hours
+                (docs/SSOT.md §3), so none is written here, as on /karaoke. */}
             <p className="mb-5 text-ink-muted">
-              The kitchen runs to 9pm on quiz night: pizzas, burgers, pies and the full menu. Order at
-              your table before the first round or during the comfort break. You do not need a
-              separate dining booking, because your quiz booking is your team&rsquo;s table.
+              Order pizzas, burgers, pies or anything else on the full menu at your table. Kitchen
+              times vary by date, so get your order in when you arrive, or call 01753 682707 to
+              check that night&rsquo;s times. You do not need a separate dining booking, because your
+              quiz booking is your team&rsquo;s table.
             </p>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <BookTableButton source="quiz_night_food_cta" variant="outline" size="sm">
@@ -315,12 +331,15 @@ export default async function QuizNightPage() {
         <Container>
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">More nights at The Anchor</h2>
+            {/* No named night or date here: this page cannot tell when one has
+                passed, and it said "Friday 25 September" in fixed text. The
+                themed page works out which night is next. */}
             <p className="mb-3 text-ink-muted">
               Every so often we build the whole quiz around one show. See our{' '}
               <Link href="/quiz-night/themed" className="font-semibold text-accent-text transition hover:text-accent-text">
                 themed quiz nights
               </Link>
-              , including the Only Fools and Horses charity quiz on Friday 25 September.
+              .
             </p>
             <p className="text-ink-muted">
               Not a quiz night? Play along at{' '}
@@ -342,7 +361,7 @@ export default async function QuizNightPage() {
       </section>
 
       <CtaBand
-        title="Ready to play for the tab?"
+        title="Ready to play for the voucher?"
         copy="Book your team in, or call the bar and we'll make sure your seats are ready."
       >
         <GameNightCtaActions

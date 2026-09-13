@@ -37,7 +37,11 @@ import {
 } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
-import { getEventBookingHeroStatement, getEventSeatAvailabilityLabel } from '@/lib/event-booking-experience'
+import {
+  getEventBookingActionLabel,
+  getEventBookingHeroStatement,
+  getEventSeatAvailabilityLabel
+} from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead } from '@/lib/event-copy'
@@ -46,9 +50,8 @@ import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
-import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 import { rethrowIfTransient } from '@/lib/api/error-kind'
-import { getRetiredEventRedirect } from '@/lib/event-seo-strategy'
+import { getEventPageTitle, getRetiredEventRedirect } from '@/lib/event-seo-strategy'
 import { normaliseEventProse } from '@/lib/text/normalise-api-prose'
 
 type Props = {
@@ -319,7 +322,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ].join(', ') || undefined
 
     return {
-      title: stripBrandSuffix(event.metaTitle || event.name),
+      // Dated and length-checked; see getEventPageTitle. `event` is the
+      // normalised record, so no em dash from the name or metaTitle gets in.
+      title: getEventPageTitle(event),
       description,
       keywords,
       ...(shouldNoindex ? { robots: { index: false, follow: true } } : {}),
@@ -483,9 +488,11 @@ export default async function EventPage({ params }: Props) {
   const headerDoorTime = formatDoorTime(event.doorTime)
   const eventBookingCopy = getEventBookingCopy(event)
   const bookingModeLabel = eventBookingCopy.label || getEventBookingModeLabel(event.booking_mode)
-  const isCommunalEvent = typeof event.booking_mode === 'string' && event.booking_mode.trim().toLowerCase() === 'communal'
-  const bookingCtaLabel = isCommunalEvent ? 'Book tickets' : 'Reserve table'
-  const bookingFormTitle = isCommunalEvent ? 'Book tickets' : 'Reserve table'
+  // One label for one action: the hero button, the form heading, the form's
+  // own button and the closing band all say the same thing, chosen by the
+  // night's booking mode (places on a communal night, a table otherwise).
+  const bookingActionLabel = getEventBookingActionLabel(event)
+  const bookingCtaBandTitle = `Ready to ${bookingActionLabel.charAt(0).toLowerCase()}${bookingActionLabel.slice(1)}?`
   const statusLabel = getEventStatusLabel(status)
   const endTime = formatClockTime(event.end_time)
   const doorsTime = formatClockTime(event.doors_time)
@@ -565,7 +572,7 @@ export default async function EventPage({ params }: Props) {
       className="w-full sm:w-auto"
       fullWidth={false}
       size="lg"
-      label={bookingCtaLabel}
+      label={bookingActionLabel}
       customHref="#event-booking"
       source={`event_page_hero_${params.id}`}
     />
@@ -655,6 +662,8 @@ export default async function EventPage({ params }: Props) {
           imageAlt={imageAlt}
           wide={heroArtworkIsWide}
           crumb={event.category?.name ?? "What's On"}
+          // The same name and URL as the BreadcrumbList in EventSchema.
+          crumbHref={getCategoryPageUrl(event.category?.slug)}
           title={event.name}
           lead={heroDescription}
           badges={
@@ -810,7 +819,7 @@ export default async function EventPage({ params }: Props) {
                     ) : (
                       <ManagementEventBookingForm
                         event={event}
-                        title={bookingFormTitle}
+                        title={bookingActionLabel}
                         compact
                       />
                     )}
@@ -1035,7 +1044,7 @@ export default async function EventPage({ params }: Props) {
           has already passed. */}
       {presentation.showBookingCtaBand ? (
         <CtaBand
-          title={isCommunalEvent ? 'Ready to book your event tickets?' : 'Ready to reserve your event table?'}
+          title={bookingCtaBandTitle}
           copy={mothersDayBookingFlow ? mothersDayBookingCopy : getEventBookingHeroStatement(event)}
         >
           {mothersDayBookingFlow ? (
@@ -1048,7 +1057,7 @@ export default async function EventPage({ params }: Props) {
               className="w-full sm:w-auto"
               fullWidth={false}
               size="lg"
-              label={bookingCtaLabel}
+              label={bookingActionLabel}
               customHref="#event-booking"
               source={`event_page_cta_${params.id}`}
             />

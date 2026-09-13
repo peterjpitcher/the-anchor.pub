@@ -15,7 +15,13 @@ import { AddToCalendar } from '@/components/events/AddToCalendar'
 import type { Event, EventTicketType } from '@/lib/api'
 import { getEventTicketTypes } from '@/lib/api'
 import { isEventBookingClosed } from '@/lib/event-lifecycle'
-import { getEventBookingReassurance, getEventUnitPrice, formatEventBookingMoney, isPrepaidEvent } from '@/lib/event-booking-experience'
+import {
+  formatEventBookingMoney,
+  getEventBookingActionLabel,
+  getEventBookingReassurance,
+  getEventUnitPrice,
+  isPrepaidEvent
+} from '@/lib/event-booking-experience'
 import {
   getMaxForType,
   getSelectionBreakdown,
@@ -26,6 +32,7 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { cn } from '@/lib/utils'
 import { BRAND, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
+import { canUseCookieCategory } from '@/lib/cookies'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
@@ -105,7 +112,7 @@ interface ManagementEventBookingFormProps {
    * merely undated to that gate, and it would offer the diary entry anyway.
    */
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'waitlist_enabled' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
   title?: string
   compact?: boolean
   /**
@@ -163,6 +170,11 @@ function hasPolicyViolation(payload: any): boolean {
 function collectBookingAttribution() {
   if (typeof window === 'undefined') return {}
   const url = new URL(window.location.href)
+  // Ad tags and click IDs link the booking to an ad click, which needs marketing
+  // consent. Without it the booking carries the page path only.
+  if (!canUseCookieCategory('marketing')) {
+    return { landing_path: url.pathname, ...getMarketingConsentSignalPayload() }
+  }
   const read = (key: string) => url.searchParams.get(key) || undefined
   const storedAttribution = getBookingAttributionPayload()
   const fbclid = storedAttribution.fbclid ?? read('fbclid')
@@ -254,6 +266,7 @@ export function ManagementEventBookingForm({
   const formLoadedAt = useRef(Date.now())
   const phoneEnteredTracked = useRef(false)
   const formViewedTracked = useRef(false)
+  const bookingStartTracked = useRef(false)
   const paymentCompleteTracked = useRef(false)
 
   // Online ticket sales are closed if the caller says so, or the event's own
@@ -307,17 +320,34 @@ export function ManagementEventBookingForm({
   const availableForSelection = isCommunalEvent
     ? (seatingPreference === 'standing' ? standingRemaining : seatedRemaining)
     : normalizeRemaining(event.seats_remaining)
-  const selectionOverCapacity = availableForSelection !== null && seats > availableForSelection
+  /**
+   * A night the page shows as full, on an event that keeps a waitlist.
+   *
+   * The form used to refuse these before sending anything, so the API's
+   * `full_with_waitlist_option` answer and the Join Waitlist button below could
+   * never be reached, while the hubs label the same date "Full, join the
+   * waitlist". The count on the page is also a snapshot, and a cached page can
+   * be hours old. So the request is sent: the management API books any places
+   * that have come free since, or answers full, and the form then offers the
+   * waitlist. An event with no waitlist is still stopped here.
+   */
+  const fullWithWaitlist = !isMultiTypeEvent && availableForSelection === 0 && event.waitlist_enabled === true
+  const selectionOverCapacity = !fullWithWaitlist && availableForSelection !== null && seats > availableForSelection
   const submittedTicketLabel = getBookingTicketLabel(result, submittedSeatingPreference)
   const fellBackToStanding = isCommunalEvent &&
     submittedSeatingPreference === 'seated' &&
     result?.event_seating_type === 'standing'
   const waitlistPlaceLabel = isCommunalEvent ? 'places' : 'seats'
+  // A fresh token is needed until something has been booked, and on a full
+  // night until the guest is on the waitlist, because joining it is a second
+  // request and every token is spent by the first.
+  const turnstileStillNeeded =
+    !result || (result.state === 'full_with_waitlist_option' && waitlistResult?.state !== 'queued')
   // The security check is standing between the guest and a booking they cannot
   // otherwise make. Say so, rather than leaving a disabled button unexplained.
   const turnstileUnavailable =
     Boolean(turnstileSiteKey) &&
-    !result &&
+    turnstileStillNeeded &&
     !turnstileToken &&
     (turnstileTimedOut || turnstileStatus === 'error' || turnstileStatus === 'unsupported')
   const turnstileRetryable = turnstileStatus !== 'unsupported'
@@ -361,7 +391,8 @@ export function ManagementEventBookingForm({
     if (!turnstileSiteKey) return
     // A booking already exists, so the post-submit widget reset behind the
     // confirmation is housekeeping, not a failure the guest needs to hear about.
-    if (result) return
+    // A full night still needs a token to join the waitlist, so its clock runs.
+    if (!turnstileStillNeeded) return
 
     if (turnstileToken || turnstileStatus === 'error' || turnstileStatus === 'unsupported') {
       setTurnstileTimedOut(false)
@@ -371,13 +402,40 @@ export function ManagementEventBookingForm({
     setTurnstileTimedOut(false)
     const timer = window.setTimeout(() => setTurnstileTimedOut(true), TURNSTILE_RECOVERY_DELAY_MS)
     return () => window.clearTimeout(timer)
-  }, [result, turnstileSiteKey, turnstileToken, turnstileStatus, turnstileAttempt])
+  }, [turnstileStillNeeded, turnstileSiteKey, turnstileToken, turnstileStatus, turnstileAttempt])
+
+  /**
+   * `event_booking_started`, once per form, on the guest's first real move:
+   * a field changed or a quantity chosen. Mounting is `form_view`, and a
+   * submit is `event_booking_submit`, so start now sits between the two and
+   * the gap to submit shows who began and gave up. It used to fire at submit,
+   * which made start and submit the same number.
+   */
+  function trackBookingStartOnce(): void {
+    if (bookingStartTracked.current) return
+    bookingStartTracked.current = true
+    trackEventBookingStart({
+      eventId: event.id,
+      eventName: event.name,
+      eventDate: event.startDate,
+      source: 'event_booking_form'
+    })
+  }
+
+  // Changes bubble up from every field in the form. The hidden honeypot is the
+  // one field no person fills, so a change there is not a start.
+  function handleFormChange(changeEvent: FormEvent<HTMLFormElement>): void {
+    const target = changeEvent.target as HTMLInputElement | null
+    if (target?.name === 'website') return
+    trackBookingStartOnce()
+  }
 
   // Adjust a ticket type's quantity within its available capacity.
   function setTicketTypeQuantity(type: EventTicketType, nextQuantity: number) {
     const max = Math.min(getMaxForType(type, ticketTypes, ticketQuantities), 6 - multiTypeTotalSeats + (ticketQuantities[type.id] || 0))
     const clamped = Math.max(0, Math.min(nextQuantity, max))
     setTicketQuantities((prev) => ({ ...prev, [type.id]: clamped }))
+    trackBookingStartOnce()
   }
 
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
@@ -475,13 +533,6 @@ export function ManagementEventBookingForm({
       return
     }
 
-    trackEventBookingStart({
-      eventId: event.id,
-      eventName: event.name,
-      eventDate: event.startDate,
-      partySize: clampedSeats,
-      source: 'event_booking_form'
-    })
     trackEventBookingFunnelStep({
       step: 'submit',
       eventId: event.id,
@@ -784,6 +835,10 @@ export function ManagementEventBookingForm({
       setError(joinError?.message || 'We could not join the waitlist right now.')
     } finally {
       setWaitlistLoading(false)
+      // The token was spent on this request, whatever the answer, so a retry
+      // or a fresh booking needs a new one.
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     }
   }
 
@@ -833,7 +888,7 @@ export function ManagementEventBookingForm({
           <p className="text-sm font-semibold leading-snug text-accent-text">{bookingReassurance}</p>
         </div>
 
-        <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
+        <form onSubmit={handleSubmit} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
           {isMultiTypeEvent ? (
             <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
               <legend className="px-1 text-sm font-semibold text-ink">Choose your tickets</legend>
@@ -922,9 +977,10 @@ export function ManagementEventBookingForm({
                       key={count}
                       type="button"
                       aria-pressed={selected}
-                      disabled={availableForSelection !== null && count > availableForSelection}
+                      disabled={!fullWithWaitlist && availableForSelection !== null && count > availableForSelection}
                       onClick={() => {
                         setSeats(count)
+                        trackBookingStartOnce()
                       }}
                       className={cn(
                         'min-h-[44px] min-w-[44px] rounded-md border px-3 text-base font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50',
@@ -950,6 +1006,13 @@ export function ManagementEventBookingForm({
               {availableForSelection === 0
                 ? 'No tickets are available. Please call us for help.'
                 : `Only ${availableForSelection} ${seatingPreference === 'standing' ? 'standing ticket' : 'seat'}${availableForSelection === 1 ? ' remains' : 's remain'}. Please choose fewer tickets or call us.`}
+            </p>
+          ) : null}
+
+          {fullWithWaitlist ? (
+            <p className="rounded-sm border border-line bg-surface-sunk p-2.5 text-sm leading-relaxed text-ink">
+              This night is showing as full. Send your details and we will check again. If it is still
+              full, you can join the waitlist.
             </p>
           ) : null}
 
@@ -1044,8 +1107,12 @@ export function ManagementEventBookingForm({
             onChange={(event) => setEmail(event.target.value)}
             placeholder="jane@example.com"
             autoComplete="email"
+            // Only a prepaid night is ever followed up for money: the management
+            // app holds a booking for payment when payment_mode is prepaid and
+            // confirms every other booking outright. A cash-on-arrival night
+            // charges nothing online, so it promises no payment follow-up.
             helperText={
-              eventTakesPayment
+              isPrepaidEvent(event)
                 ? 'So we can send your confirmation and any payment follow-up.'
                 : 'So we can send your confirmation.'
             }
@@ -1145,7 +1212,9 @@ export function ManagementEventBookingForm({
               })
             }}
           >
-            {isCommunalEvent && seatingPreference === 'standing' ? 'Book standing tickets' : 'Reserve my seats'}
+            {isCommunalEvent && seatingPreference === 'standing'
+              ? 'Book standing tickets'
+              : getEventBookingActionLabel(event)}
           </Button>
         </form>
 
@@ -1247,7 +1316,17 @@ export function ManagementEventBookingForm({
           <Alert variant="info" title="This event is currently full">
             <p>You can join the waitlist and we will contact you if {waitlistPlaceLabel} become available.</p>
             <div className="mt-3">
-              <Button type="button" size="sm" loading={waitlistLoading} onClick={handleJoinWaitlist}>
+              {/* Held until the security check hands over a fresh token: the
+                  booking attempt spent the last one, and a request without a
+                  token is refused. The recovery panel explains a long wait. */}
+              <Button
+                type="button"
+                size="sm"
+                loading={waitlistLoading}
+                disabled={turnstileSiteKey ? !turnstileToken : false}
+                aria-describedby={turnstileUnavailable ? TURNSTILE_RECOVERY_REGION_ID : undefined}
+                onClick={handleJoinWaitlist}
+              >
                 Join Waitlist
               </Button>
             </div>

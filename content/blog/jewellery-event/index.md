@@ -113,14 +113,14 @@ Many pieces from our events become treasured family heirlooms, engagement rings,
 
 ## Find Unique Jewellery Near Heathrow Airport
 
-Don't miss our next **artisan jewellery showcase** at The Anchor! Whether you're searching for that perfect gift, adding to your collection, or simply appreciating fine craftsmanship, our events offer an unmatched experience just minutes from Heathrow.
+Don't miss our next **artisan jewellery showcase** at The Anchor! Whether you're searching for that perfect gift, adding to your collection, or simply appreciating fine craftsmanship, our events are just minutes from Heathrow.
 
 ### Book Your Visit
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor
-📞 **Information**: 01753 682707
-🚗 **Parking**: Free on-site
-✈️ **From Heathrow**: Just 7 minutes from Terminal 5
+**Location**: The Anchor, Horton Road, Stanwell Moor
+**Information**: 01753 682707
+**Parking**: Free on-site
+**From Heathrow**: Just 7 minutes from Terminal 5
 
 Follow us on social media for event announcements and featured artisan previews.
 

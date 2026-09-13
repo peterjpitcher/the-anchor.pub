@@ -117,15 +117,15 @@ So, gather your friends, family, and fellow fans, and come down to The Anchor fo
 
 ## Watch Premier League at The Anchor - Your Local Sports Pub Near Heathrow
 
-Ready for the ultimate **football viewing experience near Heathrow Airport**? Join us at The Anchor for all major football events on terrestrial TV!
+Ready for a **football viewing experience near Heathrow Airport**? Join us at The Anchor for all major football events on terrestrial TV!
 
 ### Visit Details
 
-📍 **Location**: Horton Road, Stanwell Moor (**7 minutes from Terminal 5**)
-📞 **Call**: 01753 682707
-🚗 **Parking**: Free on-site parking
-🍺 **Bar**: Full selection of beers and spirits
-🍔 **Food**: Full menu during matches (kitchen hours apply)
+**Location**: Horton Road, Stanwell Moor (**7 minutes from Terminal 5**)
+**Call**: 01753 682707
+**Parking**: Free on-site parking
+**Bar**: Full selection of beers and spirits
+**Food**: Full menu during matches (kitchen hours apply)
 
 **Why Choose The Anchor for Premier League:**
 - Major matches on terrestrial TV

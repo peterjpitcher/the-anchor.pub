@@ -27,6 +27,7 @@ import {
   type QuickBookState,
 } from '@/lib/table-booking/quick-book'
 import { createClientIdempotencyKey } from '@/lib/table-booking-idempotency'
+import { confirmationDeliveryCopy, type ManagementTableBookingResult } from '@/lib/table-booking/submission'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import {
   trackTableBookingClick,
@@ -72,6 +73,9 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   const [fieldError, setFieldError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [reference, setReference] = useState<string | null>(null)
+  // The management app confirms by email first when the guest has a usable
+  // address on file, so the done screen names the channel the API reports.
+  const [deliveryChannel, setDeliveryChannel] = useState<ManagementTableBookingResult['notification_channel']>(null)
   // /api/table-bookings runs the shared spam guard, which requires BOTH a
   // Turnstile token and `_t`. This sheet sent neither, so every submission was
   // rejected at the timing check and answered with a fake success: the guest
@@ -113,6 +117,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
     setError(null)
     setFieldError(null)
     setReference(null)
+    setDeliveryChannel(null)
     startedRef.current = false
     // A closed sheet has no submit intent left to retry, so the next one starts on a
     // fresh key rather than risking a replay of whatever the last guest submitted.
@@ -267,6 +272,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
       // identical payload mints a new one rather than replaying the booking just made.
       submitIntentKeyRef.current = null
       setReference(data?.booking_reference || null)
+      setDeliveryChannel(data?.notification_channel ?? null)
       setPhase('done')
       trackFormComplete({ formName: 'quick_book_sheet', formLocation: source })
       trackTableBookingClick({ source: `quick_book_${source}`, context: 'quick_book' })
@@ -306,7 +312,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                 Reference <strong className="text-ink-strong">{reference}</strong>
               </p>
             ) : null}
-            <p className="text-xs text-ink-muted">We&apos;ve sent a confirmation by text.</p>
+            <p className="text-xs text-ink-muted">{confirmationDeliveryCopy(deliveryChannel)}</p>
             <Button variant="primary" size="lg" className="w-full" onClick={onClose}>
               Done
             </Button>

@@ -1,0 +1,71 @@
+{
+  "created_at": "2026-09-11T12:00:00+00:00",
+  "finalised_at": "",
+  "imports": {
+    "gkp": true,
+    "gsc": true
+  },
+  "interpreter": "python3",
+  "legacy": true,
+  "legacy_note": "Evidence gathered before this workspace existed, migrated on 11 September 2026. Four page-filtered Search Console exports (Last 16 months preset, no Country filter) supplied by the owner on 11 September 2026 for /whats-on, /quiz-night, /music-bingo and /cash-bingo; one Keyword Planner volumes export (17 August 2026, the game-night terms) and one Keyword Planner discover export (8 September 2026, batch 8, what's on and things to do). The Search Console files are preset windows, so they size clusters and seed the universe but are never compared with a calendar window. The keywords, aliases and demand observations are promoted to the workspace root by hand as the migration step, as the Orange Jelly programme did on 8 September 2026. Promoted by hand on 11 September 2026: keywords.csv, aliases.csv, demand-observations.csv, demand-monthly.csv, overlaps.csv. The auto-filled head keywords were NOT promoted (they picked 'song bingo', a high intent-risk term, and 'bongo's bingo near me', another operator's brand); heads were set by hand in clusters.csv instead.",
+  "legacy_provenance": [
+    {
+      "original_path": "owner's iCloud Downloads/the-anchor.pub-Performance-on-Search-2026-09-11 (3).zip",
+      "pull_id": "gsc-16m-p-pg_0001",
+      "sha256": "94c66b20f29a13af15ef31e3a7ce8774bbac00f69332f06d1262810a374642f8"
+    },
+    {
+      "original_path": "owner's iCloud Downloads/the-anchor.pub-Performance-on-Search-2026-09-11 (2).zip",
+      "pull_id": "gsc-16m-p-pg_0002",
+      "sha256": "6bc5e0a03ac04ac50707aee65178af5dedee97f80015edf8db2a74469154f837"
+    },
+    {
+      "original_path": "owner's iCloud Downloads/the-anchor.pub-Performance-on-Search-2026-09-11 (1).zip",
+      "pull_id": "gsc-16m-p-pg_0004",
+      "sha256": "7b19ddc867e7d314d844b2c1c22239947eaefe2284018543f728988d19f7848a"
+    },
+    {
+      "original_path": "owner's iCloud Downloads/the-anchor.pub-Performance-on-Search-2026-09-11.zip",
+      "pull_id": "gsc-16m-p-pg_0005",
+      "sha256": "d2b9e35234943e4ac9a3d151a3e94e409c25e2e531b9b2c11ffecfac74a33ce3"
+    },
+    {
+      "original_path": "owner's iCloud Downloads/Keyword Stats 2026-08-17 at 10_06_07.csv",
+      "pull_id": "gkp-volumes-01",
+      "sha256": "0f92f7aedb205042e6bcddb3cdc5f8b0199858db84cbffdddfbd04296d261b43"
+    },
+    {
+      "original_path": "owner's iCloud Downloads/Keyword Stats 2026-09-08 at 11_53_53.csv",
+      "pull_id": "gkp-discover-01",
+      "sha256": "70fbd70d057b238cee57df3db043a3eea72e89573d2278812516bf8fcdf617ca"
+    }
+  ],
+  "mode": "legacy",
+  "promoted_to_root": [
+    "keywords.csv",
+    "aliases.csv",
+    "demand-observations.csv",
+    "demand-monthly.csv",
+    "overlaps.csv"
+  ],
+  "run_id": "2026-09-11-01-legacy",
+  "stage": "migrated",
+  "stage_history": [
+    {
+      "at": "2026-09-11T12:00:00+00:00",
+      "stage": "requested"
+    },
+    {
+      "at": "2026-09-11T10:07:10+00:00",
+      "stage": "validated"
+    },
+    {
+      "at": "2026-09-11T10:07:10+00:00",
+      "stage": "imported"
+    },
+    {
+      "at": "2026-09-11T12:30:00+00:00",
+      "stage": "migrated"
+    }
+  ]
+}

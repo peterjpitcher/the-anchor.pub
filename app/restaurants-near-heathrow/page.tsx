@@ -551,8 +551,8 @@ export default async function RestaurantsNearHeathrowPage() {
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="What Diners Say About Our Restaurant"
-              subtitle="Real reviews from Google"
+              title="What Our Guests Say"
+              subtitle="Real reviews from our Google Business Profile"
             />
             <GoogleReviews
               layout="grid"

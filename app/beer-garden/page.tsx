@@ -255,7 +255,7 @@ export default async function BeerGardenPage() {
         <Container>
           <div className="mx-auto">
             <h2 className="font-display text-h2 text-ink-strong text-center mb-8">
-              What Visitors Say About Our Beer Garden
+              What Our Guests Say
             </h2>
             <GoogleReviews
               layout="carousel"

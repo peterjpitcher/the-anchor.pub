@@ -85,9 +85,9 @@ Looking for a **Friday lunch spot near Heathrow Airport**? The Anchor pub in **S
 - Garden seating preferences
 
 **Easy Booking Options:**
-📞 **Call**: 01753 682707
-🌐 **Online**: [Book a table](https://www.the-anchor.pub/book-table)
-🚶 **Walk-ins**: Always welcome
+**Call**: 01753 682707
+**Online**: [Book a table](https://www.the-anchor.pub/book-table)
+**Walk-ins**: Always welcome
 
 **Group Bookings Welcome:**
 - Airport crew gatherings
@@ -121,11 +121,11 @@ Looking for a **Friday lunch spot near Heathrow Airport**? The Anchor pub in **S
 
 **Essential Information:**
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 ⏰ **Friday Hours**: Open from 12:00 noon
-🍽️ **Lunch Service**: 12:00 PM - 3:00 PM
-🚗 **Parking**: Free customer parking
-✈️ **From Heathrow**: Just 7 minutes
+**Lunch Service**: 12:00 PM - 3:00 PM
+**Parking**: Free customer parking
+**From Heathrow**: Just 7 minutes
 
 **Regular Friday Features:**
 - Fresh fish & chips special

@@ -51,6 +51,17 @@ test('server page state overrides event fallback and cannot leak into the next r
   marker.remove()
 })
 
+test('the events hub points at its own list of nights, not the dining quick-book', () => {
+  mockPathname = '/whats-on'
+  render(<StickyCtas />)
+  const link = screen.getByRole('link', { name: 'View upcoming dates' })
+  expect(link).toHaveAttribute('href', '#upcoming-events')
+  expect(screen.queryByRole('button', { name: 'Book a table' })).not.toBeInTheDocument()
+  fireEvent.click(link)
+  expect(trackCtaClick).toHaveBeenCalledWith(expect.objectContaining({ destination: '#upcoming-events', context: '/whats-on' }))
+  expect(trackTableBookingClick).not.toHaveBeenCalled()
+})
+
 test('hire uses its enquiry without a table booking event', () => {
   mockPathname = '/private-hire'
   render(<StickyCtas />)

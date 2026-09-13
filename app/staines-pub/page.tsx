@@ -296,10 +296,11 @@ export default function StainesPubPage() {
               <Card accent className="border-l-4 border-l-anchor-gold">
                 <CardBody className="p-6">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-display text-h4 text-ink-strong">Thursday</h3>
+                    {/* Monthly on a Wednesday (docs/SSOT.md §10). This said Thursday. */}
+                    <h3 className="font-display text-h4 text-ink-strong">Wednesday</h3>
                     <Badge variant="gold">QUIZ</Badge>
                   </div>
-                  <p className="text-ink-muted">Quiz Night - Win bar tabs and prizes! See /whats-on for details.</p>
+                  <p className="text-ink-muted">Monthly Quiz Night - Win a £25 bar voucher! See /whats-on for details.</p>
                 </CardBody>
               </Card>
 
@@ -344,19 +345,19 @@ export default function StainesPubPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Perfect for Staines Residents</h3>
                   <ul className="space-y-3 text-ink-muted">
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong className="text-ink">Quick journey</strong> - Just 8 minutes from Staines town centre</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong className="text-ink">Free parking</strong> - No expensive town centre rates</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong className="text-ink">Competitive prices</strong> - Better value than Staines venues</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-accent-text font-bold">✓</span>
+                      <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
                       <span><strong className="text-ink">Flexible spaces</strong> - From intimate gatherings to large parties</span>
                     </li>
                   </ul>

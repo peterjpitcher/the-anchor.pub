@@ -51,7 +51,7 @@ The **Double Up Offer** lets you **enjoy a larger serving of your favourite spir
 
   
 
-👉 **No sign-ups, no special requests, just ask for a double, and it's yours for £2 extra.**
+**No sign-ups, no special requests, just ask for a double, and it's yours for £2 extra.**
 
   
 
@@ -61,13 +61,13 @@ This **easy-to-use** offer is designed to give you the most **value on quality s
 
   
 
-✅ Order one of the participating spirits (listed below)
+Order one of the participating spirits (listed below)
 
-✅ Choose your mixer or enjoy it neat
+Choose your mixer or enjoy it neat
 
-✅ **Upgrade to a double for just £2 extra**
+**Upgrade to a double for just £2 extra**
 
-✅ Available all day, every day - no time restrictions
+Available all day, every day - no time restrictions
 
   
 
@@ -89,15 +89,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **Jameson & Ginger Ale**: The spiciness of ginger ale enhances the whiskey's smoothness.
+**Jameson & Ginger Ale**: The spiciness of ginger ale enhances the whiskey's smoothness.
 
-🥃 **Jameson, Ice & Lime**: A simple serve with a refreshing citrus twist.
+**Jameson, Ice & Lime**: A simple serve with a refreshing citrus twist.
 
-🥃 **Jameson Old Fashioned**: Mixed with bitters and sugar for a classic cocktail.
+**Jameson Old Fashioned**: Mixed with bitters and sugar for a classic cocktail.
 
   
 
-👉 Learn more about Jameson's heritage on [their official site](https://www.jamesonwhiskey.com/).
+Learn more about Jameson's heritage on [their official site](https://www.jamesonwhiskey.com/).
 
   
 
@@ -113,15 +113,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **The Grouse & Cola**: A rich, caramel-sweet pairing.
+**The Grouse & Cola**: A rich, caramel-sweet pairing.
 
-🥃 **Classic Whisky & Soda**: A refreshing, light way to enjoy Scotch.
+**Classic Whisky & Soda**: A refreshing, light way to enjoy Scotch.
 
-🥃 **The Grouse & Ginger Ale**: Brings out the whisky's warm spice notes.
+**The Grouse & Ginger Ale**: Brings out the whisky's warm spice notes.
 
   
 
-👉 Discover more about The Famous Grouse [here](https://www.famousgrouse.com/).
+Discover more about The Famous Grouse [here](https://www.famousgrouse.com/).
 
   
 
@@ -137,15 +137,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **Jack & Cola**: The ultimate Tennessee classic.
+**Jack & Cola**: The classic Tennessee serve.
 
-🥃 **Jack & Lemonade**: A refreshing alternative to cola.
+**Jack & Lemonade**: A refreshing alternative to cola.
 
-🥃 **Jack on the Rocks**: Best for those who love the bold flavours.
+**Jack on the Rocks**: Best for those who love the bold flavours.
 
   
 
-👉 Visit [Jack Daniel's official website](https://www.jackdaniels.com/) for more cocktail ideas.
+Visit [Jack Daniel's official website](https://www.jackdaniels.com/) for more cocktail ideas.
 
   
 
@@ -161,15 +161,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🥃 **Bell's & Cola**: A rich, comforting combination.
+**Bell's & Cola**: A rich, comforting combination.
 
-🥃 **Bell's & Dry Ginger Ale**: A great way to enhance its spiced notes.
+**Bell's & Dry Ginger Ale**: A great way to enhance its spiced notes.
 
-🥃 **Bell's Neat or on Ice**: Perfect for those who enjoy whisky's natural flavours.
+**Bell's Neat or on Ice**: Perfect for those who enjoy whisky's natural flavours.
 
   
 
-👉 Find out more about Bell's Whisky [here](https://www.bells.co.uk/).
+Find out more about Bell's Whisky [here](https://www.bells.co.uk/).
 
   
 
@@ -185,15 +185,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍸 **Classic G&T**: Served with **Schweppes Tonic** and a wedge of lime.
+**Classic G&T**: Served with **Schweppes Tonic** and a wedge of lime.
 
-🍸 **Gordon's & Lemonade**: A refreshing alternative to tonic.
+**Gordon's & Lemonade**: A refreshing alternative to tonic.
 
-🍸 **Gordon's Negroni**: Mixed with Campari and sweet vermouth.
+**Gordon's Negroni**: Mixed with Campari and sweet vermouth.
 
   
 
-👉 Learn about Gordon's and its heritage on [their official website](https://www.gordonsgin.com/).
+Learn about Gordon's and its heritage on [their official website](https://www.gordonsgin.com/).
 
   
 
@@ -209,19 +209,19 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍸 **Pink Gin & Lemonade**: A sweet and summery option.
+**Pink Gin & Lemonade**: A sweet and summery option.
 
-🍸 **Pink Gin & Prosecco**: For a sparkling serve.
+**Pink Gin & Prosecco**: For a sparkling serve.
 
-🍸 **Pink Gin & Tonic**: A classic with a fruity edge.
-
-  
-
-👉 Find more about Gordon's Pink Gin [here](https://www.gordonsgin.com/).
+**Pink Gin & Tonic**: A classic with a fruity edge.
 
   
 
-### **Bacardi White Rum: The Ultimate Mixer**
+Find more about Gordon's Pink Gin [here](https://www.gordonsgin.com/).
+
+  
+
+### **Bacardi White Rum: The Classic Mixer**
 
 **Tasting Notes:** Bacardi Carta Blanca is a **light-bodied white rum** with delicate notes of **vanilla, almond, and tropical fruits**, finishing with a smooth, crisp taste.
 
@@ -233,15 +233,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍹 **Bacardi & Coke (Cuba Libre)**: A timeless combination with fresh lime.
+**Bacardi & Coke (Cuba Libre)**: A timeless combination with fresh lime.
 
-🍹 **Bacardi Mojito**: Mixed with lime, sugar, mint, and soda for a refreshing Cuban classic.
+**Bacardi Mojito**: Mixed with lime, sugar, mint, and soda for a refreshing Cuban classic.
 
-🍹 **Bacardi & Pineapple Juice**: A tropical favourite with a sweet, juicy finish.
+**Bacardi & Pineapple Juice**: A tropical favourite with a sweet, juicy finish.
 
   
 
-👉 Visit [Bacardi's website](https://www.bacardi.com/) for more cocktail inspiration.
+Visit [Bacardi's website](https://www.bacardi.com/) for more cocktail inspiration.
 
   
 
@@ -257,15 +257,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍸 **Vodka & Cranberry**: A crisp, tart classic.
+**Vodka & Cranberry**: A crisp, tart classic.
 
-🍸 **Vodka & Tonic**: A light and refreshing option.
+**Vodka & Tonic**: A light and refreshing option.
 
-🍸 **Vodka & Orange Juice (Screwdriver)**: A simple, citrusy favourite.
+**Vodka & Orange Juice (Screwdriver)**: A simple, citrusy favourite.
 
   
 
-👉 Explore Smirnoff vodka varieties on [their website](https://www.smirnoff.com/).
+Explore Smirnoff vodka varieties on [their website](https://www.smirnoff.com/).
 
   
 
@@ -281,15 +281,15 @@ We've selected some of the **most popular and well-loved spirits** for this offe
 
 **Best Mixers & Serves:**
 
-🍹 **Captain & Cola**: The go-to serve for a smooth, sweet, and spiced drink.
+**Captain & Cola**: The go-to serve for a smooth, sweet, and spiced drink.
 
-🍹 **Captain & Pineapple Juice**: A tropical twist that brings out the rum's sweetness.
+**Captain & Pineapple Juice**: A tropical twist that brings out the rum's sweetness.
 
-🍹 **Captain & Ginger Beer (Spiced Mule)**: A bold, zesty alternative with a fiery kick.
+**Captain & Ginger Beer (Spiced Mule)**: A bold, zesty alternative with a fiery kick.
 
   
 
-👉 Find out more about Captain Morgan's range [here](https://www.captainmorgan.com/).
+Find out more about Captain Morgan's range [here](https://www.captainmorgan.com/).
 
   
 
@@ -345,7 +345,7 @@ Management reserves the right to **refuse service in line with responsible drink
 
   
 
-👉 Need more information about responsible drinking? Visit [DrinkAware.co.uk](http://DrinkAware.co.uk).
+Need more information about responsible drinking? Visit [DrinkAware.co.uk](http://DrinkAware.co.uk).
 
   
 
@@ -359,11 +359,11 @@ So, next time you visit **The Anchor**, **why not double up for just £2 extra?*
 
   
 
-📍 **Where?** The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-📅 **When?** Available at all times
-📞 **Info**: 01753 682707
+**Where?** The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**When?** Available at all times
+**Info**: 01753 682707
 
 ### Why Choose The Anchor for Spirits
 
@@ -376,7 +376,7 @@ So, next time you visit **The Anchor**, **why not double up for just £2 extra?*
 
   
 
-👉 Stay updated on our latest offers by following us on [**Facebook**](https://www.facebook.com/theanchorpubsm) and [**Instagram**](https://www.instagram.com/theanchor.pub/)!
+Stay updated on our latest offers by following us on [**Facebook**](https://www.facebook.com/theanchorpubsm) and [**Instagram**](https://www.instagram.com/theanchor.pub/)!
 
   
 

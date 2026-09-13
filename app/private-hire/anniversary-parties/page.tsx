@@ -151,7 +151,7 @@ export default function AnniversaryPartiesPage() {
                                     <li><strong className="text-ink-strong">Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
                                     <li><strong className="text-ink-strong">7 minutes from Heathrow T5</strong>, handy if family are flying in for the occasion.</li>
                                     <li><strong className="text-ink-strong">AV equipment:</strong> TVs and a sound system for slideshows of the years gone by, or a few words and a toast.</li>
-                                    <li><strong className="text-ink-strong">Deposit:</strong> &pound;250 to secure your date, deducted from the final bill.</li>
+                                    <li><strong className="text-ink-strong">Deposit:</strong> &pound;250 to secure your date, held separately from your bill and refunded after the event.</li>
                                     <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
                                 </ul>
                             </CardBody></Card>
@@ -266,7 +266,7 @@ export default function AnniversaryPartiesPage() {
                 faqs={[
                     {
                         question: "How much does an anniversary party at The Anchor cost?",
-                        answer: "A room hire fee applies and varies by day and party size, and food and drink are charged at live prices, so you only pay for what you order. We confirm the hire fee and full terms when you enquire. The deposit is £250, fully deducted from your final bill. Call 01753 682707 or use the cost estimator on this page for a personalised quote."
+                        answer: "A room hire fee applies and varies by day and party size, and food and drink are charged at live prices, so you only pay for what you order. We confirm the hire fee and full terms when you enquire. The deposit is £250, held separately from your bill and refunded after the event. Call 01753 682707 or use the cost estimator on this page for a personalised quote."
                     },
                     {
                         question: "How many guests can you fit for an anniversary party?",
@@ -278,7 +278,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "Do you require a deposit?",
-                        answer: "Yes, we ask for a £250 deposit to secure your date. It is fully deducted from the final bill, so it is not an extra cost, just a commitment to the booking. Groups of 15 or more pay a £10 per person deposit, also deducted from the bill."
+                        answer: "Yes. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions."
                     },
                     {
                         question: "Can we bring an anniversary cake?",

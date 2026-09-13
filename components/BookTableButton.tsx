@@ -3,6 +3,7 @@
 import { forwardRef, MouseEvent } from 'react'
 import { Button, ButtonProps } from '@/components/ui/primitives/Button'
 import { trackCtaClick, trackTableBookingClick } from '@/lib/gtm-events'
+import { withCarriedAttributionParams } from '@/lib/booking-attribution'
 import { usePathname } from 'next/navigation'
 
 interface BookTableButtonProps extends Omit<ButtonProps, 'href' | 'onClick'> {
@@ -98,7 +99,9 @@ export const BookTableButton = forwardRef<HTMLButtonElement, BookTableButtonProp
           return
         }
 
-        window.location.href = bookingUrl
+        // A full page load drops the landing page's in-memory ad tags, so they
+        // travel in the booking URL instead (no device storage, consent or not).
+        window.location.href = withCarriedAttributionParams(bookingUrl)
       }
     }
 

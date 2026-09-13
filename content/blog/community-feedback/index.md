@@ -144,12 +144,12 @@ Have more to share? Drop us an email at [manager@the-anchor.pub](mailto:manager@
 
 ## Visit The Anchor Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-📧 **Email**: manager@the-anchor.pub
-📞 **Phone**: 01753 682707
-🔗 **Survey**: [bit.ly/3rJHP8K](https://bit.ly/3rJHP8K)
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Email**: manager@the-anchor.pub
+**Phone**: 01753 682707
+**Survey**: [bit.ly/3rJHP8K](https://bit.ly/3rJHP8K)
 
 ### Your Community Pub Since 1730
 

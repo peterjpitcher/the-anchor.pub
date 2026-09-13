@@ -1,6 +1,7 @@
 import type { Event, EventTicketType } from '@/lib/api'
 import { getEventTicketTypes, getLowestTicketTypePrice, hasMultipleTicketPrices } from '@/lib/api'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
+import { getCategoryPageUrl } from '@/lib/event-seo-strategy'
 
 type OfferLike = {
   price?: string | number | null
@@ -9,6 +10,8 @@ type OfferLike = {
 
 export type EventBookingPaymentSource = {
   name?: string | null
+  slug?: string | null
+  category?: { name?: string | null; slug?: string | null } | null
   event_type?: string | null
   booking_mode?: string | null
   payment_mode?: string | null
@@ -40,6 +43,17 @@ type EventBookingAvailabilitySource = {
 
 function isCommunalBookingMode(mode: string | null | undefined): boolean {
   return typeof mode === 'string' && mode.trim().toLowerCase() === 'communal'
+}
+
+/**
+ * True when a booking holds places rather than a table: communal seating, or
+ * general admission (the Halloween party, for example). docs/SSOT.md §1 never
+ * lets copy promise a table on a night that has none to hold.
+ */
+function isPlacesBookingMode(mode: string | null | undefined): boolean {
+  if (typeof mode !== 'string') return false
+  const normalised = mode.trim().toLowerCase()
+  return normalised === 'communal' || normalised === 'general'
 }
 
 function parseRemaining(value: unknown): number | null {
@@ -123,6 +137,26 @@ export function isFreeEvent(event: EventBookingPaymentSource): boolean {
 function hasPaidOnlineSignal(event: EventBookingPaymentSource): boolean {
   const text = eventPaymentText(event)
   return /prepaid|pre-pay|online|payment_link|ticket/.test(text)
+}
+
+/**
+ * Cash Bingo is sold by the book, not by the person. docs/SSOT.md §10: "£10
+ * per book (cash only)", and supervised under-18s may come along but may not
+ * play. "Pay £10 per person on arrival" told a family of four, two of them
+ * children, that they would owe £40.
+ *
+ * Recognised by "cash bingo" in the record's name, type or category, or by the
+ * category the /cash-bingo hub is built from, which is how the rest of the site
+ * already files these nights.
+ */
+function isCashBingoEvent(event: EventBookingPaymentSource): boolean {
+  const text = [event.name, event.event_type, event.category?.name, event.category?.slug]
+    .filter((value): value is string => typeof value === 'string')
+    .join(' ')
+    .toLowerCase()
+    .replace(/[-_]+/g, ' ')
+
+  return text.includes('cash bingo') || getCategoryPageUrl(event.category?.slug) === '/cash-bingo'
 }
 
 function hasOnlineDiscountSignal(event: EventBookingPaymentSource): boolean {
@@ -222,7 +256,11 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
   const isCommunal = isCommunalBookingMode(event.booking_mode)
 
   if (hasFreeSignal(event)) {
-    if (!isCommunal) return 'No payment needed. Reserve seats online so your table is held.'
+    if (!isCommunal) {
+      return isPlacesBookingMode(event.booking_mode)
+        ? 'No payment needed. Book a free place for each person so we know how many to expect.'
+        : 'No payment needed. Reserve seats online so your table is held.'
+    }
 
     return hasStandingTickets(event)
       ? 'No payment needed. Book standing places online.'
@@ -238,6 +276,12 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
   }
 
   if (event.payment_mode === 'cash_only' || unitPrice) {
+    if (isCashBingoEvent(event)) {
+      return unitPrice
+        ? `No payment now. Buy your bingo books when you arrive, ${formatEventBookingMoney(unitPrice)} a book in cash.`
+        : 'No payment now. Buy your bingo books in cash when you arrive.'
+    }
+
     const priceText = unitPrice ? ` ${formatEventBookingMoney(unitPrice)} per person` : ''
     return isCommunal
       ? `No payment now. Book online and pay${priceText} on arrival.`
@@ -251,7 +295,7 @@ export function getEventBookingReassurance(event: EventBookingPaymentSource): st
 
 export function getEventShortPaymentReassurance(event: EventBookingPaymentSource): string {
   const unitPrice = getEventUnitPrice(event)
-  const isCommunal = isCommunalBookingMode(event.booking_mode)
+  const isCommunal = isPlacesBookingMode(event.booking_mode)
 
   if (hasFreeSignal(event)) {
     return isCommunal ? 'No payment needed' : 'No payment needed, booking holds your table'
@@ -264,6 +308,12 @@ export function getEventShortPaymentReassurance(event: EventBookingPaymentSource
   }
 
   if (event.payment_mode === 'cash_only' || unitPrice) {
+    if (isCashBingoEvent(event)) {
+      return unitPrice
+        ? `No payment now, ${formatEventBookingMoney(unitPrice)} a book in cash on arrival`
+        : 'No payment now, bingo books in cash on arrival'
+    }
+
     const priceText = unitPrice ? ` ${formatEventBookingMoney(unitPrice)}` : ''
     return `No payment now, pay${priceText} on arrival`
   }
@@ -276,6 +326,21 @@ export function getEventBookingAnchorHref(event: Pick<Event, 'id'> & Partial<Pic
   return `/events/${encodeURIComponent(idOrSlug)}#event-booking`
 }
 
+/**
+ * The one name for booking a place at an event night, by booking mode.
+ *
+ * The same action used to carry four labels: "Reserve table" or "Book
+ * tickets" on the page, "Reserve my seats" on the form's button and "Book your
+ * places" on the hubs. docs/SSOT.md §1: buttons say what happens next, match
+ * how the booking really works, and never promise a table on a night with
+ * shared seating. A communal night books places; any other night books a
+ * table, which is also what the management app assumes when a record names no
+ * mode. Standing tickets keep their own label in the form.
+ */
+export function getEventBookingActionLabel(event: Pick<EventBookingPaymentSource, 'booking_mode'>): string {
+  return isPlacesBookingMode(event.booking_mode) ? 'Book your places' : 'Book a table'
+}
+
 export function getEventBookingHeroStatement(
   event: Pick<Event, 'startDate'> & EventBookingPaymentSource
 ): string {
@@ -284,8 +349,7 @@ export function getEventBookingHeroStatement(
     day: 'numeric',
     month: 'long'
   })
-  const action = isCommunalBookingMode(event.booking_mode) ? 'Book tickets' : 'Reserve a table'
-  return `${action} for ${date}. ${getEventShortPaymentReassurance(event)}.`
+  return `${getEventBookingActionLabel(event)} for ${date}. ${getEventShortPaymentReassurance(event)}.`
 }
 
 export function getEventSeatsRemaining(event: EventBookingAvailabilitySource): number | null {
@@ -297,6 +361,12 @@ export function getEventSeatsRemaining(event: EventBookingAvailabilitySource): n
     if (parsed !== null) return parsed
   }
   return null
+}
+
+/** "55 seats available", or "Only 4 seats left" once ten or fewer remain. */
+function formatSeatCount(seats: number): string {
+  if (seats <= 10) return `Only ${seats} seat${seats === 1 ? '' : 's'} left`
+  return `${seats} seats available`
 }
 
 export function getEventSeatAvailabilityLabel(event: EventBookingAvailabilitySource): string | null {
@@ -315,29 +385,24 @@ export function getEventSeatAvailabilityLabel(event: EventBookingAvailabilitySou
       return 'Sold out'
     }
 
-    if (seatedRemaining !== null && standingRemaining !== null) {
-      if (seatedRemaining > 0 && standingRemaining > 0) {
-        return `${seatedRemaining} seated, ${standingRemaining} standing left`
-      }
+    // Standing is offered only once every seat has sold (docs/SSOT.md §10,
+    // owner decision 6 September 2026). So while seats remain the count is the
+    // seated one alone. The page used to read "49 seated, 11 standing left" on
+    // every communal night, which put standing in front of people who would
+    // get a seat and made a nearly empty room look constrained.
+    if (seatedRemaining !== null && seatedRemaining > 0) return formatSeatCount(seatedRemaining)
 
-      if (seatedRemaining > 0) {
-        return `${seatedRemaining} seated left`
-      }
-
-      if (standingRemaining > 0) {
-        return `${standingRemaining} standing left`
-      }
+    // Seats sold out, standing still on sale. The form carries the notice that
+    // no table seat is included.
+    if (seatedRemaining === 0 && standingRemaining !== null && standingRemaining > 0) {
+      return `${standingRemaining} standing left`
     }
-
-    if (seatedRemaining !== null && seatedRemaining > 0) return `${seatedRemaining} seated left`
-    if (standingRemaining !== null && standingRemaining > 0) return `${standingRemaining} standing left`
   }
 
   const soldOut = event.is_full === true || seatsRemaining === 0 || schemaSoldOut
   if (soldOut) return 'Sold out'
   if (seatsRemaining === null) return null
-  if (seatsRemaining <= 10) return `Only ${seatsRemaining} seat${seatsRemaining === 1 ? '' : 's'} left`
-  return `${seatsRemaining} seats available`
+  return formatSeatCount(seatsRemaining)
 }
 
 export function getEventFoodArrivalLabel(

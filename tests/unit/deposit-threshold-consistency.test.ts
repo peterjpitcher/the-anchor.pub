@@ -14,10 +14,13 @@ import { LARGE_GROUP_DEPOSIT_THRESHOLD } from '@/lib/constants'
  * This scans the customer-facing tree for every way the OLD rule can be written. It is
  * deliberately about the deposit specifically: "groups of 10 to 150" is a room capacity,
  * "10 or more, give us a heads up" is about pre-ordering a round, and neither is a price.
+ *
+ * Blog posts were added on 2026-09-10, when four live posts were found still quoting
+ * "groups of 10 or more". This test had only ever read the page code.
  */
 
-const ROOTS = ['app', 'components', 'lib']
-const EXTENSIONS = new Set(['.ts', '.tsx'])
+const ROOTS = ['app', 'components', 'lib', 'content/blog']
+const EXTENSIONS = new Set(['.ts', '.tsx', '.md'])
 
 function walk(dir: string, found: string[] = []): string[] {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -42,6 +45,7 @@ const STALE_PATTERNS: { label: string; pattern: RegExp }[] = [
   { label: '"10+" beside a deposit', pattern: /(groups?|parties) of 10\+[^.]{0,60}deposit/i },
   { label: '"Groups of 10+: ... deposit"', pattern: /groups? of 10\+\s*:[^.]{0,60}deposit/i },
   { label: '"10 or more" beside a deposit', pattern: /(groups?|parties) of 10 or more[^.]{0,60}deposit/i },
+  { label: 'a deposit "for groups of 10 or more"', pattern: /deposit[^.]{0,60}(groups?|parties|party) of (10|ten)( or more|\+)/i },
 ]
 
 describe('no page still quotes the old deposit threshold', () => {

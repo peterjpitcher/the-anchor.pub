@@ -171,7 +171,7 @@ Twenty free spaces on-site. Level surface, close to the entrance, CCTV monitored
 
 Seven minutes from Heathrow Terminal 5, two minutes from Junction 14 of the M25. If you've got family flying in for the occasion, we're literally the closest traditional British pub to the airport. Address: Horton Road, Stanwell Moor, Surrey, TW19 6AQ.
 
-We're outside the ULEZ zone too, which saves London-based guests £12.50 each way.
+We're outside the ULEZ zone too.
 
 ## Decoration Ideas That Work at a Pub Venue
 
@@ -221,7 +221,7 @@ Yes -- the beer garden has plenty of space for smoke cannons, confetti, coloured
 
 ### Is The Anchor suitable for a gender reveal with young children?
 
-Completely. We're family-friendly at all times with high chairs, buggy space, and a kids' menu from £8.00 per head. We don't have baby changing facilities, so you'll need to plan for that -- but otherwise, children of all ages are genuinely welcome with no restrictions.
+Completely. We're family-friendly at all times with high chairs, buggy space, and a [kids' menu](/food-menu). We don't have baby changing facilities, so you'll need to plan for that -- but otherwise, children of all ages are genuinely welcome with no restrictions.
 
 ### How far is The Anchor from Heathrow Airport?
 

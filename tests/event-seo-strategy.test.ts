@@ -19,6 +19,8 @@ import {
   getBannedClaims,
   getSafeAccessibilityNotes,
   getDiscontinuedFormatReplacement,
+  getEventPageTitle,
+  EVENT_TITLE_MAX_LENGTH,
   RECENT_EVENT_WINDOW_DAYS,
   CANCELLED_INDEX_DAYS,
 } from '@/lib/event-seo-strategy'
@@ -222,6 +224,69 @@ describe('getEventSeoStrategy', () => {
       expect(result.redirect).toBeUndefined()
       expect(result.showEndedBanner).toBe(true)
     })
+
+    // The 14 August 2026 Music Bingo page carried the search phrase "live music
+    // bingo" in its keywords (live meta keywords, 11 September 2026). Read as a
+    // substring it contains "live music", so the page was noindexed, left out
+    // of the sitemap and told visitors "We no longer host live music".
+    it('keeps a past Music Bingo night indexable when its keywords say "live music bingo"', () => {
+      const cowboysAndQueens = {
+        startDate: isoDaysAgo(200),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Cowboys & Queens Country Music Bingo',
+        slug: 'cowboys-queens-country-music-bingo-2026-08-14',
+        category: MUSIC_BINGO,
+        keywords: ['music bingo', 'music bingo near me', 'live music bingo', 'pub music bingo'],
+      }
+
+      expect(getEventSeoStrategy(cowboysAndQueens).index).toBe(true)
+      expect(getDiscontinuedFormatReplacement(cowboysAndQueens)).toBeNull()
+    })
+
+    it('keeps an upcoming Music Bingo night indexable with the same keyword', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysFromNow(30),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Sequins & Showstoppers: Strictly-Season Music Bingo',
+        category: MUSIC_BINGO,
+        keywords: 'music bingo, live music bingo',
+      })
+
+      expect(result.index).toBe(true)
+    })
+
+    // docs/SSOT.md §"Live Music, DISCONTINUED": the policy itself must survive.
+    it('still noindexes a real live music night and says the format has stopped', () => {
+      const liveMusic = {
+        startDate: isoDaysAgo(200),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Friday Live Music with The Wanderers',
+        slug: 'friday-live-music-with-the-wanderers-2025-06-20',
+        category: { id: 'c-live', slug: 'live-music', name: 'Live Music', color: '#000' },
+      }
+
+      expect(getEventSeoStrategy(liveMusic).index).toBe(false)
+      expect(getDiscontinuedFormatReplacement(liveMusic)).toEqual({
+        href: '/whats-on',
+        label: 'See what is on',
+        copy: 'This night is no longer running. We no longer host live music.',
+      })
+    })
+
+    it('ignores only the Music Bingo phrase, not a live music mention beside it', () => {
+      const result = getEventSeoStrategy({
+        startDate: isoDaysAgo(200),
+        event_status: 'scheduled',
+        eventStatus: 'scheduled',
+        name: 'Summer Garden Party',
+        description: 'Live music in the garden, then music bingo inside.',
+      })
+
+      expect(result.index).toBe(false)
+    })
   })
 
   describe('SSOT banned claims', () => {
@@ -341,6 +406,98 @@ describe('getEventSeoStrategy', () => {
         category: { id: 'c9', slug: 'games-night', name: 'Games Night', color: '#000' },
       })
       expect(result.index).toBe(false)
+    })
+  })
+
+  /**
+   * Titles came straight from the record's metaTitle. On 11 September 2026 six
+   * of the thirteen upcoming quiz, bingo and karaoke nights had no date in
+   * theirs, and one was just "Music Bingo | The Anchor". These are those
+   * records (the audit's title table), with the London date added where the
+   * record left it out.
+   */
+  describe('event page titles', () => {
+    it.each([
+      [
+        'Autumn Kick-Off Quiz Night | The Anchor',
+        'Autumn Kick-Off Quiz Night',
+        '2026-09-16T19:00:00+01:00',
+        'Autumn Kick-Off Quiz Night, Wed 16 Sept'
+      ],
+      [
+        'Music Bingo | The Anchor',
+        'Sequins & Showstoppers: Strictly-Season Music Bingo',
+        '2026-11-13T19:00:00Z',
+        'Strictly-Season Music Bingo, Fri 13 Nov'
+      ],
+      [
+        'Only Fools and Horses Charity Quiz | The Anchor',
+        'Lovely Jubbly: Only Fools and Horses Charity Quiz Night',
+        '2026-09-25T19:00:00+01:00',
+        'Only Fools and Horses Charity Quiz, Fri 25 Sept'
+      ],
+      [
+        'Screams & Soundtracks: Classic Horror Music Bingo | The Anchor',
+        'Screams & Soundtracks: Classic Horror Music Bingo',
+        '2026-10-16T19:00:00+01:00',
+        'Classic Horror Music Bingo, Fri 16 Oct'
+      ],
+      [
+        'Back to School Music Bingo | The Anchor',
+        'Detention Disco: Back to School Music Bingo',
+        '2026-09-11T19:00:00+01:00',
+        'Back to School Music Bingo, Fri 11 Sept'
+      ],
+      [
+        'Sleigh My Name: Festive Music Bingo | The Anchor',
+        'Sleigh My Name: Festive Music Bingo',
+        '2026-12-11T19:00:00Z',
+        'Sleigh My Name: Festive Music Bingo, Fri 11 Dec'
+      ]
+    ])('dates %j', (metaTitle, name, startDate, expected) => {
+      const title = getEventPageTitle({ metaTitle, name, startDate })
+
+      expect(title).toBe(expected)
+      expect(title.length).toBeLessThanOrEqual(EVENT_TITLE_MAX_LENGTH)
+    })
+
+    it.each([
+      ['A Hint of Halloween Quiz Night | 7 October | The Anchor', 'A Hint of Halloween Quiz Night | 7 October'],
+      ['Big Sing Friday: Karaoke Night | 18 September | The Anchor', 'Big Sing Friday: Karaoke Night | 18 September'],
+      ['Cash Bingo Night, 1 July 2026 | The Anchor', 'Cash Bingo Night, 1 July 2026']
+    ])('keeps a record title that already has its date: %j', (metaTitle, expected) => {
+      expect(getEventPageTitle({ metaTitle, name: 'Any Name', startDate: '2026-10-07T19:00:00+01:00' })).toBe(expected)
+    })
+
+    it('adds the year once the night is over, because past pages stay indexed', () => {
+      expect(
+        getEventPageTitle({
+          metaTitle: 'Quiz Night - Join Us for Fun and Prizes! | The Anchor',
+          name: 'Quiz Night',
+          startDate: isoDaysAgo(58)
+        })
+      ).toBe('Quiz Night, 4 March 2026')
+    })
+
+    it('uses the date in the name when the record title has none', () => {
+      expect(
+        getEventPageTitle({ metaTitle: 'Cash Bingo | The Anchor', name: 'Cash Bingo 30 September', startDate: isoDaysFromNow(10) })
+      ).toBe('Cash Bingo 30 September')
+    })
+
+    it('never drops the date to fit, it takes the shortest instead', () => {
+      const title = getEventPageTitle({
+        name: 'An Exceptionally Long Themed Evening of Questions About Everything',
+        startDate: '2026-10-07T19:00:00+01:00'
+      })
+
+      expect(title).toBe('An Exceptionally Long Themed Evening of Questions About Everything, Wed 7 Oct')
+    })
+
+    it('keeps the record title when the start date is unusable', () => {
+      expect(getEventPageTitle({ metaTitle: 'Quiz Night | The Anchor', name: 'Quiz Night', startDate: 'nonsense' })).toBe(
+        'Quiz Night'
+      )
     })
   })
 

@@ -85,13 +85,13 @@ Our new Speck Ham and Parmesan pizza, topped with salty Speck ham, nutty parmesa
 
 ### Visit The Anchor for Our New Menu Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-🍽️ **Menu**: British pies, burgers, curries, pizzas
-💷 **Prices**: Proper pub prices, not airport prices
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Menu**: British pies, burgers, curries, pizzas
+**Prices**: Proper pub prices, not airport prices
 ⏰ **Perfect For**: Lunch meetings, family dinners, after-work meals
-📞 **Bookings**: 01753 682707
+**Bookings**: 01753 682707
 
 ### Why Choose The Anchor for Dining Near Terminal 5
 

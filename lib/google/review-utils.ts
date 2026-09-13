@@ -1,4 +1,5 @@
 // Review utility functions
+import { GOOGLE_REVIEWS } from '@/lib/google-reviews'
 import { GoogleReview, ReviewsFilter } from './types'
 
 export const DEFAULT_REVIEW_STATS = {
@@ -101,38 +102,45 @@ export function formatReviewDate(timestamp: number): string {
   return `${Math.floor(diffInDays / 365)} years ago`
 }
 
-// Mock data for development/testing when API is not available
-export const mockReviews: GoogleReview[] = [
-  {
-    author_name: "Sarah M.",
-    language: "en",
-    rating: 5,
-    relative_time_description: "a week ago",
-    text: "Best Sunday roast in the area by far. The beef is always perfectly cooked and the Yorkshires are massive! Book early though - it gets packed.",
-    time: Math.floor(Date.now() / 1000) - 604800
-  },
-  {
-    author_name: "Michael T.",
-    language: "en",
-    rating: 5,
-    relative_time_description: "2 weeks ago",
-    text: "Great local pub with a fantastic beer garden. Perfect for plane spotting while enjoying a pint. The staff are always friendly and the food is excellent value.",
-    time: Math.floor(Date.now() / 1000) - 1209600
-  },
-  {
-    author_name: "Emma R.",
-    language: "en",
-    rating: 4,
-    relative_time_description: "a month ago",
-    text: "Lovely atmosphere and the stone-baked pizzas are brilliant. Only reason for 4 stars is it can get quite busy on quiz nights, but that's a good sign really!",
-    time: Math.floor(Date.now() / 1000) - 2592000
-  },
-  {
-    author_name: "The Johnson Family",
-    language: "en",
-    rating: 5,
-    relative_time_description: "2 months ago",
-    text: "Family tradition now - Sunday roast at The Anchor. Kids love it, great atmosphere, and the food is consistently excellent.",
-    time: Math.floor(Date.now() / 1000) - 5184000
-  }
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
 ]
+
+/**
+ * "July 2026" to epoch seconds for the first of that month.
+ *
+ * Date.UTC with explicit components, so the number is identical under
+ * TZ=Europe/London and TZ=UTC. It only ever drives newest-first sorting and
+ * the "n months ago" label, never a published date.
+ */
+function reviewTimestamp(date: string): number {
+  const [month, year] = date.split(' ')
+  const index = MONTHS.indexOf(month)
+  if (index === -1 || !/^\d{4}$/.test(year ?? '')) {
+    throw new Error(`Review date must be "Month YYYY", got "${date}"`)
+  }
+  return Math.floor(Date.UTC(Number(year), index, 1) / 1000)
+}
+
+/**
+ * The reviews /api/reviews serves, derived from the owner's Google Business
+ * Profile export in lib/google-reviews.ts.
+ *
+ * Until 13 September 2026 this was a hand-written array of four invented
+ * reviewers, kept under a comment claiming it was placeholder data for
+ * development. It was not: /api/reviews had no other source, so those four
+ * shipped to /beer-garden, /pubs-in-stanwell, /restaurants-near-heathrow and
+ * /heathrow-parking in production. Publishing a fake review is a civil offence
+ * under the Digital Markets, Competition and Consumers Act 2024.
+ *
+ * Add reviews by adding them to the export, never here.
+ */
+export const approvedReviews: GoogleReview[] = GOOGLE_REVIEWS.map(review => ({
+  author_name: review.author,
+  language: 'en',
+  rating: 5,
+  relative_time_description: review.date,
+  text: review.quote,
+  time: reviewTimestamp(review.date)
+}))

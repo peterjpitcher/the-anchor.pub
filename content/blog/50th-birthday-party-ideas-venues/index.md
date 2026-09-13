@@ -58,7 +58,7 @@ For a certain kind of person (and you probably know whether the birthday person 
 
 No fuss, no speeches unless someone insists, just an exceptional meal with the people who matter most. This works particularly well when the guest list is tight, close family and lifelong friends rather than the full address book.
 
-At The Anchor, a [Sunday roast celebration](/sunday-roast) starts from £16 per person, with options including roast turkey (£16), roast pork (£20), roast beef (£22), pies (£21), and a vegan beetroot and butternut squash wellington (£20). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill on the day.
+At The Anchor, a Sunday roast celebration has options including roast turkey, roast pork, roast beef and a vegan beetroot and butternut squash wellington, and you'll find today's prices on our [Sunday roast menu](/sunday-roast). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
 
 ### The beer garden party
 
@@ -244,7 +244,7 @@ Buffets are the most popular format for 50th birthday parties because they accom
 
 ### Can I hold a 50th birthday party on a Sunday?
 
-Absolutely, and it's increasingly popular. A Sunday celebration, particularly a long lunch, works well for milestone birthdays because it suits guests with families, tends to cost less than Saturday, and has a naturally relaxed pace. At The Anchor, Sunday roasts are available from £16 per person, or you can arrange a buffet for larger groups.
+Absolutely, and it's increasingly popular. A Sunday celebration, particularly a long lunch, works well for milestone birthdays because it suits guests with families, tends to cost less than Saturday, and has a naturally relaxed pace. At The Anchor, you can choose from the [Sunday roast menu](/sunday-roast) or arrange a buffet for larger groups.
 
 ### What's the best venue for a 50th birthday near Heathrow?
 

@@ -97,10 +97,10 @@ The Anchor team reserves the right to manage tabs responsibly. We're committed t
 
 **Questions about our tab policy?**
 
-📍 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-📞 **Call**: 01753 682707
-💬 **Message**: Facebook Messenger
-✈️ **Near**: 7 minutes from Heathrow Terminal 5
-🅿️ **Parking**: Free on-site
+**Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Call**: 01753 682707
+**Message**: Facebook Messenger
+**Near**: 7 minutes from Heathrow Terminal 5
+**Parking**: Free on-site
 
 *Building trust with our community, one pint at a time - The Anchor team*

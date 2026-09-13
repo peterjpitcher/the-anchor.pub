@@ -19,7 +19,13 @@ interface GameNightCtaActionsProps {
   hasBookableDate: boolean
   /** Where on the page this pair sits. Kept out of the id so the two are
    *  comparable in reporting: same cta_id, different cta_location. */
-  location: 'hero' | 'closing_band'
+  location: 'hero' | 'body' | 'closing_band'
+  /**
+   * Where the primary action goes. Defaults to this page's own booking
+   * section. /quiz-night/themed has no form of its own, so it passes the next
+   * themed night's booking form instead.
+   */
+  href?: string
 }
 
 /**
@@ -40,7 +46,8 @@ export function GameNightCtaActions({
   gameSlug,
   label,
   hasBookableDate,
-  location
+  location,
+  href = `#${GAME_NIGHT_BOOKING_ANCHOR}`
 }: GameNightCtaActionsProps) {
   if (!hasBookableDate) {
     return (
@@ -60,13 +67,13 @@ export function GameNightCtaActions({
     <>
       <Button asChild variant="primary" size="lg" className="w-full sm:w-auto">
         <a
-          href={`#${GAME_NIGHT_BOOKING_ANCHOR}`}
+          href={href}
           onClick={() =>
             trackCtaClick({
               id: `${gameSlug}_book`,
               label,
               location,
-              destination: `#${GAME_NIGHT_BOOKING_ANCHOR}`,
+              destination: href,
               context: gameSlug
             })
           }

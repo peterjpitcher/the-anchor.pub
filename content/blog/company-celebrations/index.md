@@ -101,19 +101,19 @@ Whatever the occasion, The Anchor is the perfect venue to host your next celebra
 
 If you've got a corporate event to plan near **Heathrow Airport**, please reach out. Contact us:
 
-📞 **Call**: 01753 682707
-📧 **Email**: manager@the-anchor.pub
-💬 **WhatsApp**: [01753 682707](https://bit.ly/3lfFzhm)
-📍 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Call**: 01753 682707
+**Email**: manager@the-anchor.pub
+**WhatsApp**: [01753 682707](https://bit.ly/3lfFzhm)
+**Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 
 ### Why Choose The Anchor for Corporate Events Near Terminal 5
 
-✈️ **Location**: Just 7 minutes from Heathrow (all terminals)
-🚗 **Parking**: Free on-site parking (no airport fees!)
-💷 **Value**: Proper pub prices, not airport prices
-🏢 **Capacity**: Private areas for 10-100 guests
-🍽️ **Catering**: Full menu plus bespoke packages
-🎯 **Clients**: Trusted by BA, airport hotels, cargo companies
+**Location**: Just 7 minutes from Heathrow (all terminals)
+**Parking**: Free on-site parking (no airport fees!)
+**Value**: Proper pub prices, not airport prices
+**Capacity**: Private areas for 10-100 guests
+**Catering**: Full menu plus bespoke packages
+**Clients**: Trusted by BA, airport hotels, cargo companies
 
 **Popular with**: Heathrow staff parties, aviation industry events, Staines business meetings, hotel team building, cargo company celebrations.
 

@@ -364,6 +364,114 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     }
   })
 
+  it("redirects the retired 2023 Father's Day post, and every old link to it, straight to /fathers-day", () => {
+    // Retired 10 September 2026 (owner decision). It described a paper order form and a
+    // deposit on every Sunday roast booking, both long gone. The old blog and Wix
+    // addresses that pointed at it now go to /fathers-day in one hop, not two.
+    for (const source of [
+      '/blog/fathers-day-celebration',
+      '/blog/celebrate-father-s-day-at-the-anchor-unforgettable',
+      '/post/celebrate-father-s-day-at-the-anchor-unforgettable',
+      '/post/celebrate-fathers-day-at-the-anchor',
+      '/post/make-father-s-day-special',
+    ]) {
+      const rule = lookupRedirect(source)
+      expect(rule).toBeDefined()
+      expect(rule!.destination).toBe('/fathers-day')
+      expect(getRedirectStatus(rule!)).toBe(301)
+    }
+  })
+
+  it('redirects the eight dated offer and event posts retired on 10 September 2026 in one hop', () => {
+    // Owner decision, 10 September 2026: their offers had ended or their events had
+    // passed, and several still quoted 2019 to 2025 prices. Each goes to the live page
+    // that covers it now, and so do the older addresses that used to point at them.
+    const retired: Record<string, string> = {
+      'prices-frozen-until-autumn-theanchor-pub': '/drinks',
+      'events-offers-2025': '/whats-on',
+      'botanist-gin-july-2025': '/drinks/managers-special',
+      'salami-day-pizza': '/pizza-menu',
+      'rum-tasting-caribbean': '/whats-on',
+      'the-boys-are-back-in-town': '/drinks',
+      'valentines-day-meal-offer-for-two': '/valentines-day',
+      'tequila-tasting-events': '/whats-on',
+    }
+    for (const [slug, destination] of Object.entries(retired)) {
+      const rule = lookupRedirect(`/blog/${slug}`)
+      expect(rule?.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+    }
+    expect(lookupRedirect('/post/prices-frozen-until-autumn-theanchor-pub')?.destination).toBe('/drinks')
+    expect(lookupRedirect('/post/valentines-day-meal-offer-for-two')?.destination).toBe('/valentines-day')
+  })
+
+  it('redirects the retired drag cabaret and Christmas market posts (owner-approved 10 September 2026)', () => {
+    // Drag cabaret is discontinued and there is no Christmas market in 2026
+    // (docs/SSOT.md sections 7 and 10). The folders are deleted so no retired
+    // post can come back through a blog listing, and every older rule that
+    // landed on one now goes straight to the new destination. The last three
+    // still sold the market as an annual event.
+    const retired: Array<[string, string]> = [
+      ['/blog/drag-cabaret-nikki', '/whats-on'],
+      ['/blog/christmas-market', '/christmas-parties'],
+      ['/blog/christmas-fair-at-the-anchor', '/christmas-parties'],
+      ['/blog/piano-christmas-performance', '/christmas-parties'],
+      ['/blog/this-december-at-the-anchor', '/christmas-parties'],
+    ]
+    for (const [source, destination] of retired) {
+      const rule = lookupRedirect(source)
+      expect(rule).toBeDefined()
+      expect(rule!.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+      expect(fs.existsSync(path.join(process.cwd(), 'content', source))).toBe(false)
+      expect(ALL_REDIRECTS.filter((r) => r.destination === source)).toEqual([])
+    }
+  })
+
+  it('sends the retired Curry Club post, and every older URL for it, to the food menu in one hop (owner-approved 11 September 2026)', async () => {
+    // Curry Club has stopped (docs/SSOT.md section 10), but the indexable post
+    // still said the nights sell out. The folder is deleted, and the three
+    // older Wix and /post/ rules that landed on the post now go straight to
+    // /food-menu, the main food menu page, rather than through a chain.
+    const RETIRED_POST = '/blog/curry-club-the-anchor'
+    const DESTINATION = '/food-menu'
+    const sources = [RETIRED_POST, '/post/curry-club-the-anchor', '/post/curry-club-september-2019', '/post/curry-club']
+
+    expect(fs.existsSync(path.join(process.cwd(), 'content', RETIRED_POST))).toBe(false)
+    expect(ALL_REDIRECTS.filter((r) => r.destination === RETIRED_POST)).toEqual([])
+    // Exactly one rule per source, so no later file can quietly override it.
+    for (const source of sources) {
+      expect(ALL_REDIRECTS.filter((r) => r.source === source).map((r) => r.destination)).toEqual([DESTINATION])
+      const rule = lookupRedirect(source)
+      expect(rule?.destination).toBe(DESTINATION)
+      expect(getRedirectStatus(rule!)).toBe(301)
+    }
+    // The destination is a live page, not another redirect.
+    expect(lookupRedirect(DESTINATION)).toBeUndefined()
+
+    // next.config.js redirects run before middleware, so no pattern there may
+    // catch these URLs first and send them somewhere else.
+    const nextConfig = require('../next.config.js')
+    const frameworkPatterns = ((await nextConfig.redirects()) as RedirectRule[]).map(
+      (rule) => new RegExp(`^${rule.source.replace(/:\w+\*/g, '.*').replace(/:\w+/g, '[^/]+')}$`),
+    )
+    for (const source of sources) {
+      expect(frameworkPatterns.filter((pattern) => pattern.test(source))).toEqual([])
+    }
+
+    // End to end through the middleware that serves these rules, on the
+    // canonical host and the apex: one 301, straight to the rule's target.
+    for (const source of sources) {
+      for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+        const response = middleware(
+          new NextRequest(`https://${host}${source}`, { headers: { host, 'x-forwarded-proto': 'https' } }),
+        )
+        expect(response.status).toBe(301)
+        expect(response.headers.get('location')).toBe(`https://www.the-anchor.pub${DESTINATION}`)
+      }
+    }
+  })
+
   it('does not include pattern-based sources (those stay in next.config.js)', () => {
     // Pattern rules use `:slug` or `:path*` syntax, middleware can not match
     // them with a simple Map lookup, so they remain in the framework redirects
@@ -657,6 +765,22 @@ describe('redirect-loops', () => {
   it('has no redirect whose destination matches its own source', () => {
     const selfLoops = ALL_REDIRECTS.filter((r) => r.destination === r.source)
     expect(selfLoops).toEqual([])
+  })
+
+  it('has no redirect that lands on a blog post which does not exist', () => {
+    // Seventeen Wix-era addresses pointed at posts deleted long ago, so visitors ended
+    // on a 404, until 10 September 2026, when each was pointed at the closest live page.
+    // Retiring a post means repointing every redirect that lands on it.
+    const missing = ALL_REDIRECTS.filter((rule) => {
+      const match = /^\/blog\/([^/?#:*]+)(?:[?#].*)?$/.exec(rule.destination)
+      if (!match) return false
+      const slug = match[1]
+      return (
+        !fs.existsSync(path.join(process.cwd(), 'content', 'blog', slug, 'index.md')) &&
+        !fs.existsSync(path.join(process.cwd(), 'app', 'blog', slug, 'page.tsx'))
+      )
+    }).map((rule) => `${rule.source} -> ${rule.destination}`)
+    expect(missing).toEqual([])
   })
 
   it('has no two-step redirect chains (a redirect destination is not also a redirect source)', () => {

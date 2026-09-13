@@ -147,11 +147,11 @@ Eating chocolate at Easter is a modern twist on the egg tradition. Chocolate egg
 
 **Don't miss out on Easter at your local pub near Heathrow!**
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-📞 **Bookings**: 01753 682707
-🌐 **Website**: the-anchor.pub
-🅿️ **Parking**: Free customer parking
-✈️ **Near**: 7 minutes from Heathrow Terminal 5
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**Bookings**: 01753 682707
+**Website**: the-anchor.pub
+**Parking**: Free customer parking
+**Near**: 7 minutes from Heathrow Terminal 5
 
 **Easter Booking Tips:**
 - Book early for Easter Sunday roast

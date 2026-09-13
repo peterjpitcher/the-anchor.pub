@@ -16,6 +16,13 @@ export function resolveBookingCta(pathname: string): BookingCta {
   if (['/quiz-night', '/cash-bingo', '/music-bingo', '/karaoke'].includes(path)) {
     return { kind: 'link', label: 'View upcoming dates', href: '#book' }
   }
+  // The events hub lists every upcoming night on the page itself. Falling
+  // through to "Book a table" offered the dining quick-book to people who had
+  // come to pick a night.
+  if (path === '/whats-on') return { kind: 'link', label: 'View upcoming dates', href: '#upcoming-events' }
+  // The themed quiz page lists its own nights; "Book a table" sent people to
+  // the dining quick-book instead.
+  if (path === '/quiz-night/themed') return { kind: 'link', label: 'View themed quiz dates', href: '#themed-dates' }
   if (path === '/private-hire' || path.startsWith('/private-hire/')) {
     return { kind: 'link', label: 'Enquire about your date', href: path === '/private-hire' || path === '/private-hire/wakes' ? '#enquiry' : '/private-hire#enquiry' }
   }

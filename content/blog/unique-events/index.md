@@ -51,7 +51,7 @@ Some popular events include:
 
 *   **Special Event Nights Near Heathrow**: Enjoy hosted nights like Music Bingo with Nikki Manfadge, plus quiz nights and one-off events. Perfect for **Heathrow staff** unwinding after shifts or **Staines locals** seeking weekend entertainment just **7 minutes from Terminal 5**. See /whats-on for the latest.
     
-*   **Monthly Quiz Nights**: Test your knowledge at our **pub near the airport**. Popular with **airport workers** and **Stanwell Moor residents**, prizes include drinks vouchers and free meals.
+*   **Monthly Quiz Nights**: Test your knowledge at our **pub near the airport**. Popular with **airport workers** and **Stanwell Moor residents**. The winners get a £25 bar voucher, and second from last gets a bottle of house wine.
     
 *   **Family Fun Days**: Weekend events designed for families from **Staines** and surrounding areas. Face painting, games, and activities provide a safe, fun environment away from busy Heathrow.
     
@@ -71,10 +71,6 @@ The offerings at The Anchor extend beyond just music and quizzes. One event that
   
 
 Did you know that draught lager and cider experiences remain some of the most popular pub event themes across the UK? Industry reports show continued demand for curated tastings and seasonal taps. Events like these not only spotlight great drinks but also foster a sense of community among attendees.
-
-  
-
-Regularly hosting food-themed events is another hallmark of The Anchor. For instance, the **Monthly Curry Night** draws in crowds eager to try unique curry dishes created by guest chefs. The combination of flavourful food and a friendly atmosphere makes this event a hit!
 
   
 
@@ -138,7 +134,7 @@ Make sure to check the events calendar at [The Anchor](https://www.the-anchor.pu
     
       
     
-*   **Craft Beer Festival**: Sample a selection of the finest local brews along with food trucks offering a variety of cuisines.
+*   **Craft Beer Festival**: Sample a selection of local brews along with food trucks offering a variety of cuisines.
     
       
     
@@ -159,16 +155,16 @@ As you plan your next outing, consider checking out what's happening at The Anch
 
 ### Visit The Anchor for Events Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-📅 **Regular Events**: 
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Regular Events**:
 - Quiz nights
 - Music Bingo hosted by Nikki Manfadge
 - Family days
 - Beer tastings
 See /whats-on for dates and details.
-📞 **Bookings**: 01753 682707
+**Bookings**: 01753 682707
 
 ### Why Choose The Anchor for Entertainment Near Terminal 5
 

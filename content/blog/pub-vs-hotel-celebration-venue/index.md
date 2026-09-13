@@ -47,7 +47,7 @@ If you're short on time, here's the overview. If you want the detail, keep scrol
 
 This is the factor that matters most to most people, and it's the hardest to quantify.
 
-A pub celebration has texture. You've got the hum of the bar, the smell of good food, maybe a fire going in winter or doors open onto a garden in summer. People settle in. They move between the bar and the function space. Conversations happen naturally because the environment encourages it. Nobody's sitting in rows of banquet chairs wondering when the speeches will end.
+A pub celebration has texture. You've got the hum of the bar, the smell of good food, a warm room in winter or doors open onto a garden in summer. People settle in. They move between the bar and the function space. Conversations happen naturally because the environment encourages it. Nobody's sitting in rows of banquet chairs wondering when the speeches will end.
 
 A hotel function room is a blank canvas. That's its strength and its weakness. If you're running a corporate event where you need branding on the walls and a specific AV setup, that neutrality is exactly what you want. But for a family celebration -- a birthday, a christening, a retirement -- that same neutrality can feel sterile. Beige walls, strip lighting, stacking chairs. It's functional but forgettable.
 
@@ -70,7 +70,7 @@ This is where the difference between pub and hotel becomes stark. We've written 
 | Welcome Drinks | Per head, minimum 10 guests |
 | Bar Tab | You set the limit |
 | Parking | Free, 20 spaces |
-| **Total** | **approximately £725** |
+| **Total** | Build it in our [cost estimator](/private-hire) |
 
 **At a Heathrow hotel (typical):**
 
@@ -83,7 +83,7 @@ This is where the difference between pub and hotel becomes stark. We've written 
 | AV hire | £150-£500 |
 | **Total** | **£2,300-£4,750** |
 
-That's not a minor difference. For 30 guests, you're looking at spending roughly two to six times more at a hotel for a comparable event. Some of that premium buys you genuine upgrades (bigger space, higher-end furnishings). Some of it is just overhead.
+That hotel total is not a small number. Build the same evening in our [cost estimator](/private-hire) and compare. Some of a hotel's premium buys you genuine upgrades (bigger space, higher-end furnishings). Some of it is just overhead.
 
 ### Why hotel costs are higher
 
@@ -115,7 +115,7 @@ If your guests are driving to a Heathrow hotel, they're paying to park. Airport-
 
 At The Anchor, parking is free. Twenty spaces on site -- level surface, close to the entrance, CCTV and floodlit -- with additional parking available nearby. For an event with families (car seats, pushchairs, gifts), this matters more than you'd think.
 
-We're also outside the ULEZ zone, which saves visitors £12.50 per day compared to venues within the zone.
+We're also outside the ULEZ zone, so there's no charge at our end of the journey.
 
 ## Food Quality: Pub Grub Has Changed
 
@@ -189,7 +189,7 @@ For small formal events (business dinners, retirement presentations, intimate ce
 
 ### What about dietary requirements at a pub?
 
-We cater for vegetarian, vegan and dairy-free diets. NGCI dishes and pizza bases are available too, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. The vegan Sunday roast option (beetroot and butternut squash wellington, £20) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
+We cater for vegetarian, vegan and dairy-free diets. NGCI dishes and pizza bases are available too, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. The vegan Sunday roast option (beetroot and butternut squash wellington) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
 
 ### Is a pub appropriate for a wake?
 

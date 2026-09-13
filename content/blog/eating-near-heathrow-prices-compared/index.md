@@ -133,9 +133,9 @@ Full disclosure: this is the bit where we talk about ourselves. We've tried to k
 
 Proper British pub food, cooked fresh to order. Our menu covers pub classics, burgers, stone-baked pizzas, comfort dishes and traditional pies. Check the live food menu for current prices.
 
-On Sundays, we do proper roasts: roast turkey, roast pork, roast beef, pies, or beetroot and butternut squash wellington. Walk in or book ahead, no pre-order needed. It's proper Sunday food with herb and garlic-crusted potatoes, seasonal veg and gravy.
+On Sundays, we do proper roasts: roast turkey, roast pork, roast beef or beetroot and butternut squash wellington. Walk in or book ahead, no pre-order needed. It's proper Sunday food with herb and garlic-crusted potatoes, seasonal veg and gravy.
 
-We also have a kids menu: sausage and mash, fish fingers, chicken goujons, or tomato pasta, with current prices shown on the live menu.
+We also have a kids menu: sausage, mash and gravy, fish fingers, chicken goujons, or mac and cheese, with current prices shown on the live menu.
 
 ### The setting
 
@@ -179,6 +179,6 @@ Outside the airport, local pubs usually offer better value than terminal restaur
 
 Airport food isn't terrible. It's just expensive for what it is, and the atmosphere leaves a lot to be desired. If you've got time -- and especially if you've got a car -- eating outside the airport is cheaper, better, and far more enjoyable.
 
-The numbers don't lie. A meal for two at The Anchor costs roughly half what you'd pay at the airport, with free parking, a beer garden, and food that's made from scratch. Whether you're killing time before a flight, celebrating a landing, or picking someone up, it's seven minutes well spent.
+Put the airport prices above next to our [live menu](/food-menu) and the difference is plain, with free parking, a beer garden, and food that's made from scratch. Whether you're killing time before a flight, celebrating a landing, or picking someone up, it's seven minutes well spent.
 
 [Book a table](/book-table) or call us on 01753 682707. Current bar and kitchen hours are live on our website.

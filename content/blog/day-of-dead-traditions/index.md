@@ -134,13 +134,13 @@ While many cultures mourn the dead with sombre rituals, Mexico's Day of the Dead
 
 ### Join Our Day of the Dead Celebration Near Heathrow
 
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-🌮 **Festival Dates**: October 31 - November 2 annually
-💀 **Activities**: Face painting, tequila tastings, cultural displays
-👨‍👩‍👧‍👦 **Family-Friendly**: Activities for all ages
-📞 **Information**: 01753 682707
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Festival Dates**: October 31 - November 2 annually
+**Activities**: Face painting, tequila tastings, cultural displays
+**Family-Friendly**: Activities for all ages
+**Information**: 01753 682707
 
 ### Why Celebrate Day of the Dead at The Anchor
 

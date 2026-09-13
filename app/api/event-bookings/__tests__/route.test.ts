@@ -364,3 +364,178 @@ describe('structured ticket holder details', () => {
     expect(calls).toHaveLength(0)
   })
 })
+
+/**
+ * Upstream refusals were passed straight through to the guest with their
+ * message and logged nowhere, so a refusal the guest could see was invisible
+ * to us. Every booking that does not complete now leaves a log line with the
+ * status, a code, the event id and the page it came from, and nothing the
+ * guest typed.
+ */
+describe('refused and failed bookings are logged without personal data', () => {
+  const { logError } = jest.requireMock('@/lib/error-handling') as { logError: jest.Mock }
+
+  const GUEST = {
+    ...VALID_BASE,
+    email: 'alice.booker@example.com',
+    event_slug: 'autumn-kick-off-quiz-night-2026-09-16',
+    landing_path: '/whats-on'
+  }
+
+  /** The page the form was on, with the click ids a paid visit carries. */
+  const REFERER = 'https://www.the-anchor.pub/events/autumn-kick-off-quiz-night-2026-09-16?utm_source=facebook&fbclid=fb-click-123'
+
+  function buildRequestFromPage(body: unknown): Request {
+    return new Request('http://localhost/api/event-bookings', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', referer: REFERER },
+      body: JSON.stringify(body)
+    })
+  }
+
+  function answerWith(status: number, body: unknown, contentType = 'application/json') {
+    global.fetch = jest.fn(async () =>
+      new Response(typeof body === 'string' ? body : JSON.stringify(body), {
+        status,
+        headers: { 'content-type': contentType }
+      })
+    ) as unknown as typeof fetch
+  }
+
+  function loggedDetails(): Record<string, unknown>[] {
+    return logError.mock.calls.map((call) => call[2] as Record<string, unknown>)
+  }
+
+  it.each([
+    [
+      'a 409 sales closed refusal',
+      409,
+      { success: false, error: { code: 'SALES_CLOSED', message: 'Online ticket sales for this event have closed.' } },
+      'api/event-bookings/refused',
+      { status: 409, code: 'SALES_CLOSED' }
+    ],
+    [
+      'a 409 the proxy passes through with its own message',
+      409,
+      { success: false, error: { code: 'TICKET_TYPE_SOLD_OUT', message: 'One of the selected ticket options has sold out' } },
+      'api/event-bookings/refused',
+      { status: 409, code: 'TICKET_TYPE_SOLD_OUT' }
+    ],
+    [
+      'a blocked answer that arrives as a 200',
+      200,
+      { success: true, data: { state: 'blocked', reason: 'sold_out', booking_id: null } },
+      'api/event-bookings/refused',
+      { status: 200, code: 'sold_out', state: 'blocked' }
+    ],
+    [
+      'a full night offered the waitlist',
+      200,
+      { success: true, data: { state: 'full_with_waitlist_option', reason: 'insufficient_capacity', booking_id: null } },
+      'api/event-bookings/refused',
+      { status: 200, code: 'insufficient_capacity', state: 'full_with_waitlist_option' }
+    ],
+    [
+      'a management side 500',
+      500,
+      { success: false, error: { code: 'DATABASE_ERROR', message: 'Failed to create event booking' } },
+      'api/event-bookings/failed',
+      { status: 500, code: 'DATABASE_ERROR' }
+    ]
+  ])('logs %s with its status, code, event id and source', async (_label, status, body, context, expected) => {
+    answerWith(status, body)
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequestFromPage(GUEST) as any)
+
+    // The guest still gets the answer, exactly as before.
+    expect(res.status).toBe(status)
+    expect(logError).toHaveBeenCalledTimes(1)
+    expect(logError).toHaveBeenCalledWith(
+      context,
+      expect.any(Error),
+      expect.objectContaining({
+        ...expected,
+        eventId: 'evt-12345678',
+        bookingSource: '/events/autumn-kick-off-quiz-night-2026-09-16'
+      })
+    )
+  })
+
+  it('logs an answer it cannot read as a failure', async () => {
+    answerWith(502, '<!doctype html><html><body>Bad gateway</body></html>', 'text/html')
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequestFromPage(GUEST) as any)
+
+    expect(res.status).toBe(502)
+    expect(logError).toHaveBeenCalledWith(
+      'api/event-bookings/failed',
+      expect.any(Error),
+      expect.objectContaining({ status: 502, code: 'UNREADABLE_RESPONSE', eventId: 'evt-12345678' })
+    )
+  })
+
+  it('logs its own validation refusal, with the fixed reason it gave the guest', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequestFromPage({ ...GUEST, seats: 21 }) as any)
+
+    expect(res.status).toBe(400)
+    expect(calls).toHaveLength(0)
+    expect(logError).toHaveBeenCalledWith(
+      'api/event-bookings/refused',
+      expect.any(Error),
+      expect.objectContaining({
+        status: 400,
+        code: 'VALIDATION_ERROR',
+        reason: 'Seats must be between 1 and 20',
+        eventId: 'evt-12345678'
+      })
+    )
+  })
+
+  it('falls back to the landing path when the request carries no referer', async () => {
+    answerWith(409, { success: false, error: { code: 'SALES_CLOSED' } })
+    const POST = await getPostHandler()
+
+    await POST(buildRequest(GUEST) as any)
+
+    expect(loggedDetails()[0]).toMatchObject({ bookingSource: '/whats-on' })
+  })
+
+  it('never logs the phone number, the name, the email, the message or the click ids', async () => {
+    const POST = await getPostHandler()
+    const answers: Array<[number, unknown]> = [
+      [409, { success: false, error: { code: 'POLICY_VIOLATION', message: 'Customer 07700900000 is blocked' } }],
+      [409, { success: false, error: { code: 'SALES_CLOSED' } }],
+      [200, { success: true, data: { state: 'blocked', reason: 'Alice Booker already holds a booking' } }],
+      [422, { success: false, error: { code: 'VALIDATION_ERROR', message: 'alice.booker@example.com is not valid' } }],
+      [500, { success: false, error: 'Database error for 07700900000' }]
+    ]
+
+    for (const [status, body] of answers) {
+      answerWith(status, body)
+      await POST(buildRequestFromPage(GUEST) as any)
+    }
+
+    expect(logError).toHaveBeenCalledTimes(answers.length)
+    const logged = JSON.stringify(logError.mock.calls.map((call) => [call[0], (call[1] as Error).message, call[2]]))
+    for (const personal of ['07700900000', 'Alice', 'Booker', 'alice.booker@example.com', 'fbclid', 'fb-click-123', 'utm_source']) {
+      expect(logged).not.toContain(personal)
+    }
+    // A free-text reason is dropped rather than logged.
+    expect(loggedDetails()[2]).toMatchObject({ state: 'blocked', code: null })
+  })
+
+  it('logs nothing for a confirmed booking', async () => {
+    installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequestFromPage(GUEST) as any)
+
+    expect(res.status).toBe(201)
+    expect(logError).not.toHaveBeenCalled()
+  })
+})

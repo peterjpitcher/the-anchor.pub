@@ -143,6 +143,15 @@ export interface TestimonialInput {
   rating: number
 }
 
+function toTestimonial(review: GoogleReview): TestimonialInput {
+  return {
+    quote: review.quote,
+    author: review.author,
+    source: `Google review, ${review.date}`,
+    rating: 5
+  }
+}
+
 /**
  * Real reviews for a topic, ready to hand to TestimonialSection.
  *
@@ -153,10 +162,16 @@ export function getReviewsByTopic(topic: ReviewTopic, limit = 3): TestimonialInp
   return GOOGLE_REVIEWS
     .filter(review => review.topics.includes(topic))
     .slice(0, limit)
-    .map(review => ({
-      quote: review.quote,
-      author: review.author,
-      source: `Google review, ${review.date}`,
-      rating: 5
-    }))
+    .map(toTestimonial)
+}
+
+/**
+ * Every real review, for /reviews, which is about the reviews themselves
+ * rather than about one topic.
+ *
+ * The page shows exactly as many cards as the export has entries. There is no
+ * target count to hit, so there is never a reason to write a card.
+ */
+export function getAllReviews(): TestimonialInput[] {
+  return GOOGLE_REVIEWS.map(toTestimonial)
 }

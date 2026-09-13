@@ -104,12 +104,12 @@ Our **monthly gameshow nights** at this **entertainment venue near Heathrow** se
 
 ### **How to Book Gameshow Nights at The Anchor**
 
-🎫 **Tickets**: £15 per person (includes all games)  
-📅 **When**: Last Friday of every month  
+**Tickets**: £15 per person (includes all games)  
+**When**: Last Friday of every month  
 ⏰ **Time**: 8:00 PM - 11:30 PM  
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
-🚗 **Parking**: Free on-site parking  
-✈️ **From Heathrow**: Just 7 minutes from all terminals  
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
+**Parking**: Free on-site parking  
+**From Heathrow**: Just 7 minutes from all terminals  
 
 **Book Now**: Call 01753 682707 or visit us in person
 

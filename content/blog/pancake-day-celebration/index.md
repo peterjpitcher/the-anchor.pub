@@ -114,18 +114,18 @@ Don't miss out on our annual Pancake Day festivities at The Anchor! Come in for 
 
 ### Visit The Anchor for Pancake Day Near Terminal 5
 
-📅 **When**: Every Shrove Tuesday (check dates annually)
+**When**: Every Shrove Tuesday (check dates annually)
 ⏰ **Offer Time**: 6pm - 9pm
-🥞 **Deal**: Free pancakes with any main meal
-📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-✈️ **From Heathrow**: Just 7 minutes from all terminals
-🚗 **Parking**: Free on-site parking
-📞 **Bookings**: 01753 682707
+**Deal**: Free pancakes with any main meal
+**Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
+**From Heathrow**: Just 7 minutes from all terminals
+**Parking**: Free on-site parking
+**Bookings**: 01753 682707
 
 ### Pancake Options Available
-- 🍋 Traditional sugar and lemon
-- 🍫 Chocolate and banana
-- 🍓 Strawberries and cream
+- Traditional sugar and lemon
+- Chocolate and banana
+- Strawberries and cream
 
 ### Why Celebrate Pancake Day Near Heathrow
 - **Convenient location** for airport workers after shifts

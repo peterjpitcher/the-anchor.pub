@@ -11,6 +11,7 @@ import { trackCtaClick } from '@/lib/gtm-events'
 import { getEventRemainingCapacity, formatEventTime, type Event } from '@/lib/api'
 import { getEventBookingBlockReason, isEventBookingClosed } from '@/lib/event-lifecycle'
 import { GAME_NIGHT_BOOKING_ANCHOR } from './GameNightCtaActions'
+import { GameNightDatesUnavailable } from './GameNightDatesUnavailable'
 import { gameNightShortDate } from './format'
 
 /** Below this many places left, saying so is urgency. Above it, it is noise. */
@@ -28,6 +29,12 @@ interface GameNightBookingProps {
   gameSlug: string
   /** Payment and arrival reassurance from the game config. */
   bookingNote: string
+  /**
+   * True when the event diary could not be read in full (the read status was
+   * not `ok`). An empty `events` then means "we could not look", so the card
+   * must not say that no dates are on sale.
+   */
+  datesUnavailable?: boolean
 }
 
 /**
@@ -55,7 +62,8 @@ export function GameNightBooking({
   events,
   gameName,
   gameSlug,
-  bookingNote
+  bookingNote,
+  datesUnavailable = false
 }: GameNightBookingProps) {
   // Dates a visitor could actually book: drafts, cancellations, past dates and
   // events with bookings switched off are not offered at all. Sold-out dates are
@@ -75,6 +83,34 @@ export function GameNightBooking({
 
   const [selectedId, setSelectedId] = useState<string | null>(bookable[0]?.id ?? null)
   const selected = bookable.find((event) => event.id === selectedId) ?? bookable[0] ?? null
+
+  // An outage is not an empty diary. "No dates on sale yet" is a claim about
+  // the business, and during an outage we have no evidence for it, so the card
+  // says what actually happened and hands over the phone number instead.
+  if (!selected && datesUnavailable) {
+    return (
+      <Card accent id={GAME_NIGHT_BOOKING_ANCHOR}>
+        <CardBody className="space-y-4 text-center">
+          <h2 className="text-h3 text-ink-strong">We could not load the {gameName} dates just now</h2>
+          <p className="text-ink-muted">
+            Our event diary is not answering, so we cannot show the next date or take a booking
+            here right now. Please do not read this as nothing being on. Call us and we will tell
+            you what is coming up.
+          </p>
+          <div className="flex justify-center">
+            <PhoneButton
+              phone={CONTACT.phone}
+              source={`${gameSlug}_booking_unavailable`}
+              variant="primary"
+              size="lg"
+            >
+              Call {CONTACT.phone}
+            </PhoneButton>
+          </div>
+        </CardBody>
+      </Card>
+    )
+  }
 
   if (!selected) {
     return (
@@ -118,6 +154,13 @@ export function GameNightBooking({
           <p className="text-ink-muted">{bookingNote}</p>
           <RegretReduction variant="booking" />
         </div>
+
+        {/* Some dates loaded and some did not (karaoke reads two categories).
+            What loaded can still be booked, but the switcher below may not be
+            the whole diary, so the page says so. */}
+        {datesUnavailable && (
+          <GameNightDatesUnavailable gameName={gameName} source={`${gameSlug}_booking_partial`} />
+        )}
 
         {bookable.length > 1 && (
           <div className="space-y-2">

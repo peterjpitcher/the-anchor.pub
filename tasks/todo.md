@@ -1,3 +1,75 @@
+# Quiz night and Music Bingo facts, 11 September 2026
+
+Branch `fix/quiz-and-music-bingo-facts-2026-09-11` (worktree `OJ-The-Anchor.pub-wt-quizfacts`), local only.
+Owner-confirmed 11 September 2026: the quiz has five rounds, with one interactive, phone-based round in the
+middle; prizes for first and second from last only; no league tables or quiz food deals; no best team name
+prize. Music Bingo winners get a £25 voucher to spend with us, the same as the quiz.
+
+- [x] SSOT §10 (format, prizes, phone rule, Music Bingo prize) and §18, then `SSOT.json`; drift guard
+- [x] Remove the "Best team name" prize from `/quiz-night`
+- [x] Sweep the site for round counts, extra prizes, rollover jackpots, league tables, quiz food deals, spot
+      prizes, free-drink questions, phone rules without the interactive round, and Music Bingo prizes
+- [x] Guard the retired claims in `tests/ssot-drift-guard.test.ts`, and prove the guard fails on the old copy
+- [x] Lint, `npm test`, `npm run test:utc`, build; commit in logical pieces; no push
+
+Results:
+- Nine commits on the branch before this record, not pushed. Lint passes; `npm test` and `npm run test:utc`
+  both 224 suites, 2,654 passed, 1 skipped; the build makes 279 pages. The drift guard has 83 tests (five
+  new); with origin/main's copy restored all five fail and the 78 others pass.
+- Read from a local production build (`next start`): `/quiz-night` shows two prize cards in a two-column
+  grid, "Ready to play for the voucher?" and the phone exception; `/quiz-night/themed`, `/music-bingo` and `/whats-on`
+  show the new lines; the three blog posts render corrected.
+- The five upcoming quiz records in the management app said "a closest-wins free drink question in every
+  round" and "spot prizes" on the first read of the live events API. They were corrected the same evening
+  (the management app's main branch gained migration `20260911220000_quiz_prize_claims` at 20:56), and a
+  second read at 21:10 found neither. The app's guest email campaigns for the 16 and 25 September quizzes still promise spot
+  prizes (the 16th also free-drink questions): an owner decision, if they have not gone out.
+- Left as outside these facts: `/blog/music-bingo-nights` still gives the last Wednesday at 7:30pm, five
+  rounds and "sells out"; `/music-bingo` keeps its own "phones away during the rounds"; the comparison
+  guide's generic no-phones tip; the `/reviews` quote that mentions quiz cash prizes; the closed 22 July
+  WhatsApp guessing competition terms; `lib/static-events.ts`, which nothing renders.
+
+# Owner answers of 11 September 2026, applied
+
+Branch `fix/owner-answers-2026-09-11` (worktree `OJ-The-Anchor.pub-wt-answers`), local only. SSOT first, then
+`SSOT.json`, then page copy. Background: reconciliation sections B1 to B5, A10 and D1.
+
+- [x] Quiz prize is a £25 bar voucher, not a bar tab; mirror the closest-answer drink and spot prizes (SSOT §10, JSON, site)
+- [x] Events finish by 10pm, Halloween and New Year's Eve excepted (SSOT §10, JSON); correct any later finish on the site
+- [x] Quiz seating is team tables, one table per team (SSOT §10, JSON, `lib/game-nights/quiz-night.ts`)
+- [x] Peter Pitcher hosts karaoke (SSOT §10, JSON, code comments); no new host copy
+- [x] Curry Club discontinued (SSOT §10 and §14, JSON); retire the post with a 301, repoint older rules, remove mentions, guard it
+- [x] Old Festive Menu catering packages switched off (SSOT §7 and §14, JSON, three Christmas Dinner objects flagged); check `/christmas-parties`
+- [x] Drift guard, lint, `npm test`, `npm run test:utc`, build; commit in logical pieces; no push
+
+Results:
+- Eight commits on the branch (this record is the last), not pushed. The drift guard gained a check for every
+  answer (78 tests). Lint, `npm test` and `npm run test:utc` (224 suites, 2,647 passed, 1 skipped) and the build
+  (279 pages) all pass.
+- `/music-bingo` series schema ended at 23:00; now 22:00. No other late finish in site copy.
+- `/blog/curry-club-the-anchor` and three older `/post/` URLs 301 to `/food-menu` in one hop, proved in
+  `tests/seo-indexing.test.ts` through the real middleware and by curl against a local production server.
+- Management app records still end after 10pm (Music Bingo 23:00, karaoke 18 September 23:30, tasting night
+  20 November 22:30) and four quiz records still say communal seating. They render on event pages until
+  corrected in the app, which is a data change for the owner to approve.
+
+# Game nights growth review, 11 September 2026
+
+Owner ask: hosted events (quiz, music bingo, cash bingo) are not in growth and may be stopped; understand
+performance, research growth strategies, and run the keyword-plan skill on the event pages. Read only:
+no site, database or messaging changes without an explicit yes. Branch `docs/events-growth-2026-09-11`
+(worktree `OJ-The-Anchor.pub-wt-events`), local only. Takings and booking figures stay out of this
+public repository; they live in the owner's private report.
+
+- [x] Attendance, booking-source, SMS and takings analysis from the management app (read-only SQL)
+- [x] Research on growing pub event attendance (subagent)
+- [x] Read-only audit of /whats-on, the three game hubs, /quiz-night/themed and /events/ pages (subagent)
+- [x] Keyword programme workspace `tasks/keyword-plan/` (v2.1): config, brief, clusters, pages, site events
+- [x] Legacy run `2026-09-11-01-legacy`: four Search Console page exports and two Keyword Planner exports imported
+- [x] Targeted run `2026-09-11-02-targeted`: request for five page exports and one volume upload written
+- [ ] Owner supplies the six exports; then validate, import, join, diagnose, plan, lint, one approval
+- [ ] Owner decisions: costs per night, quiz host, fixed slots, text cap, unsourced page claims, website fix list
+
 # Workspace standards, security and context work, 4 to 5 September 2026
 
 Owner decisions on the record: unlink the never-used marketing skills; standardise CLAUDE.md and AGENTS.md across every project; fix everything found, excluding the Barons projects.
@@ -388,3 +460,48 @@ Branch `fix/ssot-superlatives`, from origin/main at aa9c6d00. Owner approval on 
 - [x] Left alone, not asked for: "unbeatable", "ultimate", "finest", "warmest welcome" and similar wording
 - [x] Guards: any hardcoded review count (the old pattern missed "238&nbsp;reviews"), runway designators, and self-superlatives. All three fail against origin/main content and pass now
 - [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,459 passed each), build (295 pages); 25 changed URLs read back from the production build on port 3112. Most edited tag entries and two of the edited pages (`/pub-garden-heathrow`, the older plane-spotting guide) sit behind redirects, so those edits are not reachable today
+- [x] Merged and verified live: #163 as deployment `dpl_4Uf3fqdvM7NoY3d9wsRRDEE3zUGB` (11bffc3f)
+
+# Retired off-SSOT event posts, 10 September 2026
+
+Branch `fix/retire-off-ssot-event-posts`, from origin/main at 7c0e92ce. Owner approval on 10 September 2026: retire the drag cabaret and Christmas market posts with redirects, and correct the cash bingo post from the SSOT.
+
+- [x] `/blog/drag-cabaret-nikki` deleted and redirected (301) to `/whats-on`, like the retired live-music post (section 10: drag cabaret is discontinued)
+- [x] `/blog/christmas-market` deleted and redirected (301) to `/christmas-parties`, like `christmas-venue` in August (section 7: no market in 2026). That page stays up after the season ends, so there is no chain later
+- [x] Seven older rules that landed on either post now go straight to the new destination: four in `blog-redirects.json`, three in `wix-redirects.json`
+- [x] `/blog/monthly-cash-bingo` rewritten from section 10: monthly on varying dates, arrive by 6:30pm, first game 7pm, about 9:30pm finish, ten games, £10 books and £1 daubers cash only, both halves of the age rule, prizes vary, the snowball rule. Gone: first Thursdays, doors at 6pm, games from 8pm, three games, the guaranteed £50 jackpot, a menu list, invented "coming soon" events. URL, slug and noindex unchanged; two keywords that asserted Thursdays and a £50 prize removed
+- [x] Same fact elsewhere: the 2023 New Year post listed "First Thursday Bingo"; now "Cash bingo"
+- [x] SSOT sections 7, 10 and 18 and the `SSOT.json` market note record the retirements
+- [x] Tests: the two 301s, deleted folders and no rule landing on a retired post (`tests/seo-indexing.test.ts`); cash bingo format guard (`tests/ssot-drift-guard.test.ts`). Both fail against origin/main content and pass now
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,462 passed each), build (293 pages). Production build checked on port 3113: ten old and new URLs each reach their target in one 301; the cash bingo post shows the new facts and none of the old
+- [x] Merged as 83ca9c51. Vercel never started a production build for that merge (no deployment and no GitHub status after 11 minutes, while previews kept building), so it went live inside the next main deployment, `dpl_Gr1DTb7FRUW2jYhBHDY5BcMRsBF4` (cc520e1b). All ten redirects and both corrected posts verified on www.the-anchor.pub
+
+# "Best" in other words, 10 September 2026
+
+Branch `fix/ssot-superlative-synonyms`, from origin/main at 83ca9c51. Owner approval on 10 September 2026: remove the "unbeatable", "ultimate" and "warmest" claims the same way as "best".
+
+- [x] 35 claims reworded across 3 pages, 14 posts and the tag page text: unbeatable, ultimate, finest, warmest, unmatched, no better place and nowhere better, when said of the pub or what it sells
+- [x] Kept: lines about someone else (Europe's finest teams, Scotland's finest distilleries, Myrtle Avenue's unbeatable proximity), customer quotes, slugs, code identifiers, and "X's favourite" (SSOT section 1 encourages "favourite")
+- [x] Guard for "best" in other words, sharing the comparison-guide and quote exemptions with the best and premier check. The helper now reads a TypeScript `\'` as an apostrophe, which the tag page text uses; that also closes a gap in the best and premier check. Fails against origin/main content and passes now
+- [x] Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,463 passed each), build (293 pages); eleven changed URLs read back from the production build on port 3114
+- [x] Overlap: #167 (another session) deletes the Valentine's post edited here. Whichever lands second keeps the deletion
+- [x] Merged and verified live: #170 as `dpl_Gr1DTb7FRUW2jYhBHDY5BcMRsBF4` (cc520e1b), on top of #169 from another session
+
+# Myrtle Avenue runway, 10 September 2026
+
+Branch `fix/myrtle-avenue-southern-runway`, from origin/main at cc520e1b. Flagged in the #163 report as unchecked; the owner asked to finish everything outstanding.
+
+- [x] Checked: Myrtle Avenue is near the eastern end of Heathrow's southern runway (Wikipedia, "Myrtle Avenue, Hounslow", and the spotter guides agree)
+- [x] Four statements tied it to the northern runway: two in the plane-spotting locations guide, two in the older guide that redirects to it. All corrected, without a runway designator (section 9)
+- [x] The wind-direction question went to the owner in chat; answered the same day (see below)
+- [x] Merged and verified live: #171 as `dpl_DDs4uv3iW5VBv2L3R14me3UomT5F` (efee288b)
+
+# Three more market posts, the New Year post, and no wind, 10 September 2026
+
+Branch `fix/retire-market-posts-and-wind`, from origin/main at 644aaef6 (after the other session merged #162, #164 and #167). Owner answers on 10 September 2026: "1 yes" (retire the three market posts, trim the New Year post to SSOT facts) and "don't mention the wind, I don't know".
+
+- [x] SSOT first: section 7 lists the three retired posts; section 9 swaps "Westerly operations: ~50% of the year" for a rule never to name a wind or an operation; `SSOT.json` drops `westerly_operations`; changelog entry
+- [x] `christmas-fair-at-the-anchor`, `piano-christmas-performance` and `this-december-at-the-anchor` deleted and redirected (301) to `/christmas-parties`; two older piano rules repointed; the retired-post test covers all five
+- [x] New Year post rewritten from SSOT facts: gone are weekly quizzes, Fish & Chip Fridays, a lunch club, a morning coffee spot, live entertainment, invented quotes and a seasonal calendar
+- [x] Wind: `/plane-spotting-heathrow`, the locations guide and the beer gardens guide no longer name a wind or an operation; the 3pm weekly alternation is the only timing given. Drift guard added
+- [x] Both new tests fail against origin/main content and pass now. Lint and audits, typecheck, `npm test` and `npm run test:utc` (2,484 passed each), build (281 pages); eight redirects and four pages read back from the production build on port 3115

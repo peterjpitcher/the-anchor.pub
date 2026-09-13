@@ -477,6 +477,11 @@
     "permanent": true
   },
   {
+    "source": "/whats-on/drag-shows",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
     "source": "/events/twisted-fairytale-",
     "destination": "/whats-on",
     "permanent": true

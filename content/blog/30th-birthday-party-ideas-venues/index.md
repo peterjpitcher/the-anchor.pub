@@ -103,7 +103,7 @@ Put your guest count into the [private hire calculator](/private-hire) and it wi
 
 ### Pizza party (genuinely underrated for adults)
 
-There's a reason pizza works at every age. Order a mix of stone-baked pizzas, set them on a table, and let people help themselves. At The Anchor, stone-baked pizzas start at £13 for 12-inch, hand-stretched bases, with NGCI options available. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. For a 30th, a pizza buffet with a few sides is relaxed, affordable, and means nobody's agonising over a set menu.
+There's a reason pizza works at every age. Order a mix of stone-baked pizzas, set them on a table, and let people help themselves. At The Anchor, the stone-baked pizzas are 12-inch and hand-stretched, with NGCI options available and today's prices on our [food menu](/food-menu). NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. For a 30th, a pizza buffet with a few sides is relaxed, affordable, and means nobody's agonising over a set menu.
 
 ### Drinks packages vs bar tab: what's actually cheaper?
 
@@ -155,7 +155,7 @@ Those figures tell a clear story. A 30th birthday at an airport hotel can cost f
 
 ## Location matters: why Stanwell Moor works for a 30th
 
-If your guests are scattered across west London, Surrey, and Berkshire, a venue near Heathrow makes practical sense. Everyone knows how to get there. It's near the M25 (two minutes from Junction 14), accessible by bus from Heathrow Central Bus Station (routes 441, 442, 555), and sits outside the ULEZ zone, saving your London-based guests £12.50 they'd rather spend at the bar.
+If your guests are scattered across west London, Surrey, and Berkshire, a venue near Heathrow makes practical sense. Everyone knows how to get there. It's near the M25 (two minutes from Junction 14), accessible by bus from Heathrow Central Bus Station (routes 441, 442, 555), and sits outside the ULEZ zone.
 
 Stanwell Moor itself is a proper village. It's quiet, it's got character, and it's a world away from the identikit venues you'll find along the Bath Road hotel corridor. The Anchor has been here since 1751, nearly 275 years, which means it's not some pop-up party venue. It's a real pub with real history that happens to be brilliant for events.
 

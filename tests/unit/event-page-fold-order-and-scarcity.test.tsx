@@ -307,10 +307,23 @@ describe('EV-012, live places left beside the booking action', () => {
       { booking_mode: 'communal', seated_remaining: 0, standing_remaining: 6, total_remaining: 6 },
       '6 standing left'
     ],
+    // Standing is offered only once every seat has sold (docs/SSOT.md §10), so
+    // while seats remain the count is the seated one alone. This used to read
+    // "43 seated, 11 standing left".
     [
-      'both kinds of place on sale',
+      'seats and standing both on sale, which counts seats only',
       { booking_mode: 'communal', seated_remaining: 43, standing_remaining: 11, total_remaining: 54 },
-      '43 seated, 11 standing left'
+      '43 seats available'
+    ],
+    [
+      'a few seats left with standing behind them, which still counts seats only',
+      { booking_mode: 'communal', seated_remaining: 4, standing_remaining: 11, total_remaining: 15 },
+      'Only 4 seats left'
+    ],
+    [
+      'seats and standing both gone',
+      { booking_mode: 'communal', seated_remaining: 0, standing_remaining: 0, total_remaining: 0 },
+      'Sold out'
     ]
   ])('says %s', async (_label, capacity, expected) => {
     const event = makeEvent(capacity as Partial<Event>)
@@ -318,6 +331,14 @@ describe('EV-012, live places left beside the booking action', () => {
     // The words are the resolver's, not this page's.
     expect(getEventSeatAvailabilityLabel(event)).toBe(expected)
     expect(await renderLabel(event)).toBe(expected)
+  })
+
+  it('never mentions standing anywhere on the page while seats remain', async () => {
+    const container = await renderEventPage(
+      makeEvent({ booking_mode: 'communal', seated_remaining: 49, standing_remaining: 11, total_remaining: 60 })
+    )
+
+    expect(container.textContent || '').not.toMatch(/standing/i)
   })
 
   it('says nothing at all when the API sent no capacity', async () => {

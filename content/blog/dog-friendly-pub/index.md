@@ -46,7 +46,7 @@ Ask at the bar if you can't see a water bowl. If your dog's nervous, or you'd li
 
 > Roasts are carved fresh every Sunday from 1pm to 6pm. There's nothing to order in advance, so walk in whenever suits you. Last seating is 5:30pm.
 
-There's beef, pork and turkey, two pies and a fully vegan Wellington, plus kids' roasts. Your dog can stay with you, on a lead, wherever you sit.
+There's beef, pork and turkey, a fully vegan Wellington, and kids' roasts. Your dog can stay with you, on a lead, wherever you sit.
 
 Booking's worth it for a group or a busy slot, but you don't have to. [Book a table](/book-table) or [see the Sunday roast](/sunday-roast).
 

@@ -95,7 +95,11 @@ function getBarStatus(hours: any): string {
   const todayHours = resolveTodaySchedule(hours)
 
   if (currentStatus.isOpen) {
-    const closes = todayHours?.closes
+    // The closing time in force, from the live status. Between midnight and a late close (1am on
+    // New Year's Eve) the pub is open on yesterday's hours and today's row can be a closed day
+    // with no closing time, which left just "Bar: Open". Today's row stays the fallback for an
+    // API that does not send it; on every other day the two are the same time.
+    const closes = currentStatus.closes ?? todayHours?.closes
     if (closes) {
       return `Bar: Open · closes ${formatTime12Hour(closes)}`
     }

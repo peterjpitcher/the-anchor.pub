@@ -90,7 +90,7 @@ export default async function VegetarianMenuPage() {
   return (
     <>
       <InteriorHero
-        image="/images/page-headers/food-menu/food-menu.jpg"
+        image="/images/food/weekday-2026/stone-baked-pizza.jpg"
         crumb="Vegetarian"
         title="Vegetarian Menu"
         lead="Current vegetarian dishes, descriptions and prices from the latest kitchen menu."

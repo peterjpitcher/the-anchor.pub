@@ -10,6 +10,7 @@ import {
   CHRISTMAS_WINDOW_START,
   getLondonIsoDate
 } from '@/lib/christmas-season'
+import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
 
 const DEFAULT_TO = 'manager@the-anchor.pub'
 const GRAPH_SCOPE = 'https://graph.microsoft.com/.default'
@@ -561,6 +562,21 @@ export async function POST(request: NextRequest) {
           success: false,
           error: `Christmas bookings need at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice. The earliest date we can take is ${earliestDate}.`
         },
+        { status: 400 }
+      )
+    }
+
+    // Two and three courses need everyone's choices by noon seven days before the date, so
+    // inside that the 1 course menu is the only one we can do (SSOT §7, owner decision
+    // 10 September 2026). Refused rather than quietly changed, so the guest knows before
+    // they wait for a call back.
+    if (
+      body.mode === 'meal' &&
+      (body.courseTier === 'two_course' || body.courseTier === 'three_course') &&
+      !christmasMultipleCoursesAvailable(body.preferredDate)
+    ) {
+      return NextResponse.json(
+        { success: false, error: `${LATE_CHRISTMAS_ONE_COURSE_NOTE} Please change the courses to 1 course each, or not decided yet.` },
         { status: 400 }
       )
     }

@@ -4,8 +4,7 @@ description: >-
   Discover amazing monthly rum specials at The Anchor pub near Heathrow Airport.
   Premium Kraken Rum with exclusive discounts for airport staff, travelers, and
   locals. Regular rum tasting nights featuring Caribbean spirits. Just 7 minutes
-  from Terminal 5 with free parking. The ultimate destination for rum cocktails
-  and deals near Heathrow.
+  from Terminal 5 with free parking. Rum cocktails and deals near Heathrow.
 date: '2025-01-15'
 oldUrl: 'https://www.the-anchor.pub/post/25-off-kraken-rum-this-june-manager-s-special'
 author: Billy
@@ -129,7 +128,7 @@ Kraken Black Cherry introduces a new layer to our rum offerings. It's deep, smoo
 
   
 
-🎟️ **Tickets: £30**
+**Tickets: £30**
 
 Available exclusively at the bar, this price covers all tastings, supper, and activities, no extra fees, just a fantastic night!
 
@@ -177,13 +176,13 @@ Whether you're airport staff finishing a shift, travelers with time to spare, or
 
   
 
-Every month at The Anchor brings new manager's specials and exciting rum offers. Our **premium spirits deals near Heathrow** are your gateway to discovering bold flavours like Kraken Rum at unbeatable prices.
+Every month at The Anchor brings new manager's specials and exciting rum offers. Our **premium spirits deals near Heathrow** are your gateway to discovering bold flavours like Kraken Rum.
 
   
 
-✨ **Check our current monthly specials** - Ask at the bar or call 01753 682707
+**Check our current monthly specials** - Ask at the bar or call 01753 682707
 
-🎟️ **Join our next rum tasting night** - Regular events featuring Caribbean spirits
+**Join our next rum tasting night** - Regular events featuring Caribbean spirits
 
   
 

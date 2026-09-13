@@ -309,7 +309,7 @@ export default function Terminal2Page() {
                 { title: "The Queen's Terminal", content: "Opened by Her Majesty in 2014, T2 is Heathrow's newest terminal. Experience a piece of traditional Britain at The Anchor before entering this modern gateway." },
                 { title: 'Smart Parking Choice', content: 'Heathrow short-stay parking costs add up fast. Park free with us while dropping off or collecting passengers, no fees, no time limits.' },
                 { title: 'International Meets Local', content: 'Flying to Munich, Toronto, or Singapore? Start with fish & chips or a Sunday roast. Our international guests love experiencing authentic British pub culture.' },
-                { title: 'Outside ULEZ Zone', content: "Save £12.50 daily! We're outside London's ULEZ zone, perfect for travellers avoiding the charge. Direct access from M25 without entering the zone." },
+                { title: 'Outside ULEZ Zone', content: "We're outside London's ULEZ zone, and you can reach us from the M25 without entering it." },
                 { title: 'Direct Bus Route', content: 'The 442 bus stops directly outside, connecting Terminal 2 to our pub. Much cheaper than a taxi and runs regularly throughout the day.' }
               ].map(box => (
                 <Card key={box.title} accent>

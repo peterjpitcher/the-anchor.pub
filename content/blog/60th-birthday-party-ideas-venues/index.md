@@ -37,9 +37,9 @@ It also means choosing a venue that doesn't feel like a corporate event. Nobody 
 
 A Sunday roast party is arguably the perfect format for a 60th. It's familiar, it's relaxed, and it gives the celebration a natural structure, arrive, sit down, eat, toast, pudding, more chatting, without needing a programme or activities.
 
-At The Anchor, [Sunday roast](/sunday-roast) starts from £16 per person, with options including roast turkey (£16), roast pork (£20), roast beef (£22), pies (£21), and a vegan beetroot and butternut squash wellington (£20). Kids roast is £14. All mains come with herb and garlic-crusted roast potatoes, seasonal vegetables and gravy, with Yorkshire puddings on sliced roasts and kids roasts.
+At The Anchor, Sunday roast options include roast turkey, roast pork, roast beef, a vegan beetroot and butternut squash wellington and a kids roast, and you'll find today's prices on our [Sunday roast menu](/sunday-roast). All mains come with herb and garlic-crusted roast potatoes, seasonal vegetables and gravy, with Yorkshire puddings on sliced roasts and kids roasts.
 
-**Make it work:** Walk in or book ahead, no pre-order needed and no Saturday cutoff. Sunday roast is served 1pm to 6pm, with last bookings at 5:30pm. Maximum online party size is 20; for larger groups call 01753 682707 directly. Groups of 10 or more take a £10 per person deposit, fully deducted from the bill on the day. The regular weekday menu is also available on Sundays for guests who fancy something different.
+**Make it work:** Walk in or book ahead, no pre-order needed and no Saturday cutoff. Sunday roast is served 1pm to 6pm, with last bookings at 5:30pm. Maximum online party size is 20; for larger groups call 01753 682707 directly. Groups of 15 or more: a £10 per person deposit, fully deducted from your bill. The regular weekday menu is also available on Sundays for guests who fancy something different.
 
 ### Afternoon tea-style gathering
 
@@ -134,7 +134,7 @@ The price gap is real, and it compounds. Every pound saved on room hire and park
 
 ## Location and getting here
 
-Stanwell Moor sits in a quiet pocket of Surrey, two minutes from M25 Junction 14, outside the ULEZ zone (saving London drivers £12.50), and close enough to Heathrow that guests flying in from elsewhere can be at the venue within minutes of landing.
+Stanwell Moor sits in a quiet pocket of Surrey, two minutes from M25 Junction 14, outside the ULEZ zone, and close enough to Heathrow that guests flying in from elsewhere can be at the venue within minutes of landing.
 
 **Drive times to The Anchor:**
 - Heathrow Terminal 5: 7 minutes

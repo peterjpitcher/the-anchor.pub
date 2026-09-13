@@ -7,9 +7,13 @@ import type { GameNightConfig } from './types'
  * docs/SSOT.md §10 (owner-confirmed 11 August 2026): karaoke is "not a regular
  * feature in 2026", it "happens occasionally, nothing more", it must only be
  * promoted when a specific event record lists it, it must never imply a weekly,
- * monthly or Friday slot, it has no fixed host (Nikki hosts music bingo, not
- * karaoke), entry is free, and no recurring EventSeries schema may be published
- * for it.
+ * monthly or Friday slot, Nikki hosts music bingo, not karaoke, entry is free,
+ * and no recurring EventSeries schema may be published for it.
+ *
+ * The host is Peter Pitcher, the owner (owner-confirmed 11 September 2026; the
+ * older "no fixed host" line is retired). The facts below do not name him,
+ * because the quiz and cash bingo configs, which he also hosts, do not name
+ * him either; only music bingo lists its host.
  *
  * So this page must convert anyone who lands on it while never selling a
  * cadence that does not exist. Its normal state is "no dates listed", which is

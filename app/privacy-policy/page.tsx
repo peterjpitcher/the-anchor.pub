@@ -92,13 +92,16 @@ export default function PrivacyPolicyPage() {
           <ul>
             <li>Process your bookings and reservations</li>
             <li>Send booking confirmations, reminders, payment links, waitlist updates, and booking changes by phone, email, SMS, or WhatsApp where relevant</li>
-            <li>Send you updates about events and promotions (with your consent)</li>
+            <li>Send you news about the pub: what is on, new menus, offers, and anything that is changing</li>
             <li>Improve our website and services</li>
             <li>Respond to your inquiries and provide customer support</li>
             <li>Comply with legal obligations</li>
           </ul>
           <p>
-            Guest communication consent is recorded against the wording version {GUEST_COMMS_CONSENT_TEXT_VERSION}. Marketing consent is optional, unchecked by default, and recorded separately for email, SMS, and WhatsApp. Clicking a WhatsApp contact link does not by itself opt you in to WhatsApp messages or marketing.
+            If you have booked with us or given us your email address, we may email you news about the pub. Every email has an unsubscribe link, and using it stops the news straight away without affecting your booking confirmations or reminders. You can stop marketing texts by replying NOEVENTS, or STOP to stop texts altogether.
+          </p>
+          <p>
+            Guest communication consent is recorded against the wording version {GUEST_COMMS_CONSENT_TEXT_VERSION}, separately for email, SMS, and WhatsApp. WhatsApp marketing is only ever sent to people who have asked for it, and clicking a WhatsApp contact link does not by itself opt you in to WhatsApp messages or marketing.
           </p>
 
           <h2>5. Cookie Policy</h2>

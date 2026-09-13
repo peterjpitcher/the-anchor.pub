@@ -25,7 +25,7 @@ We should be upfront: we run The Anchor, a pub in Stanwell Moor that sits direct
 
 ## Fast Answer: Is There a Heathrow Viewing Area?
 
-Heathrow does not currently offer a dedicated public spectators' terrace. The best Heathrow viewing areas are informal public spots around the airport: The Anchor beer garden for food, shelter and casual watching, Myrtle Avenue for close-up arrivals, Hatton Cross for public transport access, terminal windows for ticketed passengers, Southern Perimeter Road for departures, Cranford for easterly arrivals and King George VI Reservoir for wider landscape views.
+Heathrow does not currently offer a dedicated public spectators' terrace. The best Heathrow viewing areas are informal public spots around the airport: The Anchor beer garden for food, shelter and casual watching, Myrtle Avenue for close-up arrivals, Hatton Cross for public transport access, terminal windows for ticketed passengers, Southern Perimeter Road for departures, Cranford for low-altitude passes and King George VI Reservoir for wider landscape views.
 
 If you want comfort, toilets, food and parking, start with [The Anchor beer garden](/beer-garden), and [book a garden table](/book-table) if you are coming at a weekend. Parking is free and there are 64 seats outside, but the good ones go early on a sunny day. If you want the pure photographer's spot, start with Myrtle Avenue and plan your facilities separately.
 
@@ -38,7 +38,7 @@ If you want comfort, toilets, food and parking, start with [The Anchor beer gard
 | **Hatton Cross** | Easy -- Piccadilly Line | Street parking | Cafes nearby | Public transport users | Landing (southern approach) |
 | **Terminal 2 & 5 Viewing** | Easy -- inside terminal | Airport parking (paid) | Full terminal facilities | Transit passengers, rainy days | Taxiing, departure |
 | **Southern Perimeter Road** | Moderate -- car required | Lay-bys (informal) | None | Takeoff photography | Departure (both runways) |
-| **Cranford** | Easy -- residential area | Street parking | Corner shops | Low-altitude passes | Landing (easterly approach) |
+| **Cranford** | Easy -- residential area | Street parking | Corner shops | Low-altitude passes | Landing |
 | **King George VI Reservoir** | Moderate -- walking required | Nearby streets | None | Landscape photography, birdwatchers | Distant approach, water foreground |
 
 Now let's look at each in detail.
@@ -47,7 +47,7 @@ Now let's look at each in detail.
 
 **The short version:** A proper pub with a beer garden that happens to sit directly under the Heathrow flight path. Aircraft every 90 seconds, a full food and drinks menu, free parking, and dog-friendly outdoor seating.
 
-The Anchor's 64-seat [beer garden](/beer-garden) in Stanwell Moor sits beneath the approach path for the southern runway. When westerly operations are in effect -- which covers roughly half the year, alternating on a weekly schedule -- aircraft pass directly overhead at around 500 to 800 feet. You do not need a telephoto lens to identify the airline. You can read the registration numbers with your eyes.
+The Anchor's 64-seat [beer garden](/beer-garden) in Stanwell Moor sits beneath the approach path for the southern runway. Aircraft pass directly overhead at around 500 to 800 feet: one week until 3pm, the next week from 3pm. You do not need a telephoto lens to identify the airline. You can read the registration numbers with your eyes.
 
 What makes this different from every other location on this list: you are sitting at a pub table with a pint of Moretti and a plate of stone-baked pizza while a Qatar Airways A350 thunders above you. No thermos, no camping chair, no standing on a pavement.
 
@@ -67,7 +67,7 @@ What makes this different from every other location on this list: you are sittin
 
 **Best times:** The morning rush from 06:00 to 09:00 brings long-haul arrivals from Asia and the Middle East. The afternoon wave from 16:00 to 20:00 delivers transatlantic traffic. Our current bar and kitchen hours are live on the site, so check before you set off. If you are planning a full session around one of those peaks, [book a garden table](/book-table) and you will not lose the view to a busy afternoon.
 
-**Our honest take:** Factor in the bias -- this is our pub. But the combination of views, food, drink, shelter, and free parking is unmatched at any other Heathrow spotting location.
+**Our honest take:** Factor in the bias -- this is our pub. But it puts views, food, drink and free parking in one place.
 
 [Plan your visit to The Anchor](/plane-spotting-heathrow) | [Book a table](/book-table)
 
@@ -75,7 +75,7 @@ What makes this different from every other location on this list: you are sittin
 
 **The short version:** The classic Heathrow spotting spot. Unbeatable proximity to arriving aircraft. Absolutely no facilities.
 
-Myrtle Avenue is a residential street near the northern runway perimeter and the go-to Heathrow spotting location for decades. The street runs parallel to the runway approach, putting you extremely close to arriving aircraft.
+Myrtle Avenue is a residential street near the eastern end of the southern runway and the go-to Heathrow spotting location for decades. The street runs parallel to the runway approach, putting you extremely close to arriving aircraft.
 
 For photography, it is exceptional. Aircraft fill a 70--200mm lens with ease, and the angle is ideal for capturing gear deployment and flap configuration. If you are building a portfolio of Heathrow approach shots, start here.
 
@@ -133,11 +133,11 @@ No facilities whatsoever. Shelter is whatever your car provides. Do not stop on 
 
 ## 6. Cranford
 
-**The short version:** Residential area under the eastern approach. Spectacular low passes during easterly operations, but conditions must be right.
+**The short version:** Residential area north-east of the airport. Spectacular low passes on some days, but not every day.
 
-Cranford sits north-east of the airport, directly under the approach path used during easterly operations. When the wind favours this configuration -- roughly 30% of the time -- aircraft approach at very low altitude, providing some of the most dramatic close-up views anywhere around Heathrow. Widebody aircraft passing perhaps 300 feet above residential rooftops is a sight that never gets old.
+Cranford sits north-east of the airport. On the days aircraft come over it, they pass at very low altitude, providing some of the most dramatic close-up views anywhere around Heathrow. Widebody aircraft passing perhaps 300 feet above residential rooftops is a sight that never gets old.
 
-The catch: you must check wind direction and runway configuration before travelling. Easterly operations are less common, and Heathrow alternates runway usage. Use Flightradar24 or METAR reports for EGLL to confirm. Cranford Park provides some open space, though much of the viewing is from residential streets.
+The catch: it does not happen every day, so check a flight-tracking app such as Flightradar24 before travelling. Cranford Park provides some open space, though much of the viewing is from residential streets.
 
 **Parking:** Street parking only -- park considerately.
 
@@ -145,7 +145,7 @@ The catch: you must check wind direction and runway configuration before travell
 
 **Best for:** Experienced spotters who check conditions first.
 
-**Viewing angle:** Head-on approach shots during easterly operations. Extremely low altitude.
+**Viewing angle:** Head-on approach shots. Extremely low altitude.
 
 ## 7. King George VI Reservoir Area
 
@@ -178,19 +178,16 @@ From The Anchor beer garden, a 200--400mm lens fills the frame. At Myrtle Avenue
 
 ### Best Light
 
-Morning sun (06:00--10:00) lights up westerly arrivals beautifully -- ideal for The Anchor and Myrtle Avenue. Golden hour (one hour before sunset) produces the most dramatic shots from any location. Overcast days are surprisingly good for capturing livery details without harsh shadows.
+Morning sun (06:00--10:00) lights up arrivals beautifully -- ideal for The Anchor and Myrtle Avenue. Golden hour (one hour before sunset) produces the most dramatic shots from any location. Overcast days are surprisingly good for capturing livery details without harsh shadows.
 
 ### Essential Apps
 
 - **Flightradar24:** Real-time aircraft tracking. Shows what is inbound, the active runway, and estimated arrival times.
 - **LiveATC:** Listen to Heathrow ATC in real-time. Adds an entirely new dimension -- you hear callsigns and go-arounds as they happen.
-- **METAR/weather apps:** Check wind direction and active runway configuration before you travel. Saves a wasted journey.
 
 ### Understanding Runway Operations
 
-Heathrow has two parallel runways, northern and southern. The airport alternates which handles landings and which handles departures, switching at 15:00 daily. On top of this, runway preference swaps weekly -- meaning the southern runway (over The Anchor) handles arrivals roughly 50% of the time.
-
-"27" designations indicate westerly operations (most common). "09" indicates easterlies. Check before you travel.
+Heathrow has two parallel runways, northern and southern, and it alternates which one handles landings. At The Anchor that means one week planes land overhead until 3pm, and the next week from 3pm onwards.
 
 ## Frequently Asked Questions
 
@@ -220,7 +217,7 @@ The full range of commercial aircraft: Airbus A380 (Emirates, BA, Qantas), Boein
 
 ## Make a Day of It
 
-**Morning:** Start at Myrtle Avenue for the tail end of the long-haul rush. The light is good on the northern runway approach. **Lunch:** Drive to [The Anchor](/plane-spotting-heathrow) in Stanwell Moor (15 minutes). Grab a table in the beer garden, order lunch, and settle in. **Afternoon:** Head to the Southern Perimeter Road for departure views, or walk the reservoir paths for landscape shots. Or stay at The Anchor -- nobody will rush you. **Evening:** Return to The Anchor for the transatlantic wave and golden hour light.
+**Morning:** Start at Myrtle Avenue for the tail end of the long-haul rush. The light is good on the approach. **Lunch:** Drive to [The Anchor](/plane-spotting-heathrow) in Stanwell Moor (15 minutes). Grab a table in the beer garden, order lunch, and settle in. **Afternoon:** Head to the Southern Perimeter Road for departure views, or walk the reservoir paths for landscape shots. Or stay at The Anchor -- nobody will rush you. **Evening:** Return to The Anchor for the transatlantic wave and golden hour light.
 
 ---
 

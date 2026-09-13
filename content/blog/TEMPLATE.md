@@ -65,7 +65,7 @@ Horton Road
 Stanwell Moor  
 Surrey TW19 6AQ
 
-📞 Call us: 01753 682707
+Call us: 01753 682707
 
 ---
 

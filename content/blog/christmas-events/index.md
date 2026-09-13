@@ -3,7 +3,7 @@ title: 'Christmas 2026: Festive Events and Opening Times Near Heathrow'
 slug: christmas-events
 description: >-
   What is on at The Anchor this Christmas: festive dinner from 10 November to
-  20 December, our Christmas quiz and festive bingo nights, Christmas Day
+  20 December, festive quiz and bingo nights, Christmas Day
   drinks, and New Year's Eve. A proper village pub 7 minutes from Heathrow
   Terminal 5, with free parking.
 date: '2026-09-06'
@@ -30,7 +30,7 @@ images: []
 
 ![A table laid for Christmas dinner at The Anchor in Stanwell Moor](/content/blog/christmas-events/hero-2026.jpg)
 
-Christmas at The Anchor is a village pub Christmas: your own table, a proper roast dinner, and a quiz on a Tuesday. We are in Stanwell Moor, seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces.
+Christmas at The Anchor is a village pub Christmas: your own table, a proper roast dinner, and a quiz on a Wednesday. We are in Stanwell Moor, seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces.
 
 This is what is happening here this festive season, and when we are open.
 
@@ -52,7 +52,7 @@ Groups of more than 20 are a private booking rather than a table booking. Betwee
 
 Our regular event nights carry on through November and December with a festive twist, and they are free to walk into unless the event page says otherwise:
 
-- **Quiz nights**, including our Christmas quiz
+- **Quiz nights**, including a December quiz with a festive nod
 - **Music bingo**, with a festive playlist in December
 - **Cash bingo**
 
