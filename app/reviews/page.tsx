@@ -14,6 +14,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InteriorHero } from '@/components/hero'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getAllReviews } from '@/lib/google-reviews'
 
 export const metadata: Metadata = {
   title: 'Reviews | What Our Guests Say',
@@ -35,83 +36,20 @@ export const metadata: Metadata = {
   },
 }
 
-interface ReviewHighlight {
-  name: string
-  rating: number
-  quote: string
-  context: string
-}
-
-const reviewHighlights: ReviewHighlight[] = [
-  {
-    name: 'Sarah',
-    rating: 5,
-    quote:
-      'Best Sunday roast round here, hands down. The beef was pink and the Yorkshires were enormous. We come most weeks now and it never disappoints.',
-    context: 'Sunday roast',
-  },
-  {
-    name: 'James',
-    rating: 5,
-    quote:
-      'Stopped in before a flight and ended up staying for three pints. Beer garden is brilliant for watching the planes come in. Free parking too which saved us a fortune.',
-    context: 'Beer garden / plane spotting',
-  },
-  {
-    name: 'Rachel',
-    rating: 4,
-    quote:
-      'Came for music bingo with a group of mates. Absolute laugh, Nikki runs it really well. Food was good too. Only slight wait at the bar but it was heaving, so fair enough.',
-    context: 'Music bingo',
-  },
-  {
-    name: 'Dave',
-    rating: 5,
-    quote:
-      'Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.',
-    context: 'Private hire',
-  },
-  {
-    name: 'Louise',
-    rating: 5,
-    quote:
-      'Dog-friendly and they actually mean it. Our two spaniels were fussed over by the staff and given water bowls straight away. Lovely relaxed atmosphere.',
-    context: 'Dog-friendly',
-  },
-  {
-    name: 'Mark',
-    rating: 5,
-    quote:
-      'Great pub, amazing beer garden!',
-    context: 'General visit',
-  },
-  // The quiz review that sat here was removed on the owner's instruction,
-  // 12 September 2026: it promised cash prizes, and the quiz gives a £25 bar
-  // voucher to the winners and a bottle of house wine to second from last
-  // (docs/SSOT.md §10). Nothing counts these entries, so the grid just runs one
-  // card shorter.
-  {
-    name: 'Tom',
-    rating: 5,
-    quote:
-      'Popped in on the way back from Heathrow picking up the missus. Proper pub grub at proper prices, none of the airport markup. Will definitely be back.',
-    context: 'Near Heathrow / value',
-  },
-  {
-    name: 'Karen',
-    rating: 5,
-    quote:
-      'The staff here are genuinely lovely. Always remember our names and what we drink. Feels like a proper local even though we only found it last year.',
-    context: 'Staff / atmosphere',
-  },
-  {
-    name: 'Priya',
-    rating: 5,
-    quote:
-      'Had our daughter\'s christening party here. They went above and beyond with the setup and the food was really impressive for the price. Everyone commented on how good the venue was.',
-    context: 'Private hire / christening',
-  },
-]
+/**
+ * Every card on this page is a real Google review, verbatim, from the owner's
+ * Business Profile export in lib/google-reviews.ts.
+ *
+ * Until 13 September 2026 this page kept its own array of nine quotes it had
+ * written itself, attributed to bare first names (Sarah, James, Rachel, Dave,
+ * Louise, Mark, Tom, Karen, Priya) with its own star ratings. None of those
+ * people appears in the export. A tenth, "Helen", had already been pulled on
+ * 12 September for promising cash prizes the quiz does not give.
+ *
+ * The count is whatever the export holds. It is not a layout target: if the
+ * export shrinks, the grid runs shorter. Never write a card to fill a row.
+ */
+const reviewHighlights = getAllReviews()
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -199,10 +137,10 @@ export default function ReviewsPage() {
                   </blockquote>
                   <div className="mt-4 pt-3 border-t border-line">
                     <p className="font-semibold text-ink-strong">
-                      {review.name}
+                      {review.author}
                     </p>
                     <p className="text-sm text-ink-muted">
-                      {review.context}
+                      {review.source}
                     </p>
                   </div>
                 </CardBody>
