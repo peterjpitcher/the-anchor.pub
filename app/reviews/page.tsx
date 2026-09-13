@@ -106,8 +106,10 @@ export default function ReviewsPage() {
           <div className="mx-auto text-center">
             <Card accent className="inline-flex flex-col items-center gap-3 p-6">
               <div className="text-h3 text-ink-strong">
-                Google reviews
+                4.6 stars on Google
               </div>
+              {/* SSOT section 12: show the 4.6 rating, never a review count. The count
+                  changes constantly, so it comes from Google itself, not from here. */}
               <p className="text-ink-muted text-lg">
                 Read the latest live reviews on Google.
               </p>
@@ -188,7 +190,7 @@ export default function ReviewsPage() {
         faqs={[
           {
             question: "Where can I read The Anchor's Google reviews?",
-            answer: 'You can read the latest live Google reviews on our Google Business page. We do not hardcode the rating or review count because they change over time.',
+            answer: 'You can read the latest live Google reviews on our Google Business page. We show our 4.6 rating here and leave the review count to Google, because it changes all the time.',
           },
           {
             question: 'Can I leave a review for The Anchor?',
