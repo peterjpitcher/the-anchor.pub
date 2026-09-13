@@ -343,7 +343,7 @@ export default async function PubsInStanwellPage() {
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="What Stanwell Locals Say About Us"
+              title="What Our Guests Say"
             />
             <GoogleReviews
               layout="grid"

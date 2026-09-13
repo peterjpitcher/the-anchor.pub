@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { filterReviews, mockReviews } from '@/lib/google/review-utils'
+import { filterReviews, approvedReviews } from '@/lib/google/review-utils'
 import { ReviewsFilter } from '@/lib/google/types'
 import { logError } from '@/lib/error-handling'
 
@@ -18,8 +18,9 @@ export async function GET(request: Request) {
       sortBy: searchParams.get('sortBy') as ReviewsFilter['sortBy'],
     }
 
-    // Static reviews (Google Places integration removed)
-    const filteredReviews = filterReviews(mockReviews, filter)
+    // Real Google reviews from the owner's export (lib/google-reviews.ts).
+    // The Google Places integration was removed; nothing here is generated.
+    const filteredReviews = filterReviews(approvedReviews, filter)
 
     // Set cache headers (cache for 1 hour, revalidate in background)
     const headers = {
@@ -30,7 +31,7 @@ export async function GET(request: Request) {
       reviews: filteredReviews,
       rating: null,
       totalReviews: null,
-      source: 'mock',
+      source: 'google-export',
       lastUpdated: new Date().toISOString()
     }, { headers })
 

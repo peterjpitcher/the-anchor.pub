@@ -673,9 +673,12 @@ export default async function HeathrowParkingPage() {
         </Container>
       </section>
 
+      {/* The reviews are real, so the heading has to match what they actually
+          say. None of them is about parking or flying, and claiming otherwise
+          would be as false as the invented reviews this replaced. */}
       <ReviewSection
-        title="Trusted by Heathrow travellers"
-        subtitle="Real customer reviews from guests who park and fly from The Anchor."
+        title="What our guests say"
+        subtitle="Real reviews from our Google Business Profile."
         layout="carousel"
         filter={{ minRating: 4, limit: 6 }}
         background="dark"
