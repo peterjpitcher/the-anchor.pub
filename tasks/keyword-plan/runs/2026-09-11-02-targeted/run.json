@@ -1,15 +1,50 @@
 {
+  "analysis": {
+    "curve_name": "awr-organic-blended",
+    "diagnose": true,
+    "diagnosed_today": "2026-09-13",
+    "join": true,
+    "windows": {
+      "3m": {
+        "window_end": "2026-09-11",
+        "window_start": "2026-06-12"
+      }
+    }
+  },
   "created_at": "2026-09-11T10:09:09+00:00",
   "finalised_at": "",
-  "imports": {},
+  "imports": {
+    "gkp": true,
+    "gsc": true
+  },
   "interpreter": "3.12.8",
   "mode": "targeted",
   "run_id": "2026-09-11-02-targeted",
-  "stage": "requested",
+  "stage": "analysed",
   "stage_history": [
     {
       "at": "2026-09-11T10:09:09+00:00",
       "stage": "requested"
+    },
+    {
+      "at": "2026-09-13T16:00:41+00:00",
+      "stage": "validated"
+    },
+    {
+      "at": "2026-09-13T16:00:54+00:00",
+      "stage": "imported"
+    },
+    {
+      "at": "2026-09-13T19:17:11+00:00",
+      "stage": "validated"
+    },
+    {
+      "at": "2026-09-13T19:17:34+00:00",
+      "stage": "imported"
+    },
+    {
+      "at": "2026-09-13T19:17:43+00:00",
+      "stage": "analysed"
     }
   ],
   "status": "open",

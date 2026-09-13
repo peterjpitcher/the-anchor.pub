@@ -1,0 +1,10 @@
+export_id,device,clicks,impressions,ctr,position,scope,window_start,window_end,filter_type,filter_value,source_file
+gsc-3m-p-pg_0001,Desktop,1,297,0.0034,12.84,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/whats-on$,raw/gsc-3m-p-pg_0001/Devices.csv
+gsc-3m-p-pg_0001,Mobile,6,1542,0.0039,3.7,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/whats-on$,raw/gsc-3m-p-pg_0001/Devices.csv
+gsc-3m-p-pg_0001,Tablet,0,16,0,1.88,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/whats-on$,raw/gsc-3m-p-pg_0001/Devices.csv
+gsc-3m-p-pg_0002,Desktop,0,26,0,4.46,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/quiz-night$,raw/gsc-3m-p-pg_0002/Devices.csv
+gsc-3m-p-pg_0002,Mobile,0,41,0,5.46,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/quiz-night$,raw/gsc-3m-p-pg_0002/Devices.csv
+gsc-3m-p-pg_0004,Mobile,0,4,0,2.75,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/music-bingo$,raw/gsc-3m-p-pg_0004/Devices.csv
+gsc-3m-p-pg_0005,Desktop,0,40,0,19.82,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/cash-bingo$,raw/gsc-3m-p-pg_0005/Devices.csv
+gsc-3m-p-pg_0005,Mobile,0,19,0,5.95,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/cash-bingo$,raw/gsc-3m-p-pg_0005/Devices.csv
+gsc-3m-p-pg_0005,Tablet,0,1,0,6,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/cash-bingo$,raw/gsc-3m-p-pg_0005/Devices.csv

@@ -1,0 +1,600 @@
+{
+  "pulls": {
+    "gkp-volumes-01": {
+      "attested": {},
+      "date_range_text": "September 1, 2025 - August 31, 2026",
+      "encoding": "utf-16",
+      "filter_type": "",
+      "filter_value": "",
+      "found": "raw/gkp-volumes-01.csv",
+      "layout": "volumes",
+      "messages": [
+        {
+          "code": "KEYWORDS_NOT_ALL_RETURNED",
+          "severity": "informational",
+          "text": "raw/gkp-volumes-01.csv: 401 of 461 submitted keywords returned under their own text; the rest are resolved as aliases, collapsed variants or absent at import"
+        },
+        {
+          "code": "UNATTESTED_FACT",
+          "severity": "limiting",
+          "text": "raw/gkp-volumes-01.csv: no attestation for location, language, network, volume_mode (values from config are not attestations)"
+        }
+      ],
+      "required": true,
+      "row_counts": {
+        "aggregate_rows": 2,
+        "keyword_rows": 404
+      },
+      "scope": "gkp-volumes",
+      "source": "gkp-volumes",
+      "status": "limiting",
+      "tabs": [],
+      "truncated": {},
+      "unattested": [
+        "location",
+        "language",
+        "network",
+        "volume_mode"
+      ],
+      "unverified": [],
+      "verified": {
+        "date_range": {
+          "end": "2026-08-31",
+          "start": "2025-09-01"
+        },
+        "keywords_returned_exact": 401,
+        "keywords_submitted": 461,
+        "layout": "volumes",
+        "row_counts": {
+          "aggregate_rows": 2,
+          "keyword_rows": 404
+        },
+        "volume_cells": {
+          "dash": 0,
+          "empty": 89,
+          "numeric": 315,
+          "other": 0,
+          "range": 0
+        }
+      },
+      "volume_mode": {
+        "source": "config",
+        "value": "banded"
+      },
+      "window_end": "2026-08-31",
+      "window_start": "2025-09-01"
+    },
+    "gsc-3m-p-pg_0001": {
+      "attested": {},
+      "date_filter": "Last 3 months",
+      "filter_text": "^https://www[.]the-anchor[.]pub/whats-on$",
+      "filter_type": "page",
+      "filter_value": "+^https://www[.]the-anchor[.]pub/whats-on$",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 3 months"
+        },
+        {
+          "filter": "Country",
+          "value": "United Kingdom"
+        },
+        {
+          "filter": "Page",
+          "value": "+^https://www[.]the-anchor[.]pub/whats-on$"
+        }
+      ],
+      "found": "raw/gsc-3m-p-pg_0001",
+      "messages": [
+        {
+          "code": "WINDOW_SHORTER",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0001 covers 2026-06-12 to 2026-09-11, inside but shorter than the requested 2026-06-05 to 2026-10-02 (edge days missing or preliminary)"
+        },
+        {
+          "code": "UNATTESTED_FACT",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0001: no attestation for property"
+        }
+      ],
+      "reporting_country": "GB",
+      "required": false,
+      "row_counts": {
+        "Chart.csv": 92,
+        "Countries.csv": 1,
+        "Devices.csv": 3,
+        "Pages.csv": 1,
+        "Queries.csv": 47,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "totals": {
+        "chart_clicks": 7,
+        "named_query_clicks": 7
+      },
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [
+        "property"
+      ],
+      "unverified": [],
+      "verified": {
+        "country": "GB",
+        "filter_text": "^https://www[.]the-anchor[.]pub/whats-on$",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "+^https://www[.]the-anchor[.]pub/whats-on$"
+        },
+        "row_counts": {
+          "Chart.csv": 92,
+          "Countries.csv": 1,
+          "Devices.csv": 3,
+          "Pages.csv": 1,
+          "Queries.csv": 47,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ]
+      },
+      "window_end": "2026-09-11",
+      "window_start": "2026-06-12"
+    },
+    "gsc-3m-p-pg_0002": {
+      "attested": {},
+      "date_filter": "Last 3 months",
+      "filter_text": "^https://www[.]the-anchor[.]pub/quiz-night$",
+      "filter_type": "page",
+      "filter_value": "+^https://www[.]the-anchor[.]pub/quiz-night$",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 3 months"
+        },
+        {
+          "filter": "Country",
+          "value": "United Kingdom"
+        },
+        {
+          "filter": "Page",
+          "value": "+^https://www[.]the-anchor[.]pub/quiz-night$"
+        }
+      ],
+      "found": "raw/gsc-3m-p-pg_0002",
+      "messages": [
+        {
+          "code": "WINDOW_SHORTER",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0002 covers 2026-06-12 to 2026-09-11, inside but shorter than the requested 2026-06-05 to 2026-10-02 (edge days missing or preliminary)"
+        },
+        {
+          "code": "UNATTESTED_FACT",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0002: no attestation for property"
+        }
+      ],
+      "reporting_country": "GB",
+      "required": false,
+      "row_counts": {
+        "Chart.csv": 92,
+        "Countries.csv": 1,
+        "Devices.csv": 2,
+        "Pages.csv": 1,
+        "Queries.csv": 29,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "totals": {
+        "chart_clicks": 0,
+        "named_query_clicks": 0
+      },
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [
+        "property"
+      ],
+      "unverified": [],
+      "verified": {
+        "country": "GB",
+        "filter_text": "^https://www[.]the-anchor[.]pub/quiz-night$",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "+^https://www[.]the-anchor[.]pub/quiz-night$"
+        },
+        "row_counts": {
+          "Chart.csv": 92,
+          "Countries.csv": 1,
+          "Devices.csv": 2,
+          "Pages.csv": 1,
+          "Queries.csv": 29,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ]
+      },
+      "window_end": "2026-09-11",
+      "window_start": "2026-06-12"
+    },
+    "gsc-3m-p-pg_0003": {
+      "attested": {},
+      "date_filter": "Last 3 months",
+      "filter_text": "^https://www[.]the-anchor[.]pub/quiz-night/themed$",
+      "filter_type": "page",
+      "filter_value": "+^https://www[.]the-anchor[.]pub/quiz-night/themed$",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 3 months"
+        },
+        {
+          "filter": "Country",
+          "value": "United Kingdom"
+        },
+        {
+          "filter": "Page",
+          "value": "+^https://www[.]the-anchor[.]pub/quiz-night/themed$"
+        }
+      ],
+      "found": "raw/gsc-3m-p-pg_0003",
+      "messages": [
+        {
+          "code": "WINDOW_SHORTER",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0003 covers 2026-06-12 to 2026-09-11, inside but shorter than the requested 2026-06-05 to 2026-10-02 (edge days missing or preliminary)"
+        },
+        {
+          "code": "EMPTY_OPTIONAL",
+          "severity": "informational",
+          "text": "raw/gsc-3m-p-pg_0003/Queries.csv has no rows"
+        },
+        {
+          "code": "UNATTESTED_FACT",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0003: no attestation for property"
+        }
+      ],
+      "reporting_country": "GB",
+      "required": false,
+      "row_counts": {
+        "Chart.csv": 92,
+        "Countries.csv": 0,
+        "Devices.csv": 0,
+        "Pages.csv": 0,
+        "Queries.csv": 0,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [
+        "property"
+      ],
+      "unverified": [],
+      "verified": {
+        "country": "GB",
+        "filter_text": "^https://www[.]the-anchor[.]pub/quiz-night/themed$",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "+^https://www[.]the-anchor[.]pub/quiz-night/themed$"
+        },
+        "row_counts": {
+          "Chart.csv": 92,
+          "Countries.csv": 0,
+          "Devices.csv": 0,
+          "Pages.csv": 0,
+          "Queries.csv": 0,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ]
+      },
+      "window_end": "2026-09-11",
+      "window_start": "2026-06-12"
+    },
+    "gsc-3m-p-pg_0004": {
+      "attested": {},
+      "date_filter": "Last 3 months",
+      "filter_text": "^https://www[.]the-anchor[.]pub/music-bingo$",
+      "filter_type": "page",
+      "filter_value": "+^https://www[.]the-anchor[.]pub/music-bingo$",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 3 months"
+        },
+        {
+          "filter": "Country",
+          "value": "United Kingdom"
+        },
+        {
+          "filter": "Page",
+          "value": "+^https://www[.]the-anchor[.]pub/music-bingo$"
+        }
+      ],
+      "found": "raw/gsc-3m-p-pg_0004",
+      "messages": [
+        {
+          "code": "WINDOW_SHORTER",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0004 covers 2026-06-12 to 2026-09-11, inside but shorter than the requested 2026-06-05 to 2026-10-02 (edge days missing or preliminary)"
+        },
+        {
+          "code": "UNATTESTED_FACT",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0004: no attestation for property"
+        }
+      ],
+      "reporting_country": "GB",
+      "required": false,
+      "row_counts": {
+        "Chart.csv": 92,
+        "Countries.csv": 1,
+        "Devices.csv": 1,
+        "Pages.csv": 1,
+        "Queries.csv": 2,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "totals": {
+        "chart_clicks": 0,
+        "named_query_clicks": 0
+      },
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [
+        "property"
+      ],
+      "unverified": [],
+      "verified": {
+        "country": "GB",
+        "filter_text": "^https://www[.]the-anchor[.]pub/music-bingo$",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "+^https://www[.]the-anchor[.]pub/music-bingo$"
+        },
+        "row_counts": {
+          "Chart.csv": 92,
+          "Countries.csv": 1,
+          "Devices.csv": 1,
+          "Pages.csv": 1,
+          "Queries.csv": 2,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ]
+      },
+      "window_end": "2026-09-11",
+      "window_start": "2026-06-12"
+    },
+    "gsc-3m-p-pg_0005": {
+      "attested": {},
+      "date_filter": "Last 3 months",
+      "filter_text": "^https://www[.]the-anchor[.]pub/cash-bingo$",
+      "filter_type": "page",
+      "filter_value": "+^https://www[.]the-anchor[.]pub/cash-bingo$",
+      "filters_raw": [
+        {
+          "filter": "Search type",
+          "value": "Web"
+        },
+        {
+          "filter": "Date",
+          "value": "Last 3 months"
+        },
+        {
+          "filter": "Country",
+          "value": "United Kingdom"
+        },
+        {
+          "filter": "Page",
+          "value": "+^https://www[.]the-anchor[.]pub/cash-bingo$"
+        }
+      ],
+      "found": "raw/gsc-3m-p-pg_0005",
+      "messages": [
+        {
+          "code": "WINDOW_SHORTER",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0005 covers 2026-06-12 to 2026-09-11, inside but shorter than the requested 2026-06-05 to 2026-10-02 (edge days missing or preliminary)"
+        },
+        {
+          "code": "UNATTESTED_FACT",
+          "severity": "limiting",
+          "text": "raw/gsc-3m-p-pg_0005: no attestation for property"
+        }
+      ],
+      "reporting_country": "GB",
+      "required": false,
+      "row_counts": {
+        "Chart.csv": 92,
+        "Countries.csv": 1,
+        "Devices.csv": 3,
+        "Pages.csv": 1,
+        "Queries.csv": 19,
+        "Search appearance.csv": 0
+      },
+      "scope": "page-group",
+      "source": "gsc",
+      "status": "limiting",
+      "tabs": [
+        "Chart.csv",
+        "Countries.csv",
+        "Devices.csv",
+        "Filters.csv",
+        "Pages.csv",
+        "Queries.csv",
+        "Search appearance.csv"
+      ],
+      "totals": {
+        "chart_clicks": 0,
+        "named_query_clicks": 0
+      },
+      "truncated": {
+        "Countries.csv": false,
+        "Devices.csv": false,
+        "Pages.csv": false,
+        "Queries.csv": false,
+        "Search appearance.csv": false
+      },
+      "unattested": [
+        "property"
+      ],
+      "unverified": [],
+      "verified": {
+        "country": "GB",
+        "filter_text": "^https://www[.]the-anchor[.]pub/cash-bingo$",
+        "filters": {
+          "filter_type": "page",
+          "filter_value": "+^https://www[.]the-anchor[.]pub/cash-bingo$"
+        },
+        "row_counts": {
+          "Chart.csv": 92,
+          "Countries.csv": 1,
+          "Devices.csv": 3,
+          "Pages.csv": 1,
+          "Queries.csv": 19,
+          "Search appearance.csv": 0
+        },
+        "search_type": "Web",
+        "tabs": [
+          "Chart.csv",
+          "Countries.csv",
+          "Devices.csv",
+          "Filters.csv",
+          "Pages.csv",
+          "Queries.csv",
+          "Search appearance.csv"
+        ]
+      },
+      "window_end": "2026-09-11",
+      "window_start": "2026-06-12"
+    }
+  },
+  "run_id": "2026-09-11-02-targeted",
+  "summary": {
+    "attestations_present": false,
+    "by_status": {
+      "limiting": 6
+    },
+    "pulls_total": 6,
+    "required_fatal": [],
+    "required_total": 1,
+    "stage_after": "validated",
+    "stage_before": "imported",
+    "unmatched_inputs": [
+      "raw/ignored",
+      "raw/inbox"
+    ]
+  }
+}

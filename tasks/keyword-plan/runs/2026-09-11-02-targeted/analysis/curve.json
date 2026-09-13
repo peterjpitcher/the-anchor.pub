@@ -1,0 +1,91 @@
+{
+  "accessed": "2026-09-08",
+  "bins": {
+    "1": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "10": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "2": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "3": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "4": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "5": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "6": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "7": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "8": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    },
+    "9": {
+      "clicks": 0,
+      "ctr": null,
+      "impressions": 0,
+      "queries": 0,
+      "valid": false
+    }
+  },
+  "curve_name": "awr-organic-blended",
+  "fallback": true,
+  "fallback_reason": "no property-scope 3m export",
+  "source": "Advanced Web Ranking Google Organic CTR study as bundled in seo-powerhouse score-opportunities.py (sha256 caa64796b6001d61483ed8613eb993b65a23e01615da447ed616621730b52778)",
+  "values": {
+    "1": 0.275,
+    "10": 0.015,
+    "2": 0.155,
+    "3": 0.1,
+    "4": 0.07,
+    "5": 0.05,
+    "6": 0.04,
+    "7": 0.03,
+    "8": 0.025,
+    "9": 0.02
+  }
+}

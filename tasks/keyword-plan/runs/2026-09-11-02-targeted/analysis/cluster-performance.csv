@@ -1,0 +1,6 @@
+cluster_id,window,window_start,window_end,named_queries,clicks,impressions,ctr,position_weighted,completeness,export_ids,page_id,page_clicks,page_impressions,page_truncated,unattributed_clicks,overlap_excluded_queries
+cl_0001,3m,2026-06-12,2026-09-11,0,,,,,named-subset,,pg_0002,0,67,false,0,0
+cl_0002,3m,2026-06-12,2026-09-11,0,,,,,named-subset,,pg_0003,0,0,false,0,0
+cl_0003,3m,2026-06-12,2026-09-11,0,,,,,named-subset,,pg_0004,0,4,false,0,0
+cl_0004,3m,2026-06-12,2026-09-11,0,,,,,named-subset,,pg_0005,0,60,false,0,0
+cl_0005,3m,2026-06-12,2026-09-11,0,,,,,named-subset,,pg_0001,7,1855,false,0,0

@@ -1,0 +1,78 @@
+{
+  "baseline_established": true,
+  "incident_flags": {
+    "3m": []
+  },
+  "property": {},
+  "run_id": "2026-09-11-02-targeted",
+  "site_event_flags": {
+    "3m": [
+      {
+        "date": "2026-08-11",
+        "event_id": "2026-08-11-live-music-open-mic-purged",
+        "note": "Retired pages 301 to /whats-on, so their residual search traffic lands on /whats-on from this date. PR #103.",
+        "path_pattern": "^/(live-music|open-mic|blog/live-music-pubs-near-heathrow)$",
+        "relation": "in-window",
+        "type": "content-purge"
+      },
+      {
+        "date": "2026-08-11",
+        "event_id": "2026-08-11-whats-on-live-music-retired",
+        "note": "Live music retired in full; /whats-on retitled to Quiz, Music Bingo & Cash Bingo Near Heathrow. PR #103.",
+        "path_pattern": "^/whats-on$",
+        "relation": "in-window",
+        "type": "repositioning"
+      },
+      {
+        "date": "2026-08-12",
+        "event_id": "2026-08-12-game-night-template",
+        "note": "Quiz, cash bingo, music bingo and karaoke moved onto one shared game-night template with inline booking (commits 4b03f842, 496b321a).",
+        "path_pattern": "^/(quiz-night|cash-bingo|music-bingo|karaoke)$",
+        "relation": "in-window",
+        "type": "redesign"
+      },
+      {
+        "date": "2026-08-17",
+        "event_id": "2026-08-17-game-pages-rewritten",
+        "note": "The four game pages rewritten around the 17 August 2026 Keyword Planner data; titles changed (commit c9176f3d).",
+        "path_pattern": "^/(quiz-night|cash-bingo|music-bingo|karaoke)$",
+        "relation": "in-window",
+        "type": "repositioning"
+      },
+      {
+        "date": "2026-08-26",
+        "event_id": "2026-08-26-listing-event-schema-dropped",
+        "note": "33 Event objects removed from listing pages because Google does not support them there (commit bdd8a1e5). Rich-result eligibility on these URLs changed.",
+        "path_pattern": "^/(whats-on|quiz-night|cash-bingo|music-bingo|karaoke)$",
+        "relation": "in-window",
+        "type": "redesign"
+      },
+      {
+        "date": "2026-09-07",
+        "event_id": "2026-09-07-event-pages-wave-1",
+        "note": "Event detail pages: event sold above the desktop fold, pitch before the booking form, simplified booking (fix/event-pages-wave-1, merged 7 September 2026).",
+        "path_pattern": "^/events/",
+        "relation": "in-window",
+        "type": "redesign"
+      },
+      {
+        "date": "2026-09-10",
+        "event_id": "2026-09-10-drag-pages-purged",
+        "note": "Retired and 301'd to /whats-on (docs/SSOT.md section 10, retired entertainment formats).",
+        "path_pattern": "^/(whats-on/drag-shows|blog/drag-cabaret-nikki)$",
+        "relation": "in-window",
+        "type": "content-purge"
+      }
+    ]
+  },
+  "windows": {
+    "3m": {
+      "window_end": "2026-09-11",
+      "window_start": "2026-06-12"
+    }
+  },
+  "year_on_year": {
+    "reason": "no month window in this run",
+    "status": "not available"
+  }
+}

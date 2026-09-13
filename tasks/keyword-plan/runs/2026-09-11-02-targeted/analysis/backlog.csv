@@ -1,0 +1,5 @@
+ticket_id,run_id,cluster_id,page_id,change_type,owner_workflow,approval_state,approved_by,approved_at,approved_version,business_value,search_opportunity,current_performance_gap,confidence,effort,risk,priority_score,score_version,evidence_tier,scenario_clicks_monthly,scenario_assumptions,evidence_refs,status,shipped_on,deployment_ref,title,notes
+tk_000001,2026-09-11-02-targeted,cl_0001,pg_0002,metadata,seo-powerhouse,proposed,,,,4,3,5,3,1,1,90.0,2.1.0,B,not estimable,not estimable,gsc-3m-p-pg_0002,proposed,,,investigate-visibility: Pub quiz,
+tk_000002,2026-09-11-02-targeted,cl_0003,pg_0004,metadata,seo-powerhouse,proposed,,,,4,2,5,3,1,1,60.0,2.1.0,B,not estimable,not estimable,gsc-3m-p-pg_0004,proposed,,,investigate-visibility: Music bingo,
+tk_000003,2026-09-11-02-targeted,cl_0004,pg_0005,metadata,seo-powerhouse,proposed,,,,4,2,5,3,1,1,60.0,2.1.0,B,not estimable,not estimable,gsc-3m-p-pg_0005,proposed,,,investigate-visibility: Cash bingo,
+tk_000004,2026-09-11-02-targeted,cl_0005,pg_0001,metadata,seo-powerhouse,proposed,,,,4,2,5,3,1,1,60.0,2.1.0,B,not estimable,not estimable,gsc-3m-p-pg_0001,proposed,,,investigate-visibility: What's on and pub events,

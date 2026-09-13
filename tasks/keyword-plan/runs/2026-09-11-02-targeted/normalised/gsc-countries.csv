@@ -1,0 +1,5 @@
+export_id,country,clicks,impressions,ctr,position,scope,window_start,window_end,filter_type,filter_value,source_file
+gsc-3m-p-pg_0001,United Kingdom,7,1855,0.0038,5.15,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/whats-on$,raw/gsc-3m-p-pg_0001/Countries.csv
+gsc-3m-p-pg_0002,United Kingdom,0,67,0,5.07,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/quiz-night$,raw/gsc-3m-p-pg_0002/Countries.csv
+gsc-3m-p-pg_0004,United Kingdom,0,4,0,2.75,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/music-bingo$,raw/gsc-3m-p-pg_0004/Countries.csv
+gsc-3m-p-pg_0005,United Kingdom,0,60,0,15.2,page-group,2026-06-12,2026-09-11,page,+^https://www[.]the-anchor[.]pub/cash-bingo$,raw/gsc-3m-p-pg_0005/Countries.csv
