@@ -30,12 +30,14 @@ export function ReviewsBadge({
           {typeof rating === 'number' ? rating : 'Google'}
         </div>
         {typeof rating === 'number' && (
-          <div className={`flex gap-0.5 ${starSize[size]}`}>
+          <div className={`flex gap-0.5 ${starSize[size]}`} role="img" aria-label={`${rating} out of 5 stars`}>
             {[...Array(5)].map((_, i) => (
               <span
                 key={i}
+                aria-hidden="true"
                 className={i < Math.round(rating) ? "text-anchor-gold" : "text-ink-muted/30"}
               >
+                &#9733;
               </span>
             ))}
           </div>

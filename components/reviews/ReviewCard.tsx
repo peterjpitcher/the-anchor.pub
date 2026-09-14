@@ -17,12 +17,14 @@ export function ReviewCard({
 }: ReviewCardProps) {
   const renderStars = (rating: number) => {
     return (
-      <div className="flex gap-0.5">
+      <div className="flex gap-0.5" role="img" aria-label={`${rating} out of 5 stars`}>
         {[...Array(5)].map((_, i) => (
           <span
             key={i}
+            aria-hidden="true"
             className={i < rating ? "text-anchor-gold" : "text-ink-muted/30"}
           >
+            &#9733;
           </span>
         ))}
       </div>
