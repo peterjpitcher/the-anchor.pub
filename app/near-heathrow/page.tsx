@@ -5,6 +5,7 @@ import { Button, Badge, SectionHeading } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { CtaBand } from '@/components/CtaBand'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -91,11 +92,15 @@ export default function NearHeathrowPage() {
             <BookTableButton source="near_heathrow_hero" variant="primary" size="lg">
               Book a table
             </BookTableButton>
-            <Button asChild variant="outline" size="lg" icon={<MapPin className="h-5 w-5" strokeWidth={2} />}>
-              <Link href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
-                Get directions
-              </Link>
-            </Button>
+            <DirectionsButton
+              href={GOOGLE_MAPS_URL}
+              source="near_heathrow_directions"
+              variant="outline"
+              size="lg"
+              icon={<MapPin className="h-5 w-5" strokeWidth={2} />}
+            >
+              Get directions
+            </DirectionsButton>
           </>
         }
       />

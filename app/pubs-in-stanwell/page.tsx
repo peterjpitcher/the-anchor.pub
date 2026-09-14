@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { Button, Card, CardBody, SectionHeading, Container } from '@/components/ui'
 import { InteriorHero } from '@/components/hero'
 import { CtaBand } from '@/components/CtaBand'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -399,9 +400,9 @@ export default async function PubsInStanwellPage() {
         <Button asChild variant="outline" size="lg">
           <Link href="/private-hire#enquiry">Book an Event</Link>
         </Button>
-        <Button asChild variant="outline" size="lg">
-          <Link href="https://maps.google.com/?q=The+Anchor+Stanwell+Moor">Get Directions</Link>
-        </Button>
+        <DirectionsButton href="https://maps.google.com/?q=The+Anchor+Stanwell+Moor" source="pubs_in_stanwell_directions" variant="outline" size="lg">
+          Get Directions
+        </DirectionsButton>
       </CtaBand>
     </>
   )

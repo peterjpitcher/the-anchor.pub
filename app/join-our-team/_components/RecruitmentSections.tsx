@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button, Icon } from '@/components/ui'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import type { RecruitmentRoleValue } from '../recruitmentContent'
 
 type Fact = {
@@ -155,12 +156,14 @@ export function LocationTransportSection() {
           shifts, including later finishes when public transport may be limited.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Button asChild variant="outline">
-            <a href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ">
-              <Icon name="mapPin" className="h-4 w-4" aria-hidden="true" />
-              Get Directions
-            </a>
-          </Button>
+          <DirectionsButton
+            href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+            source="recruitment_directions"
+            variant="outline"
+          >
+            <Icon name="mapPin" className="h-4 w-4" aria-hidden="true" />
+            Get Directions
+          </DirectionsButton>
           <Button asChild variant="outline">
             <Link href="/find-us">
               <Icon name="navigation" className="h-4 w-4" aria-hidden="true" />

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { SectionHeading, Card, CardBody, Container } from '@/components/ui'
 import { Button } from '@/components/ui/primitives/Button'
 import { CtaBand } from '@/components/CtaBand'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
@@ -206,9 +207,9 @@ export default function PoolAndDartsPage() {
                 <Button asChild variant="outline" size="lg">
                     <Link href="/whats-on">What&apos;s on this week</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
-                    <Link href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get directions</Link>
-                </Button>
+                <DirectionsButton href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ" source="pool_darts_directions" variant="outline" size="lg">
+                    Get directions
+                </DirectionsButton>
             </CtaBand>
         </>
     )

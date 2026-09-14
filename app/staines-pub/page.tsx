@@ -5,6 +5,7 @@ import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING, HEATHROW_TIMES } from '@/lib/constants'
@@ -530,9 +531,9 @@ export default function StainesPubPage() {
         <Button asChild variant="outline" size="lg">
           <Link href="/private-hire#enquiry">Book an Event</Link>
         </Button>
-        <Button asChild variant="outline" size="lg">
-          <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor">Get Directions from Staines</Link>
-        </Button>
+        <DirectionsButton href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" source="staines_directions" fromLocation="Staines" variant="outline" size="lg">
+          Get Directions from Staines
+        </DirectionsButton>
       </CtaBand>
     </>
   )

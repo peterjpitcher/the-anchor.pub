@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Button, Container } from '@/components/ui'
+import { Container } from '@/components/ui'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { InteriorHero } from '@/components/hero'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -455,15 +456,9 @@ export default function OurPubPage() {
             <PhoneButton phone={CONTACT.phone} source="our-pub_cta" variant="outline" size="lg">
               Call {CONTACT.phone}
             </PhoneButton>
-            <Button asChild size="lg" variant="outline">
-              <Link
-                href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get Directions
-              </Link>
-            </Button>
+            <DirectionsButton href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" source="our_pub_directions" variant="outline" size="lg">
+              Get Directions
+            </DirectionsButton>
           </div>
           <p className="text-sm text-anchor-cream-text/70">
             Just 7 minutes from Heathrow Terminal 5 &middot; Free parking &middot; Dogs welcome

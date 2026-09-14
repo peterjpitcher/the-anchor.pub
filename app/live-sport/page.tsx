@@ -2,6 +2,7 @@ import { TournamentLink } from '@/components/features/nations-championship/Tourn
 import Link from 'next/link'
 import { Button, SectionHeading, Card, CardBody, Alert, Container, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -364,9 +365,9 @@ export default async function LiveSportPage() {
                 <PhoneButton phone={CONTACT.phone} source="sport_cta" variant="outline" size="lg" className="w-full sm:w-auto">
                     Call: 01753 682707
                 </PhoneButton>
-                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                    <Link href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get Directions</Link>
-                </Button>
+                <DirectionsButton href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ" source="live_sport_directions" variant="outline" size="lg" className="w-full sm:w-auto">
+                    Get Directions
+                </DirectionsButton>
             </CtaBand>
         </>
     )

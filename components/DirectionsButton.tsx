@@ -16,6 +16,7 @@ interface DirectionsButtonProps {
   mapPlatform?: 'google_maps' | 'apple_maps' | 'waze'
   fromLocation?: string
   asLink?: boolean
+  icon?: React.ReactNode
   onClick?: () => void
   role?: string
 }
@@ -31,6 +32,7 @@ export function DirectionsButton({
   mapPlatform,
   fromLocation,
   asLink = false,
+  icon,
   onClick,
   role
 }: DirectionsButtonProps) {
@@ -72,6 +74,7 @@ export function DirectionsButton({
       asChild
       variant={variant === 'link' ? 'ghost' : variant}
       size={size}
+      icon={icon}
       className={className}
     >
       <a
@@ -98,7 +101,7 @@ export function DirectionsLink({
   fromLocation,
   onClick,
   role
-}: Omit<DirectionsButtonProps, 'variant' | 'size' | 'asLink'>) {
+}: Omit<DirectionsButtonProps, 'variant' | 'size' | 'asLink' | 'icon'>) {
   return (
     <DirectionsButton
       href={href}

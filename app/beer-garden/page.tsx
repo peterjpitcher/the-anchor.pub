@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Button, Container, Card, CardBody, SectionHeading } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -418,9 +419,9 @@ export default async function BeerGardenPage() {
             <Button asChild size="lg" variant="outline">
               <Link href="/our-pub">See Inside The Pub</Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" target="_blank" rel="noopener noreferrer">Get Directions</Link>
-            </Button>
+            <DirectionsButton href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" source="beer_garden_directions" variant="outline" size="lg">
+              Get Directions
+            </DirectionsButton>
           </div>
           <p className="text-ink-muted text-sm">
             Just 7 minutes from Heathrow Terminal 5 • Free parking • Dogs welcome

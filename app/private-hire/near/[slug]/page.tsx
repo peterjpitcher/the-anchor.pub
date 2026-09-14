@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { getLandmarkBySlug, landmarks, type Landmark, type LandmarkType } from '@/lib/local-seo-data'
 import { InteriorHero } from '@/components/hero'
-import { Container, SectionHeading, Card, CardBody, Button, Badge } from '@/components/ui'
+import { Container, SectionHeading, Card, CardBody, Badge } from '@/components/ui'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -829,11 +829,14 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                         <GoogleMapEmbed query={`The Anchor Stanwell Moor near ${landmark.name}`} />
                     </div>
                     <div className="text-center mt-6">
-                        <Button asChild variant="outline">
-                            <Link href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(landmark.address)}&destination=The+Anchor+Stanwell+Moor+TW19+6AQ`} target="_blank" rel="noopener noreferrer">
-                                Get Directions from {landmark.name}
-                            </Link>
-                        </Button>
+                        <DirectionsButton
+                            href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(landmark.address)}&destination=The+Anchor+Stanwell+Moor+TW19+6AQ`}
+                            source="private_hire_near_directions"
+                            fromLocation={landmark.name}
+                            variant="outline"
+                        >
+                            Get Directions from {landmark.name}
+                        </DirectionsButton>
                     </div>
                 </Container>
             </section>

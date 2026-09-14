@@ -1,6 +1,5 @@
-import Link from 'next/link'
 import { SectionHeading, Card, CardBody, Container } from '@/components/ui'
-import { Button } from '@/components/ui/primitives/Button'
+import { DirectionsButton } from '@/components/DirectionsButton'
 import { CtaBand } from '@/components/CtaBand'
 import { PhoneButton } from '@/components/PhoneButton'
 import { AmenityStrip } from '@/components/AmenityStrip'
@@ -165,9 +164,9 @@ export default function FamilyDiningPage() {
                 copy="A warm welcome awaits you and your little travellers."
                 primary={<PhoneButton phone={CONTACT.phone} source="family_cta" variant="primary" size="lg">Book a table</PhoneButton>}
                 secondary={
-                    <Button asChild variant="outline" size="lg">
-                        <Link href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ">Get directions</Link>
-                    </Button>
+                    <DirectionsButton href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ" source="family_dining_directions" variant="outline" size="lg">
+                        Get directions
+                    </DirectionsButton>
                 }
             />
         </>

@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { Container, Card, CardBody, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
+import { DirectionsLink } from '@/components/DirectionsButton'
 import { InteriorHero } from '@/components/hero'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -445,12 +446,13 @@ export default async function MusicBingoPage() {
                 <li><strong>Accessibility:</strong> step-free bar and dining areas, flexible seating, and no accessible toilet.</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-                <Link
+                <DirectionsLink
                   href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
+                  source="music_bingo_directions"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 font-semibold text-anchor-green transition hover:bg-anchor-green hover:text-white"
                 >
                   Get directions
-                </Link>
+                </DirectionsLink>
                 <Link
                   href="https://wa.me/441753682707"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold-dark px-4 py-2 font-semibold text-accent-text transition hover:bg-anchor-gold-dark hover:text-anchor-green"
