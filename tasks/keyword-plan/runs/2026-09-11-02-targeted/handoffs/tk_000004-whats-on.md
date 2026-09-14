@@ -50,14 +50,14 @@ The result page has not been observed for any of these queries.
 
 ## The task
 
-Observe the result page for the seven queries above that contain "anchor" and have 57 or more
+Observe the result page for the eight queries above that contain "anchor" and have 57 or more
 impressions, and establish which result takes the clicks on those searches where /whats-on appears.
 Separately, observe the result page for the two queries that contain "live music". Record what is on
 each page as found. Do not start from an explanation.
 
 ## What would settle it
 
-A dated observation for each of those nine queries, recorded as a `check-done` event against this
+A dated observation for each of those ten queries, recorded as a `check-done` event against this
 ticket in `changes.jsonl`, with: source, locale, device, date, the result features seen,
 personalisation (incognito or personalised) and location. An incognito observation made from a
 location in the pub's catchment is the one to prefer; a signed-in observation is recorded, and
