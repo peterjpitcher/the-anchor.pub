@@ -1,0 +1,26 @@
+{
+  "actor": "Peter Pitcher",
+  "at": "2026-09-14T06:37:53+00:00",
+  "scope": "backlog",
+  "approved": [
+    {
+      "ticket_id": "tk_000001",
+      "version": "17f6f0af54626ee8a58d5d237438c42a314ce36b9865a0b14ff172b0d04ba047"
+    },
+    {
+      "ticket_id": "tk_000002",
+      "version": "bc727112cf8073d08b366a1935b2339d0b12b70c203a01f79539f55b4653150a"
+    },
+    {
+      "ticket_id": "tk_000003",
+      "version": "4bc5f1d9feb3f14996cb9fc36aabc313a448e87bdbc1189858b5f6bbc997b45b"
+    },
+    {
+      "ticket_id": "tk_000004",
+      "version": "6d07302856cb406e0cd580746cdc9dc243ee1345b84922da7fad51721b4ee3ab"
+    }
+  ],
+  "deferred": [],
+  "rejected": [],
+  "note": "Approved in chat on 14 September 2026 (all are approved). Approval covers the four investigate-visibility tickets only; it is not an attestation of the Search Console property or the Keyword Planner settings."
+}

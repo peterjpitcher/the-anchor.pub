@@ -1,0 +1,6 @@
+run_id,finalised_at,cluster_id,window,clicks,impressions,ctr,position_weighted,evidence_tier,tags,action,priority_score,scenario_clicks_monthly,incident_flags,mapping_version,score_version
+2026-09-11-02-targeted,2026-09-14T06:38:17+00:00,cl_0001,3m,,,,,B,LOW_OBSERVED_VISIBILITY,investigate-visibility,90.0,not estimable,,2,2.1.0
+2026-09-11-02-targeted,2026-09-14T06:38:17+00:00,cl_0002,3m,,,,,B,,hold,3.0,not estimable,,2,2.1.0
+2026-09-11-02-targeted,2026-09-14T06:38:17+00:00,cl_0003,3m,,,,,B,LOW_OBSERVED_VISIBILITY,investigate-visibility,60.0,not estimable,,2,2.1.0
+2026-09-11-02-targeted,2026-09-14T06:38:17+00:00,cl_0004,3m,,,,,B,LOW_OBSERVED_VISIBILITY,investigate-visibility,60.0,not estimable,,2,2.1.0
+2026-09-11-02-targeted,2026-09-14T06:38:17+00:00,cl_0005,3m,,,,,B,LOW_OBSERVED_VISIBILITY,investigate-visibility,60.0,not estimable,,2,2.1.0
