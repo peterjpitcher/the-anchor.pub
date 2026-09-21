@@ -120,6 +120,7 @@ function getBlogOrganicSearchCluster(slug: string, tags: string[]): OrganicSearc
   if (lowerSlug.includes('plane') || tagSet.has('plane-spotting')) return 'planeSpotting'
   if (lowerSlug.includes('parking') || tagSet.has('parking')) return 'heathrowParking'
   if (lowerSlug.includes('beer-garden')) return 'beerGarden'
+  if (lowerSlug.includes('things-to-do-near-heathrow')) return 'thingsToDo'
   // Christmas has to be tested before the dining, events and party branches
   // below, because slugs like work-christmas-party-ideas-near-heathrow contain
   // "party" and would otherwise be routed to the private hire cluster.

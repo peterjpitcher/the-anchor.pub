@@ -10,6 +10,7 @@ describe('organicSearchClusters', () => {
     expect(getOrganicSearchCluster('heathrowDining').primaryRoute).toBe('/restaurants-near-heathrow')
     expect(getOrganicSearchCluster('heathrowParking').primaryRoute).toBe('/heathrow-parking')
     expect(getOrganicSearchCluster('beerGarden').primaryRoute).toBe('/beer-garden')
+    expect(getOrganicSearchCluster('thingsToDo').primaryRoute).toBe('/blog/things-to-do-near-heathrow')
   })
 
   it('keeps supporting links distinct from each cluster primary route', () => {

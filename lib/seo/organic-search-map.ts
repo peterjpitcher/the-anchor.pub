@@ -8,6 +8,7 @@ export type OrganicSearchClusterKey =
   | 'events'
   | 'privateRooms'
   | 'christmas'
+  | 'thingsToDo'
   | 'workspace'
 
 export type OrganicSearchLink = {
@@ -283,6 +284,34 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
         label: "What's on",
         description: 'Live listings for quiz nights, Music Bingo and everything else in the diary.',
         anchor: "what's on at The Anchor this season"
+      }
+    ]
+  },
+  thingsToDo: {
+    key: 'thingsToDo',
+    label: 'Things to do near Heathrow',
+    targetIntent: 'Travellers and local visitors looking for useful activities near Heathrow during a layover or before a flight.',
+    primaryRoute: '/blog/things-to-do-near-heathrow',
+    primaryAnchor: 'things to do near Heathrow Airport',
+    successEvents: ['table_booking_started', 'directions_clicked', 'menu_viewed'],
+    supportingRoutes: [
+      {
+        href: '/plane-spotting-heathrow',
+        label: 'Plane spotting',
+        description: 'Watch aircraft from the beer garden around seven minutes from Terminal 5.',
+        anchor: 'Heathrow plane spotting'
+      },
+      {
+        href: '/heathrow-layover-dining',
+        label: 'Layover dining',
+        description: 'Plan enough time for a meal away from the terminal and a safe return.',
+        anchor: 'what to do on a Heathrow layover'
+      },
+      {
+        href: '/luggage-storage-heathrow',
+        label: 'Luggage storage',
+        description: 'Store bags while you eat, visit locally or wait for a flight.',
+        anchor: 'luggage storage near Heathrow'
       }
     ]
   },
