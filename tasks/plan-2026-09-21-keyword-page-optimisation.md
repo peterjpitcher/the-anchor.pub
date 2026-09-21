@@ -5,6 +5,6 @@
 - [x] Audit the live target pages, metadata, headings, internal links, canonicals and indexability.
 - [x] Apply the highest-confidence on-page and internal-link improvements without creating duplicate intent.
 - [x] Verify the Google Business Profile edits and record anything still pending with Google.
-- [ ] Run targeted tests, lint, type checking and a production build.
-- [ ] Commit, push, verify the exact production deployment and smoke-test the changed pages.
-- [ ] Record the final evidence, changes and any owner-only actions.
+- [x] Run targeted tests, lint, type checking and a production build.
+- [x] Commit, push, verify production deployment `dpl_ANBqFdxjAFxqJniyjYPAk2Yfgao9` and smoke-test the changed pages.
+- [x] Record the final evidence, changes and owner-only actions in the SEO report.
