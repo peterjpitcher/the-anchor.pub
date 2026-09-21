@@ -36,7 +36,7 @@ export default async function DogFriendlyPage() {
             <InteriorHero
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Dog Friendly"
-        title="Paws Welcome Here"
+        title="Dog Friendly Pub Near Heathrow"
         lead="We're not just dog tolerant, we're dog friendly. Bring your best friend along for a pint."
       />
 

@@ -40,7 +40,7 @@ export default function PoolAndDartsPage() {
             <InteriorHero
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Pool & Darts"
-        title="Pool & Darts at The Anchor"
+        title="Pub with Pool Table and Darts Near Heathrow"
         lead="A proper pub with a proper pool table and a dartboard. Rack up a frame for £1, throw arrows for free, and settle it all over a cold pint. Check current opening hours before visiting."
       />
 

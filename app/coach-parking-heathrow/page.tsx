@@ -37,7 +37,7 @@ export default function CoachParkingPage() {
             <InteriorHero
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Coach Parking"
-        title="Coach Parties Welcome"
+        title="Pub with Coach Parking Near Heathrow"
         lead="Coach groups up to 20, group food, and a free driver meal for groups over 15."
       />
 

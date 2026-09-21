@@ -126,3 +126,23 @@ scope = "all"
 term = "wedding"
 reason = "Owner declined wedding receptions (docs/SSOT.md banned claims)."
 scope = "all"
+
+[[avoid]]
+term = "banquet hall"
+reason = "The Anchor has a private hire space and private dining room, not a banquet hall. Owner-confirmed 21 September 2026."
+scope = "all"
+
+[[avoid]]
+term = "reception hall"
+reason = "The Anchor has a private hire space and private dining room, not a reception hall. Owner-confirmed 21 September 2026."
+scope = "all"
+
+[[avoid]]
+term = "event hall"
+reason = "The Anchor has a private hire space and private dining room, not an event hall. Owner-confirmed 21 September 2026."
+scope = "all"
+
+[[avoid]]
+term = "community hall"
+reason = "The Anchor is a pub with private hire space, not a community hall. Owner-confirmed 21 September 2026."
+scope = "all"
