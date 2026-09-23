@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { GOOGLE_REVIEWS_URL } from '@/lib/constants'
 
 interface ReviewsBadgeProps {
   rating: number | null
@@ -52,7 +53,7 @@ export function ReviewsBadge({
           {typeof totalReviews === 'number' ? `${totalReviews} reviews` : 'Latest reviews'}
         </div>
         <a
-          href="https://g.page/theanchorpubsm?share"
+          href={GOOGLE_REVIEWS_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-accent-text hover:text-anchor-gold transition-colors mt-1 inline-block"

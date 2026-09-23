@@ -97,3 +97,30 @@ export const PHONE_NUMBER = CONTACT.phone
  * coordinates it is built from.
  */
 export const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${CONTACT.coordinates.lat},${CONTACT.coordinates.lng}`
+
+/**
+ * Where every "leave a review" ask on the site must point.
+ *
+ * Owner rule (23 September 2026): review requests only ever go to the feedback
+ * page on the management app. It asks how the visit went and sends happy
+ * visitors on to Google itself, so the site must never link straight to a
+ * Google write-review URL.
+ *
+ * This replaced `https://g.page/r/CQz1W5fqSTqPEAI/review`, which had been the
+ * `/leave-review` destination since August 2025 and encoded the wrong Google
+ * CID entirely (10320642767983473932, not The Anchor's 17928230944823812473).
+ * Google bounced it to its own homepage, so every review ask on the site was
+ * dead for thirteen months.
+ */
+export const REVIEW_REQUEST_URL = 'https://l.the-anchor.pub/feedback'
+
+/**
+ * Where "read our reviews" links point. Reading is not requesting, so this one
+ * does go to Google.
+ *
+ * Built from the CID rather than a vanity short link: `g.page/theanchorpubsm`
+ * died at some point and started resolving to a Google search results page for
+ * the literal string "theanchorpubsm". The CID matches Place ID
+ * ChIJDcbcERJxdkgReaFjdQ7fzfg.
+ */
+export const GOOGLE_REVIEWS_URL = 'https://www.google.com/maps?cid=17928230944823812473'

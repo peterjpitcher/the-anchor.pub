@@ -6,6 +6,7 @@ import { ReviewCard } from './ReviewCard'
 import { ReviewsCarousel } from './ReviewsCarousel'
 import { ReviewsBadge } from './ReviewsBadge'
 import { logError } from '@/lib/error-handling'
+import { GOOGLE_REVIEWS_URL } from '@/lib/constants'
 
 interface GoogleReviewsProps {
   layout?: 'grid' | 'carousel' | 'badge' | 'list'
@@ -118,7 +119,7 @@ export function GoogleReviews({
 
       <div className="text-center mt-8">
         <a
-          href="https://g.page/theanchorpubsm?share"
+          href={GOOGLE_REVIEWS_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-accent-text hover:text-anchor-gold transition-colors"

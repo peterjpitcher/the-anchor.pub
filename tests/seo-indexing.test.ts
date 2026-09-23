@@ -346,14 +346,14 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
   it('preserves external redirect destinations', () => {
     const rule = lookupRedirect('/leave-review')
     expect(rule).toBeDefined()
-    expect(rule!.destination).toBe('https://g.page/r/CQz1W5fqSTqPEAI/review')
+    expect(rule!.destination).toBe('https://l.the-anchor.pub/feedback')
 
     const redirectUrl = resolveRedirectUrl(
       new URL('https://www.the-anchor.pub/leave-review'),
       rule!,
     )
 
-    expect(redirectUrl.toString()).toBe('https://g.page/r/CQz1W5fqSTqPEAI/review')
+    expect(redirectUrl.toString()).toBe('https://l.the-anchor.pub/feedback')
   })
 
   it('preserves query strings for same-site concrete redirects', () => {
