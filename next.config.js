@@ -135,15 +135,16 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: '/sitemap.xml',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=300, s-maxage=300, must-revalidate',
-          },
-        ],
-      },
+      // No Cache-Control override for /sitemap.xml. app/sitemap.ts exports
+      // `revalidate`, so Next owns that route's caching. Setting the header
+      // here as well made the two policies merge into
+      // `...must-revalidate, public, max-age=0, must-revalidate`, and Vercel's
+      // runtime then rejected the `max-age=0` it parsed out of it with
+      // `Invariant: invalid Cache-Control duration provided: 0 < 1`. That
+      // threw on every regeneration, so /sitemap.xml returned 500 as soon as
+      // the ISR cache went cold, which is what a deploy does. The warm cache
+      // hid it from 30 April 2026 until 23 September 2026.
+      // Never set Cache-Control here for a route that exports `revalidate`.
       {
         source: '/downloads/:path*.pdf',
         headers: [

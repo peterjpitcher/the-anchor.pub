@@ -264,6 +264,43 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     expect(broadRedirects).toEqual([])
   })
 
+  it('sets no Cache-Control header on a route that exports its own revalidate', async () => {
+    // app/sitemap.ts exports `revalidate`, so Next owns that route's caching.
+    // Setting Cache-Control in next.config.js as well merged the two policies
+    // into `...must-revalidate, public, max-age=0, must-revalidate`, and
+    // Vercel rejected the parsed `max-age=0` with "Invariant: invalid
+    // Cache-Control duration provided: 0 < 1". Every regeneration threw, so
+    // /sitemap.xml served 500 the moment the ISR cache went cold on a deploy.
+    // headers() returns only the base set unless NODE_ENV is production, so
+    // without this the assertion never sees the sitemap rule and passes
+    // vacuously.
+    const nextConfig = require('../next.config.js')
+    const previousNodeEnv = process.env.NODE_ENV
+    let headerRules: Array<{ source?: string; headers?: Array<{ key?: string }> }>
+    try {
+      Object.defineProperty(process.env, 'NODE_ENV', {
+        value: 'production',
+        configurable: true,
+      })
+      headerRules = await nextConfig.headers()
+    } finally {
+      Object.defineProperty(process.env, 'NODE_ENV', {
+        value: previousNodeEnv,
+        configurable: true,
+      })
+    }
+    expect(headerRules.length).toBeGreaterThan(1)
+    const isrRoutes = ['/sitemap.xml']
+    const offending = headerRules
+      .filter((rule: { source?: string }) => isrRoutes.includes(rule.source ?? ''))
+      .filter((rule: { headers?: Array<{ key?: string }> }) =>
+        (rule.headers ?? []).some((h) => h.key?.toLowerCase() === 'cache-control'),
+      )
+      .map((rule: { source?: string }) => rule.source)
+
+    expect(offending).toEqual([])
+  })
+
   it('keeps concrete redirects out of next.config.js so middleware owns one-hop flattening', async () => {
     const nextConfig = require('../next.config.js')
     const frameworkRedirects = await nextConfig.redirects()
