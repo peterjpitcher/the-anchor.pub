@@ -222,3 +222,61 @@ persisted in the cache layer for several revalidation cycles before clearing.
 
 `/leave-review` returned different destinations during this session because
 PR #177 deployed mid-investigation. That is explained, not anomalous.
+
+---
+
+## Correction: the Cache-Control fix was necessary but not sufficient
+
+The section above reported the sitemap as fixed and verified. That was true of
+the sample taken at the time and wrong as a conclusion. The route was still
+returning 500, and the earlier verification had caught it during a run of cache
+hits.
+
+**The tell was `x-vercel-cache`.** Every 500 carried `MISS`, every 200 carried
+`HIT` or `STALE`. A cache hit serves bytes without rendering; a miss renders.
+So the route threw on every render and the cache was hiding it. Any check that
+fetches a sitemap once can therefore report a broken sitemap as healthy. The
+monthly check probes eight times for this reason.
+
+**Actual root cause.** `fetchSitemapEventsPage` passes an `AbortController`
+signal to bound the management API call. Next cannot cache a fetch carrying a
+signal, so the route opts out of the Data Cache and renders dynamically.
+`export const revalidate = 3600` therefore never took effect, and Next emitted
+`Cache-Control: public, max-age=0, must-revalidate` with no `s-maxage`. Vercel's
+ISR layer tried to derive a revalidate window from that zero and threw
+`Invariant: invalid Cache-Control duration provided: 0 < 1`.
+
+The build output proves the mismatch. Before the fix, `/sitemap.xml` was
+classified `○ (Static)` while rendering dynamically at runtime. With
+`export const dynamic = 'force-dynamic'` it is classified `ƒ (Dynamic)` and
+Vercel stays out of the ISR path.
+
+The `next.config.js` Cache-Control override was a real defect and its removal
+stands, but it was never the source of the zero.
+
+**What was ruled out, with measurements.** The event feed was suspected and is
+innocent: 20 sequential calls returned 0 failures, p50 74ms, max 1,310ms against
+a 3,000ms budget.
+
+**Verified, commit `5f4deeb0`:** 55 consecutive production requests, every one
+on `x-vercel-cache: MISS`, all returned 200 with all 200 URLs. Before the fix
+every MISS was a 500.
+
+## Monthly health check
+
+`~/.claude/scripts/seo-health-check.mjs` checks robots.txt and sitemap health
+across the-anchor.pub, aseassociates.co.uk, dukesheadleatherhead.com,
+orangejelly.co.uk and seeaandseeds.co.uk. It lives outside this repository
+because this repository is public and it names client domains.
+
+Scheduled as `monthly-seo-health-check`, 08:00 on the 1st of each month.
+
+First run, 23 September 2026:
+
+| Site | Sitemap | Result |
+| --- | --- | --- |
+| the-anchor.pub | 200 URLs | all healthy |
+| aseassociates.co.uk | 20 URLs | all healthy |
+| dukesheadleatherhead.com | 49 URLs | all healthy, but robots.txt blocks `/login`, which carries noindex and is linked from the homepage |
+| orangejelly.co.uk | 145 URLs | all healthy |
+| seeaandseeds.co.uk | n/a | domain does not resolve |
