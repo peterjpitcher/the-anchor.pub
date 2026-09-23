@@ -144,3 +144,78 @@ Quote clicks from the Pages or Chart tab only. See
 The repo is in sync with `origin/main`, so something outside the Next.js app is
 serving that redirect. Worth confirming which destination is correct and whether
 a stray Cloudflare rule exists.
+
+---
+
+## Incident: /sitemap.xml returned 500 after the deploy
+
+Deploying the robots fix cold-started the sitemap's ISR cache and exposed a
+latent bug that had been masked since 30 April 2026.
+
+**Symptom.** `/sitemap.xml` returned HTTP 500 consistently, in 200 to 300ms, so
+not a timeout. Every other route was fine.
+
+**Cause.** Vercel's runtime log:
+
+```
+Invariant: invalid Cache-Control duration provided: 0 < 1
+page: '/sitemap.xml'
+```
+
+`app/sitemap.ts` exports `revalidate = 3600`, so Next owns that route's caching.
+`next.config.js` also set a `Cache-Control` header on the same path. The two
+merged into one header, reproduced locally against `next start`:
+
+```
+public, max-age=300, s-maxage=300, must-revalidate, public, max-age=0, must-revalidate
+```
+
+Vercel parses a revalidate duration out of that, reads the trailing `max-age=0`
+and throws. Every regeneration failed, so the route served 500 the moment the
+ISR cache went cold. A deploy is exactly what empties that cache. The warm cache
+had been serving the last good sitemap for nearly five months, which is why it
+had never surfaced. The same masking is recorded in the 5 September triage,
+where the sitemap sat stale for 15 hours and only a redeploy cleared it.
+
+**This was pre-existing on `main`, not introduced by the robots change.** The
+diff that triggered it touched only `app/robots.ts`, a test file and a markdown
+document, none of which can affect sitemap caching. Any deploy would have done
+the same.
+
+**Fix.** The `/sitemap.xml` Cache-Control override was removed from
+`next.config.js`, leaving Next's own `public, max-age=0, must-revalidate`.
+Commit `db542d1e`.
+
+The `/robots.txt` override was deliberately left in place. `app/robots.ts`
+exports no `revalidate`, so nothing parses a duration from it, and it serves 200
+both locally and in production. Its header is documented as load-bearing for the
+Cloudflare Browser Cache TTL interaction.
+
+**Guard.** A test in `tests/seo-indexing.test.ts` asserts `next.config.js` sets
+no `Cache-Control` on a route that exports its own `revalidate`. It forces
+`NODE_ENV=production`, because `headers()` returns only the base set otherwise
+and the first version of the test passed vacuously. Confirmed failing against
+the old config and passing against the new.
+
+**Recovery took about eight minutes after the fix went live.** The clean header
+was being served while the route still returned 500, so the error state
+persisted in the cache layer for several revalidation cycles before clearing.
+
+**Verified live, 23 September 2026:**
+
+| Check | Result |
+| --- | --- |
+| `/sitemap.xml` status | 200, stable across repeated fetches |
+| Sitemap URL count | 200 (42 events, 50 blog, 108 other) |
+| Cache-Control | `public, max-age=0, must-revalidate`, single, unmerged |
+| All sitemap URLs 200 and indexable | 200 of 200 |
+| `robots.txt` | 200, none of the four paths still blocked |
+| The four formerly-blocked URLs | resolving correctly (three 301, one 404) |
+
+## Second open item for the owner
+
+`/leave-review` returned three different destinations during this session:
+`g.page/r/CQz1W5fqSTqPEAI/review`, then `l.the-anchor.pub/feedback`, against
+`g.page/theanchorpubsm/review?share` in `app/leave-review/page.tsx`. Something
+outside the Next.js app is serving that redirect and it is not stable. Worth
+confirming which destination is intended.
