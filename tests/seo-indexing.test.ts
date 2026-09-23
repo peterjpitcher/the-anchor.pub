@@ -183,6 +183,33 @@ describe('robots.txt', () => {
     expect(offending).toEqual([])
   })
 
+  it('only disallows infrastructure paths, never crawlable page routes', () => {
+    // A robots.txt block stops the fetch, so Google never sees the page's
+    // noindex tag or its 301 and can still index the bare URL from an
+    // internal link. That produced the "Indexed, though blocked by
+    // robots.txt" entry for /leave-review, which the footer links sitewide.
+    // Anything disallowed here must be a path no page route resolves to.
+    const infrastructurePrefixes = ['/api/', '/_', '/cdn-cgi/']
+    const offending = disallow.filter(
+      (rule) => !infrastructurePrefixes.some((prefix) => rule.startsWith(prefix))
+    )
+    expect(offending).toEqual([])
+  })
+
+  it('does not disallow routes that rely on a redirect or noindex to deindex', () => {
+    // These four were blocked while also 301-ing (or 404-ing with noindex).
+    // The block prevented Google resolving them, so they stayed in coverage
+    // reports indefinitely. Removing them lets the redirect do its job.
+    const mustBeCrawlable = [
+      '/subscribe',
+      '/leave-review',
+      '/subscribe-for-digital-flyers',
+      '/p5-demo',
+    ]
+    const offending = disallow.filter((rule) => mustBeCrawlable.includes(rule))
+    expect(offending).toEqual([])
+  })
+
   it('allows AI crawlers (no per-bot disallow group)', () => {
     // The previous policy blocked AI scraper / model-training crawlers via a
     // dedicated rule group. That opt-out has been removed so AI crawlers can
