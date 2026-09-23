@@ -137,13 +137,19 @@ From Search Console, Performance report, Search results:
 Quote clicks from the Pages or Chart tab only. See
 `reference_gsc_export_dimension_trap` for why the Queries tab understates.
 
-## Open item for the owner
+## Open item for the owner: closed by PR #177
 
-`/leave-review` redirects live to `https://g.page/r/CQz1W5fqSTqPEAI/review`, but
-`app/leave-review/page.tsx` specifies `https://g.page/theanchorpubsm/review?share`.
-The repo is in sync with `origin/main`, so something outside the Next.js app is
-serving that redirect. Worth confirming which destination is correct and whether
-a stray Cloudflare rule exists.
+Flagged during this investigation: `/leave-review` redirected to
+`https://g.page/r/CQz1W5fqSTqPEAI/review`, which did not match the destination
+in `app/leave-review/page.tsx`.
+
+This was resolved independently by PR #177, merged at 09:40 on 23 September 2026
+while this work was in progress. That token carried the wrong Google CID
+entirely, so Google answered it with a 302 to its own homepage: every "leave a
+review" link on the site was dead. It now points at the feedback page.
+
+The two findings compound. The review links were both broken *and*
+robots-blocked, so nothing could crawl them to notice.
 
 ---
 
@@ -212,10 +218,7 @@ persisted in the cache layer for several revalidation cycles before clearing.
 | `robots.txt` | 200, none of the four paths still blocked |
 | The four formerly-blocked URLs | resolving correctly (three 301, one 404) |
 
-## Second open item for the owner
+## No remaining open items on redirects
 
-`/leave-review` returned three different destinations during this session:
-`g.page/r/CQz1W5fqSTqPEAI/review`, then `l.the-anchor.pub/feedback`, against
-`g.page/theanchorpubsm/review?share` in `app/leave-review/page.tsx`. Something
-outside the Next.js app is serving that redirect and it is not stable. Worth
-confirming which destination is intended.
+`/leave-review` returned different destinations during this session because
+PR #177 deployed mid-investigation. That is explained, not anomalous.
