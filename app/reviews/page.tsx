@@ -15,6 +15,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InteriorHero } from '@/components/hero'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getAllReviews } from '@/lib/google-reviews'
+import { GOOGLE_REVIEWS_URL, REVIEW_REQUEST_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Reviews | What Our Guests Say',
@@ -158,21 +159,21 @@ export default function ReviewsPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="Enjoyed Your Visit?"
-              lead="We'd love to hear from you. Leaving a Google review helps other guests find us."
+              lead="We'd love to know how we did. It takes a moment, and it helps other people find us."
             />
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button asChild variant="primary" size="lg">
                 <a
-                  href="https://g.page/theanchorpubsm/review?share"
+                  href={REVIEW_REQUEST_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Leave a Google Review
+                  Tell Us How We Did
                 </a>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <a
-                  href="https://g.page/theanchorpubsm?share"
+                  href={GOOGLE_REVIEWS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -195,7 +196,7 @@ export default function ReviewsPage() {
           {
             question: 'Can I leave a review for The Anchor?',
             answer:
-              'Yes! We welcome all feedback. You can leave a review on our Google Business page. Just search for "The Anchor Stanwell Moor" on Google Maps, or use the "Leave a Google Review" button on this page.',
+              'Yes, please do. Use the "Tell Us How We Did" button on this page. It asks how your visit went, then points you to Google if you\'d like to leave a public review.',
           },
         ]}
       />

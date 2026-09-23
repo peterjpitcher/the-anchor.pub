@@ -858,6 +858,8 @@ Wakes / memorials · Christenings · Engagement parties · Baby showers · Gende
 - **Claim:** Highly rated near Heathrow. Use stronger highest-rated claims only with current evidence.
 - **TripAdvisor:** Volatile. Do not hardcode rank in evergreen copy.
 - **Food Hygiene:** 5-star rating, maintained 7 years (since 2019). All staff Level 2 qualified.
+- **Asking for a review:** every review request, on the site or anywhere else, points at `https://l.the-anchor.pub/feedback`. That page asks how the visit went and sends happy visitors on to Google. Never link a customer straight to a Google write-review URL. (Owner-confirmed, 23 September 2026.)
+- **Linking to reviews people can read:** `https://www.google.com/maps?cid=17928230944823812473`. Built from the Google CID (Place ID `ChIJDcbcERJxdkgReaFjdQ7fzfg`) because `g.page` short links have rotted twice.
 
 The evidence behind each rating, and how often to recheck it, is in §17.
 

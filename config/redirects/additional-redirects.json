@@ -397,12 +397,12 @@
   },
   {
     "source": "/leave-review",
-    "destination": "https://g.page/r/CQz1W5fqSTqPEAI/review",
+    "destination": "https://l.the-anchor.pub/feedback",
     "permanent": true
   },
   {
     "source": "/leave-a-review",
-    "destination": "https://g.page/r/CQz1W5fqSTqPEAI/review",
+    "destination": "https://l.the-anchor.pub/feedback",
     "permanent": true
   },
   {
