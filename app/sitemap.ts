@@ -8,7 +8,22 @@ import { getEventSeoStrategy } from '@/lib/event-seo-strategy'
 import { isRetiredEvent, isFallbackEvent } from '@/lib/api/events'
 import { logError } from '@/lib/error-handling'
 
-export const revalidate = 60 * 60 // 1 hour
+// This route renders dynamically whether we ask it to or not, so say so.
+//
+// `fetchSitemapEventsPage` passes an AbortController signal to bound the
+// management API call. Next cannot cache a fetch that carries a signal, so the
+// route opts out of the Data Cache, `revalidate` never takes effect, and Next
+// emits `Cache-Control: public, max-age=0, must-revalidate` with no s-maxage.
+// Vercel's ISR layer then tried to derive a revalidate window from that and
+// threw on every render that missed the cache:
+//
+//   Invariant: invalid Cache-Control duration provided: 0 < 1
+//
+// so /sitemap.xml returned 500 on every cache miss and 200 only on a hit.
+// Declaring the route dynamic keeps Vercel out of the ISR path entirely.
+// Do not reinstate `export const revalidate` here unless the signal-based
+// timeout in fetchSitemapEventsPage goes away first.
+export const dynamic = 'force-dynamic'
 
 const EVENT_PAGE_SIZE = 100
 const EVENT_MAX_PAGES = 20
