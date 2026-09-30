@@ -1,5 +1,6 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Facebook, Instagram, Phone } from 'lucide-react'
@@ -29,6 +30,12 @@ interface FooterProps {
   copyright?: {
     year?: number
   }
+  /**
+   * The Orange Jelly credit line, shown under the copyright. It is an async
+   * Server Component, which this client footer cannot render itself, so the
+   * server layout renders it and passes it in here.
+   */
+  credit?: ReactNode
   className?: string
 }
 
@@ -143,6 +150,7 @@ export function Footer({
   contact = defaultContact,
   features = defaultFeatures,
   copyright = { year: new Date().getFullYear() },
+  credit,
   className
 }: FooterProps) {
   const renderLink = (item: NavigationItem | string, deviceType: 'mobile' | 'desktop' = 'desktop') => {
@@ -383,9 +391,12 @@ export function Footer({
         {/* Base bar */}
         <div className="mt-10 border-t border-line-gold pt-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <p className="text-sm text-anchor-cream-text/[0.82]">
-              &copy; {copyright.year} The Anchor, Stanwell Moor Village &middot; Horton Road, Surrey TW19 6AQ
-            </p>
+            <div className="space-y-1">
+              <p className="text-sm text-anchor-cream-text/[0.82]">
+                &copy; {copyright.year} The Anchor, Stanwell Moor Village &middot; Horton Road, Surrey TW19 6AQ
+              </p>
+              {credit}
+            </div>
             <div className="flex items-center gap-3">
               <a
                 href="https://www.facebook.com/theanchorpubsm/"
