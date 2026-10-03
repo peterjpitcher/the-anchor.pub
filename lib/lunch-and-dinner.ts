@@ -308,7 +308,7 @@ export function getWeekdayServiceTimes(
 }
 
 /**
- * The "No need to book" line under the hero buttons.
+ * The "No need to book" line above the hero buttons.
  *
  * Staff seat walk-ins for the whole of both kitchen windows, Tuesday to Friday
  * (owner decision, 25 September 2026, SSOT section 5). The line is about the

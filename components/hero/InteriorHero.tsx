@@ -20,7 +20,7 @@ export interface InteriorHeroProps {
   badges?: ReactNode
   /** Hero actions — one primary lg + at most one outline lg. */
   actions?: ReactNode
-  /** One short line under the actions, for what the buttons do not say. */
+  /** One short line above the actions, for what the buttons do not say. */
   note?: string
 }
 
@@ -110,16 +110,20 @@ export function InteriorHero({
 
           {badges && <div className="flex flex-wrap gap-2">{badges}</div>}
 
-          {actions && (
-            <div className="flex flex-col flex-wrap gap-3 sm:flex-row [&>*]:w-full sm:[&>*]:w-auto">
-              {actions}
-            </div>
-          )}
-
+          {/* Above the actions, not below them. On a phone three stacked buttons
+              pushed it to the foot of the first screen, 23px clear of the cookie
+              banner at 375 x 812 and hidden behind it on anything shorter, and
+              most ad visitors never scroll (owner decision, 3 October 2026). */}
           {note && (
             <p data-hero-note className="text-base font-semibold text-anchor-cream-text">
               {note}
             </p>
+          )}
+
+          {actions && (
+            <div className="flex flex-col flex-wrap gap-3 sm:flex-row [&>*]:w-full sm:[&>*]:w-auto">
+              {actions}
+            </div>
           )}
         </div>
       </div>

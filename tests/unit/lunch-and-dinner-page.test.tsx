@@ -752,14 +752,17 @@ function hoursWithWeekdaySittings(
   } as unknown as BusinessHours
 }
 
-describe('the walk-in line under the hero buttons', () => {
+describe('the walk-in line above the hero buttons', () => {
   it('says there is no need to book, with the regular times from the live hours', async () => {
     await renderPage()
 
     expect(walkInLine()).toBe(REGULAR_WALK_IN_LINE)
   })
 
-  it('sits under the three hero actions, the third being directions to the pub', async () => {
+  // Above the buttons, so it is read in the first screen on a phone. Under three
+  // stacked buttons it fell behind the cookie banner on shorter screens, and most
+  // ad visitors never scroll (owner decision, 3 October 2026).
+  it('sits above the three hero actions, the third being directions to the pub', async () => {
     await renderPage()
 
     const actions = [
@@ -771,7 +774,7 @@ describe('the walk-in line under the hero buttons', () => {
     for (let index = 1; index < actions.length; index += 1) {
       expect(actions[index - 1].compareDocumentPosition(actions[index]) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     }
-    expect(actions[2].compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(note.compareDocumentPosition(actions[0]) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(actions[2]).toHaveAttribute('href', '/find-us')
   })
 
