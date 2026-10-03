@@ -30,7 +30,9 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 // to be inferred from the page reading `searchParams`. The page itself is not
 // cached, but the data behind it still is: the menu for 5 minutes and the
 // hours snapshot for an hour (the `next.revalidate` on each fetch in
-// lib/api/client.ts), so an ad visit does not cost a management API call.
+// lib/api/client.ts). So the management API is asked once per window, not
+// once per ad visit. Checked on the built server: eight page requests cost
+// one menu call.
 export const dynamic = 'force-dynamic'
 
 type LunchAndDinnerPageProps = {
