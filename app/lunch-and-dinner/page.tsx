@@ -11,6 +11,7 @@ import { WeekHours } from '@/components/WeekHours'
 import { CONTACT } from '@/lib/constants'
 import { getBusinessHoursSnapshot } from '@/lib/api'
 import { getFoodMenuPageData, getMenuUnavailableMessage } from '@/lib/menu-page-data'
+import { LUNCH_DINNER_BOOKING_HREF, LUNCH_DINNER_BOOKING_SOURCE } from '@/lib/booking-cta'
 import {
   buildWalkInLine,
   getWeekdayServiceTimes,
@@ -36,10 +37,11 @@ type LunchAndDinnerPageProps = {
   searchParams?: Record<string, string | string[] | undefined>
 }
 
-// Never put "sunday" in this: the booking form reads any source containing it
-// as a Sunday roast booking.
-const BOOKING_SOURCE = 'lunch_dinner_lp'
-const BOOKING_HREF = `/book-table?source=${BOOKING_SOURCE}`
+// "Book a table" lands on the form itself (#booking-form), tagged as coming
+// from this page. Both values live in lib/booking-cta.ts because the sticky
+// bar uses the same link, so all three buttons count as one source.
+const BOOKING_SOURCE = LUNCH_DINNER_BOOKING_SOURCE
+const BOOKING_HREF = LUNCH_DINNER_BOOKING_HREF
 
 const HERO_IMAGE = '/images/food/weekday-2026/beer-battered-cod-and-chips.jpg'
 const SHARE_IMAGE_ALT = 'Beer battered cod and chips at The Anchor, Stanwell Moor'

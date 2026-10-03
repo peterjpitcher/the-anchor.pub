@@ -16,6 +16,7 @@ import type { BusinessHours } from '@/lib/api'
 import type { MenuResponse, MenuSectionData } from '@/lib/api/menu'
 import { anchorAPI, getBusinessHoursSnapshot } from '@/lib/api'
 import { CONTACT } from '@/lib/constants'
+import { rejectAllCookies } from '@/lib/cookies'
 import LunchAndDinnerPage, { dynamic, metadata } from '@/app/lunch-and-dinner/page'
 import * as lunchAndDinnerPageModule from '@/app/lunch-and-dinner/page'
 import {
@@ -186,11 +187,20 @@ afterAll(() => {
   })
 })
 
+// How a Meta ad lands on the page: through its short link, tags on the address.
+const PAID_LANDING_URL =
+  'http://localhost/lunch-and-dinner?utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a_cod_and_chips&utm_content=ad__var_1&short_code=jbozdk'
+
 beforeEach(() => {
   jest.clearAllMocks()
   currentHref = 'http://localhost/lunch-and-dinner'
   jest.mocked(anchorAPI.getMenu).mockResolvedValue(liveShapedMenu())
   jest.mocked(getBusinessHoursSnapshot).mockResolvedValue(LIVE_HOURS)
+})
+
+afterEach(() => {
+  // Forget any cookie choice a test made.
+  document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
 })
 
 type PageSearchParams = Record<string, string | string[] | undefined>
@@ -313,7 +323,9 @@ describe('/lunch-and-dinner', () => {
     expect(screen.queryByText(/^Lunch \d/)).not.toBeInTheDocument()
   })
 
-  it('sends both Book buttons to the booking form tagged with the landing page source', async () => {
+  // BookTableButton is a button that navigates in its click handler, so these
+  // assert where the browser was actually sent, not an href attribute.
+  it('sends both Book buttons straight to the booking form, tagged with the landing page source', async () => {
     await renderPage()
 
     const buttons = screen.getAllByRole('button', { name: 'Book a table' })
@@ -321,20 +333,68 @@ describe('/lunch-and-dinner', () => {
     for (const button of buttons) {
       currentHref = 'http://localhost/lunch-and-dinner'
       fireEvent.click(button)
-      expect(currentHref).toBe('/book-table?source=lunch_dinner_lp')
+      // The query comes before the fragment, or the source would be lost.
+      expect(currentHref).toBe('/book-table?source=lunch_dinner_lp#booking-form')
     }
     // A source containing "sunday" would open the form as a Sunday roast booking.
     expect(currentHref).not.toMatch(/sunday/i)
   })
 
-  it('carries the ad tags from a paid landing URL through both Book buttons', async () => {
-    await renderPage()
+  it('carries the ad tags from a paid landing URL through both Book buttons, ending at the form', async () => {
+    await renderPage({ utm_campaign: CAMPAIGNS.lunchA })
 
-    for (const button of screen.getAllByRole('button', { name: 'Book a table' })) {
+    const buttons = screen.getAllByRole('button', { name: 'Book a table' })
+    expect(buttons).toHaveLength(2)
+    for (const button of buttons) {
       // How a Meta ad lands here: through the short link, with its tags on the URL.
-      currentHref = 'http://localhost/lunch-and-dinner?utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a_cod_and_chips&utm_content=ad__var_1&short_code=jbozdk'
+      currentHref = PAID_LANDING_URL
       fireEvent.click(button)
-      expect(currentHref).toBe('/book-table?source=lunch_dinner_lp&utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a_cod_and_chips&utm_content=ad__var_1&short_code=jbozdk')
+      expect(currentHref).toBe(
+        '/book-table?source=lunch_dinner_lp&utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a_cod_and_chips&utm_content=ad__var_1&short_code=jbozdk#booking-form'
+      )
+
+      const target = new URL(currentHref, 'http://localhost')
+      expect(target.pathname).toBe('/book-table')
+      expect(target.hash).toBe('#booking-form')
+      expect(Object.fromEntries(target.searchParams)).toEqual({
+        source: 'lunch_dinner_lp',
+        utm_source: 'facebook',
+        utm_medium: 'paid_social',
+        utm_campaign: 'weekday_lunch_a_cod_and_chips',
+        utm_content: 'ad__var_1',
+        short_code: 'jbozdk'
+      })
+    }
+  })
+
+  it.each([
+    ['before any cookie choice', () => undefined],
+    ['with cookies declined', () => rejectAllCookies()]
+  ])('carries the ad tags %s, and writes nothing to the device', async (_label, setConsent) => {
+    setConsent()
+    await renderPage({ utm_campaign: CAMPAIGNS.dinnerA })
+
+    const setItem = jest.spyOn(Storage.prototype, 'setItem')
+    const setCookie = jest.spyOn(Document.prototype, 'cookie', 'set')
+    try {
+      for (const button of screen.getAllByRole('button', { name: 'Book a table' })) {
+        currentHref = PAID_LANDING_URL
+        fireEvent.click(button)
+
+        const target = new URL(currentHref, 'http://localhost')
+        expect(target.pathname).toBe('/book-table')
+        expect(target.searchParams.get('source')).toBe('lunch_dinner_lp')
+        expect(target.searchParams.get('utm_campaign')).toBe('weekday_lunch_a_cod_and_chips')
+        expect(target.searchParams.get('utm_content')).toBe('ad__var_1')
+        expect(target.searchParams.get('short_code')).toBe('jbozdk')
+        expect(target.hash).toBe('#booking-form')
+      }
+      // The tags travel in the address only: no cookie, no browser storage.
+      expect(setItem).not.toHaveBeenCalled()
+      expect(setCookie).not.toHaveBeenCalled()
+    } finally {
+      setItem.mockRestore()
+      setCookie.mockRestore()
     }
   })
 

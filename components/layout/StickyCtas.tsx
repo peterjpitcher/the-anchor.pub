@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { resolveBookingCta, type BookingCta } from '@/lib/booking-cta'
+import { withCarriedAttributionParams } from '@/lib/booking-attribution'
 import { hasUserConsented } from '@/lib/cookies'
 import { Utensils, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui'
@@ -188,7 +189,27 @@ export function StickyCtas() {
       <div className="container flex items-center gap-3 lg:justify-end">
         {action.kind === 'link' ? (
           <Button asChild variant="primary" size="md" className="flex-1 lg:flex-none" tabIndex={showStickyCtas ? undefined : -1}>
-            <Link href={action.href} onClick={() => trackCtaClick({ id: pathname === '/live-sport/nations-championship' ? 'nations_sticky' : 'page_sticky', label: action.label, location: 'sticky_global', destination: action.href, context: pathname || '/' })}>{action.label}</Link>
+            <Link
+              href={action.href}
+              onClick={(event) => {
+                trackCtaClick({ id: pathname === '/live-sport/nations-championship' ? 'nations_sticky' : 'page_sticky', label: action.label, location: 'sticky_global', destination: action.href, context: pathname || '/' })
+                if (!action.carryAttribution) return
+                // A link into the booking page, from the paid-ads landing
+                // page. It is still a "Book a table" tap, so it keeps the
+                // event this button fired when it opened the quick-book sheet.
+                trackTableBookingClick('sticky_global')
+                // Leave a new-tab or new-window click to the browser.
+                if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+                // The plain href does not carry the ad tags. Navigate the way
+                // BookTableButton does: copy the tags on this page's address
+                // onto the booking link, in the URL only, nothing stored, and
+                // with or without cookie consent.
+                event.preventDefault()
+                window.location.href = withCarriedAttributionParams(action.href)
+              }}
+            >
+              {action.label}
+            </Link>
           </Button>
         ) : action.kind === 'christmas' ? (
           <Button

@@ -191,7 +191,12 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         </p>
       </Section>
 
-      <Section id="booking-form" background="gray" spacing="sm" container>
+      {/* The paid-ads landing page links straight here (#booking-form), so its
+          visitors skip the hero above. The page already keeps anchors clear of
+          the header (scroll-padding-top in globals.css); the margin adds a
+          little air so the form does not sit hard against its edge. The id is
+          outside the booking_options_step1 flag, so both layouts have it. */}
+      <Section id="booking-form" background="gray" spacing="sm" container className="scroll-mt-4">
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4 space-y-3">

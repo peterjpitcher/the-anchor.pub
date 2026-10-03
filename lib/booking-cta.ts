@@ -1,14 +1,53 @@
 import { getEventRemainingCapacity, type EventCapacitySource, type Event } from '@/lib/api/events'
 import { getEventPresentation } from '@/lib/event-presentation'
 
+/**
+ * The `?source=` every "Book a table" on /lunch-and-dinner sends, so a booking
+ * can be traced back to the paid-ads landing page.
+ *
+ * Never put "sunday" in this: the booking form reads any source containing it
+ * as a Sunday roast booking.
+ */
+export const LUNCH_DINNER_BOOKING_SOURCE = 'lunch_dinner_lp'
+
+/**
+ * Where "Book a table" goes from /lunch-and-dinner: straight to the form on
+ * the booking page, past its hero, which on a phone pushed the form below the
+ * first screen. The query has to come before the `#` fragment, or the browser
+ * reads it as part of the fragment and the source is lost.
+ *
+ * Shared by the page's hero and footer buttons and by the sticky bar below, so
+ * all three count as the same source. It lives here, not with the page's own
+ * helpers, because the sticky bar loads on every page and should not pull the
+ * landing page's code in with it.
+ */
+export const LUNCH_DINNER_BOOKING_HREF = `/book-table?source=${LUNCH_DINNER_BOOKING_SOURCE}#booking-form`
+
 export type BookingCta =
   | { kind: 'table'; label: 'Book a table' }
-  | { kind: 'link'; label: string; href: string }
+  | {
+      kind: 'link'
+      label: string
+      href: string
+      /**
+       * A link into the booking page. The sticky bar copies the ad tags on the
+       * current address onto it when it is followed, as BookTableButton does,
+       * so the booking can be traced to the ad. Left off every other link.
+       */
+      carryAttribution?: true
+    }
   | { kind: 'christmas'; label: 'Christmas enquiry' }
 
 export function resolveBookingCta(pathname: string): BookingCta {
   const path = pathname.replace(/\/$/, '')
   if (path === '/christmas-parties') return { kind: 'christmas', label: 'Christmas enquiry' }
+  // The paid-ads landing page. The generic quick-book sheet took its bookings
+  // without the landing page source, so they could not be told apart from any
+  // other. Its sticky "Book a table" goes to the same place as the page's own
+  // buttons: straight to the form, tagged as coming from this page.
+  if (path === '/lunch-and-dinner') {
+    return { kind: 'link', label: 'Book a table', href: LUNCH_DINNER_BOOKING_HREF, carryAttribution: true }
+  }
   if (path === '/live-sport/nations-championship') return { kind: 'link', label: 'Choose a game', href: '#fixtures' }
   // A route alone cannot establish that an event is still on sale. Its page
   // supplies the live action after resolving the same state as its booking form.
