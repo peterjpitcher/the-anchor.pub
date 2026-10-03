@@ -64,6 +64,18 @@ describe('the lightbox never fires mid-booking', () => {
     // event page. Owner-approved 6 September 2026.
     expect(isLightboxSuppressedRoute(path)).toBe(true)
   })
+
+  it.each([
+    '/lunch-and-dinner',
+    '/lunch-and-dinner?utm_campaign=x',
+    '/lunch-and-dinner?utm_source=facebook&utm_campaign=weekday_lunch_a_cod_and_chips&short_code=jbozdk',
+    '/lunch-and-dinner/',
+  ])('is suppressed on the paid-ads landing page %s', (path) => {
+    // Every weekday lunch and dinner ad lands here, on a phone. The overlay
+    // covered the page ten seconds in with a different offer, and the ad tags
+    // on the address must not let it back in.
+    expect(isLightboxSuppressedRoute(path)).toBe(true)
+  })
 })
 
 describe('it still fires everywhere it should', () => {
@@ -87,6 +99,13 @@ describe('it still fires everywhere it should', () => {
     // '/quiz-night-competition-terms' is a real route that sits next to '/quiz-night'.
     // It is not a booking page, so the lightbox should still fire there.
     expect(isLightboxSuppressedRoute('/quiz-night-competition-terms')).toBe(false)
+  })
+
+  it('still fires on an allowed page that carries a query string', () => {
+    // Ignoring the query string must not turn every tagged address into a
+    // suppressed one: only the path decides.
+    expect(isLightboxSuppressedRoute('/food-menu?utm_campaign=weekday_lunch_a_cod_and_chips')).toBe(false)
+    expect(isLightboxSuppressedRoute('/?next=/lunch-and-dinner')).toBe(false)
   })
 
   it('handles a null pathname without throwing', () => {

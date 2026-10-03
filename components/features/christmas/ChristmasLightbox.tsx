@@ -51,12 +51,20 @@ const SUPPRESSED_ROUTE_PREFIXES = [
     // 6 September 2026.
     '/events',
     '/whats-on',
+    // The paid-ads landing page for the weekday lunch and dinner campaign.
+    // Almost every visitor arrives from a Meta ad on a phone, and ten seconds
+    // in the overlay covered the page they had just been sold, with a
+    // different offer. Owner-approved 3 October 2026.
+    '/lunch-and-dinner',
 ] as const
 
 export function isLightboxSuppressedRoute(pathname: string | null): boolean {
     if (!pathname) return false
+    // usePathname() never carries a query string, but an ad lands with its tags
+    // on the address, so a caller passing the full address must match too.
+    const path = pathname.split(/[?#]/)[0]
     return SUPPRESSED_ROUTE_PREFIXES.some(
-        (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+        (prefix) => path === prefix || path.startsWith(`${prefix}/`)
     )
 }
 
