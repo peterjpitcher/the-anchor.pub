@@ -1,3 +1,21 @@
+# Privacy notice "Last updated" date, 3 to 4 October 2026
+
+Branch `fix/privacy-last-updated-date` (worktree `sleepy-dubinsky-e0b18f`).
+`/privacy-policy` printed `new Date()` at render, so "Last updated" was always today and never said
+when the notice changed. Noticed while PR #179 added a line to the notice; left there as out of scope.
+
+- [x] Verify on origin/main: `app/privacy-policy/page.tsx` held the only render-time "Last updated".
+      There is no terms page and no separate cookie policy (it is section 5 of the notice).
+      `/quiz-night-competition-terms`, `/accessibility`, `/safety-and-respect` and `/sustainability`
+      print no date of their own.
+- [x] Take the date from git, not from memory: 3 October 2026, the day PR #179 merged (27ac3630,
+      22:04 BST). Its commit cf90f746 added the sentence about recording the web page and advert a
+      table booking came from. Before that the last change to the words was d88f53b1, 12 September.
+- [x] Hold the date in `lib/legal-pages.ts`, format it with `formatLondonLongDate` in
+      `lib/time-london.ts`, and render it inside `<time>`
+- [x] Test first: rendered date equals the constant with the clock fixed at three instants, and
+      prove the test fails on the unfixed page
+
 # Quiz night and Music Bingo facts, 11 September 2026
 
 Branch `fix/quiz-and-music-bingo-facts-2026-09-11` (worktree `OJ-The-Anchor.pub-wt-quizfacts`), local only.

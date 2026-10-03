@@ -109,3 +109,37 @@ export function parseLondonDate(dateStr: string): Date {
   const [year, month, day] = dateStr.split('-').map(Number)
   return new Date(Date.UTC(year, month - 1, day, 0, 0, 0))
 }
+
+/**
+ * Format a fixed YYYY-MM-DD calendar date as "12 September 2026", in London.
+ *
+ * For dates held in code, such as a "Last updated" line. It takes no clock, so
+ * the result cannot drift with the day the page happens to be rendered.
+ *
+ * Throws on anything that is not a real calendar date. A typo in a
+ * hand-maintained date then fails the test and the build, rather than printing
+ * "Invalid Date" or quietly rolling 30 February into March.
+ */
+export function formatLondonLongDate(dateStr: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr)
+  const date = parseLondonDate(dateStr)
+
+  // Date.UTC rolls an impossible day forward (30 February becomes 2 March), so
+  // the parsed date has to read back as the same year, month and day.
+  const isRealDate =
+    match !== null &&
+    date.getUTCFullYear() === Number(match[1]) &&
+    date.getUTCMonth() + 1 === Number(match[2]) &&
+    date.getUTCDate() === Number(match[3])
+
+  if (!isRealDate) {
+    throw new Error(`formatLondonLongDate: "${dateStr}" is not a real YYYY-MM-DD date`)
+  }
+
+  return date.toLocaleDateString('en-GB', {
+    timeZone: 'Europe/London',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })
+}
