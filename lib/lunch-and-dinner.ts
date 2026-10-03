@@ -49,53 +49,169 @@ export type LunchAndDinnerDish = {
 
 const IMAGE_DIR = '/images/food/weekday-2026'
 
-export const LUNCH_AND_DINNER_DISH_PICKS: readonly DishPick[] = [
-  {
-    name: 'Beer Battered Cod & Chips',
-    image: {
-      src: `${IMAGE_DIR}/beer-battered-cod-and-chips.jpg`,
-      alt: 'Beer battered cod and chips with garden peas, tartare sauce and a wedge of lemon'
-    }
-  },
-  {
-    name: 'Spicy Chicken Stack',
-    image: {
-      src: `${IMAGE_DIR}/spicy-chicken-stack.jpg`,
-      alt: 'Spicy chicken stack: a crispy chicken fillet and hash brown with lettuce and tomato in a floured bap, with chips'
-    }
-  },
-  {
-    name: 'Beef & Ale Pie',
-    image: {
-      src: `${IMAGE_DIR}/beef-and-ale-pie.jpg`,
-      alt: 'Beef and ale pie on mash with garden peas and a jug of gravy'
-    }
-  },
-  {
-    kind: 'sectionFrom',
-    title: 'Stone-baked pizzas',
-    section: /^pizzas?$/i,
-    exclude: /garlic bread/i,
-    image: {
-      src: `${IMAGE_DIR}/stone-baked-pizza.jpg`,
-      alt: 'A stone-baked pizza with a charred crust on a blue plate'
-    }
-  },
-  {
-    name: 'Fish Finger Wrap',
-    image: {
-      src: `${IMAGE_DIR}/fish-finger-wrap.jpg`,
-      alt: 'Fish finger wrap with lettuce, tomato and cucumber, cut in half, with chips'
-    }
-  },
-  {
-    name: 'Bangers & Mash',
-    image: {
-      src: `${IMAGE_DIR}/bangers-and-mash.jpg`,
-      alt: 'Bangers and mash with gravy, crispy onions and garden peas'
-    }
+// Each pick is named so a campaign variant (below) can move it to the front of
+// the list by reference, and the same card can never be shown twice.
+const COD_AND_CHIPS_PICK: DishPick = {
+  name: 'Beer Battered Cod & Chips',
+  image: {
+    src: `${IMAGE_DIR}/beer-battered-cod-and-chips.jpg`,
+    alt: 'Beer battered cod and chips with garden peas, tartare sauce and a wedge of lemon'
   }
+}
+
+const SPICY_CHICKEN_STACK_PICK: DishPick = {
+  name: 'Spicy Chicken Stack',
+  image: {
+    src: `${IMAGE_DIR}/spicy-chicken-stack.jpg`,
+    alt: 'Spicy chicken stack: a crispy chicken fillet and hash brown with lettuce and tomato in a floured bap, with chips'
+  }
+}
+
+const BEEF_AND_ALE_PIE_PICK: DishPick = {
+  name: 'Beef & Ale Pie',
+  image: {
+    src: `${IMAGE_DIR}/beef-and-ale-pie.jpg`,
+    alt: 'Beef and ale pie on mash with garden peas and a jug of gravy'
+  }
+}
+
+const PIZZAS_PICK: DishPick = {
+  kind: 'sectionFrom',
+  title: 'Stone-baked pizzas',
+  section: /^pizzas?$/i,
+  exclude: /garlic bread/i,
+  image: {
+    src: `${IMAGE_DIR}/stone-baked-pizza.jpg`,
+    alt: 'A stone-baked pizza with a charred crust on a blue plate'
+  }
+}
+
+const FISH_FINGER_WRAP_PICK: DishPick = {
+  name: 'Fish Finger Wrap',
+  image: {
+    src: `${IMAGE_DIR}/fish-finger-wrap.jpg`,
+    alt: 'Fish finger wrap with lettuce, tomato and cucumber, cut in half, with chips'
+  }
+}
+
+const BANGERS_AND_MASH_PICK: DishPick = {
+  name: 'Bangers & Mash',
+  image: {
+    src: `${IMAGE_DIR}/bangers-and-mash.jpg`,
+    alt: 'Bangers and mash with gravy, crispy onions and garden peas'
+  }
+}
+
+/**
+ * "Snack pots, from £9": the lunch ads lead on snack pots, which the page did
+ * not show at all. Built like the pizza card, from the cheapest live item in
+ * the Snack Pots section, and left out if that section or its prices are
+ * missing. No photo exists, so the page shows its text tile.
+ */
+const SNACK_POTS_PICK: DishPick = {
+  kind: 'sectionFrom',
+  title: 'Snack pots',
+  section: /^snack pots?$/i
+}
+
+export const LUNCH_AND_DINNER_DISH_PICKS: readonly DishPick[] = [
+  COD_AND_CHIPS_PICK,
+  SPICY_CHICKEN_STACK_PICK,
+  BEEF_AND_ALE_PIE_PICK,
+  PIZZAS_PICK,
+  FISH_FINGER_WRAP_PICK,
+  BANGERS_AND_MASH_PICK
 ]
+
+/** `first`, then the rest of the usual list. A promoted pick is not repeated. */
+function promotePicks(first: readonly DishPick[]): readonly DishPick[] {
+  return [...first, ...LUNCH_AND_DINNER_DISH_PICKS.filter((pick) => !first.includes(pick))]
+}
+
+export type LunchDinnerService = 'default' | 'lunch' | 'dinner'
+
+export type LunchDinnerVariant = {
+  /** Which service the ad sold. Decides which time badge comes first. */
+  service: LunchDinnerService
+  /** Hero photo: always one of our own files, never anything from the address. */
+  heroImage: string
+  /** Hero title. null on the default page, which words its own from the live hours. */
+  heroTitle: string | null
+  /** The dish cards in page order. */
+  picks: readonly DishPick[]
+}
+
+const LUNCH_TITLE = 'Lunch, Tuesday to Friday'
+// No "tonight": a tagged link can be opened or shared on a Sunday or after
+// service, so the title states the regular days only (owner decision D9).
+const DINNER_TITLE = 'Dinner, Tuesday to Friday'
+
+const LUNCH_PICKS = promotePicks([SNACK_POTS_PICK, FISH_FINGER_WRAP_PICK])
+
+export const DEFAULT_LUNCH_DINNER_VARIANT: LunchDinnerVariant = {
+  service: 'default',
+  heroImage: `${IMAGE_DIR}/beer-battered-cod-and-chips.jpg`,
+  heroTitle: null,
+  picks: LUNCH_AND_DINNER_DISH_PICKS
+}
+
+/**
+ * The four weekday food campaigns, keyed by the `utm_campaign` their short
+ * links put on the address. This is the whole allow-list: nothing else changes
+ * the page.
+ */
+const VARIANTS_BY_CAMPAIGN: ReadonlyMap<string, LunchDinnerVariant> = new Map([
+  [
+    'weekday_lunch_a_cod_and_chips',
+    {
+      service: 'lunch',
+      heroImage: `${IMAGE_DIR}/beer-battered-cod-and-chips.jpg`,
+      heroTitle: LUNCH_TITLE,
+      picks: LUNCH_PICKS
+    }
+  ],
+  [
+    'weekday_lunch_b_spicy_chicken_stack',
+    {
+      service: 'lunch',
+      heroImage: `${IMAGE_DIR}/spicy-chicken-stack.jpg`,
+      heroTitle: LUNCH_TITLE,
+      picks: LUNCH_PICKS
+    }
+  ],
+  [
+    'weekday_dinner_a_pizza',
+    {
+      service: 'dinner',
+      heroImage: `${IMAGE_DIR}/stone-baked-pizza.jpg`,
+      heroTitle: DINNER_TITLE,
+      picks: promotePicks([PIZZAS_PICK, BEEF_AND_ALE_PIE_PICK])
+    }
+  ],
+  [
+    'weekday_dinner_b_beef_and_ale_pie',
+    {
+      service: 'dinner',
+      heroImage: `${IMAGE_DIR}/beef-and-ale-pie.jpg`,
+      heroTitle: DINNER_TITLE,
+      picks: promotePicks([BEEF_AND_ALE_PIE_PICK, PIZZAS_PICK])
+    }
+  ]
+])
+
+/**
+ * Which version of the page an ad visitor sees, from the `utm_campaign` on the
+ * address. Exact match after trimming, ignoring case. Anything else (no tag, an
+ * unknown tag, or a tag given more than once, which arrives as a list) gets the
+ * default page. The tag is only ever used as a lookup key and is never put on
+ * the page, so it cannot inject content.
+ */
+export function resolveLunchDinnerVariant(
+  utmCampaign: string | readonly string[] | null | undefined
+): LunchDinnerVariant {
+  if (typeof utmCampaign !== 'string') return DEFAULT_LUNCH_DINNER_VARIANT
+  return VARIANTS_BY_CAMPAIGN.get(utmCampaign.trim().toLowerCase()) ?? DEFAULT_LUNCH_DINNER_VARIANT
+}
 
 // "from £13": SSOT keeps the pound sign on "from" and range lines; single dish
 // prices stay bare.
