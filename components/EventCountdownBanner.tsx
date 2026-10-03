@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation'
 import { type Event } from '@/lib/api'
 import { trackBannerEvent, trackCtaClick } from '@/lib/gtm-events'
 import { EventBookingButton } from '@/components/EventBookingButton'
-import { LUNCH_DINNER_BOOKING_SOURCE } from '@/lib/booking-cta'
 
 const BANNER_STORAGE_KEY = 'event_banner_dismissed_until'
 const SESSION_ELIGIBILITY_KEY = 'event_banner_session_show'
@@ -28,6 +27,12 @@ const MAX_LEAD_DAYS = 3
  * '/lunch-and-dinner' is the landing page for the weekday food ads (from 15 September
  * 2026). On a phone the banner covered the lower half of its "Book a table" button,
  * and a visitor who came for lunch or dinner has no use for an event card.
+ *
+ * '/book-table' is the booking form itself. On a phone the banner sat on top of the
+ * party size and date fields (seen at 375 x 812, 3 October 2026), for the half of
+ * sessions that are shown it. It was first hidden only for arrivals from the food ads'
+ * landing page; the owner then asked for it to be hidden here for everyone (3 October
+ * 2026), the same rule the Christmas pop-up already follows on this page.
  */
 const HIDDEN_PATH_PREFIXES = [
   '/events',
@@ -36,6 +41,7 @@ const HIDDEN_PATH_PREFIXES = [
   '/music-bingo',
   '/karaoke',
   '/lunch-and-dinner',
+  '/book-table',
 ]
 
 interface BannerState {
@@ -123,21 +129,6 @@ export const shouldSuppressPath = (pathname: string | null) => {
   )
 }
 
-/**
- * Exported for test. The weekday food ads' landing page sends "Book a table" straight
- * to the form on /book-table (#booking-form). On a phone the banner then sat on top of
- * the party size and date fields the visitor had just been sent to (seen at 375 x 812,
- * 3 October 2026). Only that arrival is suppressed, read from the page address: every
- * other visit to /book-table still shows the banner.
- */
-export const shouldSuppressAdBookingArrival = (
-  pathname: string | null,
-  search: string | null | undefined
-) => {
-  if (pathname !== '/book-table' || !search) return false
-  return new URLSearchParams(search).get('source') === LUNCH_DINNER_BOOKING_SOURCE
-}
-
 type BannerTone = 'dark' | 'light' | 'alert' | 'muted'
 
 const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => {
@@ -185,10 +176,7 @@ export function EventCountdownBanner() {
   const [sessionEligible] = useState(determineSessionEligibility)
 
   useEffect(() => {
-    if (
-      shouldSuppressPath(pathname) ||
-      shouldSuppressAdBookingArrival(pathname, window.location.search)
-    ) {
+    if (shouldSuppressPath(pathname)) {
       setBanner(null)
       return
     }
