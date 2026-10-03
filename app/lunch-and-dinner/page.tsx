@@ -12,7 +12,9 @@ import { CONTACT } from '@/lib/constants'
 import { getBusinessHoursSnapshot } from '@/lib/api'
 import { getFoodMenuPageData, getMenuUnavailableMessage } from '@/lib/menu-page-data'
 import {
+  buildWalkInLine,
   getWeekdayServiceTimes,
+  getWeekdayServiceWindows,
   pickLunchAndDinnerDishes,
   resolveLunchDinnerVariant
 } from '@/lib/lunch-and-dinner'
@@ -78,6 +80,11 @@ export default async function LunchAndDinnerPage({ searchParams }: LunchAndDinne
   const times = hours ? getWeekdayServiceTimes(hours) : null
   const dishes = menu ? pickLunchAndDinnerDishes(menu, variant.picks) : []
 
+  // Regular Tuesday to Friday times only, never a claim about today: the line
+  // reads the same on a Sunday, after service and on a day the kitchen is shut.
+  // If the hours cannot be read it drops the times rather than guessing them.
+  const walkInLine = buildWalkInLine(hours ? getWeekdayServiceWindows(hours) : [], variant.service)
+
   const lunchBadge = times ? <Badge variant="sand">Lunch {times.lunch}</Badge> : null
   const dinnerBadge = times ? <Badge variant="sand">Dinner {times.dinner}</Badge> : null
 
@@ -127,8 +134,15 @@ export default async function LunchAndDinnerPage({ searchParams }: LunchAndDinne
                 See the full menu
               </Link>
             </Button>
+            {/* Someone walking in needs the way here more than the form. */}
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="/find-us" className="w-full sm:w-auto">
+                Get directions
+              </Link>
+            </Button>
           </>
         }
+        note={walkInLine}
       />
 
       <AmenityStrip />

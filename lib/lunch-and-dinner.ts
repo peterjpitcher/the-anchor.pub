@@ -272,6 +272,26 @@ export type WeekdayServiceTimes = {
 const TUESDAY_TO_FRIDAY = ['tuesday', 'wednesday', 'thursday', 'friday']
 
 /**
+ * The kitchen sittings Tuesday to Friday share in the regular week, as text
+ * ("12pm to 3pm"), in order. Empty when those days differ or have no sitting,
+ * so a caller never states a time the kitchen is not keeping on every one of
+ * those days.
+ *
+ * These are the REGULAR times. A one-off closure on a single date is not
+ * resolved here (getEffectiveDayHours in lib/hours-utils.ts does that), so use
+ * them only in wording about the regular week, never about today.
+ */
+export function getWeekdayServiceWindows(
+  hours: Parameters<typeof getSharedKitchenWindows>[0],
+  now: Date = new Date()
+): string[] {
+  const sittings = getSharedKitchenWindows(hours, TUESDAY_TO_FRIDAY, now)
+  return (sittings ?? []).map(
+    (sitting) => `${formatTime12Hour(sitting.opens)} to ${formatTime12Hour(sitting.closes)}`
+  )
+}
+
+/**
  * Lunch and dinner times, when Tuesday to Friday share one lunch sitting and
  * one dinner sitting. null otherwise, so the page never states a time the
  * kitchen is not keeping on every one of those days.
@@ -280,11 +300,40 @@ export function getWeekdayServiceTimes(
   hours: Parameters<typeof getSharedKitchenWindows>[0],
   now: Date = new Date()
 ): WeekdayServiceTimes | null {
-  const sittings = getSharedKitchenWindows(hours, TUESDAY_TO_FRIDAY, now)
-  if (!sittings || sittings.length !== 2) return null
+  const windows = getWeekdayServiceWindows(hours, now)
+  if (windows.length !== 2) return null
 
-  const [lunch, dinner] = sittings.map(
-    (sitting) => `${formatTime12Hour(sitting.opens)} to ${formatTime12Hour(sitting.closes)}`
-  )
+  const [lunch, dinner] = windows
   return { lunch, dinner }
+}
+
+/**
+ * The "No need to book" line under the hero buttons.
+ *
+ * Staff seat walk-ins for the whole of both kitchen windows, Tuesday to Friday
+ * (owner decision, 25 September 2026, SSOT section 5). The line is about the
+ * regular week: it never says "today", "tonight" or "now", because an ad link
+ * can be opened on a Sunday, after service or on a day the kitchen is shut.
+ *
+ * `windows` comes from getWeekdayServiceWindows:
+ * - two windows are lunch then dinner, and a dinner ad puts dinner first;
+ * - one window is shown as it stands, with no label, because the hours do not
+ *   say whether a lone sitting is lunch or dinner;
+ * - none (the hours could not be read, or the four days differ) gives the
+ *   line with no times, rather than a time that might be stale or wrong.
+ */
+export function buildWalkInLine(
+  windows: readonly string[],
+  service: LunchDinnerService = 'default'
+): string {
+  if (windows.length === 2) {
+    const lunch = `lunch ${windows[0]}`
+    const dinner = `dinner ${windows[1]}`
+    const times = service === 'dinner' ? `${dinner}, ${lunch}` : `${lunch}, ${dinner}`
+    return `No need to book. Just come in: ${times}, Tuesday to Friday.`
+  }
+  if (windows.length === 1) {
+    return `No need to book. Just come in: ${windows[0]}, Tuesday to Friday.`
+  }
+  return 'No need to book, just come in, Tuesday to Friday.'
 }

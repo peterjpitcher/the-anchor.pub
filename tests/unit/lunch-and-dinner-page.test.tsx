@@ -20,6 +20,9 @@ import LunchAndDinnerPage, { dynamic, metadata } from '@/app/lunch-and-dinner/pa
 import * as lunchAndDinnerPageModule from '@/app/lunch-and-dinner/page'
 import {
   DEFAULT_LUNCH_DINNER_VARIANT,
+  buildWalkInLine,
+  getWeekdayServiceTimes,
+  getWeekdayServiceWindows,
   pickLunchAndDinnerDishes,
   resolveLunchDinnerVariant
 } from '@/lib/lunch-and-dinner'
@@ -645,6 +648,265 @@ describe('resolveLunchDinnerVariant', () => {
     expect(names(' Snack Pots ')).toEqual(['Snack pots'])
     expect(names('Snack Pots & Sides')).toEqual([])
     expect(names('Bar Snacks')).toEqual([])
+  })
+})
+
+const REGULAR_WALK_IN_LINE =
+  'No need to book. Just come in: lunch 12pm to 3pm, dinner 4pm to 9pm, Tuesday to Friday.'
+const DINNER_FIRST_WALK_IN_LINE =
+  'No need to book. Just come in: dinner 4pm to 9pm, lunch 12pm to 3pm, Tuesday to Friday.'
+const NO_TIMES_WALK_IN_LINE = 'No need to book, just come in, Tuesday to Friday.'
+
+// Wording that would promise something about right now. The page states the
+// regular week only (owner decision D9), because an ad link can be opened on a
+// Sunday, after service or on a day the kitchen is shut.
+const IMMEDIATE_WORDING = /\b(today|tonight|now|this (lunchtime|afternoon|evening))\b/i
+
+function walkInLine(): string | null | undefined {
+  return hero().querySelector('[data-hero-note]')?.textContent
+}
+
+// Every piece of text in the hero, a space between each. `textContent` alone
+// runs neighbouring elements together ("...tonightProper pub food..."), which
+// hides a word from a whole-word search.
+function heroText(): string {
+  const walker = document.createTreeWalker(hero(), NodeFilter.SHOW_TEXT)
+  const parts: string[] = []
+  while (walker.nextNode()) parts.push(walker.currentNode.textContent ?? '')
+  return parts.join(' ')
+}
+
+// Tuesday to Friday with the sittings given. `friday` lets one day differ.
+function hoursWithWeekdaySittings(
+  sittings: Array<{ name: string; starts_at: string; ends_at: string }>,
+  friday?: typeof WEEKDAY
+): BusinessHours {
+  const day = {
+    ...WEEKDAY,
+    schedule_config: sittings.map((sitting) => ({ ...sitting, booking_type: 'regular' }))
+  }
+  const regularHours = (LIVE_HOURS as unknown as { regularHours: Record<string, unknown> }).regularHours
+  return {
+    ...(LIVE_HOURS as object),
+    regularHours: { ...regularHours, tuesday: day, wednesday: day, thursday: day, friday: friday ?? day }
+  } as unknown as BusinessHours
+}
+
+describe('the walk-in line under the hero buttons', () => {
+  it('says there is no need to book, with the regular times from the live hours', async () => {
+    await renderPage()
+
+    expect(walkInLine()).toBe(REGULAR_WALK_IN_LINE)
+  })
+
+  it('sits under the three hero actions, the third being directions to the pub', async () => {
+    await renderPage()
+
+    const actions = [
+      within(hero()).getByRole('button', { name: 'Book a table' }),
+      within(hero()).getByRole('link', { name: 'See the full menu' }),
+      within(hero()).getByRole('link', { name: 'Get directions' })
+    ]
+    const note = hero().querySelector('[data-hero-note]') as HTMLElement
+    for (let index = 1; index < actions.length; index += 1) {
+      expect(actions[index - 1].compareDocumentPosition(actions[index]) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    }
+    expect(actions[2].compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(actions[2]).toHaveAttribute('href', '/find-us')
+  })
+
+  it('puts lunch first for a lunch ad and dinner first for a dinner ad', async () => {
+    const lunch = await renderPage({ utm_campaign: CAMPAIGNS.lunchA })
+    expect(walkInLine()).toBe(REGULAR_WALK_IN_LINE)
+    lunch.unmount()
+
+    const dinnerA = await renderPage({ utm_campaign: CAMPAIGNS.dinnerA })
+    expect(walkInLine()).toBe(DINNER_FIRST_WALK_IN_LINE)
+    dinnerA.unmount()
+
+    await renderPage({ utm_campaign: CAMPAIGNS.dinnerB })
+    expect(walkInLine()).toBe(DINNER_FIRST_WALK_IN_LINE)
+  })
+
+  it.each([
+    ['the hours come back empty', () => jest.mocked(getBusinessHoursSnapshot).mockResolvedValue(null as unknown as BusinessHours)],
+    ['the hours request fails', () => jest.mocked(getBusinessHoursSnapshot).mockRejectedValue(new Error('management API down'))]
+  ])('drops the times but keeps Tuesday to Friday when %s', async (_label, breakHours) => {
+    breakHours()
+    await renderPage({ utm_campaign: CAMPAIGNS.dinnerA })
+
+    expect(walkInLine()).toBe(NO_TIMES_WALK_IN_LINE)
+    // No time of any kind in the hero: better none than a stale one.
+    expect(heroText()).not.toMatch(/\d\s?(am|pm)\b/i)
+    expect(screen.getByRole('link', { name: 'Get directions' })).toHaveAttribute('href', '/find-us')
+  })
+
+  it('shows only the window that is there when the lunch sitting is missing', async () => {
+    jest.mocked(getBusinessHoursSnapshot).mockResolvedValue(
+      hoursWithWeekdaySittings([{ name: 'Dinner', starts_at: '16:00', ends_at: '21:00' }])
+    )
+    await renderPage({ utm_campaign: CAMPAIGNS.lunchA })
+
+    expect(walkInLine()).toBe('No need to book. Just come in: 4pm to 9pm, Tuesday to Friday.')
+    expect(walkInLine()).not.toContain('12pm')
+  })
+
+  it('shows only the window that is there when the dinner sitting is missing', async () => {
+    jest.mocked(getBusinessHoursSnapshot).mockResolvedValue(
+      hoursWithWeekdaySittings([{ name: 'Lunch', starts_at: '12:00', ends_at: '15:00' }])
+    )
+    await renderPage({ utm_campaign: CAMPAIGNS.dinnerA })
+
+    expect(walkInLine()).toBe('No need to book. Just come in: 12pm to 3pm, Tuesday to Friday.')
+    expect(walkInLine()).not.toContain('9pm')
+  })
+
+  it('drops the times when the four days do not all keep the same ones', async () => {
+    const lateFriday = {
+      ...WEEKDAY,
+      kitchen: { opens: '12:00:00', closes: '22:00:00' },
+      schedule_config: [
+        { name: 'Lunch', starts_at: '12:00', ends_at: '15:00', booking_type: 'regular' },
+        { name: 'Dinner', starts_at: '16:00', ends_at: '22:00', booking_type: 'regular' }
+      ]
+    }
+    jest.mocked(getBusinessHoursSnapshot).mockResolvedValue(
+      hoursWithWeekdaySittings(
+        [
+          { name: 'Lunch', starts_at: '12:00', ends_at: '15:00' },
+          { name: 'Dinner', starts_at: '16:00', ends_at: '21:00' }
+        ],
+        lateFriday
+      )
+    )
+    await renderPage()
+
+    expect(walkInLine()).toBe(NO_TIMES_WALK_IN_LINE)
+  })
+
+  describe('with the clock fixed', () => {
+    // Only the clock is faked. The page awaits its data, and faking the timers
+    // too would leave those awaits hanging.
+    function freezeAt(instant: string) {
+      jest.useFakeTimers({
+        now: new Date(instant),
+        doNotFake: [
+          'cancelAnimationFrame', 'cancelIdleCallback', 'clearImmediate', 'clearInterval', 'clearTimeout',
+          'hrtime', 'nextTick', 'performance', 'queueMicrotask', 'requestAnimationFrame',
+          'requestIdleCallback', 'setImmediate', 'setInterval', 'setTimeout'
+        ]
+      })
+    }
+
+    afterEach(() => {
+      jest.useRealTimers()
+    })
+
+    // A Tuesday in the fixture's regular week on which the kitchen is shut.
+    const KITCHEN_CLOSED_TUESDAY = {
+      date: '2026-10-13',
+      opens: '12:00:00',
+      closes: '22:00:00',
+      kitchen: null,
+      is_closed: false,
+      is_kitchen_closed: true,
+      status: 'modified',
+      note: 'Kitchen closed',
+      schedule_config: []
+    }
+
+    // Instants are UTC. London is on BST (UTC+1) until 01:00 UTC on Sunday
+    // 25 October 2026, then on GMT until 01:00 UTC on Sunday 28 March 2027.
+    it.each([
+      ['a Sunday, when there is no weekday service (13:00 BST, 4 October 2026)', '2026-10-04T12:00:00Z', []],
+      ['a Wednesday after dinner service has ended (21:30 BST, 7 October 2026)', '2026-10-07T20:30:00Z', []],
+      ['a Monday, when the kitchen is always closed (18:00 BST, 5 October 2026)', '2026-10-05T17:00:00Z', []],
+      ['a Tuesday with a one-off kitchen closure (12:30 BST, 13 October 2026)', '2026-10-13T11:30:00Z', [KITCHEN_CLOSED_TUESDAY]],
+      ['the Friday before the clocks go back (12:30 BST, 23 October 2026)', '2026-10-23T11:30:00Z', []],
+      ['half an hour before the clocks go back (01:30 BST, 25 October 2026)', '2026-10-25T00:30:00Z', []],
+      ['half an hour after the clocks go back (01:30 GMT, 25 October 2026)', '2026-10-25T01:30:00Z', []],
+      ['the Tuesday after the clocks go back (12:30 GMT, 27 October 2026)', '2026-10-27T12:30:00Z', []],
+      ['half an hour before the clocks go forward (00:30 GMT, 28 March 2027)', '2027-03-28T00:30:00Z', []],
+      ['half an hour after the clocks go forward (02:30 BST, 28 March 2027)', '2027-03-28T01:30:00Z', []]
+    ])('stays the regular line on %s', async (_label, instant, specialHours) => {
+      freezeAt(instant)
+      // The page reads the clock through `new Date()`, so prove it is held.
+      expect(new Date().toISOString()).toBe(new Date(instant).toISOString())
+      jest.mocked(getBusinessHoursSnapshot).mockResolvedValue({
+        ...(LIVE_HOURS as object),
+        specialHours
+      } as unknown as BusinessHours)
+
+      for (const campaign of [undefined, CAMPAIGNS.lunchA, CAMPAIGNS.dinnerA]) {
+        const view = await renderPage(campaign ? { utm_campaign: campaign } : {})
+
+        expect(walkInLine()).toBe(campaign === CAMPAIGNS.dinnerA ? DINNER_FIRST_WALK_IN_LINE : REGULAR_WALK_IN_LINE)
+        // Title, lead, badges, buttons and the line: nothing claims to be
+        // serving at this moment.
+        expect(heroText()).not.toMatch(IMMEDIATE_WORDING)
+        view.unmount()
+      }
+    })
+  })
+})
+
+describe('buildWalkInLine', () => {
+  it('names lunch then dinner for two windows, and dinner first for a dinner ad', () => {
+    const windows = ['12pm to 3pm', '4pm to 9pm']
+
+    expect(buildWalkInLine(windows)).toBe(REGULAR_WALK_IN_LINE)
+    expect(buildWalkInLine(windows, 'default')).toBe(REGULAR_WALK_IN_LINE)
+    expect(buildWalkInLine(windows, 'lunch')).toBe(REGULAR_WALK_IN_LINE)
+    expect(buildWalkInLine(windows, 'dinner')).toBe(DINNER_FIRST_WALK_IN_LINE)
+  })
+
+  it('gives a lone window as it stands, without calling it lunch or dinner', () => {
+    for (const service of ['default', 'lunch', 'dinner'] as const) {
+      expect(buildWalkInLine(['4pm to 9pm'], service)).toBe(
+        'No need to book. Just come in: 4pm to 9pm, Tuesday to Friday.'
+      )
+    }
+  })
+
+  it('gives no times when there are none to give, or more than it can name', () => {
+    expect(buildWalkInLine([])).toBe(NO_TIMES_WALK_IN_LINE)
+    expect(buildWalkInLine([], 'dinner')).toBe(NO_TIMES_WALK_IN_LINE)
+    expect(buildWalkInLine(['12pm to 2pm', '3pm to 5pm', '6pm to 9pm'])).toBe(NO_TIMES_WALK_IN_LINE)
+  })
+
+  it('always says Tuesday to Friday and never makes a claim about right now', () => {
+    const cases = [[], ['4pm to 9pm'], ['12pm to 3pm', '4pm to 9pm'], ['a', 'b', 'c']]
+    for (const windows of cases) {
+      for (const service of ['default', 'lunch', 'dinner'] as const) {
+        const line = buildWalkInLine(windows, service)
+        expect(line).toMatch(/Tuesday to Friday\.$/)
+        expect(line).toMatch(/^No need to book/)
+        expect(line).not.toMatch(IMMEDIATE_WORDING)
+      }
+    }
+  })
+})
+
+describe('getWeekdayServiceWindows', () => {
+  it('reads the shared Tuesday to Friday sittings as text, in order', () => {
+    expect(getWeekdayServiceWindows(LIVE_HOURS)).toEqual(['12pm to 3pm', '4pm to 9pm'])
+    expect(getWeekdayServiceTimes(LIVE_HOURS)).toEqual({ lunch: '12pm to 3pm', dinner: '4pm to 9pm' })
+  })
+
+  it('gives one window when there is one, and names no lunch or dinner time from it', () => {
+    const dinnerOnly = hoursWithWeekdaySittings([{ name: 'Dinner', starts_at: '16:00', ends_at: '21:00' }])
+
+    expect(getWeekdayServiceWindows(dinnerOnly)).toEqual(['4pm to 9pm'])
+    expect(getWeekdayServiceTimes(dinnerOnly)).toBeNull()
+  })
+
+  it('ignores a one-off closure: these are the regular times, for regular wording only', () => {
+    const withClosure = {
+      ...(LIVE_HOURS as object),
+      specialHours: [{ date: '2026-10-13', kitchen: null, is_closed: false, is_kitchen_closed: true, status: 'modified' }]
+    } as unknown as BusinessHours
+
+    expect(getWeekdayServiceWindows(withClosure, new Date('2026-10-13T11:30:00Z'))).toEqual(['12pm to 3pm', '4pm to 9pm'])
   })
 })
 

@@ -20,6 +20,8 @@ export interface InteriorHeroProps {
   badges?: ReactNode
   /** Hero actions — one primary lg + at most one outline lg. */
   actions?: ReactNode
+  /** One short line under the actions, for what the buttons do not say. */
+  note?: string
 }
 
 // Exact two-gradient scrim from spec §5.1 (source: site.css .ta-hero--interior).
@@ -42,7 +44,8 @@ export function InteriorHero({
   lead,
   crumb,
   badges,
-  actions
+  actions,
+  note
 }: InteriorHeroProps) {
   return (
     <section
@@ -111,6 +114,12 @@ export function InteriorHero({
             <div className="flex flex-col flex-wrap gap-3 sm:flex-row [&>*]:w-full sm:[&>*]:w-auto">
               {actions}
             </div>
+          )}
+
+          {note && (
+            <p data-hero-note className="text-base font-semibold text-anchor-cream-text">
+              {note}
+            </p>
           )}
         </div>
       </div>
