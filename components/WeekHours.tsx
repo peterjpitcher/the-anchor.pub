@@ -34,9 +34,6 @@ interface WeekHoursProps {
   columns?: 1 | 2
 }
 
-const FOOTER_NOTE =
-  'Bar and kitchen live from /api/business/hours. Flight-path times are approximate, Heathrow alternates runways around 3pm.'
-
 const dayOrder = [
   'monday',
   'tuesday',
@@ -384,9 +381,6 @@ export function WeekHours({
           }
         )}
       </ul>
-
-      {/* Footer note */}
-      <p className="mt-4 text-xs text-ink-muted">{FOOTER_NOTE}</p>
     </div>
   )
 }

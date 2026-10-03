@@ -1,4 +1,9 @@
-import { resolveBookingCta, resolveEventBookingCta } from '@/lib/booking-cta'
+import {
+  LUNCH_DINNER_BOOKING_HREF,
+  LUNCH_DINNER_BOOKING_SOURCE,
+  resolveBookingCta,
+  resolveEventBookingCta,
+} from '@/lib/booking-cta'
 
 describe('page booking actions', () => {
   test.each([
@@ -35,6 +40,42 @@ describe('page booking actions', () => {
       })
     }
   )
+
+  // The paid-ads landing page. Its sticky "Book a table" used to open the
+  // generic quick-book sheet, whose bookings carried no landing page source.
+  test.each(['/lunch-and-dinner', '/lunch-and-dinner/'])(
+    '%s sends its sticky Book a table to the same link as the page buttons',
+    (pathname) => {
+      expect(resolveBookingCta(pathname)).toEqual({
+        kind: 'link',
+        label: 'Book a table',
+        href: '/book-table?source=lunch_dinner_lp#booking-form',
+        carryAttribution: true,
+      })
+    }
+  )
+
+  test('the landing page booking link has its query before the fragment and lands on the form', () => {
+    expect(LUNCH_DINNER_BOOKING_HREF).toBe('/book-table?source=lunch_dinner_lp#booking-form')
+
+    const target = new URL(LUNCH_DINNER_BOOKING_HREF, 'https://www.the-anchor.pub')
+    expect(target.pathname).toBe('/book-table')
+    expect(target.searchParams.get('source')).toBe(LUNCH_DINNER_BOOKING_SOURCE)
+    expect(target.hash).toBe('#booking-form')
+    // The booking form reads any source containing "sunday" as a roast booking.
+    expect(LUNCH_DINNER_BOOKING_SOURCE).not.toMatch(/sunday/i)
+  })
+
+  test('no other page asks the sticky bar to carry ad tags', () => {
+    const others = [
+      '/', '/sunday-roast', '/food-menu', '/private-hire', '/private-hire/birthdays', '/events/example',
+      '/cash-bingo', '/quiz-night', '/quiz-night/themed', '/music-bingo', '/karaoke', '/whats-on',
+      '/christmas-parties', '/live-sport/nations-championship', '/lunch-and-dinner-menu', '/lunch',
+    ]
+    for (const pathname of others) {
+      expect(resolveBookingCta(pathname)).not.toHaveProperty('carryAttribution')
+    }
+  })
 
   const now = Date.parse('2026-09-05T12:00:00Z')
   const event = { startDate: '2026-10-01T19:00:00Z', event_status: 'scheduled', eventStatus: 'https://schema.org/EventScheduled', bookings_enabled: true }

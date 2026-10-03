@@ -75,3 +75,22 @@ describe('WeekHours after midnight on a 1am night', () => {
     expect(screen.getByText('Closed now')).toBeInTheDocument()
   })
 })
+
+// A developer note copied from the redesign spec ("Bar and kitchen live from
+// /api/business/hours...") was printed under the table on five customer pages.
+describe('WeekHours shows no developer note', () => {
+  it('never prints the API path or the redesign note, and still lists all seven days', () => {
+    // 15:00 BST on Friday 11 September 2026.
+    renderAt('2026-09-11T14:00:00Z', { isOpen: true, tradingDate: '2026-09-11', closes: '22:00:00' }, [])
+
+    const text = document.body.textContent ?? ''
+    expect(text).not.toContain('/api/business/hours')
+    expect(text).not.toMatch(/Bar and kitchen live from/i)
+    expect(text).not.toMatch(/Flight-path times are approximate/i)
+
+    // The rest of the table is untouched: the status line and one row a day.
+    expect(screen.getByText('Open now')).toBeInTheDocument()
+    expect(screen.getAllByRole('listitem')).toHaveLength(7)
+    expect(screen.getByLabelText(/^Friday \(today\)/)).toBeInTheDocument()
+  })
+})

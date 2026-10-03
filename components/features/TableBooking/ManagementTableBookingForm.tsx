@@ -127,6 +127,7 @@ import {
   type CustomerLookupState,
   type ManagementTableBookingResult,
 } from '@/lib/table-booking/submission'
+import { buildPageSource } from '@/lib/table-booking/page-source'
 import {
   deriveSubmitPurpose,
   isFoodCheckUnavailable,
@@ -2044,6 +2045,10 @@ export function ManagementTableBookingForm({
         preorder: preorderRequired ? preorderPayloadEntries : undefined,
         christmas_course_counts: preorderRequired && courseAware ? resizePreorderChoices(preorderChoices, partySize).map(choice => choice.courseCount) : undefined,
         attribution,
+        // Which page and advert this booking came from, read off the page
+        // address here and now. Not from a cookie or browser storage, and not
+        // kept anywhere: it goes with the booking to the management app only.
+        pageSource: buildPageSource(bookingSource, searchParams),
         turnstileToken,
         website,
         secondsOnForm: Math.floor((Date.now() - formLoadedAt.current) / 1000)

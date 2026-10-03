@@ -22,6 +22,7 @@ import {
   communicationConsentIdempotencyPart,
 } from '@/lib/communication-consent-server'
 import type { CommunicationConsentPayload } from '@/lib/communication-consent'
+import { sanitisePageSource, type PageSource } from '@/lib/table-booking/page-source'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 
@@ -191,6 +192,7 @@ function toStringList(value: unknown): string[] {
 function normaliseIncomingPayload(input: unknown): {
   payload?: ManagementTableBookingPayload
   attribution?: BookingAttributionPayload
+  pageSource?: PageSource
   error?: string
 } {
   if (!input || typeof input !== 'object') {
@@ -307,6 +309,11 @@ function normaliseIncomingPayload(input: unknown): {
       ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
     },
     attribution: normaliseAttribution(body),
+    // Kept apart from `attribution` on purpose. `attribution` is the
+    // consent-gated record that goes on to CheersAI; this is read from the
+    // nested `page_source` only and goes to the management app only. Lenient:
+    // a bad value is dropped and can never be why a booking is refused.
+    pageSource: sanitisePageSource(body.page_source),
   }
 }
 
@@ -679,6 +686,12 @@ export async function POST(request: NextRequest) {
       // Always forward booking_type='regular', defence in depth against hostile
       // or stale clients (spec §6, §8.1).
       body: JSON.stringify({
+        // Which page and advert the booking came from: up to six short labels,
+        // as flat optional fields. Spread FIRST so nothing in them can ever
+        // replace a booking detail below. They are not in the idempotency key
+        // above, so a retry carrying different labels is still the same
+        // booking. This is the only place they are sent: never to CheersAI.
+        ...normalized.pageSource,
         ...normalized.payload,
         ...(fixtureContext ? { fixture_id: fixtureContext.fixtureId } : {}),
         booking_type: 'regular',

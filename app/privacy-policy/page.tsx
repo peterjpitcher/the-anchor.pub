@@ -72,6 +72,12 @@ export default function PrivacyPolicyPage() {
             <li>Page views and site navigation patterns</li>
             <li>Referring website addresses</li>
           </ul>
+          {/* Ships with the change that starts recording it: the page source
+              sent with each website table booking (lib/table-booking/page-source.ts).
+              It sits against a named booking, so it is personal data. */}
+          <p>
+            When you book a table on our website, we record which of our web pages and adverts you came from. We take this from the web address of the page you book on, not from cookies, and we keep it with your booking.
+          </p>
 
           <h2>3. Job Applications</h2>
           <p>

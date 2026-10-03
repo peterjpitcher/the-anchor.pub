@@ -11,18 +11,39 @@ import { WeekHours } from '@/components/WeekHours'
 import { CONTACT } from '@/lib/constants'
 import { getBusinessHoursSnapshot } from '@/lib/api'
 import { getFoodMenuPageData, getMenuUnavailableMessage } from '@/lib/menu-page-data'
-import { getWeekdayServiceTimes, pickLunchAndDinnerDishes } from '@/lib/lunch-and-dinner'
+import { LUNCH_DINNER_BOOKING_HREF, LUNCH_DINNER_BOOKING_SOURCE } from '@/lib/booking-cta'
+import {
+  buildWalkInLine,
+  getWeekdayServiceTimes,
+  getWeekdayServiceWindows,
+  pickLunchAndDinnerDishes,
+  resolveLunchDinnerVariant
+} from '@/lib/lunch-and-dinner'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 // Landing page for the paid weekday lunch and dinner campaign. Kept out of
 // search (noindex, and not in the sitemap) so it never competes with
 // /food-menu. Every time, dish name and price on it is read live.
-export const revalidate = 3600
+//
+// Rendered on every request, because the hero and the order of the dishes
+// follow the ad's `utm_campaign` on the address. Stated here rather than left
+// to be inferred from the page reading `searchParams`. The page itself is not
+// cached, but the data behind it still is: the menu for 5 minutes and the
+// hours snapshot for an hour (the `next.revalidate` on each fetch in
+// lib/api/client.ts). So the management API is asked once per window, not
+// once per ad visit. Checked on the built server: eight page requests cost
+// one menu call.
+export const dynamic = 'force-dynamic'
 
-// Never put "sunday" in this: the booking form reads any source containing it
-// as a Sunday roast booking.
-const BOOKING_SOURCE = 'lunch_dinner_lp'
-const BOOKING_HREF = `/book-table?source=${BOOKING_SOURCE}`
+type LunchAndDinnerPageProps = {
+  searchParams?: Record<string, string | string[] | undefined>
+}
+
+// "Book a table" lands on the form itself (#booking-form), tagged as coming
+// from this page. Both values live in lib/booking-cta.ts because the sticky
+// bar uses the same link, so all three buttons count as one source.
+const BOOKING_SOURCE = LUNCH_DINNER_BOOKING_SOURCE
+const BOOKING_HREF = LUNCH_DINNER_BOOKING_HREF
 
 const HERO_IMAGE = '/images/food/weekday-2026/beer-battered-cod-and-chips.jpg'
 const SHARE_IMAGE_ALT = 'Beer battered cod and chips at The Anchor, Stanwell Moor'
@@ -47,32 +68,56 @@ export const metadata: Metadata = {
   })
 }
 
-export default async function LunchAndDinnerPage() {
+export default async function LunchAndDinnerPage({ searchParams }: LunchAndDinnerPageProps) {
+  // The ad's campaign tag picks the hero and which dishes come first. It is
+  // matched against a fixed list and never printed, so the address cannot put
+  // anything on the page.
+  const variant = resolveLunchDinnerVariant(searchParams?.utm_campaign)
+
   const [menu, hours] = await Promise.all([
     getFoodMenuPageData(),
     // Snapshot, not the live fetch: it feeds the hero times and the seven-day
-    // table's first paint, never an open-now claim, so the page stays static.
+    // table's first paint, never an open-now claim, so it can stay cached.
     getBusinessHoursSnapshot().catch(() => null)
   ])
 
   const times = hours ? getWeekdayServiceTimes(hours) : null
-  const dishes = menu ? pickLunchAndDinnerDishes(menu) : []
+  const dishes = menu ? pickLunchAndDinnerDishes(menu, variant.picks) : []
+
+  // Regular Tuesday to Friday times only, never a claim about today: the line
+  // reads the same on a Sunday, after service and on a day the kitchen is shut.
+  // If the hours cannot be read it drops the times rather than guessing them.
+  const walkInLine = buildWalkInLine(hours ? getWeekdayServiceWindows(hours) : [], variant.service)
+
+  const lunchBadge = times ? <Badge variant="sand">Lunch {times.lunch}</Badge> : null
+  const dinnerBadge = times ? <Badge variant="sand">Dinner {times.dinner}</Badge> : null
 
   return (
     <>
       <InteriorHero
-        image={HERO_IMAGE}
+        image={variant.heroImage}
         focal="50% 60%"
         crumb="Lunch and dinner"
         kicker="Eat, Drink, Enjoy"
-        title={times ? 'Lunch and dinner, Tuesday to Friday' : 'Lunch and dinner at The Anchor'}
+        title={
+          variant.heroTitle ??
+          (times ? 'Lunch and dinner, Tuesday to Friday' : 'Lunch and dinner at The Anchor')
+        }
         lead="Proper pub food in Stanwell Moor, from our pies and fish and chips to stone-baked pizzas. Come in for lunch or join us for dinner."
         badges={
           times ? (
-            <>
-              <Badge variant="sand">Lunch {times.lunch}</Badge>
-              <Badge variant="sand">Dinner {times.dinner}</Badge>
-            </>
+            // Both times always show. A dinner ad puts dinner first.
+            variant.service === 'dinner' ? (
+              <>
+                {dinnerBadge}
+                {lunchBadge}
+              </>
+            ) : (
+              <>
+                {lunchBadge}
+                {dinnerBadge}
+              </>
+            )
           ) : undefined
         }
         actions={
@@ -93,8 +138,15 @@ export default async function LunchAndDinnerPage() {
                 See the full menu
               </Link>
             </Button>
+            {/* Someone walking in needs the way here more than the form. */}
+            <Button asChild variant="outline" size="lg" fullWidth>
+              <Link href="/find-us" className="w-full sm:w-auto">
+                Get directions
+              </Link>
+            </Button>
           </>
         }
+        note={walkInLine}
       />
 
       <AmenityStrip />

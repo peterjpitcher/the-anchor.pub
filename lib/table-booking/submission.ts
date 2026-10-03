@@ -3,6 +3,7 @@ import {
   buildCommunicationConsentPayload,
   type CommunicationConsentState,
 } from '@/lib/communication-consent'
+import type { PageSource } from '@/lib/table-booking/page-source'
 
 /**
  * What is sent when a guest confirms, and what comes back.
@@ -156,6 +157,14 @@ export type TableBookingSubmitInput = {
    */
   preorder?: TableBookingPreorderEntry[]
   attribution: BookingAttributionPayload & Record<string, unknown>
+  /**
+   * Which of our pages and adverts the booking came from, read from the page
+   * address at submit time (lib/table-booking/page-source.ts). Sent whatever
+   * the guest chose about cookies, to the management app only. Never part of
+   * the submit-intent fingerprint: a label must not make a retry look like a
+   * different booking.
+   */
+  pageSource?: PageSource
   /** Volatile: excluded from the submit-intent fingerprint by construction. */
   turnstileToken: string | null
   website: string
@@ -210,6 +219,10 @@ export function buildTableBookingPayload(
     ...(input.christmas_course_counts ? { christmas_course_counts: input.christmas_course_counts } : {}),
     communication_consent: buildCommunicationConsentPayload(input.communicationConsent),
     ...input.attribution,
+    // Its own nested object, so it can never be mistaken for the consent-gated
+    // tags spread in just above: those go on to CheersAI, this goes to the
+    // management app only. It changes nothing about the booking itself.
+    ...(input.pageSource ? { page_source: input.pageSource } : {}),
     // Volatile fields below, added after the idempotency key has already
     // been selected so they cannot influence the submit-intent fingerprint.
     ...(input.turnstileToken ? { turnstile_token: input.turnstileToken } : {}),

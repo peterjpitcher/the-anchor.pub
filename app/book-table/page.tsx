@@ -191,7 +191,15 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         </p>
       </Section>
 
-      <Section id="booking-form" background="gray" spacing="sm" container>
+      {/* The paid-ads landing page links straight here (#booking-form), so its
+          visitors skip the hero above. globals.css already drops every anchor
+          by the header's height (scroll-padding-top); the margin adds a little
+          air above the section. Measured at 375 x 812 in Chromium and WebKit:
+          the section lands 92px down and the first field at about 500px, in
+          the first screen. Keep the margin small: a bigger one only pushes the
+          form further down a phone. The id is outside the
+          booking_options_step1 flag, so both layouts have it. */}
+      <Section id="booking-form" background="gray" spacing="sm" container className="scroll-mt-4">
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4 space-y-3">

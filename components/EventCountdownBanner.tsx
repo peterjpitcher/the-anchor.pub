@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import { type Event } from '@/lib/api'
 import { trackBannerEvent, trackCtaClick } from '@/lib/gtm-events'
 import { EventBookingButton } from '@/components/EventBookingButton'
+import { LUNCH_DINNER_BOOKING_SOURCE } from '@/lib/booking-cta'
 
 const BANNER_STORAGE_KEY = 'event_banner_dismissed_until'
 const SESSION_ELIGIBILITY_KEY = 'event_banner_session_show'
@@ -122,6 +123,21 @@ export const shouldSuppressPath = (pathname: string | null) => {
   )
 }
 
+/**
+ * Exported for test. The weekday food ads' landing page sends "Book a table" straight
+ * to the form on /book-table (#booking-form). On a phone the banner then sat on top of
+ * the party size and date fields the visitor had just been sent to (seen at 375 x 812,
+ * 3 October 2026). Only that arrival is suppressed, read from the page address: every
+ * other visit to /book-table still shows the banner.
+ */
+export const shouldSuppressAdBookingArrival = (
+  pathname: string | null,
+  search: string | null | undefined
+) => {
+  if (pathname !== '/book-table' || !search) return false
+  return new URLSearchParams(search).get('source') === LUNCH_DINNER_BOOKING_SOURCE
+}
+
 type BannerTone = 'dark' | 'light' | 'alert' | 'muted'
 
 const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => {
@@ -169,7 +185,10 @@ export function EventCountdownBanner() {
   const [sessionEligible] = useState(determineSessionEligibility)
 
   useEffect(() => {
-    if (shouldSuppressPath(pathname)) {
+    if (
+      shouldSuppressPath(pathname) ||
+      shouldSuppressAdBookingArrival(pathname, window.location.search)
+    ) {
       setBanner(null)
       return
     }
