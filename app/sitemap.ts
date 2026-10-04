@@ -7,6 +7,8 @@ import { getEventWebsitePath } from '@/lib/event-url'
 import { getEventSeoStrategy } from '@/lib/event-seo-strategy'
 import { isRetiredEvent, isFallbackEvent } from '@/lib/api/events'
 import { logError } from '@/lib/error-handling'
+import { PRIVACY_POLICY_LAST_UPDATED } from '@/lib/legal-pages'
+import { parseLondonDate } from '@/lib/time-london'
 
 // This route renders dynamically whether we ask it to or not, so say so.
 //
@@ -347,7 +349,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Footer / legal
     { path: '/sitemap-page', lastModified: DATES.launch },
-    { path: '/privacy-policy', lastModified: DATES.launch },
+    // The same constant the notice prints as "Last updated", so the page and
+    // its lastmod cannot disagree. Move the date in lib/legal-pages.ts, not here.
+    { path: '/privacy-policy', lastModified: parseLondonDate(PRIVACY_POLICY_LAST_UPDATED) },
     { path: '/accessibility', lastModified: DATES.launch },
     { path: '/safety-and-respect', lastModified: DATES.launch },
     { path: '/sustainability', lastModified: DATES.launch },

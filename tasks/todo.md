@@ -1,3 +1,28 @@
+# Privacy notice sitemap date, 4 October 2026
+
+Branch `fix/privacy-sitemap-lastmod` (worktree `elastic-mestorf-bbacc4`), local only, off origin/main
+at 5a5cdd13. `/sitemap.xml` gave `/privacy-policy` a `lastModified` of 1 June 2025 (`DATES.launch`)
+while the notice itself prints 3 October 2026. This is the item the section below left alone.
+
+- [x] Confirm `PRIVACY_POLICY_LAST_UPDATED` is on origin/main before using it. It was not at
+      f55462ac; PR #181 landed it during this session, with the date moved to 3 October 2026.
+- [x] Point the one sitemap entry at the constant through `parseLondonDate`. No other entry touched.
+- [x] Test in `tests/seo-indexing.test.ts`: the entry's ISO string equals the constant at 00:00 UTC,
+      which is the string Next writes into `<lastmod>`.
+- [x] `npm run lint:next`, `npm test`, `npm run test:utc`, `npm run build`; commit; no push
+
+Results:
+- Against origin/main's sitemap the new test fails in both zones: expected
+  `2026-10-03T00:00:00.000Z`, received `2025-06-01T00:00:00.000Z`. With the fix it passes in both.
+- `npm run lint:next` clean, `npx tsc --noEmit` clean, `npm test` and `npm run test:utc` both 240
+  suites, 2,936 passed, 1 skipped; the build makes 277 pages.
+- Read from the production build (`next start`): `/sitemap.xml` answers 200 with 200 URLs and
+  `<lastmod>2026-10-03T00:00:00.000Z</lastmod>` for `/privacy-policy`; the page reads
+  `Last updated: <time datetime="2026-10-03">3 October 2026</time>`. `/sitemap-page`,
+  `/accessibility`, `/safety-and-respect` and `/sustainability` still read 1 June 2025.
+- Left alone: those four neighbours keep `DATES.launch`. Nothing records when their words last
+  changed, so their dates were not checked here.
+
 # Privacy notice "Last updated" date, 3 to 4 October 2026
 
 Branch `fix/privacy-last-updated-date` (worktree `sleepy-dubinsky-e0b18f`).
