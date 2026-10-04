@@ -8,6 +8,10 @@ import { Container } from '@/components/ui'
 // cannot drift from the wording actually recorded against a guest's consent.
 // It had been stuck at v1 while the code moved to v3.
 import { GUEST_COMMS_CONSENT_TEXT_VERSION } from '@/lib/communication-consent'
+// Changing the words of this notice? Move PRIVACY_POLICY_LAST_UPDATED in the
+// same commit: section 10 below promises the date changes when the notice does.
+import { PRIVACY_POLICY_LAST_UPDATED } from '@/lib/legal-pages'
+import { formatLondonLongDate } from '@/lib/time-london'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy & Cookie Policy',
@@ -47,7 +51,7 @@ export default function PrivacyPolicyPage() {
           </PageTitle>
           <div className="prose prose-lg max-w-none">
           <p className="lead">
-            Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+            Last updated: <time dateTime={PRIVACY_POLICY_LAST_UPDATED}>{formatLondonLongDate(PRIVACY_POLICY_LAST_UPDATED)}</time>
           </p>
 
           <h2>1. Introduction</h2>
