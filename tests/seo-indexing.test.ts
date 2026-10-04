@@ -99,6 +99,7 @@ import {
 } from '@/lib/middleware-redirects'
 import { seasonalOccasionLinks, trustLinks } from '@/lib/internal-linking-data'
 import { landmarks } from '@/lib/local-seo-data'
+import { PRIVACY_POLICY_LAST_UPDATED } from '@/lib/legal-pages'
 import { buildBreadcrumbItemList } from '@/lib/breadcrumb-schema'
 import { buildJobPostingSchema } from '@/app/join-our-team/_components/RecruitmentRolePage'
 import { recruitmentDatePosted, recruitmentValidThrough } from '@/app/join-our-team/recruitmentContent'
@@ -689,6 +690,27 @@ describe('sitemap-vs-noindex', () => {
 
     const offending = noindexSlugs.filter((slug) => sitemapPaths.has(`/blog/${slug}`))
     expect(offending).toEqual([])
+  })
+})
+
+describe('sitemap-vs-privacy-notice date', () => {
+  /**
+   * The sitemap said the privacy notice last changed on 1 June 2025 while the
+   * notice itself printed a 2026 date. Both now read one constant in
+   * `lib/legal-pages.ts`; `tests/unit/privacy-policy-last-updated.test.tsx`
+   * holds the page to it, and this holds the sitemap to it.
+   */
+  it('gives /privacy-policy the date the notice prints as "Last updated"', async () => {
+    const sitemapEntries = await sitemap()
+    const entries = sitemapEntries.filter((entry) => toPath(entry.url) === '/privacy-policy')
+    expect(entries).toHaveLength(1)
+
+    const { lastModified } = entries[0]
+    expect(lastModified).toBeInstanceOf(Date)
+    // Next writes <lastmod> with toISOString(), so this is the exact string a
+    // crawler reads. It is UTC whatever zone the server runs in, and a date
+    // parsed as local midnight would show up here as the day before.
+    expect((lastModified as Date).toISOString()).toBe(`${PRIVACY_POLICY_LAST_UPDATED}T00:00:00.000Z`)
   })
 })
 
