@@ -8,13 +8,18 @@
  * month table, not by calling the formatter the page uses, so a broken
  * formatter cannot agree with itself and pass.
  *
+ * A hand-maintained date goes stale the first time someone edits the notice
+ * and forgets it, so the last test fingerprints the notice's words. Change the
+ * words without touching `lib/legal-pages.ts` and it fails.
+ *
  * Run in both zones: `npm test` (Europe/London) and `npm run test:utc` (UTC,
  * which is what the serverless runtime uses).
  */
 
+import { createHash } from 'crypto'
 import { render, screen } from '@testing-library/react'
 import PrivacyPolicyPage from '@/app/privacy-policy/page'
-import { PRIVACY_POLICY_LAST_UPDATED } from '@/lib/legal-pages'
+import { PRIVACY_POLICY_LAST_UPDATED, PRIVACY_POLICY_WORDS_FINGERPRINT } from '@/lib/legal-pages'
 import { formatLondonLongDate } from '@/lib/time-london'
 
 jest.mock('next/navigation', () => ({
@@ -91,6 +96,50 @@ describe('privacy notice "Last updated" date', () => {
     })
 
     expect(new Set(lines).size).toBe(1)
+  })
+})
+
+/** Every word a reader sees in the notice, minus the "Last updated" line. */
+function noticeWords(): string {
+  const { unmount } = render(<PrivacyPolicyPage />)
+  const lastUpdated = screen.getByText(/^Last updated:/)
+  const notice = lastUpdated.parentElement?.cloneNode(true) as HTMLElement
+  unmount()
+
+  for (const paragraph of Array.from(notice.querySelectorAll('p'))) {
+    if (/^Last updated:/.test(paragraph.textContent ?? '')) paragraph.remove()
+  }
+
+  return (notice.textContent ?? '').replace(/\s+/g, ' ').trim()
+}
+
+describe('privacy notice wording guard', () => {
+  it('fails when the words change and lib/legal-pages.ts does not', () => {
+    const words = noticeWords()
+
+    // The whole notice, first section to last. If the date line ever moves
+    // into a wrapper of its own, this fails rather than fingerprinting nothing.
+    expect(words).toContain('1. Introduction')
+    expect(words).toContain('12. Complaints')
+    expect(words).not.toContain('Last updated:')
+
+    const fingerprint = createHash('sha256').update(words).digest('hex')
+
+    if (fingerprint !== PRIVACY_POLICY_WORDS_FINGERPRINT) {
+      throw new Error(
+        [
+          'The words of the privacy notice have changed.',
+          '',
+          'In lib/legal-pages.ts:',
+          '  1. Set PRIVACY_POLICY_LAST_UPDATED to the day this change goes live.',
+          `     It is ${PRIVACY_POLICY_LAST_UPDATED} now.`,
+          '  2. Set PRIVACY_POLICY_WORDS_FINGERPRINT to:',
+          `     ${fingerprint}`,
+          '',
+          'If only the markup changed and a reader sees the same notice, do step 2 only.'
+        ].join('\n')
+      )
+    }
   })
 })
 

@@ -18,3 +18,19 @@
 // The day PR #179 merged (27ac3630), which added the sentence about recording
 // the web page and advert a table booking came from (cf90f746).
 export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-03'
+
+/**
+ * SHA-256 of the notice's words as they stood on the date above, with the
+ * "Last updated" line left out.
+ *
+ * `tests/unit/privacy-policy-last-updated.test.tsx` renders the notice and
+ * recomputes this. If the words have changed it fails and prints the new value,
+ * which is the prompt to move the date above. It cannot tell whether the date
+ * was moved: it stops the change being forgotten, not being skipped.
+ *
+ * Words that change with no edit to the page count too, such as the consent
+ * wording version the notice quotes. If only the markup changed and the reader
+ * sees the same notice, update this value and leave the date.
+ */
+export const PRIVACY_POLICY_WORDS_FINGERPRINT =
+  'efaaf26f2f1416d29cade3dc1995a50f224d0a80051cbe6d31960177925bab95'

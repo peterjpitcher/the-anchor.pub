@@ -15,6 +15,26 @@ when the notice changed. Noticed while PR #179 added a line to the notice; left 
       `lib/time-london.ts`, and render it inside `<time>`
 - [x] Test first: rendered date equals the constant with the clock fixed at three instants, and
       prove the test fails on the unfixed page
+- [x] Guard the hand-kept date (owner yes, 4 October): fingerprint the notice's words next to the
+      date, and fail when they change and `lib/legal-pages.ts` does not
+- [x] `npm run lint:next`, `npm test`, `npm run test:utc`, `npm run build`
+
+Results:
+- Against main's page the four render tests fail in both zones, reading "15 March 2021",
+  "31 December 2025" and, for 00:30 London on 1 July 2024, "1 July" in London but "30 June" in UTC.
+  With the fix all 18 pass in both zones.
+- The guard fails on a one-word change (6 months to 12 months) and on taking PR #179's sentence back
+  out, and passes when only the markup changes (a heading wrapped and given a class).
+- `npm run lint:next` clean, `npx tsc --noEmit` clean, `npm test` and `npm run test:utc` both 240
+  suites, 2,935 passed, 1 skipped; the build makes 277 pages.
+- Read from the production build (`next start`) on 4 October 2026: the line is
+  `Last updated: <time datetime="2026-10-03">3 October 2026</time>`. The live site that morning
+  read "4 October 2026".
+- PR #179 merged while this was in hand. The first draft held 12 September (d88f53b1); it was
+  rebased and the date moved to PR #179's merge day before anything was pushed.
+- Left alone: `/sitemap.xml` gives `/privacy-policy` a `lastModified` of 1 June 2025
+  (`DATES.launch`), and `app/drinks/managers-special/page.tsx` formats a noon-UTC date without
+  naming a time zone. Neither is this fault.
 
 # Quiz night and Music Bingo facts, 11 September 2026
 
