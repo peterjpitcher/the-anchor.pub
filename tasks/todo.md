@@ -1,3 +1,64 @@
+# Consent withdrawal takes effect at once, 5 October 2026
+
+Branch `fix/consent-withdrawal-takes-effect` (worktree `gifted-kapitsa-3f7ea1`), local only. Built on
+main at 2c1243aa, which has the footer control (PR #184, merged), plus the clean-up commit in the
+section below, replayed onto main from `fix/cookie-cleanup-on-withdrawal` (19d5602f, still local
+only in its own worktree).
+
+Tag Manager's consent setting stops a tag from starting. It cannot stop one already running in the
+page. After marketing was switched off in the panel, LinkedIn's Insight Tag went on sending until
+the next full page load, while the privacy notice says nothing goes to Meta or LinkedIn without
+marketing cookies.
+
+Owner decision, 5 October 2026: reload the page after a save that switches a category off, rather
+than vendor revoke calls, and do it for analytics as well as marketing.
+
+- [x] Reproduce the gap on a production build with the live container, before changing anything
+- [x] Compare a reload with vendor revoke calls; put both to the owner
+- [x] Tests first, red: a save that turns analytics or marketing off reloads once, after the choice
+      is stored; turning one on, a first choice, an unchanged save and a cancelled panel do not
+- [x] `lib/cookies.ts`: reload from `setConsentStatus`, the one place a choice is written. No second
+      consent store
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20; `npm run lint` on the default Node
+- [x] Production build in a browser, through the real footer control and panel
+- [x] Commit. No push
+
+Results:
+- The gap, before any change (production build, live container, www.anchor.localhost): with
+  marketing off and Google's consent mode saying denied, two in-site page changes each sent two
+  requests to `px.ads.linkedin.com/wa/`, and one button press with no page change sent one. So the
+  tag reports every button or link pressed, not only page changes. Meta's pixel loads locally but
+  sends nothing from a local address, so its live behaviour is still unobserved.
+- Analytics had no gap to close. Switched off in the same page, Google's tag moved to a fresh
+  anonymous id at once and so did Clarity, and their cookies stayed gone. It reloads anyway (owner
+  decision) so one rule covers any tag added to the container later.
+- Vendor revoke calls were ruled out: LinkedIn's tag exposes nothing to call, and Meta's
+  `fbq('consent', 'revoke')` cannot be exercised locally.
+- Before the change 5 of the 13 new tests failed; the 8 that passed are the ones that must pass
+  either way. Broken on purpose afterwards, each fault is caught: no reload (5 fail), reload
+  whenever a category is off (3), reload on any change (7), marketing only (1), analytics only
+  (3), preferences counted (1), one reload per category (2), reload before the choice is stored
+  (4), before the clean-up (2), before the tags are told (2).
+- jsdom cannot reload a page and logs an error when asked. `tests/helpers/page-reload.ts` stands
+  in for `reload` only and passes the rest of the address through. The four older suites that
+  switch a category off use it too, so none of them asks jsdom for a real navigation.
+- Checks, Node 20.19.5: `lint:next` and `tsc` clean; `npm test` and `test:utc` both 245 suites,
+  2,990 passed, 1 skipped; build makes 277 pages. `npm run lint` passes on the default Node.
+- In a browser on the built change:
+  - Marketing off: the page reloaded once, on the same page at the same scroll position with the
+    panel closed. Neither LinkedIn's nor Meta's tag was in the new page, the marketing cookies were
+    gone, and two page changes plus a button press sent nothing to either company.
+  - Analytics off, and everything off in one save: reloaded once; only the consent cookie was
+    left eight seconds later.
+  - No reload when switching a category on, saving unchanged, cancelling after flicking a switch,
+    or making a first choice on the banner (Reject All and Accept All).
+- Known limit: LinkedIn's tag hears the press on Save itself. In three trials it started one or two
+  requests 4 to 54 ms after the choice was stored, before the old page was gone, and nothing after
+  that. Holding back every outgoing request from the dying page stopped it in a trial, at the cost
+  of the last analytics pings from that page; not built, put to the owner.
+- Not covered: another tab already open keeps its tags until it next loads a page.
+
 # Cookie clean-up on withdrawal, 5 October 2026
 
 Branch `fix/cookie-cleanup-on-withdrawal` (worktree `sleepy-dubinsky-e0b18f`), local only. Stacked on

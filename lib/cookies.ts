@@ -66,6 +66,21 @@ export function setConsentStatus(consent: Partial<CookieConsent>) {
   TRACKED_CATEGORIES.forEach(category => {
     if (!newConsent[category]) removeTrackerCookies(category);
   });
+
+  // The event above stops a tag from starting. It cannot stop one already running in the
+  // page: on 5 October 2026, with marketing switched off and Google's consent mode saying
+  // denied, LinkedIn's Insight Tag still sent a request for every page change and every
+  // button pressed, and it has no off switch to call. A full page load is what stops it,
+  // because the choice stored above is read before Tag Manager starts and the tag is never
+  // started again. So reload when a category goes from on to off. Not when one is switched
+  // on, and not on a first choice, where the default is off and nothing was running. Last,
+  // so the page that loads next finds the choice stored and the cookies gone.
+  const switchedOff = TRACKED_CATEGORIES.some(
+    category => currentConsent[category] && !newConsent[category]
+  );
+  if (switchedOff && typeof window !== 'undefined') {
+    window.location.reload();
+  }
 }
 
 export function acceptAllCookies() {
