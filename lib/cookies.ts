@@ -83,6 +83,18 @@ export function hasUserConsented(): boolean {
   return getConsentStatus() !== null;
 }
 
+// Asks CookieBanner to reopen its preferences panel so a choice already made can be
+// changed or withdrawn. An event for the same reason as cookieConsentUpdate above: the
+// footer control and the banner have no shared parent to hold the state. It opens the
+// panel and nothing else; the choice is still read from and saved to the cookie here.
+export const COOKIE_SETTINGS_OPEN_EVENT = 'cookieSettingsOpen';
+
+export function openCookieSettings(): void {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(COOKIE_SETTINGS_OPEN_EVENT));
+  }
+}
+
 export function canUseCookieCategory(category: CookieCategory): boolean {
   const consent = getConsentStatus();
   if (!consent) return category === 'necessary';

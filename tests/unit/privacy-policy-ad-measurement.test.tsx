@@ -109,7 +109,13 @@ describe('the privacy notice on marketing cookies', () => {
 
     const line = screen.getByText(/If you don't accept marketing cookies/)
     expect(line).toHaveTextContent("we don't store the advert record in your browser and we send nothing about you to Meta or LinkedIn.")
-    expect(line).toHaveTextContent("clearing this website's cookies in your browser")
+    // The footer's Cookie settings control reopens the choice on any page, so the
+    // notice points there. It used to tell people to clear the site's cookies,
+    // which was the only way to withdraw until the control existed.
+    expect(line).toHaveTextContent(
+      'You can change your mind at any time. Choose Cookie settings at the bottom of any page. If you switch marketing cookies off, we delete the advert record from your browser.'
+    )
+    expect(line).not.toHaveTextContent(/clearing this website's cookies/)
   })
 
   it('names LinkedIn, whose tag also needs marketing cookies', () => {
