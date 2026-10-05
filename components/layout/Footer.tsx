@@ -13,6 +13,7 @@ import { WhatsAppLink } from '@/components/WhatsAppLink'
 import { SocialLink as SocialLinkComponent } from '@/components/SocialLink'
 import { trackNavigationClick, trackSocialClick, trackPhoneCallClick } from '@/lib/gtm-events'
 import { trustLinks } from '@/lib/internal-linking-data'
+import { openCookieSettings } from '@/lib/cookies'
 
 interface FooterSection {
   title: string
@@ -432,11 +433,17 @@ export function Footer({
           </div>
 
           {/* Legal / trust links (sixth group, moved out of the grid) */}
-          {legalSection && legalSection.items.length > 0 && (
-            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-              {legalSection.items.map((item) => renderLink(item))}
-            </ul>
-          )}
+          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+            {legalSection.items.map((item) => renderLink(item))}
+            {/* Always here, on every page, so a cookie choice can be changed or withdrawn
+                as easily as it was made. A button, not a link: it reopens the banner's
+                preferences panel on this page and goes nowhere. */}
+            <li>
+              <button type="button" onClick={openCookieSettings} className={linkClass}>
+                Cookie settings
+              </button>
+            </li>
+          </ul>
 
           <p className="mt-4 text-xs text-ink-muted">
             Serving Stanwell Moor, Staines, Ashford, Feltham, Bedfont, and surrounding Surrey areas
