@@ -1,5 +1,5 @@
 // Cookie consent management utilities
-import { getCookie, setCookie, deleteCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 
 export type CookieCategory = 'necessary' | 'analytics' | 'marketing' | 'preferences';
 
@@ -58,6 +58,29 @@ export function setConsentStatus(consent: Partial<CookieConsent>) {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('cookieConsentUpdate', { detail: newConsent }));
   }
+
+  // Every choice is written here (Accept All, Reject All and the panel's Save), so this is
+  // where a category that is off loses its cookies. It runs on every write rather than only
+  // when a switch goes from on to off, so Reject All also clears what an earlier visit left
+  // behind. After the event, so the tags are told to stop before their cookies go.
+  TRACKED_CATEGORIES.forEach(category => {
+    if (!newConsent[category]) removeTrackerCookies(category);
+  });
+
+  // The event above stops a tag from starting. It cannot stop one already running in the
+  // page: on 5 October 2026, with marketing switched off and Google's consent mode saying
+  // denied, LinkedIn's Insight Tag still sent a request for every page change and every
+  // button pressed, and it has no off switch to call. A full page load is what stops it,
+  // because the choice stored above is read before Tag Manager starts and the tag is never
+  // started again. So reload when a category goes from on to off. Not when one is switched
+  // on, and not on a first choice, where the default is off and nothing was running. Last,
+  // so the page that loads next finds the choice stored and the cookies gone.
+  const switchedOff = TRACKED_CATEGORIES.some(
+    category => currentConsent[category] && !newConsent[category]
+  );
+  if (switchedOff && typeof window !== 'undefined') {
+    window.location.reload();
+  }
 }
 
 export function acceptAllCookies() {
@@ -74,9 +97,6 @@ export function rejectAllCookies() {
     marketing: false,
     preferences: false
   });
-  
-  // Clean up existing non-necessary cookies
-  cleanupCookies();
 }
 
 export function hasUserConsented(): boolean {
@@ -101,24 +121,68 @@ export function canUseCookieCategory(category: CookieCategory): boolean {
   return consent[category] === true;
 }
 
-// Helper to clean up cookies when consent is revoked
-function cleanupCookies() {
-  // List of known analytics/marketing cookies to remove
-  const cookiesToRemove = [
-    '_ga', '_gid', '_gat', '_gac_', // Google Analytics
-    '_fbp', 'fr', // Facebook
-    '_gcl_au', '_gcl_aw', // Google Ads
-    'IDE', 'test_cookie', // DoubleClick
-    '_twitter_sess', 'personalization_id', // Twitter
-    'anchor-booking-attribution' // our own ad-click attribution (lib/booking-attribution.ts)
-  ];
+type TrackedCategory = 'analytics' | 'marketing';
 
-  cookiesToRemove.forEach(cookieName => {
-    // Try to delete with different path/domain combinations
-    deleteCookie(cookieName);
-    deleteCookie(cookieName, { path: '/' });
-    deleteCookie(cookieName, { domain: '.the-anchor.pub' });
-    deleteCookie(cookieName, { domain: 'the-anchor.pub' });
+const TRACKED_CATEGORIES: TrackedCategory[] = ['analytics', 'marketing'];
+
+// The cookies the site's tags set on our own domain, by the category that allows them.
+// Google's, Microsoft's and LinkedIn's names are from their published cookie lists, checked
+// on 5 October 2026; Meta's two are the ones lib/booking-attribution.ts reads. A prefix
+// covers names that carry an id, which no fixed name can match: GA4's session cookie is
+// "_ga_" plus the property's id.
+//
+// Only cookies on our own domain can be removed from here. The same companies keep others
+// on their own domains (Meta's "fr", Google's "IDE" and "test_cookie" on doubleclick.net,
+// LinkedIn's "bcookie" and "lidc", Microsoft's "MUID" and "CLID"). A page on this site can
+// neither see nor delete those, so listing them here would only pretend to.
+//
+// The Tag Manager container decides which tags run. Add a tag there that sets a cookie on
+// our domain and its name belongs here.
+const TRACKER_COOKIES: Record<TrackedCategory, { names: string[]; prefixes: string[] }> = {
+  analytics: {
+    names: [
+      '_ga', '_gid', '_gat', // Google Analytics
+      '_clck', '_clsk' // Microsoft Clarity
+    ],
+    prefixes: ['_ga_', '_gat_'] // Google Analytics: GA4 session, named throttle
+  },
+  marketing: {
+    names: [
+      '_fbp', '_fbc', // Meta pixel
+      'li_fat_id', 'li_giant', 'ln_or', 'oribi_cookie_test', 'oribili_user_guid', // LinkedIn Insight Tag
+      'anchor-booking-attribution' // our own ad-click attribution (lib/booking-attribution.ts)
+    ],
+    prefixes: ['_gcl_', '_gac_'] // Google advert click and campaign cookies
+  }
+};
+
+// A cookie can only be deleted by naming the domain it was set on, and the tags set theirs
+// on the widest one the browser allows: ".the-anchor.pub" from www.the-anchor.pub. So try
+// the host and each domain above it. The browser ignores any it would never have accepted,
+// such as "vercel.app" from a preview address.
+function candidateDomains(hostname: string): string[] {
+  const labels = hostname.split('.');
+  return labels.slice(0, -1).map((_, index) => labels.slice(index).join('.'));
+}
+
+function removeTrackerCookies(category: TrackedCategory) {
+  if (typeof document === 'undefined') return;
+
+  const { names, prefixes } = TRACKER_COOKIES[category];
+  const present = document.cookie.split(';').map(pair => pair.split('=')[0].trim());
+  const toRemove = present.filter(
+    name => names.includes(name) || prefixes.some(prefix => name.startsWith(prefix))
+  );
+  if (toRemove.length === 0) return;
+
+  const domains = candidateDomains(window.location.hostname);
+  toRemove.forEach(name => {
+    // Written straight to document.cookie: a name we did not choose must not be able to
+    // throw here, and the browser simply ignores a line it will not accept.
+    document.cookie = `${name}=; path=/; max-age=0`;
+    domains.forEach(domain => {
+      document.cookie = `${name}=; path=/; domain=${domain}; max-age=0`;
+    });
   });
 }
 
