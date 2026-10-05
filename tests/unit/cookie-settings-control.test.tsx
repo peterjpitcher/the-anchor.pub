@@ -25,6 +25,7 @@ import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
 import { GTMProvider } from '@/components/tracking/GTMProvider'
 import { clearBookingAttributionForTest, getBookingAttributionPayload } from '@/lib/booking-attribution'
 import { getConsentStatus, setConsentStatus, type CookieConsent } from '@/lib/cookies'
+import { standInForPageReload } from '../helpers/page-reload'
 
 jest.mock('next/navigation', () => ({
   usePathname: () => '/'
@@ -36,6 +37,10 @@ jest.mock('@microsoft/clarity', () => ({
   __esModule: true,
   default: { init: jest.fn(), consentV2: jest.fn() }
 }))
+
+// Switching a category off reloads the page (tests/unit/cookie-withdrawal-reload.test.tsx).
+// jsdom cannot, so the reload is stood in for here.
+standInForPageReload()
 
 const LANDING =
   '/lunch-and-dinner?utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a&fbclid=fb-ad-click'

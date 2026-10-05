@@ -17,6 +17,7 @@ import {
   syncBookingAttributionWithConsent
 } from '@/lib/booking-attribution'
 import { rejectAllCookies, setConsentStatus } from '@/lib/cookies'
+import { standInForPageReload } from '../helpers/page-reload'
 
 const pushToDataLayer = jest.fn()
 
@@ -172,6 +173,10 @@ afterEach(() => {
 
 const LANDING_SEARCH =
   'source=lunch_dinner_lp&utm_campaign=weekday_lunch_a_cod_and_chips&short_code=jbozdk'
+
+// Switching a category off reloads the page (tests/unit/cookie-withdrawal-reload.test.tsx).
+// jsdom cannot, so the reload is stood in for here.
+standInForPageReload()
 
 describe('the booking form sends its page source', () => {
   it('carries the page and ad tags from the address, and nothing else on it', async () => {

@@ -8,6 +8,7 @@ import {
   withCarriedAttributionParams,
 } from '@/lib/booking-attribution'
 import { setConsentStatus } from '@/lib/cookies'
+import { standInForPageReload } from '../helpers/page-reload'
 
 /**
  * Capture times held relative to whenever the suite runs.
@@ -25,6 +26,10 @@ import { setConsentStatus } from '@/lib/cookies'
 const DAY_MS = 24 * 60 * 60 * 1000
 const FIRST_SEEN = new Date(Date.now() - 5 * DAY_MS)
 const LATER_SEEN = new Date(Date.now() - 4 * DAY_MS)
+
+// Switching a category off reloads the page (tests/unit/cookie-withdrawal-reload.test.tsx).
+// jsdom cannot, so the reload is stood in for here.
+standInForPageReload()
 
 describe('booking attribution persistence', () => {
   beforeEach(() => {
