@@ -53,6 +53,11 @@ const PAGES = [
   ['/whats-on', 'event listing, seasonal nav pill'],
   ['/book-table', 'booking flow'],
   ['/drinks/managers-special', 'gold badge variant'],
+  // Added 5 Oct after the privacy notice was found close to unreadable on the
+  // dark season skin: a bare `prose` wrapper, so Tailwind Typography's
+  // light-theme greys sat on a near-black page (headings 1.01:1, body 1.7:1).
+  // No page in this list had an uncoloured `prose` wrapper, so nothing caught it.
+  ['/privacy-policy', 'legal notice in a prose wrapper'],
 ]
 
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']

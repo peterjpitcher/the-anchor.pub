@@ -1,3 +1,68 @@
+# Prose colours readable in every season skin, 5 October 2026
+
+Branch `fix/privacy-notice-prose-contrast` (worktree `gifted-kapitsa-3f7ea1`), local only. Cut from
+main at a9077503, then rebased onto 23152e77 when PR #188 added a paragraph to the notice. Every
+check below was run again on the rebased tree, and the new paragraph was measured with the rest.
+
+The privacy notice sits in a `prose` wrapper with no colour classes, so Tailwind Typography's
+light-theme greys apply. Under the dark season skin that is dark grey on near-black green.
+Styling only: no words change, and `lib/legal-pages.ts` is not touched.
+
+- [x] Confirm the fault on the live site: computed colours and a screenshot
+- [x] Measure every `prose` wrapper in the dark and the light skin, before any change
+- [x] Privacy notice: token colours on the wrapper, the pattern the blog and quiz terms already use
+- [x] Fix the other wrappers the measurement shows are really wrong; list the ones left
+- [x] Add the privacy notice to `scripts/audit-a11y.js`
+- [x] Measure again in both skins, after
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20; `npm run lint` on the default Node
+- [x] Production build in a browser: computed colours and a screenshot, dark and light
+- [x] Commit. No push
+
+How it was measured: a Playwright script loaded all 19 pages with a `prose` wrapper plus every
+blog post (110 live posts; the other 10 folder entries are redirects or not posts), read the
+computed colour of every element that owns text, every list marker and every rule, and worked out
+the contrast against the background actually painted behind it. Run four times on a dev server
+(dark and light, before and after) and twice more on production builds (light forced with
+`NEXT_PUBLIC_FORCE_WINTER_SKIN=off`, then the normal build, which is dark in October).
+
+Results, dark skin, before to after:
+- `/privacy-policy`: headings and bold 1.01:1, email and phone links 1.01:1, body and list text
+  1.7:1, "Last updated" 2.32:1. Now headings, bold and body 14.04:1, links 8.36:1, "Last updated"
+  and bullets 8.42:1.
+- `/live-sport`: the two paragraphs 1.82:1, now 9.01:1. The wrapper had no colour at all.
+- `/live-sport/six-nations`: "Match Day Food:" in bold 1.06:1, now 15.01:1.
+- `/live-sport/world-cup`: the "opening hours" link 1.21:1, now 7.01:1.
+- Blog posts: the numbers on numbered lists 3.62:1 (159 numbers on 27 posts), now 8.42:1.
+
+Light skin, after: nothing below AA. Privacy notice body 16.4:1, headings and bold 8.91:1, links
+5.26:1, "Last updated" and bullets 5.21:1. `/live-sport` paragraphs went from Typography's grey at
+8.83:1 to `text-ink-muted` at 4.74:1, the same as the matching block on the Six Nations page.
+
+Checked and left, because they pass in both skins:
+- The 12 area pages (`/ashford-pub`, `/colnbrook-pub`, `/egham-pub`, `/feltham-pub`, `/horton-pub`,
+  `/longford-pub`, `/pubs-in-stanwell`, `/staines-pub`, `/stanwell-pub`, `/sunbury-pub`,
+  `/windsor-pub`, `/wraysbury-pub`) and `/book-table`: paragraphs only, coloured by the wrapper.
+  They would show the same fault the day a heading, bold text or a link is put inside one.
+- `/near-heathrow/terminal-2`: its headings carry their own colour class.
+- `/quiz-night-competition-terms`: already on tokens.
+- `components/features/BlogPost.tsx`: nothing imports it, so it never renders.
+- Bullets on the blog and the quiz terms, and the rule between blog sections, are Typography's
+  pale grey in the light skin (1.39:1 and 1.17:1). They are decoration, not text, they were the
+  same before the dark skin existed, and the dark skin does not affect them.
+
+Two things worth knowing:
+- `prose-ol:marker:text-ink-muted` compiles and does nothing: it colours the marker of the `ol`,
+  not of its items. Caught by measuring, not by reading. The blog uses `[&_ol>li::marker]:` instead.
+- `npm run audit:palette` compares the hexes in `tailwind.config.ts` with `app/globals.css`. It
+  never looks at a page, so it could not have seen this. `scripts/audit-a11y.js` could, but the
+  privacy notice was not in its list. It is now: run against the live site it reports 93 failing
+  elements on `/privacy-policy`, and none on this branch's build.
+
+Not from this change: the same audit reports six review-carousel dots on `/heathrow-parking` as
+too small to tap (8px buttons in `components/reviews/ReviewsCarousel.tsx`). The live site has the
+same six. Left alone here.
+
 # Consent withdrawal takes effect at once, 5 October 2026
 
 Branch `fix/consent-withdrawal-takes-effect` (worktree `gifted-kapitsa-3f7ea1`), local only. Built on

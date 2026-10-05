@@ -178,7 +178,7 @@ export default function SixNationsPage() {
                                 subtitle="Fuel for the match"
                                 className="text-left mb-6"
                             />
-                            <div className="prose text-ink-muted mb-6 max-w-none">
+                            <div className="prose text-ink-muted mb-6 max-w-none prose-strong:text-ink-strong">
                                 <p>
                                     Whether you're after a half-time burger or a celebratory post-match meal, the kitchen is serving through the match. Kitchen hours vary by fixture, so check before you travel.
                                 </p>
