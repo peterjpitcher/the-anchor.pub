@@ -49,7 +49,15 @@ export default function PrivacyPolicyPage() {
           <PageTitle className="text-center text-ink-strong mb-8" seo={{ structured: true, speakable: true }}>
             Privacy Policy - The Anchor
           </PageTitle>
-          <div className="prose prose-lg max-w-none">
+          {/* Tailwind Typography colours its own headings, bold text, links, lead
+              line and list markers from a fixed light-theme grey palette, which
+              does not follow the season skin. Left bare, the dark skin put
+              headings at 1.01:1 and body text at 1.7:1 (measured 5 October 2026).
+              So every colour it sets is pointed at a token here: `text-ink` covers
+              the paragraphs, list items and address, which inherit it, and the
+              modifiers cover the rest. Add an element Typography colours itself
+              (a blockquote, a table, inline code) and it needs a modifier too. */}
+          <div className="prose prose-lg max-w-none text-ink prose-headings:text-ink-strong prose-a:text-accent-text prose-strong:text-ink-strong prose-lead:text-ink-muted marker:text-ink-muted">
           <p className="lead">
             Last updated: <time dateTime={PRIVACY_POLICY_LAST_UPDATED}>{formatLondonLongDate(PRIVACY_POLICY_LAST_UPDATED)}</time>
           </p>
