@@ -15,9 +15,10 @@
  * it from the clock.
  */
 
-// The day PR #179 merged (27ac3630), which added the sentence about recording
-// the web page and advert a table booking came from (cf90f746).
-export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-03'
+// The day the notice gained its account of event bookings and of what accepting
+// marketing cookies switches on: the 90-day advert record, what is sent to Meta,
+// when it is deleted, and LinkedIn's tag.
+export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-05'
 
 /**
  * SHA-256 of the notice's words as they stood on the date above, with the
@@ -33,4 +34,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-03'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  'efaaf26f2f1416d29cade3dc1995a50f224d0a80051cbe6d31960177925bab95'
+  'f4a5cc15095659daa6541160e1ba7487a5e5b7865e5d5f89d24acdd2e0db6ad4'
