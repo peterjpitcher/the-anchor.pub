@@ -109,16 +109,25 @@ export function ReviewsCarousel({
             </svg>
           </button>
 
-          <div className="flex justify-center gap-2 mt-4">
+          {/* Each button is a 24px tap target (WCAG 2.2 AA 2.5.8) with the 8px
+              dot drawn inside it. The targets touch, so there is no gap, and
+              mt-2 with -mb-2 keeps the dots and everything below them at the
+              height they had when the button was the dot. */}
+          <div className="flex flex-wrap justify-center mt-2 -mb-2">
             {reviews.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  index === currentIndex ? 'bg-anchor-gold-dark' : 'bg-ink-muted/30'
-                }`}
+                className="flex h-6 w-6 items-center justify-center rounded-full"
                 aria-label={`Go to review ${index + 1}`}
-              />
+              >
+                <span
+                  aria-hidden="true"
+                  className={`h-2 w-2 rounded-full transition-colors ${
+                    index === currentIndex ? 'bg-anchor-gold-dark' : 'bg-ink-muted/30'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </>

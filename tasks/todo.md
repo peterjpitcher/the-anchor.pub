@@ -1,3 +1,50 @@
+# Reviews carousel dots: 24px tap targets, 5 October 2026
+
+Branch `fix/reviews-carousel-dot-target-size` (worktree `sleepy-dubinsky-e0b18f`), local only. Built on
+main at 23152e77.
+
+axe reported a WCAG 2.2 AA `target-size` failure (2.5.8, targets must be 24px or have enough spacing)
+on the pagination dots of the reviews carousel. Each dot was the button itself, so the whole tap
+target was 8px by 8px. Seen on the live site and on a production build of main.
+
+- [x] Reproduce before changing anything, waiting for the dots to render: live site and a production
+      build of main in both skins. 6 failing nodes on `/heathrow-parking`, 12 on `/beer-garden` (that
+      page sets no review limit, so it shows 12 dots)
+- [x] Test first, red: `tests/unit/ReviewsCarousel.test.tsx` (4 of 5 failing on main)
+- [x] `components/reviews/ReviewsCarousel.tsx`: a 24px button with the 8px dot drawn inside it. Same
+      aria-labels, still native buttons, so Tab, Enter and Space behave as before
+- [x] Every page that renders the carousel: only `/heathrow-parking` (through `ReviewSection`) and
+      `/beer-garden`. The grid layouts on `/restaurants-near-heathrow` and `/pubs-in-stanwell` have no dots
+- [x] Same pattern elsewhere: no other carousel or pager in `components/` has dot or icon-only buttons.
+      axe `target-size` over all 200 sitemap pages at 1280px and 375px on the fixed build: 0 nodes. The
+      same sweep pointed at the live site's two pages finds 36, so it is not blind
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20; `npm run lint` on the default Node
+- [x] Production build in a browser, both skins, at 1280px, 375px and 320px, with screenshots before
+      and after; mouse click, Tab, Enter and Space on the dots; `node scripts/audit-a11y.js` clean
+- [x] Commit. No push
+
+Results and assumptions:
+
+- The dots keep their size, colours and height on the page (the dot centre is at the same pixel before
+  and after at all three widths, so nothing below moved). What does change is the spacing: dot
+  centres go from 16px apart to 24px apart. That is the least the rule allows, because two 24px
+  targets cannot sit closer than 24px.
+- The row wraps (`flex-wrap`) if there are ever more dots than fit. Twelve dots fill a 320px phone
+  exactly (288px), so a thirteenth would otherwise have pushed the page sideways.
+- The focus ring now surrounds the 24px target instead of the 8px dot.
+
+Parked, not changed here:
+
+- Five of the six dots paint nothing, in both skins, on live and on this branch. `bg-ink-muted/30`
+  produces no CSS, because Tailwind cannot apply an opacity to a colour defined as `var(...)`. The
+  same dead class shape (`text-ink-muted/30`, `bg-surface/90` and others) is used 18 times in 12 files.
+- `scripts/audit-a11y.js` runs axe as soon as the page hydrates, before client-loaded content such as
+  this carousel has arrived, which is why it caught this only some of the time.
+- Close buttons under 24px inside pop-ups: the Christmas enquiry pop-up's (20px) passes axe because
+  it has clear space around it; the shared `Modal` close button (16px) was not measured, as it would
+  not open in an automated run.
+
 # Consent withdrawal takes effect at once, 5 October 2026
 
 Branch `fix/consent-withdrawal-takes-effect` (worktree `gifted-kapitsa-3f7ea1`), local only. Built on
