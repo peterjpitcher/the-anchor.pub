@@ -1,3 +1,69 @@
+# Cookie clean-up on withdrawal, 5 October 2026
+
+Branch `fix/cookie-cleanup-on-withdrawal` (worktree `sleepy-dubinsky-e0b18f`), local only. Stacked on
+`feat/cookie-settings-control` (1c3d2af1), which is itself local only and has not merged. PR #183
+has merged, and origin/main (b2070474) carries one commit that branch does not: 7004b3cb, the
+LinkedIn wording.
+
+Switching a category off in the preferences panel left that category's cookies on the device.
+`cleanupCookies()` in `lib/cookies.ts` ran only from `rejectAllCookies()`; the panel's Save calls
+`setConsentStatus()` alone. Confirmed by reading both.
+
+- [x] Check the clean-up list against each vendor's own cookie documentation and the tags the
+      container holds
+- [x] Tests first, red: marketing off in the panel removes marketing cookies and leaves analytics
+      ones; analytics off removes analytics cookies; Reject All removes both; turning a category
+      on deletes nothing
+- [x] `lib/cookies.ts`: split the list by category, match the prefixed names, and run the clean-up
+      from `setConsentStatus`, the one place consent is written. No second consent store
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20; `npm run lint` on the default Node
+- [x] Production build in a browser: accept, switch a category off, read the cookies back
+- [x] Commit. No push
+
+Results:
+- Before the change 9 of the 12 new tests failed. The 3 that passed are the ones that must pass
+  either way (turning a category on, and names that only look like tracker cookies). Reject All
+  itself was leaving `_ga_<id>`, `_clck`, `_clsk`, `_fbc` and `li_fat_id` behind.
+- Broken on purpose afterwards, each fault is caught: no delete on the parent domain (9 fail),
+  clean-up run for categories that are on (5), prefixes ignored (7), names matched loosely (1).
+- The rule is "a category that is off holds none of its cookies after any consent write", not
+  "only on the write that switched it off". Reject All has to clear what an earlier visit left
+  behind with no stored choice to compare against, and one rule in one place does both.
+- The list, by where each name came from:
+  - Seen set by the real tags on the production build, 5 October 2026: `_ga`, `_ga_<id>`,
+    `_clck`, `_clsk`. On a domain-shaped local address (www.anchor.localhost) all four sat on the
+    parent domain, which is why the delete has to name it.
+  - From the vendors' published lists, not seen set locally: `_gid`, `_gat`, `_gat_*` (older
+    Google Analytics), `_gcl_*`, `_gac_*` (Google advert clicks), LinkedIn's `li_fat_id`,
+    `li_giant`, `ln_or`, `oribi_cookie_test`, `oribili_user_guid`.
+  - `_fbp` and `_fbc`: Meta's pixel loaded locally but set neither. They are listed because
+    `lib/booking-attribution.ts` reads both on the live site.
+  - Dropped, because they live on other companies' domains and cannot be removed from ours:
+    `fr` (facebook.com), `IDE` and `test_cookie` (doubleclick.net), `_twitter_sess` and
+    `personalization_id` (twitter.com, and the site loads no Twitter tag). `_gac_` was a prefix
+    being treated as a whole name, so it never matched anything.
+- In the browser, production build (`next start`), real footer and panel:
+  - localhost:3100: accept analytics and marketing, the four cookies above appear. Marketing off
+    removes four planted marketing cookies and keeps the four analytics ones; Google's consent
+    update shows adverts denied, analytics granted. Analytics off removes the real four. Nothing
+    came back after 8 seconds or after moving to another page.
+  - www.anchor.localhost:3100, where the tags use the parent domain as they do live: the same,
+    and Reject All on a lapsed choice removed six cookies from the parent domain.
+- Node 20.19.5: `npm run lint:next` and `npx tsc --noEmit` clean; `npm test` and
+  `npm run test:utc` both 243 suites, 2,970 passed, 1 skipped; the build makes 277 pages.
+  `npm run lint` passes on the default Node (26.4).
+- The privacy notice's words are unchanged, so its date and fingerprint are too.
+- Left alone:
+  - LinkedIn's tag, once loaded, goes on reporting after marketing is switched off, until the
+    page is reloaded: two requests to px.ads.linkedin.com on the next page, twice. Tag Manager
+    stops a tag starting, not one already running. Seen on the production build.
+  - Whether Meta's pixel writes `_fbp` back after it is deleted, in the same visit, could not be
+    checked: the pixel sets no cookie on a local address. It needs a check on the live site with
+    cookies accepted.
+  - `feat/cookie-settings-control` is one commit behind origin/main (7004b3cb) and will conflict
+    with it in the privacy notice sentence and its fingerprint. This change does not touch either.
+
 # Cookie settings control, 5 October 2026
 
 Branch `feat/cookie-settings-control` (worktree `elastic-mestorf-bbacc4`). Built on
