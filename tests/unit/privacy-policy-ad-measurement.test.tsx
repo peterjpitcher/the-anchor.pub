@@ -12,6 +12,8 @@
  *     app/api/event-bookings/route.ts and app/api/table-bookings/route.ts
  *   - 7 days and 24 months: the data retention job in CheersAI, which receives
  *     the forward
+ *   - Meta and LinkedIn: the two tags in the Tag Manager container that need
+ *     marketing consent
  * If one of those changes, change the notice and this test with it.
  */
 
@@ -106,8 +108,23 @@ describe('the privacy notice on marketing cookies', () => {
     render(<PrivacyPolicyPage />)
 
     const line = screen.getByText(/If you don't accept marketing cookies/)
-    expect(line).toHaveTextContent("we don't store the advert record in your browser and we send nothing about you to Meta")
+    expect(line).toHaveTextContent("we don't store the advert record in your browser and we send nothing about you to Meta or LinkedIn.")
     expect(line).toHaveTextContent("clearing this website's cookies in your browser")
+  })
+
+  it('names LinkedIn, whose tag also needs marketing cookies', () => {
+    render(<PrivacyPolicyPage />)
+
+    expect(
+      within(marketingList()).getByText(
+        "LinkedIn's advertising tag also loads on our pages, which tells LinkedIn you visited our website."
+      )
+    ).toBeInTheDocument()
+
+    const heading = screen.getByRole('heading', { level: 2, name: '6. Third-Party Services' })
+    const entry = screen.getByText('LinkedIn')
+    expect(follows(heading, entry)).toBe(true)
+    expect(entry.closest('li')).toHaveTextContent('Advertising tag, only if you accept marketing cookies')
   })
 
   it('lists Meta among the third-party services', () => {

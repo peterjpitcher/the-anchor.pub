@@ -145,7 +145,10 @@ export default function PrivacyPolicyPage() {
               the 90-day record is lib/booking-attribution.ts; what goes to Meta is
               lib/meta-pixel.ts and the booking conversion forward to CheersAI, which
               only passes it on when marketing consent is true; the 7-day and
-              24-month clear-downs are CheersAI's data retention job. */}
+              24-month clear-downs are CheersAI's data retention job. The Tag
+              Manager container (GTM-WWFQTQS) holds two tags that need marketing
+              consent, Meta's pixel and LinkedIn's Insight Tag. Add a tag there
+              and it has to be named here. */}
           <p>
             If you accept marketing cookies, this is what we do so we can tell which of our adverts work:
           </p>
@@ -154,9 +157,10 @@ export default function PrivacyPolicyPage() {
             <li>When you book a table or an event, we keep those campaign tags and the first page you arrived on with your booking.</li>
             <li>We tell Meta, the company behind Facebook and Instagram, about the booking so it can match it to an advert you saw or clicked. This goes from your browser and from our own systems. It includes Meta&apos;s cookie identifiers, your IP address and browser type, the page address, your booking reference, what you booked and its value. It also includes your email address and phone number in a scrambled form (called hashing), never as readable text. We never send Meta your name.</li>
             <li>Our marketing system deletes the click reference, Meta&apos;s identifiers, your IP address, your browser details and the scrambled contact details after 7 days. It deletes the rest of its record of the booking after 24 months.</li>
+            <li>LinkedIn&apos;s advertising tag also loads on our pages, which tells LinkedIn you visited our website.</li>
           </ul>
           <p>
-            If you don&apos;t accept marketing cookies, we don&apos;t store the advert record in your browser and we send nothing about you to Meta. You can change your mind by clearing this website&apos;s cookies in your browser. We&apos;ll ask you again, and if you say no we delete the advert record from your browser.
+            If you don&apos;t accept marketing cookies, we don&apos;t store the advert record in your browser and we send nothing about you to Meta or LinkedIn. You can change your mind by clearing this website&apos;s cookies in your browser. We&apos;ll ask you again, and if you say no we delete the advert record from your browser.
           </p>
 
           <h4>Preference Cookies</h4>
@@ -179,6 +183,7 @@ export default function PrivacyPolicyPage() {
             <li><strong>Google Maps</strong> - Location services</li>
             <li><strong>Social Media Platforms</strong> - When you interact with our social media content</li>
             <li><strong>Meta (Facebook and Instagram)</strong> - Advert measurement, only if you accept marketing cookies</li>
+            <li><strong>LinkedIn</strong> - Advertising tag, only if you accept marketing cookies</li>
             <li><strong>Booking Systems</strong> - For table reservations</li>
           </ul>
 

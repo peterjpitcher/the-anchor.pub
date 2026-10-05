@@ -17,8 +17,7 @@
 
 // The day the notice gained its account of event bookings and of what accepting
 // marketing cookies switches on: the 90-day advert record, what is sent to Meta,
-// and when it is deleted. Written on 5 October 2026. If this merges on a later
-// day, move the date to that day before merging.
+// when it is deleted, and LinkedIn's tag.
 export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-05'
 
 /**
@@ -35,4 +34,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-05'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  '45fc81f623351baa18f35449035125ea2a8903cbe6c1b028333a69b78d980c1e'
+  'f4a5cc15095659daa6541160e1ba7487a5e5b7865e5d5f89d24acdd2e0db6ad4'
