@@ -11,6 +11,9 @@ import { EventBookingButton } from '@/components/EventBookingButton'
 const BANNER_STORAGE_KEY = 'event_banner_dismissed_until'
 const SESSION_ELIGIBILITY_KEY = 'event_banner_session_show'
 const DISMISS_DURATION_MS = 1000 * 60 * 60 * 24 // 24 hours
+// The card floats `bottom-28` above the bottom of the screen: 7rem, 112px. Anything
+// that scrolls up past that line is underneath the card.
+const CARD_BOTTOM_OFFSET_PX = 112
 const MAX_LEAD_DAYS = 3
 /**
  * Routes where the banner must not appear, because the page already does its job
@@ -284,6 +287,27 @@ export function EventCountdownBanner() {
     })
   }, [banner])
 
+  // On a phone the card is as wide as the screen, so at the bottom of a page it sat on
+  // top of the footer's links (Privacy Policy and the rest of that row) until it was
+  // closed. It now steps aside while the footer is underneath it and comes back when the
+  // visitor scrolls up again. This only records where the footer is; the class on the
+  // card below limits the hiding to phones, where the overlap happens.
+  const [footerUnderCard, setFooterUnderCard] = useState(false)
+  const cardShowing = Boolean(banner) && !dismissed
+
+  useEffect(() => {
+    if (!cardShowing) return
+    const footer = document.querySelector('footer[role="contentinfo"]')
+    if (!footer) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setFooterUnderCard(entry.isIntersecting),
+      { rootMargin: `0px 0px -${CARD_BOTTOM_OFFSET_PX}px 0px` }
+    )
+    observer.observe(footer)
+    return () => observer.disconnect()
+  }, [cardShowing])
+
   if (dismissed || !banner || !content) {
     return null
   }
@@ -325,7 +349,10 @@ export function EventCountdownBanner() {
   const timeString = eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
 
   return (
-    <div className="fixed bottom-28 left-0 right-0 z-[90] px-4 pointer-events-none sm:left-6 sm:right-auto sm:px-0">
+    <div
+      data-footer-under-card={footerUnderCard}
+      className="fixed bottom-28 left-0 right-0 z-[90] px-4 pointer-events-none max-sm:data-[footer-under-card=true]:hidden sm:left-6 sm:right-auto sm:px-0"
+    >
       <div className="pointer-events-auto relative mx-auto w-full rounded-2xl border border-line border-t-[3px] border-t-anchor-gold bg-surface text-ink px-4 py-4 shadow-lg backdrop-blur-lg sm:mx-0 sm:w-80 sm:px-4">
         <div className="flex items-center gap-3 min-w-0">
           {/* No artwork means no avatar at all, rather than an empty grey ring. */}

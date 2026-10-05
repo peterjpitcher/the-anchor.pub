@@ -23,6 +23,37 @@ Results:
 - Left alone: those four neighbours keep `DATES.launch`. Nothing records when their words last
   changed, so their dates were not checked here.
 
+# Event countdown card clear of the footer on phones, 5 October 2026
+
+Branch `fix/event-card-clear-of-footer` (worktree `elastic-mestorf-bbacc4`), off origin/main at
+b2070474. Placed here, not at the top of the file, so it does not collide with the cookie settings
+section that PR #184 adds there.
+
+On a phone the "Next event" card is as wide as the screen and fixed 7rem above the bottom. At the
+end of a page it sat on top of the footer's legal links until it was closed. Seen at 375 x 812
+while testing the footer's Cookie settings control. Owner said yes to hiding it on phones once the
+footer is on screen (5 October 2026).
+
+- [x] `EventCountdownBanner`: watch `footer[role="contentinfo"]` with an IntersectionObserver whose
+      bottom edge is pulled up 112px, the line the card's own bottom sits on (`bottom-28`)
+- [x] Hide with `max-sm:data-[footer-under-card=true]:hidden`: phones only, card stays mounted
+- [x] Tests in `components/__tests__/event-countdown-footer.test.tsx`
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] In a browser at 375 x 812 and at desktop width
+
+Results:
+- Against origin/main's component 5 of the 6 new tests fail. A plain `hidden` in place of the
+  phone-only class fails one, and an observer that ignores its callback fails one.
+- Dev server, 375 x 812, `/find-us`: with the footer's top 60px above the bottom of the screen the
+  card shows; at 160px it is `display: none`; scrolled back up it returns. At the end of the page
+  all five legal links are the top element at their own centre.
+- Desktop, 1024 x 768: unchanged, the card stays. Not changed, and worth knowing: at the end of a
+  page it still covers the left of the footer there (the address, the social links, the copyright
+  and credit lines, and Guest Reviews, Safety and Respect and Sustainability).
+- The check runs when the browser next paints. Reading the flag straight after a scripted scroll,
+  before a frame, shows the old value.
+
 # Privacy notice "Last updated" date, 3 to 4 October 2026
 
 Branch `fix/privacy-last-updated-date` (worktree `sleepy-dubinsky-e0b18f`).
