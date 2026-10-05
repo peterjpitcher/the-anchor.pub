@@ -287,11 +287,13 @@ export function EventCountdownBanner() {
     })
   }, [banner])
 
-  // On a phone the card is as wide as the screen, so at the bottom of a page it sat on
-  // top of the footer's links (Privacy Policy and the rest of that row) until it was
-  // closed. It now steps aside while the footer is underneath it and comes back when the
-  // visitor scrolls up again. This only records where the footer is; the class on the
-  // card below limits the hiding to phones, where the overlap happens.
+  // At the bottom of a page the card sat on top of the footer until it was closed. On a
+  // phone, where it is as wide as the screen, that covered the whole row of legal links
+  // (Privacy Policy, Cookie settings and the rest). On wider screens, where it is a
+  // corner card, it covered the copyright line and the first three of them. It now steps
+  // aside at every size while the footer is underneath it and comes back when the visitor
+  // scrolls up again. This only records where the footer is; the class on the card below
+  // does the hiding, so the card stays mounted.
   const [footerUnderCard, setFooterUnderCard] = useState(false)
   const cardShowing = Boolean(banner) && !dismissed
 
@@ -351,7 +353,7 @@ export function EventCountdownBanner() {
   return (
     <div
       data-footer-under-card={footerUnderCard}
-      className="fixed bottom-28 left-0 right-0 z-[90] px-4 pointer-events-none max-sm:data-[footer-under-card=true]:hidden sm:left-6 sm:right-auto sm:px-0"
+      className="fixed bottom-28 left-0 right-0 z-[90] px-4 pointer-events-none data-[footer-under-card=true]:hidden sm:left-6 sm:right-auto sm:px-0"
     >
       <div className="pointer-events-auto relative mx-auto w-full rounded-2xl border border-line border-t-[3px] border-t-anchor-gold bg-surface text-ink px-4 py-4 shadow-lg backdrop-blur-lg sm:mx-0 sm:w-80 sm:px-4">
         <div className="flex items-center gap-3 min-w-0">

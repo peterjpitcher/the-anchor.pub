@@ -1,17 +1,17 @@
 /**
- * The countdown card and the page footer, on a phone.
+ * The countdown card and the page footer.
  *
- * The card is fixed 7rem above the bottom of the screen and, on a phone, as wide
- * as the screen. At the bottom of a page it sat on top of the footer's links
- * (Privacy Policy and the rest of that row) until it was closed. Seen at
- * 375 x 812 on 5 October 2026. It now hides on a phone while the footer is
- * underneath it, and comes back when the visitor scrolls up.
+ * The card is fixed 7rem above the bottom of the screen. At the bottom of a page
+ * it sat on top of the footer until it was closed. On a phone it is as wide as
+ * the screen and covered the whole row of legal links (seen at 375 x 812 on
+ * 5 October 2026). On wider screens it is a corner card and covered the
+ * copyright line and three of those links (seen at 1024 x 768 the same day).
+ * It now hides at every size while the footer is underneath it, and comes back
+ * when the visitor scrolls up.
  *
- * jsdom has no layout and no media queries, so two things are checked here and
- * the rest in a browser: that the card watches the real footer landmark from
- * the line its own bottom edge sits on, and that what it switches is a
- * phone-only class, never a plain `hidden` that would take the card off wider
- * screens too.
+ * jsdom has no layout, so two things are checked here and the rest in a
+ * browser: that the card watches the real footer landmark from the line its own
+ * bottom edge sits on, and that the flag it sets is the one its class reads.
  */
 
 import { act, render, screen, waitFor } from '@testing-library/react'
@@ -85,7 +85,7 @@ async function card(): Promise<HTMLElement> {
   return label.closest('[data-footer-under-card]') as HTMLElement
 }
 
-describe('the countdown card steps aside for the footer on a phone', () => {
+describe('the countdown card steps aside for the footer', () => {
   beforeEach(() => {
     observers = []
     global.IntersectionObserver = ControlledIntersectionObserver as unknown as typeof IntersectionObserver
@@ -126,7 +126,7 @@ describe('the countdown card steps aside for the footer on a phone', () => {
     expect(wrapper).toHaveAttribute('data-footer-under-card', 'false')
   })
 
-  it('hides on a phone only while the footer is under it, and comes back', async () => {
+  it('hides only while the footer is under it, and comes back', async () => {
     renderPage()
     const wrapper = await card()
     await waitFor(() => expect(observers).toHaveLength(1))
@@ -138,13 +138,18 @@ describe('the countdown card steps aside for the footer on a phone', () => {
     expect(wrapper).toHaveAttribute('data-footer-under-card', 'false')
   })
 
-  it('hides with a phone-only class, so wider screens keep the card', async () => {
+  it('hides through a class keyed to that flag, at every screen size, and stays mounted', async () => {
     renderPage()
     const wrapper = await card()
 
-    // Below the sm breakpoint and only when the flag is set. Tailwind reads this
-    // class from the source as written, so it must be this exact string.
-    expect(wrapper).toHaveClass('max-sm:data-[footer-under-card=true]:hidden')
+    // Tailwind reads this class from the source as written, so it must be this
+    // exact string. It carries no breakpoint: the owner asked for wider screens
+    // too (5 October 2026), having first agreed it for phones only.
+    expect(wrapper).toHaveClass('data-[footer-under-card=true]:hidden')
+    expect(Array.from(wrapper.classList).filter((name) => name.endsWith(':hidden'))).toEqual([
+      'data-[footer-under-card=true]:hidden'
+    ])
+    // Never a bare `hidden`, which would take the card away for good.
     expect(wrapper).not.toHaveClass('hidden')
     // It stays mounted either way: closing it still works and nothing re-counts a view.
     footerIsUnderTheCard(true)
