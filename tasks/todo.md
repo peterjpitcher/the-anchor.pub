@@ -1,3 +1,60 @@
+# Cookie settings control, 5 October 2026
+
+Branch `feat/cookie-settings-control` (worktree `elastic-mestorf-bbacc4`). Built on
+`fix/privacy-notice-ad-measurement` at 2f69d712 while PR #183 was open, because the sentence this
+job rewrites only existed there. PR #183 then merged with one more commit (7004b3cb, LinkedIn's
+tag, in the same sentence), so this was rebased onto origin/main at b2070474. The sentence keeps
+"Meta or LinkedIn" from main and the Cookie settings wording from here; the fingerprint was
+recomputed for the two together.
+
+A visitor could not change a cookie choice after making it: `CookieBanner` only shows when no choice
+exists, and nothing reopened it. The privacy notice had to tell people to clear the site's cookies.
+
+- [x] Tests first, red: the control is in the footer after a choice; it reopens the panel with the
+      choices in force; switching marketing off updates the cookie, fires `cookieConsentUpdate` and
+      removes the stored advert record
+- [x] `lib/cookies.ts`: `openCookieSettings()` and its event. No second consent store
+- [x] `CookieBanner`: listen for the event, render the panel without the banner, read the stored
+      choice on every open, dialog semantics, focus in and back out, Escape, named switches
+- [x] `Footer`: a "Cookie settings" button in the legal row, on every page
+- [x] Privacy notice section 5: point at the control instead of clearing cookies; move the
+      fingerprint and the date note in `lib/legal-pages.ts` in the same commit
+- [x] `npm run lint`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on Node 20
+- [x] Use it in a browser: open, switch off, save, read the cookie back
+
+Results:
+- The 13 first tests all failed before the change. Broken on purpose afterwards, each fault is
+  caught: no re-read of the stored choice on open (3 fail), no focus trap (1), no Escape (2), Save
+  not writing (3), panel back on z-[90] (1).
+- Node 20.19.5, after the rebase: `npm run lint:next` clean, `npx tsc --noEmit` clean, `npm test`
+  and `npm run test:utc` both 242 suites, 2,959 passed, 1 skipped; the build makes 277 pages.
+- `npm run lint` does not finish on Node 20: `audit:hero` requires a `.ts` file, which Node 20
+  cannot load. Nothing to do with this change, and CI runs `lint:next`. The whole chain passes on
+  the machine's default Node (26.4).
+- On the production build (`next start`, before the rebase), with a choice already stored: the control opens the
+  panel showing that choice. Marketing on then off gave the cookie `marketing:false`, one
+  `cookieConsentUpdate`, a Google consent `update` with `ad_storage`, `ad_user_data` and
+  `ad_personalization` all `denied`, and the advert record gone from local storage and its cookie.
+  Focus returned to the control each time.
+- Chromium through Playwright, 1280 x 800 and 375 x 812: the three switches carry their names and
+  show the stored choice, Tab stays in the panel for 12 presses, Escape closes it and returns
+  focus, and axe (WCAG 2.2 AA) finds no violations in the panel or the footer.
+- Found while looking, fixed: the panel shared z-[90] with the event countdown card, which comes
+  later in the page and painted over the panel's text. The panel is now on z-[100], the layer
+  `components/ui/overlays/Modal.tsx` uses.
+- `PRIVACY_POLICY_LAST_UPDATED` stays 2026-10-05, the day this was written. Move it if this merges
+  on a later day.
+- Left alone:
+  - Switching a category off in the panel does not delete the Google and Meta cookies already in
+    the browser. Only Reject All does (`cleanupCookies` in `lib/cookies.ts`). Read from the code;
+    none were set on localhost to watch it happen.
+  - On a phone, the event countdown card covers the bottom of the footer, legal links included,
+    until it is closed. That was already true of the Privacy Policy link.
+  - Under `next dev` the Google consent update never fires: React strict mode runs GTMProvider's
+    effect twice, the clean-up removes the listener and the once-per-window guard stops it being
+    added again. Production fires it. Check consent mode on `next start`, not on the dev server.
+  - The panel's own words ("Cookie Preferences", "Save Preferences") are unchanged.
+
 # Privacy notice sitemap date, 4 October 2026
 
 Branch `fix/privacy-sitemap-lastmod` (worktree `elastic-mestorf-bbacc4`), local only, off origin/main

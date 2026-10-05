@@ -159,8 +159,12 @@ export default function PrivacyPolicyPage() {
             <li>Our marketing system deletes the click reference, Meta&apos;s identifiers, your IP address, your browser details and the scrambled contact details after 7 days. It deletes the rest of its record of the booking after 24 months.</li>
             <li>LinkedIn&apos;s advertising tag also loads on our pages, which tells LinkedIn you visited our website.</li>
           </ul>
+          {/* "Cookie settings" is the label of the footer control (components/layout/Footer.tsx),
+              which reopens the banner's preferences panel. Change one, change the other:
+              tests/unit/cookie-settings-control.test.tsx holds them together. The delete is
+              syncBookingAttributionWithConsent in lib/booking-attribution.ts. */}
           <p>
-            If you don&apos;t accept marketing cookies, we don&apos;t store the advert record in your browser and we send nothing about you to Meta or LinkedIn. You can change your mind by clearing this website&apos;s cookies in your browser. We&apos;ll ask you again, and if you say no we delete the advert record from your browser.
+            If you don&apos;t accept marketing cookies, we don&apos;t store the advert record in your browser and we send nothing about you to Meta or LinkedIn. You can change your mind at any time. Choose Cookie settings at the bottom of any page. If you switch marketing cookies off, we delete the advert record from your browser.
           </p>
 
           <h4>Preference Cookies</h4>

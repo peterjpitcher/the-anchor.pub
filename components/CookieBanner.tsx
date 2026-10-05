@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import {
   hasUserConsented,
@@ -8,10 +8,12 @@ import {
   rejectAllCookies,
   setConsentStatus,
   getConsentStatus,
+  COOKIE_SETTINGS_OPEN_EVENT,
   type CookieConsent
 } from '@/lib/cookies';
 import { trackCookieConsent } from '@/lib/gtm-events';
 import { Button } from '@/components/ui';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 
 /**
  * Published so the sticky Book a table bar can sit directly above this banner instead of
@@ -32,6 +34,26 @@ export default function CookieBanner() {
   const [consent, setConsent] = useState<CookieConsent | null>(null);
   const [dismissed, setDismissed] = useState(false);
   const bannerRef = useRef<HTMLDivElement | null>(null);
+  // The panel is a modal dialog. This moves focus into it when it opens, keeps Tab inside
+  // it, and hands focus back to whatever opened it (usually the footer's Cookie settings
+  // control, a long way down the page) when it closes.
+  const preferencesRef = useFocusTrap(showPreferences);
+
+  // Read the stored choice every time the panel opens, so the switches show what is in
+  // force now rather than whatever this component last held: Accept All and Reject All
+  // never touch this state, and a switch flicked and then cancelled should not linger.
+  const openPreferences = useCallback(() => {
+    setConsent(getConsentStatus());
+    setShowPreferences(true);
+  }, []);
+
+  // The banner only shows while no choice exists, so once one is made this event is the
+  // way back in: the footer's Cookie settings control fires it on every page. Without it
+  // the only way to withdraw consent was to clear the site's cookies in the browser.
+  useEffect(() => {
+    window.addEventListener(COOKIE_SETTINGS_OPEN_EVENT, openPreferences);
+    return () => window.removeEventListener(COOKIE_SETTINGS_OPEN_EVENT, openPreferences);
+  }, [openPreferences]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -107,113 +129,127 @@ export default function CookieBanner() {
     });
   };
 
-  if (!showBanner) return null;
+  if (!showBanner && !showPreferences) return null;
 
   return (
     <>
       {/* Main Banner - Mobile-optimized with collapsible design */}
       {/* z-[90] keeps the banner above the sticky CTA bar (z-[80]), which now sits directly
           on top of it rather than waiting for it to be dismissed. */}
-      <div
-        ref={bannerRef}
-        className="fixed bottom-0 left-0 right-0 bg-surface border-t border-line shadow-lg z-[90] animate-slide-up safe-area-inset-bottom"
-      >
-        <div className="mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
-          {/* Mobile: Compact single-line design */}
-          <div className="sm:hidden">
-            <div className="flex items-center justify-between gap-2">
-              <p className="text-xs text-ink flex-1">
-                We use cookies.{' '}
-                <Link href="/privacy-policy" className="underline">
-                  Read our privacy policy
-                </Link>
-              </p>
-              <div className="flex gap-1">
-                <button
-                  onClick={() => setShowPreferences(true)}
-                  className="p-2.5 min-h-[48px] min-w-[48px] flex items-center justify-center text-ink-muted hover:text-ink-strong"
-                  aria-label="Cookie settings"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </button>
+      {showBanner && (
+        <div
+          ref={bannerRef}
+          className="fixed bottom-0 left-0 right-0 bg-surface border-t border-line shadow-lg z-[90] animate-slide-up safe-area-inset-bottom"
+        >
+          <div className="mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
+            {/* Mobile: Compact single-line design */}
+            <div className="sm:hidden">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs text-ink flex-1">
+                  We use cookies.{' '}
+                  <Link href="/privacy-policy" className="underline">
+                    Read our privacy policy
+                  </Link>
+                </p>
+                <div className="flex gap-1">
+                  <button
+                    onClick={openPreferences}
+                    className="p-2.5 min-h-[48px] min-w-[48px] flex items-center justify-center text-ink-muted hover:text-ink-strong"
+                    aria-label="Cookie settings"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </button>
+                  <Button
+                    onClick={handleRejectAll}
+                    variant="ghost"
+                    size="sm"
+                    className="min-h-[48px] text-xs"
+                    aria-label="Reject all cookies"
+                  >
+                    Reject
+                  </Button>
+                  <Button
+                    onClick={handleAcceptAll}
+                    variant="primary"
+                    size="sm"
+                    className="min-h-[48px] text-xs"
+                    aria-label="Accept all cookies"
+                  >
+                    Accept
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop: Full design */}
+            <div className="hidden sm:flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex-1 text-sm text-ink">
+                <p className="font-medium">We value your privacy</p>
+                <p className="text-xs mt-1 text-ink-muted">
+                  We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.{' '}
+                  <Link href="/privacy-policy" className="underline hover:text-accent-text">
+                    Read our privacy policy
+                  </Link>
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 flex-shrink-0">
+                {/* Reject button - Equal prominence as per ICO guidelines */}
                 <Button
                   onClick={handleRejectAll}
-                  variant="ghost"
+                  variant="outline"
                   size="sm"
-                  className="min-h-[48px] text-xs"
                   aria-label="Reject all cookies"
                 >
-                  Reject
+                  Reject All
                 </Button>
+
+                {/* Preferences button */}
+                <Button
+                  onClick={openPreferences}
+                  variant="outline"
+                  size="sm"
+                  aria-label="Cookie preferences"
+                >
+                  Preferences
+                </Button>
+
+                {/* Accept button - Equal prominence */}
                 <Button
                   onClick={handleAcceptAll}
                   variant="primary"
                   size="sm"
-                  className="min-h-[48px] text-xs"
                   aria-label="Accept all cookies"
                 >
-                  Accept
+                  Accept All
                 </Button>
               </div>
             </div>
           </div>
-
-          {/* Desktop: Full design */}
-          <div className="hidden sm:flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex-1 text-sm text-ink">
-              <p className="font-medium">We value your privacy</p>
-              <p className="text-xs mt-1 text-ink-muted">
-                We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.{' '}
-                <Link href="/privacy-policy" className="underline hover:text-accent-text">
-                  Read our privacy policy
-                </Link>
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2 flex-shrink-0">
-              {/* Reject button - Equal prominence as per ICO guidelines */}
-              <Button
-                onClick={handleRejectAll}
-                variant="outline"
-                size="sm"
-                aria-label="Reject all cookies"
-              >
-                Reject All
-              </Button>
-
-              {/* Preferences button */}
-              <Button
-                onClick={() => setShowPreferences(true)}
-                variant="outline"
-                size="sm"
-                aria-label="Cookie preferences"
-              >
-                Preferences
-              </Button>
-
-              {/* Accept button - Equal prominence */}
-              <Button
-                onClick={handleAcceptAll}
-                variant="primary"
-                size="sm"
-                aria-label="Accept all cookies"
-              >
-                Accept All
-              </Button>
-            </div>
-          </div>
         </div>
-      </div>
+      )}
 
       {/* Preferences Modal */}
+      {/* z-[100], the layer the site's other modals use (components/ui/overlays/Modal.tsx).
+          At z-[90] it tied with the event countdown card, which comes later in the page
+          and so painted over the panel's text. The bar above stays at z-[90]. */}
       {showPreferences && (
-        <div className="fixed inset-0 bg-black/70 z-[90] flex items-end sm:items-center justify-center sm:p-4">
-          <div className="bg-surface border border-line rounded-t-md sm:rounded-md shadow-lg w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none">
+        <div className="fixed inset-0 bg-black/70 z-[100] flex items-end sm:items-center justify-center sm:p-4">
+          <div
+            ref={preferencesRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cookie-preferences-title"
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') setShowPreferences(false);
+            }}
+            className="bg-surface border border-line rounded-t-md sm:rounded-md shadow-lg w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none"
+          >
             <div className="sticky top-0 bg-surface border-b border-line p-4 sm:p-6 flex items-center justify-between">
-              <h2 className="text-lg sm:text-2xl font-bold text-ink-strong">Cookie Preferences</h2>
+              <h2 id="cookie-preferences-title" className="text-lg sm:text-2xl font-bold text-ink-strong">Cookie Preferences</h2>
               <button
                 onClick={() => setShowPreferences(false)}
                 className="p-2 text-ink-muted hover:text-ink-strong hover:bg-surface-sunk rounded-sm transition-colors"
@@ -240,11 +276,12 @@ export default function CookieBanner() {
                 {/* Analytics Cookies */}
                 <div className="border-b border-line pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-accent-text">Analytics Cookies</h3>
+                    <h3 id="cookie-category-analytics" className="font-semibold text-accent-text">Analytics Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
                         checked={consent?.analytics || false}
+                        aria-labelledby="cookie-category-analytics"
                         onChange={(e) => setConsent(prev => ({ ...prev!, analytics: e.target.checked }))}
                         className="sr-only peer"
                       />
@@ -259,11 +296,12 @@ export default function CookieBanner() {
                 {/* Marketing Cookies */}
                 <div className="border-b border-line pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-accent-text">Marketing Cookies</h3>
+                    <h3 id="cookie-category-marketing" className="font-semibold text-accent-text">Marketing Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
                         checked={consent?.marketing || false}
+                        aria-labelledby="cookie-category-marketing"
                         onChange={(e) => setConsent(prev => ({ ...prev!, marketing: e.target.checked }))}
                         className="sr-only peer"
                       />
@@ -278,11 +316,12 @@ export default function CookieBanner() {
                 {/* Preference Cookies */}
                 <div className="pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-accent-text">Preference Cookies</h3>
+                    <h3 id="cookie-category-preferences" className="font-semibold text-accent-text">Preference Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
                         checked={consent?.preferences || false}
+                        aria-labelledby="cookie-category-preferences"
                         onChange={(e) => setConsent(prev => ({ ...prev!, preferences: e.target.checked }))}
                         className="sr-only peer"
                       />
