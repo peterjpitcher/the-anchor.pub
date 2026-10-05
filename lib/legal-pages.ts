@@ -20,8 +20,10 @@
 // when it is deleted, and LinkedIn's tag (PR #183, merged that day). The
 // footer's Cookie settings control was written the same day: the notice
 // stopped telling people to clear the site's cookies to change their mind
-// and points them at the control instead. If that merges on a later day,
-// move the date to that day before merging.
+// and points them at the control instead (PR #184, merged that day). The line
+// under Managing Cookies, that switching a category off deletes its cookies
+// and which ones we cannot reach, was also written that day. If that merges
+// on a later day, move the date to that day before merging.
 export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-05'
 
 /**
@@ -38,4 +40,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-05'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  '6b65283ff327ab6eba7aa97c23b916d2a5f7116cbe29420dcf844dcb3a29fa89'
+  '5e6f77680aa32d90457994035e8f1595683ba57ad8517a6b71e1d00f08dbda7a'

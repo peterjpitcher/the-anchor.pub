@@ -142,6 +142,24 @@ describe('the privacy notice on marketing cookies', () => {
     expect(entry.closest('li')).toHaveTextContent('Advert measurement, only if you accept marketing cookies')
   })
 
+  // What the notice promises here is what removeTrackerCookies in lib/cookies.ts does,
+  // and tests/unit/cookie-withdrawal-cleanup.test.tsx holds that to the browser's own
+  // cookie jar. The four companies are the ones whose tags the container runs. The
+  // second sentence is the limit of it: their own domains are out of our reach.
+  it('says switching a category off deletes its cookies, and which ones we cannot reach', () => {
+    render(<PrivacyPolicyPage />)
+
+    const line = screen.getByText(/If you switch analytics or marketing cookies off/)
+    expect(line).toHaveTextContent(
+      "If you switch analytics or marketing cookies off, we delete them from your browser. We can't delete the cookies that Google, Microsoft, Meta and LinkedIn keep for their own websites. You can clear those in your browser settings."
+    )
+
+    const heading = screen.getByRole('heading', { level: 3, name: 'Managing Cookies' })
+    const next = screen.getByRole('heading', { level: 2, name: '6. Third-Party Services' })
+    expect(follows(heading, line)).toBe(true)
+    expect(follows(line, next)).toBe(true)
+  })
+
   it('has no em dash anywhere in the notice', () => {
     const { container } = render(<PrivacyPolicyPage />)
 
