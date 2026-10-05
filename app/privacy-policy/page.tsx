@@ -173,6 +173,13 @@ export default function PrivacyPolicyPage() {
           </p>
 
           <h3>Managing Cookies</h3>
+          {/* A fact about the code, like the lines above. The delete is removeTrackerCookies in
+              lib/cookies.ts, run on every consent write. It reaches cookies on our own domain
+              only; the four companies are the ones whose tags the Tag Manager container runs.
+              Add a tag there from another company and it has to be named here. */}
+          <p>
+            If you switch analytics or marketing cookies off, we delete them from your browser. We can&apos;t delete the cookies that Google, Microsoft, Meta and LinkedIn keep for their own websites. You can clear those in your browser settings.
+          </p>
           <p>
             You can control and manage cookies through your browser settings. Please note that removing or blocking cookies may impact your user experience and parts of our website may no longer be fully accessible.
           </p>

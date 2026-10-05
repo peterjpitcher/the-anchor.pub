@@ -125,6 +125,16 @@ Results:
   - `feat/cookie-settings-control` is one commit behind origin/main (7004b3cb) and will conflict
     with it in the privacy notice sentence and its fingerprint. This change does not touch either.
 
+Afterwards, the same day:
+- The footer control merged as PR #184 while this was in hand, so the clean-up was moved onto
+  main unchanged and opened as PR #186.
+- [x] Owner approved a line in the privacy notice. Branch `fix/privacy-notice-cookie-deletion`,
+      stacked on PR #186 because the line is only true once that is in. Under Managing Cookies:
+      switching analytics or marketing cookies off deletes them, we cannot delete the ones Google,
+      Microsoft, Meta and LinkedIn keep for their own websites, and those can be cleared in the
+      browser. Test first, red; then the words, the fingerprint and the date note in one commit.
+      The date stays 2026-10-05; move it if this merges on a later day.
+
 # Cookie settings control, 5 October 2026
 
 Branch `feat/cookie-settings-control` (worktree `elastic-mestorf-bbacc4`). Built on
