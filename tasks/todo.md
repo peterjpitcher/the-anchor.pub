@@ -80,6 +80,39 @@ Results:
 - Left alone: those four neighbours keep `DATES.launch`. Nothing records when their words last
   changed, so their dates were not checked here.
 
+# Event countdown card clear of the footer, 5 October 2026
+
+Branch `fix/event-card-clear-of-footer` (worktree `elastic-mestorf-bbacc4`), off origin/main at
+b2070474, with main merged in after PR #184 landed (c2d328b7).
+
+The "Next event" card is fixed 7rem above the bottom of the screen. At the end of a page it sat on
+top of the footer until it was closed: on a phone the whole row of legal links, on wider screens
+the copyright line and three of them. Seen at 375 x 812 and 1024 x 768 while testing the footer's
+Cookie settings control. Owner said yes to hiding it on phones once the footer is on screen, then
+yes to wider screens too (both 5 October 2026).
+
+- [x] `EventCountdownBanner`: watch `footer[role="contentinfo"]` with an IntersectionObserver whose
+      bottom edge is pulled up 112px, the line the card's own bottom sits on (`bottom-28`)
+- [x] Hide with `data-[footer-under-card=true]:hidden`, at every size; the card stays mounted
+- [x] Tests in `components/__tests__/event-countdown-footer.test.tsx`
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] In a browser at 375 x 812 and at desktop width
+
+Results:
+- Against origin/main's component 5 of the 6 tests fail. An observer that ignores its callback
+  fails one, and a breakpoint put back on the class fails one.
+- Node 20.19.5, with main merged in: `npm run lint:next` clean, `npx tsc --noEmit` clean,
+  `npm test` and `npm run test:utc` both 243 suites, 2,965 passed, 1 skipped; the build makes 277
+  pages and its CSS carries the rule outside any media query.
+- Dev server, `/find-us`, 375 x 812 and 1024 x 768: at the end of the page the card is
+  `display: none` and all six items in the legal row (Cookie settings included) are the top element
+  at their own centre. Scrolled back up, the card returns.
+- First cut, phones only, at 375 x 812: with the footer's top 60px above the bottom of the screen
+  the card showed; at 160px it was hidden. The 112px line has not moved since.
+- The check runs when the browser next paints. Reading the flag straight after a scripted scroll,
+  before a frame, shows the old value.
+
 # Privacy notice "Last updated" date, 3 to 4 October 2026
 
 Branch `fix/privacy-last-updated-date` (worktree `sleepy-dubinsky-e0b18f`).
