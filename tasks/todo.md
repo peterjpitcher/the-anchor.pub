@@ -1,3 +1,82 @@
+# Accessibility audit waits for client-loaded content, 5 October 2026
+
+Branch `fix/a11y-audit-waits-for-client-content` (worktree `recursing-kapitsa-e9dffa`), local only.
+Cut from main at 23152e77, rebased onto 293e22fd once PRs #189 (carousel dots) and #190 (privacy
+notice row in PAGES) landed. The only conflict was the end of the PAGES table; both rows are kept.
+
+`scripts/audit-a11y.js` ran axe as soon as a page hydrated. Content a client component fetches after
+mount was not there yet, so on 5 October a run against the live site passed `/heathrow-parking` while
+its six carousel dots failed WCAG 2.2 AA target-size.
+
+- [x] Measure what every audited page loads after hydration, on a production build
+- [x] Wait for each page to settle before axe: named content present, none of the page's own
+      content requests in flight, and 500ms with no request activity and no DOM change. Fail closed
+- [x] Name the reviews carousel on `/heathrow-parking`; add `/beer-garden` (12 dots, widest case)
+- [x] Unit tests for the settle rule; break each part of the rule and confirm a test fails
+- [x] Prove it in a browser: unchanged audit misses the 8px dots, changed audit always catches them,
+      and passes once the dots are fixed
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20.19.5
+- [x] Commit. No push
+
+What was measured (production build of 23152e77 on port 3100, Playwright Chromium):
+- `networkidle` never arrives on any of the 16 pages, not only the homepage. Every page sends a
+  POST to `/api/web-vitals` whose reply it never reads, so the browser never reports it finished.
+  The route itself answers in 2ms. Tag Manager and Turnstile also keep talking.
+- After hydration every page fetches `/api/business/hours`; most also `/api/events?limit=5`; the
+  carousel pages `/api/reviews`; the private hire pages `/api/public/private-booking/config`;
+  `/book-table` its sittings and events. Locally they finish within 1.7s. About 28 router link
+  prefetches a page (header `next-router-prefetch: 1`) are left out: they only warm a cache.
+- Against localhost `/api/reviews` answers in about 20ms, which is why the unchanged audit caught
+  the dots locally 3 times out of 3 and still missed them on the live site.
+- The cookie banner is put on the page by a one-second timer (`components/CookieBanner.tsx`). With
+  nothing in flight during that second, a network-only wait saw it on 13 pages and missed it on 3.
+  It is now named content, so every page is checked with the banner up, as a first-time visitor
+  sees it. That one-second timer is most of the extra run time.
+- Waiting does not make axe less able to judge a page: colour-contrast "needs a human" counts were
+  unchanged on 14 of 16 pages and rose by one on two, while checked-and-passed nodes rose by 34 to
+  66 a page.
+
+Proof (all logs in the session scratchpad; delay means a local proxy holding back every GET to
+`/api/*` by 1.5s, the way the live network does):
+
+| Build | Audit | Runs | Result |
+| --- | --- | --- | --- |
+| 23152e77, 8px dots | unchanged, 1.5s delay | 5 | exit 0 every time, "No violations": the miss reproduced |
+| 23152e77, 8px dots | changed, 1.5s delay | 5 | exit 1 every time: `/heathrow-parking` 6 nodes, `/beer-garden` 12 nodes |
+| 23152e77, 8px dots | changed, no delay | 5 | exit 1 every time, same 6 and 12 nodes |
+| 23152e77, reviews held 20s | changed | 1 | exit 1: both carousel pages "expected content never appeared within 15s" |
+| 23152e77 + 4d23752e dots | changed, no delay | 5 | exit 0 every time, no settle problems |
+| 23152e77 + 4d23752e dots | changed, 1.5s delay | 5 | exit 0 every time, no settle problems |
+| 293e22fd current main + branch | changed, no delay | 3 | exit 0 every time, 17 pages |
+| 293e22fd current main + branch | changed, 1.5s delay | 2 | exit 0 every time |
+
+Run time on the same build of current main: unchanged audit 31s for 16 pages; changed audit 58s to
+60s for 17 pages (68s to 69s with the 1.5s delay). Settling costs about 1.55s a page: the banner's
+one-second timer plus the 500ms quiet period. Hydration, keyboard and reflow checks are unchanged.
+
+Unit tests (`tests/unit/a11y-audit-settle.test.tsx`, 21): each part of the rule was removed in turn
+(in-flight wait, request quiet, DOM quiet, named content, GET only, prefetch exclusion, own origin
+only, lazy code) and every one of the eight made at least two tests fail. The last two tests render
+the real `CookieBanner` and `GoogleReviews`, so renaming the labels the audit waits for fails CI.
+
+Assumptions:
+- The cookie banner is audited on every page rather than on none. Leaving it out would save about
+  18s a run, but the banner would then never be checked by axe at all.
+- 500ms quiet and a 15s cap. The quiet period matches Playwright's own idea of idle; the cap matches
+  the existing hydration timeout.
+- Content that loads only when scrolled into view, and the Christmas lightbox on its 10 second
+  timer, are still not covered. Said so in the script.
+
+Found while proving this, not changed here:
+- The Christmas lightbox close button has no accessible name (axe `button-name`, critical). It opens
+  after 10 seconds on pages it is not suppressed on, until 15 December. The Six Nations lightbox on
+  `/live-sport/six-nations` has the same unnamed button. The audit cannot see either because it never
+  waits 10 seconds.
+- `components/layout/StatusBar.tsx` puts the plane-spotting caveat in an `aria-label` on a plain
+  `<span>`, which screen readers may ignore. axe lists it under "needs a human" on every page now
+  that the status bar has loaded before it looks.
+
 # Prose colours readable in every season skin, 5 October 2026
 
 Branch `fix/privacy-notice-prose-contrast` (worktree `gifted-kapitsa-3f7ea1`), PR #190. Cut from

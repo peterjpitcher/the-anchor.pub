@@ -18,9 +18,11 @@
  * Standard: WCAG 2.2 AA. Violations fail; incomplete results are reported for a
  * human, because axe flags things it cannot decide alone (contrast over an
  * image, for instance) and guessing either way would be wrong.
+ *
+ * Each page is checked once it has hydrated AND finished loading its own
+ * content (see settle below). A page that never gets there fails the run: a
+ * clean result has to mean the content was on the page when axe looked.
  */
-const { chromium } = require('playwright')
-const { AxeBuilder } = require('@axe-core/playwright')
 
 const arg = (name, fallback) => {
   const i = process.argv.indexOf(name)
@@ -29,15 +31,38 @@ const arg = (name, fallback) => {
 const BASE = arg('--base', 'http://localhost:3000').replace(/\/$/, '')
 
 /**
+ * Content that must be on the page before it is checked.
+ *
+ * Some content cannot be found by watching the network. Name it here and the
+ * audit waits for it, and fails the page if it never turns up, so content that
+ * did not load cannot pass for content with nothing wrong with it.
+ *
+ * The cookie banner is on every page for a first-time visitor, which is what
+ * this browser is, but components/CookieBanner.tsx holds it back for a second
+ * on a timer. Nothing is in flight during that second, so without naming it
+ * axe would see the banner on the slower pages and miss it on the quicker ones.
+ */
+const COOKIE_BANNER = 'button[aria-label="Accept all cookies"]'
+
+/**
+ * The reviews carousel fetches /api/reviews after mount and renders nothing at
+ * all if that fails.
+ */
+const REVIEWS_CAROUSEL = '.google-reviews-wrapper button[aria-label="Go to review 1"]'
+
+/**
  * One page per template touched by this programme, not the whole site.
  * A template is either accessible or it is not; crawling 199 pages to re-test
  * the same components would just be slower.
+ *
+ * Each row is path, label and, optionally, a plain CSS selector for content
+ * the page loads on the client that must be there before the page is checked.
  */
 const PAGES = [
   ['/', 'homepage'],
   ['/halloween', 'seasonal occasion page (rebuilt)'],
   ['/quiz-night/themed', 'themed quiz hub (new)'],
-  ['/heathrow-parking', 'parking (retargeted)'],
+  ['/heathrow-parking', 'parking (retargeted)', REVIEWS_CAROUSEL],
   ['/heathrow-hotels-pub', '301 destination for 11 retired pages'],
   ['/private-hire/venue-tour', 'newly indexable'],
   ['/events/quiz-night-2026-10-07', 'event detail template'],
@@ -58,6 +83,10 @@ const PAGES = [
   // light-theme greys sat on a near-black page (headings 1.01:1, body 1.7:1).
   // No page in this list had an uncoloured `prose` wrapper, so nothing caught it.
   ['/privacy-policy', 'legal notice in a prose wrapper'],
+  // Added 5 Oct with the settle step. The only other page with the reviews
+  // carousel, and the widest case: 12 dots against six on the parking page,
+  // which is what the 320px reflow check needs to see.
+  ['/beer-garden', 'reviews carousel at its widest', REVIEWS_CAROUSEL],
 ]
 
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
@@ -88,7 +117,149 @@ const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
  */
 const CONTRAST_BASELINE = 0
 
+/**
+ * Settling: wait for client-loaded content before axe runs.
+ *
+ * Hydration is not enough. A client component that fetches after mount (the
+ * reviews carousel, the status bar's opening hours, the event banner, the
+ * booking form's sittings) is hydrated and still empty. axe used to run in that gap,
+ * so whether it saw the content came down to whether the reply beat it. On
+ * 5 October 2026 a run against the live site passed /heathrow-parking with six
+ * carousel buttons failing target-size; against localhost, where the same reply
+ * takes 20ms, the same audit caught all six every time.
+ *
+ * `networkidle` cannot be the signal: it never arrives on any page here (see
+ * isContentRequest). So a page is settled when all of these hold:
+ *   1. the content it names (COOKIE_BANNER, and its own row in PAGES) is there,
+ *   2. none of its own content requests is in flight, and
+ *   3. for SETTLE_QUIET_MS no content request has started or finished and
+ *      nothing has been added, removed or reworded.
+ * The third covers the render that follows a reply, and any request that
+ * render sets off in turn.
+ *
+ * It fails closed. A page that has not settled inside SETTLE_TIMEOUT_MS, or
+ * whose named content never appears, is reported and fails the run.
+ *
+ * Not covered: content that only loads once it is scrolled into view, and the
+ * Christmas lightbox, which opens on a 10 second timer.
+ */
+const SETTLE_TIMEOUT_MS = 15000
+const SETTLE_QUIET_MS = 500
+
+/**
+ * Is this a request the page is waiting on for its own content?
+ *
+ * Reads from the page's own origin: the data a client component fetches after
+ * mount (fetch, xhr) and the code for a lazily loaded one (script). Left out,
+ * because none of them puts content on the page and some never finish:
+ *   - writes. The web-vitals beacon is a POST whose reply the page never reads,
+ *     so the browser never reports it finished.
+ *   - other origins. Tag Manager and Turnstile keep talking long after load.
+ *   - the router's link prefetches, about 28 a page, which only warm a cache.
+ */
+function isContentRequest({ url, method, resourceType, headers }, pageOrigin) {
+  if (method !== 'GET') return false
+  if (!['fetch', 'xhr', 'script'].includes(resourceType)) return false
+  if (headers && headers['next-router-prefetch']) return false
+  try {
+    return new URL(url).origin === pageOrigin
+  } catch {
+    return false
+  }
+}
+
+/** Attach before page.goto, so nothing the page asks for is missed. */
+function trackContentRequests(page) {
+  const inFlight = new Set()
+  let lastActivity = 0
+  const pageOrigin = () => {
+    try {
+      return new URL(page.url()).origin
+    } catch {
+      return null
+    }
+  }
+  page.on('request', (request) => {
+    const own = isContentRequest({
+      url: request.url(),
+      method: request.method(),
+      resourceType: request.resourceType(),
+      headers: request.headers(),
+    }, pageOrigin())
+    if (!own) return
+    inFlight.add(request)
+    lastActivity = Date.now()
+  })
+  const done = (request) => {
+    if (inFlight.delete(request)) lastActivity = Date.now()
+  }
+  page.on('requestfinished', done)
+  page.on('requestfailed', done)
+  return {
+    waitingOn: () => [...inFlight].map((request) => {
+      const { pathname, search } = new URL(request.url())
+      return pathname + search
+    }),
+    quietFor: () => Date.now() - lastActivity,
+  }
+}
+
+/**
+ * Runs in the page: which of the named selectors are not there yet, and how
+ * many milliseconds is it since anything was added, removed or reworded? The
+ * first call starts the watch, so it answers 0.
+ *
+ * Attributes are deliberately not watched: the carousel's own autoplay rewrites
+ * a style attribute every five seconds, and a scripted animation does it every
+ * frame, so a page with either would never be called still.
+ */
+const lookAtPage = (selectors) => {
+  if (window.__a11yAuditLastChange === undefined) {
+    window.__a11yAuditLastChange = performance.now()
+    new MutationObserver(() => { window.__a11yAuditLastChange = performance.now() })
+      .observe(document.documentElement, { childList: true, characterData: true, subtree: true })
+  }
+  return {
+    missing: selectors.filter((selector) => !document.querySelector(selector)),
+    quietFor: performance.now() - window.__a11yAuditLastChange,
+  }
+}
+
+/**
+ * Wait for the page to settle. Returns null when it has, or a sentence saying
+ * what it was still waiting for. `ready` is a list of plain CSS selectors.
+ *
+ * One loop asks for everything, rather than page.waitForSelector and then a
+ * quiet period: Playwright backs its selector checks off to every 500ms, which
+ * found the cookie banner 300ms late on every page.
+ */
+async function settle(page, requests, ready = []) {
+  const deadline = Date.now() + SETTLE_TIMEOUT_MS
+  const seconds = SETTLE_TIMEOUT_MS / 1000
+  let missing = ready
+
+  while (Date.now() < deadline) {
+    const seen = await page.evaluate(lookAtPage, ready)
+    missing = seen.missing
+    const loading = requests.waitingOn().length > 0
+    const quietFor = Math.min(seen.quietFor, requests.quietFor())
+    if (!missing.length && !loading && quietFor >= SETTLE_QUIET_MS) return null
+    await page.waitForTimeout(50)
+  }
+
+  if (missing.length) return `expected content never appeared within ${seconds}s: ${missing.join(', ')}`
+  const waitingOn = requests.waitingOn()
+  return waitingOn.length
+    ? `still loading after ${seconds}s: ${waitingOn.join(', ')}`
+    : `still changing after ${seconds}s`
+}
+
 async function main() {
+  // Loaded here, not at the top, so the settle logic can be unit tested
+  // without a browser installed (CI does not have one).
+  const { chromium } = require('playwright')
+  const { AxeBuilder } = require('@axe-core/playwright')
+
   const browser = await chromium.launch()
   // AxeBuilder requires a page from an explicit context, not browser.newPage().
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } })
@@ -96,6 +267,7 @@ async function main() {
   const incomplete = []
   const keyboardProblems = []
   const reflowProblems = []
+  const settleProblems = []
 
   try {
     // Warm every page first. A dev server compiles routes on first request, so
@@ -105,8 +277,9 @@ async function main() {
       try { await fetch(BASE + pathname) } catch { /* checked properly below */ }
     }
 
-    for (const [pathname, label] of PAGES) {
+    for (const [pathname, label, ready] of PAGES) {
       const page = await context.newPage()
+      const requests = trackContentRequests(page)
       let res = await page.goto(BASE + pathname, { waitUntil: 'domcontentloaded' })
       if (res && res.status() >= 500) {
         // One retry, in case it was still compiling.
@@ -137,6 +310,13 @@ async function main() {
         hydrated = false
         keyboardProblems.push({ pathname, issue: 'page never hydrated, so nothing on it is operable' })
       }
+
+      // Then wait for what the page loads for itself. A page that never
+      // hydrated will never fetch anything, and has already been reported.
+      const unsettled = hydrated
+        ? await settle(page, requests, [COOKIE_BANNER, ready].filter(Boolean))
+        : null
+      if (unsettled) settleProblems.push({ pathname, issue: unsettled })
 
       const results = await new AxeBuilder({ page }).withTags(WCAG).analyze()
       for (const v of results.violations) {
@@ -243,6 +423,7 @@ async function main() {
   }
 
   report('VIOLATIONS', violations, (v) => `${v.pathname}  [${v.impact || 'n/a'}] ${v.id}: ${v.help} (${v.nodes} node(s))`)
+  report('NOT SETTLED (axe may not have seen this content)', settleProblems, (s) => `${s.pathname}  ${s.issue}`)
   report('KEYBOARD', keyboardProblems, (k) => `${k.pathname}  ${k.issue}`)
   report('REFLOW at 320px', reflowProblems, (r) => `${r.pathname}  overflows by ${r.overflowPx}px`)
   report('NEEDS A HUMAN (axe could not decide)', incomplete, (i) => `${i.pathname}  ${i.id}: ${i.help} (${i.nodes})`)
@@ -263,6 +444,7 @@ async function main() {
 
   const failures =
     other.length +
+    settleProblems.length +
     keyboardProblems.length +
     reflowProblems.length +
     (contrast.length > CONTRAST_BASELINE ? contrast.length - CONTRAST_BASELINE : 0)
@@ -276,4 +458,17 @@ async function main() {
   process.exitCode = 1
 }
 
-main().catch((e) => { console.error(e.message); process.exit(1) })
+module.exports = {
+  PAGES,
+  COOKIE_BANNER,
+  REVIEWS_CAROUSEL,
+  isContentRequest,
+  trackContentRequests,
+  settle,
+  SETTLE_TIMEOUT_MS,
+  SETTLE_QUIET_MS,
+}
+
+if (require.main === module) {
+  main().catch((e) => { console.error(e.message); process.exit(1) })
+}
