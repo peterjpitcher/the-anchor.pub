@@ -106,6 +106,29 @@ Found on the way and parked (both confirmed on the live site, neither caused by 
 - The comparison table in `/blog/best-sunday-roast-surrey` is 856px wide on a 390px phone and is
   cut off by `overflow-x: hidden` on `body`, with no way to scroll to the rest.
 
+# Six Nations pop-up switched off, 6 October 2026
+
+Branch `fix/six-nations-popup-off`, from main at 47a64427 (PR #191).
+
+`/live-sport/six-nations` mounted `SixNationsLightbox`, which opened on exit intent or after 40
+seconds with "Six Nations 2026, Live at The Anchor, Don't Miss Kick Off!". It was seen opening on
+the live site on 6 October 2026. `docs/SSOT.md` has an entry for the Nations Championship and none
+for the Six Nations, and the repo rule is no seasonal content the SSOT does not confirm. The owner
+said yes to switching the pop-up off the same day.
+
+- [x] Test first: render the page, fire exit intent and run the 40 second timer, expect no pop-up.
+      Two of three cases failed before the change
+- [x] Stop mounting the pop-up on the page; drop the now unused `next/dynamic` import
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [ ] Push, PR, merge on green checks, check on the live site that nothing opens
+
+Left as it is, on purpose:
+- `components/features/six-nations/SixNationsLightbox.tsx` and its close-button test stay. The
+  owner asked for the pop-up to be switched off, not for code to be deleted.
+- The page itself still says "Watch Six Nations 2026 Live" in its title and hero. That is page
+  content, outside what was approved; reported to the owner.
+
 # Accessibility audit waits for client-loaded content, 5 October 2026
 
 Branch `fix/a11y-audit-waits-for-client-content` (worktree `recursing-kapitsa-e9dffa`), PR #191 since

@@ -1,7 +1,6 @@
 import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
 import Link from 'next/link'
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
 import { Button, SectionHeading, Card, CardBody, Alert, Container, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { BusinessHours } from '@/components/BusinessHours'
@@ -16,10 +15,10 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { SixNationsFixtures } from '@/components/features/six-nations/SixNationsFixtures'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
-const SixNationsLightbox = dynamic(
-    () => import('@/components/features/six-nations/SixNationsLightbox').then(mod => mod.SixNationsLightbox),
-    { ssr: false }
-)
+// The Six Nations 2026 pop-up (components/features/six-nations/SixNationsLightbox)
+// is deliberately not mounted here: owner decision, 6 October 2026. It was still
+// opening with "Don't Miss Kick Off!" in October, and docs/SSOT.md has no Six
+// Nations entry. tests/unit/six-nations-page-no-lightbox.test.tsx holds this.
 
 export const metadata: Metadata = {
     title: 'Six Nations Pub Near Me | Watch 2026 Live',
@@ -95,8 +94,6 @@ export default function SixNationsPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([eventSchema]) }}
             />
-
-            <SixNationsLightbox/>
 
                         <InteriorHero
               image="/images/page-headers/home/page-headers-homepage.jpg"
