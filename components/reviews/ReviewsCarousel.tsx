@@ -121,10 +121,15 @@ export function ReviewsCarousel({
                 className="flex h-6 w-6 items-center justify-center rounded-full"
                 aria-label={`Go to review ${index + 1}`}
               >
+                {/* The other dots are rings in --text-muted, which clears 3:1
+                    against every surface in both skins (WCAG 1.4.11). Filled
+                    against hollow, not only gold against grey, tells the
+                    current one apart: in the light skin the two colours are
+                    almost the same lightness. */}
                 <span
                   aria-hidden="true"
                   className={`h-2 w-2 rounded-full transition-colors ${
-                    index === currentIndex ? 'bg-anchor-gold-dark' : 'bg-ink-muted/30'
+                    index === currentIndex ? 'bg-anchor-gold-dark' : 'border-2 border-ink-muted'
                   }`}
                 />
               </button>
