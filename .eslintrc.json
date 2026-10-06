@@ -2,6 +2,17 @@
   "root": true,
   "extends": "next/core-web-vitals",
   "rules": {
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "next/font/google",
+            "message": "Fonts are self-hosted in app/fonts. next/font/google downloads them from Google during the build, and that download has failed builds (vercel/next.js#99114)."
+          }
+        ]
+      }
+    ]
   }
 }
