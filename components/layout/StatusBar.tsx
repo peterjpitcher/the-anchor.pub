@@ -232,17 +232,19 @@ function getKitchenStatus(hours: any): {
 }
 
 /** A single status row: a coloured dot plus its label. Dot colour is never the only
- *  signal — the text always states the open/closed state explicitly. */
+ *  signal: the text always states the open/closed state explicitly.
+ *
+ *  There is no `ariaLabel` prop on purpose. The label span has no role, so it is not
+ *  allowed a name and a screen reader may ignore one. Anything a row needs to say
+ *  beyond its visible words goes in the children as `sr-only` text. */
 function StatusRow({
   dot,
   children,
-  title,
-  ariaLabel
+  title
 }: {
   dot: StatusDot
   children: React.ReactNode
   title?: string
-  ariaLabel?: string
 }) {
   const dotStyle =
     dot === 'open'
@@ -258,9 +260,7 @@ function StatusRow({
         style={dotStyle}
         aria-hidden="true"
       />
-      <span className="font-sans text-sm font-semibold leading-snug" aria-label={ariaLabel}>
-        {children}
-      </span>
+      <span className="font-sans text-sm font-semibold leading-snug">{children}</span>
     </span>
   )
 }
@@ -325,12 +325,11 @@ export function StatusBar({
           <StatusRow dot={kitchenInfo.indicator}>{kitchenInfo.status}</StatusRow>
         )}
         {planeSpottingInfo && (
-          <StatusRow
-            dot="open"
-            title={PLANE_SPOTTING_COMPACT_CAVEAT}
-            ariaLabel={`${planeSpottingInfo.statusText}. ${PLANE_SPOTTING_COMPACT_CAVEAT}`}
-          >
+          <StatusRow dot="open" title={PLANE_SPOTTING_COMPACT_CAVEAT}>
             {planeSpottingInfo.statusText}
+            {/* The caveat as real text, so it is read out with the time. Sighted
+                visitors still get it as the tooltip. */}
+            <span className="sr-only">{`. ${PLANE_SPOTTING_COMPACT_CAVEAT}`}</span>
           </StatusRow>
         )}
         {isStale && (
