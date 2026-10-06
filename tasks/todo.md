@@ -1,3 +1,87 @@
+# Accessibility audit's reflow check could not see content cut off by the page, 6 October 2026
+
+Branch `fix/a11y-audit-reflow-blind-spot`, from main at 1baf0238 (PR #196). Local only until the
+owner says yes.
+
+`scripts/audit-a11y.js` set the viewport to 320px and failed a page when the root element's scroll
+width was more than 2px over its client width. `app/globals.css` sets
+`html, body { max-width: 100vw; overflow-x: hidden; }`, so anything too wide is clipped by `<body>`
+and never adds to the root's scroll width. The check read 0 on every page.
+
+- [x] Prove the blind spot on main with a production build, both season skins. The unchanged
+      audit: exit 0, "no reflow problems", on both. The old measurement read 0 on all 17 pages
+      while Chromium's own answer with the root clip lifted was 22px to 552px on eight of them
+- [x] Survey what sits past the right edge at 320px and 390px on every page in PAGES, both skins,
+      and sort it into what is cut off and what is meant to be there
+- [x] Replace the measurement (`lookForCutOff`, `checkReflow`): every box and every run of text
+      against the edge of the viewport
+- [x] Unit tests: 28. Nineteen deliberate breakages each failed a test, the old measurement put
+      back among them
+- [x] List every page the new check flags, with screenshots. Not fixed in this change
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20, then `npm run audit:a11y` against the production build of each skin: exit 1 on
+      both, 16 pages, the same list each time and nothing else failing
+- [ ] Owner's yes before any push
+
+What is left out, and why. Each is a kind of thing found past the edge on these pages:
+- Not painted: no box, or `visibility: hidden`.
+- Inside a box that scrolls sideways (`overflow-x: auto` or `scroll`): the rest can be reached. The
+  price table on /private-hire, the facts strip on an event page.
+- Inside a box that clips it and shows none of it: the reviews carousel's waiting slides (5 on
+  /heathrow-parking, 11 on /beer-garden), screen-reader-only text in a one-pixel box.
+- Shortened with an ellipsis by its own box. None was past the edge, but the event banner on 14
+  pages does this to the event name, so the next long name would have been a false alarm.
+- Parked beside the screen: `fixed` or `absolute` and starting at or past the edge, with all that
+  is in it. The closed cost estimator drawer on /private-hire.
+
+Decisions:
+- A box that clips is not an excuse by itself. 90 components have `overflow-hidden`, the hero
+  among them, so excusing everything inside one would move the blind spot one level down. Part
+  showing and part clipped is cut off. This is what finds the pill in the hero on
+  /private-hire/near/slough-crematorium, which `<body>` never touches.
+- No rule for `aria-hidden`, `inert` or `opacity`. The sticky bar is `aria-hidden` and waiting
+  below the screen when the check runs, but it is laid out as it will be shown: scrolled into its
+  shown state at 320px and 390px, its buttons sat at the same left and right edges to the pixel.
+- Moving things are put at rest first (`document.getAnimations()`, `finish()`). The carousel
+  slides for half a second in every five. Caught mid-slide it was reported 18 times in 20
+  without this and 0 in 20 with it.
+- Text is measured as well as boxes. Nothing on these pages needed it; a long address in a
+  narrow paragraph would, and its paragraph's box would say nothing.
+- The report lists every page, not the first twelve: one component puts a line on 16 of them.
+- Cross-check: wherever Chromium's own measurement shows overflow, the new check reports the same
+  pixel count (17 pages, two skins, 320px and 390px). It reports two things that measurement
+  cannot: the sticky bar, which is `fixed`, and the hero pill, cut by its own section.
+
+Not covered: the left edge; a drawer once opened; a `fixed` or `absolute` box laid out against a
+transformed ancestor (the error there reports something hidden, it never hides something cut off).
+
+What it flags at 320px, the same in both skins (not fixed here):
+- The sticky bar's WhatsApp button on every page but /book-table, and its Call button too on
+  /quiz-night/themed, /private-hire/venue-tour, /private-hire/near/slough-crematorium,
+  /private-hire and /whats-on. On those five WhatsApp is still off the screen at 390px.
+- One-line buttons that cannot wrap: /halloween (42px, 7px at 390px), /heathrow-parking (two, 41px,
+  6px at 390px), /private-hire/near/slough-crematorium (165px, 95px at 390px), /sunday-roast and
+  /whats-on (40px), /blog/best-sunday-roast-surrey Share on Facebook (39px).
+- The enquiry form and the block under it on /private-hire and the Slough page (46px), and all
+  three columns of /events/quiz-night-2026-10-07 (22px). Traced to the Turnstile widget, which is
+  300px at its narrowest: the one-column grid around it grows to fit and takes its neighbours
+  with it. That one is bot protection, so the fix needs the management app checked too.
+- The hero pill on the Slough page (8px).
+- The blog comparison table (552px), already being fixed on `fix/blog-table-mobile-overflow`.
+
+Found on the way, not fixed: the "Blog content specific styles" block in `app/globals.css` uses
+native CSS nesting and the built stylesheet ships it as written (`.prose{&>:first-child{...}`), so
+a browser without CSS nesting ignores those rules.
+
+Assumptions:
+- 320px stays the width checked, as before. A page loaded at 320px or 390px gives the same list
+  as one loaded at 1280px and narrowed, so narrowing is a fair stand-in for a phone.
+- The audit is not part of CI (`.github/workflows/ci.yml` runs lint, tests and the build), so a
+  failing audit blocks nothing until the pages are fixed.
+
+Audit tooling only. Nothing here touches hours, availability, bookings or bot protection, so the
+management app needs no counterpart change.
+
 # Desktop header no longer moves the page as it loads, 6 October 2026
 
 Branch `fix/header-strip-layout-shift` (worktree `fervent-chebyshev-fe468d`), on main at 1baf0238
