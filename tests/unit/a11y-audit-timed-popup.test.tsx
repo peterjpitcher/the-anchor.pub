@@ -28,32 +28,37 @@ jest.mock('@/lib/gtm-events', () => ({
  * axe at the pop-up. That needs a real browser and CI has none, so the measuring is
  * done by hand against deployed builds. What CI can hold on to is the rule that
  * decides a pop-up has opened. The first block plays a document to that rule; the
- * second plays a page to the wait on a clock; the last renders the real lightbox, so
- * what the rule looks for cannot be changed out from under it.
+ * second plays a page to the wait on a clock; the third plays a whole browser to the
+ * pass, for the order it does things in; the last renders the real lightbox, so what
+ * the rule looks for cannot be changed out from under it.
  */
 
-const { PAGES, POPUP_PAGE, POPUP_WAIT_MS, POPUP_MARK, lookForPopup, waitForPopup } = audit as {
+const { PAGES, POPUP_PAGE, POPUP_WAIT_MS, POPUP_MARK, lookForPopup, waitForPopup, auditTimedPopup } = audit as {
   PAGES: Array<[string, string, string?]>
   POPUP_PAGE: string
   POPUP_WAIT_MS: number
   POPUP_MARK: string
   lookForPopup: (mark: string) => Popup | null
   waitForPopup: (page: FakePage) => Promise<Popup | null>
+  auditTimedPopup: (browser: unknown, AxeBuilder: unknown, lists: Lists) => Promise<string>
 }
 
 type Popup = { heading: string; shown: boolean }
 type FakePage = ReturnType<typeof fakePage>
-type Layer = { position?: string; covers?: boolean; display?: string; opacity?: string; html?: string }
+type Found = { pathname: string; id: string; impact?: string; help: string; nodes: number; label?: string }
+type Lists = { violations: Found[]; incomplete: Found[] }
+type Layer = { position?: string; covers?: boolean; display?: string; opacity?: string; pointerEvents?: string; html?: string }
 
 const VIEWPORT = { width: 1024, height: 768 }
 const CORNER = { width: 320, height: 180 }
 
 /** jsdom has no layout, so each element is told its own size. */
-function add({ position = 'fixed', covers = true, display = 'block', opacity = '1', html = '' }: Layer = {}): HTMLElement {
+function add({ position = 'fixed', covers = true, display = 'block', opacity = '1', pointerEvents = 'auto', html = '' }: Layer = {}): HTMLElement {
   const el = document.createElement('div')
   el.style.position = position
   el.style.display = display
   el.style.opacity = opacity
+  el.style.pointerEvents = pointerEvents
   el.innerHTML = html
   const size = covers ? VIEWPORT : CORNER
   el.getBoundingClientRect = () => ({ ...size, x: 0, y: 0, top: 0, left: 0, right: size.width, bottom: size.height, toJSON: () => ({}) })
@@ -69,7 +74,7 @@ const reset = () => {
 describe('what the audit takes for a pop-up', () => {
   beforeEach(reset)
 
-  it('finds a layer fixed over the whole page that was not there when the page settled', () => {
+  it('finds a layer fixed over the whole page that was not there at the last look', () => {
     expect(lookForPopup(POPUP_MARK)).toBeNull()
 
     const popup = add({ html: '<h2>Christmas 2026</h2>' })
@@ -115,6 +120,38 @@ describe('what the audit takes for a pop-up', () => {
     expect(lookForPopup(POPUP_MARK)).toBeNull()
   })
 
+  it('does not take a covering layer that lets clicks through for a pop-up: the booking drawer keeps one on every page', () => {
+    lookForPopup(POPUP_MARK)
+    const closedBackdrop = add({ pointerEvents: 'none', opacity: '0' })
+
+    expect(lookForPopup(POPUP_MARK)).toBeNull()
+
+    // And it is not swept up when a real pop-up opens later.
+    const popup = add()
+    expect(lookForPopup(POPUP_MARK)).toEqual({ heading: '', shown: true })
+    expect(popup.hasAttribute(POPUP_MARK)).toBe(true)
+    expect(closedBackdrop.hasAttribute(POPUP_MARK)).toBe(false)
+  })
+
+  it('does not mark the page\'s own furniture when it arrives after the first look', () => {
+    lookForPopup(POPUP_MARK)
+    const cookieBanner = add({ covers: false })
+    expect(lookForPopup(POPUP_MARK)).toBeNull()
+
+    const popup = add()
+    expect(lookForPopup(POPUP_MARK)).toEqual({ heading: '', shown: true })
+    expect(popup.hasAttribute(POPUP_MARK)).toBe(true)
+    expect(cookieBanner.hasAttribute(POPUP_MARK)).toBe(false)
+  })
+
+  it('takes nothing on the page at the very first look for a pop-up: that is the page as served', () => {
+    const served = add()
+
+    expect(lookForPopup(POPUP_MARK)).toBeNull()
+    expect(lookForPopup(POPUP_MARK)).toBeNull()
+    expect(served.hasAttribute(POPUP_MARK)).toBe(false)
+  })
+
   it('says a pop-up is not shown yet while it is still fading in', () => {
     lookForPopup(POPUP_MARK)
     const popup = add({ opacity: '0' })
@@ -145,13 +182,8 @@ describe('what the audit takes for a pop-up', () => {
  */
 function fakePage() {
   let popup: Popup | null = null
-  let looks = 0
   return {
-    evaluate: async () => {
-      looks += 1
-      // The first look only notes what is already on the page.
-      return looks === 1 ? null : popup
-    },
+    evaluate: async () => popup,
     waitForTimeout: async (ms: number) => {
       jest.advanceTimersByTime(ms)
     },
@@ -220,6 +252,160 @@ describe('how long the audit waits for a pop-up', () => {
   })
 })
 
+/**
+ * A stand-in for the whole browser, for the order the pass does things in.
+ *
+ * It keeps the one fact the real page keeps: whatever is on the page at the first
+ * look is the page, not a pop-up. So a first look taken too late never finds a
+ * pop-up that had already opened.
+ */
+function fakeBrowser({
+  status = 200,
+  hydratesAfterMs = 1_500 as number | null,
+  popupOpensAtMs = null as number | null,
+  axeFinds = [] as Array<{ id: string; impact: string; help: string; nodes: unknown[] }>,
+} = {}) {
+  const started = Date.now()
+  const calls: string[] = []
+  let looked = false
+  let popupWasThereAtFirstLook = false
+  let pointedAt = ''
+  let closed = false
+  const popupOpen = () => popupOpensAtMs !== null && Date.now() - started >= popupOpensAtMs
+
+  const page = {
+    goto: async () => {
+      calls.push('load')
+      return { status: () => status }
+    },
+    evaluate: async () => {
+      calls.push('look')
+      if (!looked) {
+        looked = true
+        popupWasThereAtFirstLook = popupOpen()
+        return null
+      }
+      return popupOpen() && !popupWasThereAtFirstLook ? { heading: 'Christmas 2026', shown: true } : null
+    },
+    waitForFunction: async () => {
+      calls.push('wait for hydration')
+      if (hydratesAfterMs === null) {
+        jest.advanceTimersByTime(15_000)
+        throw new Error('Timeout 15000ms exceeded')
+      }
+      jest.advanceTimersByTime(hydratesAfterMs)
+    },
+    waitForTimeout: async (ms: number) => {
+      jest.advanceTimersByTime(ms)
+    },
+  }
+  const browser = {
+    newContext: async () => ({
+      newPage: async () => page,
+      close: async () => {
+        closed = true
+      },
+    }),
+  }
+  class AxeBuilder {
+    include(selector: string) {
+      pointedAt = selector
+      return this
+    }
+    withTags() {
+      return this
+    }
+    async analyze() {
+      return { violations: axeFinds, incomplete: [] }
+    }
+  }
+  return { browser, AxeBuilder, calls, pointedAt: () => pointedAt, closed: () => closed }
+}
+
+describe('the pass that checks a timed pop-up', () => {
+  const lists = (): Lists => ({ violations: [], incomplete: [] })
+  const UNNAMED_BUTTON = { id: 'button-name', impact: 'critical', help: 'Buttons must have discernible text', nodes: [{}] }
+
+  beforeEach(() => {
+    jest.useFakeTimers()
+  })
+
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
+  it('looks at the page as soon as it loads, before waiting for it to hydrate', async () => {
+    const fake = fakeBrowser({ popupOpensAtMs: 11_500 })
+
+    await auditTimedPopup(fake.browser, fake.AxeBuilder, lists())
+
+    expect(fake.calls.slice(0, 3)).toEqual(['load', 'look', 'wait for hydration'])
+  })
+
+  it('checks a pop-up and files what axe finds under the pop-up, not the page', async () => {
+    const fake = fakeBrowser({ popupOpensAtMs: 11_500, axeFinds: [UNNAMED_BUTTON] })
+    const found = lists()
+
+    const note = await auditTimedPopup(fake.browser, fake.AxeBuilder, found)
+
+    expect(note).toBe('checked ("Christmas 2026")')
+    expect(fake.pointedAt()).toBe(`[${POPUP_MARK}]`)
+    expect(found.violations).toEqual([
+      { pathname: `${POPUP_PAGE} pop-up`, label: 'timed pop-up', id: 'button-name', impact: 'critical', help: 'Buttons must have discernible text', nodes: 1 },
+    ])
+  })
+
+  it('still finds a pop-up that opened while a slow page was getting ready', async () => {
+    // Raised in review of PR #196: with the first look taken after the wait, this
+    // pop-up was already open at that look, was taken for part of the page, and the
+    // run said none had opened.
+    const fake = fakeBrowser({ hydratesAfterMs: 12_000, popupOpensAtMs: 11_000, axeFinds: [UNNAMED_BUTTON] })
+    const found = lists()
+
+    const note = await auditTimedPopup(fake.browser, fake.AxeBuilder, found)
+
+    expect(note).toBe('checked ("Christmas 2026")')
+    expect(found.violations).toHaveLength(1)
+  })
+
+  it('says so when no pop-up opens, and files nothing', async () => {
+    const fake = fakeBrowser()
+    const found = lists()
+
+    const note = await auditTimedPopup(fake.browser, fake.AxeBuilder, found)
+
+    expect(note).toMatch(/^none opened within 14s of the page hydrating, so none was checked\./)
+    expect(found).toEqual({ violations: [], incomplete: [] })
+    expect(fake.pointedAt()).toBe('')
+  })
+
+  it('says the pop-up was not checked when the page will not load', async () => {
+    const fake = fakeBrowser({ status: 500 })
+
+    expect(await auditTimedPopup(fake.browser, fake.AxeBuilder, lists())).toBe('not checked, the page answered 500')
+    expect(fake.calls).toEqual(['load'])
+  })
+
+  it('says the pop-up was not checked when the page never hydrates', async () => {
+    const fake = fakeBrowser({ hydratesAfterMs: null })
+
+    expect(await auditTimedPopup(fake.browser, fake.AxeBuilder, lists())).toBe('not checked, the page never hydrated')
+  })
+
+  it.each([
+    ['a pop-up was checked', { popupOpensAtMs: 11_500 }],
+    ['none opened', {}],
+    ['the page would not load', { status: 500 }],
+    ['the page never hydrated', { hydratesAfterMs: null }],
+  ])('closes its browser context when %s', async (_what, options) => {
+    const fake = fakeBrowser(options)
+
+    await auditTimedPopup(fake.browser, fake.AxeBuilder, lists())
+
+    expect(fake.closed()).toBe(true)
+  })
+})
+
 describe('the pop-up the audit waits for today', () => {
   const mockUsePathname = usePathname as jest.Mock
   const CHRISTMAS_TIMER_MS = 10_000
@@ -249,7 +435,11 @@ describe('the pop-up the audit waits for today', () => {
   })
 
   it('opens the real Christmas lightbox as a layer fixed over the whole page', () => {
-    render(<ChristmasLightbox />)
+    const { container } = render(<ChristmasLightbox />)
+    // Not on the page at all until it opens. The audit finds a pop-up by its arriving;
+    // one that was always mounted and only faded in would never be found.
+    expect(container.querySelector('.fixed')).toBeNull()
+
     act(() => {
       jest.advanceTimersByTime(CHRISTMAS_TIMER_MS)
     })

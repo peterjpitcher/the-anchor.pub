@@ -333,51 +333,72 @@ async function settle(page, requests, ready = []) {
  * left open until a pop-up covers it. axe then looks at the pop-up alone; the
  * page under it has already been checked.
  *
- * A pop-up is found by what it does, not by its name: a layer fixed over the
- * whole viewport that was not there when the page settled. That finds the next
+ * A pop-up is found by what it does, not by its name: a new layer fixed over
+ * the whole viewport that takes the visitor's clicks. That finds the next
  * campaign's pop-up as well as this one.
+ *
+ * The page is watched from the moment it loads, before anything is waited
+ * for. A first look taken once a slow page had finished loading could find the
+ * pop-up already open and take it for part of the page (raised in review of
+ * PR #196).
  *
  * This part cannot fail closed. A campaign has an end date, so for some of the
  * year no pop-up is the right answer, and the audit cannot tell that from one
  * that failed to open. It says which happened in the first lines of the report.
  *
+ * Not found: an overlay that is always on the page and only fades in. Both
+ * campaign lightboxes mount when they open, and a unit test holds them to it.
  * Not checked on the pop-up: where focus goes, and whether Escape closes it.
  */
 const POPUP_PAGE = '/heathrow-parking'
-// Ten seconds on the lightbox's own timer, up to two more before
-// components/DeferredRender.tsx mounts it, less the second or so the page has
-// already spent settling. The rest is margin for a slow machine.
-const POPUP_WAIT_MS = 13000
+// Counted from hydration: ten seconds on the lightbox's own timer and up to
+// two more before components/DeferredRender.tsx mounts it. The rest is margin
+// for a slow machine.
+const POPUP_WAIT_MS = 14000
 const POPUP_POLL_MS = 250
 const POPUP_MARK = 'data-a11y-audit-popup'
 
+/** Runs in the page. React stamps `__react*` keys onto DOM nodes as it hydrates. */
+const hasHydrated = () => {
+  const el = document.querySelector('button[aria-expanded]') || document.body
+  return Object.keys(el).some((k) => k.startsWith('__react'))
+}
+
 /**
- * Runs in the page. The first call notes every fixed element already there,
- * so the page's own furniture (cookie banner, event banner, sticky buttons, a
- * decorative background) is never taken for a pop-up, and answers null.
+ * Runs in the page. Every look that finds no pop-up notes each fixed element
+ * on the page, so the page's own furniture (cookie banner, event banner,
+ * sticky buttons) is never taken for part of one, whenever it arrives.
  *
- * Later calls answer null until a new fixed layer covers the viewport. Then
- * every fixed element that has appeared since is marked, so axe can be pointed
- * at a backdrop and a panel that sit side by side as well as at a single
- * wrapper. `shown` is false while the layer is still fading in: axe judges
- * contrast on what is painted, and a half-faded pop-up is not what a visitor
- * reads.
+ * A pop-up is a fixed layer that was not there at the last look, covers the
+ * viewport and takes clicks. The last part matters: the booking drawer keeps a
+ * full-screen backdrop on every page with `pointer-events: none` until it is
+ * opened, and that is not a pop-up. Nor is anything on the page at the very
+ * first look, which is the page as it was served.
+ *
+ * When one opens, every fixed element that arrived with it is marked, so axe
+ * can be pointed at a backdrop and a panel that sit side by side as well as at
+ * a single wrapper. `shown` is false while the layer is still fading in: axe
+ * judges contrast on what is painted, and a half-faded pop-up is not what a
+ * visitor reads.
  */
 const lookForPopup = (mark) => {
   const fixed = [...document.body.querySelectorAll('*')].filter((el) => {
     const style = getComputedStyle(el)
     return style.position === 'fixed' && style.display !== 'none' && style.visibility !== 'hidden'
   })
-  if (!window.__a11yAuditFixed) {
-    window.__a11yAuditFixed = new WeakSet(fixed)
-    return null
-  }
-  const opened = fixed.filter((el) => !window.__a11yAuditFixed.has(el))
-  const cover = opened.find((el) => {
+  const firstLook = !window.__a11yAuditFixed
+  if (firstLook) window.__a11yAuditFixed = new WeakSet()
+  const known = window.__a11yAuditFixed
+  const opened = fixed.filter((el) => !known.has(el))
+  const cover = firstLook ? undefined : opened.find((el) => {
+    if (getComputedStyle(el).pointerEvents === 'none') return false
     const box = el.getBoundingClientRect()
     return box.width >= window.innerWidth * 0.9 && box.height >= window.innerHeight * 0.9
   })
-  if (!cover) return null
+  if (!cover) {
+    for (const el of fixed) known.add(el)
+    return null
+  }
   for (const el of opened) el.setAttribute(mark, '')
   const heading = opened.map((el) => el.querySelector('h1, h2, h3')).find(Boolean)
   return {
@@ -387,13 +408,13 @@ const lookForPopup = (mark) => {
 }
 
 /**
- * Wait for a pop-up to open over a settled page. Returns what lookForPopup
- * found, or null when none has opened within POPUP_WAIT_MS. A pop-up that
- * opened and never finished fading in is still returned, so it is checked and
- * not skipped.
+ * Wait for a pop-up to open. Returns what lookForPopup found, or null when
+ * none has opened within POPUP_WAIT_MS. A pop-up that opened and never
+ * finished fading in is still returned, so it is checked and not skipped.
+ *
+ * The caller takes the first look, as soon as the page loads.
  */
 async function waitForPopup(page) {
-  await page.evaluate(lookForPopup, POPUP_MARK)
   const deadline = Date.now() + POPUP_WAIT_MS
   let popup = null
   while (Date.now() < deadline) {
@@ -414,19 +435,22 @@ async function auditTimedPopup(browser, AxeBuilder, { violations, incomplete }) 
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } })
   try {
     const page = await context.newPage()
-    const requests = trackContentRequests(page)
     const res = await page.goto(BASE + POPUP_PAGE, { waitUntil: 'domcontentloaded' })
-    // The page is in PAGES, so one that will not load has already failed the run.
+    // The page is in PAGES, so one that will not load or hydrate has already
+    // failed the run in the page loop.
     if (!res || res.status() !== 200) return `not checked, the page answered ${res ? res.status() : 'nothing'}`
 
-    // Let the page finish first, so its own fixed furniture is in place before
-    // anything new is called a pop-up. Its content was judged in the page loop.
-    const [, , ready] = PAGES.find(([pathname]) => pathname === POPUP_PAGE) || []
-    await settle(page, requests, [COOKIE_BANNER, ready].filter(Boolean))
+    // The first look, before waiting for anything: see the note above.
+    await page.evaluate(lookForPopup, POPUP_MARK)
+    try {
+      await page.waitForFunction(hasHydrated, null, { timeout: 15000 })
+    } catch {
+      return 'not checked, the page never hydrated'
+    }
 
     const popup = await waitForPopup(page)
     if (!popup) {
-      return `none opened within ${POPUP_WAIT_MS / 1000}s of the page settling, so none was checked. ` +
+      return `none opened within ${POPUP_WAIT_MS / 1000}s of the page hydrating, so none was checked. ` +
         'That is right only while no campaign pop-up is running.'
     }
 
@@ -496,10 +520,7 @@ async function main() {
       // hydrates, so that is the signal, not a fixed sleep.
       let hydrated = true
       try {
-        await page.waitForFunction(() => {
-          const el = document.querySelector('button[aria-expanded]') || document.body
-          return Object.keys(el).some((k) => k.startsWith('__react'))
-        }, null, { timeout: 15000 })
+        await page.waitForFunction(hasHydrated, null, { timeout: 15000 })
       } catch {
         hydrated = false
         keyboardProblems.push({ pathname, issue: 'page never hydrated, so nothing on it is operable' })
@@ -671,6 +692,7 @@ module.exports = {
   POPUP_MARK,
   lookForPopup,
   waitForPopup,
+  auditTimedPopup,
 }
 
 if (require.main === module) {
