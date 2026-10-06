@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getBlogPost, getAllBlogPosts, getIndexableBlogPosts, distributeImages } from '@/lib/markdown'
+import { wrapTablesForScrolling } from '@/lib/markdown-tables'
 import { Badge, Button, Card, Container } from '@/components/ui'
 import { Metadata } from 'next'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
@@ -235,10 +236,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const prevPost = currentIndex > 0 ? navigationPosts[currentIndex - 1] : null
   const nextPost = currentIndex < navigationPosts.length - 1 ? navigationPosts[currentIndex + 1] : null
 
-  // Distribute images throughout content only if images array has items
-  const contentWithImages = post.images && post.images.length > 0
-    ? distributeImages(post.htmlContent || '', post.images, post.slug, post.imageAlts)
-    : post.htmlContent || ''
+  // Distribute images throughout content only if images array has items.
+  // Tables are wrapped here, for display only, so the structured data below
+  // still reads the untouched post.htmlContent.
+  const contentWithImages = wrapTablesForScrolling(
+    post.images && post.images.length > 0
+      ? distributeImages(post.htmlContent || '', post.images, post.slug, post.imageAlts)
+      : post.htmlContent || ''
+  )
 
   const heroUrl = getBlogHeroUrl(post.slug, post.hero)
   const heroAlt = post.heroAlt || post.title

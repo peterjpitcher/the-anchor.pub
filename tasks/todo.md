@@ -60,6 +60,42 @@ Assumptions:
 Found on the way, not touched: `/api/web-vitals` receives every visitor's measurements and records
 none of them, because `removeConsole` strips its only `console.log` in production.
 
+# Blog tables cut off on a phone, 6 October 2026
+
+Branch `fix/blog-table-mobile-overflow`, from main at 1baf0238 (PR #196). Local only: waiting for
+the owner's yes before any push.
+
+On a 390px screen the comparison table on `/blog/best-sunday-roast-surrey` is 856px wide. `<body>`
+hides sideways overflow, so the page cannot be scrolled and four of its seven columns could not be
+reached at all.
+
+- [x] Reproduced on a production build of main before changing anything, in both season skins:
+      19 of the 26 blog pages that have a table had one cut off (three more post folders redirect
+      to one of those 26)
+- [x] `wrapTablesForScrolling` (`lib/markdown-tables.ts`) puts each table in a named, focusable
+      region; the blog template calls it at render time, so `post.htmlContent` and the structured
+      data built from it are untouched; the scroll and the spacing are `.prose .table-scroll` in
+      `app/globals.css`
+- [x] After, same builds: 0 of 38 tables cut off in either skin; arrow keys scroll the region and
+      the focus ring shows; no table moved and no page changed height at 390px or 1280px across 118
+      pages; the 1280px screenshots are pixel-identical before and after in both skins
+- [x] JSON-LD on five posts is byte-identical to the live site
+- [x] Eight unit tests. Seven fail with their part of the fix switched off; the eighth checks that
+      a post with no table is left exactly as it was
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20; `npm run lint` on the default Node; `npm run audit:a11y` against the production
+      build: no violations, no keyboard problems, no reflow problems, 35 items for a human
+- [ ] Owner's yes, then push and open the PR
+
+Not done here, by design:
+
+- The other pages with a table (`/sunday-roast`, `/restaurants-near-heathrow`,
+  `/heathrow-layover-dining`, `/private-hire`) already scroll theirs and were not touched.
+  `/quiz-night-competition-terms` renders markdown through its own pipeline and has no table.
+- The audit's 320px reflow check measures the page's own scroll width, which `<body>` keeps at
+  zero. It passed this page while the table was cut off, and would pass anything else cut off the
+  same way.
+
 # Accessibility audit checks a pop-up that opens on a timer, 6 October 2026
 
 Branch `fix/a11y-audit-timed-popup`, from main at e5952736 (PR #195). Owner said yes on 6 October.
