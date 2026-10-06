@@ -22,6 +22,9 @@
  * Each page is checked once it has hydrated AND finished loading its own
  * content (see settle below). A page that never gets there fails the run: a
  * clean result has to mean the content was on the page when axe looked.
+ *
+ * One page is then opened again and left until a pop-up opens over it on its
+ * timer, and axe checks the pop-up (see auditTimedPopup below).
  */
 
 const arg = (name, fallback) => {
@@ -162,8 +165,9 @@ const CONTRAST_BASELINE = 0
  * at all: a reply is not the same as content. The event banner renders nothing
  * when /api/events is not OK, and nothing wrong can be found in nothing.
  *
- * Not covered: content that only loads once it is scrolled into view, and the
- * Christmas lightbox, which opens on a 10 second timer.
+ * Not covered: content that only loads once it is scrolled into view. A pop-up
+ * that opens on a timer is not seen here either; auditTimedPopup below is for
+ * that.
  */
 const SETTLE_TIMEOUT_MS = 15000
 const SETTLE_QUIET_MS = 500
@@ -316,6 +320,155 @@ async function settle(page, requests, ready = []) {
   return [stuck, failures()].filter(Boolean).join('; ')
 }
 
+/**
+ * Timed pop-ups: what no page check above can see.
+ *
+ * A campaign pop-up opens on a timer. The Christmas lightbox opens ten seconds
+ * after it mounts (components/features/christmas/ChristmasLightbox.tsx), and
+ * each page above is checked and closed in about three. On 5 October 2026 the
+ * lightbox's close button had no accessible name, a critical failure nearly
+ * every visitor with a screen reader met, and this audit passed every page.
+ *
+ * So one page is opened again, in a browser that has never seen the site, and
+ * left open until a pop-up covers it. axe then looks at the pop-up alone; the
+ * page under it has already been checked.
+ *
+ * A pop-up is found by what it does, not by its name: a new layer fixed over
+ * the whole viewport that takes the visitor's clicks. That finds the next
+ * campaign's pop-up as well as this one.
+ *
+ * The page is watched from the moment it loads, before anything is waited
+ * for. A first look taken once a slow page had finished loading could find the
+ * pop-up already open and take it for part of the page (raised in review of
+ * PR #196).
+ *
+ * This part cannot fail closed. A campaign has an end date, so for some of the
+ * year no pop-up is the right answer, and the audit cannot tell that from one
+ * that failed to open. It says which happened in the first lines of the report.
+ *
+ * Not found: an overlay that is always on the page and only fades in. Both
+ * campaign lightboxes mount when they open, and a unit test holds them to it.
+ * Not checked on the pop-up: where focus goes, and whether Escape closes it.
+ */
+const POPUP_PAGE = '/heathrow-parking'
+// Counted from hydration: ten seconds on the lightbox's own timer and up to
+// two more before components/DeferredRender.tsx mounts it. The rest is margin
+// for a slow machine.
+const POPUP_WAIT_MS = 14000
+const POPUP_POLL_MS = 250
+const POPUP_MARK = 'data-a11y-audit-popup'
+
+/** Runs in the page. React stamps `__react*` keys onto DOM nodes as it hydrates. */
+const hasHydrated = () => {
+  const el = document.querySelector('button[aria-expanded]') || document.body
+  return Object.keys(el).some((k) => k.startsWith('__react'))
+}
+
+/**
+ * Runs in the page. Every look that finds no pop-up notes each fixed element
+ * on the page, so the page's own furniture (cookie banner, event banner,
+ * sticky buttons) is never taken for part of one, whenever it arrives.
+ *
+ * A pop-up is a fixed layer that was not there at the last look, covers the
+ * viewport and takes clicks. The last part matters: the booking drawer keeps a
+ * full-screen backdrop on every page with `pointer-events: none` until it is
+ * opened, and that is not a pop-up. Nor is anything on the page at the very
+ * first look, which is the page as it was served.
+ *
+ * When one opens, every fixed element that arrived with it is marked, so axe
+ * can be pointed at a backdrop and a panel that sit side by side as well as at
+ * a single wrapper. `shown` is false while the layer is still fading in: axe
+ * judges contrast on what is painted, and a half-faded pop-up is not what a
+ * visitor reads.
+ */
+const lookForPopup = (mark) => {
+  const fixed = [...document.body.querySelectorAll('*')].filter((el) => {
+    const style = getComputedStyle(el)
+    return style.position === 'fixed' && style.display !== 'none' && style.visibility !== 'hidden'
+  })
+  const firstLook = !window.__a11yAuditFixed
+  if (firstLook) window.__a11yAuditFixed = new WeakSet()
+  const known = window.__a11yAuditFixed
+  const opened = fixed.filter((el) => !known.has(el))
+  const cover = firstLook ? undefined : opened.find((el) => {
+    if (getComputedStyle(el).pointerEvents === 'none') return false
+    const box = el.getBoundingClientRect()
+    return box.width >= window.innerWidth * 0.9 && box.height >= window.innerHeight * 0.9
+  })
+  if (!cover) {
+    for (const el of fixed) known.add(el)
+    return null
+  }
+  for (const el of opened) el.setAttribute(mark, '')
+  const heading = opened.map((el) => el.querySelector('h1, h2, h3')).find(Boolean)
+  return {
+    heading: heading ? heading.textContent.trim().slice(0, 60) : '',
+    shown: getComputedStyle(cover).opacity === '1',
+  }
+}
+
+/**
+ * Wait for a pop-up to open. Returns what lookForPopup found, or null when
+ * none has opened within POPUP_WAIT_MS. A pop-up that opened and never
+ * finished fading in is still returned, so it is checked and not skipped.
+ *
+ * The caller takes the first look, as soon as the page loads.
+ */
+async function waitForPopup(page) {
+  const deadline = Date.now() + POPUP_WAIT_MS
+  let popup = null
+  while (Date.now() < deadline) {
+    popup = await page.evaluate(lookForPopup, POPUP_MARK)
+    if (popup && popup.shown) return popup
+    await page.waitForTimeout(POPUP_POLL_MS)
+  }
+  return popup
+}
+
+/**
+ * Open POPUP_PAGE, wait for a pop-up and point axe at it. What axe finds goes
+ * into the same lists as every page; the return value is a line for the report.
+ */
+async function auditTimedPopup(browser, AxeBuilder, { violations, incomplete }) {
+  // A context of its own, not the one the pages shared: a campaign pop-up
+  // shows once per visitor and remembers that in localStorage.
+  const context = await browser.newContext({ viewport: { width: 1280, height: 900 } })
+  try {
+    const page = await context.newPage()
+    const res = await page.goto(BASE + POPUP_PAGE, { waitUntil: 'domcontentloaded' })
+    // The page is in PAGES, so one that will not load or hydrate has already
+    // failed the run in the page loop.
+    if (!res || res.status() !== 200) return `not checked, the page answered ${res ? res.status() : 'nothing'}`
+
+    // The first look, before waiting for anything: see the note above.
+    await page.evaluate(lookForPopup, POPUP_MARK)
+    try {
+      await page.waitForFunction(hasHydrated, null, { timeout: 15000 })
+    } catch {
+      return 'not checked, the page never hydrated'
+    }
+
+    const popup = await waitForPopup(page)
+    if (!popup) {
+      return `none opened within ${POPUP_WAIT_MS / 1000}s of the page hydrating, so none was checked. ` +
+        'That is right only while no campaign pop-up is running.'
+    }
+
+    const results = await new AxeBuilder({ page }).include(`[${POPUP_MARK}]`).withTags(WCAG).analyze()
+    const pathname = `${POPUP_PAGE} pop-up`
+    for (const v of results.violations) {
+      violations.push({ pathname, label: 'timed pop-up', id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.length })
+    }
+    for (const v of results.incomplete) {
+      incomplete.push({ pathname, id: v.id, help: v.help, nodes: v.nodes.length })
+    }
+    const name = popup.heading ? ` ("${popup.heading}")` : ''
+    return `checked${name}${popup.shown ? '' : ', though it never finished fading in'}`
+  } finally {
+    await context.close()
+  }
+}
+
 async function main() {
   // Loaded here, not at the top, so the settle logic can be unit tested
   // without a browser installed (CI does not have one).
@@ -331,6 +484,7 @@ async function main() {
   const keyboardProblems = []
   const reflowProblems = []
   const settleProblems = []
+  let popupNote = ''
 
   try {
     // Warm every page first. A dev server compiles routes on first request, so
@@ -366,10 +520,7 @@ async function main() {
       // hydrates, so that is the signal, not a fixed sleep.
       let hydrated = true
       try {
-        await page.waitForFunction(() => {
-          const el = document.querySelector('button[aria-expanded]') || document.body
-          return Object.keys(el).some((k) => k.startsWith('__react'))
-        }, null, { timeout: 15000 })
+        await page.waitForFunction(hasHydrated, null, { timeout: 15000 })
       } catch {
         hydrated = false
         keyboardProblems.push({ pathname, issue: 'page never hydrated, so nothing on it is operable' })
@@ -471,12 +622,15 @@ async function main() {
 
       await page.close()
     }
+
+    popupNote = await auditTimedPopup(browser, AxeBuilder, { violations, incomplete })
   } finally {
     await context.close()
     await browser.close()
   }
 
-  console.log(`checked ${PAGES.length} templates at ${BASE}, WCAG 2.2 AA\n`)
+  console.log(`checked ${PAGES.length} templates at ${BASE}, WCAG 2.2 AA`)
+  console.log(`timed pop-up on ${POPUP_PAGE}: ${popupNote}\n`)
 
   const report = (title, list, keyFn) => {
     if (!list.length) return
@@ -533,6 +687,12 @@ module.exports = {
   settle,
   SETTLE_TIMEOUT_MS,
   SETTLE_QUIET_MS,
+  POPUP_PAGE,
+  POPUP_WAIT_MS,
+  POPUP_MARK,
+  lookForPopup,
+  waitForPopup,
+  auditTimedPopup,
 }
 
 if (require.main === module) {

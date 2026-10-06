@@ -1,3 +1,46 @@
+# Accessibility audit checks a pop-up that opens on a timer, 6 October 2026
+
+Branch `fix/a11y-audit-timed-popup`, from main at e5952736 (PR #195). Owner said yes on 6 October.
+
+`scripts/audit-a11y.js` checks a page in about three seconds and closes it. The Christmas lightbox
+opens ten seconds after it mounts, so the audit never saw it, and on 5 October it passed every page
+while the lightbox's close button had no accessible name (fixed in PR #193).
+
+- [x] Unit tests for the rule that decides a pop-up has opened, for the wait, for the order the
+      pass does things in, and one that renders the real lightbox: 28 in all. Fifteen deliberate
+      breakages each failed a test
+- [x] `auditTimedPopup`: open `/heathrow-parking` in a browser that has never seen the site, look
+      at it at once, wait for it to hydrate, then wait up to 14 seconds for a new layer fixed over
+      the whole viewport that takes clicks, and point axe at it
+- [x] Report line under the page count saying whether a pop-up was checked or none opened
+- [x] Proof in a real browser against deployed builds:
+      - yesterday's production build (293e22fd, before PR #193): exit 1, "timed pop-up on
+        /heathrow-parking: checked ("Christmas 2026")" and `[critical] button-name` on 1 node
+      - the live site (main e5952736): exit 0, pop-up checked, no violations, 35 items for a human
+      - `/book-table` on the live site, where the lightbox is kept off: the wait ended with nothing
+        after 14.2 seconds and nothing was marked
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] Review follow-up (PR #196): the first look was taken after the page had settled, so on a
+      page slow enough for the lightbox to open first, the open pop-up was taken for part of the
+      page and the run said none had opened. The pass now looks the moment the page loads and no
+      longer waits for it to settle. A test plays that slow page; it failed with the old order
+- [ ] Merge on green checks
+
+Run time against the live site went from 70 seconds to between 79 and 87.
+
+Decisions:
+- A pop-up is found by what it does (a new fixed layer covering the viewport that takes clicks),
+  not by a selector for the Christmas lightbox, so the next campaign's pop-up is found too.
+- "Takes clicks" is there because the booking drawer keeps a full-screen backdrop on every page
+  with `pointer-events: none` until it is opened. Seen on the live site on 6 October.
+- An overlay that is always on the page and only fades in is not found. Both campaign lightboxes
+  mount when they open, and a unit test holds the Christmas one to it.
+- No pop-up is reported, not failed. A campaign has an end date (15 December 2026 for this one),
+  so for part of the year none is the right answer.
+- axe looks at the pop-up alone; the page under it was already checked in the page loop.
+- Not checked on the pop-up: where focus goes, and whether Escape closes it.
+
 # Self-hosted fonts, so a build never waits on Google, 6 October 2026
 
 Branch `fix/self-host-fonts` (worktree `goofy-banach-abb1cb`), cut from main at 47a64427, with main
@@ -124,7 +167,9 @@ said yes to switching the pop-up off the same day.
 - [x] Stop mounting the pop-up on the page; drop the now unused `next/dynamic` import
 - [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
       Node 20
-- [ ] Push, PR, merge on green checks, check on the live site that nothing opens
+- [x] Push, PR, merge on green checks, check on the live site that nothing opens. PR #195, merge
+      e5952736, deployment dpl_DrSihTWGnA3HtQSF1PpoGeM7MM2P. On the live site with the "seen" key
+      cleared: no pop-up on exit intent, none after 44 seconds, and the key was never written
 
 Left as it is, on purpose:
 - `components/features/six-nations/SixNationsLightbox.tsx` and its close-button test stay. The
