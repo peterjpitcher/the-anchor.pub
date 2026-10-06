@@ -1,5 +1,43 @@
 import type { Config } from 'tailwindcss'
 
+/**
+ * A colour Tailwind cannot parse, such as a CSS variable, that still takes an
+ * opacity modifier.
+ *
+ * Tailwind 3 can only put an alpha on a colour it can parse. Defined as a bare
+ * 'var(--text-muted)', `bg-ink-muted/30` compiled to nothing at all, with no
+ * warning. That hid the reviews carousel's inactive dots and the tint of every
+ * error and success box until 5 October 2026.
+ *
+ * A class with no modifier keeps the bare value, so every solid colour still
+ * works in a browser without color-mix() (Safari before 16.2). Only a class
+ * with a modifier uses color-mix(), and without it that one class does what it
+ * did before the fix: nothing.
+ *
+ * scripts/audit-opacity-modifiers.js fails if a class with a modifier compiles
+ * to nothing, which is what happens to a token added here as a bare string.
+ */
+function mixable(colour: string): string {
+  const resolve = ({ opacityVariable, opacityValue }: { opacityVariable?: string; opacityValue?: string | number }): string => {
+    // Tailwind names its own opacity variable only for a class with no modifier.
+    if (opacityValue === undefined || opacityVariable !== undefined) return colour
+    const raw = String(opacityValue).trim()
+    // An arbitrary modifier can already be a percentage (`/[30%]`). Read it as
+    // one: multiplied by 100% below it is not valid CSS, and the browser drops
+    // the declaration without a word.
+    const percent = /^(\d*\.?\d+)%$/.exec(raw)
+    const alpha = percent ? Number(percent[1]) / 100 : Number(raw)
+    // A gradient's far stop asks for alpha 0. Answer without color-mix() so a
+    // from-* or to-* on these tokens keeps working wherever it works today.
+    if (alpha === 0) return 'transparent'
+    const share = Number.isFinite(alpha) ? `${Math.round(alpha * 10000) / 100}%` : `calc(${raw} * 100%)`
+    return `color-mix(in srgb, ${colour} ${share}, transparent)`
+  }
+  // Tailwind's types describe string colours only, but it calls a function
+  // colour with the alpha it needs; its own <alpha-value> works the same way.
+  return resolve as unknown as string
+}
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -26,16 +64,20 @@ const config: Config = {
           sage: '#7a8b7f', charcoal: '#1a1a1a', cream: '#faf8f3',
           'cream-text': '#f0e6c6', sand: '#f5e6d3', grey: '#6f6a61',
           // Theme-aware: these two lift on dark surfaces (see globals.css).
-          success: 'var(--status-success)', danger: 'var(--status-danger)',
+          success: mixable('var(--status-success)'), danger: mixable('var(--status-danger)'),
         },
         // Semantic (theme-aware — re-map under .theme-dark automatically)
-        canvas: 'var(--bg)',
-        surface: { DEFAULT: 'var(--surface)', raised: 'var(--surface-raised)', sunk: 'var(--surface-sunk)', inverse: 'var(--surface-inverse)' },
-        ink: { DEFAULT: 'var(--text)', strong: 'var(--text-strong)', muted: 'var(--text-muted)', inverse: 'var(--text-inverse)', 'on-green': 'var(--text-on-green)', 'on-gold': 'var(--text-on-gold)' },
-        accent: { DEFAULT: 'var(--accent)', text: 'var(--accent-text)' },
-        line: { DEFAULT: 'var(--border)', strong: 'var(--border-strong)', gold: 'var(--border-gold)' },
+        // Every variable-backed colour goes through mixable(), or `/30` on it
+        // compiles to nothing.
+        canvas: mixable('var(--bg)'),
+        surface: { DEFAULT: mixable('var(--surface)'), raised: mixable('var(--surface-raised)'), sunk: mixable('var(--surface-sunk)'), inverse: mixable('var(--surface-inverse)') },
+        ink: { DEFAULT: mixable('var(--text)'), strong: mixable('var(--text-strong)'), muted: mixable('var(--text-muted)'), inverse: mixable('var(--text-inverse)'), 'on-green': mixable('var(--text-on-green)'), 'on-gold': mixable('var(--text-on-gold)') },
+        accent: { DEFAULT: mixable('var(--accent)'), text: mixable('var(--accent-text)') },
+        line: { DEFAULT: mixable('var(--border)'), strong: mixable('var(--border-strong)'), gold: mixable('var(--border-gold)') },
         // Warm accent tile (icon medallions, sand badges, "today" highlight).
-        tile: { DEFAULT: 'var(--tile)', ink: 'var(--tile-ink)' },
+        tile: { DEFAULT: mixable('var(--tile)'), ink: mixable('var(--tile-ink)') },
+        // Tailwind's own `current` (currentColor) cannot take a modifier either.
+        current: mixable('currentColor'),
       },
       fontFamily: {
         display: ['var(--font-display)', 'Times New Roman', 'serif'],
