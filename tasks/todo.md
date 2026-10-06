@@ -1,3 +1,65 @@
+# Desktop header no longer moves the page as it loads, 6 October 2026
+
+Branch `fix/header-strip-layout-shift` (worktree `fervent-chebyshev-fe468d`), on main at 1baf0238
+(PR #196). Local only: not pushed, waiting for the owner's yes.
+
+Field data first. Search Console, Core Web Vitals, source Chrome UX Report, last updated 4 October
+2026: desktop has 123 URLs "need improvement" and none good, one issue, "CLS issue: more than 0.1
+(desktop)", group CLS 0.19, on the chart since about 12 September. Mobile has 123 good URLs. So real
+desktop visitors are affected and the lab figure matches the field figure.
+
+Cause. The promo links in the utility strip were chosen in a Navigation effect, so the server sent
+the strip without them. After hydration they appeared, the strip grew from 37px to 49px and the page
+moved down 12px. The link group's left edge moved 316px in the same frame, and a shift is scored on
+the furthest any element moves, which is what made a 12px nudge score 0.19. One short link keeps it
+under 0.1; the second link went up on 5 September.
+
+- [x] Measure on a production build before touching anything, every desktop width, both skins
+- [x] The root layout works out the open promos and passes them to Navigation, so the links are in
+      the HTML. Navigation still re-checks on the visitor's clock (pages are built once per deploy)
+- [x] The strip is a fixed height, 48px with promos and 36px without, the two heights it already
+      settled at. Status text gets two lines (one without promos); the link group never shrinks
+- [x] Header wordmark declared 168x42, file is 400x200: now 104x52, so the menu no longer slides
+- [x] Hero wordmark declared 300x300, same file shape: now 300x150, so the hero no longer jumps
+      150px when the image lands late (seen 1 run in 3 on the live site, phones included)
+- [x] Test that renders Navigation the way the server does. Taking the fix out fails it
+- [x] Node 20: `npm run lint:next`, `npx tsc --noEmit`, `npm test` and `npm run test:utc` (253
+      suites, 3,087 tests each), `npm run build`. Full `npm run lint` chain passes on Node 26
+- [ ] Push, PR, merge on green checks, check the live site, then "Validate fix" in Search Console.
+      The field figure is a 28 day average, so it takes about four weeks to clear
+
+CLS on load, three runs a page, analytics blocked, event banner showing. Before is main; after is
+this branch, the same in the light, dark and festive skins.
+
+| Width | Before | After |
+| --- | --- | --- |
+| 1024 | 0.31 to 0.32 | 0.006 to 0.007 |
+| 1280 | 0.21 | 0.004 |
+| 1440 | 0.19 (0.24 when the hero also jumps) | 0.003 |
+| 1920 | 0.15 | 0.002 |
+| 390 (phone) | 0.005 (0.077 when the hero jumps) | 0.005 |
+
+After the change the page content and the strip sit at one position from first paint (126px and
+49px) on every run, including with the hours request held back 1.5 seconds and with it failing.
+
+What still moves, left alone on purpose:
+- The booking bar at the bottom slides up when the cookie banner appears, about a second in. It is
+  the whole of the 0.002 to 0.007 that remains on a first visit. Different component, well inside
+  the 0.1 limit.
+- If the hours request fails, the longer "live status unavailable" text reflows the homepage hero
+  pill: up to 0.024 at 1024px. The strip and the page still do not move.
+
+Assumptions:
+- Under about 1,064px wide, with today's two promo links and the longest status text, the third
+  status line (Planes) is cut off rather than making the strip taller. That case used to be a
+  three-line strip. From 1,064px up the longest text fits in two lines and nothing is cut.
+- No change in OJ-AnchorManagementTools: layout only, no hours or booking logic touched.
+- Before figures for the light skin come from main at e5952736, one merge earlier than the base
+  (self-hosted fonts landed in between; the live site, measured after it, gives the same numbers).
+
+Found on the way, not touched: `/api/web-vitals` receives every visitor's measurements and records
+none of them, because `removeConsole` strips its only `console.log` in production.
+
 # Accessibility audit checks a pop-up that opens on a timer, 6 October 2026
 
 Branch `fix/a11y-audit-timed-popup`, from main at e5952736 (PR #195). Owner said yes on 6 October.
