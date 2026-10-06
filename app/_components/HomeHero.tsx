@@ -78,12 +78,14 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL, copy
       {/* Content */}
       <div className="container relative z-[2]">
         <div className="flex flex-col items-center gap-5 py-16 text-center">
-          {/* White wordmark */}
+          {/* White wordmark. The file is 400x200, so the box has to be 2:1 too:
+              declared square, it held 300px of height until the image arrived
+              and then dropped to 150px, pulling the whole hero up with it. */}
           <Image
             src="/images/branding/the-anchor-pub-logo-white-transparent.png"
             alt="The Anchor"
             width={300}
-            height={300}
+            height={150}
             priority
             quality={85}
             sizes="(max-width: 640px) 180px, 300px"
