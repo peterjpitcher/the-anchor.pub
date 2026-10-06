@@ -1,3 +1,128 @@
+# Accessibility audit waits for client-loaded content, 5 October 2026
+
+Branch `fix/a11y-audit-waits-for-client-content` (worktree `recursing-kapitsa-e9dffa`), PR #191 since
+6 October; the review follow-up at the end of this section was added that day.
+Cut from main at 23152e77, rebased onto 293e22fd once PRs #189 (carousel dots) and #190 (privacy
+notice row in PAGES) landed. The only conflict was the end of the PAGES table; both rows are kept.
+
+`scripts/audit-a11y.js` ran axe as soon as a page hydrated. Content a client component fetches after
+mount was not there yet, so on 5 October a run against the live site passed `/heathrow-parking` while
+its six carousel dots failed WCAG 2.2 AA target-size.
+
+- [x] Measure what every audited page loads after hydration, on a production build
+- [x] Wait for each page to settle before axe: named content present, none of the page's own
+      content requests in flight, and 500ms with no request activity and no DOM change. Fail closed
+- [x] Name the reviews carousel on `/heathrow-parking`; add `/beer-garden` (12 dots, widest case)
+- [x] Unit tests for the settle rule; break each part of the rule and confirm a test fails
+- [x] Prove it in a browser: unchanged audit misses the 8px dots, changed audit always catches them,
+      and passes once the dots are fixed
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20.19.5
+- [x] Commit. No push
+
+What was measured (production build of 23152e77 on port 3100, Playwright Chromium):
+- `networkidle` never arrives on any of the 16 pages, not only the homepage. Every page sends a
+  POST to `/api/web-vitals` whose reply it never reads, so the browser never reports it finished.
+  The route itself answers in 2ms. Tag Manager and Turnstile also keep talking.
+- After hydration every page fetches `/api/business/hours`; most also `/api/events?limit=5`; the
+  carousel pages `/api/reviews`; the private hire pages `/api/public/private-booking/config`;
+  `/book-table` its sittings and events. Locally they finish within 1.7s. About 28 router link
+  prefetches a page (header `next-router-prefetch: 1`) are left out: they only warm a cache.
+- Against localhost `/api/reviews` answers in about 20ms, which is why the unchanged audit caught
+  the dots locally 3 times out of 3 and still missed them on the live site.
+- The cookie banner is put on the page by a one-second timer (`components/CookieBanner.tsx`). With
+  nothing in flight during that second, a network-only wait saw it on 13 pages and missed it on 3.
+  It is now named content, so every page is checked with the banner up, as a first-time visitor
+  sees it. That one-second timer is most of the extra run time.
+- Waiting does not make axe less able to judge a page: colour-contrast "needs a human" counts were
+  unchanged on 14 of 16 pages and rose by one on two, while checked-and-passed nodes rose by 34 to
+  66 a page.
+
+Proof (all logs in the session scratchpad; delay means a local proxy holding back every GET to
+`/api/*` by 1.5s, the way the live network does):
+
+| Build | Audit | Runs | Result |
+| --- | --- | --- | --- |
+| 23152e77, 8px dots | unchanged, 1.5s delay | 5 | exit 0 every time, "No violations": the miss reproduced |
+| 23152e77, 8px dots | changed, 1.5s delay | 5 | exit 1 every time: `/heathrow-parking` 6 nodes, `/beer-garden` 12 nodes |
+| 23152e77, 8px dots | changed, no delay | 5 | exit 1 every time, same 6 and 12 nodes |
+| 23152e77, reviews held 20s | changed | 1 | exit 1: both carousel pages "expected content never appeared within 15s" |
+| 23152e77 + 4d23752e dots | changed, no delay | 5 | exit 0 every time, no settle problems |
+| 23152e77 + 4d23752e dots | changed, 1.5s delay | 5 | exit 0 every time, no settle problems |
+| 293e22fd current main + branch | changed, no delay | 3 | exit 0 every time, 17 pages |
+| 293e22fd current main + branch | changed, 1.5s delay | 2 | exit 0 every time |
+
+Run time on the same build of current main: unchanged audit 31s for 16 pages; changed audit 58s to
+60s for 17 pages (68s to 69s with the 1.5s delay). Settling costs about 1.55s a page: the banner's
+one-second timer plus the 500ms quiet period. Hydration, keyboard and reflow checks are unchanged.
+
+Unit tests (`tests/unit/a11y-audit-settle.test.tsx`, 21): each part of the rule was removed in turn
+(in-flight wait, request quiet, DOM quiet, named content, GET only, prefetch exclusion, own origin
+only, lazy code) and every one of the eight made at least two tests fail. The last two tests render
+the real `CookieBanner` and `GoogleReviews`, so renaming the labels the audit waits for fails CI.
+
+Assumptions:
+- The cookie banner is audited on every page rather than on none. Leaving it out would save about
+  18s a run, but the banner would then never be checked by axe at all.
+- 500ms quiet and a 15s cap. The quiet period matches Playwright's own idea of idle; the cap matches
+  the existing hydration timeout.
+- Content that loads only when scrolled into view, and the Christmas lightbox on its 10 second
+  timer, are still not covered. Said so in the script.
+
+Found while proving this, not changed here:
+- The Christmas lightbox close button has no accessible name (axe `button-name`, critical). It opens
+  after 10 seconds on pages it is not suppressed on, until 15 December. The Six Nations lightbox on
+  `/live-sport/six-nations` has the same unnamed button. The audit cannot see either because it never
+  waits 10 seconds.
+- `components/layout/StatusBar.tsx` puts the plane-spotting caveat in an `aria-label` on a plain
+  `<span>`, which screen readers may ignore. axe lists it under "needs a human" on every page now
+  that the status bar has loaded before it looks.
+
+## Review follow-up, 6 October 2026
+
+A review comment on PR #191 said a content request answered with a 4xx or 5xx is counted as done, so
+a page with content missing still settles and passes. It was right, and a dropped connection had the
+same hole.
+
+- [x] Check the claim in a browser: a 500 shows `response:500` then `requestfinished`; a dropped
+      connection shows `requestfailed net::ERR_EMPTY_RESPONSE`. The audit as pushed (716710af) passed
+      with `/api/events` answering 500, exit 0
+- [x] Measure normal operation before changing anything
+- [x] Tests first, red: an errored reply, a dropped request, a cancelled one, an untracked one, both
+      problems on one line, and a reload
+- [x] Report a failed content request under NOT SETTLED with its path and status or reason
+- [x] Call the event banner's coin toss for the audit (found while measuring, below)
+- [x] Break each new rule in turn (ten ways); a test failed every time
+- [x] Proof with a proxy, then `lint:next`, `tsc`, `npm test`, `npm run test:utc`, `npm run build`
+- [x] Two commits. No push
+
+Measured on a production build of the branch: 4,169 tracked requests over 17 pages and five passes
+(three direct, two with replies held back 1.5s). Every one answered 200; none failed, none was
+aborted. So a failed-request check cannot fire on a healthy site.
+
+Found while measuring: `components/EventCountdownBanner.tsx` shows the banner to half of all
+sessions, on a coin toss kept in sessionStorage. Each audited page is a new session, so over three
+passes the banner was on 5, 9 and 10 of the 17 pages, a different set each time. The audit now sets
+the toss to "show" before each page loads: 14 of 17 on all three passes (it is switched off on
+`/quiz-night/themed`, `/events/...` and `/book-table`).
+
+| Site | Audit | Result |
+| --- | --- | --- |
+| `/api/events` answers 500 | as pushed, 716710af | exit 0, "No violations": the hole |
+| `/api/events` answers 500 | fixed | exit 1: 15 pages name the request with status 500 |
+| `/api/events` connection dropped | fixed | exit 1: 15 pages, `net::ERR_EMPTY_RESPONSE` |
+| `/api/reviews` answers 500 | fixed | exit 1: both carousel pages report the missing carousel and the failed request |
+| healthy | fixed, 3 runs | exit 0 every time, 58s |
+| healthy, 1.5s delay | fixed, 2 runs | exit 0 every time, 68s to 70s |
+
+Assumptions:
+- 400 and above is an error for a content read.
+- `net::ERR_ABORTED` is not a failure: it is a request the page cancelled, and what the audit's own
+  retry does to requests in flight. None occurs in normal use.
+- The audit takes the side of the toss with more on the page. The banner is not named as required
+  content, because it is switched off on some paths and has nothing to show when no event is
+  coming up.
+
 # Plane-spotting caveat readable by screen readers, 6 October 2026
 
 Branch `fix/status-bar-plane-caveat-sr-text` (worktree `elegant-driscoll-86f51b`), cut from main at
