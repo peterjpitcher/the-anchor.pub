@@ -608,6 +608,23 @@ img {
   }
 }
 
+/* A blog table scrolls sideways inside this wrapper (lib/markdown-tables.ts).
+   Written flat, not inside the nested block above, so a browser without CSS
+   nesting still gets it. The wrapper carries the 2rem gap the table used to
+   have. Two classes in each selector on purpose: with one, Tailwind
+   Typography's `h2 + *` rule wins from the lg size up and closes the gap under
+   a heading by 8px. */
+.prose .table-scroll {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.prose .table-scroll > table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 /* Specific focus styles for links */
 a:focus-visible {
   outline-width: var(--anchor-focus-ring-width);
