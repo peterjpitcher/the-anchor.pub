@@ -469,6 +469,147 @@ async function auditTimedPopup(browser, AxeBuilder, { violations, incomplete }) 
   }
 }
 
+/**
+ * Reflow: nothing may be cut off at the right edge of a 320px screen
+ * (WCAG 2.2 1.4.10).
+ *
+ * This used to ask the root element whether it scrolled sideways: scrollWidth
+ * minus clientWidth. It never does. app/globals.css gives <html> and <body>
+ * `overflow-x: hidden`, so anything too wide is clipped by <body> and adds
+ * nothing to the root's scroll width. The check read 0 on every page. On
+ * 6 October 2026 it passed /blog/best-sunday-roast-surrey with a comparison
+ * table 856px wide and four of its seven columns out of reach, and seven more
+ * pages in PAGES with something cut off.
+ *
+ * So every box on the page, and every run of text, is measured against the
+ * edge of the viewport instead. One that runs past it is cut off, unless one
+ * of these is true. Each is a kind of thing found on the pages in PAGES that
+ * day, and is meant to be where it is:
+ *   - it is not painted: it has no box, or `visibility: hidden`.
+ *   - a box it sits in scrolls sideways (`overflow-x: auto` or `scroll`), so
+ *     the rest can be reached. The price table on /private-hire, the facts
+ *     strip on an event page.
+ *   - a box it sits in clips it and shows none of it. The reviews carousel
+ *     keeps its other slides beside the window; screen-reader-only text sits
+ *     in a box one pixel wide.
+ *   - a box it sits in shortens it with an ellipsis (`text-overflow:
+ *     ellipsis`), which is a decision somebody made. The event name on the
+ *     countdown banner. None was past the edge that day, but the banner is on
+ *     14 of these pages and the next event may have a longer name.
+ *   - it is parked beside the screen: it, or a box it sits in, is `fixed` or
+ *     `absolute` and starts at or past the edge. The closed cost estimator
+ *     drawer on /private-hire.
+ *
+ * A box that clips is not an excuse by itself. 90 components here have
+ * `overflow-hidden`, the hero among them, so excusing everything inside one
+ * would be the same blind spot one level down. If part of a thing shows and
+ * the rest is clipped, it is cut off, whichever box does the clipping.
+ *
+ * How far down the page a thing sits is not looked at. The sticky bar waits
+ * below the screen until the page is scrolled, laid out as it will be shown,
+ * so a button past the edge there is a button past the edge when it arrives.
+ *
+ * Anything still moving is put at rest first. The carousel slides every five
+ * seconds for half a second, and a slide caught on its way in is part shown.
+ *
+ * A thing cut off is reported once, under the outermost box that is.
+ *
+ * Not looked at: the left edge. A drawer once it is opened. Whether a `fixed`
+ * or `absolute` box is laid out against a transformed ancestor, which CSS
+ * allows; getting that wrong reports something hidden, it never hides
+ * something cut off.
+ */
+const REFLOW_WIDTH = 320
+
+/** Runs in the page. Returns what is cut off: [{ what, by }], `by` in pixels. */
+const lookForCutOff = () => {
+  // The same two pixels the old measurement allowed, for rounding.
+  const SLACK = 2
+  const edge = document.documentElement.clientWidth
+
+  for (const animation of document.getAnimations ? document.getAnimations() : []) {
+    try {
+      animation.finish()
+    } catch {
+      // One that never ends, such as a spinner, has no end to go to.
+    }
+  }
+
+  const found = []
+  const reported = new Set()
+  const pastEdge = (box) => box.width > 0 && box.height > 0 && box.right > edge + SLACK
+  const parked = (style, box) =>
+    (style.position === 'fixed' || style.position === 'absolute') && box.left >= edge - SLACK
+
+  // Is a box that runs past the edge meant to? `from` is the nearest element
+  // it sits in, `position` is how the box itself is positioned.
+  const meantToBe = (box, from, position) => {
+    for (let outer = from; outer && outer !== document.body; outer = outer.parentElement) {
+      if (reported.has(outer)) return true
+      const style = getComputedStyle(outer)
+      const outerBox = outer.getBoundingClientRect()
+      if (parked(style, outerBox)) return true
+      // Only a box it is laid out against can clip it or scroll it. Nothing
+      // does either to a fixed box, and a static one does neither to an
+      // absolute box inside it.
+      if (position === 'fixed' || (position === 'absolute' && style.position === 'static')) continue
+      position = style.position
+      if (style.overflowX === 'auto' || style.overflowX === 'scroll') return true
+      if (style.overflowX === 'hidden' || style.overflowX === 'clip') {
+        if (style.textOverflow === 'ellipsis') return true
+        const shown = Math.min(box.right, outerBox.right) - Math.max(box.left, outerBox.left)
+        if (shown <= SLACK) return true
+      }
+    }
+    return false
+  }
+
+  const words = (text) => text.trim().replace(/\s+/g, ' ').slice(0, 40)
+  const range = document.createRange()
+
+  for (const el of document.body.querySelectorAll('*')) {
+    const box = el.getBoundingClientRect()
+    if (pastEdge(box)) {
+      const style = getComputedStyle(el)
+      if (style.visibility !== 'visible' || parked(style, box)) continue
+      if (meantToBe(box, el.parentElement, style.position)) continue
+      reported.add(el)
+      const label = words(el.getAttribute('aria-label') || el.getAttribute('alt') || el.innerText || el.textContent || '')
+      found.push({ what: `<${el.tagName.toLowerCase()}>${label ? ` "${label}"` : ''}`, by: Math.round(box.right - edge) })
+      continue
+    }
+
+    // Text can run out of a box that fits: a long address in a narrow
+    // paragraph. The paragraph's box says nothing about it.
+    for (const node of el.childNodes) {
+      if (node.nodeType !== Node.TEXT_NODE || !node.nodeValue.trim()) continue
+      range.selectNodeContents(node)
+      const lines = [...range.getClientRects()].filter(pastEdge)
+      if (!lines.length) continue
+      if (getComputedStyle(el).visibility !== 'visible') continue
+      const left = Math.min(...lines.map((line) => line.left))
+      const right = Math.max(...lines.map((line) => line.right))
+      if (meantToBe({ left, right }, el, 'static')) continue
+      found.push({ what: `text "${words(node.nodeValue)}"`, by: Math.round(right - edge) })
+    }
+  }
+  return found
+}
+
+/**
+ * Narrow the page to REFLOW_WIDTH and return what is cut off there. The page
+ * is not loaded again: it is the one axe has just checked, made narrower.
+ */
+async function checkReflow(page) {
+  await page.setViewportSize({ width: REFLOW_WIDTH, height: 800 })
+  await page.waitForTimeout(200)
+  return page.evaluate(lookForCutOff)
+}
+
+/** One line of the report for a page with something cut off. */
+const describeCutOff = ({ pathname, cutOff }) =>
+  `${pathname}  ${cutOff.map(({ what, by }) => `${what} by ${by}px`).join('; ')}`
+
 async function main() {
   // Loaded here, not at the top, so the settle logic can be unit tested
   // without a browser installed (CI does not have one).
@@ -613,12 +754,9 @@ async function main() {
         }
       }
 
-      // Reflow: no horizontal scrolling at 320px (WCAG 2.2 1.4.10).
-      await page.setViewportSize({ width: 320, height: 800 })
-      await page.waitForTimeout(200)
-      const overflow = await page.evaluate(() =>
-        document.documentElement.scrollWidth - document.documentElement.clientWidth)
-      if (overflow > 2) reflowProblems.push({ pathname, overflowPx: overflow })
+      // Reflow: nothing cut off at 320px (WCAG 2.2 1.4.10). See lookForCutOff.
+      const cutOff = await checkReflow(page)
+      if (cutOff.length) reflowProblems.push({ pathname, cutOff })
 
       await page.close()
     }
@@ -632,18 +770,19 @@ async function main() {
   console.log(`checked ${PAGES.length} templates at ${BASE}, WCAG 2.2 AA`)
   console.log(`timed pop-up on ${POPUP_PAGE}: ${popupNote}\n`)
 
-  const report = (title, list, keyFn) => {
+  const report = (title, list, keyFn, limit = 12) => {
     if (!list.length) return
     console.log(`${title}: ${list.length}`)
-    for (const x of list.slice(0, 12)) console.log('   ', keyFn(x))
-    if (list.length > 12) console.log(`    ... and ${list.length - 12} more`)
+    for (const x of list.slice(0, limit)) console.log('   ', keyFn(x))
+    if (list.length > limit) console.log(`    ... and ${list.length - limit} more`)
     console.log()
   }
 
   report('VIOLATIONS', violations, (v) => `${v.pathname}  [${v.impact || 'n/a'}] ${v.id}: ${v.help} (${v.nodes} node(s))`)
   report('NOT SETTLED (axe may not have seen this content)', settleProblems, (s) => `${s.pathname}  ${s.issue}`)
   report('KEYBOARD', keyboardProblems, (k) => `${k.pathname}  ${k.issue}`)
-  report('REFLOW at 320px', reflowProblems, (r) => `${r.pathname}  overflows by ${r.overflowPx}px`)
+  // Every page, not the first twelve: one component can put a line on each.
+  report(`REFLOW at ${REFLOW_WIDTH}px, pages with something cut off at the right edge`, reflowProblems, describeCutOff, PAGES.length)
   report('NEEDS A HUMAN (axe could not decide)', incomplete, (i) => `${i.pathname}  ${i.id}: ${i.help} (${i.nodes})`)
 
   const other = violations.filter((v) => v.id !== 'color-contrast')
@@ -693,6 +832,10 @@ module.exports = {
   lookForPopup,
   waitForPopup,
   auditTimedPopup,
+  REFLOW_WIDTH,
+  lookForCutOff,
+  checkReflow,
+  describeCutOff,
 }
 
 if (require.main === module) {
