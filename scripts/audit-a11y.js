@@ -51,6 +51,25 @@ const COOKIE_BANNER = 'button[aria-label="Accept all cookies"]'
 const REVIEWS_CAROUSEL = '.google-reviews-wrapper button[aria-label="Go to review 1"]'
 
 /**
+ * The site shows the event countdown banner to half of all sessions, on a coin
+ * toss it keeps in sessionStorage (components/EventCountdownBanner.tsx). Every
+ * page here opens as a new session, so axe saw the banner on about half the
+ * pages, and a different half each run. The audit calls the toss for itself,
+ * on the side with more on the page.
+ *
+ * The banner cannot be named as content that must be there: it is switched off
+ * on some paths and has nothing to show when no event is coming up.
+ */
+const EVENT_BANNER_SESSION_KEY = 'event_banner_session_show'
+const alwaysShowEventBanner = (context) => context.addInitScript((key) => {
+  try {
+    window.sessionStorage.setItem(key, 'true')
+  } catch {
+    // A sandboxed frame has no storage. The page itself always does.
+  }
+}, EVENT_BANNER_SESSION_KEY)
+
+/**
  * One page per template touched by this programme, not the whole site.
  * A template is either accessible or it is not; crawling 199 pages to re-test
  * the same components would just be slower.
@@ -306,6 +325,7 @@ async function main() {
   const browser = await chromium.launch()
   // AxeBuilder requires a page from an explicit context, not browser.newPage().
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } })
+  await alwaysShowEventBanner(context)
   const violations = []
   const incomplete = []
   const keyboardProblems = []
@@ -506,6 +526,8 @@ module.exports = {
   PAGES,
   COOKIE_BANNER,
   REVIEWS_CAROUSEL,
+  EVENT_BANNER_SESSION_KEY,
+  alwaysShowEventBanner,
   isContentRequest,
   trackContentRequests,
   settle,

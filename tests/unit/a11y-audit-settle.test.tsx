@@ -1,10 +1,15 @@
 import { act, render, waitFor } from '@testing-library/react'
 import CookieBanner from '@/components/CookieBanner'
+import { EventCountdownBanner } from '@/components/EventCountdownBanner'
 import { GoogleReviews } from '@/components/reviews/GoogleReviews'
 import { approvedReviews } from '@/lib/google/review-utils'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const audit = require('../../scripts/audit-a11y.js')
+
+jest.mock('next/navigation', () => ({
+  usePathname: () => '/sunday-roast'
+}))
 
 /**
  * The accessibility audit must not look at a page before the page has finished
@@ -27,6 +32,7 @@ const audit = require('../../scripts/audit-a11y.js')
 
 const {
   COOKIE_BANNER,
+  EVENT_BANNER_SESSION_KEY,
   REVIEWS_CAROUSEL,
   PAGES,
   SETTLE_QUIET_MS,
@@ -36,6 +42,7 @@ const {
   settle,
 } = audit as {
   COOKIE_BANNER: string
+  EVENT_BANNER_SESSION_KEY: string
   REVIEWS_CAROUSEL: string
   PAGES: Array<[string, string, string?]>
   SETTLE_QUIET_MS: number
@@ -435,5 +442,45 @@ describe('the content the audit waits for by name', () => {
     } finally {
       global.fetch = realFetch
     }
+  })
+})
+
+/**
+ * The site shows the event countdown banner to half of all sessions, on a coin
+ * toss kept in sessionStorage. Every page the audit opens is a new session, so
+ * axe saw the banner on about half the pages and a different half each run. The
+ * audit now calls the toss for itself. These two hold it to the real component:
+ * the toss is real, and the audit's key is the one that settles it.
+ */
+describe('the event banner, which the site shows to half of all sessions', () => {
+  const realFetch = global.fetch
+
+  beforeEach(() => {
+    window.sessionStorage.clear()
+    window.localStorage.clear()
+    // Never answers: whether the banner asks at all is the whole question.
+    global.fetch = jest.fn(() => new Promise(() => undefined)) as unknown as typeof fetch
+    // The losing side of the toss.
+    jest.spyOn(Math, 'random').mockReturnValue(0.99)
+  })
+
+  afterEach(() => {
+    global.fetch = realFetch
+    jest.restoreAllMocks()
+  })
+
+  it('is not even asked for in a session that loses the toss', async () => {
+    render(<EventCountdownBanner />)
+    await act(async () => undefined)
+
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('is always asked for once the audit has set its key, whatever the toss', async () => {
+    window.sessionStorage.setItem(EVENT_BANNER_SESSION_KEY, 'true')
+
+    render(<EventCountdownBanner />)
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledWith('/api/events?limit=5'))
   })
 })

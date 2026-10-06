@@ -1,6 +1,7 @@
 # Accessibility audit waits for client-loaded content, 5 October 2026
 
-Branch `fix/a11y-audit-waits-for-client-content` (worktree `recursing-kapitsa-e9dffa`), local only.
+Branch `fix/a11y-audit-waits-for-client-content` (worktree `recursing-kapitsa-e9dffa`), PR #191 since
+6 October; the review follow-up at the end of this section was added that day.
 Cut from main at 23152e77, rebased onto 293e22fd once PRs #189 (carousel dots) and #190 (privacy
 notice row in PAGES) landed. The only conflict was the end of the PAGES table; both rows are kept.
 
@@ -76,6 +77,51 @@ Found while proving this, not changed here:
 - `components/layout/StatusBar.tsx` puts the plane-spotting caveat in an `aria-label` on a plain
   `<span>`, which screen readers may ignore. axe lists it under "needs a human" on every page now
   that the status bar has loaded before it looks.
+
+## Review follow-up, 6 October 2026
+
+A review comment on PR #191 said a content request answered with a 4xx or 5xx is counted as done, so
+a page with content missing still settles and passes. It was right, and a dropped connection had the
+same hole.
+
+- [x] Check the claim in a browser: a 500 shows `response:500` then `requestfinished`; a dropped
+      connection shows `requestfailed net::ERR_EMPTY_RESPONSE`. The audit as pushed (716710af) passed
+      with `/api/events` answering 500, exit 0
+- [x] Measure normal operation before changing anything
+- [x] Tests first, red: an errored reply, a dropped request, a cancelled one, an untracked one, both
+      problems on one line, and a reload
+- [x] Report a failed content request under NOT SETTLED with its path and status or reason
+- [x] Call the event banner's coin toss for the audit (found while measuring, below)
+- [x] Break each new rule in turn (ten ways); a test failed every time
+- [x] Proof with a proxy, then `lint:next`, `tsc`, `npm test`, `npm run test:utc`, `npm run build`
+- [x] Two commits. No push
+
+Measured on a production build of the branch: 4,169 tracked requests over 17 pages and five passes
+(three direct, two with replies held back 1.5s). Every one answered 200; none failed, none was
+aborted. So a failed-request check cannot fire on a healthy site.
+
+Found while measuring: `components/EventCountdownBanner.tsx` shows the banner to half of all
+sessions, on a coin toss kept in sessionStorage. Each audited page is a new session, so over three
+passes the banner was on 5, 9 and 10 of the 17 pages, a different set each time. The audit now sets
+the toss to "show" before each page loads: 14 of 17 on all three passes (it is switched off on
+`/quiz-night/themed`, `/events/...` and `/book-table`).
+
+| Site | Audit | Result |
+| --- | --- | --- |
+| `/api/events` answers 500 | as pushed, 716710af | exit 0, "No violations": the hole |
+| `/api/events` answers 500 | fixed | exit 1: 15 pages name the request with status 500 |
+| `/api/events` connection dropped | fixed | exit 1: 15 pages, `net::ERR_EMPTY_RESPONSE` |
+| `/api/reviews` answers 500 | fixed | exit 1: both carousel pages report the missing carousel and the failed request |
+| healthy | fixed, 3 runs | exit 0 every time, 58s |
+| healthy, 1.5s delay | fixed, 2 runs | exit 0 every time, 68s to 70s |
+
+Assumptions:
+- 400 and above is an error for a content read.
+- `net::ERR_ABORTED` is not a failure: it is a request the page cancelled, and what the audit's own
+  retry does to requests in flight. None occurs in normal use.
+- The audit takes the side of the toss with more on the page. The banner is not named as required
+  content, because it is switched off on some paths and has nothing to show when no event is
+  coming up.
 
 # Prose colours readable in every season skin, 5 October 2026
 
