@@ -1,3 +1,36 @@
+# Accessibility audit checks a pop-up that opens on a timer, 6 October 2026
+
+Branch `fix/a11y-audit-timed-popup`, from main at e5952736 (PR #195). Owner said yes on 6 October.
+
+`scripts/audit-a11y.js` checks a page in about three seconds and closes it. The Christmas lightbox
+opens ten seconds after it mounts, so the audit never saw it, and on 5 October it passed every page
+while the lightbox's close button had no accessible name (fixed in PR #193).
+
+- [x] Unit tests for the rule that decides a pop-up has opened, for the wait, and one that renders
+      the real lightbox. Ten deliberate breakages of the rule each failed a test
+- [x] `auditTimedPopup`: open `/heathrow-parking` in a browser that has never seen the site, let it
+      settle, wait up to 13 seconds for a new layer fixed over the whole viewport, point axe at it
+- [x] Report line under the page count saying whether a pop-up was checked or none opened
+- [x] Proof in a real browser against deployed builds:
+      - yesterday's production build (293e22fd, before PR #193): exit 1, "timed pop-up on
+        /heathrow-parking: checked ("Christmas 2026")" and `[critical] button-name` on 1 node
+      - the live site (main 47a64427): exit 0, pop-up checked, no violations, 35 items for a human
+      - `/book-table` on the live site, where the lightbox is kept off: the wait ended with nothing
+        after 13.2 seconds and nothing was marked
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [ ] Push, PR, merge on green checks
+
+Run time against the live site went from 70 seconds to 79.
+
+Decisions:
+- A pop-up is found by what it does (a new fixed layer covering the viewport), not by a selector
+  for the Christmas lightbox, so the next campaign's pop-up is found too.
+- No pop-up is reported, not failed. A campaign has an end date (15 December 2026 for this one),
+  so for part of the year none is the right answer.
+- axe looks at the pop-up alone; the page under it was already checked in the page loop.
+- Not checked on the pop-up: where focus goes, and whether Escape closes it.
+
 # Six Nations pop-up switched off, 6 October 2026
 
 Branch `fix/six-nations-popup-off`, from main at 47a64427 (PR #191).
@@ -13,7 +46,9 @@ said yes to switching the pop-up off the same day.
 - [x] Stop mounting the pop-up on the page; drop the now unused `next/dynamic` import
 - [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
       Node 20
-- [ ] Push, PR, merge on green checks, check on the live site that nothing opens
+- [x] Push, PR, merge on green checks, check on the live site that nothing opens. PR #195, merge
+      e5952736, deployment dpl_DrSihTWGnA3HtQSF1PpoGeM7MM2P. On the live site with the "seen" key
+      cleared: no pop-up on exit intent, none after 44 seconds, and the key was never written
 
 Left as it is, on purpose:
 - `components/features/six-nations/SixNationsLightbox.tsx` and its close-button test stay. The
