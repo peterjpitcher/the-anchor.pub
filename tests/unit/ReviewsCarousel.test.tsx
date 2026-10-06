@@ -1,6 +1,9 @@
+import fs from 'fs'
+import path from 'path'
 import { act, render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ReviewsCarousel } from '@/components/reviews/ReviewsCarousel'
+import { contrastRatio } from '@/lib/contrast'
 import type { GoogleReview } from '@/lib/google/types'
 
 /**
@@ -93,5 +96,57 @@ describe('ReviewsCarousel pagination dots', () => {
     expect(dots[2]).toHaveFocus()
     await user.keyboard(' ')
     expect(activeLabels()).toEqual(['Go to review 3'])
+  })
+})
+
+/**
+ * The other dots were `bg-ink-muted/30`, an opacity modifier on a CSS variable
+ * that Tailwind compiled to nothing, so they painted nothing in either skin.
+ * Found 5 October 2026. They are now rings in --text-muted, which must clear
+ * 3:1 against whatever surface the carousel sits on (WCAG 2.2 AA 1.4.11).
+ */
+describe('ReviewsCarousel inactive dots', () => {
+  // A custom property's final value in each skin, read from app/globals.css.
+  const css = fs.readFileSync(path.join(process.cwd(), 'app/globals.css'), 'utf8')
+  const declarations = (selector: string): Record<string, string> => {
+    const start = css.indexOf(selector)
+    const body = css.slice(css.indexOf('{', start) + 1, css.indexOf('\n}', start))
+    return Object.fromEntries([...body.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]))
+  }
+  const light = declarations(':root {')
+  const skins: Record<string, Record<string, string>> = {
+    light,
+    dark: { ...light, ...declarations('[data-theme="dark"] {') },
+  }
+  const resolve = (vars: Record<string, string>, name: string): string => {
+    let value = vars[name]
+    while (value?.startsWith('var(')) value = vars[value.slice(4, -1)]
+    return value
+  }
+
+  it('draws every dot but the current one as a ring in the muted ink', () => {
+    renderCarousel()
+    const [current, ...others] = getDots().map(getMark)
+
+    expect(current).toHaveClass('bg-anchor-gold-dark')
+    expect(current.className).not.toMatch(/\bborder/)
+    for (const mark of others) {
+      expect(mark).toHaveClass('border-2', 'border-ink-muted')
+      // No opacity modifier: the muted ink at full strength is what clears 3:1.
+      expect(mark.className).not.toMatch(/\/\d/)
+    }
+  })
+
+  it.each(['light', 'dark'])('clears 3:1 against every page surface in the %s skin', (skin) => {
+    const ring = resolve(skins[skin], '--text-muted')
+    expect(ring).toMatch(/^#[0-9a-f]{6}$/i)
+
+    const surfaces = ['--bg', '--surface', '--surface-raised', '--surface-sunk']
+    for (const surface of surfaces) expect(resolve(skins[skin], surface)).toMatch(/^#[0-9a-f]{6}$/i)
+
+    const under3to1 = surfaces
+      .map((surface) => ({ surface, ratio: contrastRatio(ring, resolve(skins[skin], surface)) }))
+      .filter(({ ratio }) => ratio < 3)
+    expect(under3to1).toEqual([])
   })
 })

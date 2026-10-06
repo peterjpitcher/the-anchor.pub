@@ -42,6 +42,85 @@ private hire space" picker on `/private-hire` and `/private-hire/venue-tour`. A 
 `components/` found five more `aria-label`s on a `div` with no role (ticket total, rugby booking
 summary, three loading skeletons).
 
+# Opacity modifiers on semantic colour tokens, 5 October 2026
+
+Branch `fix/opacity-modifiers-on-semantic-tokens`, from main at 293e22fd (PR #190), local only.
+
+A Tailwind opacity modifier on a colour Tailwind cannot parse (`bg-ink-muted/30`, `bg-surface/90`,
+`bg-anchor-danger/10`, `border-current/20`) compiles to nothing, with no warning. Reported as 18
+uses on the ink, surface, line and accent-text tokens. The status, accent and canvas tokens are
+variable-backed too, and `current` is `currentColor`: 60 uses of 23 classes in all, every one dead
+in the built CSS of both skins.
+
+- [x] Map every use and whether any page renders it: 9 live today, 15 only in a state (errors,
+      payment results, hover), 10 in components no page renders
+- [x] "Before" evidence on production builds, dark and light: built CSS (all 23 classes absent),
+      computed styles, screenshots
+- [x] Root fix: `mixable()` in `tailwind.config.ts` gives a modifier a `color-mix()`; a class with
+      no modifier keeps the bare variable, so no solid colour needs `color-mix()` support
+- [x] Local fixes where the written value fails a contrast rule: carousel dots become rings in the
+      muted ink (9.01:1 and 8.42:1 dark, 4.74:1 and 5.21:1 light); the Christmas pop-up close icon
+      uses the muted ink (half-strength strong ink would be 2.6:1 light); ErrorDisplay's muted
+      lines move to full ink (4.49:1 on the new red tint)
+- [x] Guard: `scripts/audit-opacity-modifiers.js` compiles every colour class with a modifier
+      found in the source; in `npm run lint` and in Jest. Red on the old config (23 dead), green now
+- [x] "After" evidence, both skins; axe contrast on the test page and nine live pages. Remaining
+      failures predate this change: the gold "Try again" button (4.32:1) and the Terminal 5
+      "All flights running on schedule" line (`text-green-700`)
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20; `npm run lint` on the default Node. All pass
+- [x] Committed on 6 October 2026 by the owner's close-out session. The owner asked it to close
+      out the open chats; it read the before and after page and the diff and took the recommended
+      answers (all 36 panels as shown, the current dot's gold unchanged). The owner did not sign the
+      panels off one by one, and was sent the page before the merge
+
+# Promo lightbox close buttons: an accessible name, 6 October 2026
+
+Branch `fix/lightbox-close-button-name` (worktree `admiring-pasteur-73af9b`), local only. Built on
+main at 293e22fd.
+
+axe reported `button-name` (critical, WCAG 4.1.2) on the close button of the Christmas lightbox: it
+held only an X icon, so a screen reader announced "button" and nothing else. The Six Nations lightbox
+has the same button. The Christmas one opens after 10 seconds on every route outside its suppressed
+list until 15 December 2026, once per visitor, so anyone using a screen reader who stays that long
+on such a page meets it.
+
+- [x] Reproduce before changing anything: axe on the live site with the lightbox open.
+      `/heathrow-parking` after 11.5 seconds: `button-name`, 1 node (`.top-4`), the only violation.
+      `/live-sport/six-nations` after 41.5 seconds: `button-name`, 2 nodes (both lightboxes are open)
+- [x] Test first, red: `tests/unit/lightbox-close-button-name.test.tsx` (4 of 4 failing on main, each
+      on a button with the name "")
+- [x] `components/features/christmas/ChristmasLightbox.tsx` and
+      `components/features/six-nations/SixNationsLightbox.tsx`: `aria-label="Close modal"` on the
+      button, `aria-hidden="true"` on the icon
+- [x] Same pattern elsewhere: every other `<X />` button in `components/` and `app/` already has an
+      aria-label (`AllergenFilterBar`, `ScrollProgressBookingTooltip`, `PlaneSpottingBookingPrompt`)
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20 (247 suites, 3000 tests passing in each zone)
+- [x] Production build on port 3100, Chromium at 1280x900, axe with the lightbox open:
+      `/heathrow-parking` no violations at all; `/live-sport/six-nations` no `button-name`, and
+      both close buttons found by role with the name "Close modal"
+- [x] Commit. No push
+
+Assumptions:
+- The name is "Close modal" because the shared `Modal` and the private hire promo popup, the nearest
+  thing to these two, already say that. `StickyDrawer` says "Close" and the gallery "Close lightbox".
+- lucide-react 0.541 already puts `aria-hidden="true"` on an icon with no label, so the attribute on
+  the icon changes nothing at run time. It is written out because the other three X buttons do.
+
+Seen while testing, not from this change, and left alone:
+- `/live-sport/six-nations` still has one `color-contrast` failure, on the live site too: the
+  "Super Saturday" badge is #1a1a1a on #836313, 3.11:1 at 12px bold. It is on the page, not in
+  either lightbox.
+- On that page both lightboxes open, the Christmas one at 10 seconds and the Six Nations one at 40,
+  one on top of the other. The Christmas lightbox checks for an open dialog before it fires; the
+  Six Nations one does not.
+- Neither lightbox is a dialog to a screen reader: no `role="dialog"`, no `aria-modal`, and focus
+  is neither moved into it nor kept there. axe does not flag that. It also means the Christmas
+  lightbox's own open-dialog check cannot see the Six Nations one.
+- `scripts/audit-a11y.js` still never waits for a timed overlay, so it would not have caught this.
+  The Jest test now guards these two buttons; nothing guards the next timed overlay.
+
 # Prose colours readable in every season skin, 5 October 2026
 
 Branch `fix/privacy-notice-prose-contrast` (worktree `gifted-kapitsa-3f7ea1`), PR #190. Cut from
