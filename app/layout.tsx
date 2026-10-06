@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { DM_Serif_Display, Outfit, Clicker_Script } from 'next/font/google'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
 import './globals.css'
+import { fontVariables } from './fonts'
 import { WebVitals } from './web-vitals'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
@@ -40,28 +40,6 @@ const PrivateHire2026PromoGate = dynamic(
   () => import('@/components/promos/PrivateHire2026PromoGate').then(mod => mod.PrivateHire2026PromoGate),
   { ssr: false }
 )
-
-const display = DM_Serif_Display({
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-display',
-  display: 'swap',
-})
-
-const body = Outfit({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-body',
-  display: 'swap',
-})
-
-const script = Clicker_Script({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-script',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.the-anchor.pub'),
@@ -154,7 +132,7 @@ export default function RootLayout({
       // dark surfaces with `[.theme-dark_&]:` variants (Badge, Button), and
       // those would silently not fire against an attribute selector. One
       // mechanism, so every existing dark-aware component keeps working.
-      className={`${display.variable} ${body.variable} ${script.variable}${skin.dark ? ' theme-dark' : ''}`}
+      className={`${fontVariables}${skin.dark ? ' theme-dark' : ''}`}
       data-season={skin.stage}
       style={getSeasonalSkinStyle(skin)}
     >

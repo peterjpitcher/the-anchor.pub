@@ -1,3 +1,114 @@
+# Self-hosted fonts, so a build never waits on Google, 6 October 2026
+
+Branch `fix/self-host-fonts` (worktree `goofy-banach-abb1cb`), cut from main at 47a64427, with main
+merged in at e5952736 once PR #195 (Six Nations pop-up) landed. The only conflict was the top of this
+file; both sections are kept.
+
+Two Vercel preview builds failed on 6 October inside `next/font` with `TypeError: Cannot read
+properties of null (reading '1')` at `google/loader.js:112` (PR #192 at 59ede763 and PR #191 at
+2b9e145b). A redeploy of each built clean. A production build could fail the same way, and the site
+would then stay on the previous deployment with a merged fix not live.
+
+- [x] Confirm the cause before changing anything
+- [x] Self-host the same eight font files with `next/font/local`; keep families, weights, subsets,
+      `display: swap`, preloads, fallback sizing and the three CSS variable names
+- [x] Check the licences and record where each file came from (`app/fonts/README.md`)
+- [x] Block `next/font/google` in ESLint so the build-time download cannot come back
+- [x] Prove no visual change and no layout shift change, both season skins, production builds
+- [x] Prove a build no longer needs Google Fonts
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20.19.5, again on the merged tree (180386aa): lint and types clean, 251 suites with
+      3,050 passed and 1 skipped in both time zones, build exit 0
+- [x] Commit. Pushed only after the owner said yes on 6 October
+
+Cause:
+- Line 112 is `/\.(woff|woff2|eot|ttf|otf)$/.exec(googleFontFileUrl)[1]`. It takes the file type
+  from the end of each font address in Google's stylesheet and assumes there is one.
+- Google sometimes answers the same stylesheet request with addresses of the form
+  `https://fonts.gstatic.com/l/font?kit=...`, which have no file extension. The file behind them is
+  a valid woff2; only the address parsing fails. This is vercel/next.js#99114, opened 23 September
+  2026 and still open; the same line is in Next's canary, so upgrading Next does not fix it. The
+  reporter saw about 1 response in 60 in that shape.
+- Not reproduced from this machine: 81 fetches of the site's three stylesheet requests all came back
+  with `.woff2` addresses. The shape of the failure, the upstream report and the clean redeploys
+  agree, but the bad response itself was never captured.
+- Vercel history: 240 deployments back to 17 August, three failed, two with this error, both on
+  6 October (14 builds that day). The third (10 September, production) was an unrelated sitemap
+  error.
+- The same download flaked during the baseline build for this work: `getaddrinfo ENOTFOUND
+  fonts.googleapis.com`, which Next's retry happened to survive.
+
+What changed:
+- `app/fonts/`: the eight woff2 files, the three licence texts, `README.md` (source address and
+  SHA-256 of every file) and `index.ts` (six `next/font/local` calls).
+- `app/layout.tsx` takes `fontVariables` from `app/fonts`; the three Google font calls are gone.
+- `app/globals.css` joins each latin and latin-ext pair into `--font-display`, `--font-body` and
+  `--font-script`, and holds the three fallback faces with the numbers Next generated before.
+- `.eslintrc.json` rejects any import of `next/font/google`. Checked with a throwaway file: the
+  rule fires.
+- Left alone on purpose: `tailwind.config.ts` and every component, because the three variable names
+  did not change; `docs/redesign-spec.md`, which still describes `next/font/google` as the design
+  history it is.
+
+Why six calls and not three: Google serves each family as a latin file and a latin-ext file, told
+apart by `unicode-range`, and `next/font/google` emitted both. `next/font/local` can attach one
+`unicode-range` per call. Dropping latin-ext would have been simpler, but a name such as "Żywiec"
+on a menu or an event would then fall back to a system font where today it does not.
+
+Proof (production builds of 47a64427 and of this branch, both skins, Playwright Chromium 1.60; logs
+and screenshots in the session scratchpad):
+
+| Check | Result |
+| --- | --- |
+| Font files in the build | 8 before, 8 after, byte for byte the same (SHA-256) |
+| `@font-face` rules for the web fonts | 18 before, 18 after, identical as a set on file, weight, style, display, format, preload and unicode-range |
+| Fallback faces | 3 before, 3 after, same four numbers each |
+| Preloaded fonts in `<head>` | the same 4 files |
+| Screenshots, homepage, `/food-menu`, `/blog/best-sunday-roast-surrey`, 1440px and 390px, top of page and full page, dark skin | 0 differing pixels of 82.0 million |
+| The same in the light skin (`NEXT_PUBLIC_FORCE_WINTER_SKIN=off`) | 0 differing pixels of 80.9 million |
+| Position and size of every element on those pages | identical, 12 of 12 |
+| Font Chrome actually drew each text element with (CDP `getPlatformFontsForNode`) | identical, 12 of 12 |
+| Same pages with the web fonts blocked, so only the fallback shows | 0 differing pixels, boxes identical, 12 of 12 |
+| Probe injected into both builds: Outfit at 14 weights from 100 to 900, both subsets of all three families, characters in neither file | 0 differing pixels, same fonts drawn, same widths, both skins |
+| Layout shift, fonts as normal / held back 2.5s / blocked | equal before and after in all 36 measurements, to within 0.0002 |
+| `npm run build` with Google Fonts made unreachable, main at 47a64427 | fails: `Failed to fetch` for all three families, 12 lookups of Google's font hosts |
+| The same build on this branch | passes, 0 lookups of Google's font hosts |
+
+The last two rows preload a small script into every Node process of the build (`NODE_OPTIONS=--require`)
+that logs each host name looked up and refuses `fonts.googleapis.com` and `fonts.gstatic.com`.
+
+Two things differ and neither is visible: the font file names lose a `-s` marker (so a returning
+visitor fetches the four files once more), and `<meta name="next-size-adjust">` is no longer in the
+head. Nothing in Next reads that tag. The generated family and class names differ too, as they do
+on any rebuild that changes the font declaration.
+
+Things that looked like differences and were not, so the next person does not chase them:
+- The build skips the events and menu feeds and bakes pages without them; each fills in on its
+  first revalidation. Two servers started minutes apart show different homepages. The harness waits
+  until both serve the same words.
+- The site scrolls smoothly, so `scrollTo(0, 0)` is still travelling when a capture is taken. Use
+  `behavior: 'instant'` and wait until no element has moved for 1.5 seconds.
+- Fixed overlays (cookie banner, booking drawer) land a pixel or two apart in a full-page capture.
+  They are captured in a viewport shot and hidden for the full-page one.
+- The Christmas pop-up arrives on a timer. Every capture was repeated on the same build to measure
+  noise: 22 of 24 repeats matched their first capture exactly, and the other two are the same page
+  (blog, mobile, light) on each build, with the pop-up on screen at a different moment.
+- On desktop the homepage fetches two or three extra woff2 files from `fonts.gstatic.com`. They
+  belong to the embedded Google map, vary run to run in both builds, and are not the site's fonts.
+
+Assumptions:
+- SIL OFL 1.1 lets these files be bundled and redistributed as long as the licence travels with
+  them. All three families are listed as OFL in google/fonts and the licence texts are copied from
+  there unchanged. Not legal advice.
+- The fallback numbers are copied from what Next generated for the Google versions, not
+  recalculated. They only need to change if a family changes.
+
+Found on the way and parked (both confirmed on the live site, neither caused by this change):
+- Desktop pages shift on load: the header's top strip grows from 20px to 54px after first paint and
+  pushes the page down. Chrome scores it 0.19 to 0.24 on the live homepage, lab data only.
+- The comparison table in `/blog/best-sunday-roast-surrey` is 856px wide on a 390px phone and is
+  cut off by `overflow-x: hidden` on `body`, with no way to scroll to the rest.
+
 # Six Nations pop-up switched off, 6 October 2026
 
 Branch `fix/six-nations-popup-off`, from main at 47a64427 (PR #191).

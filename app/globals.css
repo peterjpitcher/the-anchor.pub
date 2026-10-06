@@ -166,7 +166,48 @@
   }
 }
 
+/* ---- Typefaces: fallback faces ----
+   A system font resized to take up the same room as each web font, so text
+   does not jump when the web font swaps in. The numbers are the ones
+   next/font/google generated for these three families. Keep them unless a
+   family changes. The font files themselves are declared in app/fonts. */
+@font-face {
+  font-family: 'DM Serif Display Fallback';
+  src: local('Times New Roman');
+  ascent-override: 94.37%;
+  descent-override: 30.51%;
+  line-gap-override: 0%;
+  size-adjust: 109.78%;
+}
+
+@font-face {
+  font-family: 'Outfit Fallback';
+  src: local('Arial');
+  ascent-override: 100.18%;
+  descent-override: 26.05%;
+  line-gap-override: 0%;
+  size-adjust: 99.82%;
+}
+
+@font-face {
+  font-family: 'Clicker Script Fallback';
+  src: local('Arial');
+  ascent-override: 131.59%;
+  descent-override: 55.95%;
+  line-gap-override: 0%;
+  size-adjust: 70.43%;
+}
+
 :root {
+  /* ---- Typefaces ----
+     app/fonts sets one variable per font file group (latin and latin-ext).
+     These join each pair into the variable everything else reads. The order
+     matters: a character missing from the latin file is looked for in the
+     latin-ext file before the fallback face is used. */
+  --font-display: var(--font-display-latin), var(--font-display-latin-ext), 'DM Serif Display Fallback';
+  --font-body: var(--font-body-latin), var(--font-body-latin-ext), 'Outfit Fallback';
+  --font-script: var(--font-script-latin), var(--font-script-latin-ext), 'Clicker Script Fallback';
+
   /* ---- Brand: Green (primary) ---- */
   --anchor-green: #005131;
   --anchor-green-dark: #003d25;
