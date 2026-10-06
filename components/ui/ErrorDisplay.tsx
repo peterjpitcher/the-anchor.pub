@@ -64,8 +64,10 @@ export function ErrorDisplay({
             </button>
           )}
 
+          {/* Full ink, not muted: on the red tint over the cream page, muted
+              ink measures 4.49:1, just under AA. */}
           {showContactInfo && (
-            <p className="text-ink-muted text-sm">
+            <p className="text-ink text-sm">
               Still having issues?{' '}
               <a
                 href={CONTACT_INFO.phoneLink}
@@ -81,7 +83,7 @@ export function ErrorDisplay({
           <div className="mt-4 border-t border-anchor-danger/20 pt-4">
             <button
               onClick={() => setDetailsExpanded(!detailsExpanded)}
-              className="text-sm text-ink-muted hover:text-ink underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-text rounded"
+              className="text-sm text-ink hover:text-ink-strong underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-text rounded"
               aria-expanded={detailsExpanded}
               aria-controls="error-details"
             >

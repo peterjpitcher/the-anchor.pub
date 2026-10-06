@@ -2674,11 +2674,13 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
         aria-labelledby="christmas-lightbox-title"
         className="relative max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-2xl border border-line bg-surface p-4 shadow-xl sm:max-h-[calc(100dvh-3rem)] sm:p-6"
       >
+        {/* Muted ink, not the strong ink at half strength: that put the light
+            skin's close icon at 2.6:1, under the 3:1 a control needs. */}
         <button
           ref={closeButtonRef}
           type="button"
           onClick={closeLightbox}
-          className="absolute right-4 top-4 text-ink-strong/50 hover:text-ink-strong"
+          className="absolute right-4 top-4 text-ink-muted hover:text-ink-strong"
           aria-label="Close"
         >
           <Icon name="close" className="h-5 w-5" />

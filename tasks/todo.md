@@ -1,3 +1,35 @@
+# Opacity modifiers on semantic colour tokens, 5 October 2026
+
+Branch `fix/opacity-modifiers-on-semantic-tokens`, from main at 293e22fd (PR #190), local only.
+
+A Tailwind opacity modifier on a colour Tailwind cannot parse (`bg-ink-muted/30`, `bg-surface/90`,
+`bg-anchor-danger/10`, `border-current/20`) compiles to nothing, with no warning. Reported as 18
+uses on the ink, surface, line and accent-text tokens. The status, accent and canvas tokens are
+variable-backed too, and `current` is `currentColor`: 60 uses of 23 classes in all, every one dead
+in the built CSS of both skins.
+
+- [x] Map every use and whether any page renders it: 9 live today, 15 only in a state (errors,
+      payment results, hover), 10 in components no page renders
+- [x] "Before" evidence on production builds, dark and light: built CSS (all 23 classes absent),
+      computed styles, screenshots
+- [x] Root fix: `mixable()` in `tailwind.config.ts` gives a modifier a `color-mix()`; a class with
+      no modifier keeps the bare variable, so no solid colour needs `color-mix()` support
+- [x] Local fixes where the written value fails a contrast rule: carousel dots become rings in the
+      muted ink (9.01:1 and 8.42:1 dark, 4.74:1 and 5.21:1 light); the Christmas pop-up close icon
+      uses the muted ink (half-strength strong ink would be 2.6:1 light); ErrorDisplay's muted
+      lines move to full ink (4.49:1 on the new red tint)
+- [x] Guard: `scripts/audit-opacity-modifiers.js` compiles every colour class with a modifier
+      found in the source; in `npm run lint` and in Jest. Red on the old config (23 dead), green now
+- [x] "After" evidence, both skins; axe contrast on the test page and nine live pages. Remaining
+      failures predate this change: the gold "Try again" button (4.32:1) and the Terminal 5
+      "All flights running on schedule" line (`text-green-700`)
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20; `npm run lint` on the default Node. All pass
+- [x] Committed on 6 October 2026 by the owner's close-out session. The owner asked it to close
+      out the open chats; it read the before and after page and the diff and took the recommended
+      answers (all 36 panels as shown, the current dot's gold unchanged). The owner did not sign the
+      panels off one by one, and was sent the page before the merge
+
 # Prose colours readable in every season skin, 5 October 2026
 
 Branch `fix/privacy-notice-prose-contrast` (worktree `gifted-kapitsa-3f7ea1`), PR #190. Cut from
