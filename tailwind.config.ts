@@ -21,11 +21,16 @@ function mixable(colour: string): string {
   const resolve = ({ opacityVariable, opacityValue }: { opacityVariable?: string; opacityValue?: string | number }): string => {
     // Tailwind names its own opacity variable only for a class with no modifier.
     if (opacityValue === undefined || opacityVariable !== undefined) return colour
-    const alpha = Number(opacityValue)
+    const raw = String(opacityValue).trim()
+    // An arbitrary modifier can already be a percentage (`/[30%]`). Read it as
+    // one: multiplied by 100% below it is not valid CSS, and the browser drops
+    // the declaration without a word.
+    const percent = /^(\d*\.?\d+)%$/.exec(raw)
+    const alpha = percent ? Number(percent[1]) / 100 : Number(raw)
     // A gradient's far stop asks for alpha 0. Answer without color-mix() so a
     // from-* or to-* on these tokens keeps working wherever it works today.
     if (alpha === 0) return 'transparent'
-    const share = Number.isFinite(alpha) ? `${Math.round(alpha * 10000) / 100}%` : `calc(${opacityValue} * 100%)`
+    const share = Number.isFinite(alpha) ? `${Math.round(alpha * 10000) / 100}%` : `calc(${raw} * 100%)`
     return `color-mix(in srgb, ${colour} ${share}, transparent)`
   }
   // Tailwind's types describe string colours only, but it calls a function

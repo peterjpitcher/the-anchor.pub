@@ -32,6 +32,18 @@ describe('opacity modifiers on colour classes', () => {
     expect(css).toContain('color: color-mix(in srgb, var(--text-strong) 50%, transparent)')
   })
 
+  it('takes an arbitrary modifier written as a percentage', async () => {
+    // /[30%] reaches the config as "30%". Multiplied by 100% it is not valid
+    // CSS, and a browser drops the whole declaration: the same silent failure
+    // by another road, and one the audit cannot see because the rule exists.
+    const css: string = await opacityAudit.compile(config, ['bg-surface/[30%]', 'text-ink/[12.5%]', 'border-line/[0%]'])
+
+    expect(css).toContain('background-color: color-mix(in srgb, var(--surface) 30%, transparent)')
+    expect(css).toContain('color: color-mix(in srgb, var(--text) 12.5%, transparent)')
+    expect(css).toContain('border-color: transparent')
+    expect(css).not.toContain('% * 100%')
+  })
+
   it('leaves a class with no modifier on the bare variable, so it needs no color-mix support', async () => {
     const css: string = await opacityAudit.compile(config, [
       'bg-surface',

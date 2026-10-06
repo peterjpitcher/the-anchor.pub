@@ -116,7 +116,7 @@ if (require.main === module) {
       }
       console.log(
         '\nTailwind drops a modifier it cannot apply. Either the colour is a bare var() in' +
-          '\ntailwind.config.ts (define it with themed()), or the number is not a step on' +
+          '\ntailwind.config.ts (define it with mixable()), or the number is not a step on' +
           '\nthe opacity scale (use one that is, or an arbitrary value such as /[0.33]).'
       )
       process.exit(1)
