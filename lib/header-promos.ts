@@ -12,7 +12,8 @@ import { CHRISTMAS_WINDOW_END, CHRISTMAS_WINDOW_START } from './christmas-season
  * 1 January 2027 and stayed dark until somebody edited code. On a site whose
  * whole point is looking actively managed, that is the worst possible failure.
  *
- * Navigation filters these itself: a promo shows from `startsOn` minus its lead
+ * `getActiveHeaderPromos` in lib/header-promo-window.ts does the filtering, for
+ * the root layout and for Navigation: a promo shows from `startsOn` minus its lead
  * days until the end of `endsOn`. That is why this returns entries for both the
  * current year and the next one. Valentine's has an eight-week lead, so in late
  * December the entry that needs to be in the list is next February's.
