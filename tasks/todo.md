@@ -1,3 +1,47 @@
+# Plane-spotting caveat readable by screen readers, 6 October 2026
+
+Branch `fix/status-bar-plane-caveat-sr-text` (worktree `elegant-driscoll-86f51b`), cut from main at
+293e22fd.
+
+The header status bar says "Planes: expected until 3pm" and carried the caveat ("Weather and
+Heathrow operations dependent, not guaranteed.") in an `aria-label` on a plain `span`. A span with
+no role is not allowed a name, so a screen reader may ignore the label and the caveat with it. axe
+lists it as `aria-prohibited-attr` (needs a human) on every page once the status bar has loaded.
+
+- [x] Confirm the fault on the live site with axe, and measure the row
+- [x] Check every caller of the `ariaLabel` prop
+- [x] Jest test that the row's text carries the caveat; watch it fail
+- [x] Fix: caveat as screen-reader-only text inside the row, `ariaLabel` prop removed
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] Production build: axe no longer lists the element, the row measures the same
+- [x] Commit. No push
+
+Callers: the plane-spotting row was the only one that passed `ariaLabel`. The bar, kitchen and
+fallback rows never did, so nothing else changes. The prop is gone, so the mistake cannot come back
+through it. The hover tooltip (`title`) stays. The caveat wording is untouched and still comes from
+`PLANE_SPOTTING_COMPACT_CAVEAT` in `lib/heathrow-runway-alternation.ts`.
+
+Results:
+- Jest: `tests/unit/StatusBar.plane-caveat.test.tsx`, 4 tests, all failed before the fix and pass
+  after. It reads the row's text, not its accessible name, because jsdom honours an `aria-label` on
+  any element and a name-based assertion would have passed with the fault live.
+- Before (live site, `/`, `/sunday-roast`, `/book-table`, waiting for the status bar): axe listed
+  the span under `aria-prohibited-attr` on all three. Chrome's accessibility tree held the caveat
+  only as the name of a generic node; the text was "Planes: expected until 3pm".
+- After (production build of this branch, all 16 pages in `scripts/audit-a11y.js`, waiting for the
+  status bar): the status bar is not listed on any page, and the caveat is a text node on all 16.
+  `node scripts/audit-a11y.js` passes with no violations.
+- Looks the same: the row is 184.97 by 19.25px before and after, and a screenshot of it is
+  byte-identical to the live one.
+- Port 3100 was in use by another worktree's server, so this build ran on 3101.
+- 247 suites, 3,000 tests pass under `TZ=Europe/London` and `TZ=UTC`; lint, types and build clean.
+
+Parked, not in this change: axe still lists one other element under the same rule, the "Choose a
+private hire space" picker on `/private-hire` and `/private-hire/venue-tour`. A scan of `app/` and
+`components/` found five more `aria-label`s on a `div` with no role (ticket total, rugby booking
+summary, three loading skeletons).
+
 # Prose colours readable in every season skin, 5 October 2026
 
 Branch `fix/privacy-notice-prose-contrast` (worktree `gifted-kapitsa-3f7ea1`), PR #190. Cut from
