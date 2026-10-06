@@ -15,7 +15,7 @@ import {
   trackNavigationClick,
   type ModalCloseReason
 } from '@/lib/gtm-events'
-import { nowInLondon, parseLondonDate } from '@/lib/time-london'
+import { getActiveHeaderPromos } from '@/lib/header-promo-window'
 
 interface HeaderCtaButton {
   label: string
@@ -43,6 +43,11 @@ interface NavigationProps {
   items?: NavigationItem[]
   /** Scheduled promo CTAs — mechanism unchanged, rendering restyled to gold pills (§6.3). */
   promoCtaButtons?: ScheduledCtaButton[]
+  /**
+   * The promos already open when the page was rendered on the server, so their
+   * links are in the HTML and the strip is its final height from first paint.
+   */
+  initialActivePromoCtaButtons?: HeaderCtaButton[]
   /** Live business-hours status, rendered into the desktop utility strip (StatusBar nav variant). */
   statusComponent?: ReactNode
   className?: string
@@ -125,11 +130,18 @@ const defaultItems: NavigationItem[] = [
   }
 ]
 
+// Both wordmark files are 400x200. The size here only has to carry that 2:1
+// shape, because the bar draws the logo 52px high with its width on auto. It
+// used to say 168x42, so the logo was held 208px wide until the file arrived
+// and then halved, which slid the start of the desktop menu 104px sideways.
+const LOGO_WIDTH = 104
+const LOGO_HEIGHT = 52
+
 const defaultLogo = {
   src: '/images/branding/the-anchor-pub-logo-black-transparent.png',
   alt: 'The Anchor logo',
-  width: 168,
-  height: 42
+  width: LOGO_WIDTH,
+  height: LOGO_HEIGHT
 }
 
 const toMenuId = (label: string) =>
@@ -150,13 +162,16 @@ export function Navigation({
   logo = defaultLogo,
   items = defaultItems,
   promoCtaButtons = NO_PROMO_CTAS,
+  initialActivePromoCtaButtons = NO_PROMO_CTAS,
   statusComponent,
   className
 }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({})
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
-  const [activePromoCtaButtons, setActivePromoCtaButtons] = useState<HeaderCtaButton[]>([])
+  const [activePromoCtaButtons, setActivePromoCtaButtons] = useState<HeaderCtaButton[]>(
+    initialActivePromoCtaButtons
+  )
 
   const focusTrapRef = useFocusTrap(isMobileMenuOpen)
   // Keyed by nav label so Escape can put focus back on the control that opened
@@ -167,32 +182,21 @@ export function Navigation({
   const mobileMenuCloseReason = useRef<ModalCloseReason | null>(null)
   const mobileMenuId = 'mobile_nav_menu'
 
-  // --- Promo CTA scheduling — mechanism preserved verbatim from the previous header. ---
+  // --- Promo CTA scheduling ---
+  // The first render uses the list the server worked out, so the links are in
+  // the HTML. This re-check against the visitor's clock stays because most pages
+  // are built once per deploy: without it a promo would run on past its end
+  // date, or not start, until somebody deployed.
   useEffect(() => {
-    if (promoCtaButtons.length === 0) {
-      setActivePromoCtaButtons([])
-      return
-    }
-
-    const now = nowInLondon()
-    const MS_IN_DAY = 24 * 60 * 60 * 1000
-    const DEFAULT_LEAD_DAYS = 56 // 8 weeks
-
-    const activeButtons = promoCtaButtons
-      .filter((promo) => {
-        const leadDays = promo.leadDays ?? DEFAULT_LEAD_DAYS
-        const start = parseLondonDate(promo.startsOn)
-        const showFrom = new Date(start.getTime() - leadDays * MS_IN_DAY)
-
-        const end = parseLondonDate(promo.endsOn)
-        const endExclusive = new Date(end.getTime() + MS_IN_DAY)
-
-        return now >= showFrom && now < endExclusive
-      })
-      .map(({ startsOn, endsOn, leadDays, ...button }) => button)
-
-    setActivePromoCtaButtons(activeButtons)
+    setActivePromoCtaButtons(getActiveHeaderPromos(promoCtaButtons))
   }, [promoCtaButtons])
+
+  // The desktop strip is a fixed height, chosen once from what the server
+  // rendered and never from what loads later. It used to take its height from
+  // its content, so links and live hours arriving after hydration made it
+  // taller and moved the whole page (see getActiveHeaderPromos). 48px holds the
+  // promo pills or two lines of status; 36px is the strip with neither.
+  const stripHasPromos = initialActivePromoCtaButtons.length > 0
 
   // --- Mobile menu open/close GTM lifecycle (unchanged behaviour). ---
   const recordMobileMenuEngagement = useCallback((element: string) => {
@@ -492,10 +496,29 @@ export function Navigation({
     <>
       {/* ============================ Utility strip (desktop) ============================ */}
       <div className="hidden border-b border-line bg-[var(--header-strip-surface)] lg:block">
-        <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-2">
-          <div className="min-w-0">{statusComponent}</div>
+        <div
+          className={cn(
+            'container mx-auto flex items-center justify-between gap-4 px-4',
+            stripHasPromos ? 'h-12' : 'h-9'
+          )}
+        >
+          {/* Status text changes length when live hours arrive and can wrap.
+              It gets the lines that fit the fixed strip and no more: two in
+              48px, one in 36px. Clipped top and bottom only, with 3px of
+              padding, so the 3px focus ring on the fallback phone link is
+              whole. overflow-hidden cut its right-hand edge off. */}
+          <div
+            className={cn(
+              'min-w-0 overflow-x-visible overflow-y-clip py-[3px]',
+              stripHasPromos ? 'max-h-12' : 'max-h-[26px]'
+            )}
+          >
+            {statusComponent}
+          </div>
 
-          <div className="flex items-center gap-4">
+          {/* Never shrinks or wraps: a squeezed pill label used to break onto a
+              second line and make the strip taller still. */}
+          <div className="flex flex-shrink-0 items-center gap-4 whitespace-nowrap">
             {activePromoCtaButtons.map((button) => renderPromoCta(button, 'strip'))}
 
             <Link
@@ -554,8 +577,8 @@ export function Navigation({
             <Image
               src={logo.src}
               alt={logo.alt}
-              width={logo.width ?? 168}
-              height={logo.height ?? 42}
+              width={logo.width ?? LOGO_WIDTH}
+              height={logo.height ?? LOGO_HEIGHT}
               priority
               className="h-[52px] w-auto"
               sizes="208px"

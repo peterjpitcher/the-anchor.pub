@@ -20,6 +20,7 @@ import { DeferredRender } from '@/components/DeferredRender'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getSeasonalSkin, getSeasonalSkinStyle } from '@/lib/winter-season'
 import { getHeaderPromoCtas } from '@/lib/header-promos'
+import { getActiveHeaderPromos } from '@/lib/header-promo-window'
 import { IcicleLights } from '@/components/seasonal/IcicleLights'
 import {
   PRIVATE_HIRE_2026_PROMO_ENABLED,
@@ -118,6 +119,10 @@ export default function RootLayout({
   // removed rather than left: its window closed on 19 July 2026, so it could
   // never display again and was just dead config.
   const promoCtaButtons = getHeaderPromoCtas()
+  // The ones open right now, worked out here so their links are in the HTML.
+  // Navigation used to add them after hydration, which made the header strip
+  // taller and pushed the page down as it loaded.
+  const activePromoCtaButtons = getActiveHeaderPromos(promoCtaButtons, now)
 
   // Seasonal skin. A pure function of the London date (lib/winter-season.ts):
   // dark surfaces 1 Sep to 31 Mar, lights and frost 1 Nov to 31 Dec. Setting
@@ -227,6 +232,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   <Navigation
                     statusComponent={<HeaderStatusSectionDirect />}
                     promoCtaButtons={promoCtaButtons}
+                    initialActivePromoCtaButtons={activePromoCtaButtons}
                     /* The wordmark is an image, so it cannot follow the CSS
                        theme the way every other header colour does. */
                     logo={
