@@ -138,7 +138,10 @@ const CONTRAST_BASELINE = 0
  * render sets off in turn.
  *
  * It fails closed. A page that has not settled inside SETTLE_TIMEOUT_MS, or
- * whose named content never appears, is reported and fails the run.
+ * whose named content never appears, is reported and fails the run. So is a
+ * page with a content request that came back as an error or did not come back
+ * at all: a reply is not the same as content. The event banner renders nothing
+ * when /api/events is not OK, and nothing wrong can be found in nothing.
  *
  * Not covered: content that only loads once it is scrolled into view, and the
  * Christmas lightbox, which opens on a 10 second timer.
@@ -168,10 +171,28 @@ function isContentRequest({ url, method, resourceType, headers }, pageOrigin) {
   }
 }
 
-/** Attach before page.goto, so nothing the page asks for is missed. */
+/**
+ * Attach before page.goto, so nothing the page asks for is missed.
+ *
+ * A content request counts as failed when it is answered with a 4xx or 5xx, or
+ * when the network gives up on it. The browser reports those two differently:
+ * an error status still arrives as a reply, so the request is "finished", and
+ * only a request with no reply at all is "failed".
+ *
+ * One kind of failure is left out: net::ERR_ABORTED, a request the page itself
+ * cancelled, which is also what a reload does to whatever was still in flight.
+ * Measured on 6 October 2026 over 4,169 tracked requests (17 pages, five
+ * passes, with and without a 1.5s delay): every one answered 200, none failed
+ * and none was aborted, so nothing here fires on a healthy site.
+ */
 function trackContentRequests(page) {
   const inFlight = new Set()
+  const failed = []
   let lastActivity = 0
+  const pathOf = (request) => {
+    const { pathname, search } = new URL(request.url())
+    return pathname + search
+  }
   const pageOrigin = () => {
     try {
       return new URL(page.url()).origin
@@ -193,14 +214,29 @@ function trackContentRequests(page) {
   const done = (request) => {
     if (inFlight.delete(request)) lastActivity = Date.now()
   }
+  page.on('response', (response) => {
+    const request = response.request()
+    if (inFlight.has(request) && response.status() >= 400) {
+      failed.push(`${pathOf(request)} (status ${response.status()})`)
+    }
+  })
   page.on('requestfinished', done)
-  page.on('requestfailed', done)
+  page.on('requestfailed', (request) => {
+    if (!inFlight.has(request)) return
+    const reason = (request.failure() || {}).errorText || 'no reply'
+    if (reason !== 'net::ERR_ABORTED') failed.push(`${pathOf(request)} (${reason})`)
+    done(request)
+  })
   return {
-    waitingOn: () => [...inFlight].map((request) => {
-      const { pathname, search } = new URL(request.url())
-      return pathname + search
-    }),
+    waitingOn: () => [...inFlight].map(pathOf),
     quietFor: () => Date.now() - lastActivity,
+    failed: () => [...failed],
+    /** The audit is about to load the page again: nothing from the first attempt counts. */
+    startOver: () => {
+      inFlight.clear()
+      failed.length = 0
+      lastActivity = 0
+    },
   }
 }
 
@@ -226,8 +262,9 @@ const lookAtPage = (selectors) => {
 }
 
 /**
- * Wait for the page to settle. Returns null when it has, or a sentence saying
- * what it was still waiting for. `ready` is a list of plain CSS selectors.
+ * Wait for the page to settle. Returns null when it has and nothing failed to
+ * load, or a sentence saying what it was still waiting for and what failed.
+ * `ready` is a list of plain CSS selectors.
  *
  * One loop asks for everything, rather than page.waitForSelector and then a
  * quiet period: Playwright backs its selector checks off to every 500ms, which
@@ -236,6 +273,10 @@ const lookAtPage = (selectors) => {
 async function settle(page, requests, ready = []) {
   const deadline = Date.now() + SETTLE_TIMEOUT_MS
   const seconds = SETTLE_TIMEOUT_MS / 1000
+  const failures = () => {
+    const failed = requests.failed()
+    return failed.length ? `content failed to load: ${failed.join(', ')}` : null
+  }
   let missing = ready
 
   while (Date.now() < deadline) {
@@ -243,15 +284,17 @@ async function settle(page, requests, ready = []) {
     missing = seen.missing
     const loading = requests.waitingOn().length > 0
     const quietFor = Math.min(seen.quietFor, requests.quietFor())
-    if (!missing.length && !loading && quietFor >= SETTLE_QUIET_MS) return null
+    // Settled, but a failed request still fails the page. It is left to settle
+    // first so the checks that follow see everything that did load.
+    if (!missing.length && !loading && quietFor >= SETTLE_QUIET_MS) return failures()
     await page.waitForTimeout(50)
   }
 
-  if (missing.length) return `expected content never appeared within ${seconds}s: ${missing.join(', ')}`
   const waitingOn = requests.waitingOn()
-  return waitingOn.length
-    ? `still loading after ${seconds}s: ${waitingOn.join(', ')}`
-    : `still changing after ${seconds}s`
+  let stuck = `still changing after ${seconds}s`
+  if (missing.length) stuck = `expected content never appeared within ${seconds}s: ${missing.join(', ')}`
+  else if (waitingOn.length) stuck = `still loading after ${seconds}s: ${waitingOn.join(', ')}`
+  return [stuck, failures()].filter(Boolean).join('; ')
 }
 
 async function main() {
@@ -284,6 +327,7 @@ async function main() {
       if (res && res.status() >= 500) {
         // One retry, in case it was still compiling.
         await page.waitForTimeout(3000)
+        requests.startOver()
         res = await page.goto(BASE + pathname, { waitUntil: 'domcontentloaded' })
       }
       if (!res || res.status() !== 200) {
