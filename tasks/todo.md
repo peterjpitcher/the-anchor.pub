@@ -1,7 +1,8 @@
 # Self-hosted fonts, so a build never waits on Google, 6 October 2026
 
-Branch `fix/self-host-fonts` (worktree `goofy-banach-abb1cb`), cut from main at 47a64427. Committed
-locally, not pushed.
+Branch `fix/self-host-fonts` (worktree `goofy-banach-abb1cb`), cut from main at 47a64427, with main
+merged in at e5952736 once PR #195 (Six Nations pop-up) landed. The only conflict was the top of this
+file; both sections are kept.
 
 Two Vercel preview builds failed on 6 October inside `next/font` with `TypeError: Cannot read
 properties of null (reading '1')` at `google/loader.js:112` (PR #192 at 59ede763 and PR #191 at
@@ -16,8 +17,9 @@ would then stay on the previous deployment with a merged fix not live.
 - [x] Prove no visual change and no layout shift change, both season skins, production builds
 - [x] Prove a build no longer needs Google Fonts
 - [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
-      Node 20.19.5
-- [x] Commit. No push
+      Node 20.19.5, again on the merged tree (180386aa): lint and types clean, 251 suites with
+      3,050 passed and 1 skipped in both time zones, build exit 0
+- [x] Commit. Pushed only after the owner said yes on 6 October
 
 Cause:
 - Line 112 is `/\.(woff|woff2|eot|ttf|otf)$/.exec(googleFontFileUrl)[1]`. It takes the file type
@@ -88,8 +90,9 @@ Things that looked like differences and were not, so the next person does not ch
   `behavior: 'instant'` and wait until no element has moved for 1.5 seconds.
 - Fixed overlays (cookie banner, booking drawer) land a pixel or two apart in a full-page capture.
   They are captured in a viewport shot and hidden for the full-page one.
-- The Christmas pop-up arrives on a timer. One repeat capture of 24 (blog, mobile, light) caught it
-  at a different moment in both builds alike.
+- The Christmas pop-up arrives on a timer. Every capture was repeated on the same build to measure
+  noise: 22 of 24 repeats matched their first capture exactly, and the other two are the same page
+  (blog, mobile, light) on each build, with the pop-up on screen at a different moment.
 - On desktop the homepage fetches two or three extra woff2 files from `fonts.gstatic.com`. They
   belong to the embedded Google map, vary run to run in both builds, and are not the site's fonts.
 
