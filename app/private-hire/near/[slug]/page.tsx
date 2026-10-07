@@ -755,7 +755,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 badges={
                     <>
                         {angle.badges.map((b) => (
-                            <Badge key={b} variant="sand">{b}</Badge>
+                            <Badge key={b} variant="sand" wrap>{b}</Badge>
                         ))}
                     </>
                 }
@@ -834,6 +834,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                             source="private_hire_near_directions"
                             fromLocation={landmark.name}
                             variant="outline"
+                            wrap
                         >
                             Get Directions from {landmark.name}
                         </DirectionsButton>

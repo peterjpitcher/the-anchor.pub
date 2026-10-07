@@ -261,6 +261,7 @@ export default function HalloweenPage() {
             source="halloween_cta"
             variant="outline"
             size="lg"
+            wrap
           >
             Call or WhatsApp us on {CONTACT.phone}
           </PhoneButton>

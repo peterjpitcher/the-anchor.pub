@@ -416,12 +416,12 @@ export default async function HeathrowParkingPage() {
               </Card>
             </div>
             <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:justify-center">
-              <Button asChild variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg" wrap>
                 <Link href="#price-comparison">
                    View the Heathrow price comparison
                 </Link>
               </Button>
-              <Button asChild variant="primary" size="lg">
+              <Button asChild variant="primary" size="lg" wrap>
                 <Link href="#book-parking">
                    Book the cheapest Heathrow parking
                 </Link>
