@@ -1,3 +1,40 @@
+# Sport claims brought into line with the owner's answers, 7 October 2026
+
+Branch `fix/sport-claims-match-owner-answers`, from main at bf701df4 (PR #204). Local only: not
+pushed, no PR, not deployed.
+
+The owner answered the follow-up questions from PRs #202 and #203: commentary is on "for big
+games/tournaments", F1 is shown "only whatever is on terrestrial tv", and the TVs can be used for
+slideshows at a private hire ("yes"). He also approved correcting three older sport posts and the
+live sport guide's Sky line.
+
+- [x] SSOT first: §6 (no account of what came before January 2025), §8 (TVs: never "large
+      screens"), §10 (new entry, commentary and Formula 1), §11 (slideshows on the TVs), §16
+      (approved wording for all three), §18 (change note). `SSOT.json` gains
+      `private_hire.av_slideshows`; `av_equipment` is pinned by the drift guard and is unchanged
+- [x] `/live-sport`: the F1 answer, the F1 card, the "season finale" line, two descriptions and
+      three commentary lines
+- [x] `/private-hire/retirement-parties`: the slideshow answer says "TVs", keeps the cables, and
+      its broken question ("Is there space for a TVs?") now asks about a slideshow
+- [x] Live sport guide: "Never has" replaced with "terrestrial channels only since January 2025";
+      two F1 lines no longer name Channel 4 races or highlights
+- [x] Euro 2024, Autumn Internationals 2024 and Premier League 2024-25 posts: "big screens", "HD
+      screens", "multiple HD screens" and the "planned fifth screen" gone; the Euro post's two F1
+      lines and its "sound on" line brought into line
+- [x] Surprise birthday post: the slideshow answer no longer names a USB stick or a wireless
+      connection, neither of which the SSOT holds
+- [x] `tests/unit/six-nations-claims-match-ssot.test.ts`: 12 new tests (commentary, F1,
+      slideshows, Sky, a planned screen); the screen rules now read the three older posts too
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20: all pass (261 suites, 3272 tests in each zone; 277 static pages)
+- [x] Built HTML checked for `/live-sport`, `/private-hire/retirement-parties` and the five posts:
+      the new wording is there and the retired wording is not
+
+Left alone on purpose: `app/live-sport/world-cup` and `lib/world-cup-2026.ts` (being reworked in a
+separate change; that page's "sound on for all games we show" is excluded from the new commentary
+rule and nothing else), the Nations Championship strip, the 2023 Six Nations post, the Christmas
+2021 and winter hours 2019 posts, and `SixNationsLightbox` (not mounted on any page).
+
 # Sticky bar and one-line buttons cut off at the right edge of a phone, 7 October 2026
 
 Branch `fix/phone-sticky-bar-and-button-overflow`, from main at a492f407 (PR #200). Local only: not
