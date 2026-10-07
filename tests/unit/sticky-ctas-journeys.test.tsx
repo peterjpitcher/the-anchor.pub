@@ -1,6 +1,12 @@
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { StickyCtas } from '@/components/layout/StickyCtas'
-import { trackCtaClick, trackTableBookingClick } from '@/lib/gtm-events'
+import {
+  trackCtaClick,
+  trackMenuView,
+  trackPhoneCallClick,
+  trackTableBookingClick,
+  trackWhatsAppClick
+} from '@/lib/gtm-events'
 
 let mockPathname = '/sunday-roast'
 jest.mock('next/navigation', () => ({ usePathname: () => mockPathname }))
@@ -85,4 +91,48 @@ test('hidden bar controls remain outside the tab order', () => {
   mockPathname = '/quiz-night'
   render(<StickyCtas />)
   expect(screen.getByText('View upcoming dates')).toHaveAttribute('tabindex', '-1')
+})
+
+// On a phone the row is narrower than its four controls at their natural
+// width. At 320px Call and WhatsApp sat past the right edge of the screen, and
+// the page clips sideways overflow, so they could not be scrolled to. jsdom has
+// no layout, so this asserts the classes that decide which control gives way;
+// scripts/audit-a11y.js measures the result in a real browser.
+describe('the bar fits a phone by shrinking its main button, never the others', () => {
+  const cases: Array<[string, 'link' | 'button', string]> = [
+    ['/sunday-roast', 'button', 'Book a table'],
+    ['/private-hire', 'link', 'Enquire about your date'],
+    ['/christmas-parties', 'button', 'Christmas enquiry']
+  ]
+
+  test.each(cases)('on %s the main %s may shrink and wrap its label', (pathname, role, name) => {
+    mockPathname = pathname
+    render(<StickyCtas />)
+    const main = screen.getByRole(role, { name })
+    // Without min-w-0 a flex item never goes below its label's width.
+    expect(main).toHaveClass('min-w-0', 'flex-1', 'max-sm:px-2', 'max-sm:whitespace-normal')
+    // From 1024px up it is its natural size again.
+    expect(main).toHaveClass('lg:flex-none')
+  })
+
+  test('the three round buttons keep their 48px and their tracking', () => {
+    render(<StickyCtas />)
+    const menu = screen.getByRole('link', { name: 'View menu' })
+    const call = screen.getByRole('link', { name: 'Call The Anchor' })
+    const whatsapp = screen.getByRole('link', { name: 'WhatsApp The Anchor' })
+
+    expect(menu).toHaveClass('shrink-0', 'max-sm:h-12', 'max-sm:w-12')
+    for (const round of [call, whatsapp]) expect(round).toHaveClass('shrink-0', 'h-12', 'w-12')
+
+    // jsdom cannot follow a link, and says so through console.error.
+    const noNavigation = jest.spyOn(console, 'error').mockImplementation(() => {})
+    fireEvent.click(menu)
+    fireEvent.click(call)
+    fireEvent.click(whatsapp)
+    noNavigation.mockRestore()
+
+    expect(trackMenuView).toHaveBeenCalledWith('food')
+    expect(trackPhoneCallClick).toHaveBeenCalledWith({ phone: '01753682707', source: 'sticky_global' })
+    expect(trackWhatsAppClick).toHaveBeenCalledWith('sticky_global')
+  })
 })

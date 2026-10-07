@@ -28,6 +28,20 @@ const WHATSAPP_HREF = 'https://wa.me/441753682707'
 const HERO_FALLBACK_HEIGHT = 480
 const REVEAL_OFFSET = 90
 
+// The main button takes whatever width the three round buttons leave. On a
+// phone that can be less than its label: at 320px there were 108px, and
+// 'Enquire about your date' needs 242px on one line at full padding, which
+// pushed Call and WhatsApp off the right edge of the screen. So below 640px it
+// may shrink (min-w-0), its padding drops and the label wraps (the Button wrap
+// variant, with tighter padding still). A label that already fits looks the
+// same as it did: flex-1 sets the width, not the padding.
+//
+// Below 360px the label is also a size smaller, and the row's gaps are 8px
+// (see the row), so 'Book a table' stays on one line at 320px and the longest
+// labels take two lines, not three.
+const PRIMARY_ACTION_CLASS =
+  'min-w-0 flex-1 max-sm:px-2 max-sm:py-1 max-sm:leading-tight max-[359px]:text-sm lg:flex-none'
+
 type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'unknown'
 
 function resolveDeviceType(width: number): DeviceType {
@@ -186,9 +200,9 @@ export function StickyCtas() {
       }}
       data-testid="sticky-ctas"
     >
-      <div className="container flex items-center gap-3 lg:justify-end">
+      <div className="container flex items-center gap-3 max-[359px]:gap-2 lg:justify-end">
         {action.kind === 'link' ? (
-          <Button asChild variant="primary" size="md" className="flex-1 lg:flex-none" tabIndex={showStickyCtas ? undefined : -1}>
+          <Button asChild variant="primary" size="md" wrap className={PRIMARY_ACTION_CLASS} tabIndex={showStickyCtas ? undefined : -1}>
             <Link
               href={action.href}
               onClick={(event) => {
@@ -215,7 +229,8 @@ export function StickyCtas() {
           <Button
             variant="primary"
             size="md"
-            className="flex-1 lg:flex-none"
+            wrap
+            className={PRIMARY_ACTION_CLASS}
             tabIndex={showStickyCtas ? undefined : -1}
             onClick={() => {
               trackCtaClick({
@@ -238,7 +253,8 @@ export function StickyCtas() {
           <Button
             variant="primary"
             size="md"
-            className="flex-1 lg:flex-none"
+            wrap
+            className={PRIMARY_ACTION_CLASS}
             tabIndex={showStickyCtas ? undefined : -1}
             onClick={() => {
               trackTableBookingClick('sticky_global')
