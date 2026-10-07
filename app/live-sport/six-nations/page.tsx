@@ -22,8 +22,8 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 // section; the Six Nations, sport, parking, dogs, families, access and deposit
 // lines are the approved wording from SSOT §16, pasted as it stands.
 //
-// The Six Nations 2026 pop-up (components/features/six-nations/SixNationsLightbox)
-// is deliberately not mounted here: owner decision, 6 October 2026.
+// This page has no pop-up. The Six Nations 2026 one was switched off on
+// 6 October 2026 and deleted on 7 October 2026, both owner decisions.
 // tests/unit/six-nations-page-no-lightbox.test.tsx holds this.
 
 const PAGE_TITLE = 'Six Nations Rugby | The Anchor Stanwell Moor'
