@@ -89,7 +89,7 @@ A retirement slideshow is a step up from a leaving do slideshow. You're covering
 - A "then and now" comparison of their desk, the office, or the team
 - Short video clips from colleagues who can't attend in person
 
-The key is having proper AV equipment. A TVs and sound system turn a slideshow from "squinting at a laptop" into an actual experience. If your venue has this kit, use it. If they don't, factor that into your venue choice, it's worth it.
+The key is having proper AV equipment. TVs and a sound system turn a slideshow from "squinting at a laptop" into an actual experience. If your venue has this kit, use it. If they don't, factor that into your venue choice, it's worth it.
 
 Keep the whole thing under eight minutes. Career-spanning slideshows can easily balloon to twenty minutes, and even the most beloved retiree loses the room after ten.
 
@@ -118,7 +118,7 @@ A private dining room or function space gives you that. French doors opening ont
 
 ### AV equipment
 
-If you're doing a slideshow, video messages, or a quiz, this isn't optional. A venue with a TVs and sound system already set up saves you the embarrassment of thirty minutes of "can someone get the HDMI working" while sixty people watch.
+If you're doing a slideshow, video messages, or a quiz, this isn't optional. A venue with TVs and a sound system already set up saves you the embarrassment of thirty minutes of "can someone get the HDMI working" while sixty people watch.
 
 ### Catering flexibility
 

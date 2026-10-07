@@ -51,7 +51,7 @@ Photo slideshows have become a leaving party staple, and when they're done well,
 - Collect photos quietly in advance. Set up a shared folder and message people individually, a group email asking "send me your photos of Dave" gets two responses, both from Dave's manager
 - Include a mix: work moments, team nights out, screenshots of funny Slack messages (with permission), that photo from the 2023 Christmas party where everyone's wearing paper crowns
 - Keep it to 4-5 minutes. Twenty photos, maybe thirty. Not eighty-seven.
-- If you have access to a venue with AV equipment, a TVs and sound system, the whole thing goes from "someone's laptop balanced on a filing cabinet" to something that actually feels special
+- If you have access to a venue with AV equipment, TVs and a sound system, the whole thing goes from "someone's laptop balanced on a filing cabinet" to something that actually feels special
 
 The venue matters here. Trying to show a slideshow in a noisy bar where you can't dim the lights is a losing battle. A private space with proper AV equipment makes all the difference.
 
@@ -130,7 +130,7 @@ Whether you're planning a long lunch or an evening event, the venue can make or 
 
 **Private or semi-private space.** You want your group to feel like a group, not a scattering of people trying to find each other in a busy bar. A private dining room or function space means you can do speeches, slideshows, and awards without shouting over someone else's music.
 
-**AV equipment.** If you're doing a slideshow, a quiz, or showing video messages, you need a TVs and sound system. Not "we can probably plug your laptop into the TV", actual equipment that works.
+**AV equipment.** If you're doing a slideshow, a quiz, or showing video messages, you need TVs and a sound system. Not "we can probably plug your laptop into the TV", actual equipment that works.
 
 **Flexible catering.** Some people want a sit-down meal. Some teams just want buffet food and drinks. The venue should offer options, not force you into a set menu. A per-head buffet keeps costs predictable. A bar tab option means you set a limit and nobody has to worry about individual rounds.
 
@@ -146,7 +146,7 @@ We host leaving dos regularly, and we'll be straightforward about what we offer.
 
 **The space:** Our private dining room seats 26 with standing room for more. French doors open onto the [beer garden](/beer-garden), so you're not boxed in. For larger groups, we can host up to 50 guests across the venue.
 
-**AV equipment:** We have a TVs and sound system, so your slideshow, video messages, or pub quiz all work properly. No faffing with Bluetooth speakers or balancing a laptop on a stool.
+**AV equipment:** We have TVs and a sound system, so your slideshow, video messages, or pub quiz all work properly. No faffing with Bluetooth speakers or balancing a laptop on a stool.
 
 **Food options:** [Buffets](/food-menu) run from a burger buffet for 20 upwards, through sandwich, finger and premium buffets for 30 or more. Price any of them against your headcount with the [private hire calculator](/private-hire). Or skip the formal catering and order from our regular menu, we're a proper pub, so there's always food available during kitchen hours.
 

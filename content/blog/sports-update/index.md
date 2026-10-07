@@ -45,10 +45,10 @@ As of **January 24th, 2025**, we will no longer show Sky Sports and TNT Sports. 
 
 **We will continue showing sports on terrestrial channels** at our **pub near Terminal 5**, including:
 - **Six Nations Rugby** - Games on terrestrial TV
-- **FIFA World Cup** - All England games
+- **FIFA World Cup** - England games on terrestrial TV
 - **FA Cup** - Key fixtures and finals
 - **Wimbledon** - Centre Court action
-- **UEFA Euros** - Complete coverage
+- **UEFA Euros** - Games on terrestrial TV
 - **Commonwealth Games** - British athletes
 
   

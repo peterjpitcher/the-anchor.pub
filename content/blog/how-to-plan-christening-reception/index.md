@@ -212,7 +212,7 @@ The dining room seats 26, or 50 standing. Above that we move you into the main a
 
 ### Is there a TV for a slideshow?
 
-Yes. We have AV equipment including a TVs and sound system -- perfect for a photo slideshow of the baby's first months.
+Yes. We have AV equipment including TVs and a sound system -- perfect for a photo slideshow of the baby's first months.
 
 ### Can we bring our own decorations?
 

@@ -63,7 +63,7 @@ There's something about an outdoor party that instantly relaxes people. Combine 
 
 Halfway between a party and a roast. Put together a timeline of your life, photos from each decade, key moments, achievements, spectacular failures, and display it around the venue. Invite specific friends to give short (two-minute maximum, strictly enforced) toasts or stories from different eras. It's personal, it's funny, and it gives structure to an evening without turning it into a formal affair.
 
-**Make it work:** A TVs make this easy. The Anchor includes AV equipment with private hire as standard. Create a slideshow, set it running on loop, and have the toasts at intervals throughout the evening rather than all in one block. People lose attention after the fourth speech. Space them out and they feel like events rather than a duty.
+**Make it work:** TVs make this easy. The Anchor includes AV equipment with private hire as standard. Create a slideshow, set it running on loop, and have the toasts at intervals throughout the evening rather than all in one block. People lose attention after the fourth speech. Space them out and they feel like events rather than a duty.
 
 ### Supper club format
 
