@@ -3,14 +3,6 @@
 import { logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { computeLargeGroupDepositAmount } from '@/lib/constants'
-import {
-  buildSlotsWithKitchenState,
-  londonNowParts,
-  normalizeTime,
-  resolveCombinedServiceRanges,
-  type BookingType,
-  type SlotBusynessOptions
-} from '@/lib/table-booking-service-windows'
 
 import type { EventsResponse, EventCategoriesResponse, EventAvailability, Event } from './events'
 import { FALLBACK_EVENT_CATEGORIES } from './events'
@@ -100,21 +92,6 @@ type ManagementTableBookingResult = {
   // outside-seating flag echoed back so callers can reflect the granted result.
   high_chairs_granted?: number
   is_outside_seating?: boolean
-}
-
-function toSlotBusynessOptions(load?: TableBookingLoadResponse | null): SlotBusynessOptions | undefined {
-  if (!load || !Array.isArray(load.bookings)) {
-    return undefined
-  }
-
-  return {
-    load: load.bookings,
-    thresholds: {
-      windowMinutes: load.window_minutes,
-      filling: load.filling_threshold_covers,
-      busy: load.busy_threshold_covers,
-    },
-  }
 }
 
 export interface TableAvailabilityQuery {
@@ -502,72 +479,6 @@ export class AnchorAPI {
       mains: mainItems,
       sides: sideItems,
       cutoff_time: FALLBACK_SUNDAY_LUNCH_MENU.cutoff_time
-    }
-  }
-
-  private buildTableAvailabilityFromBusinessHours(
-    businessHours: BusinessHours,
-    params: {
-      date: string
-      time: string
-      party_size: number
-      booking_type?: 'regular' | 'sunday_lunch'
-      bookingLoad?: TableBookingLoadResponse | null
-    }
-  ): TableAvailabilityResponse {
-    // The public availability contract is now combined: a single bookable slot
-    // set with `kitchen_open` stamped per slot, regardless of any `booking_type`
-    // or `purpose` hint. Mirror `app/api/table-bookings/availability/route.ts`.
-    const bookingType: BookingType = 'regular'
-    const normalizedTime = normalizeTime(params.time)
-
-    const { ranges, kitchenRanges, closed, message } = resolveCombinedServiceRanges(
-      businessHours,
-      params.date,
-      { bookingType }
-    )
-
-    if (closed) {
-      return {
-        date: params.date,
-        time: normalizedTime,
-        party_size: params.party_size,
-        available: false,
-        time_slots: [],
-        message: message || 'We are closed on that date. Please choose another day.'
-      }
-    }
-
-    const londonNow = londonNowParts()
-    const minMinutesForToday =
-      londonNow.isoDate === params.date
-        ? Math.ceil((londonNow.minutes + 60) / 30) * 30
-        : undefined
-
-    const timeSlots = buildSlotsWithKitchenState(
-      ranges,
-      kitchenRanges,
-      params.party_size,
-      30,
-      minMinutesForToday,
-      toSlotBusynessOptions(params.bookingLoad)
-    )
-
-    const available = timeSlots.some(
-      (slot) => slot.available === true || (slot.available_capacity || 0) >= params.party_size
-    )
-
-    return {
-      date: params.date,
-      time: normalizedTime,
-      party_size: params.party_size,
-      available,
-      time_slots: timeSlots,
-      message: message || (available
-        ? 'These times are based on current service windows and will be confirmed instantly when you continue.'
-        : 'No online times are currently available for this request. Please choose another date or call 01753 682707.'),
-      special_notes:
-        'If your preferred time is unavailable, choose a nearby slot or call 01753 682707.'
     }
   }
 
@@ -1128,15 +1039,17 @@ export class AnchorAPI {
       })
     }
 
-    const [businessHours, bookingLoad] = await Promise.all([
-      this.getBusinessHours(),
-      this.getTableBookingLoadSafe(params.date, { partySize: params.party_size }),
-    ])
-    return this.buildTableAvailabilityFromBusinessHours(businessHours, {
-      ...params,
-      time: normalizedTime,
-      bookingLoad
-    })
+    // Fail closed. This used to go on to build times from opening hours alone,
+    // which cannot see tables, joins or private bookings: the site once
+    // advertised times when the pub was physically full. No answer from the
+    // availability route means no times, and the caller says so.
+    const unavailable = new Error('Table availability could not be checked.') as Error & {
+      status: number
+      code: string
+    }
+    unavailable.status = 503
+    unavailable.code = 'AVAILABILITY_UNAVAILABLE'
+    throw unavailable
   }
 
   // The availability query decides which TABLES qualify, as opposed to how many covers fit.
