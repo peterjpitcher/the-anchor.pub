@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Alert, Button, Icon } from '@/components/ui'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
+import { toGuestMessage } from '@/lib/guest-error-messages'
 import {
   availabilityOptions,
   experienceOptions,
@@ -154,7 +155,9 @@ export function RecruitmentApplicationForm({
 
       if (!response.ok) {
         setStatus('error')
-        setMessage(result?.error || 'Sorry, we could not send your application. Please call us on 01753 682707.')
+        // Only ever a sentence: an object here would be rendered as a React
+        // child and take the page down with the application still unsent.
+        setMessage(toGuestMessage(result?.error, 'job_application'))
         return
       }
 

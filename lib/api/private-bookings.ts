@@ -1,6 +1,7 @@
 // Private Booking Types and API functions
 
 import { logError } from '@/lib/error-handling'
+import { toGuestMessage } from '@/lib/guest-error-messages'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import type { ApiResponse } from './shared'
 import type { CommunicationConsentPayload } from '@/lib/communication-consent'
@@ -126,14 +127,22 @@ export async function createPrivateBooking(data: PrivateBookingRequest): Promise
       body: JSON.stringify(data)
     })
 
-    const responseData = await res.json()
+    // A gateway page or an empty answer is not JSON. It is a failed enquiry
+    // like any other, not a reason to throw.
+    const responseData = await res.json().catch(() => null)
 
-    if (!res.ok) {
+    // The route answers a failure with `error` as a string (the spam guard) or
+    // as `{ code, message }` (everything else). This used to copy whichever
+    // arrived into `message`, and the form rendered it: an object there threw
+    // "Objects are not valid as a React child", the whole page fell to the
+    // error boundary and everything the guest had typed was lost. `message` is
+    // now always one sentence with the phone number in it.
+    if (!res.ok || !responseData || responseData.success !== true) {
       return {
         success: false,
         error: {
           code: 'BOOKING_CREATION_ERROR',
-          message: responseData.error || 'Failed to create booking'
+          message: toGuestMessage(responseData?.error, 'private_hire')
         }
       }
     }
@@ -145,7 +154,7 @@ export async function createPrivateBooking(data: PrivateBookingRequest): Promise
       success: false,
       error: {
         code: 'NETWORK_ERROR',
-        message: 'Failed to submit booking request'
+        message: toGuestMessage(null, 'private_hire')
       }
     }
   }

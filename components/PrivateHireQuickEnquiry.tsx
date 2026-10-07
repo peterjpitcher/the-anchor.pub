@@ -5,6 +5,7 @@ import { TurnstileField, type TurnstileFieldRef } from '@/components/security/Tu
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { DEFAULT_COMMUNICATION_CONSENT_STATE, buildCommunicationConsentPayload } from '@/lib/communication-consent'
 import { trackPrivateHireEnquiryStarted, trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
+import { toGuestMessage } from '@/lib/guest-error-messages'
 
 interface PrivateHireQuickEnquiryProps {
   eventType?: string
@@ -95,9 +96,11 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
           _t: Math.floor((Date.now() - loadedAt.current) / 1000),
         }),
       })
-      const result = await response.json()
-      if (!response.ok || result.success !== true) {
-        throw new Error(typeof result.error === 'string' ? result.error : result.error?.message || 'We could not submit your enquiry. Please try again or call 01753 682707.')
+      // A gateway page is not JSON; it is a failed enquiry, not a parser error
+      // to show the guest.
+      const result = await response.json().catch(() => null)
+      if (!response.ok || result?.success !== true) {
+        throw new Error(toGuestMessage(result?.error, 'private_hire'))
       }
       if (result.state !== 'enquiry_emailed' && !result.data?.id) {
         throw new Error('We could not confirm receipt. Please try again or call 01753 682707.')
@@ -107,7 +110,8 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
         trackPrivateHireEnquirySubmitted({ enquiryType: eventType || 'Private hire', guestCount: Number(guests), pageSource: window.location.pathname })
       }
     } catch (failure) {
-      setError(failure instanceof Error && failure.name !== 'AbortError' ? failure.message : 'We could not confirm receipt. Please try again or call 01753 682707.')
+      // Never the browser's own text ("Failed to fetch", "Load failed").
+      setError(failure instanceof Error && failure.name !== 'AbortError' ? toGuestMessage(failure, 'private_hire') : 'We could not confirm receipt. Please try again or call 01753 682707.')
     } finally {
       clearTimeout(timeout)
       submitting.current = false

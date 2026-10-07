@@ -128,6 +128,11 @@ import {
   type CustomerLookupState,
   type ManagementTableBookingResult,
 } from '@/lib/table-booking/submission'
+import { GUEST_PHONE, toGuestMessage } from '@/lib/guest-error-messages'
+
+// The booking error alert prints its own "Call 01753 682707" line when the
+// sentence does not carry the number, so sentences are kept as written.
+const OWN_PHONE_LINE = { phone: false, fallback: 'We could not process your booking right now.' } as const
 import { buildPageSource } from '@/lib/table-booking/page-source'
 import {
   deriveSubmitPurpose,
@@ -1034,15 +1039,18 @@ export function ManagementTableBookingForm({
     })
       .then(r => r.json())
       .then(data => {
-        if (data.orderId) {
+        if (data?.orderId) {
           setPaypalOrderId(data.orderId)
         } else {
-          setPaymentError(data.error ?? 'Unable to set up payment. Please try again or call us.')
+          // `error` can arrive as an object. Put into state as it stood, it was
+          // rendered as a React child and took the whole page down at the
+          // moment a booking existed and a deposit was owed.
+          setPaymentError(toGuestMessage(data?.error, 'table_deposit'))
           setPaymentState('error')
         }
       })
       .catch(() => {
-        setPaymentError('Unable to set up payment. Please try again or call us.')
+        setPaymentError(toGuestMessage(null, 'table_deposit'))
         setPaymentState('error')
       })
   }, [result?.state, result?.booking_id, result?.deposit_amount])
@@ -1497,7 +1505,7 @@ export function ManagementTableBookingForm({
           </Alert>
         ) : paymentState === 'error' && !paypalOrderId ? (
           <Alert variant="warning" title="We couldn't open the PayPal payment automatically">
-            <p>{paymentError ?? 'Please try again or call us to complete your booking.'}</p>
+            <p>{paymentError ?? 'Please try again or call 01753 682707 to complete your booking.'}</p>
             <p className="mt-2">Two ways to finish your booking:</p>
             <ul className="mt-2 list-disc space-y-1 pl-6">
               <li>
@@ -1722,9 +1730,8 @@ export function ManagementTableBookingForm({
       const payload = await response.json()
 
       if (!response.ok || payload?.success === false) {
-        const message =
-          payload?.error?.message || payload?.error || 'Unable to verify this number right now. Please try again.'
-        throw new Error(message)
+        // Never the raw field: it once held the upstream's whole JSON answer.
+        throw new Error(toGuestMessage(payload?.error, 'customer_lookup'))
       }
 
       const lookup = parseLookupResponse(payload)
@@ -1739,7 +1746,7 @@ export function ManagementTableBookingForm({
     } catch (lookupFailure: any) {
       trackBookingErrorShown({ code: 'lookup_failed' })
       setLookupState('idle')
-      setLookupError(lookupFailure?.message || 'Unable to verify this number right now.')
+      setLookupError(toGuestMessage(lookupFailure, 'customer_lookup'))
       setLookupDegraded(false)
     }
   }
@@ -2079,12 +2086,7 @@ export function ManagementTableBookingForm({
 
       if (!response.ok || body?.success === false) {
         if (body?.code === 'SCREENING_UNAVAILABLE' && fixtureAttached) setFixtureUnavailable(true)
-        const upstreamError =
-          body?.error?.message ||
-          body?.error ||
-          data?.error ||
-          'We could not process your booking right now.'
-        throw new Error(upstreamError)
+        throw new Error(toGuestMessage(body?.error ?? data?.error, 'table_booking', OWN_PHONE_LINE))
       }
 
       if (!data || typeof data !== 'object' || !data.state) {
@@ -2104,7 +2106,9 @@ export function ManagementTableBookingForm({
 
       if (bookingResult.state === 'blocked') {
         const blockedReason = bookingResult.blocked_reason || 'blocked'
-        showBookingError(blockedReason, BLOCKED_REASON_COPY[blockedReason] || bookingResult.reason || BLOCKED_REASON_COPY.blocked)
+        // An unknown reason gets the general line. It used to fall back to
+        // `reason`, which is the management app's own text.
+        showBookingError(blockedReason, BLOCKED_REASON_COPY[blockedReason] || BLOCKED_REASON_COPY.blocked)
         setStep(slotsStep)
         trackTableBookingFunnel({
           step: 'error',
@@ -2129,7 +2133,9 @@ export function ManagementTableBookingForm({
         recordConfirmedBooking(bookingResult, { partySize, date, time: selectedTime })
       }
     } catch (submitError: any) {
-      const errorMessage = submitError?.message || 'We could not process your booking right now.'
+      // Through the mapper, so a dropped connection never shows the browser's
+      // own "Failed to fetch" and a gateway page never shows a parser message.
+      const errorMessage = toGuestMessage(submitError, 'table_booking', OWN_PHONE_LINE)
       showBookingError('submit_failed', errorMessage)
       trackTableBookingFunnel({
         step: 'error',
@@ -2290,9 +2296,13 @@ export function ManagementTableBookingForm({
         {error && (
           <Alert variant="error" title="Booking not completed">
             <p>{error}</p>
-            <p className="mt-2">
-              Call <PhoneLink phone={CONTACT.phone} source="table_booking_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> if you need help.
-            </p>
+            {/* Every error here carries the number once: in its own sentence
+                when it has one, otherwise on this line. */}
+            {!error.includes(GUEST_PHONE) && (
+              <p className="mt-2">
+                Call <PhoneLink phone={CONTACT.phone} source="table_booking_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> if you need help.
+              </p>
+            )}
           </Alert>
         )}
 

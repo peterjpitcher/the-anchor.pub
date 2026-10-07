@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { PrivateBookingRequest, createPrivateBooking } from '@/lib/api'
+import { toGuestMessage } from '@/lib/guest-error-messages'
 import { trackPrivateHireEnquiryStarted, trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import {
@@ -108,9 +109,7 @@ export function PrivateBookingInquiryForm({
             const payload = await response.json()
 
             if (!response.ok || payload?.success === false) {
-                const message =
-                    payload?.error?.message || payload?.error || 'Unable to verify this number right now. Please try again.'
-                throw new Error(message)
+                throw new Error(toGuestMessage(payload?.error, 'customer_lookup'))
             }
 
             const lookup = parseLookupResponse(payload)
@@ -137,7 +136,7 @@ export function PrivateBookingInquiryForm({
             }
         } catch (lookupFailure: any) {
             setLookupState('idle')
-            setLookupError(lookupFailure?.message || 'Unable to verify this number right now.')
+            setLookupError(toGuestMessage(lookupFailure, 'customer_lookup'))
             setLookupDegraded(false)
         }
     }
@@ -202,10 +201,13 @@ export function PrivateBookingInquiryForm({
                     ...(trackingSpaceName ? { spaceName: trackingSpaceName } : {}),
                 })
             } else {
-                setError(response.error.message || 'Something went wrong. Please try again.')
+                // Always a string by the time it reaches state. Whatever shape
+                // the answer took, the form shows a sentence and keeps every
+                // field as the guest left it.
+                setError(toGuestMessage(response.error, 'private_hire'))
             }
         } catch (err) {
-            setError('Network error. Please try again.')
+            setError(toGuestMessage(null, 'private_hire'))
         } finally {
             setLoading(false)
             setTurnstileToken(null)
@@ -249,7 +251,7 @@ export function PrivateBookingInquiryForm({
 
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
                 {error && (
-                    <div className="p-4 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
+                    <div role="alert" className="p-4 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
                         {error}
                     </div>
                 )}

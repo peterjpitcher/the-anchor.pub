@@ -23,6 +23,7 @@ import { StickyDrawer } from '@/components/ui'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { CONTACT } from '@/lib/constants'
 import { CHRISTMAS_PRIVATE_DEPOSIT_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { toGuestMessage } from '@/lib/guest-error-messages'
 import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
 
 const CONTACT_EMAIL = CONTACT.email
@@ -2124,7 +2125,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null)
-        const errorMessage = errorData?.error || 'Sorry, we could not send your enquiry. Please call us on 01753 682707.'
+        const errorMessage = toGuestMessage(errorData?.error, 'christmas_enquiry')
         setStatus('error')
         setMessage(errorMessage)
         return
@@ -2626,7 +2627,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null)
-        const errorMessage = errorData?.error || 'Sorry, we could not send your enquiry right now. Please call us on 01753 682707.'
+        const errorMessage = toGuestMessage(errorData?.error, 'christmas_enquiry')
         setError(errorMessage)
         return
       }

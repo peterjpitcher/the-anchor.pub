@@ -36,6 +36,7 @@ import { canUseCookieCategory } from '@/lib/cookies'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
+import { GUEST_PHONE, guestMessageForBlockedReason, toGuestMessage } from '@/lib/guest-error-messages'
 import {
   DEFAULT_COMMUNICATION_CONSENT_STATE,
   buildCommunicationConsentPayload,
@@ -126,20 +127,16 @@ interface ManagementEventBookingFormProps {
 
 const SALES_CLOSED_MESSAGE = 'Online ticket sales for this event have closed. Please contact us if you need help.'
 
-const BLOCKED_COPY: Record<string, string> = {
-  blocked: 'This event is not bookable online right now.',
-  not_eligible: 'This booking is currently blocked. Please contact the pub for help.',
-  sold_out: 'This event is sold out.',
-  payment_required: 'Payment is required to secure this booking.',
-  seated_capacity_changed: 'There are no longer enough seats for your group. Please review the available tickets before booking again. No booking has been made.',
-  standing_not_available_until_seated_full: 'Standing tickets are only available once seats sell out. Please review current availability before booking again. No booking has been made.'
+// The wording for every blocked reason lives in lib/guest-error-messages.ts.
+// This used to hold six of them and print the code itself for the rest, so a
+// guest who already had seats was shown `customer_conflict`.
+function getBlockedMessage(reason: string | null | undefined): string {
+  return guestMessageForBlockedReason(reason, 'event_booking', OWN_PHONE_LINE)
 }
 
-function getBlockedMessage(reason: string | null | undefined): string {
-  if (!reason) return BLOCKED_COPY.blocked
-  const key = reason.toLowerCase()
-  return BLOCKED_COPY[key] || reason
-}
+// The error alert prints its own "Call 01753 682707" line when the sentence
+// does not carry the number, so sentences are kept as written.
+const OWN_PHONE_LINE = { phone: false } as const
 
 function hasErrorCode(payload: any, code: string): boolean {
   if (!payload || typeof payload !== 'object') return false
@@ -618,19 +615,11 @@ export function ManagementEventBookingForm({
         }
 
         if (response.status === 409 && hasPolicyViolation(body)) {
-          const policyMessage =
-            body?.error?.message ||
-            'This booking cannot be completed. Please contact us for assistance.'
-          setError(String(policyMessage))
+          setError(toGuestMessage(body?.error?.message || 'This booking cannot be completed. Please contact us for assistance.', 'event_booking', OWN_PHONE_LINE))
           return
         }
 
-        const upstreamError =
-          body?.error?.message ||
-          body?.error ||
-          data?.error ||
-          'We could not complete this event booking.'
-        throw new Error(upstreamError)
+        throw new Error(toGuestMessage(body?.error ?? data?.error, 'event_booking', { ...OWN_PHONE_LINE, fallback: 'We could not complete this event booking.' }))
       }
 
       if (!data || typeof data !== 'object' || !data.state) {
@@ -712,7 +701,7 @@ export function ManagementEventBookingForm({
         reason: submitError?.message || 'submission_error',
         source: 'event_booking_form'
       })
-      setError(submitError?.message || 'We could not complete this event booking.')
+      setError(toGuestMessage(submitError, 'event_booking', { ...OWN_PHONE_LINE, fallback: 'We could not complete this event booking.' }))
     } finally {
       setLoading(false)
       setTurnstileToken(null)
@@ -818,12 +807,7 @@ export function ManagementEventBookingForm({
       const data = body?.data || body
 
       if (!response.ok || body?.success === false) {
-        const upstreamError =
-          body?.error?.message ||
-          body?.error ||
-          data?.error ||
-          'We could not join the waitlist right now.'
-        throw new Error(upstreamError)
+        throw new Error(toGuestMessage(body?.error ?? data?.error, 'event_waitlist', { ...OWN_PHONE_LINE, fallback: 'We could not join the waitlist right now.' }))
       }
 
       if (!data || typeof data !== 'object' || !('state' in data)) {
@@ -832,7 +816,7 @@ export function ManagementEventBookingForm({
 
       setWaitlistResult(data as WaitlistResult)
     } catch (joinError: any) {
-      setError(joinError?.message || 'We could not join the waitlist right now.')
+      setError(toGuestMessage(joinError, 'event_waitlist', { ...OWN_PHONE_LINE, fallback: 'We could not join the waitlist right now.' }))
     } finally {
       setWaitlistLoading(false)
       // The token was spent on this request, whatever the answer, so a retry
@@ -1221,9 +1205,13 @@ export function ManagementEventBookingForm({
         {error && (
           <Alert variant="error" title="Booking not completed">
             <p>{error}</p>
-            <p className="mt-2">
-              Call <PhoneLink phone={CONTACT.phone} source="event_booking_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> if you need help.
-            </p>
+            {/* Every error here carries the number once: in its own sentence
+                when it has one, otherwise on this line. */}
+            {!error.includes(GUEST_PHONE) && (
+              <p className="mt-2">
+                Call <PhoneLink phone={CONTACT.phone} source="event_booking_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> if you need help.
+              </p>
+            )}
           </Alert>
         )}
 
@@ -1334,7 +1322,7 @@ export function ManagementEventBookingForm({
               <p className="mt-3 font-semibold text-anchor-success">You’re on the waitlist. We’ll text you if {waitlistPlaceLabel} open up.</p>
             )}
             {waitlistResult && waitlistResult.state !== 'queued' && (
-              <p className="mt-3">{waitlistResult.reason || 'We could not join the waitlist for this event.'}</p>
+              <p className="mt-3">{guestMessageForBlockedReason(waitlistResult.reason, 'event_waitlist')}</p>
             )}
           </Alert>
         )}
