@@ -66,7 +66,7 @@ Never miss a moment of the action at Stanwell Moor's favourite sports pub!
 
 ### All Major Events Live
 
-Our **sports pub near Heathrow** covers every free-to-air fixture we can tune in:
+Our **sports pub near Heathrow** shows the games that are on BBC, ITV or Channel 4:
 
 **Football:**
 - BBC & ITV live fixtures
@@ -190,7 +190,7 @@ We prioritise England, Scotland, Wales and major knockout games on the main scre
 
 ## Upcoming Sports Calendar
 
-### Never Miss a Match
+### Big Games on BBC, ITV or Channel 4
 
 **Major Football Events:**
 - World Cup tournaments

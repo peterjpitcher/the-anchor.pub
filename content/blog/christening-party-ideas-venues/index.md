@@ -152,7 +152,7 @@ We've hosted christening receptions, baptism parties, and naming ceremonies for 
 
 Twenty-six seated with standing room for more. French doors open directly onto the beer garden, which gives you indoor-outdoor flow on a nice day and a contained, private space on a cooler one. It's the right size for a christening reception of 15-40 guests -- large enough to feel like an event, small enough to feel personal.
 
-We have AV equipment including a TVs and sound system if you want to play a slideshow of baby photos or set up a background playlist. A dedicated events coordinator handles your booking from first enquiry through to the day itself.
+We have AV equipment including TVs and a sound system if you want to play a slideshow of baby photos or set up a background playlist. A dedicated events coordinator handles your booking from first enquiry through to the day itself.
 
 ### Family facilities -- the honest version
 

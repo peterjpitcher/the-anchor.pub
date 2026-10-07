@@ -22,6 +22,28 @@ accessibility audit's pop-up check (it has no reference to this component), the 
 helpers (the Christmas lightbox and others use them), and the two lines in `docs/image-brief.md`
 that mention the scarf image as a tone reference.
 
+# Sport copy: unconfirmed claims and World Cup labels, 7 October 2026
+
+Branch `fix/sport-copy-unconfirmed-claims-and-labels`, from main at 023ae621 (PR #208). Local only:
+not pushed, no PR, not deployed. Owner approved on 7 October 2026.
+
+- [x] /live-sport no longer lists Premiership Rugby or names Amazon Prime. The rugby card keeps
+      three items; the Premier League answer names BBC, ITV or Channel 4 in their place
+- [x] "Every match" style promises replaced with "the games that are on BBC, ITV or Channel 4" in
+      the Euro 2024, Autumn Internationals 2024 and Premier League 2024-25 posts, the sports update
+      post and the international tournaments tag copy. Dates and fixtures in the posts untouched
+- [x] World Cup labels are year-neutral: the card on /live-sport (heading, line and link) and the
+      HTML sitemap. The XML sitemap gives the page a last-modified date of 7 October 2026
+- [x] "a TVs" grammar slip fixed in seven private hire posts, keeping "TVs"
+- [x] `tests/unit/sport-copy-unconfirmed-claims.test.ts` stops all four coming back
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] /live-sport viewed on a production build at 1280px and 390px
+
+Left alone on purpose: the 2023 Six Nations post, the unmounted Six Nations pop-up (a separate
+branch deletes it), the CheersAI feed code and fixture data, the sweepstake page and its link, and
+the ScreeningEvent structured data on /live-sport (reported to the owner, not changed here).
+
 # One-line buttons cut off on a phone, the remaining pages, 7 October 2026
 
 Branch `fix/phone-button-overflow-remaining-pages`, from main at bf701df4 (PR #204). Local only: not

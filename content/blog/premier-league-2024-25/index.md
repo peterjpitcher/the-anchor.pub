@@ -109,7 +109,7 @@ Experience the thrill of the Premier League matchdays at The Anchor. Our 4 TVs m
 
   
 
-### Join Us for Every Premier League Match
+### Join Us for the Games on BBC, ITV or Channel 4
 
 So, gather your friends, family, and fellow fans, and come down to The Anchor for major football events. With our 4 TVs, delicious menu, and welcoming atmosphere, we promise an exceptional experience for all the big matches shown on terrestrial TV. We're your local hub for World Cup, Euros, FA Cup finals and more!
 
