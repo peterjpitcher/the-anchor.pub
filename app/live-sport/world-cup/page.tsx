@@ -105,7 +105,7 @@ export default async function WorldCupPage() {
       telephone: CONTACT.phone,
       url: 'https://www.the-anchor.pub',
     },
-    description: `Watch FIFA World Cup 2026 screenings near Heathrow on big screens at ${BRAND.name} in Stanwell Moor.`,
+    description: `Watch FIFA World Cup 2026 screenings near Heathrow on 4 screens at ${BRAND.name} in Stanwell Moor.`,
     image: DEFAULT_PAGE_HEADER_IMAGE,
     organizer: {
       '@type': 'Organization',
