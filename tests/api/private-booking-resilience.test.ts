@@ -211,7 +211,9 @@ describe('a rejection the guest can act on is shown to them', () => {
 
     expect(calls).toHaveLength(1)
     expect(response.status).toBe(400)
-    expect(body.error).toBe('Please enter a valid email address')
+    // A written validation sentence is the guest's to act on, so it is kept,
+    // with the phone number added.
+    expect(body.error.message).toBe('Please enter a valid email address. Call 01753 682707 if you need help.')
     expect(mockSendEnquiryFallbackEmail).toHaveBeenCalledTimes(1)
   })
 

@@ -1213,6 +1213,34 @@ describe('ManagementEventBookingForm', () => {
       expect(queryDirectionsLink()).not.toBeInTheDocument()
     })
 
+    // A guest who already had seats and tried again was shown the word
+    // `customer_conflict`, twice, on 14 September 2026. Every reason the
+    // booking system can answer with now has a sentence, and one it adds
+    // later gets the general line, never the code.
+    it.each([
+      ['customer_conflict', /It looks like you already have a booking for this event/],
+      ['event_started', /This event has already started/],
+      ['booking_closed', /Online booking for this event has closed/],
+      ['insufficient_capacity', /There are not enough places left for that many people/],
+      ['a_reason_added_next_year', /This event is not bookable online right now/]
+    ])('shows a sentence, and the phone number, for the blocked reason %s', async (reason, sentence) => {
+      respondWith({
+        state: 'blocked',
+        booking_id: null,
+        reason,
+        seats_remaining: 0,
+        next_step_url: null,
+        manage_booking_url: null
+      })
+
+      submitBooking()
+
+      expect(await screen.findByText(sentence)).toBeInTheDocument()
+      expect(screen.queryByText(new RegExp(reason))).not.toBeInTheDocument()
+      // The alert's own phone line, since these sentences do not carry it.
+      expect(screen.getByText(/if you need help/)).toHaveTextContent('01753 682707')
+    })
+
     // Directions to the pub are true whatever happened to the event, so they
     // stay. A diary entry for a night that is not happening is not.
     it.each([

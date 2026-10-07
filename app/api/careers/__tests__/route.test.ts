@@ -47,11 +47,13 @@ jest.mock('@/lib/microsoft-graph-mail', () => ({
       .replace(/'/g, '&#39;'),
 }))
 
-const mockLogError = jest.fn()
-jest.mock('@/lib/error-handling', () => {
-  const actual = jest.requireActual('@/lib/error-handling')
-  return { ...actual, logError: (...args: unknown[]) => mockLogError(...args) }
-})
+// Failures on this route go through the shared reporter (lib/report-failure.ts),
+// which writes the log line and alerts a person.
+const mockReportFailure = jest.fn(async (..._args: unknown[]) => undefined)
+jest.mock('@/lib/report-failure', () => ({
+  reportFailure: (...args: unknown[]) => mockReportFailure(...args),
+  pageFromRequest: () => null,
+}))
 
 // ── Env vars ─────────────────────────────────────────────────────────────────
 
@@ -352,7 +354,7 @@ describe('POST /api/careers', () => {
 
   // 13. The application only exists as an email. If the send fails there is no
   // record of it anywhere, so the applicant must never be told it worked, and
-  // the failure must reach our error log rather than a bare console.error.
+  // the failure must reach the shared reporter rather than a bare console.error.
   describe('when the application email cannot be sent', () => {
     it('never reports success', async () => {
       mockSendMicrosoftGraphEmail.mockRejectedValue(new Error('Graph token request failed'))
@@ -379,7 +381,9 @@ describe('POST /api/careers', () => {
 
       await postWithFormData()
 
-      expect(mockLogError).toHaveBeenCalledWith('api/careers', failure)
+      expect(mockReportFailure).toHaveBeenCalledWith(
+        expect.objectContaining({ route: 'api/careers', reason: 'APPLICATION_EMAIL_FAILED', error: failure })
+      )
     })
 
     it('fails closed when the mailbox is not configured, and says who to call', async () => {
@@ -393,7 +397,7 @@ describe('POST /api/careers', () => {
         expect(res.status).toBe(500)
         expect(body.success).toBe(false)
         expect(body.error).toContain('01753 682707')
-        expect(mockLogError).toHaveBeenCalled()
+        expect(mockReportFailure).toHaveBeenCalled()
         expect(mockSendMicrosoftGraphEmail).not.toHaveBeenCalled()
       } finally {
         process.env.MICROSOFT_USER_EMAIL = previous

@@ -132,7 +132,7 @@ describe('recruitment enquiry proxy', () => {
     const payload = await response.json()
 
     expect(response.status).toBe(400)
-    expect(payload.error).toBe('Please upload a PDF, DOC or DOCX CV.')
+    expect(payload.error).toBe('Please upload a PDF, DOC or DOCX CV. Call 01753 682707 if you need help.')
     expect(global.fetch).toHaveBeenCalledTimes(1)
   })
 

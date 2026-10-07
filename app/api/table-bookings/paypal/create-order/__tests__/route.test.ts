@@ -17,7 +17,12 @@ const mockFetch = jest.fn()
 global.fetch = mockFetch as typeof fetch
 
 describe('POST /api/table-bookings/paypal/create-order', () => {
-  beforeEach(() => jest.clearAllMocks())
+  beforeEach(() => {
+    jest.clearAllMocks()
+    // The route now refuses to call the management app without its key,
+    // where it used to send `Bearer undefined`.
+    process.env.ANCHOR_API_KEY = 'test-key'
+  })
 
   it('proxies valid request and returns orderId', async () => {
     mockFetch.mockResolvedValueOnce({

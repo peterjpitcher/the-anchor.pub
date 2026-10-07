@@ -9,11 +9,13 @@ if (typeof Response !== 'undefined' && !('json' in Response)) {
   })
 }
 
-const mockLogError = jest.fn()
-jest.mock('@/lib/error-handling', () => {
-  const actual = jest.requireActual('@/lib/error-handling')
-  return { ...actual, logError: (...args: unknown[]) => mockLogError(...args) }
-})
+// Failures on this route go through the shared reporter (lib/report-failure.ts),
+// which writes the log line and alerts a person.
+const mockReportFailure = jest.fn(async (..._args: unknown[]) => undefined)
+jest.mock('@/lib/report-failure', () => ({
+  reportFailure: (...args: unknown[]) => mockReportFailure(...args),
+  pageFromRequest: () => null,
+}))
 
 const mockForwardConversion = jest.fn().mockResolvedValue(undefined)
 jest.mock('@/lib/booking-conversion-forwarding', () => ({
@@ -62,7 +64,7 @@ describe('POST /api/event-bookings/paypal/capture-order', () => {
     expect(res.status).toBe(200)
     expect(body.success).toBe(true)
     expect(mockForwardConversion).toHaveBeenCalledTimes(1)
-    expect(mockLogError).not.toHaveBeenCalled()
+    expect(mockReportFailure).not.toHaveBeenCalled()
   })
 
   it('fails closed with the phone number when the management API never answers', async () => {
@@ -75,7 +77,7 @@ describe('POST /api/event-bookings/paypal/capture-order', () => {
     expect(body.success).toBeUndefined()
     expect(body.error).toContain(PHONE)
     expect(mockForwardConversion).not.toHaveBeenCalled()
-    expect(mockLogError).toHaveBeenCalled()
+    expect(mockReportFailure).toHaveBeenCalled()
   })
 
   it('does not dress an unreadable 200 up as a confirmed payment', async () => {
@@ -97,7 +99,7 @@ describe('POST /api/event-bookings/paypal/capture-order', () => {
     expect(body.success).toBeUndefined()
     expect(body.error).toContain(PHONE)
     expect(mockForwardConversion).not.toHaveBeenCalled()
-    expect(mockLogError).toHaveBeenCalled()
+    expect(mockReportFailure).toHaveBeenCalled()
   })
 
   it('never forwards a conversion for a capture the management API rejected', async () => {
@@ -108,10 +110,45 @@ describe('POST /api/event-bookings/paypal/capture-order', () => {
     })
 
     const res = await POST(request())
+    const body = await res.json()
 
     expect(res.status).toBe(500)
     expect(mockForwardConversion).not.toHaveBeenCalled()
-    expect(mockLogError).toHaveBeenCalled()
+    // The guest has approved the payment, so they are told to ring before
+    // paying again, and never shown the upstream's own text.
+    expect(body.error).not.toContain('Capture failed')
+    expect(body.error).toContain('before paying again')
+    expect(body.error).toContain(PHONE)
+    expect(mockReportFailure).toHaveBeenCalledWith(
+      expect.objectContaining({ payment: true, status: 500, reason: 'UPSTREAM_NOT_OK' })
+    )
+  })
+
+  it.each([
+    'hold_expired',
+    'payment_order_not_found',
+    'order_mismatch',
+    'amount_or_reference_mismatch',
+    'capture_amount_mismatch',
+    'capture_reference_mismatch',
+    'confirmation_blocked',
+  ])('turns the reason code %s into a sentence with the phone number', async (reason) => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 409,
+      json: async () => ({ success: false, error: reason }),
+    })
+
+    const res = await POST(request())
+    const body = await res.json()
+
+    expect(res.status).toBe(409)
+    expect(body.error).not.toContain(reason)
+    expect(body.error).not.toMatch(/_/)
+    expect(body.error).toContain(PHONE)
+    expect(mockReportFailure).toHaveBeenCalledWith(
+      expect.objectContaining({ payment: true, status: 409, upstreamCode: reason })
+    )
   })
 
   it('keeps the upstream manual-review signal intact', async () => {

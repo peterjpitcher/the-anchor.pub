@@ -10,6 +10,8 @@ export {}
 
 import { createHash } from 'node:crypto'
 
+import { captureFailureLog, expectNoPersonalData, type CapturedFailureLog } from '@/tests/helpers/failure-log'
+
 jest.mock('@/lib/management-api-base', () => ({
   getManagementApiBaseUrl: () => 'https://example.invalid/api'
 }))
@@ -373,10 +375,12 @@ describe('structured ticket holder details', () => {
  * guest typed.
  */
 describe('refused and failed bookings are logged without personal data', () => {
-  const { logError } = jest.requireMock('@/lib/error-handling') as { logError: jest.Mock }
+  // The shared reporter is not mocked: these tests read the line it wrote.
+  const EVENT_ID = '0b6f1c1e-6f6a-4c58-9a57-0d6d0c5d7f11'
 
   const GUEST = {
     ...VALID_BASE,
+    event_id: EVENT_ID,
     email: 'alice.booker@example.com',
     event_slug: 'autumn-kick-off-quiz-night-2026-09-16',
     landing_path: '/whats-on'
@@ -384,6 +388,16 @@ describe('refused and failed bookings are logged without personal data', () => {
 
   /** The page the form was on, with the click ids a paid visit carries. */
   const REFERER = 'https://www.the-anchor.pub/events/autumn-kick-off-quiz-night-2026-09-16?utm_source=facebook&fbclid=fb-click-123'
+
+  let log: CapturedFailureLog
+
+  beforeEach(() => {
+    log = captureFailureLog()
+  })
+
+  afterEach(() => {
+    log.restore()
+  })
 
   function buildRequestFromPage(body: unknown): Request {
     return new Request('http://localhost/api/event-bookings', {
@@ -402,64 +416,93 @@ describe('refused and failed bookings are logged without personal data', () => {
     ) as unknown as typeof fetch
   }
 
-  function loggedDetails(): Record<string, unknown>[] {
-    return logError.mock.calls.map((call) => call[2] as Record<string, unknown>)
-  }
-
   it.each([
     [
       'a 409 sales closed refusal',
       409,
       { success: false, error: { code: 'SALES_CLOSED', message: 'Online ticket sales for this event have closed.' } },
-      'api/event-bookings/refused',
-      { status: 409, code: 'SALES_CLOSED' }
+      { kind: 'refused', status: 409, upstreamCode: 'SALES_CLOSED' }
     ],
     [
-      'a 409 the proxy passes through with its own message',
+      'a 409 for a ticket option that sold out',
       409,
       { success: false, error: { code: 'TICKET_TYPE_SOLD_OUT', message: 'One of the selected ticket options has sold out' } },
-      'api/event-bookings/refused',
-      { status: 409, code: 'TICKET_TYPE_SOLD_OUT' }
+      { kind: 'refused', status: 409, upstreamCode: 'TICKET_TYPE_SOLD_OUT' }
     ],
     [
       'a blocked answer that arrives as a 200',
       200,
       { success: true, data: { state: 'blocked', reason: 'sold_out', booking_id: null } },
-      'api/event-bookings/refused',
-      { status: 200, code: 'sold_out', state: 'blocked' }
+      { kind: 'refused', status: 200, upstreamCode: 'sold_out', state: 'blocked' }
     ],
     [
       'a full night offered the waitlist',
       200,
       { success: true, data: { state: 'full_with_waitlist_option', reason: 'insufficient_capacity', booking_id: null } },
-      'api/event-bookings/refused',
-      { status: 200, code: 'insufficient_capacity', state: 'full_with_waitlist_option' }
+      { kind: 'refused', status: 200, upstreamCode: 'insufficient_capacity', state: 'full_with_waitlist_option' }
     ],
     [
       'a management side 500',
       500,
       { success: false, error: { code: 'DATABASE_ERROR', message: 'Failed to create event booking' } },
-      'api/event-bookings/failed',
-      { status: 500, code: 'DATABASE_ERROR' }
+      { kind: 'failed', status: 500, upstreamCode: 'DATABASE_ERROR' }
     ]
-  ])('logs %s with its status, code, event id and source', async (_label, status, body, context, expected) => {
+  ])('logs %s with its status, code, event id and source', async (_label, status, body, expected) => {
     answerWith(status, body)
     const POST = await getPostHandler()
 
     const res = await POST(buildRequestFromPage(GUEST) as any)
 
-    // The guest still gets the answer, exactly as before.
     expect(res.status).toBe(status)
-    expect(logError).toHaveBeenCalledTimes(1)
-    expect(logError).toHaveBeenCalledWith(
-      context,
-      expect.any(Error),
-      expect.objectContaining({
-        ...expected,
-        eventId: 'evt-12345678',
-        bookingSource: '/events/autumn-kick-off-quiz-night-2026-09-16'
-      })
-    )
+    expect(log.lines()).toHaveLength(1)
+    expect(log.lines()[0]).toMatchObject({
+      route: 'api/event-bookings',
+      ...expected,
+      eventId: EVENT_ID,
+      page: '/events/autumn-kick-off-quiz-night-2026-09-16'
+    })
+  })
+
+  it.each([
+    [401, { success: false, error: { code: 'UNAUTHORIZED', message: 'Invalid or missing API key' } }, 'API key'],
+    [403, { success: false, error: { code: 'FORBIDDEN', message: 'Insufficient permissions' } }, 'permissions'],
+    [429, { success: false, error: { code: 'RATE_LIMIT_EXCEEDED', message: 'Rate limit exceeded' } }, 'Rate limit'],
+    [500, { success: false, error: { code: 'INTERNAL_ERROR', message: 'Internal server error' } }, 'Internal server error'],
+    [503, { success: false, error: { code: 'AUTH_UNAVAILABLE', message: 'Authentication is temporarily unavailable' } }, 'Authentication']
+  ])('answers a management %s with our sentence and the phone number, never its wording', async (status, body, upstreamWording) => {
+    answerWith(status, body)
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequestFromPage(GUEST) as any)
+    const answer = await res.json()
+
+    expect(res.status).toBe(status)
+    expect(answer.success).toBe(false)
+    expect(JSON.stringify(answer)).not.toContain(upstreamWording)
+    expect(answer.error.message).toContain('01753 682707')
+    expect(log.lines()[0]).toMatchObject({ kind: 'failed', status })
+  })
+
+  it('keeps a sentence the management app wrote for the guest, and adds the phone number', async () => {
+    answerWith(400, { success: false, error: { code: 'VALIDATION_ERROR', message: 'Please enter a name for each ticket' } })
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequestFromPage(GUEST) as any)
+    const answer = await res.json()
+
+    expect(res.status).toBe(400)
+    expect(answer.error.message).toBe('Please enter a name for each ticket. Call 01753 682707 if you need help.')
+  })
+
+  it('replaces a schema message with a sentence a guest can act on', async () => {
+    answerWith(400, { success: false, error: { code: 'VALIDATION_ERROR', message: 'Expected number, received string' } })
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequestFromPage(GUEST) as any)
+    const answer = await res.json()
+
+    expect(answer.error.message).not.toContain('Expected number')
+    expect(answer.error.message).toContain('01753 682707')
   })
 
   it('logs an answer it cannot read as a failure', async () => {
@@ -467,16 +510,24 @@ describe('refused and failed bookings are logged without personal data', () => {
     const POST = await getPostHandler()
 
     const res = await POST(buildRequestFromPage(GUEST) as any)
+    const answer = await res.json()
 
     expect(res.status).toBe(502)
-    expect(logError).toHaveBeenCalledWith(
-      'api/event-bookings/failed',
-      expect.any(Error),
-      expect.objectContaining({ status: 502, code: 'UNREADABLE_RESPONSE', eventId: 'evt-12345678' })
-    )
+    expect(answer.error.message).toContain('01753 682707')
+    expect(log.lines()[0]).toMatchObject({ kind: 'failed', status: 502, reason: 'UNREADABLE_RESPONSE', eventId: EVENT_ID })
   })
 
-  it('logs its own validation refusal, with the fixed reason it gave the guest', async () => {
+  it('does not pass an unreadable 200 on as a booking', async () => {
+    answerWith(200, '<!doctype html><html><body>ok</body></html>', 'text/html')
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequestFromPage(GUEST) as any)
+
+    expect(res.status).toBe(502)
+    expect(log.lines()[0]).toMatchObject({ kind: 'failed', status: 200, reason: 'UNREADABLE_RESPONSE' })
+  })
+
+  it('logs its own validation refusal by code, without the wording it gave the guest', async () => {
     const calls = installUpstreamFetch()
     const POST = await getPostHandler()
 
@@ -484,16 +535,7 @@ describe('refused and failed bookings are logged without personal data', () => {
 
     expect(res.status).toBe(400)
     expect(calls).toHaveLength(0)
-    expect(logError).toHaveBeenCalledWith(
-      'api/event-bookings/refused',
-      expect.any(Error),
-      expect.objectContaining({
-        status: 400,
-        code: 'VALIDATION_ERROR',
-        reason: 'Seats must be between 1 and 20',
-        eventId: 'evt-12345678'
-      })
-    )
+    expect(log.lines()[0]).toMatchObject({ kind: 'refused', status: 400, reason: 'VALIDATION_ERROR', eventId: EVENT_ID })
   })
 
   it('falls back to the landing path when the request carries no referer', async () => {
@@ -502,7 +544,16 @@ describe('refused and failed bookings are logged without personal data', () => {
 
     await POST(buildRequest(GUEST) as any)
 
-    expect(loggedDetails()[0]).toMatchObject({ bookingSource: '/whats-on' })
+    expect(log.lines()[0]).toMatchObject({ page: '/whats-on' })
+  })
+
+  it('drops an event id that is not an id', async () => {
+    answerWith(409, { success: false, error: { code: 'SALES_CLOSED' } })
+    const POST = await getPostHandler()
+
+    await POST(buildRequestFromPage({ ...GUEST, event_id: VALID_BASE.event_id }) as any)
+
+    expect(log.lines()[0]).not.toHaveProperty('eventId')
   })
 
   it('never logs the phone number, the name, the email, the message or the click ids', async () => {
@@ -520,13 +571,13 @@ describe('refused and failed bookings are logged without personal data', () => {
       await POST(buildRequestFromPage(GUEST) as any)
     }
 
-    expect(logError).toHaveBeenCalledTimes(answers.length)
-    const logged = JSON.stringify(logError.mock.calls.map((call) => [call[0], (call[1] as Error).message, call[2]]))
-    for (const personal of ['07700900000', 'Alice', 'Booker', 'alice.booker@example.com', 'fbclid', 'fb-click-123', 'utm_source']) {
-      expect(logged).not.toContain(personal)
-    }
+    expect(log.lines()).toHaveLength(answers.length)
+    expectNoPersonalData(log.everything(), [
+      '07700900000', 'Alice', 'Booker', 'alice.booker@example.com', 'fbclid', 'fb-click-123', 'utm_source'
+    ])
     // A free-text reason is dropped rather than logged.
-    expect(loggedDetails()[2]).toMatchObject({ state: 'blocked', code: null })
+    expect(log.lines()[2]).toMatchObject({ state: 'blocked' })
+    expect(log.lines()[2]).not.toHaveProperty('upstreamCode')
   })
 
   it('logs nothing for a confirmed booking', async () => {
@@ -536,6 +587,26 @@ describe('refused and failed bookings are logged without personal data', () => {
     const res = await POST(buildRequestFromPage(GUEST) as any)
 
     expect(res.status).toBe(201)
-    expect(logError).not.toHaveBeenCalled()
+    expect(log.lines()).toHaveLength(0)
+  })
+
+  it('reports a missing key and gives the guest the phone number', async () => {
+    const previous = process.env.ANCHOR_API_KEY
+    delete process.env.ANCHOR_API_KEY
+    try {
+      let POST: (request: Request) => Promise<Response>
+      await jest.isolateModulesAsync(async () => {
+        POST = (await import('@/app/api/event-bookings/route')).POST as never
+      })
+
+      const res = await POST!(buildRequestFromPage(GUEST))
+      const answer = await res.json()
+
+      expect(res.status).toBe(503)
+      expect(answer.error).toContain('01753 682707')
+      expect(log.lines()[0]).toMatchObject({ kind: 'failed', reason: 'API_KEY_MISSING' })
+    } finally {
+      process.env.ANCHOR_API_KEY = previous
+    }
   })
 })
