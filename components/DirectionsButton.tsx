@@ -19,6 +19,8 @@ interface DirectionsButtonProps {
   icon?: React.ReactNode
   onClick?: () => void
   role?: string
+  /** On a phone, less side padding and a label that may wrap. See Button. */
+  wrap?: boolean
 }
 
 export function DirectionsButton({ 
@@ -34,7 +36,8 @@ export function DirectionsButton({
   asLink = false,
   icon,
   onClick,
-  role
+  role,
+  wrap
 }: DirectionsButtonProps) {
   // Determine map platform from URL if not provided
   const platform = mapPlatform || (() => {
@@ -75,6 +78,7 @@ export function DirectionsButton({
       variant={variant === 'link' ? 'ghost' : variant}
       size={size}
       icon={icon}
+      wrap={wrap}
       className={className}
     >
       <a

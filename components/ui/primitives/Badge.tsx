@@ -28,11 +28,19 @@ const badgeVariants = cva(
       dot: {
         true: '',
         false: ''
+      },
+      // A badge is one line (spec §4.2). Set this where the label comes from
+      // data and can be longer than a phone is wide: below 640px it may then
+      // wrap, with room between its lines, where it used to be cut off.
+      wrap: {
+        true: 'max-sm:whitespace-normal max-sm:text-center max-sm:leading-tight',
+        false: ''
       }
     },
     defaultVariants: {
       variant: 'green',
-      dot: false
+      dot: false,
+      wrap: false
     }
   }
 )
@@ -44,11 +52,11 @@ export interface BadgeProps
     VariantProps<typeof badgeVariants> {}
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ className, variant, dot, children, testId, ...props }, ref) => {
+  ({ className, variant, dot, wrap, children, testId, ...props }, ref) => {
     return (
       <span
         ref={ref}
-        className={cn(badgeVariants({ variant, dot }), className)}
+        className={cn(badgeVariants({ variant, dot, wrap }), className)}
         data-testid={testId}
         {...props}
       >

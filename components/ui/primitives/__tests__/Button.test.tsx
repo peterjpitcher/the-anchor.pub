@@ -19,6 +19,54 @@ describe('Button', () => {
     )
   })
 
+  it('with wrap, lets a long label fit a phone, where one line was cut off by the screen', () => {
+    // The page clips sideways overflow, so a label that cannot wrap is not
+    // scrolled to, it is lost. Found by the 320px reflow check on six pages.
+    render(<Button wrap>Get Directions from Slough Cemetery and Crematorium</Button>)
+    const button = screen.getByRole('button')
+
+    // Less side padding first, so most of these still take one line at 390px.
+    expect(button).toHaveClass('max-sm:px-4')
+    // Then wrapping: centred (a link's lines are left-aligned otherwise) and
+    // kept off the border.
+    expect(button).toHaveClass('max-sm:whitespace-normal', 'max-sm:text-center', 'max-sm:py-2')
+    // Still one line, at full padding, from 640px up.
+    expect(button).toHaveClass('whitespace-nowrap', 'px-8')
+  })
+
+  it('gives the same wrapping to a link rendered through asChild', () => {
+    render(
+      <Button asChild wrap>
+        <a href="/christmas-parties">See the Christmas menu and prices</a>
+      </Button>
+    )
+    const link = screen.getByRole('link')
+
+    expect(link).toHaveClass('max-sm:whitespace-normal', 'max-sm:text-center', 'max-sm:px-4')
+    // The flag is for the stylesheet. It must not reach the element.
+    expect(link).not.toHaveAttribute('wrap')
+  })
+
+  it('leaves a button that did not ask for it exactly as it was', () => {
+    // Tried as the default, wrapping changed buttons that fitted: any label
+    // reaching into its side padding went to two lines, and vertical padding
+    // made every button that already wrapped 16px taller at every width.
+    render(<Button>Book a table</Button>)
+    const button = screen.getByRole('button')
+
+    expect(button.className.split(/\s+/).filter((name) => name.startsWith('max-sm:'))).toEqual([])
+    expect(button).not.toHaveAttribute('wrap')
+  })
+
+  it('lets a caller narrow the phone padding further than wrap does', () => {
+    // The sticky bar does this for its main button.
+    render(<Button wrap className="max-sm:px-2">Enquire about your date</Button>)
+    const button = screen.getByRole('button')
+
+    expect(button).toHaveClass('max-sm:px-2')
+    expect(button).not.toHaveClass('max-sm:px-4')
+  })
+
   it('applies the three variant styles correctly', () => {
     // Primary is the AA-safe gold-dark fill (#8b6914 on white = 5.08:1).
     const { rerender } = render(<Button variant="primary">Primary</Button>)

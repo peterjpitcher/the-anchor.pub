@@ -50,7 +50,7 @@ export function ChristmasCrossLink({ hook }: ChristmasCrossLinkProps) {
             deposit that comes off your bill. The full menu and prices are on the Christmas page.
           </p>
           <div className="mt-5">
-            <Button asChild variant="primary">
+            <Button asChild variant="primary" wrap>
               <Link href="/christmas-parties">See the Christmas menu and prices</Link>
             </Button>
           </div>

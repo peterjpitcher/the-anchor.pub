@@ -72,6 +72,25 @@ describe('DirectionsButton', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
+  it('passes wrap to the button, so a long place name fits a phone', () => {
+    // 'Get Directions from Slough Cemetery and Crematorium' was 165px past the
+    // edge of a 320px screen.
+    const { rerender } = render(
+      <DirectionsButton href={GOOGLE_MAPS_HREF} source="test_directions" wrap>
+        Get Directions from Slough Cemetery and Crematorium
+      </DirectionsButton>
+    )
+    expect(screen.getByRole('link')).toHaveClass('max-sm:whitespace-normal', 'max-sm:px-4')
+    expect(screen.getByRole('link')).not.toHaveAttribute('wrap')
+
+    rerender(
+      <DirectionsButton href={GOOGLE_MAPS_HREF} source="test_directions">
+        Get Directions
+      </DirectionsButton>
+    )
+    expect(screen.getByRole('link')).not.toHaveClass('max-sm:whitespace-normal')
+  })
+
   it('tracks the click with the unchanged directions payload', () => {
     const onClick = jest.fn()
 

@@ -36,7 +36,7 @@ export function BlogShareButtons({ postTitle, postSlug }: BlogShareButtonsProps)
   }
 
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-wrap gap-4">
       <Button 
         variant="outline" 
         size="sm"

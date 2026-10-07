@@ -9,6 +9,8 @@ interface PhoneButtonProps {
   variant?: 'primary' | 'outline' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   className?: string
+  /** On a phone, less side padding and a label that may wrap. See Button. */
+  wrap?: boolean
   children?: React.ReactNode
 }
 
@@ -18,6 +20,7 @@ export function PhoneButton({
   variant = 'outline',
   size = 'lg',
   className = '',
+  wrap,
   children
 }: PhoneButtonProps) {
   // Convert UK phone number to international format for tel: links
@@ -31,6 +34,7 @@ export function PhoneButton({
       asChild
       variant={variant}
       size={size}
+      wrap={wrap}
       className={className}
     >
       <a
