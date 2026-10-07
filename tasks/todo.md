@@ -1,3 +1,55 @@
+# The page speed endpoint recorded nothing, and ignored the cookie choice, 7 October 2026
+
+Branch `feat/web-vitals-recording`, from main at a492f407 (PR #200). Local only until the owner
+says yes. The privacy notice paragraph is a draft he has not approved.
+
+`app/web-vitals.tsx` posted all six Core Web Vitals to `/api/web-vitals` for every visitor, whatever
+their cookie choice. The route wrote them with `console.log`, which `next.config.js` strips from the
+production build, so about 1,770 calls a day recorded nothing.
+
+- [x] Record only CLS, LCP and INP. One line per request, written with `console.warn`, which the
+      build keeps: `[web-vital] {"metric":"LCP","value":2480,"rating":"good","path":"/","size":"desktop"}`
+- [x] The line holds the page path, the size class, the metric, value and rating, and for CLS the
+      element that moved and how far across and down. Nothing from the request's headers
+- [x] `hasSwitchedAnalyticsOff` in `lib/cookies.ts`: no choice yet is recorded, analytics refused
+      is not, and for a refusal nothing is sent
+- [x] The route turns away anything else with a 400 or 413 and logs nothing: unknown metric,
+      unknown key, a number that is not finite, a string too long, a body over 1 KB
+- [x] A booking reference in the path is replaced with `[id]` in the browser, and a path that is
+      not a plain site path is not sent
+- [x] Privacy notice, section 5, draft paragraph under Analytics Cookies; date and fingerprint
+      moved in `lib/legal-pages.ts`
+- [x] Tests: `tests/unit/web-vitals-reporting.test.tsx`, `tests/api/web-vitals-route.test.ts`,
+      `tests/unit/privacy-policy-page-speed.test.tsx`. Taking out the consent check failed four
+      tests; putting `console.log` back failed three
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] Production build, `next start`, headless Chromium in three consent states: five POSTs and
+      five log lines with no choice, five with analytics accepted, none with analytics refused
+- [ ] Owner's yes to the notice paragraph, then to the push
+- [ ] On a preview deployment, confirm the line shows in `vercel logs`. Not provable locally
+
+Found on the way, and what was done about it:
+- `useReportWebVitals` never says what moved. The `webVitalsAttribution` setting in
+  `next.config.js` only works when Next's own analytics id is set, which it is not. So CLS is read
+  from the attribution build Next already ships (`next/dist/compiled/web-vitals-attribution`),
+  typed in `types/web-vitals-attribution.d.ts`. The setting itself is left as it was.
+- The request had no `keepalive`, so a reading sent as the page was left (CLS, INP) could be
+  cancelled. It has it now.
+
+Left alone on purpose: `removeConsole` in `next.config.js`, the GA4 exclusion in
+`lib/tracking/dispatcher.ts`, Tag Manager, and the `trackWebVitals` push to the data layer, which
+still gets all six metrics and has its own consent check.
+
+Assumptions:
+- Size class is the window's width against Tailwind's md and lg: under 768px phone, under 1024px
+  tablet, otherwise desktop. The width itself is not sent.
+- LCP is recorded against the page the visit loaded first; CLS and INP against the page the
+  visitor is on when the browser reports them, which after moving between pages may not be the
+  page where it happened.
+- A stored cookie choice that cannot be read counts as analytics off.
+- "About 30 days" in the notice is how far back Vercel's logs went on 6 October 2026 (29 days).
+
 # Accessibility audit's reflow check could not see content cut off by the page, 6 October 2026
 
 Branch `fix/a11y-audit-reflow-blind-spot`, from main at 1baf0238 (PR #196). Local only until the
