@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState, type MutableRefObject } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type MutableRefObject } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Button } from '@/components/ui/primitives/Button'
 import { cn } from '@/lib/utils'
@@ -12,6 +12,37 @@ const UNSUPPORTED_ERROR =
   'This browser cannot complete our security check. Please call 01753 682707 and we will book this for you.'
 
 export type TurnstileFieldRef = TurnstileInstance | null
+
+/**
+ * Cloudflare's wide widget ('flexible') fills its box but is never narrower
+ * than 300px. A 320px phone has 288px inside the page gutters, less inside a
+ * padded card, and <body> hides sideways overflow, so the part of the widget
+ * past the edge could not be reached and it dragged the form out with it. The
+ * 'compact' widget is 150px by 140px and fits anywhere.
+ */
+const FLEXIBLE_MIN_WIDTH_PX = 300
+
+type TurnstileWidgetSize = 'flexible' | 'compact'
+
+/**
+ * Pick the widget for the room there is. Anything that cannot be measured
+ * (no element, a width of 0 because an ancestor is not laid out yet, a throw)
+ * gets the wide widget, which is what every visitor had before this.
+ *
+ * `clientWidth` and not `getBoundingClientRect`: it is the laid-out width, so
+ * a dialog that scales in as it opens is not read as narrower than it is.
+ */
+function pickWidgetSize(slot: HTMLElement | null): TurnstileWidgetSize {
+  try {
+    const available = slot?.clientWidth ?? 0
+    return available > 0 && available < FLEXIBLE_MIN_WIDTH_PX ? 'compact' : 'flexible'
+  } catch {
+    return 'flexible'
+  }
+}
+
+// useLayoutEffect warns when a client component is rendered on the server.
+const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 
 /**
  * What Cloudflare last told us. Reported only to callers that pass
@@ -46,6 +77,21 @@ export function TurnstileField({
   showInlineError = true
 }: TurnstileFieldProps) {
   const [error, setError] = useState<string | null>(null)
+
+  // The widget's size, decided ONCE per mount from the room its slot has, in a
+  // layout effect so the widget appears in the same frame as the form.
+  //
+  // It is never decided again, on resize or on rotation: changing the size
+  // makes Cloudflare render a new widget, which throws away the token the
+  // visitor already has and disables the submit button under their thumb.
+  //
+  // Until it is decided the slot is empty, never hidden, and it is decided on
+  // every path: there is no state in which the widget is left out.
+  const slotRef = useRef<HTMLDivElement>(null)
+  const [widgetSize, setWidgetSize] = useState<TurnstileWidgetSize | null>(null)
+  useIsomorphicLayoutEffect(() => {
+    setWidgetSize((decided) => decided ?? pickWidgetSize(slotRef.current))
+  }, [])
 
   // Held in a ref so an inline arrow passed by the caller does not change the
   // identity of the handlers below on every render, which would hand Cloudflare
@@ -106,25 +152,37 @@ export function TurnstileField({
 
   return (
     <div className={cn('space-y-3', className)}>
-      <Turnstile
-        id={id}
-        ref={(instance) => {
-          turnstileRef.current = instance ?? null
-        }}
-        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
-        onSuccess={handleSuccess}
-        onError={clearTokenWithError}
-        onExpire={clearTokenQuietly}
-        onTimeout={clearTokenQuietly}
-        onUnsupported={handleUnsupported}
-        options={{
-          theme: 'light',
-          size: 'flexible',
-          retry: 'auto',
-          refreshExpired: 'auto',
-          refreshTimeout: 'auto'
-        }}
-      />
+      {/*
+        The slot is what gets measured, so it has no minimum width of its own.
+        It holds the wide widget's 65px from the first paint, server render
+        included, so nothing below it moves when the widget arrives. Only the
+        compact widget (140px, narrow screens) makes the slot grow. The
+        library sizes its own box to match the size it is given (150px by
+        140px for compact), so its 300px minimum applies to the wide one only.
+      */}
+      <div ref={slotRef} className="min-h-[65px]">
+        {widgetSize ? (
+          <Turnstile
+            id={id}
+            ref={(instance) => {
+              turnstileRef.current = instance ?? null
+            }}
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+            onSuccess={handleSuccess}
+            onError={clearTokenWithError}
+            onExpire={clearTokenQuietly}
+            onTimeout={clearTokenQuietly}
+            onUnsupported={handleUnsupported}
+            options={{
+              theme: 'light',
+              size: widgetSize,
+              retry: 'auto',
+              refreshExpired: 'auto',
+              refreshTimeout: 'auto'
+            }}
+          />
+        ) : null}
+      </div>
 
       {error && showInlineError ? (
         <div
