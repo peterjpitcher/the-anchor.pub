@@ -64,6 +64,21 @@ describe('PhoneButton', () => {
     expect(link.className).toContain('w-full')
   })
 
+  it('passes wrap to the button, so a long label fits a phone', () => {
+    // 'Call or WhatsApp us on 01753 682707' was 42px past the edge of a 320px
+    // screen on /halloween.
+    const { rerender } = render(
+      <PhoneButton phone="01753 682707" source="test_phone" wrap>
+        Call or WhatsApp us on 01753 682707
+      </PhoneButton>
+    )
+    expect(screen.getByRole('link')).toHaveClass('max-sm:whitespace-normal', 'max-sm:px-4')
+    expect(screen.getByRole('link')).not.toHaveAttribute('wrap')
+
+    rerender(<PhoneButton phone="01753 682707" source="test_phone" />)
+    expect(screen.getByRole('link')).not.toHaveClass('max-sm:whitespace-normal')
+  })
+
   it('tracks the click with the unchanged phone payload', () => {
     render(<PhoneButton phone="01753 682707" source="footer_cta" />)
 

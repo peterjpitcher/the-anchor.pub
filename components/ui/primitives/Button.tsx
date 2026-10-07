@@ -45,11 +45,27 @@ const buttonVariants = cva(
       },
       fullWidth: {
         true: 'w-full'
+      },
+      // A button is one line (spec §4.1), and the page clips sideways overflow,
+      // so a label wider than a phone is cut off at the edge of the screen and
+      // cannot be scrolled to. Set this where the label is long or comes from
+      // data. Below 640px the side padding then drops to 16px, which is enough
+      // to keep most of these on one line at 390px, and a label that still
+      // does not fit wraps, centred, with room above and below. From 640px up
+      // nothing changes.
+      //
+      // Opt-in, not the default: tried as the default on 7 October 2026, it
+      // wrapped labels that only reach into their side padding, 'Call us' with
+      // its icon in a half-width button among them.
+      wrap: {
+        true: 'max-sm:whitespace-normal max-sm:text-balance max-sm:text-center max-sm:px-4 max-sm:py-2',
+        false: ''
       }
     },
     defaultVariants: {
       variant: 'primary',
-      size: 'md'
+      size: 'md',
+      wrap: false
     }
   }
 )
@@ -70,6 +86,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     variant,
     size,
     fullWidth,
+    wrap,
     children,
     icon,
     iconPosition = 'left',
@@ -77,10 +94,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     disabled = false,
     testId,
     asChild = false,
-    ...props 
+    ...props
   }, ref) => {
     const isDisabled = disabled || loading
-    const baseClassName = cn(buttonVariants({ variant, size, fullWidth }), className)
+    const baseClassName = cn(buttonVariants({ variant, size, fullWidth, wrap }), className)
 
     const content = (inner: ReactNode) => {
       if (loading) {
