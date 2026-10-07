@@ -1,3 +1,4 @@
+import { WELLINGTON_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardBody, SectionHeading } from '@/components/ui'
@@ -78,7 +79,7 @@ function getSundayLunchFaqs() {
     },
     {
       question: 'Is there a vegan Sunday roast?',
-      answer: 'Yes. The Beetroot and Butternut Squash Wellington is fully vegan, served with vegan gravy and the full plate of roast sides.'
+      answer: `Yes, the Beetroot and Butternut Squash Wellington. ${WELLINGTON_WORDING}`
     },
     {
       question: "Where's the best Sunday roast near Heathrow Airport?",
@@ -259,7 +260,7 @@ export default async function SundayRoastPage() {
               Vegan, and Tell Us About Allergies
             </h2>
             <p className="mb-4 leading-relaxed text-ink-muted">
-              The Beetroot and Butternut Squash Wellington is fully vegan, made as a vegan dish from the start. It comes with its own vegan gravy and the same generous plate of sides as everything else. So a mixed table, one person eating plant-based and everyone else after beef, works without anyone compromising.
+              Our vegan roast is the Beetroot and Butternut Squash Wellington. {WELLINGTON_WORDING} So a mixed table, one person eating plant-based and everyone else after beef, works without anyone compromising.
             </p>
             <p className="leading-relaxed text-ink-muted">
               Got an allergy or a dietary need? Let the team know when you sit down and we will talk you through what works. We would rather you ask than guess.
