@@ -1,3 +1,27 @@
+# Unmounted Six Nations pop-up removed, 7 October 2026
+
+Branch `chore/remove-unmounted-six-nations-popup`, from main at 023ae621 (PR #208). Local only: not
+pushed, no PR, not deployed. Owner approved on 7 October 2026.
+
+PR #195 switched the pop-up off but left the component in the repo, still saying "Every match live
+with sound on, 4 screens".
+
+- [x] Grep first: nothing imported or mounted `SixNationsLightbox` apart from one test, and there
+      was no barrel export
+- [x] Deleted `components/features/six-nations/SixNationsLightbox.tsx` (the only file in its folder)
+- [x] Deleted `public/images/six-nations/hero-pub.jpg` and `guinness-detail.jpg`: only the pop-up
+      used the first, nothing used the second, and no optimised copies exist
+- [x] `tests/unit/lightbox-close-button-name.test.tsx` keeps its Christmas checks
+- [x] `tests/unit/six-nations-page-no-lightbox.test.tsx` still stops a pop-up going back on the
+      page, and now also checks no dialog opens and the deleted files stay deleted
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+
+Left alone on purpose: the Six Nations page (one comment updated), the Christmas lightbox, the
+accessibility audit's pop-up check (it has no reference to this component), the shared analytics
+helpers (the Christmas lightbox and others use them), and the two lines in `docs/image-brief.md`
+that mention the scarf image as a tone reference.
+
 # One-line buttons cut off on a phone, the remaining pages, 7 October 2026
 
 Branch `fix/phone-button-overflow-remaining-pages`, from main at bf701df4 (PR #204). Local only: not

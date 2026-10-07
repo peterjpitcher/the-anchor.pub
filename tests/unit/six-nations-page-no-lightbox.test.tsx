@@ -6,10 +6,14 @@
  * still doing that in October 2026, and docs/SSOT.md has no Six Nations entry
  * to say the event is running. The page no longer mounts it.
  *
- * The component itself is left in place, unmounted. This test is what stops it
- * being put back on the page without a decision.
+ * The component was deleted on 7 October 2026, also by owner decision: it still
+ * promised "Every match live", which docs/SSOT.md does not support. This test
+ * stops any pop-up being put on the page without a decision: nothing opens on
+ * exit intent, nothing opens on a timer, and the old component stays deleted.
  */
 
+import fs from 'fs'
+import path from 'path'
 import { act, render, screen } from '@testing-library/react'
 import SixNationsPage from '@/app/live-sport/six-nations/page'
 
@@ -91,6 +95,25 @@ describe('/live-sport/six-nations', () => {
 
     expect(screen.queryByText("Don't Miss Kick Off!")).not.toBeInTheDocument()
     expect(localStorage.getItem('six_nations_2026_lightbox_seen')).toBeNull()
+  })
+
+  it('opens no dialog of any kind on exit intent or after a long wait', async () => {
+    render(<SixNationsPage />)
+    await flush()
+
+    act(() => {
+      document.dispatchEvent(new MouseEvent('mouseleave', { clientY: -1 }))
+      jest.advanceTimersByTime(120_000)
+    })
+    await flush()
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('keeps the deleted pop-up and its two images deleted', () => {
+    const root = process.cwd()
+    expect(fs.existsSync(path.join(root, 'components', 'features', 'six-nations'))).toBe(false)
+    expect(fs.existsSync(path.join(root, 'public', 'images', 'six-nations'))).toBe(false)
   })
 
   it('still renders the page itself', async () => {
