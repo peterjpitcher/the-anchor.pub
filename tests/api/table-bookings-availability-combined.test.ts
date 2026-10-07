@@ -132,6 +132,10 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     const url = `https://www.the-anchor.pub/api/table-bookings/availability?${query}`
     const response = await getAvailability(new Request(url))
     expect(response.status).toBe(200)
+    // Every answer this route gives, the slots and the "could not check" alike,
+    // is live availability. It says so itself and does not rely on middleware:
+    // the edge once kept these for a minute and replayed them for five more.
+    expect(response.headers.get('cache-control')).toBe('private, no-store')
     return response.json()
   }
 
@@ -151,6 +155,7 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
       )
 
       expect(response.status).toBe(400)
+      expect(response.headers.get('cache-control')).toBe('private, no-store')
       const body = await response.json()
       expect(String(body.error)).toMatch(/12 months/i)
       expect(mockGetTableBookingLoadSafe).not.toHaveBeenCalled()

@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import securityHeaders from '@/config/security-headers.json'
+import {
+    CACHEABLE_API_CACHE_CONTROL,
+    DEFAULT_API_CACHE_CONTROL,
+    isCacheableApiPath,
+} from '@/lib/api-cache-policy'
 import { lookupRedirect, lookupFallbackRedirect, getRedirectStatus, resolveRedirectUrl } from '@/lib/middleware-redirects'
 
 export function middleware(request: NextRequest) {
@@ -90,11 +95,18 @@ export function middleware(request: NextRequest) {
         response.headers.set('Cache-Control', 'public, max-age=31536000, immutable')
     }
 
-    // Stale-while-revalidate for cacheable API routes. Mutating API calls,
-    // especially booking and conversion POSTs, must never be cached.
+    // Nothing under /api is stored unless lib/api-cache-policy.ts names it. A
+    // route's own Cache-Control still replaces whatever is set here, so the
+    // personal and availability routes also say `private, no-store` themselves
+    // and do not depend on this file.
     if (pathname.startsWith('/api/')) {
         const method = request.method.toUpperCase()
-        if (method !== 'GET' && method !== 'HEAD') {
+        const isRead = method === 'GET' || method === 'HEAD'
+
+        // Mutating calls, especially booking and conversion POSTs, and business
+        // hours, which powers the StatusBar and must always be live. These also
+        // tell the CDN directly, as they always have.
+        if (!isRead || pathname === '/api/business/hours') {
             response.headers.set('Cache-Control', 'no-store, max-age=0')
             response.headers.set('CDN-Cache-Control', 'no-store')
             response.headers.set('Pragma', 'no-cache')
@@ -102,15 +114,14 @@ export function middleware(request: NextRequest) {
             return response
         }
 
-        // Business hours powers the StatusBar and must always be live.
-        if (pathname === '/api/business/hours') {
-            response.headers.set('Cache-Control', 'no-store, max-age=0')
-            response.headers.set('CDN-Cache-Control', 'no-store')
-            response.headers.set('Pragma', 'no-cache')
-            response.headers.set('Expires', '0')
-        } else {
-            response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
-        }
+        // Cache-Control ONLY for the other reads. CDN-Cache-Control outranks
+        // Cache-Control at the edge and a route cannot be relied on to unset it,
+        // so setting it here would silently switch off the caching of a route
+        // that sets its own public header (reviews, the calendar files).
+        response.headers.set(
+            'Cache-Control',
+            isCacheableApiPath(pathname) ? CACHEABLE_API_CACHE_CONTROL : DEFAULT_API_CACHE_CONTROL
+        )
     }
 
     return response

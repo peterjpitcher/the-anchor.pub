@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { logError } from '@/lib/error-handling'
+import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 
 type RouteContext = {
   params: {
@@ -18,7 +19,7 @@ export async function GET(_request: Request, context: RouteContext) {
         code: 'MISSING_ID',
         message: 'Booking ID is required.'
       }
-    }, { status: 400 })
+    }, { status: 400, headers: PRIVATE_NO_STORE_HEADERS })
   }
 
   try {
@@ -27,7 +28,7 @@ export async function GET(_request: Request, context: RouteContext) {
     return NextResponse.json({
       success: true,
       data: booking
-    })
+    }, { headers: PRIVATE_NO_STORE_HEADERS })
   } catch (error: unknown) {
     logError('api/parking/bookings/[id]', error, { bookingId })
 
@@ -47,6 +48,6 @@ export async function GET(_request: Request, context: RouteContext) {
         message,
         details: status >= 500 ? undefined : err?.details
       }
-    }, { status })
+    }, { status, headers: PRIVATE_NO_STORE_HEADERS })
   }
 }

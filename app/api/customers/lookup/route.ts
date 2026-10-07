@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
+import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 
@@ -48,7 +49,7 @@ function createDegradedLookupResponse(reason: string, status = 200) {
         reason
       }
     },
-    { status }
+    { status, headers: PRIVATE_NO_STORE_HEADERS }
   )
 }
 
@@ -102,7 +103,8 @@ export async function GET(request: NextRequest) {
             data,
             meta: { source: 'brand_lookup' }
           },
-          { status: 200 }
+          // Keyed by a phone number, so never stored anywhere shared.
+          { status: 200, headers: PRIVATE_NO_STORE_HEADERS }
         )
       }
       return createDegradedLookupResponse('upstream_non_json')
@@ -122,7 +124,7 @@ export async function GET(request: NextRequest) {
         success: false,
         error: getSafeUpstreamErrorMessage(rawText, 'Customer lookup failed')
       },
-      { status: upstream.status }
+      { status: upstream.status, headers: PRIVATE_NO_STORE_HEADERS }
     )
   } catch (error) {
     logError('api/customers/lookup', error)

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { logError } from '@/lib/error-handling'
+import { NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 
 export async function GET() {
   try {
@@ -26,6 +27,6 @@ export async function GET() {
         code,
         message
       }
-    }, { status })
+    }, { status, headers: NO_STORE_HEADERS })
   }
 }

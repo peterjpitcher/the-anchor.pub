@@ -569,8 +569,13 @@ export class AnchorAPI {
       }
 
       if (typeof window === 'undefined') {
-        const revalidate =
-          typeof providedNext?.revalidate === 'number'
+        // A write is never kept. Next stores any fetch that carries a lifetime
+        // above zero, whatever its method, so the 300 second default below
+        // would otherwise apply to a payment capture or a new booking as well.
+        const isRead = ['GET', 'HEAD'].includes((requestInit.method ?? 'GET').toUpperCase())
+        const revalidate = !isRead
+          ? 0
+          : typeof providedNext?.revalidate === 'number'
             ? providedNext.revalidate
             : 300
         fetchOptions.next = {
@@ -1335,7 +1340,10 @@ export class AnchorAPI {
       ? `/parking/availability?${query.toString()}`
       : '/parking/availability'
 
-    return this.request<ParkingAvailabilitySlot[]>(endpoint)
+    // Live spaces, so never a kept copy: the default lifetime is five minutes.
+    return this.request<ParkingAvailabilitySlot[]>(endpoint, {
+      next: { revalidate: 0 }
+    } as RequestInit)
   }
 
   async createParkingBooking(data: ParkingBookingRequest, idempotencyKey?: string): Promise<ParkingBookingResponse> {
@@ -1352,7 +1360,12 @@ export class AnchorAPI {
   }
 
   async getParkingBooking(id: string): Promise<ParkingBookingDetails> {
-    return this.request<ParkingBookingDetails>(`/parking/bookings/${id}`)
+    // One customer's name, mobile, email and vehicle, which the management app
+    // marks `private, no-store`, and a status that changes the moment they pay.
+    // A kept copy could tell a guest who has just paid that they have not.
+    return this.request<ParkingBookingDetails>(`/parking/bookings/${id}`, {
+      next: { revalidate: 0 }
+    } as RequestInit)
   }
 
   async createParkingPaymentOrder(

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { logError } from '@/lib/error-handling'
+import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       success: true,
       data: availability
-    })
+    }, { headers: PRIVATE_NO_STORE_HEADERS })
   } catch (error: unknown) {
     logError('api/parking/availability', error, { start, end, granularity })
 
@@ -38,6 +39,6 @@ export async function GET(request: Request) {
         message,
         details: status >= 500 ? undefined : err?.details
       }
-    }, { status })
+    }, { status, headers: PRIVATE_NO_STORE_HEADERS })
   }
 }

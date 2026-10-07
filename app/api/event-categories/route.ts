@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
+import { NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,7 +21,9 @@ export async function GET() {
           lastUpdated: new Date().toISOString()
         }
       },
-      { status: 200 }
+      // An empty list standing in for a failed read. Storing it would show
+      // every visitor no categories for minutes after the read recovered.
+      { status: 200, headers: NO_STORE_HEADERS }
     )
   }
 }
