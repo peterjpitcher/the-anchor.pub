@@ -2,9 +2,11 @@ import type { EventAttendee } from '@/lib/event-attendees'
 import type { EventDiningRequest } from '@/lib/api/events'
 import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
-import { createApiErrorResponse, logError } from '@/lib/error-handling'
+import { createApiErrorResponse } from '@/lib/error-handling'
+import { reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK, mapUpstreamFailure, toGuestMessage, withGuestPhone } from '@/lib/guest-error-messages'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
+import { safeJsonParse } from '@/lib/upstream-json'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
@@ -16,6 +18,7 @@ import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
+const ROUTE = 'api/event-bookings'
 
 type TicketSelection = {
   ticket_type_id: string
@@ -485,12 +488,19 @@ type BookingNotCompletedLog = {
  * personal data: the status, a code, the event id and the page path only,
  * never the phone number, name, email or anything else the guest typed.
  */
-function logBookingNotCompleted(kind: 'refused' | 'failed', details: BookingNotCompletedLog): void {
-  logError(
-    `api/event-bookings/${kind}`,
-    new Error(`Event booking ${kind}: ${details.status} ${details.code ?? details.state ?? 'no code'}`),
-    details
-  )
+async function logBookingNotCompleted(kind: 'refused' | 'failed', details: BookingNotCompletedLog): Promise<void> {
+  // `reason` is this route's own fixed wording, so it is not passed on: the
+  // shared reporter takes codes only, which is what keeps guest text out.
+  await reportFailure({
+    route: ROUTE,
+    kind,
+    status: details.status,
+    reason: details.code ?? details.state ?? 'NO_CODE',
+    upstreamCode: details.code,
+    state: details.state,
+    eventId: details.eventId,
+    page: details.bookingSource
+  })
 }
 
 async function forwardConfirmedBookingConversion(
@@ -564,13 +574,13 @@ async function forwardConfirmedBookingConversion(
 
 export async function POST(request: NextRequest) {
   if (!API_KEY) {
-    logBookingNotCompleted('failed', {
+    await logBookingNotCompleted('failed', {
       status: 503,
       code: 'API_KEY_MISSING',
       eventId: null,
       bookingSource: getBookingSource(request, null)
     })
-    return createApiErrorResponse('Event booking service unavailable', 503)
+    return createApiErrorResponse(GUEST_FALLBACK.event_booking, 503)
   }
 
   try {
@@ -590,7 +600,7 @@ export async function POST(request: NextRequest) {
 
     if (!normalized.payload) {
       const message = normalized.error || 'Invalid event booking payload'
-      logBookingNotCompleted('refused', {
+      await logBookingNotCompleted('refused', {
         status: 400,
         code: 'INVALID_PAYLOAD',
         reason: message,
@@ -603,7 +613,7 @@ export async function POST(request: NextRequest) {
     const eventId = asLoggableEventId(normalized.payload.event_id)
     const validationError = validatePayload(normalized.payload)
     if (validationError) {
-      logBookingNotCompleted('refused', {
+      await logBookingNotCompleted('refused', {
         status: 400,
         code: 'VALIDATION_ERROR',
         reason: validationError,
@@ -644,15 +654,11 @@ export async function POST(request: NextRequest) {
 
     const rawText = await upstream.text()
     const parsed = safeJsonParse(rawText)
-    const fallbackPayload = {
-      success: false,
-      error: getSafeUpstreamErrorMessage(rawText, 'Event booking request failed')
-    }
 
     // Handle BOOKINGS_DISABLED rejection from management API
     const bookingsDisabled = upstream.status === 409 && hasErrorCode(parsed, 'BOOKINGS_DISABLED')
     if (bookingsDisabled) {
-      logBookingNotCompleted('refused', { status: 409, code: 'BOOKINGS_DISABLED', eventId, bookingSource })
+      await logBookingNotCompleted('refused', { status: 409, code: 'BOOKINGS_DISABLED', eventId, bookingSource })
       return NextResponse.json(
         { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed, just turn up!' } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
@@ -662,7 +668,7 @@ export async function POST(request: NextRequest) {
     // Handle SALES_CLOSED rejection from management API (online ticket-sales cutoff)
     const salesClosed = upstream.status === 409 && hasErrorCode(parsed, 'SALES_CLOSED')
     if (salesClosed) {
-      logBookingNotCompleted('refused', { status: 409, code: 'SALES_CLOSED', eventId, bookingSource })
+      await logBookingNotCompleted('refused', { status: 409, code: 'SALES_CLOSED', eventId, bookingSource })
       return NextResponse.json(
         { success: false, error: { code: 'SALES_CLOSED', message: 'Online ticket sales for this event have closed.' } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
@@ -671,22 +677,25 @@ export async function POST(request: NextRequest) {
 
     const policyViolation = upstream.status === 409 && hasPolicyViolation(parsed)
     if (policyViolation) {
-      logBookingNotCompleted('refused', { status: 409, code: 'POLICY_VIOLATION', eventId, bookingSource })
-      const message =
+      await logBookingNotCompleted('refused', { status: 409, code: 'POLICY_VIOLATION', eventId, bookingSource })
+      // The management app writes this one for the guest, but it is still
+      // passed through the mapper so a developer's sentence cannot ride along.
+      const upstreamPolicyMessage =
         (parsed && typeof parsed === 'object'
           ? (parsed as Record<string, unknown>)?.error &&
             typeof (parsed as Record<string, unknown>).error === 'object'
             ? ((parsed as Record<string, unknown>).error as Record<string, unknown>)?.message
             : (parsed as Record<string, unknown>)?.message
-          : null) ||
-        'This booking cannot be completed. Please contact us for assistance.'
+          : null)
+      const message = typeof upstreamPolicyMessage === 'string' && upstreamPolicyMessage.trim()
+        ? toGuestMessage(upstreamPolicyMessage, 'event_booking')
+        : withGuestPhone('This booking cannot be completed. Please contact us for assistance.')
       return NextResponse.json(
-        { success: false, error: { code: 'POLICY_VIOLATION', message: String(message) } },
+        { success: false, error: { code: 'POLICY_VIOLATION', message } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
       )
     }
 
-    const responseBody = parsed ?? fallbackPayload
     const responseState = pickResponseData(parsed)?.state
     const bookingState = typeof responseState === 'string' ? responseState : null
 
@@ -701,29 +710,62 @@ export async function POST(request: NextRequest) {
       bookingState === 'blocked' ||
       bookingState === 'full_with_waitlist_option'
 
-    if (upstreamFailed || upstreamRefused) {
-      logBookingNotCompleted(upstreamFailed ? 'failed' : 'refused', {
+    // The booking system said no, or broke, in a way the guest will be shown
+    // as an error. They get our sentence, never the upstream wording: this
+    // route used to pass on "Invalid or missing API key", "Rate limit exceeded"
+    // and raw validation text. A blocked or full answer under a 200 is left
+    // alone below, because the form has its own wording for each reason.
+    if (!upstream.ok || parsed === null || asRecord(parsed)?.success === false) {
+      // The management app's 400 answers for an event are mostly written for
+      // the guest ("Please enter a name for each ticket"), so a sentence is
+      // kept unless it reads like a schema message.
+      const mapped = mapUpstreamFailure({
         status: upstream.status,
-        code: parsed === null ? 'UNREADABLE_RESPONSE' : getUpstreamRefusalCode(parsed),
+        body: parsed,
+        context: 'event_booking',
+        trustValidationSentences: true
+      })
+      const kind = upstream.ok ? 'failed' : mapped.kind
+      await logBookingNotCompleted(kind, {
+        status: upstream.status,
+        code: parsed === null ? 'UNREADABLE_RESPONSE' : mapped.code,
+        state: bookingState,
+        eventId,
+        bookingSource
+      })
+      return NextResponse.json(
+        { success: false, error: { code: mapped.code, message: mapped.message } },
+        // An OK status around something that is not a booking must not reach
+        // the form as a 2xx.
+        { status: upstream.ok ? 502 : upstream.status, headers: { 'X-Idempotency-Key': idempotencyKey } }
+      )
+    }
+
+    if (upstreamFailed || upstreamRefused) {
+      await logBookingNotCompleted(upstreamFailed ? 'failed' : 'refused', {
+        status: upstream.status,
+        code: getUpstreamRefusalCode(parsed),
         state: bookingState,
         eventId,
         bookingSource
       })
     }
 
-    if (upstream.ok) {
-      await forwardConfirmedBookingConversion(request, normalized.payload, responseBody)
-    }
+    const responseBody = parsed
+    await forwardConfirmedBookingConversion(request, normalized.payload, responseBody)
 
     return NextResponse.json(responseBody, {
       status: upstream.status,
       headers: { 'X-Idempotency-Key': idempotencyKey }
     })
   } catch (error) {
-    logError('api/event-bookings', error)
-    return createApiErrorResponse(
-      'We could not process this event booking right now. Please call 01753 682707.',
-      503
-    )
+    await reportFailure({
+      route: ROUTE,
+      status: null,
+      reason: 'UNEXPECTED_ERROR',
+      page: getBookingSource(request, null),
+      error
+    })
+    return createApiErrorResponse(GUEST_FALLBACK.event_booking, 503)
   }
 }

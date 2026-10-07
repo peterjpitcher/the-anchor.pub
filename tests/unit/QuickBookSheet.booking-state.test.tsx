@@ -331,6 +331,23 @@ describe('QuickBookSheet fails closed when the booking cannot be made', () => {
     expect(trackBookingErrorShown).toHaveBeenCalledWith({ code: 'quick_book_submit_failed' })
   })
 
+  it.each([
+    [401, { success: false, error: { code: 'UNAUTHORIZED', message: 'Invalid or missing API key' } }, 'API key'],
+    [429, { success: false, error: { code: 'SOME_NEW_CODE', message: 'Rate limit exceeded' } }, 'Rate limit'],
+    [500, { success: false, error: 'customer_conflict' }, 'customer_conflict'],
+    [500, { success: false, error: { code: 'DATABASE_ERROR', message: 'Failed to create table booking' } }, 'Failed to create']
+  ])('never shows the wording of the booking system itself (%s)', async (status, body, wording) => {
+    answerBookingWith({ status, body })
+
+    await bookAtSeven()
+
+    const alert = await screen.findByRole('alert')
+    expect(alert).toHaveTextContent('01753 682707')
+    expect(alert.textContent).not.toContain(wording)
+    expectPhoneLink()
+    expectNotBooked()
+  })
+
   it('a 200 that says success false is a failure', async () => {
     answerBookingWith({ status: 200, body: { success: false, error: { message: 'Not today.' } } })
 

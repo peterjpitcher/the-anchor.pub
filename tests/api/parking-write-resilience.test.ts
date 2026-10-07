@@ -13,11 +13,13 @@ jest.mock('@/lib/spam-protection', () => ({
   checkSpamProtection: jest.fn().mockResolvedValue({ blocked: false }),
 }))
 
-const mockLogError = jest.fn()
-jest.mock('@/lib/error-handling', () => {
-  const actual = jest.requireActual('@/lib/error-handling')
-  return { ...actual, logError: (...args: unknown[]) => mockLogError(...args) }
-})
+// Failures on this route go through the shared reporter (lib/report-failure.ts),
+// which writes the log line and alerts a person.
+const mockReportFailure = jest.fn(async (..._args: unknown[]) => undefined)
+jest.mock('@/lib/report-failure', () => ({
+  reportFailure: (...args: unknown[]) => mockReportFailure(...args),
+  pageFromRequest: () => null,
+}))
 
 const mockCreateParkingBooking = jest.fn()
 const mockCreateParkingPaymentOrder = jest.fn()
@@ -99,7 +101,15 @@ describe('POST /api/parking/bookings under outage', () => {
     const { POST } = await import('@/app/api/parking/bookings/route')
     await POST(post('http://localhost/api/parking/bookings', VALID_BOOKING) as never)
 
-    expect(mockLogError).toHaveBeenCalledWith('api/parking/bookings', UPSTREAM_DOWN, expect.any(Object))
+    expect(mockReportFailure).toHaveBeenCalledWith(
+      expect.objectContaining({ route: 'api/parking/bookings', kind: 'failed', reason: 'CREATE_BOOKING_FAILED' })
+    )
+    // The line this replaced carried the guest's name and number plate.
+    const reported = JSON.stringify(mockReportFailure.mock.calls)
+    expect(reported).not.toContain(VALID_BOOKING.customer.first_name)
+    expect(reported).not.toContain(VALID_BOOKING.customer.last_name)
+    expect(reported).not.toContain(String(VALID_BOOKING.vehicle.registration).replace(/\s+/g, ''))
+    expect(reported).not.toContain(VALID_BOOKING.customer.mobile_number)
   })
 
   it('still points a locked-out guest at the phone when the API key is rejected', async () => {
@@ -131,11 +141,14 @@ describe('POST /api/parking/payment/create-order under outage', () => {
 
     expect(response.status).toBe(502)
     expect(body.error).toContain(PHONE)
-    expect(mockLogError).toHaveBeenCalledWith(
-      'api/parking/payment/create-order',
-      UPSTREAM_DOWN,
-      expect.any(Object),
+    expect(mockReportFailure).toHaveBeenCalledWith(
+      expect.objectContaining({ route: 'api/parking/payment/create-order', kind: 'failed', payment: true })
     )
+    // The number plate used to be written into this log line.
+    const reported = JSON.stringify(mockReportFailure.mock.calls)
+    expect(reported).not.toContain(String(VALID_ORDER.vehicle.registration).replace(/\s+/g, ''))
+    expect(reported).not.toContain(VALID_ORDER.customer.mobile_number)
+    expect(reported).not.toContain(VALID_ORDER.customer.last_name)
   })
 
   it('refuses an order with no PayPal id rather than opening PayPal on nothing', async () => {
@@ -149,7 +162,7 @@ describe('POST /api/parking/payment/create-order under outage', () => {
 
     expect(response.status).toBe(502)
     expect(body.error).toContain(PHONE)
-    expect(mockLogError).toHaveBeenCalled()
+    expect(mockReportFailure).toHaveBeenCalled()
   })
 
   it('still passes a genuine capacity rejection through, so the guest can pick new dates', async () => {
@@ -202,10 +215,8 @@ describe('POST /api/parking/payment/capture under outage', () => {
     const { POST } = await import('@/app/api/parking/payment/capture/route')
     await POST(post('http://localhost/api/parking/payment/capture', VALID_CAPTURE) as never)
 
-    expect(mockLogError).toHaveBeenCalledWith(
-      'api/parking/payment/capture',
-      UPSTREAM_DOWN,
-      expect.any(Object),
+    expect(mockReportFailure).toHaveBeenCalledWith(
+      expect.objectContaining({ route: 'api/parking/payment/capture', payment: true, reason: 'CAPTURE_FAILED' })
     )
   })
 
@@ -222,7 +233,7 @@ describe('POST /api/parking/payment/capture under outage', () => {
     expect(response.status).toBe(502)
     expect(body.error).toContain(PHONE)
     expect(body.booking_id).toBeUndefined()
-    expect(mockLogError).toHaveBeenCalled()
+    expect(mockReportFailure).toHaveBeenCalled()
   })
 
   it('confirms a real capture', async () => {
@@ -234,6 +245,6 @@ describe('POST /api/parking/payment/capture under outage', () => {
 
     expect(response.status).toBe(200)
     expect(body.booking_id).toBe('bk_1')
-    expect(mockLogError).not.toHaveBeenCalled()
+    expect(mockReportFailure).not.toHaveBeenCalled()
   })
 })

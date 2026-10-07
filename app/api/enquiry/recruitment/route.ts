@@ -3,6 +3,10 @@ import { randomUUID } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { checkSpamProtection } from '@/lib/spam-protection'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
+
+const ROUTE = 'api/enquiry/recruitment'
 
 export const runtime = 'nodejs'
 // Budget: up to two management API attempts (25s + 20s) plus the email fallback.
@@ -176,7 +180,10 @@ function sleep(ms: number): Promise<void> {
 type ManagementAttemptResult =
   | { state: 'success'; response: unknown }
   | { state: 'validation_error'; status: number; error: string }
-  | { state: 'retryable'; reason: string; possibleDuplicate: boolean; inProgress?: boolean }
+  | { state: 'retryable'; reason: string; possibleDuplicate: boolean; inProgress?: boolean; status?: number }
+  // Not the applicant's to correct and not worth a second go: the key was
+  // rejected, the route has moved, the upload was too big for the far end.
+  | { state: 'infrastructure_error'; reason: string; possibleDuplicate: boolean; status?: number }
 
 async function attemptManagementApi(
   url: string,
@@ -214,6 +221,7 @@ async function attemptManagementApi(
         reason: upstreamMessage || 'Management API reported the application as already in progress',
         possibleDuplicate: true,
         inProgress: responsePayload?.error?.code === 'IDEMPOTENCY_KEY_IN_PROGRESS',
+        status: response.status,
       }
     }
 
@@ -224,6 +232,7 @@ async function attemptManagementApi(
         state: 'retryable',
         reason: upstreamMessage || 'Management API rate limited the request',
         possibleDuplicate: false,
+        status: response.status,
       }
     }
 
@@ -232,13 +241,33 @@ async function attemptManagementApi(
         state: 'retryable',
         reason: upstreamMessage || `Management API returned ${response.status}`,
         possibleDuplicate: response.status === 408,
+        status: response.status,
+      }
+    }
+
+    // Only a 400 or a 422 is the applicant's to correct. This used to treat
+    // every other 4xx the same way, so a rejected key (401), a missing
+    // permission (403) or a moved route (404) bounced each applicant with the
+    // management app's own sentence, sent no fallback email and logged
+    // nothing: the application and the CV went nowhere.
+    if (response.status === 400 || response.status === 422) {
+      return {
+        state: 'validation_error',
+        status: response.status,
+        error: mapUpstreamFailure({
+          status: response.status,
+          body: responsePayload,
+          context: 'job_application',
+          trustValidationSentences: true,
+        }).message,
       }
     }
 
     return {
-      state: 'validation_error',
+      state: 'infrastructure_error',
+      reason: `Management API returned ${response.status}`,
+      possibleDuplicate: false,
       status: response.status,
-      error: upstreamMessage || responsePayload?.error || 'Application was rejected by recruitment validation.',
     }
   } catch (error) {
     const aborted = error instanceof Error && error.name === 'AbortError'
@@ -261,7 +290,7 @@ async function proxyToManagementApi(
 ): Promise<
   | { state: 'success'; response: unknown }
   | { state: 'validation_error'; status: number; error: string }
-  | { state: 'infrastructure_error'; reason: string; possibleDuplicate: boolean }
+  | { state: 'infrastructure_error'; reason: string; possibleDuplicate: boolean; status?: number }
 > {
   const baseUrl = managementApiBaseUrl()
   const apiKey = managementApiKey()
@@ -330,6 +359,7 @@ async function proxyToManagementApi(
     state: 'infrastructure_error',
     reason: `${lastFailure?.reason ?? 'Management API request failed'} (after ${MANAGEMENT_ATTEMPT_TIMEOUTS_MS.length} attempts)`,
     possibleDuplicate: lastFailure?.possibleDuplicate ?? false,
+    status: lastFailure?.status,
   }
 }
 
@@ -430,6 +460,7 @@ async function buildCvAttachment(file: File | null): Promise<GraphAttachment | n
 }
 
 export async function POST(request: NextRequest) {
+  const page = pageFromRequest(request)
   try {
     const formData = await request.formData()
     const availability = formData
@@ -501,17 +532,30 @@ export async function POST(request: NextRequest) {
     }
 
     if (proxyResult.state === 'validation_error') {
+      await reportFailure({ route: ROUTE, kind: 'refused', status: proxyResult.status, reason: 'VALIDATION_ERROR', page })
       return NextResponse.json(
         { success: false, error: proxyResult.error },
         { status: proxyResult.status }
       )
     }
 
+    // Everything from here is a fault on our side. It is reported, the
+    // application goes to the manager by email with the CV, and the applicant
+    // gets the standard answer. `reason` holds upstream text for the email
+    // only; the report takes the status and a fixed code.
+    const upstreamStatus = typeof proxyResult.status === 'number' ? proxyResult.status : null
+    await reportFailure({
+      route: ROUTE,
+      status: upstreamStatus,
+      reason: upstreamStatus === null ? 'NO_RESPONSE_OR_NOT_CONFIGURED' : 'UPSTREAM_NOT_OK',
+      page
+    })
+
     const graphUser = process.env.MICROSOFT_USER_EMAIL
     if (!graphUser) {
-      console.error('MICROSOFT_USER_EMAIL is not configured.')
+      await reportFailure({ route: ROUTE, status: upstreamStatus, reason: 'APPLICATION_LOST_EMAIL_NOT_CONFIGURED', page })
       return NextResponse.json(
-        { success: false, error: 'Email service is not configured. Please contact the site administrator.' },
+        { success: false, error: GUEST_FALLBACK.job_application },
         { status: 500 }
       )
     }
@@ -533,9 +577,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, source: 'email_fallback', possibleDuplicate: proxyResult.possibleDuplicate })
   } catch (error) {
-    console.error('Recruitment application submission failed:', error)
+    // Reached when the fallback email itself fails, among other things, so
+    // this can be an application that reached nobody.
+    await reportFailure({ route: ROUTE, status: null, reason: 'UNEXPECTED_ERROR', page, error })
     return NextResponse.json(
-      { success: false, error: 'Sorry, we could not send your application. Please call us on 01753 682707.' },
+      { success: false, error: GUEST_FALLBACK.job_application },
       { status: 500 }
     )
   }

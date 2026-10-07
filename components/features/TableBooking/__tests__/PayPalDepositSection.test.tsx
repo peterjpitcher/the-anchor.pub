@@ -27,6 +27,17 @@ jest.mock('@paypal/react-paypal-js', () => ({
 const mockFetch = jest.fn()
 global.fetch = mockFetch
 
+// The section shows a "call us" message instead of the buttons when the PayPal
+// client id is missing, so the tests of the buttons need one set.
+const ORIGINAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+beforeAll(() => {
+  process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = 'test-client-id'
+})
+afterAll(() => {
+  if (ORIGINAL_CLIENT_ID === undefined) delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+  else process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = ORIGINAL_CLIENT_ID
+})
+
 describe('PayPalDepositSection', () => {
   const defaultProps = {
     bookingId: '550e8400-e29b-41d4-a716-446655440000',
@@ -134,5 +145,70 @@ describe('PayPalDepositSection', () => {
     await waitFor(() => {
       expect(defaultProps.onError).toHaveBeenCalled()
     })
+  })
+  // The management app answers some refusals with `error` as an object. The
+  // section handed it to the form as it stood, the form rendered it, and React
+  // threw: the page was lost at the moment a deposit was owed.
+  describe('when the capture does not go through', () => {
+    beforeEach(() => {
+      defaultProps.onError.mockClear()
+      defaultProps.onSuccess.mockClear()
+    })
+
+    async function approveWith(response: unknown) {
+      mockFetch.mockReset()
+      if (response instanceof Error) mockFetch.mockRejectedValueOnce(response)
+      else mockFetch.mockResolvedValueOnce(response)
+
+      render(<PayPalDepositSection {...defaultProps} />)
+      screen.getByTestId('paypal-approve').click()
+
+      await waitFor(() => expect(defaultProps.onError).toHaveBeenCalledTimes(1))
+      const message = defaultProps.onError.mock.calls[0][0]
+      expect(defaultProps.onSuccess).not.toHaveBeenCalled()
+      return message as unknown
+    }
+
+    it.each([
+      ['an object-shaped error (the shared key ran out of allowance)', { ok: false, status: 429, json: async () => ({ success: false, error: { code: 'RATE_LIMIT_EXCEEDED', message: 'Rate limit exceeded' } }) }],
+      ['an object-shaped error (the key was rejected)', { ok: false, status: 401, json: async () => ({ success: false, error: { code: 'UNAUTHORIZED', message: 'Invalid or missing API key' } }) }],
+      ['a bare string from a developer', { ok: false, status: 500, json: async () => ({ error: 'Failed to capture PayPal payment. Please try again.' }) }],
+      ['a body that is not JSON', { ok: false, status: 502, json: async () => { throw new SyntaxError('Unexpected token <') } }],
+      ['a 200 that does not say it succeeded', { ok: true, status: 200, json: async () => ({}) }],
+      ['no connection at all', new TypeError('Failed to fetch')],
+    ])('hands the form one sentence with the phone number: %s', async (_label, response) => {
+      const message = await approveWith(response)
+
+      // A string, so the form can render it.
+      expect(typeof message).toBe('string')
+      expect(message).toContain('01753 682707')
+      // The guest has approved the payment, so "try again" is the wrong advice.
+      expect(message).toContain('before paying again')
+      expect(message).not.toMatch(/Rate limit|API key|Failed to|Unexpected token|\[object Object\]/)
+
+      // Rendered the way the form renders it: this is what used to throw.
+      const { getByRole } = render(<p role="alert">{message as string}</p>)
+      expect(getByRole('alert')).toHaveTextContent('01753 682707')
+    })
+
+    it('keeps a sentence our own route wrote', async () => {
+      const sentence = 'We could not confirm your payment. Please call us on 01753 682707 before paying again, and we will check whether it went through.'
+      const message = await approveWith({ ok: false, status: 502, json: async () => ({ success: false, error: sentence }) })
+
+      expect(message).toBe(sentence)
+    })
+  })
+
+  it('shows the phone number instead of nothing when the PayPal client id is missing', () => {
+    const previous = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+    delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+    try {
+      render(<PayPalDepositSection {...defaultProps} />)
+
+      expect(screen.getByRole('alert')).toHaveTextContent('01753 682707')
+      expect(screen.queryByTestId('paypal-approve')).not.toBeInTheDocument()
+    } finally {
+      process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = previous
+    }
   })
 })

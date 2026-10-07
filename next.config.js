@@ -1,5 +1,9 @@
 process.env.BROWSERSLIST_IGNORE_OLD_DATA = '1'
 
+// Stops a production build that is missing a setting the forms need, and warns
+// on a preview. Does nothing in CI or on a laptop. See lib/required-env.js.
+require('./lib/required-env').assertRequiredEnv()
+
 /** @type {import('next').NextConfig} */
 const blogRedirects = require('./config/redirects/blog-redirects.json')
 const tagRedirects = require('./config/redirects/tag-redirects.json')

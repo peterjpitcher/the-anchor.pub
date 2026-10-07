@@ -91,7 +91,7 @@ export async function checkSpamProtection(
     return {
       blocked: true,
       response: Response.json(
-        { success: false, error: 'Too many attempts. Please wait a minute and try again.' },
+        { success: false, error: 'Too many attempts. Please wait a minute and try again, or call 01753 682707.' },
         { status: 429 }
       )
     }
@@ -127,7 +127,7 @@ export async function checkSpamProtection(
       return {
         blocked: true,
         response: Response.json(
-          { success: false, error: turnstile.error || 'Security check failed.' },
+          { success: false, error: turnstile.error || 'Security check failed. Please try again, or call 01753 682707.' },
           { status: 403 }
         )
       }

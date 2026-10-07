@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { anchorAPI } from '@/lib/api'
-import { logError } from '@/lib/error-handling'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK } from '@/lib/guest-error-messages'
+
+const ROUTE = 'api/parking/payment/create-order'
 import {
   sanitizeCommunicationConsent,
   communicationConsentIdempotencyPart,
@@ -10,8 +13,7 @@ import {
 // Shown to the guest whenever the order could not be created for a reason they
 // cannot fix themselves. It carries the phone number because the alternative is
 // a dead end: the PayPal sheet never opens and there is nothing else to try.
-const ORDER_FAILED_MESSAGE =
-  'We could not start your parking payment. Please try again, or call 01753 682707 and we will book your space.'
+const ORDER_FAILED_MESSAGE = GUEST_FALLBACK.parking_payment
 
 const CreateOrderSchema = z.object({
   customer: z.object({
@@ -85,8 +87,14 @@ export async function POST(request: NextRequest) {
     // idea who to call.
     const order = result as { paypal_order_id?: unknown; booking_id?: unknown } | null
     if (!order || !order.paypal_order_id || !order.booking_id) {
-      logError('api/parking/payment/create-order', new Error('Create-order response was incomplete'), {
-        registration: registrationFingerprint,
+      // The number plate used to be written into this log line. It is
+      // personal data and it told nobody anything the status does not.
+      await reportFailure({
+        route: ROUTE,
+        payment: true,
+        status: 200,
+        reason: 'INCOMPLETE_ORDER',
+        page: pageFromRequest(request),
       })
       return NextResponse.json({ error: ORDER_FAILED_MESSAGE }, { status: 502 })
     }
@@ -97,13 +105,23 @@ export async function POST(request: NextRequest) {
     const apiError = error as { status?: number; code?: string }
     const status = apiError?.status === 409 ? 409 : 502
 
-    if (status !== 409) {
-      logError('api/parking/payment/create-order', error, { registration: registrationFingerprint })
-    }
+    // A 409 is a deliberate no (the dates filled, or a duplicate press). It is
+    // logged so we can see it, and nobody is alerted. Only the code of the
+    // thrown error is kept: its message can repeat what the guest typed.
+    await reportFailure({
+      route: ROUTE,
+      payment: true,
+      kind: status === 409 ? 'refused' : 'failed',
+      status: typeof apiError?.status === 'number' ? apiError.status : null,
+      reason: status === 409 ? 'CONFLICT' : 'CREATE_ORDER_FAILED',
+      upstreamCode: apiError?.code ?? null,
+      page: pageFromRequest(request),
+      error: status === 409 ? undefined : { code: apiError?.code },
+    })
 
     const message =
       apiError?.code === 'CAPACITY_UNAVAILABLE'
-        ? 'Sorry, this slot is now fully booked. Please choose different dates.'
+        ? 'Sorry, this slot is now fully booked. Please choose different dates, or call 01753 682707.'
         : ORDER_FAILED_MESSAGE
     return NextResponse.json(
       { error: message, ...(status === 409 ? { code: apiError?.code } : {}) },

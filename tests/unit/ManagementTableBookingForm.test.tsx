@@ -767,13 +767,17 @@ describe('ManagementTableBookingForm', () => {
         )
       }
 
-      // Inline PayPal create-order returns an error to drive the recovery branch
+      // Inline PayPal create-order returns an error to drive the recovery branch.
+      // The error is an OBJECT, the shape the management app answers with when
+      // the shared key runs out of allowance. The form used to put it into
+      // state and render it, which threw and took the whole page down at the
+      // moment a booking existed and a deposit was owed.
       if (url === '/api/table-bookings/paypal/create-order') {
         return Promise.resolve(
           new Response(
-            JSON.stringify({ success: false, error: 'PayPal setup failed' }),
+            JSON.stringify({ success: false, error: { code: 'RATE_LIMIT_EXCEEDED', message: 'Rate limit exceeded' } }),
             {
-              status: 502,
+              status: 429,
               headers: { 'Content-Type': 'application/json' }
             }
           )
@@ -833,6 +837,11 @@ describe('ManagementTableBookingForm', () => {
       name: /click here to complete your deposit/i
     })
     expect(fallbackLink).toHaveAttribute('href', 'https://pay.example.com/secure-link')
+
+    // A sentence with the phone number, not the upstream wording and not a crash.
+    expect(screen.queryByText(/Rate limit exceeded/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/\[object Object\]/)).not.toBeInTheDocument()
+    expect(screen.getByText(/Our booking system is very busy just now\. Please try again in a few minutes, or call 01753 682707\./)).toBeInTheDocument()
 
     // Verify the public payload no longer carries sunday_lunch or menu_selections
     expect(submittedPayload).not.toBeNull()
@@ -1618,7 +1627,8 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(history.ref.current.length).toBe(1))
       // Wait for the failure to propagate (loading clears, error surfaces).
       await waitFor(() =>
-        expect(screen.getByText(/Temporarily unavailable/i)).toBeInTheDocument()
+        // The upstream wording is not shown; the guest gets our sentence.
+        expect(screen.getByText(/We could not process your booking right now/i)).toBeInTheDocument()
       )
 
       // Second Confirm: same intent, retried by customer.
@@ -1690,7 +1700,8 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       await waitFor(() => expect(history.ref.current.length).toBe(1))
       await waitFor(() =>
-        expect(screen.getByText(/Temporarily unavailable/i)).toBeInTheDocument()
+        // The upstream wording is not shown; the guest gets our sentence.
+        expect(screen.getByText(/We could not process your booking right now/i)).toBeInTheDocument()
       )
 
       // Back to details, immediately Continue to review (no field changes).
@@ -1735,7 +1746,8 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       await waitFor(() => expect(history.ref.current.length).toBe(1))
       await waitFor(() =>
-        expect(screen.getByText(/Temporarily unavailable/i)).toBeInTheDocument()
+        // The upstream wording is not shown; the guest gets our sentence.
+        expect(screen.getByText(/We could not process your booking right now/i)).toBeInTheDocument()
       )
 
       // Back to details, change notes, forward to review, Confirm.

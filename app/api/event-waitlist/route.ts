@@ -1,8 +1,10 @@
 import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
-import { createApiErrorResponse, logError } from '@/lib/error-handling'
+import { createApiErrorResponse } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
+import { safeJsonParse } from '@/lib/upstream-json'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import {
   sanitizeCommunicationConsent,
@@ -13,8 +15,15 @@ import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
 
-const WAITLIST_UNAVAILABLE_MESSAGE =
-  'We could not join the waitlist right now. Please call 01753 682707.'
+const ROUTE = 'api/event-waitlist'
+const WAITLIST_UNAVAILABLE_MESSAGE = GUEST_FALLBACK.event_waitlist
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+/** An event id is logged only when it is an id: the field is guest-supplied. */
+function loggableEventId(value: unknown): string | null {
+  return typeof value === 'string' && UUID_PATTERN.test(value.trim()) ? value.trim() : null
+}
 
 type EventWaitlistPayload = {
   event_id: string
@@ -146,8 +155,10 @@ function hasUpstreamErrorCode(input: unknown, code: string): boolean {
 }
 
 export async function POST(request: NextRequest) {
+  const page = pageFromRequest(request)
   if (!API_KEY) {
-    return createApiErrorResponse('Event waitlist service unavailable', 503)
+    await reportFailure({ route: ROUTE, status: null, reason: 'API_KEY_MISSING', page })
+    return createApiErrorResponse(WAITLIST_UNAVAILABLE_MESSAGE, 503)
   }
 
   try {
@@ -193,40 +204,55 @@ export async function POST(request: NextRequest) {
 
     const rawText = await upstream.text()
     const parsed = safeJsonParse(rawText)
-    const fallbackPayload = {
-      success: false,
-      error: getSafeUpstreamErrorMessage(rawText, 'Event waitlist request failed')
-    }
+    const eventId = loggableEventId(normalized.payload.event_id)
 
     // An OK status we could not parse is not a place on the waitlist. This used
     // to return `success: false` under the upstream's own 2xx, so anything
     // reading the status rather than the body, a retry wrapper, a log, a future
     // caller, would record a join that never happened.
     if (upstream.ok && parsed === null) {
-      logError(
-        'api/event-waitlist',
-        new Error(`Upstream ${upstream.status} body could not be parsed`),
-        { eventId: normalized.payload.event_id }
-      )
+      await reportFailure({ route: ROUTE, status: upstream.status, reason: 'UNREADABLE_RESPONSE', eventId, page })
       return createApiErrorResponse(WAITLIST_UNAVAILABLE_MESSAGE, 502)
     }
 
     // Handle BOOKINGS_DISABLED rejection from management API
     if (upstream.status === 409 && hasUpstreamErrorCode(parsed, 'BOOKINGS_DISABLED')) {
+      await reportFailure({ route: ROUTE, kind: 'refused', status: 409, reason: 'BOOKINGS_DISABLED', upstreamCode: 'BOOKINGS_DISABLED', eventId, page })
       return NextResponse.json(
         { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed, just turn up!' } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
       )
     }
 
-    return NextResponse.json(parsed ?? fallbackPayload, {
+    // A refusal or a fault used to go back to the guest in the upstream's own
+    // words ("upstream exploded", a raw validation line) with nothing written
+    // here. Both are now recorded, and the guest gets our sentence.
+    const parsedRecord = parsed && typeof parsed === 'object' ? (parsed as Record<string, unknown>) : null
+    if (!upstream.ok || parsedRecord?.success === false) {
+      const mapped = mapUpstreamFailure({ status: upstream.status, body: parsed, context: 'event_waitlist' })
+      await reportFailure({
+        route: ROUTE,
+        kind: upstream.ok ? 'failed' : mapped.kind,
+        status: upstream.status,
+        reason: parsed === null ? 'UNREADABLE_RESPONSE' : upstream.ok ? 'SUCCESS_FALSE_ON_OK' : 'UPSTREAM_NOT_OK',
+        upstreamCode: mapped.code,
+        eventId,
+        page
+      })
+      return NextResponse.json(
+        { success: false, error: { code: mapped.code, message: mapped.message } },
+        { status: upstream.ok ? 502 : upstream.status, headers: { 'X-Idempotency-Key': idempotencyKey } }
+      )
+    }
+
+    return NextResponse.json(parsed, {
       status: upstream.status,
       headers: {
         'X-Idempotency-Key': idempotencyKey
       }
     })
   } catch (error) {
-    logError('api/event-waitlist', error)
+    await reportFailure({ route: ROUTE, status: null, reason: 'UNEXPECTED_ERROR', page, error })
     return createApiErrorResponse(WAITLIST_UNAVAILABLE_MESSAGE, 503)
   }
 }

@@ -11,6 +11,10 @@ import {
   getLondonIsoDate
 } from '@/lib/christmas-season'
 import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK } from '@/lib/guest-error-messages'
+
+const ROUTE = 'api/enquiry/christmas'
 
 const DEFAULT_TO = 'manager@the-anchor.pub'
 const GRAPH_SCOPE = 'https://graph.microsoft.com/.default'
@@ -481,6 +485,7 @@ async function sendMicrosoftGraphEmail(accessToken: string, options: { to: strin
 }
 
 export async function POST(request: NextRequest) {
+  const page = pageFromRequest(request)
   try {
     const rawBody = await request.json()
 
@@ -592,6 +597,10 @@ export async function POST(request: NextRequest) {
     const managementApiBaseUrl = getManagementApiBaseUrl()
     const managementKey = process.env.ANCHOR_API_KEY
     let managementForwarded = false
+    // The last HTTP status the management app answered with, for the report.
+    // Kept apart from managementFailureDetail, which goes into the fallback
+    // email with a slice of the upstream text and so must never be logged.
+    let managementStatus: number | null = null
     // Why the enquiry is not in the management system, for the fallback email.
     // Stays null on success; is always set on any path that skips or fails the
     // management call, so the email can never claim less than the truth.
@@ -659,6 +668,7 @@ export async function POST(request: NextRequest) {
               break
             }
 
+            managementStatus = mgmtResponse.status
             const errorText = await mgmtResponse.text().catch(() => '')
             managementFailureDetail = `HTTP ${mgmtResponse.status} on attempt ${attempt} of ${MANAGEMENT_ATTEMPTS}: ${errorText.slice(0, 300)}`
 
@@ -678,20 +688,31 @@ export async function POST(request: NextRequest) {
           }
         }
 
-        if (!managementForwarded) {
-          console.error('Christmas enquiry could not be stored in the management app after retries:', managementFailureDetail)
-        }
       } catch (dbError) {
         const message = dbError instanceof Error ? dbError.message : String(dbError)
         managementFailureDetail = managementFailureDetail || `Unexpected error before the management call: ${message}`
-        console.error('Error contacting management app:', dbError)
       }
     }
 
     if (!managementForwarded) {
+      // The enquiry is not in the management app. The guest may still be told
+      // it arrived, because the email below carries it to a person, but the
+      // outage itself is reported so it cannot run unnoticed. The status only:
+      // the detail string holds upstream text and stays in the fallback email.
+      await reportFailure({
+        route: ROUTE,
+        status: managementStatus,
+        reason: !managementKey
+          ? 'API_KEY_MISSING'
+          : managementStatus === null
+            ? 'NO_RESPONSE'
+            : 'UPSTREAM_NOT_OK',
+        page
+      })
+
       const graphUser = process.env.MICROSOFT_USER_EMAIL
       if (!graphUser) {
-        console.error('Christmas enquiry could not reach the management app and MICROSOFT_USER_EMAIL is not configured.')
+        await reportFailure({ route: ROUTE, status: managementStatus, reason: 'ENQUIRY_LOST_EMAIL_NOT_CONFIGURED', page })
         return NextResponse.json(
           { success: false, error: 'The enquiry service is temporarily unavailable. Please call us on 01753 682707.' },
           { status: 500 }
@@ -699,16 +720,34 @@ export async function POST(request: NextRequest) {
       }
 
       const { subject, htmlContent, textContent } = buildEmailContent(enquiry, { managementFailureDetail })
-      const accessToken = await getMicrosoftGraphToken()
 
-      await sendMicrosoftGraphEmail(accessToken, {
-        to: process.env.CHRISTMAS_ENQUIRY_TO || DEFAULT_TO,
-        fromUser: graphUser,
-        subject,
-        htmlContent,
-        textContent,
-        replyTo: body.email
-      })
+      try {
+        const accessToken = await getMicrosoftGraphToken()
+
+        await sendMicrosoftGraphEmail(accessToken, {
+          to: process.env.CHRISTMAS_ENQUIRY_TO || DEFAULT_TO,
+          fromUser: graphUser,
+          subject,
+          htmlContent,
+          textContent,
+          replyTo: body.email
+        })
+      } catch (fallbackError) {
+        // Both routes to a person have failed, so this enquiry is lost unless
+        // the guest rings. Named for what it is, so it is not read as one more
+        // outage line.
+        await reportFailure({
+          route: ROUTE,
+          status: managementStatus,
+          reason: 'ENQUIRY_LOST_FALLBACK_EMAIL_FAILED',
+          page,
+          error: fallbackError
+        })
+        return NextResponse.json(
+          { success: false, error: GUEST_FALLBACK.christmas_enquiry },
+          { status: 502 }
+        )
+      }
     }
 
     const delivery = managementForwarded ? 'management' : 'email_fallback'
@@ -728,10 +767,12 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, delivery })
   } catch (error) {
-    console.error('Christmas enquiry submission failed:', error)
-    const message = error instanceof Error ? error.message : 'Unexpected error submitting enquiry.'
+    // This used to hand the thrown message to the guest, and the errors thrown
+    // above carry Microsoft's raw answer. The guest gets a fixed sentence with
+    // the phone number; the detail stays on our side, scrubbed.
+    await reportFailure({ route: ROUTE, status: null, reason: 'UNEXPECTED_ERROR', page, error })
     return NextResponse.json(
-      { success: false, error: message },
+      { success: false, error: GUEST_FALLBACK.christmas_enquiry },
       { status: 500 }
     )
   }

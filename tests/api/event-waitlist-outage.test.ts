@@ -28,11 +28,13 @@ jest.mock('@/lib/spam-protection', () => ({
   checkSpamProtection: jest.fn().mockResolvedValue({ blocked: false }),
 }))
 
-const mockLogError = jest.fn()
-jest.mock('@/lib/error-handling', () => {
-  const actual = jest.requireActual('@/lib/error-handling')
-  return { ...actual, logError: (...args: unknown[]) => mockLogError(...args) }
-})
+// Failures on this route go through the shared reporter (lib/report-failure.ts),
+// which writes the log line and alerts a person.
+const mockReportFailure = jest.fn(async (..._args: unknown[]) => undefined)
+jest.mock('@/lib/report-failure', () => ({
+  reportFailure: (...args: unknown[]) => mockReportFailure(...args),
+  pageFromRequest: () => null,
+}))
 
 const PHONE = '01753 682707'
 
@@ -83,7 +85,9 @@ describe('POST /api/event-waitlist under outage', () => {
 
     expect(response.status).toBe(503)
     expect(body.error).toContain(PHONE)
-    expect(mockLogError).toHaveBeenCalledWith('api/event-waitlist', expect.anything())
+    expect(mockReportFailure).toHaveBeenCalledWith(
+      expect.objectContaining({ route: 'api/event-waitlist', status: null, reason: 'UNEXPECTED_ERROR' })
+    )
   })
 
   it('does not turn a 500 into a place on the waitlist', async () => {
@@ -97,6 +101,13 @@ describe('POST /api/event-waitlist under outage', () => {
 
     expect(response.status).toBe(500)
     expect(body.success).not.toBe(true)
+    // The raw upstream text used to be what the guest was shown, and nothing
+    // was written on our side.
+    expect(JSON.stringify(body)).not.toContain('upstream exploded')
+    expect(body.error.message).toContain(PHONE)
+    expect(mockReportFailure).toHaveBeenCalledWith(
+      expect.objectContaining({ route: 'api/event-waitlist', kind: 'failed', status: 500 })
+    )
   })
 
   it('refuses an OK status whose body it could not read, rather than passing the 2xx on', async () => {
@@ -111,7 +122,7 @@ describe('POST /api/event-waitlist under outage', () => {
 
     expect(response.status).toBe(502)
     expect(body.error).toContain(PHONE)
-    expect(mockLogError).toHaveBeenCalled()
+    expect(mockReportFailure).toHaveBeenCalled()
   })
 
   it('still passes a real join straight through', async () => {
@@ -128,6 +139,6 @@ describe('POST /api/event-waitlist under outage', () => {
 
     expect(response.status).toBe(200)
     expect(body.data.state).toBe('waiting')
-    expect(mockLogError).not.toHaveBeenCalled()
+    expect(mockReportFailure).not.toHaveBeenCalled()
   })
 })

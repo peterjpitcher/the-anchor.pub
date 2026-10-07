@@ -17,7 +17,12 @@ const mockFetch = jest.fn()
 global.fetch = mockFetch as typeof fetch
 
 describe('POST /api/table-bookings/paypal/capture-order', () => {
-  beforeEach(() => jest.clearAllMocks())
+  beforeEach(() => {
+    jest.clearAllMocks()
+    // The route now refuses to call the management app without its key,
+    // where it used to send `Bearer undefined`.
+    process.env.ANCHOR_API_KEY = 'test-key'
+  })
 
   afterEach(() => {
     delete process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET
@@ -147,7 +152,10 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
     const body = await res.json()
 
     expect(res.status).toBe(502)
-    expect(body.success).toBeUndefined()
+    expect(body.success).toBe(false)
+    // The guest has approved the payment by now: ring before paying again.
+    expect(body.error).toContain('before paying again')
+    expect(body.error).toContain('01753 682707')
     expect(mockFetch).toHaveBeenCalledTimes(1)
   })
 
@@ -172,7 +180,8 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
     const body = await res.json()
 
     expect(res.status).toBe(502)
-    expect(body.success).toBeUndefined()
+    expect(body.success).toBe(false)
+    expect(body.error).toContain('01753 682707')
     // No CheersAI conversion: only the upstream capture call was made.
     expect(mockFetch).toHaveBeenCalledTimes(1)
   })

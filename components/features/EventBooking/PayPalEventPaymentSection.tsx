@@ -4,6 +4,7 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { useState } from 'react'
 import type { BookingAttributionPayload } from '@/lib/booking-attribution'
 import { EVENT_TICKET_REFUND_WORDING } from '@/lib/approved-wording'
+import { GUEST_FALLBACK, toGuestMessage } from '@/lib/guest-error-messages'
 
 export interface EventPaymentConversionPayload {
   eventId: string
@@ -54,18 +55,10 @@ function formatMoney(value: number): string {
 
 type PaymentState = 'idle' | 'creating' | 'paying' | 'manual_review' | 'error'
 
-// The management API returns errors as either a plain string or an object
-// envelope `{ code, message }` (e.g. auth/rate-limit paths). Rendering an object
-// into JSX throws "Objects are not valid as a React child", so always resolve to
-// a string before displaying.
-function resolveErrorMessage(error: unknown, fallback: string): string {
-  if (typeof error === 'string' && error.trim()) return error
-  if (error && typeof error === 'object') {
-    const message = (error as { message?: unknown }).message
-    if (typeof message === 'string' && message.trim()) return message
-  }
-  return fallback
-}
+// Errors arrive as a plain string, an object envelope `{ code, message }`, or a
+// bare reason code such as `hold_expired`. Rendering an object into JSX throws
+// "Objects are not valid as a React child", and a bare code means nothing to a
+// guest, so everything goes through the shared mapper before it is displayed.
 
 export function PayPalEventPaymentSection({
   bookingId,
@@ -143,12 +136,14 @@ export function PayPalEventPaymentSection({
         return
       }
 
-      const message = resolveErrorMessage(data?.error, 'Payment could not be confirmed. Please try again or call us.')
+      const message = toGuestMessage(data?.error, 'event_payment_capture')
       setErrorMessage(message)
       setPaymentState('error')
       onError(message)
     } catch {
-      const message = 'Payment could not be processed. Please try again or call us.'
+      // The payment was approved before this ran, so "try again" is the wrong
+      // advice: they are asked to ring before paying a second time.
+      const message = GUEST_FALLBACK.event_payment_capture
       setErrorMessage(message)
       setPaymentState('error')
       onError(message)
@@ -205,7 +200,7 @@ export function PayPalEventPaymentSection({
               })
               const data = await response.json().catch(() => null)
               if (!response.ok || !data?.orderId) {
-                const message = resolveErrorMessage(data?.error, 'Could not start PayPal payment.')
+                const message = toGuestMessage(data?.error, 'event_payment')
                 setErrorMessage(message)
                 setPaymentState('error')
                 throw new Error(message)

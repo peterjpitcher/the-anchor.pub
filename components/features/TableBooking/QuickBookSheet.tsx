@@ -32,6 +32,7 @@ import {
   confirmationDeliveryCopy,
   type ManagementTableBookingResult,
 } from '@/lib/table-booking/submission'
+import { toGuestMessage } from '@/lib/guest-error-messages'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import {
   trackTableBookingClick,
@@ -307,9 +308,11 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
       const data = body?.data || body
 
       if (!response.ok || !body || body?.success === false) {
-        const upstreamError = body?.error?.message || body?.error || data?.error
+        // Through the shared mapper: a sentence with the phone number in it,
+        // never a code and never the management app's own wording.
+        // The sheet adds its own phone link under whatever it shows.
         throw new Error(
-          typeof upstreamError === 'string' && upstreamError ? upstreamError : SUBMIT_FAILED_COPY
+          toGuestMessage(body?.error ?? data?.error, 'table_booking', { phone: false, fallback: SUBMIT_FAILED_COPY })
         )
       }
 
