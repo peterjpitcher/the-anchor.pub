@@ -1,4 +1,5 @@
 import type { BusinessHours } from '@/lib/api'
+import { getEffectiveDayHours, isKitchenClosed } from '@/lib/hours-utils'
 
 export type BookingPurpose = 'food' | 'drinks'
 export type BookingType = 'regular' | 'sunday_lunch'
@@ -321,11 +322,24 @@ export function resolveServiceRanges(
   const kitchenData = (specialDay !== undefined
     ? (specialDay.kitchen ?? null)
     : (regularDay?.kitchen ?? null)) as Record<string, unknown> | null
+  // ONE record speaks for the kitchen on a date: the special-hours record when
+  // there is one, the regular day otherwise. lib/hours-utils.ts owns that rule,
+  // so it is asked rather than restated here.
+  //
+  // This used to OR the two records together, which read the regular day's flag
+  // even when a special record existed. The regular Monday is flagged closed, so
+  // a Monday the pub had specially opened the kitchen for could be judged shut
+  // by the weekday it happened to fall on. A special record is an exception for
+  // one date and replaces the regular day; `kitchen: null` on it is a deliberate
+  // closure, not missing data.
   const kitchenClosed =
-    specialDay?.is_kitchen_closed === true ||
-    regularDay?.is_kitchen_closed === true ||
-    kitchenData?.is_closed === true ||
-    (specialDay !== undefined && kitchenData === null) // kitchen: null on a special day = deliberate closure
+    isKitchenClosed(
+      getEffectiveDayHours(
+        isoDate,
+        (businessHours.regularHours ?? {}) as Parameters<typeof getEffectiveDayHours>[1],
+        (businessHours.specialHours ?? []) as Parameters<typeof getEffectiveDayHours>[2]
+      )
+    ) || kitchenData?.is_closed === true
 
   const kitchenOpens = typeof kitchenData?.opens === 'string' ? normalizeTime(kitchenData.opens) : null
   const kitchenCloses = typeof kitchenData?.closes === 'string' ? normalizeTime(kitchenData.closes) : null
@@ -354,6 +368,20 @@ export function resolveServiceRanges(
   }
 
   if (options.purpose === 'food') {
+    // The kitchen flag is read BEFORE the services. A `regular` service gates
+    // drinks as well as food, so the management app leaves those entries in
+    // place on a day the kitchen is shut. Reading them first returned food times
+    // on eight kitchen-closed dates over Christmas 2026 (22, 23, 24, 29, 30 and
+    // 31 December, 2 and 5 January), each carrying `kitchen: null`,
+    // `is_kitchen_closed: true` and its `regular` entries.
+    if (kitchenClosed) {
+      return {
+        ranges: [],
+        closed: false,
+        message: 'Food is unavailable for that date. Please choose drinks-only or call us for help.'
+      }
+    }
+
     // Food service windows are stored as `regular`. The table_booking_type enum
     // is regular | sunday_lunch | christmas, so no slot is ever tagged `food`:
     // matching on that alone found nothing and silently fell through to the
