@@ -130,7 +130,7 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
   )
 
   return (
-    <form aria-label="Short private hire enquiry" onSubmit={submit} onFocus={startEnquiry} className="space-y-4 rounded-md border border-line bg-surface p-6">
+    <form aria-label="Short private hire enquiry" onSubmit={submit} onFocus={startEnquiry} className="space-y-4 rounded-md border border-line bg-surface p-3 sm:p-6">
       <h3 className="text-xl font-semibold text-ink-strong">Enquire about your date</h3>
       <p className="text-sm text-ink-muted">Tell us what you have in mind. You do not need to choose catering or a room yet. This enquiry does not hold your date.</p>
       {error && <p role="alert" className="text-ink font-semibold">{error}</p>}
