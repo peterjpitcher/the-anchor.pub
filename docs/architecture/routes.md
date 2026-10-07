@@ -88,7 +88,7 @@ project: the-anchor-pub
 
 | Route | Methods | Purpose |
 |-------|---------|---------|
-| `/api/health` | GET | Health check (public) |
+| `/api/health` | GET | Health check (public). Runs on request: 200 when the required settings are present and the booking system's hours endpoint answers, 503 with a short reason when not |
 | `/api/careers` | POST | Submit career inquiry |
 | `/api/event-categories` | GET | Get event category list |
 | `/api/event-waitlist` | POST | Join event waitlist |
