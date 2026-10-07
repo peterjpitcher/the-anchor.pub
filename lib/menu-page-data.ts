@@ -11,6 +11,7 @@ import { KIDS_MENU_CODE } from '@/lib/api/menu'
 import type { MenuData, MenuItem } from '@/lib/menu-parser'
 import { sortFoodMenuSections } from '@/lib/food-menu-section-order'
 import ssot from '@/SSOT.json'
+import { ALLERGEN_UNKNOWN_WORDING } from '@/lib/approved-wording'
 
 type SsotData = {
   food?: {
@@ -42,16 +43,20 @@ const CHRISTMAS_RETIRED_PATTERN =
 const SUNDAY_RETIRED_PATTERN =
   /roasted chicken|crispy pork belly|slow-cooked lamb|lamb shank|cauliflower cheese|vegetarian wellington/i
 
-const MEAT_OR_FISH_PATTERN =
-  /beef|chicken|pork|ham|bacon|salami|sausage|fish|scampi|squid|turkey|lamb|meat|katsu/i
+// Listed allergens that contradict a dietary flag. These are the only thing
+// allowed to take a label away: the kitchen's flags are otherwise trusted as
+// they come from the management app. Nothing here ever adds a label.
+const FISH_ALLERGENS = new Set([
+  'fish',
+  'crustaceans',
+  'molluscs'
+])
 
 const ANIMAL_ALLERGENS = new Set([
   'milk',
   'eggs',
   'egg',
-  'fish',
-  'crustaceans',
-  'molluscs'
+  ...FISH_ALLERGENS
 ])
 
 const GLUTEN_ALLERGENS = new Set(['gluten'])
@@ -101,7 +106,7 @@ export type SundayLunchPageData = {
  */
 export type MenuAllergenStatus = 'known' | 'unknown'
 
-export const MENU_ALLERGEN_UNKNOWN_NOTICE = 'See menu or contact us for allergen information'
+export const MENU_ALLERGEN_UNKNOWN_NOTICE = ALLERGEN_UNKNOWN_WORDING
 
 export type ChristmasMenuItem = MenuPageItem & {
   allergenStatus: MenuAllergenStatus
@@ -158,6 +163,10 @@ function hasAnimalAllergen(item: MenuSectionItem | SundayLunchMenuItem): boolean
   return uniqueList(item.allergens).some((allergen) => ANIMAL_ALLERGENS.has(normalizeToken(allergen)))
 }
 
+function hasFishAllergen(item: MenuSectionItem | SundayLunchMenuItem): boolean {
+  return uniqueList(item.allergens).some((allergen) => FISH_ALLERGENS.has(normalizeToken(allergen)))
+}
+
 function hasGlutenAllergen(item: MenuSectionItem | SundayLunchMenuItem): boolean {
   return uniqueList(item.allergens).some((allergen) => GLUTEN_ALLERGENS.has(normalizeToken(allergen)))
 }
@@ -195,25 +204,32 @@ function isGarlicBread(item: { name?: string | null }): boolean {
 // "Burger Add-ons" stays out: otherwise the range starts at a £1 add-on.
 const MAINS_SECTION_PATTERN = /^(?:mains?|burgers?|pizzas?)$/i
 
-function isLikelyVegetarian(item: MenuSectionItem | SundayLunchMenuItem): boolean {
-  if (hasDietaryToken(item, 'vegetarian') || hasDietaryToken(item, 'vegan')) {
-    return !MEAT_OR_FISH_PATTERN.test(itemText(item))
-  }
-
-  return false
+// Dietary labels come from the kitchen's flags in the management app, and from
+// nothing else. The site used to second-guess them by reading the dish name and
+// description, which took the vegan label off the "Butternut" Wellington
+// (contains "butter") and off every burger served with "butterhead" salad.
+//
+// The one check kept is a safety net that can only REMOVE a label: a dish
+// flagged vegan that lists milk, eggs, fish, crustaceans or molluscs is not
+// shown as vegan, and a dish flagged vegetarian that lists fish, crustaceans or
+// molluscs is not shown as vegetarian. A contradiction like that is a record to
+// correct in the management app.
+function isVegetarian(item: MenuSectionItem | SundayLunchMenuItem): boolean {
+  if (!hasDietaryToken(item, 'vegetarian') && !hasDietaryToken(item, 'vegan')) return false
+  return !hasFishAllergen(item)
 }
 
-function isLikelyVegan(item: MenuSectionItem | SundayLunchMenuItem): boolean {
+function isVegan(item: MenuSectionItem | SundayLunchMenuItem): boolean {
   if (!hasDietaryToken(item, 'vegan')) return false
-  if (MEAT_OR_FISH_PATTERN.test(itemText(item))) return false
-  if (hasAnimalAllergen(item)) return false
-  return !/cheese|cheddar|mozzarella|ricotta|custard|ice cream|butter/i.test(itemText(item))
+  return !hasAnimalAllergen(item)
 }
 
-function hasVeganOption(item: MenuSectionItem | SundayLunchMenuItem, sectionName: string): boolean {
-  if (isLikelyVegan(item)) return false
-  const text = itemText(item)
-  return /pizza/i.test(sectionName) && isLikelyVegetarian(item) && /mozzarella|cheese/i.test(text)
+// "Can be made vegan" is shown only when the kitchen flags it. The management
+// app has no such flag today, so nothing carries this label: it used to be
+// guessed for any vegetarian pizza with cheese, with no data behind it.
+function hasVeganOption(item: MenuSectionItem | SundayLunchMenuItem): boolean {
+  if (isVegan(item)) return false
+  return hasDietaryToken(item, 'vegan option')
 }
 
 function isGlutenFree(item: MenuSectionItem | SundayLunchMenuItem): boolean {
@@ -227,8 +243,12 @@ function hasGlutenFreeOption(item: MenuSectionItem | SundayLunchMenuItem, sectio
   // Accepts the NGCI wording and the legacy "gluten-free base" phrasing: the
   // management DB descriptions were migrated to NGCI, but this must keep working
   // if an older description is restored or a new dish is written either way.
+  //
+  // The SSOT (section 5) confirms NGCI bases for the pizzas only. Garlic bread
+  // sits in the Pizza section but is not a pizza, so it counts only when its own
+  // menu text says it can be made on an NGCI base.
   return (
-    /pizza|garlic bread/i.test(sectionName) ||
+    (/pizza/i.test(sectionName) && !isGarlicBread(item)) ||
     /ngci base|gluten-free base|gluten free base/i.test(itemText(item))
   )
 }
@@ -271,9 +291,9 @@ function mapApiItem(
     priceValue: Number(item.price || 0),
     priceLabel: formatPriceLabel(item.price),
     allergens: uniqueList(item.allergens),
-    vegetarian: isLikelyVegetarian(item),
-    vegan: isLikelyVegan(item),
-    veganOptionAvailable: hasVeganOption(item, sectionName),
+    vegetarian: isVegetarian(item),
+    vegan: isVegan(item),
+    veganOptionAvailable: hasVeganOption(item),
     glutenFree: isGlutenFree(item),
     glutenFreeAvailable: hasGlutenFreeOption(item, sectionName),
     special: item.is_special,

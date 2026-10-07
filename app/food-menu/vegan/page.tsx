@@ -12,9 +12,16 @@ import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { DietaryItemList } from '../_components/DietaryItemList'
 import {
   getMenuUnavailableMessage,
+  getSundayLunchMenuPageData,
   getVeganMenuPageData,
   type MenuPageItem
 } from '@/lib/menu-page-data'
+
+/** Sunday roast mains the kitchen flags as vegan (the Wellington, today). */
+async function getSundayVeganItems(): Promise<MenuPageItem[]> {
+  const sunday = await getSundayLunchMenuPageData()
+  return sunday.mains.filter((item) => item.vegan)
+}
 
 export const revalidate = 3600
 
@@ -26,8 +33,8 @@ function joinItemNames(items: MenuPageItem[]): string {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getVeganMenuPageData()
-  const veganCount = data ? data.veganItems.length + data.veganOptionItems.length : 0
+  const [data, sundayVegan] = await Promise.all([getVeganMenuPageData(), getSundayVeganItems()])
+  const veganCount = (data ? data.veganItems.length + data.veganOptionItems.length : 0) + sundayVegan.length
   const description = data
     ? `Vegan pub food near Heathrow from The Anchor's live menu. ${veganCount} current vegan or vegan-option dishes. Free parking, 7 minutes from Terminal 5.`
     : 'Vegan pub food near Heathrow at The Anchor. Current options from the latest kitchen menu.'
@@ -52,10 +59,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function VeganMenuPage() {
-  const data = await getVeganMenuPageData()
+  const [data, sundayVegan] = await Promise.all([getVeganMenuPageData(), getSundayVeganItems()])
   const fullyVegan = data?.veganItems ?? []
   const veganOption = data?.veganOptionItems ?? []
-  const totalVeganItems = fullyVegan.length + veganOption.length
+  const totalVeganItems = fullyVegan.length + veganOption.length + sundayVegan.length
+  const sundaySentence = sundayVegan.length > 0
+    ? ` On Sundays, from 1pm to 6pm, there is also the ${joinItemNames(sundayVegan)}.`
+    : ''
 
   const faqItems = [
     {
@@ -67,7 +77,7 @@ export default async function VeganMenuPage() {
     {
       question: 'What vegan dishes are currently listed?',
       answer: data
-        ? `The current vegan list includes ${joinItemNames([...fullyVegan, ...veganOption])}. Check the live menu sections for descriptions and prices.`
+        ? `The current vegan list includes ${joinItemNames([...fullyVegan, ...veganOption])}.${sundaySentence} Check the live menu sections for descriptions and prices.`
         : getMenuUnavailableMessage(),
     },
     {
@@ -125,6 +135,18 @@ export default async function VeganMenuPage() {
           )}
         </div>
       </section>
+
+      {sundayVegan.length > 0 && (
+        <section className="bg-canvas py-section-y">
+          <div className="container">
+            <SectionHeading
+              title="Sundays"
+              lead="On the Sunday roast menu, 1pm to 6pm."
+            />
+            <DietaryItemList items={sundayVegan} badge="VE" />
+          </div>
+        </section>
+      )}
 
       {veganOption.length > 0 && (
         <section className="bg-canvas py-section-y">
