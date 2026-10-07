@@ -1,3 +1,4 @@
+import { NGCI_WORDING, ONE_KITCHEN_WORDING } from '@/lib/approved-wording'
 import { resolveFixtureBookingContext } from '@/lib/nations-championship/booking-context'
 import type { FixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
 import type { Metadata } from 'next'
@@ -382,6 +383,9 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             </p>
           )}
         </div>
+        {previewItems.some((item) => /\bNGCI\b/.test(item.description || '')) && (
+          <p className="mx-auto mt-4 text-center text-sm text-ink-muted">{NGCI_WORDING}</p>
+        )}
         <p className="text-center mt-6">
           <Link href="/food-menu" className="text-accent-text font-semibold hover:underline">
             See the full food menu &rarr;
@@ -461,7 +465,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'Do you cater for dietary requirements?',
-            answer: 'Yes. We offer vegetarian and vegan options and can accommodate most common allergies. Please add a note when booking, and our team will make sure your visit goes smoothly.'
+            answer: `We have vegetarian and vegan dishes, and NGCI (No Gluten Containing Ingredients) options. ${ONE_KITCHEN_WORDING} Tell us about any allergy when you book, and ask the bar team before you order.`
           },
           {
             question: 'How far are you from Heathrow Airport?',

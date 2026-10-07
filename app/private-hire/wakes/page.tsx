@@ -1,3 +1,4 @@
+import { PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { InteriorHero } from '@/components/hero'
@@ -211,7 +212,7 @@ export default async function WakesPage() {
                             { title: "Accessibility for All Guests", description: "The venue is entirely on the ground floor with step-free access to the bar and dining area, making it easy for elderly guests and those with mobility difficulties. Our car park is directly adjacent to the entrance with no steps to navigate. Please note we do not currently have an accessible toilet, so call ahead if you would like to talk through your visit." },
                             { title: "Flexible Timing", description: "We are available any day of the week, including at short notice for same-week bookings. We work around funeral service times and can open early or stay later to suit your schedule. Simply call us and we will accommodate your needs." },
                             { title: "Everything Included", description: "Room hire, dedicated staff, setup, and cleardown are all included in our packages. There are no hidden charges. We handle the practical arrangements so you and your family can focus on being together." },
-                            { title: "Dietary Accommodation", description: "We regularly cater for large mixed groups with a range of dietary requirements including vegetarian, vegan, NGCI (No Gluten Containing Ingredients), and nut-free options. Please let us know your requirements when booking and we will ensure everyone is catered for." },
+                            { title: "Allergies and Dietary Needs", description: PRIVATE_HIRE_DIETARY_WORDING },
                             { title: "Free Parking", description: "Our car park provides 20 free spaces with room for funeral cars and larger vehicles. There is also ample unrestricted street parking nearby. We are just ten minutes from South West Middlesex Crematorium and easily reached from the surrounding area." },
                         ].map(feature => (
                             <Card key={feature.title} className="h-full">
@@ -336,7 +337,7 @@ export default async function WakesPage() {
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">2</span>
                                 <div>
                                     <h3 className="font-semibold text-ink-strong mb-1">Choose your catering package</h3>
-                                    <p className="text-ink-muted">Select from our classic finger buffet, enhanced buffet, or afternoon tea. We can also create a bespoke menu if you have something specific in mind. Let us know about any dietary requirements and we will cater for everyone.</p>
+                                    <p className="text-ink-muted">Select from our classic finger buffet, enhanced buffet, or afternoon tea. We can also create a bespoke menu if you have something specific in mind. {PRIVATE_HIRE_DIETARY_WORDING}</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
@@ -434,8 +435,8 @@ export default async function WakesPage() {
                         answer: "Yes, we have a sound system in the private dining room where you can play a playlist of your choice quietly in the background."
                     },
                     {
-                        question: "Do you cater for allergies?",
-                        answer: "Absolutely. Please let us know of any dietary requirements when booking, and we will ensure suitable options are provided separately."
+                        question: PRIVATE_HIRE_DIETARY_QUESTION,
+                        answer: PRIVATE_HIRE_DIETARY_WORDING
                     }
                 ]}
             />

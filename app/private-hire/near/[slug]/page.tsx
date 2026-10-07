@@ -1,3 +1,4 @@
+import { PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING } from '@/lib/approved-wording'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { getLandmarkBySlug, landmarks, type Landmark, type LandmarkType } from '@/lib/local-seo-data'
@@ -191,7 +192,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     ],
                 },
                 packagesHeading: 'Catering for the gathering',
-                packagesIntro: 'We offer buffets, afternoon teas and unlimited tea and coffee, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options for mixed groups. We will give you a clear, tailored quote covering room hire and catering when you call.',
+                packagesIntro: `We offer buffets, afternoon teas and unlimited tea and coffee. ${PRIVATE_HIRE_DIETARY_WORDING} We will give you a clear, tailored quote covering room hire and catering when you call.`,
                 faqs: [
                     {
                         question: `How far is The Anchor from ${name}?`,
@@ -222,8 +223,8 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                         answer: 'Of course. We will set up a display table for photographs, an order of service or flowers, and you are welcome to play a chosen piece of music through our sound system.',
                     },
                     {
-                        question: 'Can you cater for dietary requirements?',
-                        answer: 'Yes. We regularly cater for mixed groups and can provide vegetarian, vegan, NGCI (No Gluten Containing Ingredients) and nut-free options. Please tell us when you book and we will look after everyone.',
+                        question: PRIVATE_HIRE_DIETARY_QUESTION,
+                        answer: PRIVATE_HIRE_DIETARY_WORDING,
                     },
                 ],
             }
@@ -256,7 +257,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     ],
                 },
                 packagesHeading: 'Food for the celebration',
-                packagesIntro: 'From relaxed finger buffets to afternoon teas and sit-down meals, we will tailor the catering to your party, including options for children and any dietary requirements. Room hire and catering are quoted on enquiry.',
+                packagesIntro: `From relaxed finger buffets to afternoon teas and sit-down meals, we will tailor the catering to your party, including options for children. ${PRIVATE_HIRE_DIETARY_WORDING} Room hire and catering are quoted on enquiry.`,
                 faqs: [
                     {
                         question: `How far is The Anchor from ${name}?`,
@@ -276,7 +277,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you cater for a mix of adults and children?',
-                        answer: 'Absolutely. We offer buffets, afternoon teas and sit-down meals, with a children\'s menu and vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options. Let us know your numbers when you book.',
+                        answer: `Absolutely. We offer buffets, afternoon teas and sit-down meals, with a children's menu. ${PRIVATE_HIRE_DIETARY_WORDING} Let us know your numbers when you book.`,
                     },
                     {
                         question: 'How many guests can you host?',
@@ -413,8 +414,8 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                         answer: `${CAPACITY_LINE}. Let us know your numbers and we will recommend the right space.`,
                     },
                     {
-                        question: 'Can you cater for dietary requirements?',
-                        answer: 'Yes. We can provide vegetarian, vegan, NGCI (No Gluten Containing Ingredients) and nut-free options for mixed groups. Please tell us when you book and we will look after everyone.',
+                        question: PRIVATE_HIRE_DIETARY_QUESTION,
+                        answer: PRIVATE_HIRE_DIETARY_WORDING,
                     },
                     {
                         question: 'Is a deposit required?',
@@ -479,7 +480,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you provide a working lunch?',
-                        answer: 'Yes. We offer working lunches and finger buffets through to sit-down meals, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options. Let us know your requirements when you book.',
+                        answer: `Yes. We offer working lunches and finger buffets through to sit-down meals. ${PRIVATE_HIRE_DIETARY_WORDING}`,
                     },
                     {
                         question: 'Is a deposit required?',
@@ -544,7 +545,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you cater for a large group?',
-                        answer: 'Yes. We offer buffets, sharing platters and sit-down meals for larger groups, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options. Let us know your numbers when you book.',
+                        answer: `Yes. We offer buffets, sharing platters and sit-down meals for larger groups. ${PRIVATE_HIRE_DIETARY_WORDING} Let us know your numbers when you book.`,
                     },
                     {
                         question: 'Is a deposit required?',
@@ -606,8 +607,8 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                         answer: 'We host private parties, celebrations, family gatherings and corporate events.',
                     },
                     {
-                        question: 'Can you cater for dietary requirements?',
-                        answer: 'Yes. We can provide vegetarian, vegan, NGCI (No Gluten Containing Ingredients) and nut-free options for mixed groups. Please tell us when you book and we will look after everyone.',
+                        question: PRIVATE_HIRE_DIETARY_QUESTION,
+                        answer: PRIVATE_HIRE_DIETARY_WORDING,
                     },
                     {
                         question: 'Is the venue dog friendly?',
@@ -850,7 +851,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                     </p>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {[
-                            { title: 'Catering', description: 'Buffets, afternoon teas, or sit-down meals tailored to your requirements, with vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options.' },
+                            { title: 'Catering', description: `Buffets, afternoon teas, or sit-down meals tailored to your requirements. ${PRIVATE_HIRE_DIETARY_WORDING}` },
                             { title: 'Refreshments', description: 'Unlimited tea and coffee, welcome drinks and a full bar service. Drink choices are confirmed when you book.' },
                             { title: 'Planning', description: 'A dedicated events coordinator handles the setup, layout and timings so you can enjoy the day.' },
                         ].map((feature) => (

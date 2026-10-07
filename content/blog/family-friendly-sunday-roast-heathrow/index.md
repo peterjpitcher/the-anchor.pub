@@ -64,7 +64,7 @@ Of course. Let your server know and we’ll itemise by seat or family group.
 Yes, there’s plenty of space around tables, and the team will help position prams or cases so they’re out of the way but in sight.
 
 ### What about dietary requirements?
-Our team caters for dairy-free and vegetarian diets, and there are NGCI dishes too. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. Mention needs when booking so the kitchen can prepare.
+There are vegetarian dishes, a fully vegan Wellington and NGCI dishes. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. Tell us about any allergy when you book and we'll do our best. See menu or contact us for allergen information.
 
 ### Are dogs allowed?
 Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting.

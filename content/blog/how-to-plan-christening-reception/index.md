@@ -218,9 +218,9 @@ Yes. We have AV equipment including TVs and a sound system -- perfect for a phot
 
 Absolutely. Drop them off the day before and our events coordinator will help with setup.
 
-### Do you cater for dietary requirements?
+### What about allergies and dietary needs?
 
-Yes. Let us know about allergies and dietary needs when you book and the kitchen will prepare accordingly. Vegetarian options are always available.
+Tell us about any allergies or dietary needs when you book and we'll do our best. Everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
 
 ### Is The Anchor dog-friendly?
 
