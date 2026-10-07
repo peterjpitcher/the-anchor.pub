@@ -27,7 +27,11 @@ import {
   type QuickBookState,
 } from '@/lib/table-booking/quick-book'
 import { createClientIdempotencyKey } from '@/lib/table-booking-idempotency'
-import { confirmationDeliveryCopy, type ManagementTableBookingResult } from '@/lib/table-booking/submission'
+import {
+  BLOCKED_REASON_COPY,
+  confirmationDeliveryCopy,
+  type ManagementTableBookingResult,
+} from '@/lib/table-booking/submission'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import {
   trackTableBookingClick,
@@ -45,7 +49,26 @@ type QuickBookSheetProps = {
   source: string
 }
 
-type Phase = 'choose' | 'details' | 'done'
+// 'payment' is a table that is HELD, not booked: the management app wants a
+// deposit before it will confirm. It is its own screen so it can never be
+// mistaken for 'done'.
+type Phase = 'choose' | 'details' | 'payment' | 'done'
+
+const PHONE_DISPLAY = '01753 682707'
+const PHONE_HREF = 'tel:+441753682707'
+const SUBMIT_FAILED_COPY = `We could not complete your booking. Please try again, or ring us on ${PHONE_DISPLAY}.`
+// Word for word what the full form says for the same answer.
+const INCOMPLETE_RESPONSE_COPY = 'Booking response was incomplete. Please try again.'
+
+/** A payment link is only ever followed if it is a plain https address. */
+function safePaymentUrl(value: unknown): string | null {
+  if (typeof value !== 'string') return null
+  try {
+    return new URL(value).protocol === 'https:' ? value : null
+  } catch {
+    return null
+  }
+}
 
 /**
  * Two taps and a phone number.
@@ -70,6 +93,14 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   const [phone, setPhone] = useState('')
   const [firstName, setFirstName] = useState('')
   const [error, setError] = useState<string | null>(null)
+  // Why the booking system refused the time the guest asked for. Kept apart from
+  // `error` because the two mean different things on the time grid: an error
+  // replaces the grid (there are no times to trust), a refusal sits above it
+  // (the other times are still good).
+  const [refusal, setRefusal] = useState<string | null>(null)
+  const [paymentUrl, setPaymentUrl] = useState<string | null>(null)
+  // Bumped to ask for the times again without changing what was asked.
+  const [availabilityRefresh, setAvailabilityRefresh] = useState(0)
   const [fieldError, setFieldError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [reference, setReference] = useState<string | null>(null)
@@ -115,6 +146,8 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
     setPhone('')
     setFirstName('')
     setError(null)
+    setRefusal(null)
+    setPaymentUrl(null)
     setFieldError(null)
     setReference(null)
     setDeliveryChannel(null)
@@ -177,7 +210,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
       cancelled = true
       controller.abort()
     }
-  }, [open, state.date, state.partySize, state.purpose])
+  }, [open, state.date, state.partySize, state.purpose, availabilityRefresh])
 
   const slots = useMemo(
     () => selectableSlots(availability, state.partySize, state.purpose),
@@ -191,6 +224,8 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   const updateState = useCallback((patch: Partial<QuickBookState>) => {
     // Changing a chip invalidates the chosen time: it belonged to a different question.
     setSelectedTime(null)
+    // And the refusal with it: it was about the question they have just changed.
+    setRefusal(null)
     setState((current) => ({ ...current, ...patch }))
   }, [])
 
@@ -198,15 +233,16 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
     setSelectedTime(time)
     setPhase('details')
     setFieldError(null)
+    setRefusal(null)
     // Focus after the phase transition so the keyboard opens straight onto the number.
     setTimeout(() => phoneRef.current?.focus(), 60)
   }, [])
 
   const submit = useCallback(async () => {
-    const refusal = findQuickBookRefusal({ time: selectedTime, phone, firstName })
-    if (refusal) {
-      setFieldError(refusal.message)
-      trackBookingErrorShown({ code: `quick_book_${refusal.field}` })
+    const invalid = findQuickBookRefusal({ time: selectedTime, phone, firstName })
+    if (invalid) {
+      setFieldError(invalid.message)
+      trackBookingErrorShown({ code: `quick_book_${invalid.field}` })
       return
     }
 
@@ -216,7 +252,9 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
       // time that is no longer offered.
       setPhase('choose')
       setSelectedTime(null)
-      setError('That time has just gone. Please pick another.')
+      // A refusal, not an error: an error would hide the very grid they are
+      // being asked to pick from.
+      setRefusal('That time has just gone. Please pick another.')
       return
     }
 
@@ -254,34 +292,82 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
             secondsOnSheet: Math.floor((Date.now() - openedAtRef.current) / 1000),
           })
         ),
-      })
+      }).catch(() => null)
 
-      const body = await response.json()
+      // The request never arrived, or its answer never came back. The browser's
+      // own wording for that ("Failed to fetch") tells a guest nothing. The key
+      // is kept, so trying again cannot book twice if the first one did land.
+      if (!response) {
+        throw new Error(SUBMIT_FAILED_COPY)
+      }
+
+      // A body that is not JSON (a gateway page, an empty answer) is a failed
+      // booking like any other, and gets the same message and phone number.
+      const body = await response.json().catch(() => null)
       const data = body?.data || body
 
-      if (!response.ok || body?.success === false) {
+      if (!response.ok || !body || body?.success === false) {
+        const upstreamError = body?.error?.message || body?.error || data?.error
         throw new Error(
-          body?.error?.message ||
-            body?.error ||
-            data?.error ||
-            'We could not complete your booking. Please try again or give us a ring.'
+          typeof upstreamError === 'string' && upstreamError ? upstreamError : SUBMIT_FAILED_COPY
         )
       }
 
-      // Booked. Defence in depth: drop the key so a hypothetical second submit of the
-      // identical payload mints a new one rather than replaying the booking just made.
-      submitIntentKeyRef.current = null
-      setReference(data?.booking_reference || null)
-      setDeliveryChannel(data?.notification_channel ?? null)
-      setPhase('done')
-      trackFormComplete({ formName: 'quick_book_sheet', formLocation: source })
-      trackTableBookingClick({ source: `quick_book_${source}`, context: 'quick_book' })
+      // A 2xx is not a booking. The management app answers a REFUSED booking
+      // with HTTP 200 and success true, and says what actually happened in
+      // `state`. Until October 2026 this sheet never read it, so a guest whose
+      // table had just gone was told "You're booked in." Only 'confirmed' may
+      // reach the done screen; anything this code does not recognise is treated
+      // as not booked.
+      if (!data || typeof data !== 'object' || !data.state) {
+        throw new Error(INCOMPLETE_RESPONSE_COPY)
+      }
+
+      const result = data as ManagementTableBookingResult
+
+      if (result.state === 'confirmed') {
+        // Booked. Defence in depth: drop the key so a hypothetical second submit of the
+        // identical payload mints a new one rather than replaying the booking just made.
+        submitIntentKeyRef.current = null
+        setReference(result.booking_reference || null)
+        setDeliveryChannel(result.notification_channel ?? null)
+        setPhase('done')
+        // The completion events belong to a confirmed booking and to nothing else.
+        trackFormComplete({ formName: 'quick_book_sheet', formLocation: source })
+        trackTableBookingClick({ source: `quick_book_${source}`, context: 'quick_book' })
+        return
+      }
+
+      if (result.state === 'pending_payment') {
+        // A booking exists and is held for a deposit. The key is kept, as the
+        // full form keeps it: this attempt is still in flight, and a second
+        // submit must find the same held booking, never make another.
+        setReference(result.booking_reference || null)
+        setPaymentUrl(
+          safePaymentUrl(result.fallback_payment_url) ?? safePaymentUrl(result.next_step_url)
+        )
+        setPhase('payment')
+        return
+      }
+
+      if (result.state === 'blocked') {
+        const blockedReason = result.blocked_reason || 'blocked'
+        // Nothing was created, so the next attempt is a new one and gets a new
+        // key. Keeping it would replay this refusal if the guest tried the same
+        // time again after a table came free.
+        submitIntentKeyRef.current = null
+        setRefusal(BLOCKED_REASON_COPY[blockedReason] || BLOCKED_REASON_COPY.blocked)
+        setSelectedTime(null)
+        setPhase('choose')
+        // The grid they chose from is now known to be out of date.
+        setAvailabilityRefresh((count) => count + 1)
+        trackBookingErrorShown({ code: `quick_book_blocked_${blockedReason}` })
+        return
+      }
+
+      throw new Error(INCOMPLETE_RESPONSE_COPY)
     } catch (failure: unknown) {
-      setError(
-        failure instanceof Error
-          ? failure.message
-          : 'We could not complete your booking. Please try again or give us a ring.'
-      )
+      setError(failure instanceof Error && failure.message ? failure.message : SUBMIT_FAILED_COPY)
       trackBookingErrorShown({ code: 'quick_book_submit_failed' })
     } finally {
       setSubmitting(false)
@@ -298,7 +384,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
       open={open}
       onClose={onClose}
       side="bottom"
-      title={phase === 'done' ? 'Table booked' : 'Book a table'}
+      title={phase === 'done' ? 'Table booked' : phase === 'payment' ? 'Deposit needed' : 'Book a table'}
     >
       <div className="space-y-4 px-4 pb-6 pt-2">
         {phase === 'done' ? (
@@ -312,10 +398,47 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                 Reference <strong className="text-ink-strong">{reference}</strong>
               </p>
             ) : null}
-            <p className="text-xs text-ink-muted">{confirmationDeliveryCopy(deliveryChannel)}</p>
+            <p className="text-xs text-ink-muted">
+              {/* The neutral line talks about a reference, so it is only used when
+                  there is one on screen to keep. */}
+              {deliveryChannel || reference
+                ? confirmationDeliveryCopy(deliveryChannel)
+                : 'Your table is booked.'}
+            </p>
             <Button variant="primary" size="lg" className="w-full" onClick={onClose}>
               Done
             </Button>
+          </div>
+        ) : phase === 'payment' ? (
+          <div className="space-y-3 text-center">
+            <p className="text-lg font-semibold text-ink-strong">
+              Your table is held, not booked yet.
+            </p>
+            <p className="text-sm text-ink-muted">
+              {formatConfirmation(state, selectedTime)}
+            </p>
+            <p className="text-sm text-ink-muted">
+              This booking needs a deposit. It&apos;s only confirmed once the deposit is paid.
+            </p>
+            {reference ? (
+              <p className="text-sm text-ink-muted">
+                Reference <strong className="text-ink-strong">{reference}</strong>
+              </p>
+            ) : null}
+            {paymentUrl ? (
+              <Button asChild variant="primary" size="lg" className="w-full">
+                <a href={paymentUrl} rel="noopener noreferrer">
+                  Pay the deposit
+                </a>
+              </Button>
+            ) : null}
+            <p className="text-sm text-ink-muted">
+              {paymentUrl ? 'Or ring us on ' : 'Ring us on '}
+              <a href={PHONE_HREF} className="underline">
+                {PHONE_DISPLAY}
+              </a>{' '}
+              and we&apos;ll take the deposit over the phone.
+            </p>
           </div>
         ) : (
           <>
@@ -332,6 +455,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                 emptyState={emptyState}
                 state={state}
                 error={error}
+                refusal={refusal}
                 onChoose={chooseTime}
                 onSwitchToDrinks={() => updateState({ purpose: 'drinks' })}
               />
@@ -361,7 +485,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                   value={phone}
                   onChange={(event) => setPhone(event.target.value)}
                   placeholder="07700 900000"
-                  hint="So we can text your confirmation."
+                  hint="So we can confirm your booking."
                 />
 
                 <Input
@@ -376,7 +500,13 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                 {fieldError ? (
                   <p className="text-sm text-anchor-danger">{fieldError}</p>
                 ) : null}
-                {error ? <p className="text-sm text-anchor-danger">{error}</p> : null}
+                {error ? (
+                  // A booking that could not be made always comes with another way
+                  // to make it.
+                  <p className="text-sm text-anchor-danger" role="alert">
+                    <WithPhoneLink message={error} />
+                  </p>
+                ) : null}
 
                 {TURNSTILE_SITE_KEY ? (
                   <TurnstileField
@@ -418,6 +548,34 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
         )}
       </div>
     </StickyDrawer>
+  )
+}
+
+/**
+ * A message with the pub's phone number in it as a link a thumb can ring. A
+ * message that already carries the number has it linked in place; one that does
+ * not has it added, so no refusal or failure is ever shown without it.
+ */
+function WithPhoneLink({ message }: { message: string }) {
+  const link = (
+    <a href={PHONE_HREF} className="underline">
+      {PHONE_DISPLAY}
+    </a>
+  )
+  const at = message.indexOf(PHONE_DISPLAY)
+  if (at === -1) {
+    return (
+      <>
+        {message} Ring us on {link}.
+      </>
+    )
+  }
+  return (
+    <>
+      {message.slice(0, at)}
+      {link}
+      {message.slice(at + PHONE_DISPLAY.length)}
+    </>
   )
 }
 
@@ -538,6 +696,7 @@ function TimeGrid({
   emptyState,
   state,
   error,
+  refusal,
   onChoose,
   onSwitchToDrinks,
 }: {
@@ -545,16 +704,35 @@ function TimeGrid({
   emptyState: ReturnType<typeof resolveEmptyState>
   state: QuickBookState
   error: string | null
+  refusal: string | null
   onChoose: (time: string) => void
   onSwitchToDrinks: () => void
 }) {
+  // Said first and kept on screen through the reload that follows it, so the
+  // guest is never left looking at "Checking times" wondering what happened to
+  // the booking they just asked for.
+  const refusalNotice = refusal ? (
+    <p
+      className="rounded-md border border-line bg-surface-sunk p-3 text-left text-sm text-anchor-danger"
+      role="alert"
+    >
+      <WithPhoneLink message={refusal} />
+    </p>
+  ) : null
+
   if (emptyState === 'loading') {
-    return <p className="py-6 text-center text-sm text-ink-muted">Checking times…</p>
+    return (
+      <div className="space-y-3">
+        {refusalNotice}
+        <p className="py-6 text-center text-sm text-ink-muted">Checking times…</p>
+      </div>
+    )
   }
 
   if (emptyState === 'check_failed' || error) {
     return (
       <div className="space-y-2 py-4 text-center">
+        {refusalNotice}
         <p className="text-sm text-ink-muted">
           {error || 'We could not check times just now.'}
         </p>
@@ -568,6 +746,7 @@ function TimeGrid({
   if (emptyState === 'kitchen_closed_but_drinks_available') {
     return (
       <div className="space-y-3 py-4 text-center">
+        {refusalNotice}
         {/* The recovery that matters. Mondays the kitchen is shut but the bar is open, and
             a guest told "no availability" walks away from a table they could have had. */}
         <p className="text-sm text-ink-muted">
@@ -583,6 +762,7 @@ function TimeGrid({
   if (emptyState === 'nothing_today') {
     return (
       <div className="space-y-2 py-4 text-center">
+        {refusalNotice}
         <p className="text-sm text-ink-muted">
           Nothing free for {state.partySize} then. Try another day, or give us a ring.
         </p>
@@ -594,23 +774,26 @@ function TimeGrid({
   }
 
   return (
-    <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-      {slots.map((slot) => {
-        const caption = busynessCaption(slot.busyness)
-        return (
-          <button
-            key={slot.time}
-            type="button"
-            onClick={() => onChoose(slot.time)}
-            className="min-h-[48px] rounded-md border border-line bg-surface px-2 py-2 text-sm text-ink transition-colors hover:border-accent hover:bg-surface-sunk"
-          >
-            <span className="block font-medium">{slot.time}</span>
-            {caption ? (
-              <span className="block text-[11px] text-ink-muted">{caption}</span>
-            ) : null}
-          </button>
-        )
-      })}
+    <div className="space-y-3">
+      {refusalNotice}
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+        {slots.map((slot) => {
+          const caption = busynessCaption(slot.busyness)
+          return (
+            <button
+              key={slot.time}
+              type="button"
+              onClick={() => onChoose(slot.time)}
+              className="min-h-[48px] rounded-md border border-line bg-surface px-2 py-2 text-sm text-ink transition-colors hover:border-accent hover:bg-surface-sunk"
+            >
+              <span className="block font-medium">{slot.time}</span>
+              {caption ? (
+                <span className="block text-[11px] text-ink-muted">{caption}</span>
+              ) : null}
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }

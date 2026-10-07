@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,8 +12,14 @@ export async function GET(request: NextRequest) {
 
   if (!payerId) {
     // User cancelled the PayPal flow, send them back to the booking form
-    return NextResponse.redirect(new URL('/book-table?payment=cancelled', request.url))
+    return NextResponse.redirect(new URL('/book-table?payment=cancelled', request.url), {
+      headers: PRIVATE_NO_STORE_HEADERS,
+    })
   }
 
-  return NextResponse.redirect(new URL('/book-table', request.url))
+  // Which way this goes depends on one guest's payment, so it is never stored:
+  // a kept redirect would send the next guest the previous guest's answer.
+  return NextResponse.redirect(new URL('/book-table', request.url), {
+    headers: PRIVATE_NO_STORE_HEADERS,
+  })
 }

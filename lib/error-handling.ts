@@ -101,7 +101,11 @@ export function createApiErrorResponse(
   return new Response(JSON.stringify(response), {
     status,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      // A failure is never stored. Middleware cannot see how a route went, so
+      // without this a route that is allowed to be cached would have its
+      // failure kept at the edge and replayed after the outage had ended.
+      'Cache-Control': 'private, no-store'
     }
   })
 }

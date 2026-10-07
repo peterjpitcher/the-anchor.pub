@@ -8,6 +8,7 @@ import {
   type TableAvailabilitySlotState,
   type TableBookingLoadResponse
 } from '@/lib/api'
+import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 
 // What this route serves the browser: the long-standing website shape plus the
 // two contract fields the form now reads. `calculation_state: 'unknown'` means
@@ -250,7 +251,7 @@ export async function GET(request: Request) {
             service_model: 'combined_food_drinks'
           }
         }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } }
+        { status: 200, headers: { 'Content-Type': 'application/json', ...PRIVATE_NO_STORE_HEADERS } }
       )
     }
     const fallback: WebsiteAvailabilityResponse = buildCombinedAvailability(businessHours, {
@@ -382,7 +383,9 @@ export async function GET(request: Request) {
       {
         status: 200,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          // Live availability: a stored copy is a table that may have gone.
+          ...PRIVATE_NO_STORE_HEADERS
         }
       }
     )

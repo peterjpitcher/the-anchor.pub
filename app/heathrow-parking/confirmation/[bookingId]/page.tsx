@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { anchorAPI } from '@/lib/api'
+import type { ParkingBookingDetails } from '@/lib/api/parking'
 import { Button, Card, CardBody, Container } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
@@ -11,9 +12,27 @@ interface Props {
   params: Promise<{ bookingId: string }>
 }
 
+// Neutral on purpose. The title is set before the booking is read, and this
+// address also answers for an unpaid booking and for a reference that does not
+// exist, so it must not say "confirmed".
 export const metadata: Metadata = {
-  title: 'Parking Confirmed',
+  title: 'Your parking booking',
   robots: { index: false },
+}
+
+// Read on every request. A stored copy of this page would show one customer's
+// booking, or yesterday's payment state, to whoever asked next.
+export const dynamic = 'force-dynamic'
+
+/**
+ * Paid means the management app says so, twice over: the booking is live and
+ * the payment is recorded as taken. Anything else, including a status this code
+ * has never seen, is not paid.
+ */
+function isPaidBooking(booking: ParkingBookingDetails | null): booking is ParkingBookingDetails {
+  if (!booking) return false
+  const live = booking.status === 'confirmed' || booking.status === 'completed'
+  return live && booking.payment_status === 'paid'
 }
 
 function formatDateTime(iso: string) {
@@ -30,28 +49,34 @@ function formatDateTime(iso: string) {
 
 export default async function ParkingConfirmationPage({ params }: Props) {
   const { bookingId } = await params // Next.js 15: must await params
-  let booking = null
+  let booking: ParkingBookingDetails | null = null
   try {
     booking = await anchorAPI.getParkingBooking(bookingId)
   } catch {
-    // Fallback handled below
+    // A reference that does not exist and a lookup that failed are treated the
+    // same way below: neither is a paid booking, so neither is confirmed.
   }
 
-  if (!booking) {
+  // This page used to thank anyone who opened it. A made-up address got a green
+  // tick and "Thank you for your booking", and an unpaid, expired or cancelled
+  // booking was shown as "Parking confirmed" with an "Amount paid". It now says
+  // confirmed, and names an amount as paid, only for a booking that is paid. One
+  // plain message covers every other case, so the page tells a stranger nothing
+  // about a reference they have guessed.
+  if (!isPaidBooking(booking)) {
     return (
       <main className="min-h-screen bg-canvas flex items-center justify-center px-4 py-section-y">
         <div className="text-center space-y-4 max-w-sm">
-          <div className="w-[72px] h-[72px] bg-anchor-green rounded-full flex items-center justify-center mx-auto">
-            <Icon name="check" className="w-9 h-9 text-white" />
-          </div>
-          <h1 className="font-display text-h3 text-ink-strong">Thank you for your booking</h1>
+          <h1 className="font-display text-h3 text-ink-strong">
+            We can&apos;t find a paid booking for that reference
+          </h1>
           <p className="text-ink-muted text-sm">
-            Your booking is being processed. You should receive a confirmation text shortly.
-            If you have any questions, call us on{' '}
-            <PhoneLink phone={CONTACT.phone} source="parking-confirmation_fallback" className="text-accent-text underline" showIcon={false} />.
+            If you&apos;ve just paid, or you think this is wrong, ring us on{' '}
+            <PhoneLink phone={CONTACT.phone} source="parking-confirmation_fallback" className="text-accent-text underline" showIcon={false} />{' '}
+            and we&apos;ll check it for you.
           </p>
-          <Link href="/" className="inline-block mt-4 text-accent-text underline text-sm">
-            Return to The Anchor
+          <Link href="/heathrow-parking" className="inline-block mt-4 text-accent-text underline text-sm">
+            Back to Heathrow parking
           </Link>
         </div>
       </main>

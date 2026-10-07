@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
+import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 
 export async function GET(
   request: Request,
@@ -28,7 +29,7 @@ export async function GET(
     return NextResponse.json({
       success: true,
       data: bookingData
-    })
+    }, { headers: PRIVATE_NO_STORE_HEADERS })
   } catch (error: unknown) {
     logError('api/table-bookings/[reference]', error, { reference })
 
@@ -93,7 +94,7 @@ export async function DELETE(
     return NextResponse.json({
       success: true,
       data: response
-    })
+    }, { headers: PRIVATE_NO_STORE_HEADERS })
   } catch (error: unknown) {
     logError('api/table-bookings/[reference]/cancel', error, { reference })
 
