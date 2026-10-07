@@ -1,4 +1,5 @@
-import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
+import { TournamentLinkInWindow } from '@/components/features/nations-championship/TournamentLinkInWindow'
+import { isNationsChampionshipPromoOpen } from '@/lib/nations-championship/promo-window'
 import Link from 'next/link'
 import { Button, SectionHeading, Card, CardBody, Container, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
@@ -14,24 +15,24 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 // This page is year-neutral on purpose (7 October 2026). It used to advertise
 // the 2026 tournament: a dated title and hero, the 2026 fixture list, and Event
-// structured data that ended on 14 March 2026. docs/SSOT.md has no Six Nations
-// entry, so nothing here names a fixture, a date, a channel for a given match,
-// a screen count or a commentary promise. Every line rests on an SSOT section;
-// the sport, parking, dogs, families, access and deposit lines are the approved
-// wording from SSOT §16, pasted as it stands. Add tournament detail only once
-// the SSOT confirms it.
+// structured data that ended on 14 March 2026. SSOT §10 (owner decision,
+// 7 October 2026) confirms we show Six Nations games that are on terrestrial TV,
+// on 4 TVs, with the commentary on. It names no fixture, date, year or channel
+// for a given game, so nothing here does either. Every line rests on an SSOT
+// section; the Six Nations, sport, parking, dogs, families, access and deposit
+// lines are the approved wording from SSOT §16, pasted as it stands.
 //
 // The Six Nations 2026 pop-up (components/features/six-nations/SixNationsLightbox)
 // is deliberately not mounted here: owner decision, 6 October 2026.
 // tests/unit/six-nations-page-no-lightbox.test.tsx holds this.
 
 const PAGE_TITLE = 'Six Nations Rugby | The Anchor Stanwell Moor'
-const SOCIAL_DESCRIPTION = `We show live sport on BBC, ITV and Channel 4. Call ${CONTACT.phone} to ask about a Six Nations game.`
+const SOCIAL_DESCRIPTION = `We show Six Nations games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call ${CONTACT.phone} to check a game.`
 
 export const metadata: Metadata = {
     // Absolute, so the root layout's "| The Anchor" template is not added on top.
     title: { absolute: PAGE_TITLE },
-    description: `Want to watch the Six Nations near Heathrow? We show live sport on BBC, ITV and Channel 4. Call ${CONTACT.phone} to ask about a game.`,
+    description: `Watch the Six Nations near Heathrow. We show games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call ${CONTACT.phone} to check a game.`,
     openGraph: {
         title: PAGE_TITLE,
         description: SOCIAL_DESCRIPTION,
@@ -49,6 +50,7 @@ export const metadata: Metadata = {
 }
 
 // SSOT §16, approved wording, pasted as it stands.
+const SIX_NATIONS_WORDING = `We show Six Nations games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on ${CONTACT.phone} to check a particular game.`
 const SPORT_WORDING = "We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports."
 const PARKING_WORDING = "We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register."
 const DOGS_WORDING = "Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting."
@@ -65,7 +67,7 @@ const features = [
 const faqs = [
     {
         question: 'Do you show the Six Nations?',
-        answer: `${SPORT_WORDING} To ask about a Six Nations game, call us on ${CONTACT.phone}.`
+        answer: `Yes. ${SIX_NATIONS_WORDING} We don't have Sky Sports or TNT Sports.`
     },
     {
         question: 'Can I book a table?',
@@ -104,9 +106,9 @@ export default function SixNationsPage() {
                 image="/images/page-headers/home/page-headers-homepage.jpg"
                 crumb="Six Nations"
                 title="Six Nations rugby at The Anchor"
-                lead="We show live sport on BBC, ITV and Channel 4. Call us to ask about a game."
+                lead="We show Six Nations games that are on BBC, ITV or Channel 4. Four TVs, commentary on."
             />
-            <TournamentLink />
+            <TournamentLinkInWindow initiallyOpen={isNationsChampionshipPromoOpen()} />
 
             <section className="py-section-y bg-canvas">
                 <Container>
@@ -115,10 +117,10 @@ export default function SixNationsPage() {
                             Got a game in mind?
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            {SPORT_WORDING}
+                            {SIX_NATIONS_WORDING}
                         </p>
                         <p className="mt-4 text-lg text-ink-muted">
-                            We don't have Six Nations fixtures to share right now. Call us on {CONTACT.phone} and we'll tell you what we're showing.
+                            {SPORT_WORDING}
                         </p>
                     </div>
 
@@ -139,11 +141,12 @@ export default function SixNationsPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                    <div className="grid md:grid-cols-2 gap-12 items-start">
                         <div>
                             <SectionHeading
                                 title="Food and drink"
-                                className="text-left mb-6"
+                                align="left"
+                                className="mb-6"
                             />
                             <div className="prose text-ink-muted mb-6 max-w-none prose-strong:text-ink-strong">
                                 <p>
@@ -183,8 +186,8 @@ export default function SixNationsPage() {
             />
 
             <CtaBand
-                title="Come and see us"
-                copy={`Call us on ${CONTACT.phone} to ask what we're showing, or book a table.`}
+                title="Come and watch with us"
+                copy={`Call us on ${CONTACT.phone} to check a particular game, or book a table.`}
             >
                 <BookTableButton source="six_nations_cta" variant="primary" size="lg" className="w-full sm:w-auto">
                     Book a table

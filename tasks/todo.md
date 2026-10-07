@@ -19,11 +19,29 @@ Championship screenings (§10).
 - [x] `tests/unit/six-nations-page-year-neutral.test.tsx`: 7 tests holding the page year-neutral
 - [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
       Node 20, then the built page read back from `next start`
-- [ ] Owner approves the wording before any push
+- [x] Owner approved the wording, 7 October 2026, and confirmed "4 tvs with commentary"
+- [x] SSOT first: a Six Nations entry in §10, the 4 TVs in §8, approved wording in §16, a §18
+      changelog line, and the 4 TVs mirrored in `SSOT.json`. Drift guard green
+- [x] Page says yes plainly: hero line, intro, first FAQ, meta and social descriptions
+- [x] The Nations Championship strip on this page ends after 29 November 2026 (London date). It
+      reads the same window as the header link, now held once in
+      `lib/nations-championship/config.ts`, and is checked again in the browser because the page is
+      built once per deploy
+- [x] `SixNationsFixtures.tsx` deleted: a hardcoded 2026 list, not a CheersAI feed. The scarf image
+      stays, because the unmounted pop-up kept by PR #195 still uses it
+- [x] Looked at on a production build at 1280px and 390px in all three skins (off, dark, festive),
+      and as opened on 30 November. Fixed the "Food and drink" heading, which sat centred over
+      left-aligned text
+- [x] Gates rerun on Node 20
+- [ ] Coordinator ships it: no push from this branch until then
 
-Left alone on purpose: the unmounted pop-up and its test (PR #195); `SixNationsFixtures.tsx`, now
-unused; `/live-sport`, `/drinks` and `lib/tag-seo-content.ts`, which still make Six Nations claims
-the SSOT does not confirm; the 2023 Six Nations blog post.
+Left alone on purpose: the unmounted pop-up, its test and its image (PR #195); the 2023 Six Nations
+blog post. The Six Nations claims on `/live-sport`, `/drinks` and `lib/tag-seo-content.ts` are a
+separate change, on `fix/six-nations-claims-match-ssot`.
+
+Known trade-off: a visitor who opens a copy of the page built before 30 November after that date
+sees the strip removed as the page loads, which moves the content up once. A deploy on or after
+30 November ends it.
 
 # Accessibility audit's reflow check could not see content cut off by the page, 6 October 2026
 

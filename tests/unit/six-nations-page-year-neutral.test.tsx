@@ -3,9 +3,10 @@
  *
  * In October 2026 the page still advertised the tournament that ended in March:
  * a dated title and hero, the 2026 fixture list, and Event structured data with
- * an end date of 14 March 2026. docs/SSOT.md has no Six Nations entry, so the
- * page may not name a year, a fixture or a match day, and may not promise what
- * the SSOT does not confirm (a screen count, commentary, every match).
+ * an end date of 14 March 2026. SSOT section 10 (owner decision, 7 October 2026)
+ * confirms Six Nations games on terrestrial TV, on 4 TVs, with the commentary
+ * on. It names no year, fixture or match day, so the page may not, and the page
+ * may not go past it ("every match", "big screens", "HD", another screen count).
  *
  * This reads the page source as well as the rendered page, because metadata and
  * JSON-LD are not in the rendered tree.
@@ -56,12 +57,25 @@ describe('/live-sport/six-nations is year-neutral', () => {
 
   it('promises nothing the SSOT does not confirm', () => {
     const text = `${pageText()} ${JSON.stringify(metadata)}`
-    expect(text).not.toMatch(/every (?:six nations )?match|\b\d+\s+(?:HD\s+)?screens?\b|commentary|sound on/i)
+    expect(text).not.toMatch(/every (?:six nations )?(?:match|game)|big screens?|\bHD\b|sound on/i)
+    const counts = [...text.matchAll(/\b(\d+|two|three|five|six|multiple|several)\s+(?:TVs|screens)\b/gi)].map((m) => m[1])
+    expect(counts.filter((count) => count !== '4')).toEqual([])
   })
 
-  it('uses the approved sport wording from SSOT section 16', () => {
-    expect(pageText()).toContain(
+  it('uses the approved sport and Six Nations wording from SSOT section 16', () => {
+    const text = pageText()
+    expect(text).toContain(
       "We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports."
+    )
+    expect(text).toContain(
+      'We show Six Nations games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on 01753 682707 to check a particular game.'
+    )
+  })
+
+  it('carries the same approved wording as docs/SSOT.md', () => {
+    const ssot = fs.readFileSync(path.join(process.cwd(), 'docs', 'SSOT.md'), 'utf8')
+    expect(ssot).toContain(
+      '> We show Six Nations games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on 01753 682707 to check a particular game.'
     )
   })
 
