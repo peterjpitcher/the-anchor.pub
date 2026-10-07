@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the alert email renders with fixture data and no undefined, Invalid Date or NaN 1`] = `
+{
+  "htmlContent": "<h2>ACTION NEEDED: a payment failed on the website (Table deposit: taking a payment)</h2><ul><li>What failed: Table deposit: taking a payment</li><li>When: Wednesday 7 October 2026 at 19:30 BST</li><li>Booking system answered: HTTP 502</li><li>Reason: UPSTREAM_NOT_OK</li><li>Code from the booking system: INTERNAL_ERROR</li><li>Page the guest was on: /book-table</li><li>Log match key: 3f1c9a7be204</li></ul><p>The guest was shown an error and asked to call 01753 682707, unless this was an enquiry or a job application that reached you in a separate email.</p><p>This was a payment step, so money may have been taken without a booking being confirmed. Please check PayPal and the management app before the guest pays again.</p><p>No guest details are in this email on purpose. If a guest rings, take the booking by phone.</p><p>To see every failure, search the website logs in Vercel for [write-failure] and this route: api/table-bookings/paypal/capture-order</p><p style="color:#555">3 more failures on this route followed the last alert from this server and were not emailed.</p><p style="color:#555">You get at most one of these per part of the site every ten minutes from each server. The site runs on several servers, so one outage can send a few emails, and one email can stand for many failed attempts.</p>",
+  "subject": "ACTION NEEDED: a payment failed on the website (Table deposit: taking a payment)",
+  "textContent": "What failed: Table deposit: taking a payment
+When: Wednesday 7 October 2026 at 19:30 BST
+Booking system answered: HTTP 502
+Reason: UPSTREAM_NOT_OK
+Code from the booking system: INTERNAL_ERROR
+Page the guest was on: /book-table
+Log match key: 3f1c9a7be204
+
+The guest was shown an error and asked to call 01753 682707, unless this was an enquiry or a job application that reached you in a separate email.
+This was a payment step, so money may have been taken without a booking being confirmed. Please check PayPal and the management app before the guest pays again.
+No guest details are in this email on purpose. If a guest rings, take the booking by phone.
+To see every failure, search the website logs in Vercel for [write-failure] and this route: api/table-bookings/paypal/capture-order
+
+3 more failures on this route followed the last alert from this server and were not emailed.
+You get at most one of these per part of the site every ten minutes from each server. The site runs on several servers, so one outage can send a few emails, and one email can stand for many failed attempts.",
+}
+`;
