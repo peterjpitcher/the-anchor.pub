@@ -378,7 +378,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Watch Football Stanwell Moor | World Cup & Euros at The Anchor',
     metaDescription: 'Watch live football at The Anchor Stanwell Moor. World Cup, Euros & international matches on terrestrial TV. Sports pub near Heathrow.',
     heroContent: 'The Anchor is headquarters for football fans in Stanwell Moor during major tournaments. Watch the World Cup, Euros and more on our screens.',
-    introContent: 'When major tournaments come around, The Anchor shows all the action on terrestrial TV. We screen the World Cup, European Championships, and other international fixtures available on free-to-air channels. The atmosphere during these tournaments is electric, with passionate fans creating an unforgettable experience.',
+    introContent: 'When major tournaments come around, The Anchor shows the games that are on BBC, ITV or Channel 4. We screen the World Cup, European Championships, and other international fixtures available on free-to-air channels. The atmosphere during these tournaments is electric, with passionate fans creating an unforgettable experience.',
     valueProposition: 'Book your table for the next major tournament and enjoy cold beers, great food, and a proper football atmosphere in Stanwell Moor during international competitions.',
     keywords: ['watch football stanwell moor', 'international football pub heathrow', 'live football surrey', 'sports bar TW19', 'football pub stanwell moor']
   },
