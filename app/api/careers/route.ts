@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { checkSpamProtection } from '@/lib/spam-protection'
-import { logError } from '@/lib/error-handling'
+import { reportFailure } from '@/lib/report-failure'
 import {
   escapeHtml,
   sendMicrosoftGraphEmail,
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     // Check email service configuration
     const graphUser = process.env.MICROSOFT_USER_EMAIL
     if (!graphUser) {
-      logError('api/careers', new Error('MICROSOFT_USER_EMAIL is not configured'))
+      await reportFailure({ route: 'api/careers', status: null, reason: 'EMAIL_NOT_CONFIGURED' })
       return NextResponse.json(
         { success: false, error: APPLICATION_FAILED_MESSAGE },
         { status: 500 }
@@ -195,7 +195,9 @@ export async function POST(request: NextRequest): Promise<Response> {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    logError('api/careers', error)
+    // The application exists only as that email, so a failed send is an
+    // application lost. Reported, with the thrown text scrubbed first.
+    await reportFailure({ route: 'api/careers', status: null, reason: 'APPLICATION_EMAIL_FAILED', error })
     return NextResponse.json(
       { success: false, error: APPLICATION_FAILED_MESSAGE },
       { status: 500 }

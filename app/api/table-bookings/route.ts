@@ -3,9 +3,11 @@ import { isFixtureArrivalAllowed, type FixtureBookingContext } from '@/lib/natio
 import { createHash } from 'node:crypto'
 import { NextRequest } from 'next/server'
 import { anchorAPI } from '@/lib/api'
-import { createApiErrorResponse, logError } from '@/lib/error-handling'
+import { createApiErrorResponse } from '@/lib/error-handling'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK, mapUpstreamFailure, type MappedUpstreamFailure } from '@/lib/guest-error-messages'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
+import { safeJsonParse } from '@/lib/upstream-json'
 import {
   isTimeWithinRanges,
   londonNowParts,
@@ -529,10 +531,40 @@ function screeningUnavailable(message: string, status: number): Response {
   })
 }
 
+const ROUTE = 'api/table-bookings'
+
+// The booking system answered, but not with a state we can stand behind. A
+// booking may or may not exist, so the guest is asked to ring before trying
+// again rather than being told to retry into a second booking.
+const INCOMPLETE_ANSWER_MESSAGE =
+  'We could not confirm your booking. Please call 01753 682707 before trying again, so you are not booked twice.'
+
+/**
+ * What the guest gets when the booking system says no or breaks: our own
+ * sentence, never the upstream wording, under the upstream's own status. The
+ * code is given twice because the form reads `code` for a recovery probe and
+ * `error.code` everywhere else.
+ */
+function notCompletedResponse(mapped: MappedUpstreamFailure, status: number, idempotencyKey: string): Response {
+  return new Response(
+    JSON.stringify({ success: false, code: mapped.code, error: { code: mapped.code, message: mapped.message } }),
+    {
+      status,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store, max-age=0',
+        'X-Idempotency-Key': idempotencyKey
+      }
+    }
+  )
+}
+
 export async function POST(request: NextRequest) {
+  const page = pageFromRequest(request)
   const apiKey = process.env.ANCHOR_API_KEY
   if (!apiKey) {
-    return createApiErrorResponse('Booking service unavailable', 503)
+    await reportFailure({ route: ROUTE, status: null, reason: 'API_KEY_MISSING', page })
+    return createApiErrorResponse(GUEST_FALLBACK.table_booking, 503)
   }
 
   try {
@@ -594,7 +626,27 @@ export async function POST(request: NextRequest) {
       const replayRecord = replayBody as { code?: string; error?: { code?: string } } | null
       const notFound = replay.status === 404 && (replayRecord?.code === 'IDEMPOTENCY_KEY_NOT_FOUND' || replayRecord?.error?.code === 'IDEMPOTENCY_KEY_NOT_FOUND')
       if (!notFound || replayOnly) {
-        if (replay.ok) {
+        if (!replay.ok || replayBody === null) {
+          // "No previous attempt" is the answer a recovery probe is asking
+          // for, so it is a refusal and not a fault. Everything else on this
+          // path used to go back to the guest as the upstream wrote it, with
+          // nothing recorded here.
+          const mapped: MappedUpstreamFailure = notFound
+            ? { ...mapUpstreamFailure({ status: 404, body: replayBody, context: 'table_booking' }), kind: 'refused', code: 'IDEMPOTENCY_KEY_NOT_FOUND' }
+            : replay.ok
+              ? { kind: 'failed', code: 'UNREADABLE_RESPONSE', message: INCOMPLETE_ANSWER_MESSAGE }
+              : mapUpstreamFailure({ status: replay.status, body: replayBody, context: 'table_booking' })
+          await reportFailure({
+            route: ROUTE,
+            kind: mapped.kind,
+            status: replay.status,
+            reason: replayBody === null ? 'UNREADABLE_RESPONSE' : 'REPLAY_NOT_COMPLETED',
+            upstreamCode: mapped.code,
+            page
+          })
+          return notCompletedResponse(mapped, replay.ok ? 502 : replay.status, idempotencyKey)
+        }
+        {
           const data = pickResponseData(replayBody)
           if (data && ['confirmed', 'pending_payment'].includes(String(data.state))) data.fixture_id = body.fixture_id
           await forwardConfirmedTableBookingConversion(request, normalized.payload, normalized.attribution, replayBody)
@@ -617,8 +669,8 @@ export async function POST(request: NextRequest) {
       }
       try {
         fixtureContext = await resolveFixtureBookingContext(body.fixture_id)
-      } catch {
-        logError('api/table-bookings/fixture-check', new Error('Tournament screening could not be verified'))
+      } catch (fixtureError) {
+        await reportFailure({ route: ROUTE, status: null, reason: 'FIXTURE_CHECK_FAILED', page, error: fixtureError })
         return screeningUnavailable('We cannot verify this screening right now. Please try again or choose a normal table booking.', 503)
       }
       if (!fixtureContext) {
@@ -655,11 +707,16 @@ export async function POST(request: NextRequest) {
         return createApiErrorResponse(serviceWindow.message || buildServiceWindowError(normalized.payload), 400)
       }
     } catch (serviceWindowError) {
-      logError('api/table-bookings/service-window-check', serviceWindowError, {
-        date: normalized.payload.date,
-        time: bookingTime,
-        purpose: normalized.payload.purpose,
-        bookingType: 'regular'
+      await reportFailure({
+        route: ROUTE,
+        status: typeof (serviceWindowError as { status?: unknown })?.status === 'number'
+          ? (serviceWindowError as { status: number }).status
+          : null,
+        reason: 'SERVICE_HOURS_CHECK_FAILED',
+        upstreamCode: (serviceWindowError as { code?: string } | null)?.code ?? null,
+        page,
+        // Only the code: the API client's message is the booking system's text.
+        error: { code: (serviceWindowError as { code?: string } | null)?.code }
       })
 
       return createApiErrorResponse(
@@ -701,12 +758,57 @@ export async function POST(request: NextRequest) {
 
     const rawText = await upstream.text()
     const parsed = safeJsonParse(rawText)
-    const fallbackPayload = {
-      success: false,
-      error: getSafeUpstreamErrorMessage(rawText, 'Booking request failed')
+    const parsedRecord = parsed && typeof parsed === 'object' ? (parsed as Record<string, unknown>) : null
+    const bookingData = pickResponseData(parsed)
+    const bookingState = typeof bookingData?.state === 'string' ? bookingData.state : null
+
+    // Anything the guest will see as "Booking not completed" is recorded here,
+    // so a refusal they can see is one we can see too. This route used to hand
+    // the upstream answer back with its own status and write nothing.
+    if (!upstream.ok || parsedRecord === null || parsedRecord.success === false) {
+      const mapped = mapUpstreamFailure({ status: upstream.status, body: parsed, context: 'table_booking' })
+      // An OK status around a body we cannot read, or one that says it failed,
+      // is not a booking and must not travel back under a 2xx.
+      const status = upstream.ok ? 502 : upstream.status
+      const outcome: MappedUpstreamFailure = upstream.ok
+        ? { kind: 'failed', code: mapped.code, message: INCOMPLETE_ANSWER_MESSAGE }
+        : mapped
+      await reportFailure({
+        route: ROUTE,
+        kind: outcome.kind,
+        status: upstream.status,
+        reason: parsedRecord === null ? 'UNREADABLE_RESPONSE' : upstream.ok ? 'SUCCESS_FALSE_ON_OK' : 'UPSTREAM_NOT_OK',
+        upstreamCode: outcome.code,
+        page
+      })
+      return notCompletedResponse(outcome, status, idempotencyKey)
     }
 
-    const responseBody = parsed ?? fallbackPayload
+    if (!bookingState) {
+      await reportFailure({ route: ROUTE, status: upstream.status, reason: 'MISSING_STATE', page })
+      return notCompletedResponse(
+        { kind: 'failed', code: 'INCOMPLETE_RESPONSE', message: INCOMPLETE_ANSWER_MESSAGE },
+        502,
+        idempotencyKey
+      )
+    }
+
+    if (bookingState === 'blocked') {
+      // A deliberate no, answered with a 200. Logged, never alerted: a full
+      // Saturday is not a fault. The body goes back as it is, because the form
+      // turns `blocked_reason` into its own wording.
+      await reportFailure({
+        route: ROUTE,
+        kind: 'refused',
+        status: upstream.status,
+        reason: 'BLOCKED',
+        state: bookingState,
+        upstreamCode: typeof bookingData?.blocked_reason === 'string' ? bookingData.blocked_reason : null,
+        page
+      })
+    }
+
+    const responseBody = parsed
     if (fixtureContext && upstream.ok) {
       const data = pickResponseData(responseBody)
       if (data && ['confirmed', 'pending_payment'].includes(String(data.state))) data.fixture_id = fixtureContext.fixtureId
@@ -725,10 +827,7 @@ export async function POST(request: NextRequest) {
       }
     })
   } catch (error) {
-    logError('api/table-bookings', error)
-    return createApiErrorResponse(
-      'We could not process your booking right now. Please call 01753 682707.',
-      503
-    )
+    await reportFailure({ route: ROUTE, status: null, reason: 'UNEXPECTED_ERROR', page, error })
+    return createApiErrorResponse(GUEST_FALLBACK.table_booking, 503)
   }
 }

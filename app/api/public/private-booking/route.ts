@@ -1,7 +1,8 @@
 import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { logError } from '@/lib/error-handling'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { sanitizeCommunicationConsent } from '@/lib/communication-consent-server'
 import { sendEnquiryFallbackEmail, escapeHtml } from '@/lib/enquiry-fallback-email'
@@ -9,6 +10,7 @@ import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
+const ROUTE = 'api/public/private-booking'
 
 type LegacyPrivateBookingPayload = {
     customer_first_name?: string
@@ -159,20 +161,8 @@ function buildPrivateBookingFallbackEmail(
 }
 
 export async function POST(request: NextRequest) {
+    const page = pageFromRequest(request)
     try {
-        if (!API_KEY) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    error: {
-                        code: 'SERVICE_UNAVAILABLE',
-                        message: 'Private booking service unavailable'
-                    }
-                },
-                { status: 503 }
-            )
-        }
-
         const body = await request.json()
 
         // Verified here, with this site's own secret. See app/api/table-bookings/route.ts
@@ -192,7 +182,7 @@ export async function POST(request: NextRequest) {
                     success: false,
                     error: {
                         code: 'VALIDATION_ERROR',
-                        message: 'Mobile number is required'
+                        message: 'Please enter your mobile number, or call 01753 682707 and we will take your details.'
                     }
                 },
                 { status: 400 }
@@ -237,7 +227,12 @@ export async function POST(request: NextRequest) {
         let data: any = null
         let transportError: unknown = null
 
-        for (let attempt = 0; attempt < MANAGEMENT_ATTEMPTS; attempt++) {
+        // A missing key used to answer 503 "Private booking service unavailable"
+        // before anything else ran: no log, no phone number and no fallback
+        // email, so the enquiry was simply gone. It is now treated as what it
+        // is, a management app we cannot reach, and takes the same path as any
+        // other outage: the enquiry is emailed to the manager.
+        for (let attempt = 0; API_KEY && attempt < MANAGEMENT_ATTEMPTS; attempt++) {
             if (attempt > 0) {
                 await sleep(MANAGEMENT_RETRY_DELAYS_MS[attempt - 1] ?? 1500)
             }
@@ -254,6 +249,7 @@ export async function POST(request: NextRequest) {
                         'X-API-Key': API_KEY,
                         'Idempotency-Key': idempotencyKey
                     },
+                    cache: 'no-store',
                     body: JSON.stringify(mappedPayload)
                 })
                 data = await res.json().catch(() => null)
@@ -275,17 +271,30 @@ export async function POST(request: NextRequest) {
 
         if (!upstreamOk) {
             const status = res?.status ?? 0
-            logError(
-                'api/private-booking',
-                transportError instanceof Error
-                    ? transportError
-                    : new Error(`Upstream error ${status}: ${res?.statusText ?? 'no response'}`)
-            )
 
             // A 409 means this exact submission is already in flight or already
             // recorded upstream, so the lead is not lost and must not be
             // emailed again.
             const isDuplicate = status === 409
+
+            // Only a 400 or a 422 is the guest's to correct. A 401, 403, 404 or
+            // 429 used to be shown to them as if they could fix it; those are
+            // faults on our side and are reported as such.
+            const guestCanFixIt = status === 400 || status === 422
+
+            const mapped = res === null
+                ? { kind: 'failed' as const, code: API_KEY ? 'NO_RESPONSE' : 'API_KEY_MISSING', message: GUEST_FALLBACK.private_hire }
+                : mapUpstreamFailure({ status, body: data, context: 'private_hire', trustValidationSentences: true })
+
+            await reportFailure({
+                route: ROUTE,
+                kind: guestCanFixIt || isDuplicate ? 'refused' : 'failed',
+                status: res === null ? null : status,
+                reason: !API_KEY ? 'API_KEY_MISSING' : res === null ? 'NO_RESPONSE' : 'UPSTREAM_NOT_OK',
+                upstreamCode: mapped.code,
+                page,
+                error: transportError ?? undefined
+            })
 
             if (!isDuplicate) {
                 // The enquiry reached us, so it reaches a human either way.
@@ -294,11 +303,9 @@ export async function POST(request: NextRequest) {
                     buildPrivateBookingFallbackEmail(pb, mappedPayload, status || 'network error')
                 )
 
-                // A 4xx is something the guest can usually correct, so they are
-                // shown it and can resubmit. The email above means the lead is
-                // captured even if they give up instead.
-                const guestCanFixIt = status >= 400 && status < 500
-
+                // A 400 or a 422 is something the guest can correct, so they
+                // are shown it and can resubmit. The email above means the lead
+                // is captured even if they give up instead.
                 if (fallback.sent && !guestCanFixIt) {
                     // Nothing the guest does will help, and the enquiry has
                     // genuinely reached a human, so telling them it worked is
@@ -311,21 +318,21 @@ export async function POST(request: NextRequest) {
                 }
 
                 if (!fallback.sent) {
-                    logError(
-                        'api/private-booking/fallback-failed',
-                        new Error(`Enquiry lost: upstream ${status || 'network error'}, fallback email failed: ${fallback.error}`)
-                    )
+                    // The worst case on this route: the enquiry reached neither
+                    // the management app nor a person.
+                    await reportFailure({
+                        route: ROUTE,
+                        status: res === null ? null : status,
+                        reason: 'ENQUIRY_LOST_FALLBACK_EMAIL_FAILED',
+                        page
+                    })
                 }
             }
 
+            // Our sentence, never the management app's body: that used to be
+            // returned whole, in whatever shape it arrived.
             return NextResponse.json(
-                data ?? {
-                    success: false,
-                    error: {
-                        code: 'UPSTREAM_ERROR',
-                        message: 'We could not submit that enquiry. Please call 01753 682707 and we will take your details.'
-                    }
-                },
+                { success: false, error: { code: mapped.code, message: mapped.message } },
                 { status: status || 502 }
             )
         }
@@ -339,13 +346,13 @@ export async function POST(request: NextRequest) {
             state: data.state || 'enquiry_created'
         })
     } catch (error) {
-        logError('api/private-booking', error instanceof Error ? error : new Error(String(error)))
+        await reportFailure({ route: ROUTE, status: null, reason: 'UNEXPECTED_ERROR', page, error })
         return NextResponse.json(
             {
                 success: false,
                 error: {
                     code: 'PROXY_ERROR',
-                    message: 'Failed to create booking via proxy'
+                    message: GUEST_FALLBACK.private_hire
                 }
             },
             { status: 500 }

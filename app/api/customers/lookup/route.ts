@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
+import { safeJsonParse } from '@/lib/upstream-json'
+import { mapUpstreamFailure } from '@/lib/guest-error-messages'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -118,11 +119,14 @@ export async function GET(request: NextRequest) {
       return createDegradedLookupResponse(`upstream_${upstream.status}`)
     }
 
-    // Same rule on error paths: surface a safe message, never the upstream body.
+    // Same rule on error paths: a safe message, never the upstream body. This
+    // used to return the whole upstream JSON envelope as a string, so a guest
+    // who mistyped their mobile number saw a line of JSON under the field.
+    const mapped = mapUpstreamFailure({ status: upstream.status, body: parsed, context: 'customer_lookup' })
     return NextResponse.json(
       {
         success: false,
-        error: getSafeUpstreamErrorMessage(rawText, 'Customer lookup failed')
+        error: { code: mapped.code, message: mapped.message }
       },
       { status: upstream.status, headers: PRIVATE_NO_STORE_HEADERS }
     )

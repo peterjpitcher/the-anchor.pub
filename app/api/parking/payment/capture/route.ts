@@ -1,15 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { anchorAPI } from '@/lib/api'
-import { logError } from '@/lib/error-handling'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK } from '@/lib/guest-error-messages'
+
+const ROUTE = 'api/parking/payment/capture'
 
 // The guest has already paid PayPal by the time this route runs, so a failure
 // here is the most expensive kind on the site: money has moved and the booking
 // may not exist. It used to swallow the error with a bare `catch {}`, which
 // meant nobody here ever found out. Every exit now logs, and the message
 // carries the phone number so the guest can reach a human straight away.
-const CAPTURE_FAILED_MESSAGE =
-  'We could not confirm your parking payment. Please call 01753 682707 before paying again, and we will check whether payment was taken.'
+const CAPTURE_FAILED_MESSAGE = GUEST_FALLBACK.parking_payment_capture
+
+function upstreamStatusOf(error: unknown): number | null {
+  const status = (error as { status?: unknown } | null)?.status
+  return typeof status === 'number' ? status : null
+}
 
 const CaptureSchema = z.object({
   orderID: z.string().min(1),
@@ -42,15 +49,31 @@ export async function POST(request: NextRequest) {
     // the confirmation URL: returning success without one sent the guest to a
     // confirmation page for a booking that might not exist.
     if (!result || typeof result !== 'object' || !(result as { booking_id?: unknown }).booking_id) {
-      logError('api/parking/payment/capture', new Error('Capture response had no booking_id'), {
-        bookingId: parsed.data.bookingId,
+      await reportFailure({
+        route: ROUTE,
+        payment: true,
+        status: 200,
+        reason: 'NO_BOOKING_ID',
+        reference: parsed.data.bookingId,
+        page: pageFromRequest(request),
       })
       return NextResponse.json({ error: CAPTURE_FAILED_MESSAGE }, { status: 502 })
     }
 
     return NextResponse.json(result, { status: 200 })
   } catch (error: unknown) {
-    logError('api/parking/payment/capture', error, { bookingId: parsed.data.bookingId })
+    await reportFailure({
+      route: ROUTE,
+      payment: true,
+      status: upstreamStatusOf(error),
+      reason: 'CAPTURE_FAILED',
+      upstreamCode: (error as { code?: string } | null)?.code ?? null,
+      reference: parsed.data.bookingId,
+      page: pageFromRequest(request),
+      // Only the code of the thrown error: its message is the booking
+      // system's own text and can repeat a guest's details.
+      error: { code: (error as { code?: string } | null)?.code },
+    })
     return NextResponse.json({ error: CAPTURE_FAILED_MESSAGE }, { status: 502 })
   }
 }

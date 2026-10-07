@@ -4,6 +4,15 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
 import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
+
+const ROUTE = 'api/table-bookings/paypal/capture-order'
+
+// The guest has already approved the payment by the time this route runs. A
+// capture we cannot read is not a capture, and the phone number is the only
+// way they can find out whether the money moved.
+const CAPTURE_UNAVAILABLE_MESSAGE = GUEST_FALLBACK.table_deposit_capture
 
 const BodySchema = z.object({
   bookingId: z.string().uuid(),
@@ -133,6 +142,17 @@ export async function POST(request: NextRequest): Promise<Response> {
     return jsonNoStore({ error: 'bookingId (UUID) and orderId are required' }, { status: 400 })
   }
   const { bookingId, orderId } = parsed.data
+  const page = pageFromRequest(request)
+
+  // This route had no log call at all and sent `Bearer undefined` when the key
+  // was missing. Every exit below is reported as a payment failure: money may
+  // have moved, so a person should know whatever the status was. Neither the
+  // booking id nor the PayPal order id is logged in clear.
+  const apiKey = process.env.ANCHOR_API_KEY
+  if (!apiKey) {
+    await reportFailure({ route: ROUTE, payment: true, status: null, reason: 'API_KEY_MISSING', reference: bookingId, page })
+    return jsonNoStore({ success: false, error: CAPTURE_UNAVAILABLE_MESSAGE }, { status: 503 })
+  }
 
   const upstream = `${getManagementApiBaseUrl()}/external/table-bookings/${bookingId}/paypal/capture-order`
 
@@ -140,24 +160,50 @@ export async function POST(request: NextRequest): Promise<Response> {
     const response = await fetch(upstream, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.ANCHOR_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ orderId }),
+      cache: 'no-store',
     })
 
-    const data = await response.json()
+    const data = await response.json().catch(() => null)
 
     if (!response.ok) {
-      return jsonNoStore(data, { status: response.status })
+      const mapped = mapUpstreamFailure({ status: response.status, body: data, context: 'table_deposit_capture' })
+      await reportFailure({
+        route: ROUTE,
+        payment: true,
+        status: response.status,
+        reason: data === null ? 'UNREADABLE_RESPONSE' : 'UPSTREAM_NOT_OK',
+        upstreamCode: mapped.code,
+        reference: bookingId,
+        page,
+      })
+      // `error` is always one plain sentence. The management app answers some
+      // refusals with an object, and the form used to render it and crash.
+      return jsonNoStore({ success: false, code: mapped.code, error: mapped.message }, { status: response.status })
     }
 
-    if (data?.success === true) {
-      await forwardCapturedDepositConversion(request, parsed.data)
+    // An OK status around a body we cannot read, or one that does not say it
+    // succeeded, is not a confirmed payment.
+    if (data?.success !== true) {
+      await reportFailure({
+        route: ROUTE,
+        payment: true,
+        status: response.status,
+        reason: data === null ? 'UNREADABLE_RESPONSE' : 'NOT_CONFIRMED_ON_OK',
+        reference: bookingId,
+        page,
+      })
+      return jsonNoStore({ success: false, error: CAPTURE_UNAVAILABLE_MESSAGE }, { status: 502 })
     }
+
+    await forwardCapturedDepositConversion(request, parsed.data)
 
     return jsonNoStore(data)
-  } catch {
-    return jsonNoStore({ error: 'Payment service unavailable' }, { status: 502 })
+  } catch (error) {
+    await reportFailure({ route: ROUTE, payment: true, status: null, reason: 'UNEXPECTED_ERROR', reference: bookingId, page, error })
+    return jsonNoStore({ success: false, error: CAPTURE_UNAVAILABLE_MESSAGE }, { status: 502 })
   }
 }

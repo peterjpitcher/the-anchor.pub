@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { anchorAPI, ParkingBookingRequest } from '@/lib/api'
-import { logError } from '@/lib/error-handling'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
+import { GUEST_FALLBACK, toGuestMessage } from '@/lib/guest-error-messages'
 import { normaliseUKPhone } from '@/lib/hours-utils'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import {
@@ -141,20 +142,30 @@ export async function POST(request: NextRequest) {
       data: booking
     }, { status: 201 })
   } catch (error: unknown) {
-    logError('api/parking/bookings', error, {
-      customer: `${bookingRequest.customer.first_name} ${bookingRequest.customer.last_name}`,
-      registration: bookingRequest.vehicle.registration
-    })
-
     const err = error as { status?: number; code?: string; message?: string; details?: unknown }
     const status = err?.status || 500
     const code = err?.code || 'INTERNAL_ERROR'
+    const guestCanAct = code === 'CAPACITY_UNAVAILABLE' || code === 'VALIDATION_ERROR'
 
-    let message = 'We could not create your parking booking right now. Please try again or call 01753 682707.'
+    // This line used to carry the guest's name and number plate. Neither is
+    // logged now: the status and the code are what tell us what went wrong.
+    // Only the code of the thrown error is passed on, because its message can
+    // repeat what the guest typed.
+    await reportFailure({
+      route: 'api/parking/bookings',
+      kind: guestCanAct ? 'refused' : 'failed',
+      status: typeof err?.status === 'number' ? err.status : null,
+      reason: guestCanAct ? 'REFUSED' : 'CREATE_BOOKING_FAILED',
+      upstreamCode: code,
+      page: pageFromRequest(request),
+      error: guestCanAct ? undefined : { code }
+    })
+
+    let message = GUEST_FALLBACK.parking_booking
     if (code === 'CAPACITY_UNAVAILABLE') {
-      message = 'Those parking dates are fully booked. Pick another time or call us for help.'
+      message = 'Those parking dates are fully booked. Pick another time or call 01753 682707 for help.'
     } else if (code === 'VALIDATION_ERROR') {
-      message = err?.message || 'Please double-check the details and try again.'
+      message = toGuestMessage(err?.message || 'Please double-check the details and try again.', 'parking_booking')
     } else if (code === 'UNAUTHORIZED' || code === 'FORBIDDEN') {
       message = 'Parking bookings are offline at the moment. Please call 01753 682707 and we will secure your space.'
     }

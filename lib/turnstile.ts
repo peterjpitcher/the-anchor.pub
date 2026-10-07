@@ -1,4 +1,5 @@
 import { logError } from '@/lib/error-handling'
+import { reportFailure } from '@/lib/report-failure'
 
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 
@@ -12,7 +13,15 @@ export async function verifyTurnstileToken(token: string | null | undefined): Pr
   if (!secret) {
     // No secret configured, block the request rather than silently allowing it.
     // Set TURNSTILE_SECRET_KEY in Vercel env vars to enable verification.
-    return { success: false, error: 'Security verification is not configured. Please try again later.' }
+    //
+    // Failing closed is right, but it takes every booking and enquiry form
+    // down at once, so it is reported: this branch used to log nothing and
+    // tell the guest to "try again later" with no number to ring.
+    await reportFailure({ route: 'lib/turnstile', status: null, reason: 'TURNSTILE_SECRET_MISSING' })
+    return {
+      success: false,
+      error: 'We cannot take this online at the moment. Please call 01753 682707 and we will sort it out over the phone.'
+    }
   }
 
   if (!token || typeof token !== 'string' || token.trim().length === 0) {
