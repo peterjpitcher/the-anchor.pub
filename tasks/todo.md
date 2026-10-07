@@ -1,3 +1,48 @@
+# Six Nations page made year-neutral, 7 October 2026
+
+Branch `fix/six-nations-page-year-neutral`, from main at a492f407 (PR #200). Local only: the owner
+sees the wording before anything is pushed.
+
+`/live-sport/six-nations` still advertised the 2026 tournament in October: a dated title and hero,
+the 2026 fixture list, and Event structured data ending 14 March 2026. `docs/SSOT.md` has no Six
+Nations entry. It confirms live sport on BBC, ITV and Channel 4 only (§6, §16), and the Nations
+Championship screenings (§10).
+
+- [x] Map the page: route, JSON-LD, sitemap, redirects, internal links, header promo, tests
+- [x] Check what the SSOT and `SSOT.json` confirm about rugby and live sport
+- [x] Rewrite the page from SSOT facts only, pasting the §16 approved wording where it exists.
+      Removed: the 2026 fixtures, the Event JSON-LD, the dated title, hero and descriptions, the
+      "Book Early for Big Games" alert, the claims of every match, 4 screens and commentary, and
+      the Six Nations scarf image (its alt text called it the pub during the Six Nations; it is not)
+- [x] Title set as an absolute title so the root template does not add the brand twice; canonical
+      now `./`; sitemap `lastModified` moved to 7 October 2026
+- [x] `tests/unit/six-nations-page-year-neutral.test.tsx`: 7 tests holding the page year-neutral
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20, then the built page read back from `next start`
+- [x] Owner approved the wording, 7 October 2026, and confirmed "4 tvs with commentary"
+- [x] SSOT first: a Six Nations entry in §10, the 4 TVs in §8, approved wording in §16, a §18
+      changelog line, and the 4 TVs mirrored in `SSOT.json`. Drift guard green
+- [x] Page says yes plainly: hero line, intro, first FAQ, meta and social descriptions
+- [x] The Nations Championship strip on this page ends after 29 November 2026 (London date). It
+      reads the same window as the header link, now held once in
+      `lib/nations-championship/config.ts`, and is checked again in the browser because the page is
+      built once per deploy
+- [x] `SixNationsFixtures.tsx` deleted: a hardcoded 2026 list, not a CheersAI feed. The scarf image
+      stays, because the unmounted pop-up kept by PR #195 still uses it
+- [x] Looked at on a production build at 1280px and 390px in all three skins (off, dark, festive),
+      and as opened on 30 November. Fixed the "Food and drink" heading, which sat centred over
+      left-aligned text
+- [x] Gates rerun on Node 20
+- [ ] Coordinator ships it: no push from this branch until then
+
+Left alone on purpose: the unmounted pop-up, its test and its image (PR #195); the 2023 Six Nations
+blog post. The Six Nations claims on `/live-sport`, `/drinks` and `lib/tag-seo-content.ts` are a
+separate change, on `fix/six-nations-claims-match-ssot`.
+
+Known trade-off: a visitor who opens a copy of the page built before 30 November after that date
+sees the strip removed as the page loads, which moves the content up once. A deploy on or after
+30 November ends it.
+
 # The page speed endpoint recorded nothing, and ignored the cookie choice, 7 October 2026
 
 Branch `feat/web-vitals-recording`, from main at a492f407 (PR #200). Local only until the owner

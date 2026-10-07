@@ -1,6 +1,6 @@
 import { nowInLondonComponents } from './time-london'
 import { getMotheringSunday, getValentinesDay } from './recurring-dates'
-import { NATIONS_CHAMPIONSHIP_PATH } from './nations-championship/config'
+import { NATIONS_CHAMPIONSHIP_PATH, NATIONS_CHAMPIONSHIP_PROMO_WINDOW } from './nations-championship/config'
 import { CHRISTMAS_WINDOW_END, CHRISTMAS_WINDOW_START } from './christmas-season'
 
 /**
@@ -90,9 +90,7 @@ export function getHeaderPromoCtas(testDate?: Date): HeaderPromo[] {
       href: NATIONS_CHAMPIONSHIP_PATH,
       external: false,
       variant: 'outline' as const,
-      startsOn: '2026-09-05',
-      endsOn: '2026-11-29',
-      leadDays: 0
+      ...NATIONS_CHAMPIONSHIP_PROMO_WINDOW
     }] : [])
   ]
 }
