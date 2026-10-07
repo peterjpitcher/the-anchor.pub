@@ -1,4 +1,5 @@
-import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
+import { TournamentLinkInWindow } from '@/components/features/nations-championship/TournamentLinkInWindow'
+import { isNationsChampionshipPromoOpen } from '@/lib/nations-championship/promo-window'
 import Link from 'next/link'
 import { Button, SectionHeading, Card, CardBody, Alert, Container, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
@@ -142,7 +143,7 @@ export default async function LiveSportPage() {
                 </>
               }
             />
-      <TournamentLink />
+      <TournamentLinkInWindow initiallyOpen={isNationsChampionshipPromoOpen()} />
 
             <Container className="py-8">
                 <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true }}>
