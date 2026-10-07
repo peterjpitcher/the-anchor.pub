@@ -56,6 +56,7 @@ export function GameNightCtaActions({
         source={`${gameSlug}_${location}_no_dates`}
         variant="primary"
         size="lg"
+        wrap
         className="w-full sm:w-auto"
       >
         {label}
@@ -65,7 +66,7 @@ export function GameNightCtaActions({
 
   return (
     <>
-      <Button asChild variant="primary" size="lg" className="w-full sm:w-auto">
+      <Button asChild variant="primary" size="lg" wrap className="w-full sm:w-auto">
         <a
           href={href}
           onClick={() =>
