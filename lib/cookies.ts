@@ -103,6 +103,23 @@ export function hasUserConsented(): boolean {
   return getConsentStatus() !== null;
 }
 
+// True only when the visitor has made a choice and analytics is off in it: Reject All, or
+// the panel saved with the switch off. False when they have not chosen yet, which is why
+// this is not `!canUseCookieCategory('analytics')`: that is also true before any choice.
+// For measurement that sets no cookie and so runs until someone says no (the page speed
+// record in app/web-vitals.tsx). A choice that is stored but cannot be read counts as off.
+export function hasSwitchedAnalyticsOff(): boolean {
+  let stored: unknown;
+  try {
+    stored = getCookie(CONSENT_COOKIE_NAME);
+  } catch {
+    return true;
+  }
+  if (!stored) return false;
+
+  return getConsentStatus()?.analytics !== true;
+}
+
 // Asks CookieBanner to reopen its preferences panel so a choice already made can be
 // changed or withdrawn. An event for the same reason as cookieConsentUpdate above: the
 // footer control and the banner have no shared parent to hold the state. It opens the
