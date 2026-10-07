@@ -34,6 +34,19 @@ function formData(overrides: Record<string, string> = {}) {
   return data
 }
 
+/**
+ * Nothing in a request to the management app may carry the applicant's
+ * Turnstile token: not a form field under any name, not a header, not the URL.
+ */
+function expectNoTurnstileToken(init: { headers: Record<string, string>; body: FormData }, token: string) {
+  expect(init.body.has('turnstile_token')).toBe(false)
+  const fields = [...init.body.entries()]
+  expect(fields.filter(([name]) => /turnstile|captcha/i.test(name))).toEqual([])
+  expect(fields.filter(([, value]) => value === token)).toEqual([])
+  expect(Object.keys(init.headers).filter((name) => /turnstile|captcha/i.test(name))).toEqual([])
+  expect(Object.values(init.headers)).not.toContain(token)
+}
+
 describe('recruitment enquiry proxy', () => {
   beforeEach(() => {
     jest.resetModules()
@@ -93,7 +106,171 @@ describe('recruitment enquiry proxy', () => {
     })
     expect(init.body.get('sms_consent')).toBe('true')
     expect(init.body.get('future_recruitment_consent')).toBe('true')
-    expect(init.body.get('turnstile_token')).toBe('turnstile-1')
+    expectNoTurnstileToken(init, 'turnstile-1')
+  })
+
+  // The website verifies its own widget's token with its own secret and
+  // authenticates upstream with the API key. The management app holds a
+  // different widget's secret and only checks callers with no API key, so a
+  // forwarded token reaches no valid verifier (the August 2026 split brain).
+  describe('Turnstile is verified here and never forwarded', () => {
+    const SITEVERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+    let consoleError: jest.SpyInstance
+
+    // The rest of this file replaces the guard with a pass. These run the real
+    // one, and the real verifier, against a mocked Cloudflare.
+    function useRealSpamGuard() {
+      const mocked = jest.requireMock('@/lib/spam-protection') as { checkSpamProtection: jest.Mock }
+      const actual = jest.requireActual('@/lib/spam-protection') as { checkSpamProtection: (...args: unknown[]) => unknown }
+      mocked.checkSpamProtection.mockImplementation(actual.checkSpamProtection)
+    }
+
+    function request(data: FormData) {
+      return {
+        formData: async () => data,
+        headers: new Headers({ 'x-forwarded-for': '203.0.113.9' }),
+        url: 'https://www.the-anchor.pub/api/enquiry/recruitment',
+      } as any
+    }
+
+    function calledUrls(): string[] {
+      return (global.fetch as jest.Mock).mock.calls.map(([url]) => String(url))
+    }
+
+    beforeEach(() => {
+      process.env.TURNSTILE_SECRET_KEY = 'website-secret-1'
+      // The guard logs every block on purpose; keep the test output readable.
+      consoleError = jest.spyOn(console, 'error').mockImplementation(() => {})
+      useRealSpamGuard()
+    })
+
+    afterEach(() => {
+      delete process.env.TURNSTILE_SECRET_KEY
+      consoleError.mockRestore()
+    })
+
+    it('verifies the token with this site, then sends the application upstream without it', async () => {
+      ;(global.fetch as jest.Mock)
+        .mockResolvedValueOnce(jsonResponse({ success: true }))
+        .mockResolvedValueOnce(jsonResponse({ success: true, data: { application_id: 'application-1' } }))
+
+      const { POST } = await import('@/app/api/enquiry/recruitment/route')
+      const response = await POST(request(formData({ turnstile_token: 'website-token-1' })))
+
+      expect(response.status).toBe(200)
+      expect(await response.json()).toMatchObject({ success: true, source: 'management' })
+
+      const [verifyUrl, verifyInit] = (global.fetch as jest.Mock).mock.calls[0]
+      expect(verifyUrl).toBe(SITEVERIFY_URL)
+      expect(verifyInit.body.get('secret')).toBe('website-secret-1')
+      expect(verifyInit.body.get('response')).toBe('website-token-1')
+
+      const [upstreamUrl, upstreamInit] = (global.fetch as jest.Mock).mock.calls[1]
+      expect(upstreamUrl).toBe('https://manage.example.test/api/recruitment/applications')
+      expect(upstreamInit.headers['x-api-key']).toBe('api-key-1')
+      expectNoTurnstileToken(upstreamInit, 'website-token-1')
+    })
+
+    it('keeps the token out of every retry as well', async () => {
+      const abortError = Object.assign(new Error('This operation was aborted'), { name: 'AbortError' })
+      ;(global.fetch as jest.Mock)
+        .mockResolvedValueOnce(jsonResponse({ success: true }))
+        .mockRejectedValueOnce(abortError)
+        .mockResolvedValueOnce(jsonResponse({ success: true, data: { application_id: 'application-1' } }))
+
+      const { POST } = await import('@/app/api/enquiry/recruitment/route')
+      const response = await POST(request(formData({ turnstile_token: 'website-token-1' })))
+
+      expect(response.status).toBe(200)
+      expect(global.fetch).toHaveBeenCalledTimes(3)
+      for (const [, init] of (global.fetch as jest.Mock).mock.calls.slice(1)) {
+        expectNoTurnstileToken(init, 'website-token-1')
+      }
+    })
+
+    it('answers 403 when there is no token, and sends nothing anywhere', async () => {
+      const data = formData()
+      data.delete('turnstile_token')
+
+      const { POST } = await import('@/app/api/enquiry/recruitment/route')
+      const response = await POST(request(data))
+      const payload = await response.json()
+
+      expect(response.status).toBe(403)
+      expect(payload.success).toBe(false)
+      expect(payload.error).toBe('Please complete the security check before submitting.')
+      // Not Cloudflare, not the management app, not the fallback email.
+      expect(global.fetch).not.toHaveBeenCalled()
+    })
+
+    it('answers 403 with the phone number when Cloudflare refuses the token, and does not call upstream', async () => {
+      ;(global.fetch as jest.Mock).mockResolvedValueOnce(
+        jsonResponse({ success: false, 'error-codes': ['invalid-input-response'] })
+      )
+
+      const { POST } = await import('@/app/api/enquiry/recruitment/route')
+      const response = await POST(request(formData({ turnstile_token: 'forged-token' })))
+      const payload = await response.json()
+
+      expect(response.status).toBe(403)
+      expect(payload.success).toBe(false)
+      expect(payload.error).toContain('01753 682707')
+      expect(calledUrls()).toEqual([SITEVERIFY_URL])
+    })
+
+    it('answers 403 with the phone number when Cloudflare cannot be reached, and does not call upstream', async () => {
+      ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error('network down'))
+
+      const { POST } = await import('@/app/api/enquiry/recruitment/route')
+      const response = await POST(request(formData({ turnstile_token: 'website-token-1' })))
+      const payload = await response.json()
+
+      expect(response.status).toBe(403)
+      expect(payload.success).toBe(false)
+      expect(payload.error).toContain('01753 682707')
+      expect(calledUrls()).toEqual([SITEVERIFY_URL])
+    })
+  })
+
+  describe('an upstream failure is never reported as a success', () => {
+    it('shows the applicant an error with the phone number when the management API and the fallback email both fail', async () => {
+      const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {})
+      const down = jsonResponse({ success: false, error: { message: 'Database unavailable' } }, { status: 500 })
+      ;(global.fetch as jest.Mock)
+        .mockResolvedValueOnce(down.clone())
+        .mockResolvedValueOnce(down.clone())
+        // Microsoft Graph refuses the token request, so no email can be sent.
+        .mockResolvedValueOnce(jsonResponse({ error: 'invalid_client' }, { status: 401 }))
+
+      const { POST } = await import('@/app/api/enquiry/recruitment/route')
+      const response = await POST({ formData: async () => formData() } as any)
+      const payload = await response.json()
+
+      expect(response.status).toBe(500)
+      expect(payload.success).toBe(false)
+      expect(payload.error).toBe('Sorry, we could not send your application. Please call us on 01753 682707.')
+      consoleError.mockRestore()
+    })
+
+    it('shows the applicant an error when the management API is down and no fallback mailbox is configured', async () => {
+      const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {})
+      delete process.env.MICROSOFT_USER_EMAIL
+      const down = jsonResponse({ success: false, error: { message: 'Database unavailable' } }, { status: 500 })
+      ;(global.fetch as jest.Mock)
+        .mockResolvedValueOnce(down.clone())
+        .mockResolvedValueOnce(down.clone())
+
+      const { POST } = await import('@/app/api/enquiry/recruitment/route')
+      const response = await POST({ formData: async () => formData() } as any)
+      const payload = await response.json()
+
+      expect(response.status).toBe(500)
+      expect(payload.success).toBe(false)
+      expect(typeof payload.error).toBe('string')
+      // Two tries at the management API and nothing else: no email was attempted.
+      expect(global.fetch).toHaveBeenCalledTimes(2)
+      consoleError.mockRestore()
+    })
   })
 
   it('falls back to the existing Anchor management API env vars used in production', async () => {
