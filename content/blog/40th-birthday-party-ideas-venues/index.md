@@ -216,7 +216,7 @@ Three shapes a 40th usually takes, cheapest first:
 
 **The full works.** Indoor BBQ, welcome prosecco, a bigger bar tab, a photo timeline and quiz prizes.
 
-All three include free parking, a private room, the sound system, a dedicated events coordinator and free WiFi as standard rather than as extras. Compare the total with the £3,000-7,000 an airport hotel would charge for the same headcount and the decision is straightforward.
+All three include free parking, the sound system, a dedicated events coordinator and free WiFi. Room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire). Compare the total with the £3,000-7,000 an airport hotel would charge for the same headcount and the decision is straightforward.
 
 ## Frequently asked questions about 40th birthday parties
 

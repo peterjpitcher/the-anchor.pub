@@ -40,3 +40,50 @@ export const PRIVATE_HIRE_DIETARY_WORDING =
 
 /** Question heading that goes with PRIVATE_HIRE_DIETARY_WORDING in an FAQ. */
 export const PRIVATE_HIRE_DIETARY_QUESTION = 'What about allergies and dietary needs?'
+
+/*
+ * Money wording. Every sentence below is in docs/SSOT.md section 16, and
+ * tests/money-wording-guard.test.ts fails when the two disagree. None of these
+ * is used to work out a price: they only say what the management app charges.
+ */
+
+/** SSOT section 16, "Group deposit". */
+export const GROUP_DEPOSIT_WORDING =
+  'Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.'
+
+/**
+ * SSOT section 16, "Refunds on a group deposit". The bands are the SSOT
+ * section 7 table. Not for Christmas: a Christmas deposit has its own rule,
+ * which the booking form prints from the management app.
+ */
+export const GROUP_DEPOSIT_REFUND_WORDING =
+  "Need to cancel? 7 or more days before, your deposit is refunded in full. 3 to 6 days before, half is refunded. Fewer than 3 days before, it isn't refunded."
+
+/** SSOT section 16, "Refunds on event tickets". The same section 7 bands. */
+export const EVENT_TICKET_REFUND_WORDING =
+  "Need to give up your seats? 7 or more days before, your tickets are refunded in full. 3 to 6 days before, half is refunded. Fewer than 3 days before, they aren't refunded. If we cancel the night, you get a full refund."
+
+/** SSOT section 16, "Private hire deposit". Never pair it with the group deposit. */
+export const PRIVATE_HIRE_DEPOSIT_WORDING =
+  "A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions."
+
+/**
+ * SSOT section 16, "Room hire". Wakes are charged like any other booking
+ * (SSOT section 11), so nothing may say room hire is included or free.
+ */
+export const ROOM_HIRE_WORDING = 'Room hire is charged by the hour for the space you book.'
+
+/**
+ * SSOT section 16, "Airport parking refund" (owner decision 2, 7 October 2026).
+ * The parking FAQ, the four terminal pages, the terms on the parking page and
+ * SSOT.json all carry this one sentence.
+ */
+export const PARKING_REFUND_WORDING =
+  'You can change or cancel your parking booking up to 24 hours before your booked arrival time, and a cancelled booking is refunded less the payment fee.'
+
+/**
+ * SSOT section 16, "Christmas party of more than 20" (owner decision 7,
+ * 7 October 2026). Follow it with PRIVATE_HIRE_DEPOSIT_WORDING.
+ */
+export const CHRISTMAS_PRIVATE_DEPOSIT_WORDING =
+  'A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person.'

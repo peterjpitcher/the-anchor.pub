@@ -1,5 +1,6 @@
 import { Card, CardBody } from '@/components/ui'
 import { formatPackagePrice, getCateringData } from '@/lib/api/catering-packages'
+import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
 
 /**
  * Light "Catering packages" card for the Private Hire why-us split (spec §7.4).
@@ -36,7 +37,7 @@ export async function CateringPackagesCard() {
           </p>
         )}
         <p className="mt-6 text-sm text-ink-muted">
-          Minimum 30 guests on buffet packages unless stated. A £250 booking and damage deposit secures your date, held separately from your bill.
+          Minimum 30 guests on buffet packages unless stated. {PRIVATE_HIRE_DEPOSIT_WORDING}
         </p>
       </CardBody>
     </Card>

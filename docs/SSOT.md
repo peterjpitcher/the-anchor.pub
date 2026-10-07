@@ -437,6 +437,28 @@ seven days. The bands live in `src/lib/table-bookings/refunds.ts` (`calculateRef
 manage-booking seat change in the management app; if the code and this table ever disagree, the code
 is right and this table is stale. A cancelled event night is always refunded in full.
 
+**The bands are shown where the money is taken.** (Owner decision, 7 October 2026.) The group deposit
+bands sit beside the deposit payment button, in the deposit note on the booking review step and in
+the deposit answer on `/book-table`. The ticket bands sit beside the event ticket payment button.
+Approved wording is in §16. A Christmas sitting never shows these bands: it has its own rule, below,
+and the booking form prints it from the management app.
+
+### Airport parking refunds (owner-confirmed 7 October 2026)
+
+This is the paid airport parking product on `/heathrow-parking`, not guest parking (§8).
+
+- A booking can be changed or cancelled up to 24 hours before the booked arrival time.
+- **A booking cancelled with that much notice is refunded less the payment fee.** The owner's words:
+  "so we don't get left with charges". (Owner decision, 7 October 2026.) The parking FAQ, the four
+  terminal parking pages and `SSOT.json` used to promise a full refund while the terms on the same
+  page said "minus any card processing fees". The terms were right and the rest now match them.
+- The payment fee is the card processing fee the payment provider charged on the original payment.
+  **Never publish a fee amount or a percentage.** None is recorded here, and it is not ours to set.
+- Inside 24 hours a booking is not refunded, except at our discretion, as the terms on the page say.
+- The management app does not take the fee off by itself: the 7 October 2026 site review found that
+  the refund is whatever amount is entered when it is made. Whoever makes the refund applies the rule.
+- Approved wording is in §16.
+
 ### Christmas 2026 (owner-confirmed 21 July 2026)
 
 - **Service window:** **10 November to 20 December 2026**. The 20th is **inclusive**, a 20 December sitting is bookable. The previously published 1 November to 23 December window is superseded, see §14.
@@ -474,7 +496,8 @@ is right and this table is stale. A cancelled event night is always refunded in 
 - **The Vegetable Wellington is the exception.** It is **vegan**, so it takes **no Yorkshire pudding and no pigs in blankets**, matching the Sunday roast rule where the Wellington and the pies carry no Yorkshire. Describe it as vegan Christmas trimmings and vegan gravy. Never apply the full trimmings list to it.
 - **Menu dishes ARE published.** (Owner-confirmed, 13 August 2026.) The dish list lives on the Christmas booking period in the management database and reaches the website through `/table-bookings/periods`, which is the same source the booking form builds a pre-order from. Publish the dishes the API returns and nothing else: the old "menu released closer to the time" wording is retired, and inventing or padding the list is still forbidden. If the API returns no menu, say nothing rather than guessing.
 - **Prices:** live from the management database via the menu API. **Never hardcode a Christmas price in website page code.** Christmas set-menu tier prices quoted in prose may carry the £ symbol; per-item menu prices stay symbol-free per the price display policy at the top of this document.
-- **Weekday / weekend definition:** weekday means Tuesday to Thursday. Weekend means Friday to Saturday.
+- **Weekday / weekend definition:** weekday means Tuesday to Thursday. Weekend means Friday to Sunday. **A Sunday sitting is charged at the weekend price.** (Owner decision, 7 October 2026. Until then this line stopped at Saturday, so nothing said what a Sunday cost.) The management app's Christmas menu holds a weekday and a weekend price but no rule tying a price to a day of the week, so the day rule lives here until one is set there.
+- **A Christmas party of more than 20 pays the private hire deposit, not £10 per person.** (Owner decision, 7 October 2026.) More than 20 guests is a private booking, and a private hire pays the £250 booking and damage deposit, held separately from the bill and refunded after the event (§11). So "£10 per person on every Christmas booking" above is the rule for table bookings, 4 to 20 guests. Approved wording is in §16.
 - **Festive buffets stay:** Festive Sandwich & Salad, Festive Hot Finger, Festive Premium Grazing. **Minimum 30 guests, everywhere, no exceptions.** That minimum is for the festive buffets only: the year-round buffets carry their own minimums, several below 30 (§11).
 - **The old Festive Menu catering packages are switched off.** The two rows (a weekday and a weekend price, minimum 6) are inactive in the management app, and no private-hire catering package holds the 1, 2 and 3 course Christmas menu. The tiers and their prices live on the Christmas menu and the Christmas booking period. (Mirrored from the management app on 11 September 2026.) Switching the old rows back on as they stand would bring back the retired two-price split (§14) and a minimum of 6, where the minimum is 4. **For the sit-down Christmas meal, `/christmas-parties` refers only to the latest offer, the 1, 2 and 3 course Christmas menu, and never to the old packages.** (Owner-confirmed, 11 September 2026.) The festive buffets above are separate and stay.
 
@@ -1050,11 +1073,39 @@ Short form, for a feature list or a garden page:
 
 > Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
 
+### Refunds on a group deposit
+
+> Need to cancel? 7 or more days before, your deposit is refunded in full. 3 to 6 days before, half is refunded. Fewer than 3 days before, it isn't refunded.
+
+The bands are the §7 table. Never use it for a Christmas sitting, which has its own rule (§7).
+
+### Refunds on event tickets
+
+> Need to give up your seats? 7 or more days before, your tickets are refunded in full. 3 to 6 days before, half is refunded. Fewer than 3 days before, they aren't refunded. If we cancel the night, you get a full refund.
+
 ### Private hire deposit
 
 > A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 
 Never pair it with the group deposit: a private hire pays the £250 only.
+
+### Room hire
+
+> Room hire is charged by the hour for the space you book.
+
+Wakes included (§11). Never "room hire is included", "the room costs nothing", "no hidden charges" or "no deposit for a wake".
+
+### Airport parking refund
+
+> You can change or cancel your parking booking up to 24 hours before your booked arrival time, and a cancelled booking is refunded less the payment fee.
+
+Never "a full refund", and never a fee amount or a percentage (§7).
+
+### Christmas party of more than 20
+
+> A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person.
+
+Follow it with the private hire deposit block above.
 
 ### Christmas 2026
 
@@ -1117,6 +1168,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **7 October 2026, money wording: five owner decisions.** (1) A parking booking cancelled more than 24 hours ahead is refunded less the payment fee, "so we don't get left with charges" (§7, §16). The parking FAQ, the four terminal parking pages and `SSOT.json` had promised a full refund while the terms on the same page said "minus any card processing fees"; all four now carry one sentence. No fee amount or percentage is recorded or published. (2) The refund bands for a group deposit and for event tickets are shown where the money is taken: beside both payment buttons, in the booking review step and in the deposit answer on `/book-table`, where "Free to cancel" became "No deposit for tables of 14 or fewer" (§7, §16). (3) A Christmas party of more than 20 pays the £250 private hire deposit, not £10 per person (§7, §16). (4) A Sunday Christmas sitting is charged at the weekend price, so weekend now means Friday to Sunday (§7). (5) Typed taxi fares, Heathrow's own parking prices and other car parks' prices came off the main pages; the blog guides are a later batch. In the same change the wakes page and five posts stopped saying room hire is included, free or without hidden charges, and the wake guide stopped saying a wake takes no deposit: room hire is charged by the hour and the £250 deposit is held separately (§11, §16). §16 gained five blocks: the two refund sentences, room hire, the airport parking refund and the Christmas party of more than 20. Private hire prices are still shown before VAT: showing them with VAT included needs the management app to send a VAT-inclusive figure first.
 
 - **7 October 2026, kids mac and cheese dropped.** The owner confirmed that Kids Mac & Cheese is off the kids menu (§5). It was removed from the kids list here, from `SSOT.json`, from `/family-friendly-pub-heathrow` and from one blog post. The management app's kids menu still returned the dish on that date, so the record there is still to be switched off; until it is, the live menu pages keep showing it. The adult Mac and Cheese is unaffected.
 

@@ -126,7 +126,7 @@ High chairs for the youngest guests, space for buggies, and a welcoming attitude
 
 Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 
-Some venues charge £200-500 for room hire before you've even thought about food. A quote-on-enquiry model is more practical -- your spend on food and drinks counts towards it, so you're not paying twice.
+Ask what room hire costs before you think about food. At The Anchor, room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire).
 
 ## Why The Anchor Works for Gender Reveal Parties
 

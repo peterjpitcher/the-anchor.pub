@@ -27,6 +27,12 @@ interface Props {
   orderId: string
   depositAmount: number    // GBP integer (e.g. 80)
   bookingSummary: string   // e.g. "Sunday 22 March · 1:00pm · 8 guests"
+  /**
+   * When the deposit is refunded, shown beside the pay button. The form passes
+   * the group deposit bands, and nothing for a Christmas sitting, whose own
+   * refund terms it has already shown.
+   */
+  refundNote?: string
   conversionPayload?: TableDepositConversionPayload
   onSuccess: () => void
   onError: (message: string) => void
@@ -37,6 +43,7 @@ export function PayPalDepositSection({
   orderId,
   depositAmount,
   bookingSummary,
+  refundNote,
   conversionPayload,
   onSuccess,
   onError,
@@ -96,6 +103,7 @@ export function PayPalDepositSection({
             <span className="text-ink-muted">(£10 per person)</span>
           </p>
           <p className="text-ink-muted text-xs">This deposit is deducted from your final bill.</p>
+          {refundNote ? <p className="text-ink-muted text-xs">{refundNote}</p> : null}
         </div>
 
         <PayPalButtons

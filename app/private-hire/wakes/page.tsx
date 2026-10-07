@@ -1,4 +1,4 @@
-import { PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_DEPOSIT_WORDING, PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { InteriorHero } from '@/components/hero'
@@ -194,7 +194,7 @@ export default async function WakesPage() {
                     />
                     <div className="mx-auto mb-8 space-y-4 text-ink-muted">
                         <p>We offer a range of buffet and tea &amp; coffee packages to suit your needs and budget. Use our calculator below to get an instant indication of costs for your gathering, or call us to discuss your requirements.</p>
-                        <p>All packages include use of our private dining room, dedicated staff, free parking, and setup and cleardown. We can also arrange flowers, photos, and order of service display.</p>
+                        <p>Our packages cover the food, dedicated staff, and setup and cleardown, and parking is free. {ROOM_HIRE_WORDING} We can also arrange flowers, photos, and order of service display.</p>
                         <p>Guests who choose to stay on after the reception are welcome to order from <Link href="/food-menu" className="text-accent-text hover:underline">our full food menu</Link> at their leisure.</p>
                     </div>
                 </Container>
@@ -211,7 +211,7 @@ export default async function WakesPage() {
                             { title: "Private Dining Room", description: "Our self-contained private dining room seats up to 26 guests, or up to 50 standing. For larger gatherings the venue can be arranged to suit a wider group. The room is quiet, enclosed, and separate from the main bar area." },
                             { title: "Accessibility for All Guests", description: "The venue is entirely on the ground floor with step-free access to the bar and dining area, making it easy for elderly guests and those with mobility difficulties. Our car park is directly adjacent to the entrance with no steps to navigate. Please note we do not currently have an accessible toilet, so call ahead if you would like to talk through your visit." },
                             { title: "Flexible Timing", description: "We are available any day of the week, including at short notice for same-week bookings. We work around funeral service times and can open early or stay later to suit your schedule. Simply call us and we will accommodate your needs." },
-                            { title: "Everything Included", description: "Room hire, dedicated staff, setup, and cleardown are all included in our packages. There are no hidden charges. We handle the practical arrangements so you and your family can focus on being together." },
+                            { title: "What It Costs", description: `Our packages cover the food, dedicated staff, setup, and cleardown. ${ROOM_HIRE_WORDING} ${PRIVATE_HIRE_DEPOSIT_WORDING}` },
                             { title: "Allergies and Dietary Needs", description: PRIVATE_HIRE_DIETARY_WORDING },
                             { title: "Free Parking", description: "Our car park provides 20 free spaces with room for funeral cars and larger vehicles. There is also ample unrestricted street parking nearby. We are just ten minutes from South West Middlesex Crematorium and easily reached from the surrounding area." },
                         ].map(feature => (
@@ -285,14 +285,14 @@ export default async function WakesPage() {
                 <Container>
                     <SectionHeading
                         title="Funeral Tea Packages"
-                        lead="Simple, honest pricing with no hidden charges"
+                        lead="Food priced per person, and room hire charged by the hour"
                     />
                     <div className="mx-auto space-y-8">
                         <CateringPackagesCard/>
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
-                                All funeral tea packages include use of the private dining room, dedicated staff, setup, cleardown, and free parking. Prices are indicative and may vary based on guest numbers and specific requirements. Call us on <strong className="text-accent-text">01753 682707</strong> for a bespoke quote tailored to your needs.
+                                Funeral tea packages cover the food, dedicated staff, setup, and cleardown, and parking is free. {ROOM_HIRE_WORDING} Prices are indicative and may vary based on guest numbers and specific requirements. Call us on <strong className="text-accent-text">01753 682707</strong> for a bespoke quote tailored to your needs.
                             </p>
                         </CardBody></Card>
                     </div>

@@ -173,7 +173,7 @@ export default function RetirementPartiesPage() {
                 faqs={[
                     {
                         question: "How much does a retirement party at The Anchor cost?",
-                        answer: "It depends on your guest count, catering choices, and any extras like DJ or decorations. Use our pricing calculator on this page for an instant estimate, or call us on 01753 682707 for a personalised quote. There are no hidden charges."
+                        answer: "It depends on your guest count, catering choices, and any extras like DJ or decorations. Use our pricing calculator on this page for an instant estimate, or call us on 01753 682707 for a personalised quote. Room hire is charged by the hour for the space you book."
                     },
                     {
                         question: "Can we set up a tab?",

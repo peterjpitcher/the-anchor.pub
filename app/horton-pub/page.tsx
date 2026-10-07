@@ -216,7 +216,7 @@ export default function HortonPubPage() {
                                 If you walk the Horton Country Park trails or the footpaths around the Berkshire countryside, we&rsquo;re the natural place to finish up. Muddy boots and muddy dogs are both welcome, we&rsquo;re a country pub, not a wine bar. And because we&rsquo;re so close, you can pop in for a quick one without it turning into a whole evening out (unless you want it to, of course).
                             </p>
                             <p>
-                                The short distance means quiz nights, Music Bingo, and our other events are all on your doorstep. A few Horton teams are regulars at the monthly quiz, the taxi home is barely a fiver, which makes it very easy to say yes to &ldquo;one more round.&rdquo;
+                                The short distance means quiz nights, Music Bingo, and our other events are all on your doorstep. A few Horton teams are regulars at the monthly quiz, the taxi home is a short ride, which makes it very easy to say yes to &ldquo;one more round.&rdquo;
                             </p>
                         </div>
                     </div>

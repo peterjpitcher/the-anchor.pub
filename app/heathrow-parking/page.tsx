@@ -16,6 +16,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { PARKING_REFUND_WORDING } from '@/lib/approved-wording'
 
 const formatRate = (value: number) => value.toFixed(2)
 const pricingUnavailable = 'We could not load current parking prices. Please refresh the page or call 01753 682707.'
@@ -138,16 +139,20 @@ const terminalGuides = [
   }
 ]
 
+// Heathrow's own prices are not ours to print (owner decision 17, 7 October
+// 2026): they change with the dates, and three typed copies had drifted apart.
+const HEATHROW_PRICE_NOTE = "Priced by date. Check Heathrow's own site for yours."
+
 const comparisonRows = (rateCard: ParkingRateCard | null) => [
   {
     label: 'Published starting price',
     anchor: rateCard ? `£${formatRate(rateCard.daily_rate)} daily rate or £${formatRate(rateCard.weekly_rate)} weekly rate` : pricingUnavailable,
-    heathrow: 'T5 Park & Ride starts from £46.80'
+    heathrow: HEATHROW_PRICE_NOTE
   },
   {
     label: 'Short parking comparison',
     anchor: rateCard ? `£${formatRate(rateCard.hourly_rate)} per hour for short visits` : pricingUnavailable,
-    heathrow: 'T5 Terminal Parking starts from £8 for 29 minutes'
+    heathrow: HEATHROW_PRICE_NOTE
   },
   {
     label: 'Transfer style',
@@ -158,11 +163,6 @@ const comparisonRows = (rateCard: ParkingRateCard | null) => [
     label: 'Distance to terminals',
     anchor: '3.8 miles to T5 · 5.3 miles to T3',
     heathrow: 'Official T5 Park & Ride is on Northern Perimeter Road'
-  },
-  {
-    label: 'Payment',
-    anchor: 'PayPal, Apple Pay, Google Pay, cards',
-    heathrow: 'Card only, pre-authorisation required'
   }
 ]
 
@@ -203,7 +203,7 @@ const faqs = (rateCard: ParkingRateCard | null) => {
   },
   {
     question: 'Can I cancel or change my Heathrow car parking booking?',
-    answer: 'You can amend or cancel up to 24 hours before arrival for a full refund. Need help closer to arrival time? Call 01753 682707 and we will try to reallocate your long stay parking slot.'
+    answer: `${PARKING_REFUND_WORDING} Need help closer to arrival time? Call 01753 682707 and we will try to reallocate your long stay parking slot.`
   }
   ]
 }
@@ -394,7 +394,7 @@ export default async function HeathrowParkingPage() {
                 <CardBody className="p-6">
                   <h3 className="text-lg font-semibold text-ink-strong">Daily price promise</h3>
                   <p className="mt-2 text-sm text-ink-muted">
-                    {rateCard ? `Lock in from £${formatRate(rateCard.daily_rate)} per day or £${formatRate(rateCard.weekly_rate)} per week, no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.` : pricingUnavailable}
+                    {rateCard ? `Lock in from £${formatRate(rateCard.daily_rate)} per day or £${formatRate(rateCard.weekly_rate)} per week, no surge pricing, no pre-authorisation. Pay in advance with PayPal.` : pricingUnavailable}
                   </p>
                 </CardBody>
               </Card>
@@ -524,7 +524,7 @@ export default async function HeathrowParkingPage() {
           <Card className="overflow-hidden">
             {/* Title + column headers */}
             <div className="bg-surface-sunk border-b border-line px-6 py-4">
-              <p className="text-accent-text text-xl font-semibold">Heathrow Parking Price Comparison</p>
+              <p className="text-accent-text text-xl font-semibold">The Anchor and Official Heathrow Parking Compared</p>
               <div className="mt-3 hidden md:grid md:grid-cols-3 gap-4 text-xs font-semibold uppercase tracking-wider text-ink-muted">
                 <span></span>
                 <span>The Anchor</span>
@@ -548,7 +548,7 @@ export default async function HeathrowParkingPage() {
             </div>
           </Card>
           <p className="mt-4 text-center text-xs text-ink-muted">
-            Official Heathrow examples checked May 2026 from Heathrow&apos;s Terminal 5 parking pages. Always confirm live airport pricing before travel.
+            Heathrow&apos;s own car parks are priced by date. Always check the airport&apos;s live price for your dates before you travel.
           </p>
         </Container>
       </section>
@@ -649,7 +649,7 @@ export default async function HeathrowParkingPage() {
 
               <div>
                 <h3 className="font-semibold text-ink-strong">5. Refunds &amp; cancellations</h3>
-                <p className="mt-1">You may cancel or amend your booking up to 24 hours before your booked arrival time. Cancellations made with at least 24 hours&apos; notice will receive a full refund of the amount paid, minus any card processing fees charged by PayPal or our payment provider at the time of your original transaction.</p>
+                <p className="mt-1">{PARKING_REFUND_WORDING} The payment fee is the card processing fee charged by PayPal or our payment provider at the time of your original transaction.</p>
                 <p className="mt-2">Cancellations made within 24 hours of your booked arrival time are non-refundable, except at our discretion in cases of documented emergency. To request a refund, email <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a> with your booking reference.</p>
               </div>
 

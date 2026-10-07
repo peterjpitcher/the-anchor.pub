@@ -12,6 +12,7 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Anniversary Party Venue Near Heathrow',
@@ -151,7 +152,7 @@ export default function AnniversaryPartiesPage() {
                                     <li><strong className="text-ink-strong">Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
                                     <li><strong className="text-ink-strong">7 minutes from Heathrow T5</strong>, handy if family are flying in for the occasion.</li>
                                     <li><strong className="text-ink-strong">AV equipment:</strong> TVs and a sound system for slideshows of the years gone by, or a few words and a toast.</li>
-                                    <li><strong className="text-ink-strong">Deposit:</strong> &pound;250 to secure your date, held separately from your bill and refunded after the event.</li>
+                                    <li><strong className="text-ink-strong">Deposit:</strong> {PRIVATE_HIRE_DEPOSIT_WORDING}</li>
                                     <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
                                 </ul>
                             </CardBody></Card>
@@ -266,7 +267,7 @@ export default function AnniversaryPartiesPage() {
                 faqs={[
                     {
                         question: "How much does an anniversary party at The Anchor cost?",
-                        answer: "A room hire fee applies and varies by day and party size, and food and drink are charged at live prices, so you only pay for what you order. We confirm the hire fee and full terms when you enquire. The deposit is £250, held separately from your bill and refunded after the event. Call 01753 682707 or use the cost estimator on this page for a personalised quote."
+                        answer: `A room hire fee applies and varies by day and party size, and food and drink are charged at live prices, so you only pay for what you order. We confirm the hire fee and full terms when you enquire. ${PRIVATE_HIRE_DEPOSIT_WORDING} Call 01753 682707 or use the cost estimator on this page for a personalised quote.`
                     },
                     {
                         question: "How many guests can you fit for an anniversary party?",
