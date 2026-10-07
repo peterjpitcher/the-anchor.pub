@@ -1,3 +1,77 @@
+# Sticky bar and one-line buttons cut off at the right edge of a phone, 7 October 2026
+
+Branch `fix/phone-sticky-bar-and-button-overflow`, from main at a492f407 (PR #200). Local only: not
+pushed, no PR, not deployed.
+
+The reflow check from PR #200 flagged 16 of 17 audited pages at 320px. The owner approved two
+groups: the sticky bar, and the one-line buttons that cannot wrap (with the hero pill on the Slough
+page). The Turnstile failures were left alone on purpose.
+
+- [x] Baseline on a production build, dark skin: `npm run audit:a11y` exit 1, 16 pages. The same
+      check at 390px: 9 findings on 7 pages
+- [x] Sticky bar (`components/layout/StickyCtas.tsx`). The main button could not go below its
+      label's width, so the three round buttons were pushed off the screen. It may now shrink and
+      wrap below 640px. Below 360px the gaps are 8px and the label is 14px
+- [x] `wrap` variant on `Button`, passed through `PhoneButton` and `DirectionsButton`. Below 640px:
+      16px side padding, then the label wraps, centred. Set on the five named buttons and the
+      sticky bar's main button, nowhere else
+- [x] `wrap` variant on `Badge`, set on the landmark template's hero badges
+- [x] Blog share buttons: the row wraps, so Facebook drops under Twitter when both do not fit
+- [x] Tests: 12 new (Button 4, Badge 2, PhoneButton 1, DirectionsButton 1, sticky bar 4)
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] `npm run audit:a11y` against the production build of each skin: exit 1, 3 pages, all three
+      the Turnstile widget. The same check at 390px: nothing on any of the 17 pages, both skins
+- [ ] Owner's yes before any push
+
+Measured on the production build, dark skin (the light skin was audited after the change only):
+- Sticky bar at 320px: 120px main button, then 48px Menu, Call and WhatsApp, the last ending at
+  304px of 320. "Book a table" and "Reserve seats" stay on one line, 48px high, bar 73px as
+  before. "Enquire about your date", "View themed quiz dates" and "View upcoming dates" take two
+  lines, 52px high, bar 77px.
+- Sticky bar at 390px: WhatsApp ends at 374px on every page. "Book a table" is the same 178px by
+  48px it was. "View upcoming dates" now fits on one line. The two longest labels take two lines
+  and the bar is 4px taller on those pages.
+- Named buttons at 390px: /halloween, both on /heathrow-parking and the Christmas link on
+  /sunday-roast and /whats-on are still one line, 32px to 64px narrower, and inside the screen.
+  The Slough directions button takes two lines (68px).
+- Named buttons at 320px: all take two lines (68px or 76px high) inside the 288px column.
+- Slough hero pill: two lines at 320px, one line at 390px.
+- Every button and badge on the 17 pages was measured before and after at 768px and 1280px: 283
+  and 333 of them, none moved or changed size.
+
+Decisions:
+- Wrapping is opt-in, not the Button default. The default was built and measured first. It
+  wrapped any label that reaches into its own side padding, which is not cut off and looked fine:
+  "Get directions on Google Maps" on the homepage and "Speak to the team 01753 682707" at 390px,
+  "Call us" beside its icon on /christmas-parties, nine more at 320px. Vertical padding in the
+  base also made every button that already wrapped 16px taller at desktop width.
+- The `wrap` variant drops the side padding before it wraps. That is what keeps four of the five
+  named buttons on one line at 390px.
+- The badge variant uses `leading-tight` below 640px so two lines do not touch. A one-line badge
+  that opts in is 25px high on a phone, not 22px. Only the landmark hero badges opt in.
+- No label was reworded.
+
+Left in place, as agreed: the enquiry form and the block under it on /private-hire and the Slough
+page (46px at 320px, 6px at 360px, clean at 390px), and the three columns of the event page (22px at
+320px). All Turnstile.
+
+Found on the way, not fixed. A survey of all 200 sitemap pages at 390px, run on the build that
+wrapped by default, found the same one-line button cut off on pages outside the approved list:
+"Call or WhatsApp us on 01753 682707" on /easter-sunday, /fathers-day and /mothers-day (7px), the
+directions button on /horton-pub (15px), /sunbury-pub (30px), /colnbrook-pub (42px) and
+/wraysbury-pub (45px), and "Next" on /blog (8px, a pagination row, a different cause). The
+survey also flagged 11 more landmark pages. They share the template fixed here, so they should
+fit now, but only the Slough page was measured after the change.
+
+Assumptions:
+- The audit's 17 pages stand for their templates, as before.
+- A fresh build shows no events on the homepage until its first revalidation, so the homepage
+  events block was left out of the before and after comparison.
+
+Layout only. Nothing here touches hours, availability, bookings or bot protection, so the
+management app needs no counterpart change.
+
 # Accessibility audit's reflow check could not see content cut off by the page, 6 October 2026
 
 Branch `fix/a11y-audit-reflow-blind-spot`, from main at 1baf0238 (PR #196). Local only until the
