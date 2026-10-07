@@ -233,6 +233,7 @@ const DATES = {
   aug2026Brochures: new Date('2026-08-17'), // 2026 event brochures published across private hire
   aug2026Growth: new Date('2026-08-26'),    // Site growth programme: titles, descriptions, retargets, retirements
   oct2026SixNations: new Date('2026-10-07'), // Six Nations page made year-neutral
+  oct2026WorldCup: new Date('2026-10-07'),   // World Cup page made year-neutral
 } as const
 
 type StaticRoute = { path: string; lastModified: Date }
@@ -281,7 +282,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/karaoke', lastModified: DATES.aug2026Growth },
     { path: '/live-sport', lastModified: DATES.apr2026 },
     { path: '/live-sport/six-nations', lastModified: DATES.oct2026SixNations },
-    { path: '/live-sport/world-cup', lastModified: DATES.seoOverhaul },
+    { path: '/live-sport/world-cup', lastModified: DATES.oct2026WorldCup },
     { path: '/pool-darts-pub', lastModified: DATES.seoOverhaul },
     { path: '/summer-garden-parties', lastModified: DATES.seoOverhaul },
 

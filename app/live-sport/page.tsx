@@ -228,7 +228,6 @@ export default async function LiveSportPage() {
                                     <ul className="space-y-2 text-ink-muted">
                                         <li>• Six Nations</li>
                                         <li>• Autumn Internationals</li>
-                                        <li>• Premiership Rugby</li>
                                         <li>• World Cups</li>
                                     </ul>
                                 </CardBody>
@@ -266,13 +265,13 @@ export default async function LiveSportPage() {
                 <Container>
                     <Card accent className="mx-auto">
                         <CardBody className="p-8 text-center">
-                            <h2 className="text-xl text-accent-text">World Cup 2026</h2>
+                            <h2 className="text-xl text-accent-text">World Cup Football</h2>
                             <p className="mt-3 text-sm text-ink-muted">
-                                Full fixtures with UK kick-off times, showing status, table bookings, and all pub sweep winners.
+                                We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. You can see who won the pub sweep too.
                             </p>
                             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
                                 <Button asChild variant="primary">
-                                    <Link href="/live-sport/world-cup">World Cup 2026 Fixtures &amp; Bookings →</Link>
+                                    <Link href="/live-sport/world-cup">World Cup Football →</Link>
                                 </Button>
                                 <Button asChild variant="outline">
                                     <Link href="/live-sport/world-cup/sweepstake">Sweep Winners</Link>
@@ -310,7 +309,7 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Do you show Premier League games?",
-                        answer: "We only show Premier League games that are broadcast on terrestrial television (e.g. Amazon Prime fixtures shown on BBC/ITV, or highlights). We do not have Sky Sports or TNT Sports packages."
+                        answer: "We only show Premier League games that are broadcast on terrestrial television (BBC, ITV or Channel 4). We do not have Sky Sports or TNT Sports packages."
                     },
                     {
                         question: "Are children allowed during matches?",
