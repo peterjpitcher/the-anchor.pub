@@ -3,7 +3,7 @@ title: Watch Major Football Near Heathrow Airport | Sports Pub Stanwell Moor
 slug: premier-league-2024-25
 description: >-
   Watch major football matches on terrestrial TV at The Anchor pub near Heathrow
-  Airport. 4 HD screens showing World Cup, Euros, FA Cup and more. Great
+  Airport. 4 TVs showing World Cup, Euros, FA Cup and more. Great
   atmosphere just 7 minutes from Terminal 5. Perfect for airport staff and
   football fans. Free parking, full menu during matches. A local pub for
   major football events near Heathrow.
@@ -38,7 +38,7 @@ noindex: true
 
 ## Watch Major Football Matches Near Heathrow Airport
 
-Looking for the perfect **pub near Heathrow** to watch football? The Anchor in **Stanwell Moor** shows major matches on 4 HD screens when available on terrestrial TV. Just **7 minutes from Heathrow Terminal 5**, we're the ideal venue for airport staff, travelers, and local football fans to enjoy World Cup, Euros, FA Cup matches and selected Premier League games shown on BBC or ITV.
+Looking for the perfect **pub near Heathrow** to watch football? The Anchor in **Stanwell Moor** shows major matches on 4 TVs when available on terrestrial TV. Just **7 minutes from Heathrow Terminal 5**, we're the ideal venue for airport staff, travelers, and local football fans to enjoy World Cup, Euros, FA Cup matches and selected Premier League games shown on BBC or ITV.
 
   
 
@@ -105,13 +105,13 @@ The Anchor isn't just another **sports bar near Heathrow** - we're your Premier 
 
 ### Premier League Matchday Experience at The Anchor
 
-Experience the thrill of the Premier League matchdays at The Anchor. Our four big screens ensure you don’t miss a moment of the action, and our planned fifth screen will enhance the viewing experience even further. The pub’s setup allows you to enjoy the game from every corner, making sure you always have a great view of the action.
+Experience the thrill of the Premier League matchdays at The Anchor. Our 4 TVs mean you won’t miss a moment of the action. The pub’s setup allows you to enjoy the game from every corner, making sure you always have a great view of the action.
 
   
 
 ### Join Us for Every Premier League Match
 
-So, gather your friends, family, and fellow fans, and come down to The Anchor for major football events. With our 4 HD screens, delicious menu, and welcoming atmosphere, we promise an exceptional experience for all the big matches shown on terrestrial TV. We're your local hub for World Cup, Euros, FA Cup finals and more!
+So, gather your friends, family, and fellow fans, and come down to The Anchor for major football events. With our 4 TVs, delicious menu, and welcoming atmosphere, we promise an exceptional experience for all the big matches shown on terrestrial TV. We're your local hub for World Cup, Euros, FA Cup finals and more!
 
   
 
@@ -129,7 +129,7 @@ Ready for a **football viewing experience near Heathrow Airport**? Join us at Th
 
 **Why Choose The Anchor for Premier League:**
 - Major matches on terrestrial TV
-- Multiple HD screens
+- 4 TVs
 - Great atmosphere
 - Free parking
 - Convenient for airport staff

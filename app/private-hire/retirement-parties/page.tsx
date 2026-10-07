@@ -180,8 +180,8 @@ export default function RetirementPartiesPage() {
                         answer: "Yes, we can set up a bar tab with a limit or for specific drinks. We can provide a VAT receipt for company expenses."
                     },
                     {
-                        question: "Is there space for a TVs?",
-                        answer: "We have large screens available which can be used for photo slideshows or presentations (connection cables provided). Please test this with us in advance."
+                        question: "Can we show a slideshow?",
+                        answer: "Yes. Our TVs can be used for photo slideshows or presentations, and we provide the connection cables. Test yours with us in advance. We don't have a projector."
                     },
                     {
                         question: "How many people can you fit?",
