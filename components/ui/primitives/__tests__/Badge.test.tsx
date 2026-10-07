@@ -33,6 +33,27 @@ describe('Badge', () => {
     }
   })
 
+  it('stays on one line unless it is told the label may be long', () => {
+    render(<Badge testId="badge">Free Parking</Badge>)
+
+    expect(screen.getByTestId('badge')).toHaveClass('whitespace-nowrap')
+    expect(screen.getByTestId('badge')).not.toHaveClass('max-sm:whitespace-normal')
+  })
+
+  it('can wrap on a phone when its label comes from data', () => {
+    // The hero badge on a landmark page carries the landmark name. At 320px
+    // the Slough one was 8px wider than the hero, which clipped it.
+    render(<Badge testId="badge" wrap>15 mins drive from Slough Cemetery and Crematorium</Badge>)
+
+    expect(screen.getByTestId('badge')).toHaveClass(
+      'max-sm:whitespace-normal',
+      'max-sm:text-center',
+      'max-sm:leading-tight'
+    )
+    // One line from 640px up, as before.
+    expect(screen.getByTestId('badge')).toHaveClass('whitespace-nowrap', 'leading-none')
+  })
+
   it('is a pill with Outfit 600 at text-xs', () => {
     render(<Badge testId="badge">Pill</Badge>)
     expect(screen.getByTestId('badge')).toHaveClass('rounded-pill', 'font-sans', 'font-semibold', 'text-xs')
