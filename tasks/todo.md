@@ -1,3 +1,28 @@
+# Six Nations and screen claims brought into line with the SSOT, 7 October 2026
+
+Branch `fix/six-nations-claims-match-ssot`, from the tip of `fix/six-nations-page-year-neutral`
+(it needs that branch's SSOT entry). Local only: the coordinator ships it.
+
+SSOT §10 now confirms Six Nations games on terrestrial TV, on 4 TVs, with the commentary on, and
+§8 rules out "big screens", "HD" and any other count. Other pages still promised every Six Nations
+match, big screens, multiple HD screens and full audio.
+
+- [x] Grep the whole site for Six Nations and screen claims
+- [x] `/live-sport`: title, descriptions, both structured data descriptions, hero line, headings,
+      intro, the audio card, the boxing line, four FAQ answers and the closing paragraph
+- [x] `/drinks`, `/horton-pub`, the World Cup page's structured data description, and the sports
+      and rugby blog tag copy in `lib/tag-seo-content.ts` (which also named Channel 5, not in §6)
+- [x] The two posts that describe what we show now: the live sport guide and the sports update
+- [x] `tests/unit/six-nations-claims-match-ssot.test.ts`: 6 tests over every page, the tag copy
+      and those two posts
+- [x] Gates on Node 20, and `/live-sport` looked at on a production build
+- [ ] Coordinator ships it
+
+Left alone on purpose: claims about other sport (what is shown, and when); the 2023 Six Nations
+post (owner instruction); five other dated posts from 2019 to 2025 that still say big screens or
+HD screens; the World Cup 2026 page's "sound on" lines; the "large screens" line on
+`/private-hire/retirement-parties`.
+
 # Six Nations page made year-neutral, 7 October 2026
 
 Branch `fix/six-nations-page-year-neutral`, from main at a492f407 (PR #200). Local only: the owner
