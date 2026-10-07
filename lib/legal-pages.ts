@@ -24,7 +24,12 @@
 // under Managing Cookies, that switching a category off deletes its cookies
 // and which ones we cannot reach, was also written that day. If that merges
 // on a later day, move the date to that day before merging.
-export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-05'
+//
+// 7 October 2026: the paragraph under Analytics Cookies on the site's own page
+// speed record (app/api/web-vitals/route.ts), which sets no cookie and runs
+// until analytics is switched off. A draft the owner had not approved when it
+// was written. If it goes live on a later day, move the date to that day.
+export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-07'
 
 /**
  * SHA-256 of the notice's words as they stood on the date above, with the
@@ -40,4 +45,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-05'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  '5e6f77680aa32d90457994035e8f1595683ba57ad8517a6b71e1d00f08dbda7a'
+  'a0e542dc0c257ef6c61676e7ff44d1810b1e111b46463d1694891cda6c6002e6'

@@ -72,6 +72,128 @@ Assumptions:
 Layout only. Nothing here touches hours, availability, bookings or bot protection, so the
 management app needs no counterpart change.
 
+# Six Nations and screen claims brought into line with the SSOT, 7 October 2026
+
+Branch `fix/six-nations-claims-match-ssot`, from the tip of `fix/six-nations-page-year-neutral`
+(it needs that branch's SSOT entry). Local only: the coordinator ships it.
+
+SSOT §10 now confirms Six Nations games on terrestrial TV, on 4 TVs, with the commentary on, and
+§8 rules out "big screens", "HD" and any other count. Other pages still promised every Six Nations
+match, big screens, multiple HD screens and full audio.
+
+- [x] Grep the whole site for Six Nations and screen claims
+- [x] `/live-sport`: title, descriptions, both structured data descriptions, hero line, headings,
+      intro, the audio card, the boxing line, four FAQ answers and the closing paragraph
+- [x] `/drinks`, `/horton-pub`, the World Cup page's structured data description, and the sports
+      and rugby blog tag copy in `lib/tag-seo-content.ts` (which also named Channel 5, not in §6)
+- [x] The two posts that describe what we show now: the live sport guide and the sports update
+- [x] `tests/unit/six-nations-claims-match-ssot.test.ts`: 6 tests over every page, the tag copy
+      and those two posts
+- [x] Gates on Node 20, and `/live-sport` looked at on a production build
+- [ ] Coordinator ships it
+
+Left alone on purpose: claims about other sport (what is shown, and when); the 2023 Six Nations
+post (owner instruction); five other dated posts from 2019 to 2025 that still say big screens or
+HD screens; the World Cup 2026 page's "sound on" lines; the "large screens" line on
+`/private-hire/retirement-parties`.
+
+# Six Nations page made year-neutral, 7 October 2026
+
+Branch `fix/six-nations-page-year-neutral`, from main at a492f407 (PR #200). Local only: the owner
+sees the wording before anything is pushed.
+
+`/live-sport/six-nations` still advertised the 2026 tournament in October: a dated title and hero,
+the 2026 fixture list, and Event structured data ending 14 March 2026. `docs/SSOT.md` has no Six
+Nations entry. It confirms live sport on BBC, ITV and Channel 4 only (§6, §16), and the Nations
+Championship screenings (§10).
+
+- [x] Map the page: route, JSON-LD, sitemap, redirects, internal links, header promo, tests
+- [x] Check what the SSOT and `SSOT.json` confirm about rugby and live sport
+- [x] Rewrite the page from SSOT facts only, pasting the §16 approved wording where it exists.
+      Removed: the 2026 fixtures, the Event JSON-LD, the dated title, hero and descriptions, the
+      "Book Early for Big Games" alert, the claims of every match, 4 screens and commentary, and
+      the Six Nations scarf image (its alt text called it the pub during the Six Nations; it is not)
+- [x] Title set as an absolute title so the root template does not add the brand twice; canonical
+      now `./`; sitemap `lastModified` moved to 7 October 2026
+- [x] `tests/unit/six-nations-page-year-neutral.test.tsx`: 7 tests holding the page year-neutral
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20, then the built page read back from `next start`
+- [x] Owner approved the wording, 7 October 2026, and confirmed "4 tvs with commentary"
+- [x] SSOT first: a Six Nations entry in §10, the 4 TVs in §8, approved wording in §16, a §18
+      changelog line, and the 4 TVs mirrored in `SSOT.json`. Drift guard green
+- [x] Page says yes plainly: hero line, intro, first FAQ, meta and social descriptions
+- [x] The Nations Championship strip on this page ends after 29 November 2026 (London date). It
+      reads the same window as the header link, now held once in
+      `lib/nations-championship/config.ts`, and is checked again in the browser because the page is
+      built once per deploy
+- [x] `SixNationsFixtures.tsx` deleted: a hardcoded 2026 list, not a CheersAI feed. The scarf image
+      stays, because the unmounted pop-up kept by PR #195 still uses it
+- [x] Looked at on a production build at 1280px and 390px in all three skins (off, dark, festive),
+      and as opened on 30 November. Fixed the "Food and drink" heading, which sat centred over
+      left-aligned text
+- [x] Gates rerun on Node 20
+- [ ] Coordinator ships it: no push from this branch until then
+
+Left alone on purpose: the unmounted pop-up, its test and its image (PR #195); the 2023 Six Nations
+blog post. The Six Nations claims on `/live-sport`, `/drinks` and `lib/tag-seo-content.ts` are a
+separate change, on `fix/six-nations-claims-match-ssot`.
+
+Known trade-off: a visitor who opens a copy of the page built before 30 November after that date
+sees the strip removed as the page loads, which moves the content up once. A deploy on or after
+30 November ends it.
+
+# The page speed endpoint recorded nothing, and ignored the cookie choice, 7 October 2026
+
+Branch `feat/web-vitals-recording`, from main at a492f407 (PR #200). Local only until the owner
+says yes. The privacy notice paragraph is a draft he has not approved.
+
+`app/web-vitals.tsx` posted all six Core Web Vitals to `/api/web-vitals` for every visitor, whatever
+their cookie choice. The route wrote them with `console.log`, which `next.config.js` strips from the
+production build, so about 1,770 calls a day recorded nothing.
+
+- [x] Record only CLS, LCP and INP. One line per request, written with `console.warn`, which the
+      build keeps: `[web-vital] {"metric":"LCP","value":2480,"rating":"good","path":"/","size":"desktop"}`
+- [x] The line holds the page path, the size class, the metric, value and rating, and for CLS the
+      element that moved and how far across and down. Nothing from the request's headers
+- [x] `hasSwitchedAnalyticsOff` in `lib/cookies.ts`: no choice yet is recorded, analytics refused
+      is not, and for a refusal nothing is sent
+- [x] The route turns away anything else with a 400 or 413 and logs nothing: unknown metric,
+      unknown key, a number that is not finite, a string too long, a body over 1 KB
+- [x] A booking reference in the path is replaced with `[id]` in the browser, and a path that is
+      not a plain site path is not sent
+- [x] Privacy notice, section 5, draft paragraph under Analytics Cookies; date and fingerprint
+      moved in `lib/legal-pages.ts`
+- [x] Tests: `tests/unit/web-vitals-reporting.test.tsx`, `tests/api/web-vitals-route.test.ts`,
+      `tests/unit/privacy-policy-page-speed.test.tsx`. Taking out the consent check failed four
+      tests; putting `console.log` back failed three
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] Production build, `next start`, headless Chromium in three consent states: five POSTs and
+      five log lines with no choice, five with analytics accepted, none with analytics refused
+- [ ] Owner's yes to the notice paragraph, then to the push
+- [ ] On a preview deployment, confirm the line shows in `vercel logs`. Not provable locally
+
+Found on the way, and what was done about it:
+- `useReportWebVitals` never says what moved. The `webVitalsAttribution` setting in
+  `next.config.js` only works when Next's own analytics id is set, which it is not. So CLS is read
+  from the attribution build Next already ships (`next/dist/compiled/web-vitals-attribution`),
+  typed in `types/web-vitals-attribution.d.ts`. The setting itself is left as it was.
+- The request had no `keepalive`, so a reading sent as the page was left (CLS, INP) could be
+  cancelled. It has it now.
+
+Left alone on purpose: `removeConsole` in `next.config.js`, the GA4 exclusion in
+`lib/tracking/dispatcher.ts`, Tag Manager, and the `trackWebVitals` push to the data layer, which
+still gets all six metrics and has its own consent check.
+
+Assumptions:
+- Size class is the window's width against Tailwind's md and lg: under 768px phone, under 1024px
+  tablet, otherwise desktop. The width itself is not sent.
+- LCP is recorded against the page the visit loaded first; CLS and INP against the page the
+  visitor is on when the browser reports them, which after moving between pages may not be the
+  page where it happened.
+- A stored cookie choice that cannot be read counts as analytics off.
+- "About 30 days" in the notice is how far back Vercel's logs went on 6 October 2026 (29 days).
+
 # Accessibility audit's reflow check could not see content cut off by the page, 6 October 2026
 
 Branch `fix/a11y-audit-reflow-blind-spot`, from main at 1baf0238 (PR #196). Local only until the

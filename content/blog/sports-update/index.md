@@ -44,7 +44,7 @@ As of **January 24th, 2025**, we will no longer show Sky Sports and TNT Sports. 
 ### **Good News: Major Sports Still Available Near Heathrow**
 
 **We will continue showing sports on terrestrial channels** at our **pub near Terminal 5**, including:
-- **Six Nations Rugby** - Every match live
+- **Six Nations Rugby** - Games on terrestrial TV
 - **FIFA World Cup** - All England games
 - **FA Cup** - Key fixtures and finals
 - **Wimbledon** - Centre Court action
@@ -103,7 +103,7 @@ We remain in active negotiations with these providers and are hopeful for a posi
 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 **From Heathrow**: Just 7 minutes from all terminals
 **Parking**: Free on-site parking
-**Facilities**: Multiple screens, great atmosphere
+**Facilities**: 4 TVs, great atmosphere
 **Information**: 01753 682707
 
 Whether you're an **airport worker** catching the match after your shift or a **local sports fan** from Staines, we remain committed to showing major sporting events at our **family pub near Heathrow**.

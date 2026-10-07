@@ -327,7 +327,7 @@ export default async function DrinksMenuPage() {
                 },
                 {
                   title: 'Sports & Atmosphere',
-                  body: 'Multiple screens showing major sporting events on BBC and ITV. Catch the Six Nations, World Cup, Euros, and other big tournaments with great views from every seat.',
+                  body: "4 TVs showing major sporting events on BBC, ITV and Channel 4. Catch Six Nations games, the World Cup, the Euros and other big tournaments when they're on terrestrial TV.",
                   note: 'Big matches get busy, so arrive early for a good seat.'
                 },
                 {

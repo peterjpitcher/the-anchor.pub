@@ -187,9 +187,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Sports & Fixtures',
     description: 'Terrestrial sports screenings, match days, and sporting events',
     metaTitle: 'Sports Pub Stanwell Moor | Terrestrial Football & Rugby Near Heathrow',
-    metaDescription: 'Watch terrestrial sports at The Anchor Stanwell Moor. Multiple screens with the sound up for BBC, ITV, Channel 4 and Channel 5 fixtures near Heathrow.',
-    heroContent: 'Catch all the big free-to-air sporting action at The Anchor, Stanwell Moor\'s friendly sports pub. With multiple screens and an electric atmosphere, we\'re your home for terrestrial sports.',
-    introContent: 'Sports fans choose The Anchor for reliable terrestrial coverage. We show major sporting events available on free-to-air channels including the World Cup, Euros, Six Nations rugby, Wimbledon, and other headline fixtures. The atmosphere during these big tournaments is incredible, with passionate fans creating an unforgettable experience.',
+    metaDescription: 'Watch terrestrial sports at The Anchor Stanwell Moor. 4 TVs showing BBC, ITV and Channel 4 fixtures near Heathrow.',
+    heroContent: 'Catch all the big free-to-air sporting action at The Anchor, Stanwell Moor\'s friendly sports pub. With 4 TVs and an electric atmosphere, we\'re your home for terrestrial sports.',
+    introContent: 'Sports fans choose The Anchor for reliable terrestrial coverage. We show major sporting events when they\'re on free-to-air channels, such as the World Cup, Euros, Six Nations games, Wimbledon, and other headline fixtures. The atmosphere during these big tournaments is incredible, with passionate fans creating an unforgettable experience.',
     valueProposition: 'Book your table for the next major tournament and enjoy great food, cold beers, and a proper sporting atmosphere in Stanwell Moor during international competitions.',
     keywords: ['sports pub stanwell moor', 'watch football near heathrow', 'rugby pub surrey', 'terrestrial sports TW19', 'match day stanwell moor']
   },
@@ -387,8 +387,8 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Rugby Coverage',
     description: 'Six Nations and rugby matches',
     metaTitle: 'Watch Rugby Stanwell Moor | Six Nations at The Anchor',
-    metaDescription: 'Catch rugby action at The Anchor Stanwell Moor. Six Nations, Rugby World Cup & terrestrial internationals on big screens. Rugby pub near Heathrow.',
-    heroContent: 'Rugby fans unite at The Anchor for major matches on terrestrial TV. From Six Nations drama to World Cup glory shown on BBC and ITV.',
+    metaDescription: 'Catch rugby action at The Anchor Stanwell Moor. Six Nations, Rugby World Cup & internationals when they\'re on terrestrial TV, on 4 TVs. Rugby pub near Heathrow.',
+    heroContent: 'Rugby fans unite at The Anchor for major matches on terrestrial TV. Six Nations games go on 4 TVs with the commentary on.',
     introContent: 'The Anchor is proud to be Stanwell Moor\'s home of rugby. Our screens come alive during the Six Nations Championship, Autumn Internationals, and Rugby World Cup fixtures broadcast on free-to-air channels. The camaraderie among rugby fans creates a special atmosphere, whether you\'re supporting England or enjoying the spectacle of international rugby.',
     valueProposition: 'Join fellow rugby enthusiasts for the next big match. With great viewing, classic pub food, and proper pints, The Anchor delivers the complete rugby experience on terrestrial TV.',
     keywords: ['watch rugby stanwell moor', 'six nations pub heathrow', 'rugby bar surrey', 'terrestrial sports TW19', 'rugby coverage stanwell moor']

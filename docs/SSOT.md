@@ -537,6 +537,8 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 **Table service:** food is brought to tables. Owner-confirmed 8 August 2026.
 
+**TVs:** the pub has 4 TVs, and live sport is shown on them. Owner-confirmed 7 October 2026. Say "4 TVs" or "4 screens". Never "big screens", "HD" or any other count: nobody has confirmed those.
+
 **Fruit machine and dancing:** the pub has a fruit machine, and there is space for guests to dance. Owner-confirmed 8 August 2026. Both are recorded here because the matching Google Business Profile attributes ("Has arcade games", "Has dancing") are set to Yes and were previously flagged as unsupported.
 
 ### Things The Anchor does NOT have
@@ -745,6 +747,10 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 ### Nations Championship screenings, owner decision 5 September 2026
 
 We show Nations Championship games broadcast on terrestrial TV during our existing opening hours. Bookings must not wait for the exact channel, screen allocation or commentary arrangement. Early games are shown from opening. If a game runs beyond our usual closing time and people are still in watching, we will stay open until it finishes (owner-confirmed 5 September 2026). This is conditional continuation for viewers already in the pub, not a guaranteed late opening or permission for arrivals after usual closing. Regular opening times, kitchen service and bookable arrival hours remain unchanged. A missing match finish time uses the existing two-hour booking window for booking planning only, never as a claim about the actual final whistle. Kitchen promotion follows the live service intervals.
+
+### Six Nations screenings, owner decision 7 October 2026
+
+We show Six Nations games broadcast on terrestrial TV during our existing opening hours, on 4 TVs, with the commentary on (owner-confirmed 7 October 2026, in his words: "4 tvs with commentary"). The terrestrial-only rule in §6 still applies. Nothing here names a channel for a particular game, a fixture, a date or a tournament year, so copy must not either: tell people to call 01753 682707 to check a particular game. Never write "every match", "big screens" or "HD". Regular opening times, kitchen service and bookable arrival hours remain unchanged, and kitchen promotion follows the live service intervals. `/live-sport/six-nations` is a standing, year-neutral page.
 
 ### Online event booking, owner decision 6 September 2026
 
@@ -1056,6 +1062,10 @@ Never pair it with the group deposit: a private hire pays the £250 only.
 
 > We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports.
 
+For the Six Nations (§10):
+
+> We show Six Nations games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on 01753 682707 to check a particular game.
+
 ### Takeaway and breakfast
 
 > We don't do breakfast or delivery, but you can phone a takeaway order through to collect.
@@ -1087,6 +1097,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **7 October 2026, the Six Nations and the TVs.** We show Six Nations games that are on terrestrial TV, on 4 TVs, with the commentary on (owner-confirmed; §8, §10, §16). Until now this document had no Six Nations entry and no screen count, while `/live-sport/six-nations` still advertised the 2026 tournament in October with its fixture list, "every match", "4 HD screens" and Event structured data that ended on 14 March 2026. The page is now year-neutral and says only what §10 records. `SSOT.json` carries the 4 TVs in `venue.amenities`.
 
 - **3 October 2026, weekday walk-ins.** Weekday lunch and dinner take walk-ins for the whole kitchen window, Tuesday to Friday (owner decision, 25 September 2026; §5). Until now this document recorded walk-ins for the Sunday roast only (§4). `/lunch-and-dinner`, the landing page for the weekday food ads, now says "No need to book" above its hero buttons, with the regular kitchen times read live. The same entry records the wording rule that goes with it: weekday lunch and dinner copy states the regular week and never says "today", "tonight" or "now" (owner decision, 26 September 2026; §5).
 - **12 September 2026, the emoji rule.** No emojis on the website, in emails or in texts, and one or two at most in a social post (owner decision, §1). Nothing had ever said, and the documents ranged from none to five a post: the 2024 knowledge file asked for three to five in an Instagram caption, the Google posting guide allowed up to five, and the Language Playbook already said one. All four are now in line, along with the who-we-are file's per-platform rules. `SSOT.json` carries the rule and `tests/retired-claims-wording.test.ts` fails if either loses it. On the site, the private-hire cost estimator no longer marks its offer badge with a glass. In the management app, the Facebook prompt takes one emoji at most and stops using them as line markers, the Google prompt takes none because a listing is read as web copy, and the house-style checker warns on any emoji in a menu row, an event record or a marketing email. The Anchor's CheersAI palette went from ten emojis to three. On the owner's instruction the whole archive was swept the same evening rather than left until each post was next touched: 566 emojis out of 62 files, nearly all of them line markers in old posts ("📍 **Location**"), plus the tick bullets on five area pages, which are now a drawn mark. `tests/retired-claims-wording.test.ts` fails if one comes back anywhere in a page, a post or a shared component. The one place they stay is the share message a guest sends a friend from an event page, which is a social message and takes one.

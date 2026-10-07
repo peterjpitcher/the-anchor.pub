@@ -19,17 +19,17 @@ import { HeroBadge } from '@/components/HeroBadge'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 
 export const metadata: Metadata = {
-    title: 'Live Sport Pub Near Heathrow | Big Screens',
-    description: `Watch free-to-air sport, Six Nations, F1 and major tournaments on pub screens at The Anchor, Stanwell Moor. Food, drinks and free parking.`,
+    title: 'Live Sport Pub Near Heathrow | 4 TVs',
+    description: `Watch free-to-air sport on 4 TVs at The Anchor, Stanwell Moor: Six Nations games on terrestrial TV, F1 and major tournaments. Food, drinks and free parking.`,
     openGraph: {
-        title: 'Watch Live Sport Near Heathrow, Major Tournaments on Big Screens',
-        description: 'Six Nations, World Cup, Euros and F1 on big screens with a cold pint and free parking. 7 mins from Heathrow T5.',
+        title: 'Watch Live Sport Near Heathrow, Major Tournaments on 4 TVs',
+        description: "Six Nations, World Cup, Euros and F1 when they're on terrestrial TV, shown on 4 TVs. Cold pints and free parking, 7 mins from Heathrow T5.",
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Watch Live Sport Near Heathrow, Major Tournaments on Big Screens',
-        description: 'Six Nations, World Cup, Euros and F1 on big screens with free parking and great food. 7 mins from Heathrow T5.',
+        title: 'Watch Live Sport Near Heathrow, Major Tournaments on 4 TVs',
+        description: "Six Nations, World Cup, Euros and F1 when they're on terrestrial TV, shown on 4 TVs. Free parking and great food, 7 mins from Heathrow T5.",
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -45,7 +45,7 @@ export default async function LiveSportPage() {
         "@context": "https://schema.org",
         "@type": "SportsActivityLocation",
         "name": `${BRAND.name} - Live Sport`,
-        "description": "Watch major sporting events on big screens, Six Nations, World Cup, Euros, F1 and more. Free parking and great food near Heathrow.",
+        "description": "Watch major sporting events on 4 TVs when they're on terrestrial TV: Six Nations, World Cup, Euros, F1 and more. Free parking and great food near Heathrow.",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": CONTACT.address.street,
@@ -61,7 +61,7 @@ export default async function LiveSportPage() {
         "@context": "https://schema.org",
         "@type": "ScreeningEvent",
         "name": "Live Sport Screenings at The Anchor",
-        "description": "Watch Six Nations, World Cup 2026, Euros and F1 on big screens at The Anchor. Terrestrial channels only (BBC, ITV, Channel 4).",
+        "description": "Watch Six Nations, World Cup 2026, Euros and F1 on 4 TVs at The Anchor. Terrestrial channels only (BBC, ITV, Channel 4).",
         "location": {
             "@type": "Place",
             "name": "The Anchor",
@@ -107,7 +107,7 @@ export default async function LiveSportPage() {
               image="/images/page-headers/home/page-headers-homepage.jpg"
               crumb="Live Sport"
               title="Live Sport at The Anchor"
-              lead="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. A proper matchday atmosphere."
+              lead="Terrestrial Channels Only (BBC/ITV/Channel 4). 4 TVs. Great Food. A proper matchday atmosphere."
               actions={
                 /*
                  * EV-023. This was the only event page with no hero action, so the
@@ -146,7 +146,7 @@ export default async function LiveSportPage() {
 
             <Container className="py-8">
                 <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true }}>
-                    Live Sport Pub Near Heathrow, Big Screens And Sound Up
+                    Live Sport Pub Near Heathrow, On 4 TVs
                 </PageTitle>
             </Container>
 
@@ -163,7 +163,7 @@ export default async function LiveSportPage() {
                             Never Miss a Moment
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Whether it's the Six Nations crunch match, the F1 season finale, or major tournaments, we show it all. With multiple HD screens positioned throughout the pub, you won't have to crane your neck to see the action.
+                            Whether it's a Six Nations game, the F1 season finale or a major tournament, if it's on terrestrial TV we show it. We've 4 TVs, and the commentary goes on for the Six Nations.
                         </p>
                     </div>
                 </Container>
@@ -184,8 +184,8 @@ export default async function LiveSportPage() {
                                     description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we do NOT have Sky Sports or TNT Sports."
                                 },
                                 {
-                                    title: "Full Match Audio",
-                                    description: "For big games, we turn the commentary up so you get the full stadium atmosphere."
+                                    title: "Commentary On",
+                                    description: "For Six Nations games, the commentary is on."
                                 },
                                 {
                                     title: "A Room That Reacts",
@@ -294,7 +294,7 @@ export default async function LiveSportPage() {
                                 it stays here; only the CTA to the dead page has gone.
                             */}
                             <p className="mt-3 text-sm text-ink-muted">
-                                When a fight lands on BBC, ITV or Channel 4, it goes on the big screens with the sound up. We cannot show anything that is only on Sky or TNT.
+                                When a fight lands on BBC, ITV or Channel 4, it goes on our TVs. We cannot show anything that is only on Sky or TNT.
                             </p>
                         </CardBody>
                     </Card>
@@ -317,19 +317,19 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Do you show Six Nations rugby?",
-                        answer: "Yes, every Six Nations match is shown live on our big screens with full audio. Book early for England and Wales matches as we fill up quickly."
+                        answer: "Yes. We show Six Nations games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on 01753 682707 to check a particular game."
                     },
                     {
                         question: "Can I watch Formula 1 at The Anchor?",
-                        answer: "Yes, we show all F1 qualifying sessions and races live on our big screens."
+                        answer: "Yes, we show all F1 qualifying sessions and races live on our TVs."
                     },
                     {
                         question: "Do you have Sky Sports or TNT?",
-                        answer: "No, we show terrestrial channels only (BBC, ITV, Channel 4). This covers Six Nations, F1, international football, cricket, golf, and horse racing."
+                        answer: "No, we show terrestrial channels only (BBC, ITV, Channel 4). This covers the Six Nations games, F1, international football, cricket, golf and horse racing that those channels show."
                     },
                     {
                         question: "Can I request a specific match or event?",
-                        answer: "If it is on a terrestrial channel, yes. Let us know in advance and we will make sure it is on with full audio."
+                        answer: "If it is on a terrestrial channel, yes. Let us know in advance and we will make sure it is on."
                     },
                     {
                         question: "Is there food available during live sport?",
@@ -340,9 +340,9 @@ export default async function LiveSportPage() {
 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
-                    <SectionHeading title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
+                    <SectionHeading title="What We're Showing" subtitle="Terrestrial sport on our 4 TVs" />
                     <div className="prose mx-auto max-w-none text-ink-muted">
-                        <p>We show every major sporting event available on BBC, ITV, and Channel 4. Current highlights include Six Nations rugby, Formula 1, international football qualifiers, and cricket. All matches are shown with full audio on multiple HD screens.</p>
+                        <p>We show every major sporting event available on BBC, ITV, and Channel 4. That includes Six Nations games, Formula 1, international football qualifiers and cricket when those channels have them. We've 4 TVs, and the commentary is on for the Six Nations.</p>
                         <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches, just call ahead or book online.</p>
                     </div>
                 </Container>
