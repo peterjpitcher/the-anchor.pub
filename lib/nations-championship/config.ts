@@ -5,7 +5,8 @@ export const NATIONS_CHAMPIONSHIP_PATH = '/live-sport/nations-championship'
 /**
  * When the tournament is promoted on the site, as London dates: from 5 September
  * 2026 through Finals Weekend (owner request). The header link and the strip on
- * /live-sport/six-nations both read this, so there is one end date to change.
+ * every page that carries it (the homepage, /whats-on, /live-sport, /staines-pub and
+ * /live-sport/six-nations) all read this, so there is one end date to change.
  */
 export const NATIONS_CHAMPIONSHIP_PROMO_WINDOW = {
   startsOn: '2026-09-05',

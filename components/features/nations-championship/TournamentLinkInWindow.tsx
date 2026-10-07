@@ -11,7 +11,7 @@ interface TournamentLinkInWindowProps {
 
 /**
  * The Nations Championship strip, shown only while the tournament is being
- * promoted (owner decision, 7 October 2026: it comes off /live-sport/six-nations
+ * promoted (owner decision, 7 October 2026: it comes off every page that carries it
  * when the header link ends).
  *
  * The server decides first so the strip is in the HTML. The browser checks

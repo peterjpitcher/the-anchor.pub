@@ -1,4 +1,5 @@
-import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
+import { TournamentLinkInWindow } from '@/components/features/nations-championship/TournamentLinkInWindow'
+import { isNationsChampionshipPromoOpen } from '@/lib/nations-championship/promo-window'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Metadata } from 'next'
@@ -221,7 +222,7 @@ export default async function HomePage() {
         focal={`${focal.x}% ${focal.yDesktop}%`}
         copy={monthlyCopy}
       />
-      <TournamentLink />
+      <TournamentLinkInWindow initiallyOpen={isNationsChampionshipPromoOpen()} />
 
       {/* 2 — Amenity strip */}
       <AmenityStrip/>

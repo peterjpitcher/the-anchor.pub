@@ -1,3 +1,35 @@
+# Nations Championship strip ends on every page, 7 October 2026
+
+Branch `fix/nations-championship-strip-ends-everywhere`, from main at bf701df4 (PR #204). Local
+only: not pushed, no PR, not deployed.
+
+PR #202 made the strip on /live-sport/six-nations end after 29 November 2026 (London date). The
+same strip on the homepage, /whats-on, /live-sport and /staines-pub had no end date. The owner
+approved ending it on those four on the same date.
+
+- [x] The four pages mount `TournamentLinkInWindow` with the server's decision, as the Six Nations
+      page does. One window, `NATIONS_CHAMPIONSHIP_PROMO_WINDOW`; no second date
+- [x] `tests/unit/nations-championship-strip-everywhere.test.tsx`: five pages at six instants
+      written in UTC (before the start, the first minute, today, the last minute of 29 November,
+      the first minute of 30 November, next year), plus a source scan that fails if any page or
+      component mounts the bare strip. `whats-on-hero-journey` follows the new component
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] Production build, today's clock: the strip is in the server HTML of all five pages
+- [x] Production build, browser clock at 1 December 2026, 1280px and 390px: the strip is gone on
+      all five, the blocks either side of it meet with no gap, nothing overflows
+- [ ] Owner's yes before any push
+
+Known and unchanged from PR #202: a page whose HTML was built inside the window and is opened
+after it loses the strip once the browser has checked the date, which moves the page up by the
+strip's height (142px at 1280px, 229px at 390px). The homepage, /whats-on and /staines-pub rebuild
+themselves within an hour, five minutes and a day. /live-sport and /live-sport/six-nations are
+built once per deploy, so they keep that one-off movement until the next deploy after 29 November.
+
+Other Nations Championship links with no window, left alone: the HTML sitemap
+(`app/sitemap-page/page.tsx`), the XML sitemap entry, and the "Check the tournament page" link
+inside the booking form, which only shows for a fixture booking. None is the strip.
+
 # Sport claims brought into line with the owner's answers, 7 October 2026
 
 Branch `fix/sport-claims-match-owner-answers`, from main at bf701df4 (PR #204). Local only: not
