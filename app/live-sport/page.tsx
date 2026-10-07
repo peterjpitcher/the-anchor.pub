@@ -21,7 +21,7 @@ import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 
 export const metadata: Metadata = {
     title: 'Live Sport Pub Near Heathrow | 4 TVs',
-    description: `Watch free-to-air sport on 4 TVs at The Anchor, Stanwell Moor: Six Nations games on terrestrial TV, F1 and major tournaments. Food, drinks and free parking.`,
+    description: `Watch free-to-air sport on 4 TVs at The Anchor, Stanwell Moor: Six Nations, F1 and major tournaments when they're on terrestrial TV. Food, drinks and free parking.`,
     openGraph: {
         title: 'Watch Live Sport Near Heathrow, Major Tournaments on 4 TVs',
         description: "Six Nations, World Cup, Euros and F1 when they're on terrestrial TV, shown on 4 TVs. Cold pints and free parking, 7 mins from Heathrow T5.",
@@ -62,7 +62,7 @@ export default async function LiveSportPage() {
         "@context": "https://schema.org",
         "@type": "ScreeningEvent",
         "name": "Live Sport Screenings at The Anchor",
-        "description": "Watch Six Nations, World Cup 2026, Euros and F1 on 4 TVs at The Anchor. Terrestrial channels only (BBC, ITV, Channel 4).",
+        "description": "Watch Six Nations, World Cup 2026, Euros and F1 on 4 TVs at The Anchor, when they're on terrestrial TV (BBC, ITV, Channel 4).",
         "location": {
             "@type": "Place",
             "name": "The Anchor",
@@ -164,7 +164,7 @@ export default async function LiveSportPage() {
                             Never Miss a Moment
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Whether it's a Six Nations game, the F1 season finale or a major tournament, if it's on terrestrial TV we show it. We've 4 TVs, and the commentary goes on for the Six Nations.
+                            Whether it's a Six Nations game, an F1 race or a major tournament, if it's on terrestrial TV we show it. We've 4 TVs, and the commentary's on for big games and tournaments.
                         </p>
                     </div>
                 </Container>
@@ -186,7 +186,7 @@ export default async function LiveSportPage() {
                                 },
                                 {
                                     title: "Commentary On",
-                                    description: "For Six Nations games, the commentary is on."
+                                    description: "The commentary's on for big games and tournaments."
                                 },
                                 {
                                     title: "A Room That Reacts",
@@ -237,8 +237,8 @@ export default async function LiveSportPage() {
                                 <CardBody>
                                     <h3 className="text-xl text-accent-text mb-4 border-b border-line pb-2">Formula 1</h3>
                                     <ul className="space-y-2 text-ink-muted">
-                                        <li>• Live Race Weekends</li>
-                                        <li>• Qualifying Sessions</li>
+                                        <li>• Only when it's on BBC, ITV or Channel 4</li>
+                                        <li>• Call {CONTACT.phone} to check a race</li>
                                     </ul>
                                 </CardBody>
                             </Card>
@@ -322,7 +322,7 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Can I watch Formula 1 at The Anchor?",
-                        answer: "Yes, we show all F1 qualifying sessions and races live on our TVs."
+                        answer: "We show F1 when it's on BBC, ITV or Channel 4, and only then. Call us on 01753 682707 to check a particular race."
                     },
                     {
                         question: "Do you have Sky Sports or TNT?",
@@ -343,7 +343,7 @@ export default async function LiveSportPage() {
                 <Container>
                     <SectionHeading title="What We're Showing" subtitle="Terrestrial sport on our 4 TVs" />
                     <div className="prose mx-auto max-w-none text-ink-muted">
-                        <p>We show every major sporting event available on BBC, ITV, and Channel 4. That includes Six Nations games, Formula 1, international football qualifiers and cricket when those channels have them. We've 4 TVs, and the commentary is on for the Six Nations.</p>
+                        <p>We show every major sporting event available on BBC, ITV, and Channel 4. That includes Six Nations games, Formula 1, international football qualifiers and cricket when those channels have them. We've 4 TVs, and the commentary's on for big games and tournaments.</p>
                         <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches, just call ahead or book online.</p>
                     </div>
                 </Container>

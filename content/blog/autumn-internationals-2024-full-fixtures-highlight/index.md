@@ -2,7 +2,7 @@
 title: Autumn Internationals Rugby 2024 Near Heathrow | Live Fixtures & Pub Guide
 description: >-
   Watch the Autumn Internationals rugby 2024 at The Anchor near Heathrow. Follow
-  every November fixture with free parking, big screens and hearty pub food
+  every November fixture with free parking, 4 TVs and hearty pub food
   minutes from Terminal 5.
 date: '2024-08-23'
 oldUrl: >-
@@ -28,7 +28,7 @@ noindex: true
 
 ![Rugby player holding a ball with intense expression, promoting the Autumn Internationals 2024. Exciting fixtures and world-class rugby action from November 2nd to November 30th.](/content/blog/autumn-internationals-2024-full-fixtures-highlight/hero.jpg)
 
-Looking for the perfect **pub near Heathrow** to watch the **Autumn Internationals 2024**? The Anchor in Stanwell Moor is your go-to sports pub for all the November rugby action. Just 7 minutes from Terminal 5, we're showing every match live on our big screens.
+Looking for the perfect **pub near Heathrow** to watch the **Autumn Internationals 2024**? The Anchor in Stanwell Moor is your go-to sports pub for all the November rugby action. Just 7 minutes from Terminal 5, we're showing every match live on our 4 TVs.
 
 The **Autumn Internationals 2024** bring world-class rugby to your doorstep this November. Watch England take on New Zealand, South Africa, and Australia while enjoying **traditional pub food** and quality drinks. Our **Staines pub** offers the perfect atmosphere for rugby fans, with **great pub food near me** and a passionate crowd.
 
@@ -40,7 +40,7 @@ The **Autumn Internationals 2024** will commence on **Saturday, 2nd November**, 
 
 The four weeks of world-class rugby will see northern hemisphere powerhouses clash with their southern hemisphere rivals. At The Anchor, we'll be showing every match with:
 
-- Multiple HD screens throughout the pub
+- 4 TVs
 - **Traditional pub grub** served during kitchen hours
 - Special match-day drink offers
 - **Free parking** for all guests
@@ -97,7 +97,7 @@ Several fixtures stand out as must-watch matches during the **Autumn Internation
 Why travel to Twickenham when you can enjoy the **Autumn Internationals 2024** at The Anchor? As a **sports pub near Heathrow**, we offer:
 
 ### Match Day Specials
-- **Multiple HD screens** showing every match live
+- **4 TVs** showing every match live
 - **Traditional pub food** including our famous Sunday roasts (walk in or book ahead)
 - **Quality drinks** and match-day specials
 - **Free parking** for all guests
@@ -117,7 +117,7 @@ During the Autumn Internationals, enjoy:
 Flying in for the rugby? Skip the expensive **Heathrow food** and enjoy proper **pub food near Heathrow Airport** at local prices. We're the closest quality pub to Heathrow, offering:
 
 - Traditional British pub atmosphere
-- Live rugby on big screens
+- Live rugby on 4 TVs
 - **Great food and drinks**
 - Easy access from all terminals
 - **Terminal 5 food** alternative - just 7 minutes away

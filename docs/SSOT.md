@@ -401,7 +401,7 @@ Chicken goujons and chips · Fish fingers and chips · Sausage, mash and gravy �
 The full drinks inventory must come from POS/API before publishing. The website and SSOT do not own a master drinks list.
 
 **Notable rules:**
-- **No Sky Sports / TNT Sports.** Live sport on terrestrial channels (BBC, ITV, Channel 4) only since January 2025.
+- **No Sky Sports / TNT Sports.** Live sport on terrestrial channels (BBC, ITV, Channel 4) only since January 2025. Nothing here says what the pub had before then, so copy must not either: not "never has", and no account of an earlier subscription (owner instruction, 7 October 2026). Say "terrestrial channels only since January 2025", or just that we don't have them.
 - **No guest ales.** Bottled ales only.
 - **Discontinued (do not list):** Stanwell Moor Brew (DISCONTINUED 2026-03-22). Pravha (DISCONTINUED, no longer stocked).
 - **Promotions:** The £2 double-up is running on our optics, the house spirits: a double is £2 more than a single (owner-confirmed, 10 September 2026; the optics scope mirrored from the management app's drinks prices on 11 September 2026). Promote any other offer only when current POS or promotion data confirms it. Monthly Manager's Special uses the current live Manager's Special source.
@@ -537,7 +537,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 **Table service:** food is brought to tables. Owner-confirmed 8 August 2026.
 
-**TVs:** the pub has 4 TVs, and live sport is shown on them. Owner-confirmed 7 October 2026. Say "4 TVs" or "4 screens". Never "big screens", "HD" or any other count: nobody has confirmed those.
+**TVs:** the pub has 4 TVs, and live sport is shown on them. Owner-confirmed 7 October 2026. Say "4 TVs" or "4 screens". Never "big screens", "large screens", "HD" or any other count: nobody has confirmed those. The commentary is on for big games and tournaments (§10). At a private hire the TVs can be used for slideshows, and connection cables are provided (§11).
 
 **Fruit machine and dancing:** the pub has a fruit machine, and there is space for guests to dance. Owner-confirmed 8 August 2026. Both are recorded here because the matching Google Business Profile attributes ("Has arcade games", "Has dancing") are set to Yes and were previously flagged as unsupported.
 
@@ -752,6 +752,12 @@ We show Nations Championship games broadcast on terrestrial TV during our existi
 
 We show Six Nations games broadcast on terrestrial TV during our existing opening hours, on 4 TVs, with the commentary on (owner-confirmed 7 October 2026, in his words: "4 tvs with commentary"). The terrestrial-only rule in §6 still applies. Nothing here names a channel for a particular game, a fixture, a date or a tournament year, so copy must not either: tell people to call 01753 682707 to check a particular game. Never write "every match", "big screens" or "HD". Regular opening times, kitchen service and bookable arrival hours remain unchanged, and kitchen promotion follows the live service intervals. `/live-sport/six-nations` is a standing, year-neutral page.
 
+### Commentary and Formula 1, owner answers 7 October 2026
+
+**Commentary.** The commentary is on for big games and tournaments. Asked "Is commentary on for other sport too, or only the Six Nations?", the owner answered: "yes for big games/tournaments" (owner-confirmed 7 October 2026). This replaces the earlier rule that commentary could be claimed for the Six Nations only. It is not a promise for everything that happens to be on: never write "commentary on every game", "sound always on" or "full audio". Nobody has said which games count as big, so copy says "big games and tournaments" and does not name a game, a round or a sport as one, beyond the Six Nations above. Approved wording is in §16.
+
+**Formula 1.** We show F1 only when it is on terrestrial TV. Asked "Does the pub really show all F1 qualifying and races live, as /live-sport says?", the owner answered: "only whatever is on terrestrial tv" (owner-confirmed 7 October 2026). That means BBC, ITV or Channel 4, as in §6. Never write "all" or "every" about F1 races, qualifying or sessions, never "every race weekend", and never say which races, sessions or highlights a channel carries: this document does not hold that, and it changes. Tell people to call 01753 682707 to check a race. Approved wording is in §16.
+
 ### Online event booking, owner decision 6 September 2026
 
 Offer standing tickets only once all seated places are sold out, with clear notice that no table seat is included. Do not ask customers to choose seated or standing tickets. Online event bookings allow up to 6 tickets; the single-quantity form uses a 1 to 6 picker; larger groups should call 01753 682707.
@@ -842,6 +848,8 @@ Minimum 20 children on each.
 ### Equipment & services
 
 Equipment and services: TVs and sound system (no projector) · Dedicated events coordinator · Free WiFi · Free parking for all attendees.
+
+**Slideshows on the TVs:** the pub's TVs can be used for photo slideshows and presentations at a private hire, and connection cables are provided. Asked "Can the TVs be used for slideshows at private hire, as the retirement parties page says ('large screens... connection cables provided')?", the owner answered: "yes" (owner-confirmed 7 October 2026). Say "TVs" or "screens", never "large screens", "big screens" or "HD" (§8). Do not name a cable type, a connection method (USB, wireless, casting) or a screen size: none is confirmed. Ask people to test their slideshow with us in advance. Approved wording is in §16.
 
 ### Event types offered
 
@@ -1066,6 +1074,18 @@ For the Six Nations (§10):
 
 > We show Six Nations games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on 01753 682707 to check a particular game.
 
+For commentary on other sport (§10):
+
+> The commentary's on for big games and tournaments.
+
+For Formula 1 (§10):
+
+> We show F1 when it's on BBC, ITV or Channel 4, and only then. Call us on 01753 682707 to check a particular race.
+
+### Slideshows at a private hire
+
+> Our TVs can be used for photo slideshows or presentations, and we provide the connection cables. Test yours with us in advance. We don't have a projector.
+
 ### Takeaway and breakfast
 
 > We don't do breakfast or delivery, but you can phone a takeaway order through to collect.
@@ -1098,6 +1118,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **7 October 2026, three owner answers on sport and the TVs.** The commentary is on for big games and tournaments, not for the Six Nations only and not for everything that is on ("yes for big games/tournaments"; §8, §10, §16). F1 is shown only when it is on terrestrial TV ("only whatever is on terrestrial tv"; §10, §16): `/live-sport` had promised "all F1 qualifying sessions and races live" and listed live race weekends and qualifying sessions, and the live sport guide and the Euro 2024 post named Channel 4 races and highlights. The TVs can be used for slideshows at a private hire, with connection cables provided ("yes"; §11, §16): `/private-hire/retirement-parties` keeps both facts but no longer calls them "large screens", and a surprise party post no longer names a USB stick or a wireless connection. In the same change, on the owner's instruction, three older sport posts (Euro 2024, Autumn Internationals 2024, Premier League 2024-25) lost "big screens", "HD screens", "multiple HD screens" and a "planned fifth screen", and the live sport guide no longer says the pub "never has" had Sky Sports: §6 says terrestrial only since January 2025 and nothing about before. `SSOT.json` carries the slideshow fact in `private_hire.av_slideshows`, and `tests/unit/six-nations-claims-match-ssot.test.ts` now covers the F1 and commentary rules. All owner-confirmed.
 - **7 October 2026, the Six Nations and the TVs.** We show Six Nations games that are on terrestrial TV, on 4 TVs, with the commentary on (owner-confirmed; §8, §10, §16). Until now this document had no Six Nations entry and no screen count, while `/live-sport/six-nations` still advertised the 2026 tournament in October with its fixture list, "every match", "4 HD screens" and Event structured data that ended on 14 March 2026. The page is now year-neutral and says only what §10 records. `SSOT.json` carries the 4 TVs in `venue.amenities`.
 
 - **3 October 2026, weekday walk-ins.** Weekday lunch and dinner take walk-ins for the whole kitchen window, Tuesday to Friday (owner decision, 25 September 2026; §5). Until now this document recorded walk-ins for the Sunday roast only (§4). `/lunch-and-dinner`, the landing page for the weekday food ads, now says "No need to book" above its hero buttons, with the regular kitchen times read live. The same entry records the wording rule that goes with it: weekday lunch and dinner copy states the regular week and never says "today", "tonight" or "now" (owner decision, 26 September 2026; §5).

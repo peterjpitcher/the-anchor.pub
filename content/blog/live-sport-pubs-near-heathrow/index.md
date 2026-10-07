@@ -21,12 +21,12 @@ Finding live sport near Heathrow depends entirely on what you want to watch. Som
 
 ## What The Anchor Actually Shows
 
-Let's get this out of the way first: **The Anchor does not have Sky Sports, BT Sport, or TNT Sports.** Never has. If you're after the 3pm Premier League kick-offs or midweek Champions League, we're not your place for that, and we'd rather tell you upfront than have you drive over and find out the hard way.
+Let's get this out of the way first: **The Anchor does not have Sky Sports, BT Sport, or TNT Sports.** We've shown terrestrial channels only since January 2025. If you're after the 3pm Premier League kick-offs or midweek Champions League, we're not your place for that, and we'd rather tell you upfront than have you drive over and find out the hard way.
 
 What we do show is everything on **free-to-air terrestrial channels**, BBC and ITV. That covers more than you might think:
 
 - **Six Nations rugby** (games on terrestrial TV)
-- **Formula 1** (races on Channel 4 and highlights)
+- **Formula 1** (only when it's on BBC, ITV or Channel 4)
 - **FIFA World Cup and Euros** (all of it)
 - **FA Cup** (selected rounds on BBC/ITV)
 - **Wimbledon** (full BBC coverage)
@@ -86,7 +86,7 @@ When we do show sport, the experience is different from a chain sports bar, and 
 
 ### Does The Anchor show Sky Sports?
 
-No. We don't have Sky Sports, BT Sport, or TNT Sports. We show live sport on free-to-air channels only, BBC, ITV, and Channel 4. That covers the Six Nations games those channels show, World Cup, Euros, FA Cup (selected rounds), Wimbledon, F1 (Channel 4 coverage), and the Ashes (free-to-air matches).
+No. We don't have Sky Sports, BT Sport, or TNT Sports. We show live sport on free-to-air channels only, BBC, ITV, and Channel 4. That covers the Six Nations games those channels show, World Cup, Euros, FA Cup (selected rounds), Wimbledon, F1 (only when those channels have it), and the Ashes (free-to-air matches).
 
 ### Where can I watch Premier League near Heathrow?
 
