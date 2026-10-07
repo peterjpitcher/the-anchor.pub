@@ -144,6 +144,15 @@ export default function PrivacyPolicyPage() {
           <p>
             We use analytics cookies to understand how visitors interact with our website. These cookies help us improve your experience and our website's performance. We use Google Analytics and Microsoft Clarity to collect anonymized information about website usage.
           </p>
+          {/* Every line here is a fact about the code. Check it before changing it:
+              what is recorded is lib/web-vitals-record.ts, written as one log line by
+              app/api/web-vitals/route.ts; the off switch is hasSwitchedAnalyticsOff in
+              lib/cookies.ts, read by app/web-vitals.tsx before anything is sent.
+              "Cookie settings" is the label of the footer control
+              (components/layout/Footer.tsx). */}
+          <p>
+            We measure how fast our pages load and whether they jump about while loading, so we can fix problems. This uses no cookie and isn&apos;t linked to you: we record the page address, whether the screen is phone, tablet or desktop size, the timings, and which part of the page moved. Our website host, Vercel, keeps those records for about 30 days. To stop it, switch analytics cookies off in Cookie settings at the bottom of any page.
+          </p>
 
           <h4>Marketing Cookies</h4>
           <p>
