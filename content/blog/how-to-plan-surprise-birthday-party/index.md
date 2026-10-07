@@ -214,4 +214,4 @@ Yes. Room hire is charged by the hour for each space, with no setup fees. You'll
 Absolutely. Bring whatever you like -- cake, balloons, banners, photo displays. We just ask that you let us know in advance so we can arrange the setup time and have everything ready.
 
 **Do you have AV equipment for slideshows?**
-Yes. We have a TVs and sound system included with every private hire booking. Bring your slideshow on a USB stick or connect wirelessly, and we'll make sure it's working before guests arrive.
+Yes. TVs and a sound system are included with every private hire booking, and we provide the connection cables. Test your slideshow with us in advance.
