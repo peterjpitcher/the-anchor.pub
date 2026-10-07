@@ -1178,10 +1178,18 @@ export function ManagementEventBookingForm({
             </div>
           )}
 
+          {/*
+            `wrap`: at this size a button has 48px of padding each side, so
+            'Book your places' needs 237px on one line. The game-night pages
+            nest this form in a card and leave it 212px on a 320px phone, and
+            the button held the whole booking column 25px too wide. Below 640px
+            the padding drops to 16px and the label fits on one line.
+          */}
           <Button
             type="submit"
             fullWidth
             size="lg"
+            wrap
             loading={loading}
             aria-describedby={turnstileUnavailable ? TURNSTILE_RECOVERY_REGION_ID : undefined}
             disabled={(turnstileSiteKey ? !turnstileToken : false) || !ticketSelectionValid}
