@@ -133,7 +133,7 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 
 **A dedicated person who handles things.** You don't want to be chasing bar staff on the night of your own party. Venues with a dedicated events coordinator take the logistics off your hands. That means someone who manages the timeline, checks the food is ready, and sorts problems before you even notice them.
 
-**Equipment you don't have to bring.** TV for a slideshow? Sound system for your playlist? Screen for embarrassing childhood photos? If the venue already has AV equipment, that's one less thing to organise. The Anchor's private hire includes a TVs and sound system as standard.
+**Equipment you don't have to bring.** TV for a slideshow? Sound system for your playlist? Screen for embarrassing childhood photos? If the venue already has AV equipment, that's one less thing to organise. The Anchor's private hire includes TVs and a sound system as standard.
 
 ### What doesn't matter as much as you think
 

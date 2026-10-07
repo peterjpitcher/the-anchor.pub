@@ -108,7 +108,7 @@ Yes, and it's increasingly common. Many companies are moving away from hotel con
 
 ### Is there AV equipment at The Anchor?
 
-We have a TVs and sound system available in the function room. It handles presentations, slideshows, and video playback. If you need specialist equipment beyond that, we can discuss arrangements in advance.
+We have TVs and a sound system available in the function room. It handles presentations, slideshows, and video playback. If you need specialist equipment beyond that, we can discuss arrangements in advance.
 
 ### How many people can The Anchor accommodate?
 
