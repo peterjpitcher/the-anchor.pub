@@ -1203,6 +1203,7 @@
       "minimums_note": "The 30-guest minimum is a FESTIVE buffet rule, not a universal one. Year-round packages carry their own minimums and several are below 30. Corrected 2026-08-17 against the live catering_packages table."
     },
     "av_equipment": "TVs and sound system. No projector.",
+    "av_slideshows": "The TVs can be used for photo slideshows and presentations at a private hire, and connection cables are provided (owner-confirmed 2026-10-07). Say TVs or screens, never large, big or HD.",
     "dedicated_events_coordinator": true,
     "free_wifi": true,
     "free_parking": "For all attendees",
