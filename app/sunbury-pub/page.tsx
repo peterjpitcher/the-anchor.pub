@@ -175,6 +175,7 @@ export default function SunburyPubPage() {
                                 variant="primary"
                                 size="lg"
                                 fromLocation="Sunbury"
+                                wrap
                             >
                                 Get Directions from Sunbury (15 mins)
                             </DirectionsButton>

@@ -107,7 +107,7 @@ export default function PreFlightDiningPage() {
                                 <p className="mb-6 text-ink">
                                     Need a ride to the terminal? We have direct numbers for reliable local taxi firms who know exactly where we are and which drop-off zone you need.
                                 </p>
-                                <PhoneButton phone={CONTACT.phone} source="preflight_taxi_info" variant="outline">
+                                <PhoneButton phone={CONTACT.phone} source="preflight_taxi_info" variant="outline" wrap>
                                     Check Taxi Availability
                                 </PhoneButton>
                             </CardBody>

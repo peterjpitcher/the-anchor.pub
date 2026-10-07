@@ -110,7 +110,7 @@ export default async function PlaneSpottingHeathrowPage() {
             Looking for a Heathrow viewing area with food and shelter? The Anchor is the commercial landing page for visiting our beer garden. For a full comparison of every spotting location, use our dedicated Heathrow plane spotting locations guide.
           </p>
           <div className="mt-4 flex justify-center">
-            <Button asChild variant="outline" size="md">
+            <Button asChild variant="outline" size="md" wrap>
               <Link href="/blog/heathrow-plane-spotting-locations">
                 Compare all Heathrow viewing areas
               </Link>

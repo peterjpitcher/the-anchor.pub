@@ -296,6 +296,7 @@ export default function MothersDayPage() {
                     variant="primary"
                     size="lg"
                     fullWidth
+                    wrap
                     className="w-full"
                     trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
                     eventName="Mother's Day Lunch"
@@ -430,6 +431,7 @@ export default function MothersDayPage() {
                       variant="primary"
                       size="lg"
                       fullWidth
+                      wrap
                       className="w-full sm:w-auto sm:min-w-[240px]"
                       trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
                       eventName="Mother's Day Lunch"
@@ -522,6 +524,7 @@ export default function MothersDayPage() {
             source="mothers_day_cta"
             variant="outline"
             size="lg"
+            wrap
           >
             Call or WhatsApp us on {CONTACT.phone}
           </PhoneButton>

@@ -13,7 +13,7 @@ export function GameNightFacts({ facts }: { facts: GameNightFact[] }) {
   return (
     <>
       {facts.map((fact) => (
-        <Badge key={fact.label} variant="sand">
+        <Badge key={fact.label} variant="sand" wrap>
           {/* The gap has to be a margin, not a space between the two nodes. Badge
               is `inline-flex`, so a whitespace-only text node between children
               becomes an anonymous flex item and is dropped: that is why these

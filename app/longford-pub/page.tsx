@@ -178,6 +178,7 @@ export default function LongfordPubPage() {
                                 variant="primary"
                                 size="lg"
                                 fromLocation="Longford"
+                                wrap
                             >
                                 Get Directions from Longford
                             </DirectionsButton>

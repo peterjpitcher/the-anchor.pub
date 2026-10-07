@@ -532,7 +532,7 @@ export default function StainesPubPage() {
         <Button asChild variant="outline" size="lg">
           <Link href="/private-hire#enquiry">Book an Event</Link>
         </Button>
-        <DirectionsButton href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" source="staines_directions" fromLocation="Staines" variant="outline" size="lg">
+        <DirectionsButton href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" source="staines_directions" fromLocation="Staines" variant="outline" size="lg" wrap>
           Get Directions from Staines
         </DirectionsButton>
       </CtaBand>

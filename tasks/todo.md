@@ -1,3 +1,86 @@
+# One-line buttons cut off on a phone, the remaining pages, 7 October 2026
+
+Branch `fix/phone-button-overflow-remaining-pages`, from main at bf701df4 (PR #204). Local only: not
+pushed, no PR, not deployed.
+
+PR #204 fixed the pages the accessibility audit covers. This is the rest of the site: all 200
+sitemap pages, measured with the audit's own `lookForCutOff` at 390px and at 320px, on a production
+build, both skins.
+
+- [x] Before, dark skin: 9 pages with something cut off at 390px, 62 at 320px (37 of the 62 are
+      the known Turnstile pages)
+- [x] `wrap` set on 28 buttons across 18 page files and the game-night button pair, and on two
+      badges (the allergen line on /fish-and-chips-heathrow, the game-night fact chips)
+- [x] Blog pagination: the row and the page-number group inside it may now wrap, centred
+- [x] Tests: 4 new, `tests/unit/game-night-phone-fit.test.tsx`
+- [x] After, both skins: 1 page at 390px, 42 at 320px. All 42 are Turnstile or the one blog post
+      listed below
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] `npm run audit:a11y` against each skin: exit 1, 3 pages, all three the Turnstile widget, the
+      same result as after PR #204
+- [ ] Owner's yes before any push
+
+What was cut off and is not now (pixels past the edge at 390px, then at 320px):
+- "Call or WhatsApp us on 01753 682707" on /easter-sunday, /fathers-day, /mothers-day: 7, 42
+- "Book your Easter Sunday table": fitted at 390px, 14 at 320px
+- "Book Mother's Day Lunch" in the two cards on /mothers-day: fitted at 390px. At 320px it held
+  the whole two-column block 52px too wide
+- Directions buttons: Wraysbury 45, 115. Colnbrook 42, 112. Sunbury 30, 100. Horton 15, 85.
+  Longford 0, 37. Staines 0, 2
+- "Enquire About Group Bookings" on /windsor-pub 0, 44. "Enquire About Private Hire" on
+  /ashford-pub 0, 12
+- Terminal pages, 320px only: "Book Your Table Online" 15 (terminals 2, 3, 4), "Reserve Your
+  Table Online" 5 and "WhatsApp for Fast Booking" 2 (terminal 5), "Open in Google Maps" 2 (all four)
+- /live-sport/nations-championship, 320px only: 26 and 60
+- "Compare all Heathrow viewing areas" 7 and "Check Taxi Availability" 3, 320px only
+- Game nights, 320px only: the dated booking button in the closing band (quiz 21, cash bingo 33,
+  music bingo 13), the call button shown when no date is bookable (7, 11, 16), and the
+  "House rule" chip on /quiz-night (4)
+- Allergen line on "Scampi & Chips", 320px only: 25
+- Blog pagination: "Next" 8 and 43 on /blog. On pages 2 to 4 it was 88 and 123, and "Previous" ran
+  off the left edge by the same amount. Page 5 was 20 and 55
+
+Desktop and tablet: every button, badge and round control on all 200 pages was measured at 768px
+and 1280px before and after, 7,116 and 7,709 of them, and none moved or changed size. Two pages
+could not be lined up row for row and were compared by hand: the homepage (its events block had not
+loaded on the first build) and /near-heathrow/terminal-2 (a timed pop-up was open in the first
+run). Nothing common to both runs differed. The five blog pagination pages were compared with the
+live site at both widths: identical.
+
+Decisions:
+- No shared component covers the village pages or the seasonal pages: each page has its own
+  button, so each was set on the page. The game-night pair is shared, and was fixed once.
+- The game-night chips all opt in, because their words come from the game config. A chip that
+  opts in is 25px high on a phone, not 22px (the line height PR #204 chose), so the chips on
+  /quiz-night, /cash-bingo, /music-bingo and /karaoke are 3px taller below 640px. The allergen
+  lines on /fish-and-chips-heathrow are 27px, not 24px.
+- A button with `wrap` has 16px of side padding below 640px, so the ones that are not full width
+  are up to 64px narrower on a phone even where the label fitted at 390px.
+- Blog pagination at 320px takes up to four rows (Previous, four numbers, the fifth, Next). The
+  buttons keep their size and their 44px height.
+- No label was reworded.
+
+Left in place:
+- Turnstile, as agreed: /private-hire and the pages that share its enquiry form (27 pages, 46px at
+  320px) and the event pages (10 pages, 22px).
+- Turnstile, not on the agreed list but the same cause: the careers form on /join-our-team (34px
+  at 320px) and the booking form on /quiz-night, /cash-bingo and /music-bingo (72px at 320px).
+  Taking the widget out of the page clears /join-our-team and /quiz-night. On the two bingo pages
+  9px is left with the widget out, so something else in that column is also too wide. Not found.
+- /blog/stanwell-moor-village: three web addresses written out in full in the post run past the
+  edge (101px at 390px, 171px at 320px). Long unbreakable text in a blog post, not a button.
+
+Assumptions:
+- A fresh build shows no events until its data is five minutes old, so each survey was run after
+  the game pages had picked up their dates. Both states of the game-night button were measured.
+- The light skin was surveyed after the change only. Its buttons at 768px and 1280px match the
+  dark skin's from before the change.
+- Tracking was checked by unit test, not by clicking in a browser.
+
+Layout only. Nothing here touches hours, availability, bookings or bot protection, so the
+management app needs no counterpart change.
+
 # World Cup page after the tournament, 7 October 2026
 
 Branch `fix/world-cup-page-after-the-tournament`, from main at bf701df4 (PR #204). Local only: not

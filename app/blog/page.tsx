@@ -278,7 +278,7 @@ export default async function BlogPage({
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                  <div className="flex justify-center items-center gap-2">
+                  <div className="flex flex-wrap justify-center items-center gap-2">
                     {/* Previous button */}
                     {currentPage > 1 && (
                       <Button asChild variant="outline" size="sm">
@@ -289,7 +289,7 @@ export default async function BlogPage({
                     )}
 
                     {/* Page numbers */}
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap justify-center gap-2">
                       {/* First page */}
                       {currentPage > 3 && (
                         <>

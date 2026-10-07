@@ -78,7 +78,7 @@ export default async function NationsChampionshipPage() {
         <h3 className="mt-8 font-display text-2xl text-ink-strong">What channel is Nations Championship on?</h3>
         <p className="mt-3 text-ink-muted">{nationsEditorial.television}</p>
         <p className="mt-4"><Link href="https://www.itv.com/presscentre/media-releases/nations-championship-statement-partnership-itv-cements-uks-most-comprehensive-free" className="text-accent-text underline">ITV's Nations Championship coverage announcement</Link></p>
-        <div className="mt-6"><Button asChild><Link href="#fixtures">Choose a match and book your table</Link></Button></div>
+        <div className="mt-6"><Button asChild wrap><Link href="#fixtures">Choose a match and book your table</Link></Button></div>
         <p className="mt-5 text-ink-muted">For other rugby dates, see <Link href="/live-sport" className="text-accent-text underline">live sport at The Anchor</Link> or our <Link href="/live-sport/six-nations" className="text-accent-text underline">Six Nations page</Link>.</p>
       </div>
     </Container></section>
@@ -100,7 +100,7 @@ export default async function NationsChampionshipPage() {
     <section id="faqs" className="scroll-mt-28 bg-surface-sunk py-section-y"><Container>
       <h2 className="mb-6 font-display text-3xl text-ink-strong">Plan your rugby visit</h2>
       <div className="space-y-4">{nationsFaqs.map(faq => <details key={faq.question} className="rounded-card border border-line bg-surface p-5"><summary className="cursor-pointer font-semibold text-ink-strong">{faq.question}</summary><p className="mt-3 text-ink-muted">{faq.answer}</p></details>)}</div>
-      <div className="mt-8"><Button asChild size="lg"><Link href="#fixtures">Find your game and book a table</Link></Button></div>
+      <div className="mt-8"><Button asChild size="lg" wrap><Link href="#fixtures">Find your game and book a table</Link></Button></div>
     </Container></section>
   </>
 }

@@ -284,6 +284,7 @@ export default function EasterSundayPage() {
             context="easter_sunday"
             variant="primary"
             size="lg"
+            wrap
             trackingLabel="Book your Easter Sunday table"
             eventName="Easter Sunday Roast"
             customHref={EASTER_BOOKING_URL}
@@ -297,6 +298,7 @@ export default function EasterSundayPage() {
             source="easter_sunday_cta"
             variant="outline"
             size="lg"
+            wrap
           >
             Call or WhatsApp us on {CONTACT.phone}
           </PhoneButton>
