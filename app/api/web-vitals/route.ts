@@ -1,31 +1,56 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { MAX_BODY_BYTES, formatWebVitalLine, parseWebVitalReport } from '@/lib/web-vitals-record'
 
-interface WebVitalsPayload {
-  name: string
-  value: number
-  rating: string
-  delta: number
-  id: string
-  navigationType: string
+/**
+ * Records one Core Web Vitals reading (CLS, LCP or INP) as one log line.
+ *
+ * What is recorded, and what is not, is in lib/web-vitals-record.ts and in the
+ * privacy notice, section 5. This handler reads the request body and nothing
+ * else: no headers beyond the body's length, so no IP address, user agent,
+ * referrer or cookie can reach the line.
+ *
+ * Exactly one line per request, because the Vercel CLI returns only the first
+ * line a request logs. A request that fails the check gets a 4xx and no line.
+ */
+
+function reject(error: string, status: number): NextResponse {
+  return NextResponse.json({ error }, { status })
 }
 
-const VALID_METRIC_NAMES = new Set(['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'])
-
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  try {
-    const body = (await request.json()) as WebVitalsPayload
-
-    if (!body.name || !VALID_METRIC_NAMES.has(body.name)) {
-      return NextResponse.json({ error: 'Invalid metric name' }, { status: 400 })
-    }
-
-    // Log web vitals for server-side observability
-    console.log(
-      `[web-vital] ${body.name}=${body.value.toFixed(2)} rating=${body.rating} delta=${body.delta.toFixed(2)} id=${body.id} nav=${body.navigationType}`
-    )
-
-    return NextResponse.json({ received: true }, { status: 200 })
-  } catch {
-    return NextResponse.json({ error: 'Invalid payload' }, { status: 400 })
+  const declaredLength = Number(request.headers.get('content-length') ?? 0)
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
+    return reject('Payload too large', 413)
   }
+
+  let raw: string
+  try {
+    raw = await request.text()
+  } catch {
+    return reject('Invalid payload', 400)
+  }
+
+  // The header can be missing or wrong, so the body itself is measured too.
+  if (Buffer.byteLength(raw, 'utf8') > MAX_BODY_BYTES) {
+    return reject('Payload too large', 413)
+  }
+
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(raw)
+  } catch {
+    return reject('Invalid payload', 400)
+  }
+
+  const report = parseWebVitalReport(parsed)
+  if (!report) {
+    return reject('Invalid payload', 400)
+  }
+
+  // console.warn, not console.log: next.config.js strips every console call from
+  // the production build except error and warn, which is why the console.log
+  // that used to be here recorded nothing. It is a record, not a warning.
+  console.warn(formatWebVitalLine(report))
+
+  return NextResponse.json({ received: true }, { status: 200 })
 }
