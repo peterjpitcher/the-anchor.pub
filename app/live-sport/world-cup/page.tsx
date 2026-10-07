@@ -1,154 +1,149 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { DateTime } from 'luxon'
-import { Alert, Button, Container, SectionHeading } from '@/components/ui'
+import { Button, SectionHeading, Card, CardBody, Container, Grid, GridItem } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
+import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
+import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
+import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { WorldCup2026Fixtures } from '@/components/features/world-cup/WorldCup2026Fixtures'
+import { getUpcomingFixtures } from '@/components/features/world-cup/upcoming-fixtures'
 import { getWorldCup2026Matches } from '@/lib/world-cup-2026'
 import type { WorldCup2026Match } from '@/lib/world-cup-2026'
-import { PhoneButton } from '@/components/PhoneButton'
-import { DirectionsButton } from '@/components/DirectionsButton'
-import { WhatsAppLink } from '@/components/WhatsAppLink'
-import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
-const AREA_LINKS = [
-  { label: 'Ashford', href: '/ashford-pub' },
-  { label: 'Colnbrook', href: '/colnbrook-pub' },
-  { label: 'Egham', href: '/egham-pub' },
-  { label: 'Feltham', href: '/feltham-pub' },
-  { label: 'Horton', href: '/horton-pub' },
-  { label: 'Heathrow Hotels', href: '/heathrow-hotels-pub' },
-  { label: 'Longford', href: '/longford-pub' },
-  { label: 'Staines', href: '/staines-pub' },
-  { label: 'Stanwell', href: '/stanwell-pub' },
-  { label: 'Sunbury', href: '/sunbury-pub' },
-  { label: 'Windsor', href: '/windsor-pub' },
-  { label: 'Wraysbury', href: '/wraysbury-pub' },
-]
+// This page is year-neutral on purpose (7 October 2026, owner-approved: the same
+// treatment /live-sport/six-nations got). In October 2026 it still advertised a
+// tournament that ended on 19 July: a dated title and hero, all 104 fixtures
+// with "Showing" labels and booking buttons, and Event structured data that
+// ended in July.
+//
+// The CheersAI feed is where the owner manages tournaments, so it stays wired
+// in. The page now answers to the feed's own state: games that have not
+// finished are listed, and when there are none the fixtures block is simply not
+// there. Nothing on the page says the tournament is over, and nothing needs
+// changing here when CheersAI next supplies fixtures.
+//
+// Every standing line rests on docs/SSOT.md. Sport, parking, dogs, families,
+// access and deposit lines are the approved wording from SSOT §16, pasted as it
+// stands. The World Cup line follows the approved Six Nations line: terrestrial
+// only (§6), 4 TVs (§8), and the commentary on, which the owner confirmed on
+// 7 October 2026 for big games and tournaments. It names no fixture, date, year
+// or channel for a given game. tests/unit/world-cup-page-year-neutral.test.tsx
+// holds all of this.
+
+const PAGE_TITLE = 'World Cup Football | The Anchor Stanwell Moor'
+const SOCIAL_DESCRIPTION = `We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call ${CONTACT.phone} to check a game.`
 
 export const metadata: Metadata = {
-  title: 'World Cup 2026 Fixtures & UK Kick-Off Times',
-  description: `World Cup 2026 fixtures with UK kick-off times, showing status and table bookings. Watch at ${BRAND.name} near Heathrow T5, with 4 screens, sound on, free parking.`,
+  // Absolute, so the root layout's "| The Anchor" template is not added on top.
+  title: { absolute: PAGE_TITLE },
+  description: `Watch the World Cup near Heathrow. We show games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call ${CONTACT.phone} to check a game.`,
   openGraph: {
-    title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
-    description: `World Cup 2026 fixtures with UK kick-off times and showing status. Watch at ${BRAND.name} near Heathrow T5, with 4 screens, sound on, free parking. Book a table.`,
+    title: PAGE_TITLE,
+    description: SOCIAL_DESCRIPTION,
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
-    description: `World Cup 2026 fixtures with UK kick-off times and showing status. Watch at ${BRAND.name} near Heathrow T5, with 4 screens, sound on, free parking. Book a table.`,
+    title: PAGE_TITLE,
+    description: SOCIAL_DESCRIPTION,
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   }),
   alternates: {
-    canonical: '/live-sport/world-cup',
+    canonical: './',
   },
 }
 
 export const revalidate = 300 // 5 minutes, matches CheersAI feed CDN cache
 
-function getTeamsLabel(match: WorldCup2026Match) {
-  return match.placeholderA && match.placeholderB
-    ? `${match.placeholderA} vs ${match.placeholderB}`
-    : `Match ${match.matchNumber}`
-}
+// Follows the approved Six Nations line in SSOT §16, with the tournament's name changed.
+const WORLD_CUP_WORDING = `We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on ${CONTACT.phone} to check a particular game.`
+// SSOT §16, approved wording, pasted as it stands.
+const SPORT_WORDING = "We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports."
+const PARKING_WORDING = "We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register."
+const DOGS_WORDING = "Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting."
+const FAMILIES_WORDING = "High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities."
+const ACCESS_WORDING = `Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on ${CONTACT.phone} and we'll help.`
+const GROUP_DEPOSIT_WORDING = 'Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.'
 
-function isEnglandFixture(match: WorldCup2026Match) {
-  return [match.placeholderA, match.placeholderB].some((team) => team?.toLowerCase().includes('england'))
-}
+const features = [
+  { title: 'Free parking', description: PARKING_WORDING },
+  { title: 'Bring the dog', description: DOGS_WORDING },
+  { title: 'Bring the family', description: `Children are welcome at all hours. ${FAMILIES_WORDING}` },
+]
 
-function formatUkFixtureTime(utcDateTime: string) {
-  return DateTime.fromISO(utcDateTime, { zone: 'utc' }).setZone('Europe/London').toFormat('EEEE d MMMM yyyy, HH:mm')
-}
+const faqs = [
+  {
+    question: 'Do you show the World Cup?',
+    answer: `Yes. ${WORLD_CUP_WORDING} We don't have Sky Sports or TNT Sports.`,
+  },
+  {
+    question: 'Can I book a table?',
+    answer: `Yes. Book online, or call us on ${CONTACT.phone}. ${GROUP_DEPOSIT_WORDING} For more than 20 people, call us.`,
+  },
+  {
+    question: 'Can I get food while I watch?',
+    answer: `That depends on the day and the time. Check the kitchen times on this page, or call us on ${CONTACT.phone}.`,
+  },
+  {
+    question: 'Is there parking?',
+    answer: PARKING_WORDING,
+  },
+  {
+    question: 'Can I bring my dog?',
+    answer: DOGS_WORDING,
+  },
+  {
+    question: 'Are children welcome?',
+    answer: `Yes, at all hours. ${FAMILIES_WORDING}`,
+  },
+  {
+    question: 'Is it step free?',
+    answer: ACCESS_WORDING,
+  },
+  {
+    question: 'How far are you from Heathrow?',
+    answer: "We're in Stanwell Moor. By car it's 7 minutes from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4.",
+  },
+]
 
 export default async function WorldCupPage() {
   let matches: WorldCup2026Match[] = []
   try {
     matches = await getWorldCup2026Matches()
   } catch (error) {
+    // No fixtures is a state the page already handles: it tells people to call.
     console.warn('World Cup fixtures fetch failed', error)
   }
 
-  const englandMatches = matches.filter(isEnglandFixture)
-
-  const eventSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    '@id': 'https://www.the-anchor.pub/live-sport/world-cup#event',
-    name: 'FIFA World Cup 2026 Screenings Near Heathrow',
-    startDate: '2026-06-11',
-    endDate: '2026-07-19',
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    eventStatus: 'https://schema.org/EventScheduled',
-    location: {
-      '@type': 'Place',
-      name: BRAND.name,
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: CONTACT.address.street,
-        addressLocality: CONTACT.address.town,
-        postalCode: CONTACT.address.postcode,
-        addressCountry: 'GB',
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: CONTACT.coordinates.lat,
-        longitude: CONTACT.coordinates.lng,
-      },
-      telephone: CONTACT.phone,
-      url: 'https://www.the-anchor.pub',
-    },
-    description: `Watch FIFA World Cup 2026 screenings near Heathrow on 4 screens at ${BRAND.name} in Stanwell Moor.`,
-    image: DEFAULT_PAGE_HEADER_IMAGE,
-    organizer: {
-      '@type': 'Organization',
-      name: BRAND.name,
-      url: 'https://www.the-anchor.pub',
-    },
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'GBP',
-      availability: 'https://schema.org/InStock',
-      url: 'https://www.the-anchor.pub/book-table',
-      validFrom: '2025-01-01',
-      description: 'Free entry, table booking recommended',
-    },
-  }
+  const upcoming = getUpcomingFixtures(matches)
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([eventSchema]) }}
-      />
-
       <BreadcrumbJsonLd items={[
         { name: 'Home', url: '/' },
         { name: 'Live Sport', url: '/live-sport' },
-        { name: 'World Cup 2026', url: '/live-sport/world-cup' },
+        { name: 'World Cup', url: '/live-sport/world-cup' },
       ]} />
 
       <InteriorHero
         image={DEFAULT_PAGE_HEADER_IMAGE}
         crumb="World Cup"
-        title="Watch FIFA World Cup 2026 Near Heathrow"
-        lead="World Cup 2026 fixtures • UK kick-off times • 4 screens • Sound on • Free parking near Terminal 5."
+        title="World Cup football at The Anchor"
+        lead="We show World Cup games that are on BBC, ITV or Channel 4. Four TVs, commentary on."
         actions={
           <>
             <BookTableButton source="world_cup_hero" variant="primary" size="lg" fullWidth>
-              Book a Table
+              Book a table
             </BookTableButton>
             <Button asChild variant="outline" size="lg" fullWidth>
               <Link href="/food-menu">
-                View Menu
+                See the food menu
               </Link>
             </Button>
           </>
@@ -157,384 +152,108 @@ export default async function WorldCupPage() {
 
       <section className="py-section-y bg-canvas">
         <Container>
-          <div className="mx-auto flex flex-col gap-5 rounded-xl border border-line bg-surface p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+          <div className="mx-auto text-center mb-12">
+            <PageTitle className="text-accent-text mb-4">
+              Got a game in mind?
+            </PageTitle>
+            <p className="text-lg text-ink-muted">
+              {WORLD_CUP_WORDING}
+            </p>
+            <p className="mt-4 text-lg text-ink-muted">
+              {SPORT_WORDING}
+            </p>
+          </div>
+
+          <Grid cols={3} gap="md" className="mb-8">
+            {features.map((feature) => (
+              <GridItem key={feature.title}>
+                <Card accent className="h-full">
+                  <CardBody className="text-center space-y-2">
+                    <h3 className="text-lg font-semibold text-ink-strong">{feature.title}</h3>
+                    <p className="text-sm text-ink-muted leading-relaxed">{feature.description}</p>
+                  </CardBody>
+                </Card>
+              </GridItem>
+            ))}
+          </Grid>
+
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+            <Link href="/live-sport" className="font-semibold text-accent-text hover:underline">
+              See all live sport
+            </Link>
+            <Link href="/live-sport/world-cup/sweepstake" className="font-semibold text-accent-text hover:underline">
+              World Cup sweepstake winners
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* Only when CheersAI has games that have not finished. Their times, showing
+          labels and booking links are the feed's own. */}
+      {upcoming.length > 0 && (
+        <section className="py-section-y bg-surface" id="fixtures">
+          <Container>
+            <SectionHeading title="Games coming up" />
+            <WorldCup2026Fixtures matches={upcoming} />
+          </Container>
+        </section>
+      )}
+
+      <section className="py-section-y bg-surface-sunk">
+        <Container>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-accent-text">World Cup Sweep</p>
-              <h2 className="mt-2 text-h4 text-ink-strong">Sweep Winners Are Confirmed</h2>
-              <p className="mt-2 text-sm text-ink-muted">
-                Spain took the title, Tom won the £100 top prize, and all 13 prize winners are now listed.
-              </p>
-            </div>
-            <Button asChild variant="primary" size="lg" className="w-full md:w-auto">
-              <Link href="/live-sport/world-cup/sweepstake" className="w-full shrink-0 md:w-auto">
-                View Sweep Winners
-              </Link>
-            </Button>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-canvas" id="fixtures">
-        <Container>
-          <SectionHeading
-            title="World Cup 2026 Fixtures and UK Kick-Off Times"
-            subtitle="World Cup 2026 screenings, showing status, and table booking links."
-          />
-
-          <p className="mx-auto mb-8 text-center text-sm text-ink-muted">
-            Complete World Cup 2026 match schedule with UK kick-off times, showing status at The Anchor, and table booking links.
-          </p>
-
-          <Alert variant="info" className="mx-auto mb-10" title="How this fixtures list works">
-            <div className="space-y-3 text-sm">
-              <p>
-                By default you'll see <strong>Showing Only</strong> matches.
-                Switch to <strong>All Fixtures</strong> to see the full tournament schedule.
-              </p>
-              <p>
-                <strong>Showing</strong> = we're screening this match. <strong>Not showing</strong> = kick-off is outside
-                our opening hours.
-              </p>
-              <p>
-                Book Table buttons are live for matches marked <strong>Showing</strong>. We
-                don't show booking buttons for matches marked <strong>Not showing</strong>.
-              </p>
-              <p>
-                If a match runs past our normal closing time we'll stay open while it's on{' '}
-                <strong>if the pub is busy</strong>. If the pub is empty at closing time, we'll close as normal.
-              </p>
-            </div>
-          </Alert>
-
-          <div className="mx-auto">
-            {matches.length > 0 ? (
-              <WorldCup2026Fixtures matches={matches} />
-            ) : (
-              <Alert variant="warning" title="Fixtures temporarily unavailable" className="mx-auto">
-                <p>We're having trouble loading the full match schedule right now. Please check back soon, in the meantime you can still book a table for any date.</p>
-              </Alert>
-            )}
-          </div>
-
-          <div className="mt-12">
-            <Alert variant="warning" title="Book Early for Knockouts" className="mx-auto">
-              <p>The knockouts and final weekend fill up fast. Book ahead to guarantee a table with a good screen view.</p>
-            </Alert>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-canvas">
-        <Container>
-          <div className="mx-auto rounded-2xl border border-line bg-surface-sunk p-8">
-            <SectionHeading
-              title="England World Cup Fixtures at The Anchor"
-              subtitle="England fixtures, screenings and table bookings near Heathrow."
-            />
-            {englandMatches.length > 0 ? (
-              <div className="mx-auto mt-8 space-y-3">
-                <p className="text-center text-sm text-ink-muted">
-                  England are in Group L alongside Croatia, Ghana and Panama.
-                </p>
-                <div className="divide-y divide-line rounded-xl border border-line bg-surface">
-                  {englandMatches.map((match) => (
-                    <Link
-                      key={match.matchNumber}
-                      href={`#match-${match.matchNumber}`}
-                      className="flex flex-col gap-1 px-5 py-4 hover:bg-surface-sunk sm:flex-row sm:items-center sm:justify-between"
-                    >
-                      <span className="font-semibold text-ink-strong">{getTeamsLabel(match)}</span>
-                      <span className="text-sm text-ink-muted">
-                        {formatUkFixtureTime(match.utcDateTime)} UK
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <p className="mx-auto mt-6 text-center text-sm text-ink-muted">
-                England's World Cup 2026 fixtures will be highlighted here once confirmed. For now, use the full World
-                Cup 2026 schedule below for UK kick-off times, showing status, and table booking links.
-              </p>
-            )}
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="mx-auto">
-            <div className="grid gap-6 md:grid-cols-3">
-              <div className="rounded-2xl border border-line bg-surface p-6 shadow-sm">
-                <h2 className="text-lg font-semibold text-accent-text">What We're Showing</h2>
-                <ul className="mt-4 space-y-2 text-sm text-ink-muted">
-                  <li>Matches we show are on BBC and ITV (no subscription needed)</li>
-                  <li>Matches marked Showing will be on our screens</li>
-                  <li>Matches outside our opening hours aren't shown</li>
-                  <li>If it's busy at close, we'll stay open while it's on</li>
-                  <li>If we're empty at close, we'll close as normal</li>
-                </ul>
-                <p className="mt-4 text-xs text-ink-muted">
-                  Core hours: see our{' '}
-                  <Link href="/find-us#opening-hours" className="font-semibold text-accent-text hover:underline">
-                    opening hours
-                  </Link>
-                  . Extended to midnight for selected knockout matches.
+              <SectionHeading
+                title="Food and drink"
+                align="left"
+                className="mb-6"
+              />
+              <div className="prose text-ink-muted mb-6 max-w-none prose-strong:text-ink-strong">
+                <p>
+                  Hungry? Our kitchen times change by day, so check them here before you set off.
                 </p>
                 <div className="mt-4">
-                  <Link href="#fixtures" className="font-semibold text-accent-text hover:underline">
-                    See fixtures we're showing →
-                  </Link>
+                  <strong className="text-ink-strong">Opening and kitchen times</strong>
+                  <BusinessHours/>
                 </div>
               </div>
-
-              <div className="rounded-2xl border border-line bg-surface p-6 shadow-sm" id="booking-rules">
-                <h2 className="text-lg font-semibold text-accent-text">Booking Rules</h2>
-                <ul className="mt-4 space-y-2 text-sm text-ink-muted">
-                  <li>Book any showing match now</li>
-                  <li>No deposits for groups under 15</li>
-                  <li>Groups of 15+: £10 per person deposit, deducted from your bill</li>
-                  <li>Large groups: book early for the best tables</li>
-                  <li>Tables are held until kick-off, then released</li>
-                </ul>
-                <p className="mt-4 text-xs text-ink-muted">Booking takes you to our in-site table booking form.</p>
-              </div>
-
-              <div className="rounded-2xl border border-line bg-surface p-6 shadow-sm">
-                <h2 className="text-lg font-semibold text-accent-text">Matchday Setup</h2>
-                <ul className="mt-4 space-y-2 text-sm text-ink-muted">
-                  <li>4 screens (no projector)</li>
-                  <li>Sound on for all games we show (reviewed if another event clashes)</li>
-                  <li>Food served during kitchen hours</li>
-                  <li>Free parking ({PARKING.capacity} spaces)</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
-              <BookTableButton
-                source="world_cup_quick_cta"
-                context="sport"
-                variant="primary"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                Book a Table
-              </BookTableButton>
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                <Link href="#fixtures" className="w-full sm:w-auto">
-                  See Fixtures
-                </Link>
-              </Button>
-              <PhoneButton
-                phone={CONTACT.phone}
-                source="world_cup_quick_cta"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                Call
-              </PhoneButton>
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                <WhatsAppLink
-                  phone={CONTACT.phone}
-                  source="world_cup_quick_cta"
-                  message="Hi! I'd like to book a table for a World Cup match."
-                  showIcon={false}
-                >
-                  WhatsApp
-                </WhatsAppLink>
-              </Button>
-              <DirectionsButton
-                href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-                source="world_cup_quick_cta"
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                Directions
-              </DirectionsButton>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="grid gap-10 md:grid-cols-2 md:items-start">
-            <div>
-              <SectionHeading title="Food & Drink" subtitle="Settle in and make a day of it." className="mb-6 text-left" />
-              <div className="prose text-ink-muted max-w-none prose-a:text-accent-text">
-                <p>
-                  Proper pub classics, cold pints, and a friendly crowd, ideal for afternoon kick-offs or big evening games.
-                </p>
-                <p>
-                  Food is served during kitchen hours, which are shorter than the bar&apos;s, and the kitchen is
-                  closed on Mondays. Check our{' '}
-                  <Link href="/find-us#opening-hours">opening hours</Link> for today&apos;s times.
-                </p>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Button asChild variant="primary">
-                  <Link href="/food-menu">View Food Menu</Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link href="/drinks">Drinks List</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-line bg-surface p-8 shadow-sm">
-              <h3 className="mb-4 text-xl text-accent-text">Getting Here</h3>
-              <ul className="mb-6 space-y-3 text-sm text-ink-muted">
-                <li className="flex gap-2">
-                  <span>
-                    {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}
-                  </span>
-                </li>
-                <li className="flex gap-2">
-                  <span>
-                    {HEATHROW_TIMES.terminal5} mins from Heathrow Terminal 5 (T2/3 ~{HEATHROW_TIMES.terminal2} mins, T4 ~
-                    {HEATHROW_TIMES.terminal4} mins)
-                  </span>
-                </li>
-                <li className="flex gap-2">
-                  <span>Free parking ({PARKING.capacity} spaces)</span>
-                </li>
-                <li className="flex gap-2">
-                  <span>Bus 442 (Staines Heathrow) stops outside, ask for The Anchor, Horton Road</span>
-                </li>
-              </ul>
               <div className="flex flex-wrap gap-4">
-                <Link href="/find-us" className="font-semibold text-accent-text hover:underline">
-                  Directions & travel info →
-                </Link>
-                <Link href="/near-heathrow/terminal-5" className="font-semibold text-accent-text hover:underline">
-                  Terminal 5 guide →
-                </Link>
+                <Button asChild variant="primary"><Link href="/food-menu">See the food menu</Link></Button>
+                <Button asChild variant="outline"><Link href="/drinks">See the drinks</Link></Button>
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-section-y bg-canvas">
-        <Container>
-          <SectionHeading
-            title="Watch Live Sport Near Heathrow"
-            subtitle="Easy to reach from Stanwell Moor, Staines, Ashford, Feltham, Egham, and around Heathrow."
-          />
-          <div className="mx-auto rounded-2xl border border-line bg-surface-sunk p-8">
-            <p className="text-center text-sm text-ink-muted">
-              The Anchor is in Stanwell Moor, just off the M25 and {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Free parking for {PARKING.capacity} cars makes us easy to reach from Staines, Ashford, Feltham, Egham, Colnbrook, and Windsor.
-            </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              {AREA_LINKS.map((area) => (
-                <Link
-                  key={area.href}
-                  href={area.href}
-                  className="rounded-full border border-line bg-surface px-4 py-2 text-sm font-semibold text-accent-text hover:bg-surface-sunk"
-                >
-                  {area.label}
+            <Card accent>
+              <CardBody className="p-8">
+                <h3 className="text-xl text-accent-text mb-4">Find us</h3>
+                <ul className="space-y-3 text-sm text-ink-muted mb-6">
+                  <li className="flex gap-2"><span>{CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}</span></li>
+                  <li className="flex gap-2"><span>2 minutes from Junction 14 of the M25</span></li>
+                  <li className="flex gap-2"><span>Buses 441, 442 and 555 from Heathrow Central Bus Station</span></li>
+                </ul>
+                <Link href="/find-us" className="text-accent-text font-semibold hover:underline">
+                  Get directions
                 </Link>
-              ))}
-            </div>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </section>
 
-      <section className="py-section-y bg-canvas">
-        <Container>
-          <SectionHeading title="Frequently Asked Questions" />
-          <FAQAccordionWithSchema
-            faqs={[
-              {
-                question: 'Where can I watch World Cup 2026 near Heathrow?',
-                answer: `You can watch FIFA World Cup 2026 matches we are showing at ${BRAND.name} in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. We have 4 screens, sound on for games we show, free parking, and table bookings available.`,
-              },
-              {
-                question: 'Which World Cup 2026 matches are you showing?',
-                answer:
-                  'We show matches that kick off during our opening hours. Matches are on BBC and ITV, no subscription needed. In the fixtures list, look for matches marked "Showing".',
-              },
-              {
-                question: 'Is the World Cup 2026 free to watch?',
-                answer: 'Yes. World Cup 2026 matches are on BBC and ITV in the UK. We show them on our 4 screens with sound on, no subscription needed.',
-              },
-              {
-                question: 'Are you extending opening hours for the World Cup?',
-                answer: 'Selected knockout matches have extended hours until midnight. Check the fixtures list for specific matches. For all other games, standard opening hours apply.',
-              },
-              {
-                question: 'Why are some matches marked "Not showing"?',
-                answer:
-                  'Those kick-offs are outside our opening hours, so they won\'t be on our screens.',
-              },
-              {
-                question: 'Do you show England World Cup fixtures?',
-                answer:
-                  'Yes, we show England World Cup fixtures when they are marked as Showing in our fixtures list. England fixtures will be highlighted on this page once confirmed.',
-              },
-              {
-                question: 'Can I book a table for the World Cup final?',
-                answer:
-                  'Yes, if the World Cup final is marked as Showing in our fixtures list, you can book a table from the fixture row. Final weekend fills up fast, so booking ahead is recommended.',
-              },
-              {
-                question: 'Is The Anchor a sports bar near Heathrow?',
-                answer:
-                  'The Anchor is a proper pub near Heathrow that shows live sport on 4 screens. If you are looking for a sports bar near Heathrow, a football pub near me, or a live sport pub near me, we offer a pub atmosphere with sound on for games we show, food, drinks, and free parking.',
-              },
-              {
-                question: 'When do bookings open?',
-                answer: 'Bookings are open now for all matches we\'re showing. Use the Book Table button next to the fixture.',
-              },
-              {
-                question: 'Do you take deposits for group bookings?',
-                answer: 'No deposits for groups under 15. Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.',
-              },
-              {
-                question: 'How long do you hold tables?',
-                answer:
-                  'Tables are held until kick-off only. After kick-off, tables may be released for anyone to use.',
-              },
-              {
-                question: 'Will you stay open until full time?',
-                answer:
-                  'If a match is still being played at our normal closing time, we\'ll stay open while it\'s on if the pub is busy. If the pub is empty at closing time, we\'ll close as normal.',
-              },
-              {
-                question: 'Is the sound on?',
-                answer:
-                  'Yes, sound is on for all games we show. If a match clashes with another event, we may review the sound on the day.',
-              },
-              {
-                question: 'How many screens do you have?',
-                answer: 'We have 4 screens across the bar and dining areas (no projector).',
-              },
-              {
-                question: 'Are the kick-off times shown in UK time?',
-                answer: 'Yes, the fixtures list shows kick-off times in UK time (BST).',
-              },
-              {
-                question: 'Do you have parking and how do I get there?',
-                answer: `Yes, free on-site parking for guests (${PARKING.capacity} spaces). We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
-              },
-            ]}
-            className="mx-auto"
-          />
-        </Container>
-      </section>
+      <FAQAccordionWithSchema
+        title="Your questions"
+        faqs={faqs}
+        className="bg-surface"
+      />
 
       <CtaBand
-        title="Book Your World Cup Table"
-        copy="Choose a match we're showing, then book your table now."
+        title="Come and watch with us"
+        copy={`Call us on ${CONTACT.phone} to check a particular game, or book a table.`}
       >
         <BookTableButton source="world_cup_cta" variant="primary" size="lg" className="w-full sm:w-auto">
-          Book a Table
+          Book a table
         </BookTableButton>
         <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-          <Link href="/find-us">Get Directions</Link>
+          <Link href="/find-us">Get directions</Link>
         </Button>
       </CtaBand>
     </>

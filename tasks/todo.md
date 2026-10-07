@@ -1,3 +1,35 @@
+# World Cup page after the tournament, 7 October 2026
+
+Branch `fix/world-cup-page-after-the-tournament`, from main at bf701df4 (PR #204). Local only: not
+pushed, no PR, not deployed.
+
+The tournament ended on 19 July 2026. On 7 October the live page still had the title "World Cup
+2026 Fixtures & UK Kick-Off Times", all 104 games from the CheersAI feed (52 marked "Showing", each
+with a "Book Table" button), Event structured data dated 11 June to 19 July 2026, and 16 questions
+about a tournament that was over. The owner approved the treatment /live-sport/six-nations got in
+PR #202, on condition that the CheersAI integration stays.
+
+- [x] Facts first. The feed answers 200 with 104 fixtures, the last kicking off at 19:00 UTC on
+      19 July, none in the future, tournament status still "active". The URL has no year in it
+- [x] The page lists only games that have not finished (kick-off plus three hours), through
+      `components/features/world-cup/upcoming-fixtures.ts`. With none, there is no fixtures block.
+      Nothing is hardcoded as "over": new games in the feed show up by themselves
+- [x] Feed, `lib/world-cup-2026.ts`, `lib/cheersai.ts`, the fixtures component and their tests are
+      untouched
+- [x] Year-neutral title, description, hero and questions. Event structured data removed.
+      Canonical is now `./`, the same URL as before
+- [x] Wording: SSOT section 16 pasted as it stands, plus one World Cup line built on the approved
+      Six Nations line (terrestrial only, 4 TVs, commentary on: owner, 7 October 2026)
+- [x] `tests/unit/world-cup-page-year-neutral.test.tsx`: 24 tests, instants in UTC
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20
+- [x] Production build viewed top to bottom at 1280px and 390px, with and without the feed
+- [ ] Owner's yes before any push
+
+Left alone on purpose, because they are outside the page: the "World Cup 2026" labels on
+/live-sport and the HTML sitemap, the sweepstake winners page, and the sitemap's last-modified
+date for this URL.
+
 # Sticky bar and one-line buttons cut off at the right edge of a phone, 7 October 2026
 
 Branch `fix/phone-sticky-bar-and-button-overflow`, from main at a492f407 (PR #200). Local only: not
