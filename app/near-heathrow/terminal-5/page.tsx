@@ -101,7 +101,7 @@ export default function Terminal5Page() {
           </Button>
         }
         secondary={
-          <Button asChild variant="outline" size="lg">
+          <Button asChild variant="outline" size="lg" wrap>
             <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team!%20Can%20you%20help%20plan%20a%20Heathrow%20layover%20meal%3F">WhatsApp for Fast Booking</Link>
           </Button>
         }
@@ -331,6 +331,7 @@ export default function Terminal5Page() {
                 variant="primary"
                 size="lg"
                 fromLocation="Heathrow Terminal 5"
+                wrap
               >
                 Open in Google Maps
               </DirectionsButton>
@@ -560,6 +561,7 @@ export default function Terminal5Page() {
                 context="heathrow_terminal_5_hotels"
                 variant="primary"
                 size="lg"
+                wrap
               >
                 Reserve Your Table Online
               </BookTableButton>

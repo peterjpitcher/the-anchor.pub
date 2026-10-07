@@ -272,7 +272,7 @@ export default function WindsorPubPage() {
               <p className="text-lg text-ink-muted mb-6">
                 Private function room available for Windsor groups - 10+ to 150 guests
               </p>
-              <Button asChild variant="primary" size="lg">
+              <Button asChild variant="primary" size="lg" wrap>
                 <Link href="/private-hire#enquiry">
                   Enquire About Group Bookings
                 </Link>

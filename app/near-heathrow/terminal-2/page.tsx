@@ -288,6 +288,7 @@ export default function Terminal2Page() {
                 variant="primary"
                 size="lg"
                 fromLocation="Heathrow Terminal 2"
+                wrap
               >
                 Open in Google Maps
               </DirectionsButton>
@@ -558,6 +559,7 @@ export default function Terminal2Page() {
                 context="heathrow_terminal_2_hotels"
                 variant="primary"
                 size="lg"
+                wrap
               >
                 Book Your Table Online
               </BookTableButton>

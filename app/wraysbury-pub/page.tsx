@@ -193,6 +193,7 @@ export default function WraysburyPubPage() {
                                 variant="primary"
                                 size="lg"
                                 fromLocation="Wraysbury"
+                                wrap
                             >
                                 Get Directions from Wraysbury (5 mins)
                             </DirectionsButton>

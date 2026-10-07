@@ -153,7 +153,7 @@ export default async function FishAndChipsPage() {
                         <p className="mb-3 text-sm text-ink-muted">{item.description}</p>
                       )}
                       <p className="mb-3 text-xs text-ink-muted">{item.categoryTitle}</p>
-                      <Badge variant="outline">
+                      <Badge variant="outline" wrap>
                         {formatMenuAllergenLine(allergens)}
                       </Badge>
                     </CardBody>

@@ -189,6 +189,7 @@ export default function HortonPubPage() {
                                 variant="primary"
                                 size="lg"
                                 fromLocation="Horton"
+                                wrap
                             >
                                 Get Directions from Horton (2 mins)
                             </DirectionsButton>

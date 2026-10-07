@@ -319,6 +319,7 @@ export default function Terminal4Page() {
                 variant="primary"
                 size="lg"
                 fromLocation="Heathrow Terminal 4"
+                wrap
               >
                 Open in Google Maps
               </DirectionsButton>
@@ -530,7 +531,7 @@ export default function Terminal4Page() {
                 context="heathrow_terminal_4_hotels"
                 variant="outline"
                 size="lg"
-
+                wrap
               >
                 Book Your Table Online
               </BookTableButton>

@@ -320,6 +320,7 @@ export default function Terminal3Page() {
                 variant="primary"
                 size="lg"
                 fromLocation="Heathrow Terminal 3"
+                wrap
               >
                 Open in Google Maps
               </DirectionsButton>
@@ -529,6 +530,7 @@ export default function Terminal3Page() {
                 context="heathrow_terminal_3_hotels"
                 variant="primary"
                 size="lg"
+                wrap
               >
                 Book Your Table Online
               </BookTableButton>

@@ -174,6 +174,7 @@ export default function ColnbrookPubPage() {
                                 variant="primary"
                                 size="lg"
                                 fromLocation="Colnbrook"
+                                wrap
                             >
                                  Get Directions from Colnbrook (5 mins)
                             </DirectionsButton>

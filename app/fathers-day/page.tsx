@@ -348,6 +348,7 @@ export default function FathersDayPage() {
             source="fathers_day_cta"
             variant="outline"
             size="lg"
+            wrap
           >
             Call or WhatsApp us on {CONTACT.phone}
           </PhoneButton>
