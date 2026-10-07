@@ -1,4 +1,4 @@
-import { NGCI_WORDING, ONE_KITCHEN_WORDING } from '@/lib/approved-wording'
+import { ACCESS_SHORT_WORDING, ACCESS_WORDING, NGCI_WORDING, ONE_KITCHEN_WORDING } from '@/lib/approved-wording'
 import { resolveFixtureBookingContext } from '@/lib/nations-championship/booking-context'
 import type { FixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
 import type { Metadata } from 'next'
@@ -36,6 +36,10 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 // TODO(post-launch): revert to 60 * 60 * 24 (24 hours) after 22 May 2026, or
 // drop the export entirely if the original was using Next.js' default.
 export const revalidate = 60 * 60 // 1 hour during launch fortnight
+
+// The approved access block, split around the phone number so the number can be
+// a tappable link. The words are untouched.
+const [accessBeforePhone, accessAfterPhone] = ACCESS_WORDING.split(CONTACT.phone)
 
 export async function generateMetadata(): Promise<Metadata> {
   // No food price phrase: "from" the cheapest line on the whole menu is a burger
@@ -284,7 +288,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               <ul className="mt-3 space-y-2 text-left text-sm text-ink-muted">
                 <li>• 20 free parking spaces on site.</li>
                 <li>• Dog friendly inside and out.</li>
-                <li>• Step-free access from the car park.</li>
+                <li>• {ACCESS_SHORT_WORDING}</li>
               </ul>
             </Card>
 
@@ -294,13 +298,11 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
 
       <Section background="white" spacing="sm" container className="border-b border-line">
         <h2 className="text-2xl font-bold text-accent-text mb-4">Accessibility</h2>
-        <p className="text-ink-muted mb-3">
-          Step free from the car park to the bar, the dining area and the beer garden. There's one step
-          between the bar and the garden, and we'll put a ramp out for it if you ask.
-        </p>
+        {/* SSOT section 16, pasted as it stands, with the number made tappable. */}
         <p className="text-ink-muted mb-4">
-          We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-          <PhoneLink phone={CONTACT.phone} source="book-table_accessibility" className="text-accent-text font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
+          {accessBeforePhone}
+          <PhoneLink phone={CONTACT.phone} source="book-table_accessibility" className="text-accent-text font-semibold hover:underline" showIcon={false} />
+          {accessAfterPhone}
         </p>
         <Link href="/accessibility" className="text-accent-text font-semibold hover:underline">
           Full accessibility information &rarr;
@@ -343,7 +345,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             <CardBody>
               <h3 className="text-lg font-semibold text-accent-text mb-2">Free Parking &amp; Easy Access</h3>
               <p className="text-ink-muted text-sm mb-4">
-                We have 20 free on-site parking spaces and are just 7 minutes from Heathrow Terminal 5. Step-free access from the car park. Dogs welcome inside and out.
+                We have 20 free on-site parking spaces and are just 7 minutes from Heathrow Terminal 5. {ACCESS_SHORT_WORDING} Dogs welcome inside and out.
               </p>
               <Link href="/find-us" className="text-accent-text font-semibold text-sm hover:underline">
                 Get directions &rarr;

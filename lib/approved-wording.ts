@@ -1,10 +1,41 @@
 /**
- * Approved allergen and dietary wording, pasted from docs/SSOT.md section 16.
+ * Approved wording, pasted from docs/SSOT.md section 16.
  *
  * Do not reword these here. If the wording has to change, change the block in
- * docs/SSOT.md section 16 first, then this file: tests/unit/approved-wording.test.ts
- * fails when the two disagree.
+ * docs/SSOT.md section 16 first, then this file: the guard tests
+ * (tests/allergen-wording-guard.test.ts, tests/access-wording-guard.test.ts)
+ * fail when the two disagree.
  */
+
+/**
+ * SSOT section 16, "Getting in and around". The full block. Use it wherever a
+ * page answers an access question or speaks to guests with mobility needs.
+ * tests/access-wording-guard.test.ts fails if this and the SSOT disagree.
+ */
+export const ACCESS_WORDING =
+  "Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on 01753 682707 and we'll help."
+
+/** SSOT section 16, "Getting in and around", the short form for a feature list. */
+export const ACCESS_SHORT_WORDING =
+  'Step free from the car park. One step from the bar, with a ramp on request.'
+
+/**
+ * The accessible toilet sentence from the full block, standing on its own. Pair
+ * it with ACCESS_SHORT_WORDING wherever the short form is the only access line
+ * on a page, so the one fact that decides a visit is never left out.
+ */
+export const NO_ACCESSIBLE_TOILET_WORDING = "We don't have an accessible toilet."
+
+/**
+ * Access, for structured data. "Step-free access: true" on its own is half a
+ * fact (SSOT section 1, rule 4), so the value is the approved short form, and
+ * the missing accessible toilet is stated beside it. Spread this into an
+ * amenityFeature list; never type a step-free amenity into a page.
+ */
+export const ACCESS_AMENITY_FEATURES = [
+  { '@type': 'LocationFeatureSpecification', name: 'Step-free access', value: ACCESS_SHORT_WORDING },
+  { '@type': 'LocationFeatureSpecification', name: 'Accessible toilet', value: false },
+] as const
 
 /** SSOT section 16, "NGCI". */
 export const NGCI_WORDING =

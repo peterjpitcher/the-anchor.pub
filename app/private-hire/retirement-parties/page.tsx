@@ -13,10 +13,11 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { ACCESS_SHORT_WORDING, NO_ACCESSIBLE_TOILET_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Retirement Party Venue Near Heathrow',
-    description: `Give them a proper send-off. The Anchor is the ideal venue for retirement parties. Relaxed atmosphere, buffet options, and easy access for all colleagues.`,
+    description: `Give them a proper send-off. The Anchor is the ideal venue for retirement parties. Relaxed atmosphere, buffet options, and free parking.`,
     openGraph: {
         title: 'Retirement Parties at The Anchor',
         description: 'A dedicated lifetime of work deserves a dedicated celebration. Book your retirement party or leaving do with us.',
@@ -50,7 +51,7 @@ export default function RetirementPartiesPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/retirement-parties",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "A relaxed and accessible venue suitable for retirement celebrations and leaving parties.",
+        "description": "A relaxed venue for retirement celebrations and leaving parties.",
         "potentialAction": {
             "@type": "CommunicateAction",
             "target": {
@@ -113,7 +114,7 @@ export default function RetirementPartiesPage() {
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             {[
                                 { title: "Speech Friendly", description: "Quiet areas available for speeches and presentations without shouting over music." },
-                                { title: "Accessible", description: "Ground floor access and easy parking make it suitable for guests of all ages." },
+                                { title: "Getting In and Around", description: `${ACCESS_SHORT_WORDING} ${NO_ACCESSIBLE_TOILET_WORDING}` },
                                 { title: "Catering Options", description: "Classic buffet spread, tea & coffee stations, or full 3-course meals." },
                             ].map(feature => (
                                 <Card key={feature.title} accent className="h-full">

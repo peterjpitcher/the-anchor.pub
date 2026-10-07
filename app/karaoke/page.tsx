@@ -22,6 +22,7 @@ import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { formatEventDate, formatEventTime, type Event } from '@/lib/api'
 import Link from 'next/link'
 import { BookTableButton } from '@/components/BookTableButton'
+import { ACCESS_WORDING } from '@/lib/approved-wording'
 
 /**
  * Karaoke is the largest organic opportunity across the four game pages: GKP puts
@@ -325,7 +326,7 @@ export default async function KaraokePage() {
               <ul className="space-y-3 text-sm text-ink-muted">
                 <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
                 <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road.</li>
-                <li><strong>Accessibility:</strong> step-free bar and dining areas, flexible seating, and no accessible toilet.</li>
+                <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                 <DirectionsLink

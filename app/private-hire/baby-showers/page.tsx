@@ -16,6 +16,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
+import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Baby Shower Venue Near Ashford Hospital',
@@ -58,7 +59,7 @@ export default function BabyShowersPage() {
         "maximumAttendeeCapacity": 50,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
+            ...ACCESS_AMENITY_FEATURES,
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Afternoon Tea Packages", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Mocktail Menu", "value": true },

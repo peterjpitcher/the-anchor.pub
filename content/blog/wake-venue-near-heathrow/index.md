@@ -169,7 +169,9 @@ Absolutely. The Anchor is just seven minutes from Heathrow Terminal 5, and well 
 
 ### Is The Anchor accessible for elderly guests?
 
-Yes. The venue is entirely on the ground floor, including the private hire area and all facilities. There is no step at the main entrance. We also have 20 free parking spaces on site, so guests can park close to the door.
+Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on 01753 682707 and we'll help.
+
+We also have 20 free parking spaces on site, so guests can park close to the door.
 
 ---
 

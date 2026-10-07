@@ -4,6 +4,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from './image-fallbacks
 import { anchorAPI } from './api'
 import { buildOpeningHoursSchema } from './opening-hours-schema'
 import { DEFAULT_REVIEW_STATS } from './google/review-utils'
+import { ACCESS_AMENITY_FEATURES } from './approved-wording'
 
 const getBusinessStatsCached = unstable_cache(
   async () => {
@@ -78,7 +79,7 @@ const getEnhancedSchemasCached = unstable_cache(
         { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
-        { "@type": "LocationFeatureSpecification", "name": "Step-free access", "value": true },
+        ...ACCESS_AMENITY_FEATURES,
         { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Live Entertainment", "value": true },

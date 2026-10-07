@@ -24,6 +24,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { ACCESS_SHORT_WORDING, ACCESS_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
   title: { absolute: 'Find The Anchor | TW19 6AQ, 7 Mins from Heathrow T5' },
@@ -504,8 +505,8 @@ export default async function FindUsPage() {
                     <p className="text-sm">Water bowls available</p>
                   </div>
                   <div>
-                    <strong className="text-ink-strong">Accessible Entry</strong>
-                    <p className="text-sm">Step free from the car park</p>
+                    <strong className="text-ink-strong">Getting In</strong>
+                    <p className="text-sm">{ACCESS_SHORT_WORDING}</p>
                   </div>
                   <div>
                     <strong className="text-ink-strong">All Cards Accepted</strong>
@@ -564,7 +565,7 @@ export default async function FindUsPage() {
           },
           {
             question: "Is The Anchor wheelchair accessible?",
-            answer: "Getting in from the car park is step free, and so are the bar and the dining area. There's one step between the bar and the beer garden, and we'll put our ramp out for it if you ask. We don't currently have an accessible toilet."
+            answer: ACCESS_WORDING
           },
           {
             question: "What payment methods does The Anchor accept?",

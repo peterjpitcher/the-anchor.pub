@@ -17,6 +17,7 @@ import {
   Grid,
 } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
+import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
   title: 'About Us | Our Story Since 1751',
@@ -75,7 +76,7 @@ const aboutPageSchema = {
       { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Dog Friendly', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Beer Garden', value: true },
-      { '@type': 'LocationFeatureSpecification', name: 'Step-free access to most areas', value: true },
+      ...ACCESS_AMENITY_FEATURES,
     ],
   },
 }

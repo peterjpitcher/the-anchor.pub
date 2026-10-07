@@ -32,11 +32,6 @@ export const parkingFacilitySchema = {
       "@type": "LocationFeatureSpecification",
       "name": "No Time Limit",
       "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Disabled Parking",
-      "value": true
     }
   ],
   "owner": {

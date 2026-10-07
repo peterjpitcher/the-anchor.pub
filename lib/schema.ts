@@ -1,4 +1,5 @@
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from './image-fallbacks'
+import { ACCESS_AMENITY_FEATURES } from './approved-wording'
 
 const DEFAULT_SCHEMA_IMAGES = [
   `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
@@ -86,11 +87,7 @@ export const localBusinessSchema = {
       "name": "Free Parking",
       "value": true
     },
-    {
-      "@type": "LocationFeatureSpecification", 
-      "name": "Step-free access",
-      "value": true
-    },
+    ...ACCESS_AMENITY_FEATURES,
     {
       "@type": "LocationFeatureSpecification",
       "name": "Beer Garden",
@@ -352,11 +349,7 @@ export const parkingFacilitySchema = {
     "value": 20
   },
   "amenityFeature": [
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Step-free access",
-      "value": true
-    },
+    ...ACCESS_AMENITY_FEATURES,
     {
       "@type": "LocationFeatureSpecification",
       "name": "Well Lit",

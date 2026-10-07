@@ -156,7 +156,7 @@ Here's why people love coming to us:
     
 *   **Close proximity to Heathrow Airport**, perfect for a pre-flight meal or post-landing unwind
     
-*   **Ample parking** and easy access for all
+*   **Ample parking**
     
       
     

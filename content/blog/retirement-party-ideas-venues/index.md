@@ -3,7 +3,7 @@ title: "Retirement Party Ideas and Venues Near Heathrow"
 slug: retirement-party-ideas-venues
 date: "2026-04-16"
 publishDate: "2026-04-16"
-description: "Give them a proper send-off. Retirement party ideas, planning tips, and accessible venues near Heathrow and Staines."
+description: "Give them a proper send-off. Retirement party ideas, planning tips, and venues near Heathrow and Staines."
 author: "The Anchor Team"
 keywords:
   - retirement party ideas

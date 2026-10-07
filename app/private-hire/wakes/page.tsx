@@ -21,6 +21,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
+import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING } from '@/lib/approved-wording'
 
 const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']
 
@@ -76,10 +77,9 @@ export default async function WakesPage() {
         "maximumAttendeeCapacity": 50,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
+            ...ACCESS_AMENITY_FEATURES,
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Private Dining Room", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Ground Floor Access", "value": true }
+            { "@type": "LocationFeatureSpecification", "name": "Private Dining Room", "value": true }
         ],
         "potentialAction": {
             "@type": "CommunicateAction",
@@ -204,12 +204,12 @@ export default async function WakesPage() {
                 <Container>
                     <SectionHeading
                         title="Facilities & Accessibility"
-                        lead="A comfortable and accessible venue for all your guests"
+                        lead="A comfortable private room, and how to get in and around"
                     />
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         {[
                             { title: "Private Dining Room", description: "Our self-contained private dining room seats up to 26 guests, or up to 50 standing. For larger gatherings the venue can be arranged to suit a wider group. The room is quiet, enclosed, and separate from the main bar area." },
-                            { title: "Accessibility for All Guests", description: "The venue is entirely on the ground floor with step-free access to the bar and dining area, making it easy for elderly guests and those with mobility difficulties. Our car park is directly adjacent to the entrance with no steps to navigate. Please note we do not currently have an accessible toilet, so call ahead if you would like to talk through your visit." },
+                            { title: "Getting In and Around", description: ACCESS_WORDING },
                             { title: "Flexible Timing", description: "We are available any day of the week, including at short notice for same-week bookings. We work around funeral service times and can open early or stay later to suit your schedule. Simply call us and we will accommodate your needs." },
                             { title: "Everything Included", description: "Room hire, dedicated staff, setup, and cleardown are all included in our packages. There are no hidden charges. We handle the practical arrangements so you and your family can focus on being together." },
                             { title: "Allergies and Dietary Needs", description: PRIVATE_HIRE_DIETARY_WORDING },

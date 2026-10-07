@@ -64,7 +64,9 @@ A christening reception needs to work for everyone from your 85-year-old grandmo
 - **Free parking** -- guests arriving with car seats, nappy bags, and gift bags don't want to wrestle with a pay-and-display
 - **Flexible timing** -- you don't want to feel rushed because the venue has another booking an hour after yours
 
-At The Anchor, we tick all of these. Our bar, dining area, and car park are step-free. We have high chairs, buggy space, and a beer garden with 64 seats where kids can play while adults relax. Parking is free for all guests -- 20 spaces on site with additional parking nearby. We're honest about one thing though: we don't have baby changing facilities. Parents manage fine with a changing mat and a quiet corner, but it's worth knowing upfront.
+At The Anchor, we tick all of these. Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on 01753 682707 and we'll help.
+
+We have high chairs, buggy space, and a beer garden with 64 seats where kids can play while adults relax. Parking is free for all guests -- 20 spaces on site with additional parking nearby. We're honest about one thing though: we don't have baby changing facilities. Parents manage fine with a changing mat and a quiet corner, but it's worth knowing upfront.
 
 **Bottle warming** is available on request, and breastfeeding is always welcome.
 

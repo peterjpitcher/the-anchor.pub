@@ -8,6 +8,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
+import { ACCESS_SHORT_WORDING, ACCESS_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
   title: 'Accessibility | Stanwell Moor Pub',
@@ -99,7 +100,7 @@ export default function AccessibilityPage() {
                 <ul className="space-y-3 text-ink-muted">
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
-                    <span>Free on-site parking for approximately 20 cars, level surface</span>
+                    <span>20 free parking spaces on site, level surface</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
@@ -146,7 +147,7 @@ export default function AccessibilityPage() {
         faqs={[
           {
             question: 'Is The Anchor wheelchair accessible?',
-            answer: 'The bar and dining area are step-free, and the beer garden is step free from the car park. There\'s one step between the bar and the garden, with a ramp on request. Our car park has a level surface close to the entrance. We currently don\'t have an accessible toilet, please call ahead if you\'d like to talk through your visit.'
+            answer: ACCESS_WORDING
           },
           {
             question: 'Is the beer garden step-free?',
@@ -158,11 +159,11 @@ export default function AccessibilityPage() {
           },
           {
             question: 'Where should I park?',
-            answer: 'We have free on-site parking for around 20 cars. The surface is level and the entrance is close by.'
+            answer: 'We have 20 free parking spaces on site. The surface is level and the entrance is close by.'
           },
           {
             question: 'Can I bring a wheelchair or mobility aid?',
-            answer: 'Yes. The bar and dining area are step-free, and the beer garden is step free from the car park, with one step from the bar and a ramp on request. If you\'d like to check specific details in advance, please call us.'
+            answer: ACCESS_WORDING
           },
           {
             question: 'Are assistance dogs welcome?',
@@ -174,7 +175,7 @@ export default function AccessibilityPage() {
       {/* Internal Links / CTA */}
       <CtaBand
         title="Plan Your Visit"
-        copy="We're 7 minutes from Heathrow with free parking, step-free access to most areas and a warm welcome waiting for you."
+        copy={`We're 7 minutes from Heathrow with free parking and a warm welcome waiting for you. ${ACCESS_SHORT_WORDING}`}
       >
         <BookTableButton source="accessibility_cta" size="lg" variant="primary" />
         <Button asChild size="lg" variant="outline">

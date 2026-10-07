@@ -25,6 +25,7 @@ import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
 import { PRIVATE_HIRE_CAPACITY, PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 import { OccasionCard } from './_components/OccasionCard'
 import { CateringPackagesCard } from './_components/CateringPackagesCard'
+import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
 import {
     InteractiveVenueFloorPlan,
     isVenueTourEventType,
@@ -246,8 +247,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
         "maximumAttendeeCapacity": PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Accessible toilet", "value": false },
+            ...ACCESS_AMENITY_FEATURES,
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Private Dining Room", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "AV Equipment", "value": true },

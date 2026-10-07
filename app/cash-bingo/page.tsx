@@ -26,6 +26,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PsychBadge } from '@/components/psychology'
 import { JsonLd } from '@/components/JsonLd'
 import { bingoEventSeries } from '@/lib/schema'
+import { ACCESS_WORDING } from '@/lib/approved-wording'
 
 /**
  * The title stays pub-qualified on purpose. GKP measures "bingo night near me"
@@ -364,7 +365,7 @@ export default async function CashBingoPage() {
               <ul className="space-y-3 text-sm text-ink-muted">
                 <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
                 <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
-                <li><strong>Accessibility:</strong> step-free bar and dining areas, flexible seating for players, and no accessible toilet.</li>
+                <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                 <DirectionsLink

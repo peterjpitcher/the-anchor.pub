@@ -17,6 +17,7 @@ import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPac
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { ACCESS_AMENITY_FEATURES, ACCESS_SHORT_WORDING, ACCESS_WORDING, NO_ACCESSIBLE_TOILET_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Christening Venue Near Heathrow & Staines',
@@ -60,7 +61,7 @@ export default function ChristeningsPage() {
         "maximumAttendeeCapacity": 50,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
+            ...ACCESS_AMENITY_FEATURES,
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": false },
@@ -182,7 +183,7 @@ export default function ChristeningsPage() {
                             { title: "High Chairs", description: "High chairs are available for babies and toddlers, just let us know when you book how many you need." },
                             { title: "Children's Menu", description: "A dedicated kids' menu with all their favourites, including smaller portions of our Sunday Roast." },
                             { title: "Beer Garden", description: "Seating for 64, right under the Heathrow flight path. It adjoins the car park, so please keep little ones supervised." },
-                            { title: "Step-Free Access", description: "The bar and dining area are step-free, with free parking right by the entrance to make arrivals easy with a pushchair." },
+                            { title: "Getting In and Around", description: `${ACCESS_SHORT_WORDING} ${NO_ACCESSIBLE_TOILET_WORDING}` },
                         ].map(feature => (
                             <Card key={feature.title} accent className="h-full text-center">
                                 <CardBody className="flex h-full flex-col gap-2">
@@ -364,7 +365,7 @@ export default function ChristeningsPage() {
                     },
                     {
                         question: "Is the venue accessible for elderly guests and grandparents?",
-                        answer: "Yes. The venue is on the ground floor with step-free access to most areas and ample parking directly outside. If any guests have specific accessibility requirements, please let us know when you book and we will do our best to accommodate them."
+                        answer: ACCESS_WORDING
                     },
                     {
                         question: "Can we take photographs in the garden?",

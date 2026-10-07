@@ -12,6 +12,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from '@/lib/image-fallb
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
   title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden',
@@ -70,7 +71,7 @@ export default async function PubsInStanwellPage() {
     "amenityFeature": [
       { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
       { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
+      ...ACCESS_AMENITY_FEATURES,
       { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
       { "@type": "LocationFeatureSpecification", "name": "Dog Friendly (Garden)", "value": true }
     ]
