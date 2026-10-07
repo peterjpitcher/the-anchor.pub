@@ -9,6 +9,7 @@
  */
 import { render } from '@testing-library/react'
 import ssot from '@/SSOT.json'
+import { CHRISTMAS_PRIVATE_DEPOSIT_WORDING } from '@/lib/approved-wording'
 import {
   ChristmasPartiesPageClient,
   type ChristmasFactsView,
@@ -99,7 +100,11 @@ describe('Christmas 2026 booking rules', () => {
 
     // The general non-Christmas rule (no deposit under 10 guests) must never
     // leak into Christmas copy.
-    expect(text).toMatch(/£10 per person, every booking, any size/i)
+    // Owner decision 7, 7 October 2026: "any size" stops at 20. A party of more
+    // than 20 is a private booking and pays the £250 private hire deposit.
+    expect(text).toMatch(/£10 per person on every table booking, from 4 to 20 guests/i)
+    expect(text).not.toMatch(/every booking, any size/i)
+    expect(text).toContain(CHRISTMAS_PRIVATE_DEPOSIT_WORDING)
     expect(text).not.toMatch(/deposit[^.]{0,80}\b10 or more guests/i)
     expect(text).not.toMatch(/no deposit/i)
   })
@@ -149,7 +154,8 @@ describe('Christmas 2026 booking rules', () => {
     expect(schemaJson).toContain('at least 24 hours ahead')
     expect(schemaJson).toContain('Courses are chosen per person, not for the whole table.')
     expect(schemaJson).toContain('Every guest chooses a main.')
-    expect(schemaJson).toMatch(/deposit of 10 pounds per person applies to every Christmas booking, whatever the party size/i)
+    expect(schemaJson).toMatch(/deposit of 10 pounds per person applies to every Christmas table booking, whatever the party size/i)
+    expect(schemaJson).toContain('A larger party booked as a private hire pays the private hire deposit instead.')
   })
 })
 

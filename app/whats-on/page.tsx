@@ -35,6 +35,7 @@ import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
   // Short enough that the root layout's " | The Anchor" suffix still fits inside
@@ -486,7 +487,7 @@ export default async function WhatsOnPage() {
       {/* 5. CtaBand (§7.3.5) */}
       <CtaBand
         title="Bringing a group?"
-        copy="Groups of 15 or more pay a £10 per person deposit, deducted from your bill. Book a table for the night, or enquire about private hire for the whole room."
+        copy={`${GROUP_DEPOSIT_WORDING} Book a table for the night, or enquire about private hire for the whole room.`}
         primary={
           <Button asChild variant="primary" size="lg">
             <Link href="/book-table?source=whats_on_footer">

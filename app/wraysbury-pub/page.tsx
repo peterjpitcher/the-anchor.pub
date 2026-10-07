@@ -220,7 +220,7 @@ export default function WraysburyPubPage() {
                                 The Wraysbury Dive Centre crowd know us well too. After a few hours in cold water, there&rsquo;s nothing better than warming up with a proper meal in a proper pub. We&rsquo;re dog-friendly throughout, so if the Labrador came along for the reservoir walk, bring them in, water bowls are always out.
                             </p>
                             <p>
-                                Non-drivers aren&rsquo;t left out either. Wraysbury station is on the Windsor &amp; Eton line, and a taxi from there to us is barely five pounds. A few of our regulars do exactly that on quiz nights, taxi over, have a couple of drinks, taxi home. Easy.
+                                Non-drivers aren&rsquo;t left out either. Wraysbury station is on the Windsor &amp; Eton line, and a taxi from there to us is a short ride. A few of our regulars do exactly that on quiz nights, taxi over, have a couple of drinks, taxi home. Easy.
                             </p>
                         </div>
                     </div>

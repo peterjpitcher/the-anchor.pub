@@ -22,6 +22,7 @@ import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
+import { PRIVATE_HIRE_DEPOSIT_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY, PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 import { OccasionCard } from './_components/OccasionCard'
 import { CateringPackagesCard } from './_components/CateringPackagesCard'
@@ -151,7 +152,7 @@ const roomSetups = [
 const privateHireFaqs = [
     {
         question: 'How much does it cost to hire a function room at The Anchor?',
-        answer: 'Room hire is discussed on enquiry and depends on your date, space and catering. A £250 deposit secures a private hire booking, and buffet prices are confirmed from the live menu when you enquire.',
+        answer: `${ROOM_HIRE_WORDING} The hourly rates are in the table on this page. ${PRIVATE_HIRE_DEPOSIT_WORDING} Buffet prices are confirmed from the live menu when you enquire.`,
     },
     {
         question: 'Do you have a private room for hire near Heathrow?',

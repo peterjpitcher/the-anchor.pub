@@ -248,7 +248,7 @@ export default function CorporateEventsPage() {
                   <li><strong className="text-ink-strong">At least {CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice</strong> - no same-day Christmas bookings</li>
                   <li><strong className="text-ink-strong">£{CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit</strong>, deducted from your final bill</li>
                   <li><strong className="text-ink-strong">Meal choices 7 days ahead</strong> for the two and three course tiers</li>
-                  <li><strong className="text-ink-strong">Groups above 20</strong> are handled as private hire, so give us a call</li>
+                  <li><strong className="text-ink-strong">Groups above 20</strong> are handled as private hire, with the £250 private hire deposit instead, so give us a call</li>
                 </ul>
               </CardBody></Card>
               <Card accent><CardBody>
@@ -306,7 +306,7 @@ export default function CorporateEventsPage() {
                   <li><strong className="text-ink-strong">Scalable spaces</strong> - Configure rooms for 10+ to 150 attendees, with larger events by enquiry</li>
                   <li><strong className="text-ink-strong">Custom catering</strong> - From coffee breaks to formal dinners</li>
                   <li><strong className="text-ink-strong">Professional support</strong> - TVs, sound system and a dedicated events coordinator</li>
-                  <li><strong className="text-ink-strong">Transparent pricing</strong> - Clear quotes with no hidden fees</li>
+                  <li><strong className="text-ink-strong">Transparent pricing</strong> - Room hire is charged by the hour and catering is priced per person</li>
                 </ul>
               </CardBody></Card>
               <Card><CardBody>
@@ -512,7 +512,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "Can we hold our office Christmas party at The Anchor?",
-            answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, so call us on 01753 682707 and we will plan it with you.`
+            answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, with the £250 private hire deposit instead, so call us on 01753 682707 and we will plan it with you.`
           },
           {
             question: "How many people can you seat for a work Christmas party?",
@@ -568,7 +568,7 @@ export default function CorporateEventsPage() {
       {/* CTA Section */}
       <CtaBand
         title="Plan Your Corporate Event Today"
-        copy="Professional venue • Strategic location • No hidden fees"
+        copy="Professional venue • Strategic location • Free parking"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
           <Button asChild size="lg" variant="primary">

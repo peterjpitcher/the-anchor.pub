@@ -1,3 +1,5 @@
+import { GROUP_DEPOSIT_WORDING } from './approved-wording'
+
 export const CONTACT = {
   // Display formats
   phone: '01753 682707',
@@ -70,8 +72,8 @@ export function computeLargeGroupDepositAmount(partySize: number): number {
   return Number((normalizedPartySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP).toFixed(2))
 }
 
-export const LARGE_GROUP_DEPOSIT_POLICY_COPY =
-  "Groups of 15 or more: we'll take a £10 per person deposit, fully deducted from your bill on the day."
+// The approved sentence, SSOT section 16. It lives in lib/approved-wording.ts.
+export const LARGE_GROUP_DEPOSIT_POLICY_COPY = GROUP_DEPOSIT_WORDING
 
 // Walk-in launch banner timestamps (BST). Used by <LaunchAnnouncement>.
 // - STARTS_AT: start of 17 May 2026 BST (banner switches from pre-launch

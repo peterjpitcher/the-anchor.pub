@@ -1304,6 +1304,7 @@
       "weekday_sittings": "Tuesday to Thursday",
       "weekend_sittings": "Friday and Saturday",
       "sunday": "Available, 1pm to 6pm",
+      "sunday_price": "The weekend price. Owner decision 7 October 2026.",
       "monday": "Not available, the kitchen is closed on Mondays",
       "_confirmed": "Owner-confirmed 11 August 2026"
     },
@@ -1357,7 +1358,7 @@
     },
     "weekday_weekend_definition": {
       "weekday": "Tuesday to Thursday",
-      "weekend": "Friday to Saturday"
+      "weekend": "Friday to Sunday"
     },
     "included": {
       "adults": "A glass of prosecco on the 2 and 3 course tiers only, swappable for orange juice. The 1 course tier does not include a drink for adults.",
@@ -1493,7 +1494,8 @@
       "Google Pay",
       "Cards"
     ],
-    "cancellation": "Full refund if cancelled/amended 24+ hours before arrival",
+    "cancellation": "You can change or cancel your parking booking up to 24 hours before your booked arrival time, and a cancelled booking is refunded less the payment fee.",
+    "cancellation_note": "Owner decision 7 October 2026: refunded less the payment fee, never 'a full refund'. No fee amount or percentage is recorded or published. See docs/SSOT.md sections 7 and 16.",
     "booking_expiry": "30-minute payment window for website bookings"
   },
   "sustainability": {

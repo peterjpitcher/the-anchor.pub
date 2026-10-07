@@ -132,8 +132,11 @@ describe('christmasPartiesSchema', () => {
     expect(description).not.toMatch(/\b6 guests or more/)
     expect(description).toContain('at least 24 hours ahead')
     expect(description).toContain(
-      `deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas booking, whatever the party size`
+      `deposit of ${CHRISTMAS_DEPOSIT_PER_PERSON} pounds per person applies to every Christmas table booking, whatever the party size`
     )
+    // Owner decision 7, 7 October 2026: a party of more than 20 is a private
+    // hire and pays the private hire deposit, not £10 per person.
+    expect(description).toContain('A larger party booked as a private hire pays the private hire deposit instead.')
   })
 
   it('should not describe any discontinued Christmas product', () => {

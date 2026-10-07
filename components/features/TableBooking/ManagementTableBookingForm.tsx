@@ -87,6 +87,7 @@ import {
 } from '@/lib/booking-attribution'
 import { buildBookingHoursNote } from '@/lib/table-booking/hours-note'
 import { PayPalDepositSection } from './PayPalDepositSection'
+import { GROUP_DEPOSIT_REFUND_WORDING } from '@/lib/approved-wording'
 import { BookingConfirmedCard } from './BookingConfirmedCard'
 import { BookingProgressBar } from './BookingProgressBar'
 import { BookingSummaryCard } from './BookingSummaryCard'
@@ -815,6 +816,13 @@ export function ManagementTableBookingForm({
   // regular food bookings; deposit gating is purely group-size based (10+).
   const requiresGroupDeposit = requiresDeposit(partySize)
   const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
+  // The refund bands belong to the group deposit only. A Christmas sitting has
+  // its own refund rule, which SeasonalPeriodQuestion prints from the
+  // management app, so the bands are left off once the guest has accepted one.
+  const groupDepositRefundNote = seasonalRequiresFoodService ? undefined : GROUP_DEPOSIT_REFUND_WORDING
+  const groupDepositNote = groupDepositRefundNote
+    ? `${LARGE_GROUP_DEPOSIT_POLICY_COPY} ${groupDepositRefundNote}`
+    : LARGE_GROUP_DEPOSIT_POLICY_COPY
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
   const selectedDateEvents = suggestedEvents.events
@@ -1535,6 +1543,7 @@ export function ManagementTableBookingForm({
                bookingId={bookingIdForPayment}
                orderId={paypalOrderId}
                depositAmount={depositAmountForPayment}
+               refundNote={groupDepositRefundNote}
                conversionPayload={{
                  bookingReference: result.booking_reference,
                  depositAmount: depositAmountForPayment,
@@ -2359,7 +2368,7 @@ export function ManagementTableBookingForm({
 
               {requiresGroupDeposit ? (
                 <Badge variant="sand" className="block w-full whitespace-normal text-left leading-snug">
-                  Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
+                  {LARGE_GROUP_DEPOSIT_POLICY_COPY}
                 </Badge>
               ) : null}
 
@@ -2804,7 +2813,7 @@ export function ManagementTableBookingForm({
 
             {requiresGroupDeposit ? (
               <Badge variant="sand" className="block w-full whitespace-normal text-left leading-snug">
-                Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
+                {LARGE_GROUP_DEPOSIT_POLICY_COPY}
               </Badge>
             ) : null}
 
@@ -3170,7 +3179,7 @@ export function ManagementTableBookingForm({
               highChairCount={highChairCount}
               highChairsFreeAtSlot={highChairShortfall?.free}
               depositAmount={requiresGroupDeposit ? groupDepositAmount : 0}
-              depositNote={LARGE_GROUP_DEPOSIT_POLICY_COPY}
+              depositNote={groupDepositNote}
             />
 
             {/* Repeated from the grid because this is where the guest commits.
@@ -3734,7 +3743,7 @@ export function ManagementTableBookingForm({
               </dl>
               {requiresGroupDeposit ? (
                 <p className="mt-3 text-xs text-ink-muted">
-                  {LARGE_GROUP_DEPOSIT_POLICY_COPY}
+                  {groupDepositNote}
                 </p>
               ) : null}
             </div>

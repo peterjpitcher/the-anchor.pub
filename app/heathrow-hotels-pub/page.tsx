@@ -198,7 +198,7 @@ export default async function HeathrowHotelsPubPage() {
                   </li>
                 </ul>
 	                <p className="mt-4 text-sm text-ink-muted">
-	                  £10-15 taxi fare or easy drive with free parking
+	                  A short taxi ride or an easy drive, with free parking
 	                </p>
               </div>
 
@@ -235,7 +235,7 @@ export default async function HeathrowHotelsPubPage() {
                   </li>
                 </ul>
 	                <p className="mt-4 text-sm text-ink-muted">
-	                  £12-18 taxi fare - worth every penny for the savings!
+	                  A short taxi ride away
 	                </p>
               </div>
             </div>
@@ -402,7 +402,7 @@ export default async function HeathrowHotelsPubPage() {
 	              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
 	                <h3 className="font-display text-h4 text-ink-strong mb-3"> By Taxi</h3>
 	                <ul className="space-y-2 text-ink-muted">
-	                  <li>• £10-15 from most hotels</li>
+	                  <li>• 7-12 minutes from most hotels</li>
 	                  <li>• 7-12 minute journey</li>
 	                  <li>• Ask for "The Anchor - Heathrow Pub & Dining"</li>
 	                  <li>• Return taxi easily arranged</li>
@@ -589,7 +589,7 @@ export default async function HeathrowHotelsPubPage() {
         faqs={[
 	          {
 	            question: "How far is The Anchor from Heathrow hotels?",
-	            answer: "We're just 7-12 minutes by car from most Heathrow hotels. Terminal 5 hotels like Premier Inn and Sofitel are closest (7-8 mins), while Bath Road hotels take about 10-12 minutes. A taxi costs £10-15 each way."
+	            answer: "We're just 7-12 minutes by car from most Heathrow hotels. Terminal 5 hotels like Premier Inn and Sofitel are closest (7-8 mins), while Bath Road hotels take about 10-12 minutes."
 	          },
           {
             question: "Is it worth leaving my hotel to eat at The Anchor?",
@@ -605,7 +605,7 @@ export default async function HeathrowHotelsPubPage() {
           },
 	          {
 	            question: "What's the best way to get to The Anchor from my hotel?",
-	            answer: "Most guests take a taxi (£10-15, 7-12 minutes). If you have a rental car, we have free parking. Some hotels are on the 442 bus route which stops near us. The hotel concierge can arrange transport - just ask for 'The Anchor in Stanwell Moor, TW19 6AQ'."
+	            answer: "Most guests take a taxi (7-12 minutes). If you have a rental car, we have free parking. Some hotels are on the 442 bus route which stops near us. The hotel concierge can arrange transport - just ask for 'The Anchor in Stanwell Moor, TW19 6AQ'."
 	          },
           {
             question: "Are you open early/late for travellers?",

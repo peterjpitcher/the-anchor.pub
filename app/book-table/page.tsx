@@ -14,6 +14,7 @@ import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncemen
 import { Section, Button, Grid, Card, CardBody, SectionHeading, Badge } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
+import { GROUP_DEPOSIT_REFUND_WORDING, GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { isWebsiteUiFlagEnabled } from '@/lib/flags'
@@ -209,7 +210,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           <div className="order-1">
             <div className="mb-4 space-y-3">
               <LaunchAnnouncement variant="banner" />
-              <RegretReduction variant="booking" />
+              <RegretReduction variant="table" />
             </div>
             <ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} fixtureContext={fixtureContext} fixtureMessage={fixtureMessage} />
             <p className="mx-auto mt-4 text-center text-sm text-ink-muted">
@@ -459,7 +460,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'Is there a deposit required?',
-            answer: 'A £10 per person deposit is required for groups of 15 or more. This is fully deductible from your final bill on the day. No deposit required for smaller groups.'
+            answer: `${GROUP_DEPOSIT_WORDING} ${GROUP_DEPOSIT_REFUND_WORDING} There's no deposit for tables of 14 or fewer.`
           },
           {
             question: 'Can I book for a special occasion?',

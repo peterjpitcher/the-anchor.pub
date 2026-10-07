@@ -138,7 +138,7 @@ Look for venues with free on-site parking, level, well-lit, and close to the ent
 
 Retirement party budgets vary enormously. Some companies allocate thousands. Some teams pass a hat round. The venue shouldn't punish you either way.
 
-Watch out for room hire charges on top of food and drink spend. The fairest model is a quote-on-enquiry arrangement, your food and drink count towards the total, there's no separate hire fee, and you know exactly what you're committing to upfront.
+Ask what room hire costs on top of food and drink, so you know exactly what you're committing to upfront. At The Anchor, room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire).
 
 ## Hosting a retirement party at The Anchor
 

@@ -129,7 +129,7 @@ Wakes are often arranged within a week or two. Good venues are used to this. Her
 2. **Give a rough guest count, not an exact one.** Nobody expects precision. "Somewhere between 30 and 50" is perfectly fine.
 3. **Ask for a simple menu.** The simpler the catering, the easier it is for the venue to accommodate at short notice.
 4. **Confirm a point of contact.** Let the venue know who they should call with questions -- and make sure it's someone who's able to take calls during the planning period.
-5. **Don't worry about deposits.** Many venues, including The Anchor, don't require a deposit for wake bookings. They understand the circumstances.
+5. **Ask about the deposit.** At The Anchor: A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 
 ## Practical Planning Tips
 

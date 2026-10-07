@@ -73,7 +73,7 @@ export default function Terminal5Page() {
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
 	              <div className="flex items-start gap-2">
 	                <span className="font-semibold text-accent-text"></span>
-	                <span>7 minute taxi or Uber (£20-25 fixed fare) from BA arrivals</span>
+	                <span>7 minute taxi or Uber from BA arrivals</span>
 	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
@@ -264,8 +264,8 @@ export default function Terminal5Page() {
                 <h3 className="font-display text-h3 text-ink-strong mb-4">By Taxi/Uber</h3>
                 <div className="space-y-4 text-ink-muted">
 	                  <div className="bg-surface-sunk p-4 rounded-sm border border-line">
-	                    <p className="font-semibold text-lg text-anchor-success mb-1">£20-25 fixed fare</p>
-	                    <p className="text-sm text-ink-muted">7 minutes • 2.8 miles</p>
+	                    <p className="font-semibold text-lg text-anchor-success mb-1">7 minutes</p>
+	                    <p className="text-sm text-ink-muted">2.8 miles</p>
 	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Tell your driver:</p>
@@ -520,14 +520,12 @@ export default function Terminal5Page() {
               <div className="grid md:grid-cols-3 gap-6">
 	                <div className="text-center">
 	                  <p className="font-semibold mb-2">By Taxi</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">£12-15</p>
-	                  <p className="text-sm text-ink-muted">5-8 minutes</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">5-8 minutes</p>
 	                  <p className="text-sm text-ink-muted mt-2">Ask for "The Anchor, Stanwell Moor"</p>
 	                </div>
 	                <div className="text-center">
 	                  <p className="font-semibold mb-2">By Uber</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">£10-13</p>
-	                  <p className="text-sm text-ink-muted">5-8 minutes</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">5-8 minutes</p>
 	                  <p className="text-sm text-ink-muted mt-2">Postcode: TW19 6AQ</p>
 	                </div>
                 <div className="text-center">
@@ -601,7 +599,7 @@ export default function Terminal5Page() {
           },
 	          {
 	            question: "Can I get a taxi from Terminal 5 to The Anchor?",
-	            answer: "Yes, taxis are readily available from Terminal 5. The journey costs £20-25 and takes about 7 minutes. Tell your driver 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'. Alternatively, take bus route 442 which stops directly outside the pub - it runs every 20 minutes and costs about what a pint should cost."
+	            answer: "Yes, taxis are readily available from Terminal 5. The journey takes about 7 minutes. Tell your driver 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'. Alternatively, take bus route 442 which stops directly outside the pub - it runs every 20 minutes and costs about what a pint should cost."
 	          },
           {
             question: "What time should I leave The Anchor to catch my flight from T5?",
@@ -621,7 +619,7 @@ export default function Terminal5Page() {
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 5 hotel?",
-	            answer: "From Sofitel or Hilton T5, it's just £12-15 by taxi (5-8 minutes). Tell the driver 'The Anchor, Stanwell Moor'. Uber costs about £10-13. For the adventurous, it's a pleasant 25-30 minute walk via Stanwell Moor Road."
+	            answer: "From Sofitel or Hilton T5, it's just 5-8 minutes by taxi or Uber. Tell the driver 'The Anchor, Stanwell Moor'. For the adventurous, it's a pleasant 25-30 minute walk via Stanwell Moor Road."
 	          },
           {
             question: "Why should I leave my hotel to eat at The Anchor?",
@@ -758,7 +756,7 @@ export default function Terminal5Page() {
 	                {
 	                  "@type": "Vehicle",
 	                  "name": "Taxi",
-	                  "description": "£20-25 fixed fare, 7 minutes"
+	                  "description": "7 minutes"
 	                },
 	                {
 	                  "@type": "Vehicle",

@@ -100,7 +100,7 @@ const TIER_DEFINITIONS: Array<{
   // price points a guest picks for themselves, not tiers the table commits to.
   // One course needs no pre-order and is the only
   // price point with a kids portion. 2 and 3 course are adults only as a priced
-  // point, and priced differently Tue-Thu versus Fri-Sat.
+  // point, and priced differently Tue-Thu versus Fri-Sun.
   {
     id: 'one_course',
     name: '1 course',

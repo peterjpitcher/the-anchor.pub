@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 
-type RegretVariant = 'booking' | 'enquiry'
+type RegretVariant = 'booking' | 'table' | 'enquiry'
 
 interface RegretReductionProps {
   variant?: RegretVariant
@@ -9,12 +9,20 @@ interface RegretReductionProps {
 
 const LABELS: Record<RegretVariant, string> = {
   booking: 'Booking reassurances',
+  table: 'Booking reassurances',
   enquiry: 'Enquiry reassurances',
 }
 
 const SIGNALS: Record<RegretVariant, Array<{ text: string }>> = {
   booking: [
     { text: 'Free to cancel' },
+    { text: 'Free parking on site' },
+    { text: 'Confirmation in seconds' },
+  ],
+  // Book a Table only. "Free to cancel" is true of a game night, where entry is
+  // paid on the night, and false of a group deposit cancelled inside seven days.
+  table: [
+    { text: 'No deposit for tables of 14 or fewer' },
     { text: 'Free parking on site' },
     { text: 'Confirmation in seconds' },
   ],

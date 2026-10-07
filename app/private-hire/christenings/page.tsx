@@ -322,7 +322,7 @@ export default function ChristeningsPage() {
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
-                                All christening party pub packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with pricing discussed on enquiry. Call us on <strong className="text-accent-text">01753 682707</strong> for a quote tailored to your guest numbers.
+                                All christening party pub packages include dedicated staff, and parking is free. Room hire is charged by the hour for the space you book. Call us on <strong className="text-accent-text">01753 682707</strong> for a quote tailored to your guest numbers.
                             </p>
                         </CardBody></Card>
                     </div>

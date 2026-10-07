@@ -12,6 +12,7 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Engagement Party Venue Near Heathrow',
@@ -151,7 +152,7 @@ export default function EngagementPartiesPage() {
                                     <li><strong className="text-ink-strong">Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
                                     <li><strong className="text-ink-strong">7 minutes from Heathrow T5</strong>, handy if guests are flying in for the celebration.</li>
                                     <li><strong className="text-ink-strong">AV equipment:</strong> TVs and sound system available for slideshows or speeches.</li>
-                                    <li><strong className="text-ink-strong">Deposit:</strong> &pound;250 to secure your date, held separately from your bill and refunded after the event.</li>
+                                    <li><strong className="text-ink-strong">Deposit:</strong> {PRIVATE_HIRE_DEPOSIT_WORDING}</li>
                                     <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
                                 </ul>
                             </CardBody></Card>
@@ -266,7 +267,7 @@ export default function EngagementPartiesPage() {
                 faqs={[
                     {
                         question: "How much does an engagement party at The Anchor cost?",
-                        answer: "Room hire is charged by the hour for the space you use, with catering and drinks on top, so you only pay for what you order. Buffets and welcome drinks are priced per person, and a refundable £250 deposit is usual on private bookings, held separately from your bill. Use our pricing calculator on this page for an instant estimate, or call 01753 682707 for a personalised quote."
+                        answer: `Room hire is charged by the hour for the space you use, with catering and drinks on top, so you only pay for what you order. Buffets and welcome drinks are priced per person. ${PRIVATE_HIRE_DEPOSIT_WORDING} Use our pricing calculator on this page for an instant estimate, or call 01753 682707 for a personalised quote.`
                     },
                     {
                         question: "How many guests can you fit for an engagement party?",

@@ -73,7 +73,7 @@ export default function Terminal3Page() {
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
 	              <div className="flex items-start gap-2">
 	                <span className="font-semibold text-accent-text"></span>
-	                <span>11 minute taxi or Uber (£20-25) via Tunnel Road</span>
+	                <span>11 minute taxi or Uber via Tunnel Road</span>
 	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
@@ -262,7 +262,6 @@ export default function Terminal3Page() {
                 <h3 className="font-display text-h3 text-ink-strong mb-4">By Taxi</h3>
                 <div className="space-y-4 text-ink-muted">
 	                  <div>
-	                    <p className="font-semibold mb-2">Cost: £20-25</p>
 	                    <p className="text-sm mb-2">Journey time: 11 minutes</p>
 	                    <p className="text-sm mb-2">Distance: 4.5 miles</p>
 	                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
@@ -500,13 +499,13 @@ export default function Terminal3Page() {
 	              <div className="grid md:grid-cols-3 gap-6 text-center">
 	                <div>
 	                  <p className="font-semibold mb-2 text-ink-strong">By Taxi</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">£20-25</p>
-	                  <p className="text-sm text-ink-muted">11 minutes</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">11 minutes</p>
+	                  <p className="text-sm text-ink-muted">Ask for The Anchor, Stanwell Moor</p>
 	                </div>
 	                <div>
 	                  <p className="font-semibold mb-2 text-ink-strong">By Uber</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">£16-20</p>
-	                  <p className="text-sm text-ink-muted">11 minutes</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">11 minutes</p>
+	                  <p className="text-sm text-ink-muted">Postcode TW19 6AQ</p>
 	                </div>
 	                <div>
 	                  <p className="font-semibold mb-2 text-ink-strong">By Bus</p>
@@ -578,11 +577,11 @@ export default function Terminal3Page() {
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 3 hotel?",
-	            answer: "It's about £20-25 by taxi (11 minutes) or £16-20 by Uber. The 442 bus also stops near us for just £2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
+	            answer: "It's about 11 minutes by taxi or Uber. The 442 bus also stops near us for just £2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
 	          },
 	          {
 	            question: "Can I get a taxi from Terminal 3 to The Anchor?",
-	            answer: "Yes, taxis are readily available from Terminal 3. The journey costs £20-25 and takes about 11 minutes (4.5 miles). Taxi ranks are located at Terminal 3 Arrivals (Ground floor), Terminal 3 Departures drop-off, and the Central Bus Station shared with T2. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
+	            answer: "Yes, taxis are readily available from Terminal 3. The journey takes about 11 minutes (4.5 miles). Taxi ranks are located at Terminal 3 Arrivals (Ground floor), Terminal 3 Departures drop-off, and the Central Bus Station shared with T2. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
 	          },
           {
             question: "Is there a bus from Terminal 3 to The Anchor?",
