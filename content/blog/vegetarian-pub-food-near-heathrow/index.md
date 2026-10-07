@@ -1,6 +1,6 @@
 ---
 title: "Vegetarian & Vegan Pub Food Near Heathrow (2026 Guide)"
-description: "Where to find proper vegetarian and vegan pub food near Heathrow. Not just a sad salad, real meals from butternut squash wellington to loaded vegan burgers."
+description: "Where to find proper vegetarian and vegan pub food near Heathrow. Not just a sad salad, real meals from a vegan butternut squash wellington on Sundays to veggie burgers and pizzas."
 date: "2026-03-20"
 author: "The Anchor Team"
 keywords:
@@ -82,7 +82,7 @@ A few practical things worth knowing if you are eating out meat-free near Heathr
 
 ### Are there any fully vegetarian restaurants near Heathrow?
 
-There are no dedicated vegetarian restaurants in the immediate Heathrow area. Your best options are Indian restaurants in Staines or Hounslow, which have extensive meat-free menus, or pubs and chains with strong vegetarian sections. The Anchor has multiple veggie and vegan options across starters, mains, and pizzas.
+There are no dedicated vegetarian restaurants in the immediate Heathrow area. Your best options are Indian restaurants in Staines or Hounslow, which have extensive meat-free menus, or pubs and chains with strong vegetarian sections. The Anchor has vegetarian mains and pizzas, vegan sides and a vegan wellington on Sundays.
 
 ### Can I get a vegan Sunday roast near Heathrow?
 

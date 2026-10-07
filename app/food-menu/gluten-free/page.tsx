@@ -13,27 +13,31 @@ import { DietaryItemList } from '../_components/DietaryItemList'
 import {
   getGlutenFreeFishAndChipsNotice,
   getGlutenFreeMenuPageData,
-  getMenuUnavailableMessage,
-  type MenuPageItem
+  getMenuUnavailableMessage
 } from '@/lib/menu-page-data'
+import { NGCI_WORDING, ONE_KITCHEN_WORDING } from '@/lib/approved-wording'
+import {
+  NGCI_PIZZA_BASE_WORDING,
+  describeNgciDishCount,
+  joinNgciDishNames
+} from '@/lib/ngci-menu-copy'
 
 export const revalidate = 3600
 
-function joinItemNames(items: MenuPageItem[]): string {
-  const names = items.slice(0, 5).map((item) => item.name)
-  if (names.length === 0) return 'the current filtered options'
-  if (names.length === 1) return names[0]
-  return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
-}
-
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getGlutenFreeMenuPageData()
-  const filteredCount = data ? data.glutenFreeItems.length + data.glutenFreeOptionItems.length : 0
+  // Only the dishes the kitchen flags as NGCI are counted. Pizzas that can be
+  // made on an NGCI base on request are a different thing and are never added
+  // to this number.
+  const flaggedCount = data ? data.glutenFreeItems.length : 0
+  const hasPizzaBase = data ? data.glutenFreeOptionItems.length > 0 : false
+  const countPhrase = flaggedCount > 0 ? ` ${describeNgciDishCount(flaggedCount)}.` : ''
+  const pizzaPhrase = hasPizzaBase ? ' Pizzas on an NGCI base on request.' : ''
   // The metadata deliberately keeps the phrase "gluten free": it is what guests
   // search for, and the SSOT allows it on search-facing surfaces only. The
   // visible on-page label is NGCI, because we cannot make the regulated claim.
   const description = data
-    ? `NGCI pub food near Heathrow, our gluten free options from The Anchor's live menu. ${filteredCount} current dishes with allergen details. Free parking, 7 minutes from Terminal 5.`
+    ? `NGCI pub food near Heathrow, our gluten free options from The Anchor's live menu.${countPhrase}${pizzaPhrase} Free parking, 7 minutes from Terminal 5.`
     : 'NGCI pub food near Heathrow, our gluten free options at The Anchor. Current dishes from the latest kitchen menu.'
 
   return {
@@ -57,15 +61,19 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function GlutenFreeMenuPage() {
   const data = await getGlutenFreeMenuPageData()
-  const naturallyGf = data?.glutenFreeItems ?? []
-  const gfoItems = data?.glutenFreeOptionItems ?? []
-  const totalGfItems = naturallyGf.length + gfoItems.length
+  // Dishes the kitchen flags as NGCI in the management app. These are the only
+  // dishes this page counts or names.
+  const flaggedNgci = data?.glutenFreeItems ?? []
+  // Pizzas that can be made on an NGCI base on request. Said separately, and
+  // never named or counted as NGCI dishes.
+  const hasPizzaBase = (data?.glutenFreeOptionItems.length ?? 0) > 0
+  const pizzaSentence = hasPizzaBase ? ` ${NGCI_PIZZA_BASE_WORDING}` : ''
 
   const faqItems = [
     {
       question: 'Does The Anchor have gluten free options?',
       answer: data
-        ? `We list ${totalGfItems} current dishes as NGCI, meaning No Gluten Containing Ingredients. We do not call them gluten-free, because everything is prepared in one kitchen and we cannot guarantee zero cross-contamination. Please check with the team before ordering.`
+        ? `${flaggedNgci.length > 0 ? `Our kitchen flags ${describeNgciDishCount(flaggedNgci.length, 'short')} as NGCI. ` : ''}${NGCI_WORDING}${pizzaSentence} Please check with the team before ordering.`
         : getMenuUnavailableMessage(),
     },
     {
@@ -76,7 +84,7 @@ export default async function GlutenFreeMenuPage() {
     {
       question: 'What NGCI dishes are currently listed?',
       answer: data
-        ? `The current filtered list includes ${joinItemNames([...naturallyGf, ...gfoItems])}. Check the live menu sections for descriptions, prices and allergens.`
+        ? `${flaggedNgci.length > 0 ? `Our kitchen flags ${joinNgciDishNames(flaggedNgci)} as NGCI.` : 'Our kitchen does not flag any dish as NGCI right now.'}${pizzaSentence} ${ONE_KITCHEN_WORDING}`
         : getMenuUnavailableMessage(),
     },
     {
@@ -99,7 +107,7 @@ export default async function GlutenFreeMenuPage() {
         image="/images/food/weekday-2026/stone-baked-pizza.jpg"
         crumb="NGCI"
         title="NGCI Pub Food"
-        lead="No Gluten Containing Ingredients. Current dishes with allergen details from the latest kitchen menu."
+        lead="No Gluten Containing Ingredients. The dishes our kitchen flags as NGCI, from the live menu."
       />
 
       <section className="bg-canvas py-section-y">
@@ -107,13 +115,9 @@ export default async function GlutenFreeMenuPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="NGCI Pub Food at The Anchor"
-              lead="Current dishes with allergen details from the live menu."
+              lead="The dishes our kitchen flags as NGCI, from the live menu."
             />
-            <p className="text-ink-muted">
-              NGCI stands for No Gluten Containing Ingredients. We use it rather than
-              &ldquo;gluten-free&rdquo; because that is a regulated term, and every dish here is
-              prepared in one shared kitchen where we cannot guarantee zero cross-contamination.
-            </p>
+            <p className="text-ink-muted">{NGCI_WORDING}</p>
             <p className="mt-4 text-ink-muted">{getGlutenFreeFishAndChipsNotice()}</p>
           </div>
           <div className="mt-8">
@@ -125,25 +129,36 @@ export default async function GlutenFreeMenuPage() {
       <section className="bg-surface py-section-y">
         <div className="container">
           <SectionHeading
-            title="No Gluten Allergen Listed"
-            lead="These dishes have no gluten allergen listed in the live menu data. Please check with the team before ordering."
+            title="Dishes Our Kitchen Flags as NGCI"
+            lead="Please check with the team before ordering."
           />
-          {naturallyGf.length > 0 ? (
-            <DietaryItemList items={naturallyGf} />
+          {flaggedNgci.length > 0 ? (
+            <DietaryItemList items={flaggedNgci} />
           ) : (
-            <p className="text-center text-ink-muted">{getMenuUnavailableMessage()}</p>
+            <p className="text-center text-ink-muted">
+              {data ? 'Our kitchen does not flag any dish as NGCI right now. Please ask the bar team.' : getMenuUnavailableMessage()}
+            </p>
           )}
         </div>
       </section>
 
-      {gfoItems.length > 0 && (
+      {hasPizzaBase && (
         <section className="bg-canvas py-section-y">
           <div className="container">
-            <SectionHeading
-              title="Possible Changes on Request"
-              lead="These dishes may be changed on request. Please check with the team before ordering."
-            />
-            <DietaryItemList items={gfoItems} />
+            <div className="mx-auto text-center">
+              <SectionHeading
+                title="Pizzas on an NGCI Base"
+                lead={NGCI_PIZZA_BASE_WORDING}
+              />
+              <p className="text-ink-muted">
+                It is the base that changes, so ask the bar team about the toppings before you order. {ONE_KITCHEN_WORDING}
+              </p>
+              <p className="mt-4">
+                <Link href="/pizza-menu" className="font-semibold text-accent-text hover:underline">
+                  See the pizza menu
+                </Link>
+              </p>
+            </div>
           </div>
         </section>
       )}
@@ -253,7 +268,7 @@ export default async function GlutenFreeMenuPage() {
             '@type': 'Menu',
             '@id': 'https://www.the-anchor.pub/food-menu/gluten-free#menu',
             name: 'NGCI Menu at The Anchor',
-            description: 'Pub food with No Gluten Containing Ingredients and allergen details at The Anchor near Heathrow. Prepared in a shared kitchen, so zero cross-contamination cannot be guaranteed.',
+            description: `Pub food with No Gluten Containing Ingredients at The Anchor near Heathrow. ${ONE_KITCHEN_WORDING}`,
             url: 'https://www.the-anchor.pub/food-menu/gluten-free',
             isPartOf: { '@id': 'https://www.the-anchor.pub/#business' },
           }),

@@ -1,3 +1,4 @@
+import { ONE_KITCHEN_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Button, SectionHeading, Card, CardBody, Container } from '@/components/ui'
@@ -431,7 +432,7 @@ export default async function RestaurantsNearHeathrowPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Stone-Baked Pizzas</h3>
-                  <p className="text-ink-muted">Hand-stretched 12-inch bases, rich tomato sauce and generous toppings, made to order. NGCI bases available.</p>
+                  <p className="text-ink-muted">Hand-stretched 12-inch bases, rich tomato sauce and generous toppings, made to order. NGCI (No Gluten Containing Ingredients) bases available. {ONE_KITCHEN_WORDING}</p>
                 </CardBody>
               </Card>
               <Card accent hover>

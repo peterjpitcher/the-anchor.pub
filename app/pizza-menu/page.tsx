@@ -1,3 +1,6 @@
+import { getMenuItemAllergens } from '@/lib/menu-allergens'
+import { NGCI_PIZZA_BASE_WORDING } from '@/lib/ngci-menu-copy'
+import { ALLERGEN_UNKNOWN_WORDING, ONE_KITCHEN_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
@@ -56,6 +59,9 @@ export default async function PizzaMenuPage() {
   const pizzaItems = data?.pizzaItems ?? []
   const gfAvailable = pizzaItems.some((item) => item.glutenFreeAvailable)
   const veganOptions = pizzaItems.filter((item) => item.veganOptionAvailable)
+  // Only say allergens are listed on each pizza when every pizza has them.
+  const everyPizzaHasAllergens =
+    pizzaItems.length > 0 && pizzaItems.every((item) => getMenuItemAllergens(item).length > 0)
   // Same label as the search description, from the pizzas alone.
   const pizzaPriceFrom = data?.priceFromLabel
 
@@ -140,9 +146,15 @@ export default async function PizzaMenuPage() {
             <div className="space-y-6 text-left">
               <h2 className="text-h3 text-ink-strong">Dietary Notes</h2>
               <ul className="space-y-4 text-ink-muted">
-                <li>Allergens are listed on each pizza from the live menu data.</li>
-                <li>Vegan-option dishes are labelled from the menu data and should be requested at the bar.</li>
-                <li>Allergen guidance is available before you order.</li>
+                <li>
+                  {everyPizzaHasAllergens
+                    ? 'Allergens are listed on each pizza from the live menu data.'
+                    : `${ALLERGEN_UNKNOWN_WORDING}. Ask the bar team about allergens before you order.`}
+                </li>
+                {veganOptions.length > 0 && (
+                  <li>Vegan-option dishes are labelled from the menu data and should be requested at the bar.</li>
+                )}
+                {gfAvailable && <li>{NGCI_PIZZA_BASE_WORDING} {ONE_KITCHEN_WORDING}</li>}
               </ul>
             </div>
           </div>
@@ -173,7 +185,7 @@ export default async function PizzaMenuPage() {
           {
             question: 'Do you do gluten free bases?',
             answer: gfAvailable
-              ? 'We offer NGCI bases, meaning No Gluten Containing Ingredients. We do not call them gluten-free, because pizzas are prepared in one shared kitchen. Please ask at the bar when ordering and tell us about any allergies.'
+              ? `We offer NGCI bases, meaning No Gluten Containing Ingredients. We do not call them gluten-free. ${ONE_KITCHEN_WORDING} Please ask at the bar when ordering and tell us about any allergies.`
               : 'Please ask at the bar for the latest pizza allergen guidance.'
           },
           {

@@ -5,6 +5,7 @@ import { Card, CardBody } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import type { MenuData, MenuItem } from '@/lib/menu-parser'
 import {
+  classifyMenuItemForAllergens,
   formatMenuAllergenLabel,
   formatMenuAllergenLine,
   getMenuAllergenFilters,
@@ -20,23 +21,16 @@ const FILTERS: Array<{ value: DietaryFilter; label: string }> = [
   { value: 'vegan', label: 'Vegan' }
 ]
 
-function matchesFilter(item: MenuItem, filter: DietaryFilter, selectedAllergens: Set<AllergenFilter>): boolean {
+function matchesDietaryFilter(item: MenuItem, filter: DietaryFilter): boolean {
   switch (filter) {
-    case 'all':
-      break
     case 'vegetarian':
-      if (!item.vegetarian && !item.vegan) return false
-      break
+      return Boolean(item.vegetarian || item.vegan)
     case 'vegan':
-      if (!item.vegan && !item.veganOptionAvailable) return false
-      break
+      return Boolean(item.vegan || item.veganOptionAvailable)
+    case 'all':
     default:
-      break
+      return true
   }
-
-  if (selectedAllergens.size === 0) return true
-
-  return !getMenuItemAllergens(item).some(allergen => selectedAllergens.has(allergen))
 }
 
 function dietaryFlags(item: MenuItem): string[] {
@@ -86,16 +80,63 @@ export function FoodMenuSection({ menuData, showFilters = true, showAllergens = 
   const allergenFilters = useMemo(() => getMenuAllergenFilters(menuData), [menuData])
   const activeFilterCount = (filter === 'all' ? 0 : 1) + selectedAllergens.size
 
-  const groups = useMemo(() => {
-    return menuData.categories
+  // Once an allergen is chosen, a dish we hold no allergen details for is not
+  // left in the main list as if it had passed. It goes into its own group
+  // below, because an empty allergen list means unknown, not safe.
+  const { groups, unknownItems } = useMemo(() => {
+    const unknown: MenuItem[] = []
+    const shownGroups = menuData.categories
       .map(category => {
-        const items = category.sections
-          .flatMap(section => section.items)
-          .filter(item => matchesFilter(item, filter, selectedAllergens))
+        const items: MenuItem[] = []
+        for (const item of category.sections.flatMap(section => section.items)) {
+          if (!matchesDietaryFilter(item, filter)) continue
+          const outcome = classifyMenuItemForAllergens(item, selectedAllergens)
+          if (outcome === 'shown') items.push(item)
+          if (outcome === 'unknown') unknown.push(item)
+        }
         return { id: category.id, title: category.title, items }
       })
       .filter(group => group.items.length > 0)
+
+    return { groups: shownGroups, unknownItems: unknown }
   }, [menuData, filter, selectedAllergens])
+
+  const renderItem = (item: MenuItem, key: string) => {
+    const flags = dietaryFlags(item)
+    const allergens = getMenuItemAllergens(item)
+    return (
+      <li key={key} className="py-3">
+        <div className="min-w-0">
+          <p className="font-sans font-medium text-ink-strong">
+            {item.name}
+            {item.isNew && (
+              <span className="ml-2 inline-flex items-center rounded-pill bg-anchor-gold-dark px-2 py-0.5 align-middle font-sans text-xs font-bold uppercase tracking-wide text-white">
+                New
+              </span>
+            )}
+            {item.price && (
+              <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
+                {item.price}
+              </span>
+            )}
+            {flags.length > 0 && (
+              <span className="font-sans text-sm font-semibold text-accent-text">
+                {' '}&middot; {flags.join(', ')}
+              </span>
+            )}
+          </p>
+          {item.description && (
+            <p className="mt-1 text-sm text-ink-muted">{item.description}</p>
+          )}
+          {showAllergens && (
+            <p className="mt-2 text-xs text-ink-muted">
+              {formatMenuAllergenLine(allergens)}
+            </p>
+          )}
+        </div>
+      </li>
+    )
+  }
 
   return (
     <div className="mx-auto w-full">
@@ -170,58 +211,43 @@ export function FoodMenuSection({ menuData, showFilters = true, showAllergens = 
       )}
 
       {groups.length === 0 ? (
-        <p className="text-center text-ink-muted">
-          No dishes match that filter right now. Ask the bar team for the latest options.
+        <p className="text-center text-ink-muted" data-testid="menu-no-matches">
+          {unknownItems.length > 0
+            ? 'No dishes with allergen details match that filter right now.'
+            : 'No dishes match that filter right now. Ask the bar team for the latest options.'}
         </p>
       ) : (
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12" data-testid="menu-filtered-list">
           {groups.map(group => (
             <div key={group.id} id={group.id} className="scroll-mt-32">
               <h3 className="mb-5 font-display text-h3 text-ink-strong">{group.title}</h3>
               <Card accent>
                 <CardBody className="py-2">
                   <ul className="divide-y divide-line">
-                    {group.items.map((item, index) => {
-                      const flags = dietaryFlags(item)
-                      const allergens = getMenuItemAllergens(item)
-                      return (
-                        <li key={`${group.id}-${item.name}-${index}`} className="py-3">
-                          <div className="min-w-0">
-                            <p className="font-sans font-medium text-ink-strong">
-                              {item.name}
-                              {item.isNew && (
-                                <span className="ml-2 inline-flex items-center rounded-pill bg-anchor-gold-dark px-2 py-0.5 align-middle font-sans text-xs font-bold uppercase tracking-wide text-white">
-                                  New
-                                </span>
-                              )}
-                              {item.price && (
-                                <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
-                                  {item.price}
-                                </span>
-                              )}
-                              {flags.length > 0 && (
-                                <span className="font-sans text-sm font-semibold text-accent-text">
-                                  {' '}&middot; {flags.join(', ')}
-                                </span>
-                              )}
-                            </p>
-                            {item.description && (
-                              <p className="mt-1 text-sm text-ink-muted">{item.description}</p>
-                            )}
-                            {showAllergens && (
-                              <p className="mt-2 text-xs text-ink-muted">
-                                {formatMenuAllergenLine(allergens)}
-                              </p>
-                            )}
-                          </div>
-                        </li>
-                      )
-                    })}
+                    {group.items.map((item, index) => renderItem(item, `${group.id}-${item.name}-${index}`))}
                   </ul>
                 </CardBody>
               </Card>
             </div>
           ))}
+        </div>
+      )}
+
+      {unknownItems.length > 0 && (
+        <div className="mt-12" data-testid="menu-allergens-unknown">
+          <h3 className="mb-3 font-display text-h3 text-ink-strong">
+            We don&apos;t hold allergen details for these dishes
+          </h3>
+          <p className="mb-5 text-ink-muted">
+            So we can&apos;t tell you they&apos;re free from what you&apos;ve chosen to hide. Ask the bar team before you order.
+          </p>
+          <Card accent>
+            <CardBody className="py-2">
+              <ul className="divide-y divide-line">
+                {unknownItems.map((item, index) => renderItem(item, `unknown-${item.name}-${index}`))}
+              </ul>
+            </CardBody>
+          </Card>
         </div>
       )}
     </div>

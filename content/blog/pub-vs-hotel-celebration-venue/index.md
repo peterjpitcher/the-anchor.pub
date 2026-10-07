@@ -179,7 +179,7 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 
 **The location:** Stanwell Moor, Surrey. 7 minutes from Heathrow Terminal 5. 2 minutes from M25 Junction 14. 8 minutes from Staines. Free parking for everyone.
 
-**The welcome:** Dogs, children, buggies, luggage, high chairs, dietary requirements, last-minute changes -- all handled. We've been doing this since 1751. Not much fazes us.
+**The welcome:** Dogs, children, buggies, luggage, high chairs, last-minute changes -- all handled. We've been doing this since 1751. Not much fazes us.
 
 ## Celebration Venue FAQ
 
@@ -189,7 +189,7 @@ For small formal events (business dinners, retirement presentations, intimate ce
 
 ### What about dietary requirements at a pub?
 
-We cater for vegetarian, vegan and dairy-free diets. NGCI dishes and pizza bases are available too, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. The vegan Sunday roast option (beetroot and butternut squash wellington) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
+There are vegetarian and vegan dishes. NGCI dishes and pizza bases are available too, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. The vegan Sunday roast option (beetroot and butternut squash wellington) is genuinely excellent. Tell us about any allergies or dietary needs when you book and we'll do our best.
 
 ### Is a pub appropriate for a wake?
 

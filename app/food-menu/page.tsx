@@ -1,3 +1,4 @@
+import { NGCI_WORDING } from '@/lib/approved-wording'
 import { Metadata } from 'next'
 import { Badge, Button } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -150,7 +151,7 @@ export default async function FoodMenuPage() {
     },
     {
       question: 'Where can I view your food menu or pub menu online?',
-      answer: 'You can view the full live food menu on this page. Use the filters for vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options, then book a table when you are ready.'
+      answer: 'You can view the full live food menu on this page. Use the Vegetarian and Vegan filters to narrow it down, then book a table when you are ready.'
     },
     {
       question: 'Do you serve Sunday roast at The Anchor?',
@@ -172,7 +173,7 @@ export default async function FoodMenuPage() {
     },
     {
       question: 'Do you cater for dietary requirements?',
-      answer: 'Yes. Use the live filters on this page for vegetarian, vegan and NGCI (No Gluten Containing Ingredients) options, and ask the bar team for allergen guidance before ordering.'
+      answer: `We have vegetarian and vegan dishes, and the Vegetarian and Vegan filters on this page show them. The dishes our kitchen flags as NGCI are on our NGCI menu page. ${NGCI_WORDING} Tell the bar team about any allergy before you order.`
     },
     {
       question: 'Can I book a table for food?',
@@ -243,6 +244,7 @@ export default async function FoodMenuPage() {
             title="Today at The Anchor"
             lead="Everything below is the kitchen's current food and kids menus. All dishes are prepared in a single kitchen where allergens are present, so please tell the bar team about any requirements before ordering."
           />
+          <p className="mx-auto mb-10 text-center text-sm text-ink-muted">{NGCI_WORDING}</p>
           {showChristmasLink && (
             <p className="mx-auto mb-10 text-center text-ink-muted">
               Booking a group over Christmas? Festive service runs {formatChristmasWindowLabel()} on a

@@ -1,3 +1,4 @@
+import { PRIVATE_HIRE_DIETARY_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import ssot from '@/SSOT.json'
 import { InteriorHero } from '@/components/hero'
@@ -535,7 +536,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "What are your corporate catering options?",
-            answer: "We offer everything from coffee mornings and light bites to buffet lunches and formal dinners. All menus can be customised to your requirements and dietary needs. We also provide drinks packages and bar tabs."
+            answer: "We offer everything from coffee mornings and light bites to buffet lunches and formal dinners. All menus can be customised to your requirements. " + PRIVATE_HIRE_DIETARY_WORDING + " We also provide drinks packages and bar tabs."
           },
           {
             question: "How does venue hire pricing work for corporate events?",
@@ -547,7 +548,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "Do you have experience with international business guests?",
-            answer: "Absolutely. Our proximity to Heathrow means we regularly host international teams. We understand the needs of global businesses and can accommodate different time zones, dietary requirements, and cultural preferences."
+            answer: "Absolutely. Our proximity to Heathrow means we regularly host international teams. We understand the needs of global businesses and can accommodate different time zones and cultural preferences."
           },
           {
             question: "Can we book regular corporate events?",

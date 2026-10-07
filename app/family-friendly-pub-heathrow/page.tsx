@@ -99,7 +99,7 @@ export default function FamilyFriendlyPage() {
                 faqs={[
                     {
                         question: "Do you have a kids menu?",
-                        answer: "Yes, we have a dedicated menu for children with favourites like sausage, mash and gravy, fish fingers and chips, chicken goujons and chips, and mac and cheese."
+                        answer: "Yes, we have a dedicated menu for children with favourites like sausage, mash and gravy, fish fingers and chips, and chicken goujons and chips."
                     },
                     {
                         question: "Are children allowed in the evening?",
