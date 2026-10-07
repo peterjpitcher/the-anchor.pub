@@ -14,8 +14,8 @@ describe('booking screens name the channel the message went by', () => {
     ['email', "We've sent confirmation details by email."],
     ['sms', "We've sent confirmation details by SMS."],
     ['whatsapp', "We've sent confirmation details by WhatsApp."],
-    [null, "We've sent confirmation details."],
-    [undefined, "We've sent confirmation details."],
+    [null, 'Your table is booked. Keep your reference safe.'],
+    [undefined, 'Your table is booked. Keep your reference safe.'],
   ] as const)('confirmation for %s', (channel, expected) => {
     expect(confirmationDeliveryCopy(channel)).toBe(expected)
   })

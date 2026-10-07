@@ -91,7 +91,11 @@ export function confirmationDeliveryCopy(
   if (channel === 'email') return "We've sent confirmation details by email."
   if (channel === 'whatsapp') return "We've sent confirmation details by WhatsApp."
   if (channel === 'sms') return "We've sent confirmation details by SMS."
-  return "We've sent confirmation details."
+  // No channel reported means the management app does not know that anything
+  // went out. Saying "We've sent confirmation details" then leaves a guest
+  // waiting for a message that is not coming, so say only what is true: the
+  // table is booked, and the reference on screen is their proof of it.
+  return 'Your table is booked. Keep your reference safe.'
 }
 
 /**
