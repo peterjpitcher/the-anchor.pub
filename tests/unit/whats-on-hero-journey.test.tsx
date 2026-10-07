@@ -16,7 +16,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { anchorAPI } from '@/lib/api/client'
 import { InteriorHero } from '@/components/hero'
 import { AmenityStrip } from '@/components/AmenityStrip'
-import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
+import { TournamentLinkInWindow } from '@/components/features/nations-championship/TournamentLinkInWindow'
 import { trackCtaClick } from '@/lib/gtm-events'
 
 jest.mock('@/lib/gtm-events', () => ({
@@ -85,7 +85,7 @@ describe('the running order', () => {
 
     const hero = indexOf((block) => block.type === InteriorHero)
     const upcoming = indexOf((block) => (block.props as { id?: string }).id === 'upcoming-events')
-    const rugby = indexOf((block) => block.type === TournamentLink)
+    const rugby = indexOf((block) => block.type === TournamentLinkInWindow)
     const amenities = indexOf((block) => block.type === AmenityStrip)
 
     expect(hero).toBeGreaterThanOrEqual(0)

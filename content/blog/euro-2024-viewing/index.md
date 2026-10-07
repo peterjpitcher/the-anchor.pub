@@ -2,8 +2,8 @@
 title: Watch Euro 2024 Near Heathrow | Live Football Pub Guide
 slug: euro-2024-viewing
 description: >-
-  Watch Euro 2024 and free-to-air football near Heathrow at The Anchor. Four HD
-  screens, lively atmosphere, free parking and full pub menu just seven minutes
+  Watch Euro 2024 and free-to-air football near Heathrow at The Anchor. Four TVs,
+  lively atmosphere, free parking and full pub menu just seven minutes
   from Terminal 5.
 date: '2024-06-26'
 oldUrl: >-
@@ -30,11 +30,11 @@ noindex: true
 
 ![Euro 2024 promotional image for The Anchor](/content/blog/euro-2024-viewing/hero.jpg)
 
-Looking for the best **sports pub near Heathrow**? The Anchor is your destination for watching the biggest terrestrial TV sporting events! With 4 HD screens, fantastic atmosphere, and just 7 minutes from Terminal 5, we're the perfect spot to catch BBC, ITV, Channel 4, and Channel 5 coverage. World Cup, Euros, Six Nations, Wimbledon, FA Cup finals and more!
+Looking for the best **sports pub near Heathrow**? The Anchor is your destination for watching the biggest terrestrial TV sporting events! With 4 TVs, fantastic atmosphere, and just 7 minutes from Terminal 5, we're the perfect spot to catch BBC, ITV, Channel 4, and Channel 5 coverage. World Cup, Euros, Six Nations, Wimbledon, FA Cup finals and more!
 
 ## Quick Summary
 
-- 4 HD screens with sound on for big fixtures, plus overflow seating in the bar and garden
+- 4 TVs with the commentary on for big games, plus overflow seating in the bar and garden
 - Free parking and seven minute taxi links to Terminal 5 hotel guests and airport crews
 - Kitchen open for match-day classics: pizzas, burgers, sharing platters and desserts
 - Booking strongly recommended for England knockout matches and quarter-finals
@@ -48,12 +48,12 @@ Looking for the best **sports pub near Heathrow**? The Anchor is your destinatio
 
 ## Your Local Sports Viewing Destination
 
-### Big Screens, Bigger Atmosphere
+### 4 TVs, Big Atmosphere
 
 At The Anchor, our **sports viewing experience near Heathrow Airport** includes:
 
 **Premium Setup:**
-- **Multiple HD screens** throughout the pub
+- **4 TVs**
 - **Excellent sound system** for full match atmosphere
 - **Strategic seating** - everyone gets a great view
 - **Dedicated sports areas** for serious fans
@@ -83,7 +83,7 @@ Our **sports pub near Heathrow** covers every free-to-air fixture we can tune in
 
 **Other Sports:**
 - Cricket highlights on BBC and major ICC finals on free-to-air
-- Formula 1 British Grand Prix & highlights on Channel 4
+- Formula 1, only when it's on BBC, ITV or Channel 4
 - Major boxing nights broadcast on terrestrial TV
 - Wimbledon & Queen's coverage
 - The Open Championship on free-to-air
@@ -216,7 +216,7 @@ Experience the buzz of:
 - FA Cup and Carabao Cup fixtures on terrestrial TV
 - International finals and qualifiers
 - Wimbledon fortnight and finals weekend
-- British Grand Prix action on Channel 4
+- Formula 1, only when it's on BBC, ITV or Channel 4
 
 **Match Night Atmosphere:**
 - Mixed fan zones

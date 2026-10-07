@@ -1,4 +1,5 @@
-import { TournamentLink } from '@/components/features/nations-championship/TournamentLink'
+import { TournamentLinkInWindow } from '@/components/features/nations-championship/TournamentLinkInWindow'
+import { isNationsChampionshipPromoOpen } from '@/lib/nations-championship/promo-window'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Alert, Badge, Button, Card, Container, SectionHeading } from '@/components/ui'
@@ -348,7 +349,7 @@ export default async function WhatsOnPage() {
         </Container>
       </section>
 
-      <TournamentLink />
+      <TournamentLinkInWindow initiallyOpen={isNationsChampionshipPromoOpen()} />
 
       {/* 3. AmenityStrip (§7.3.2) */}
       <AmenityStrip/>
