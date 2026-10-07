@@ -12,6 +12,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { ACCESS_WORDING } from '@/lib/approved-wording'
 
 // This page is year-neutral on purpose (7 October 2026). It used to advertise
 // the 2026 tournament: a dated title and hero, the 2026 fixture list, and Event
@@ -55,7 +56,6 @@ const SPORT_WORDING = "We show live sport on BBC, ITV and Channel 4. We don't ha
 const PARKING_WORDING = "We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register."
 const DOGS_WORDING = "Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting."
 const FAMILIES_WORDING = "High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities."
-const ACCESS_WORDING = `Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on ${CONTACT.phone} and we'll help.`
 const GROUP_DEPOSIT_WORDING = 'Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.'
 
 const features = [

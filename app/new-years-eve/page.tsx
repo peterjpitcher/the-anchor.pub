@@ -139,7 +139,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               Why The Anchor for New Year&apos;s Eve
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
-              No &pound;80 taxi home. No surge pricing. No spending half the night in a queue. Just a village pub
+              No long taxi home. No surge pricing. No spending half the night in a queue. Just a village pub
               that knows how to throw a party, with 20 free parking spaces right outside for whoever&apos;s
               driving.
             </p>

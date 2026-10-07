@@ -3,6 +3,7 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { useState } from 'react'
 import type { BookingAttributionPayload } from '@/lib/booking-attribution'
+import { EVENT_TICKET_REFUND_WORDING } from '@/lib/approved-wording'
 
 export interface EventPaymentConversionPayload {
   eventId: string
@@ -178,6 +179,7 @@ export function PayPalEventPaymentSection({
             </div>
           ) : null}
           <p className="mt-2 text-ink-muted">Pay with PayPal to confirm your booking.</p>
+          <p className="mt-2 text-xs text-ink-muted">{EVENT_TICKET_REFUND_WORDING}</p>
         </div>
 
         {paymentState === 'error' ? (

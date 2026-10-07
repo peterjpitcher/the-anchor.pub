@@ -30,6 +30,7 @@ import {
 } from '@/lib/api'
 import Link from 'next/link'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { ACCESS_WORDING } from '@/lib/approved-wording'
 
 /**
  * Title carries both measured clusters for this page: "music bingo near me" and
@@ -443,7 +444,7 @@ export default async function MusicBingoPage() {
               <ul className="space-y-3 text-sm text-ink-muted">
                 <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
                 <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
-                <li><strong>Accessibility:</strong> step-free bar and dining areas, flexible seating, and no accessible toilet.</li>
+                <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                 <DirectionsLink

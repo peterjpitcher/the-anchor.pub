@@ -231,7 +231,7 @@ export default function GenderRevealPage() {
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
-                                All gender reveal venue packages include use of a reserved area, free parking, and help from our team with setup and coordination. Call us on <strong className="text-accent-text">01753 682707</strong> for a quote.
+                                All gender reveal venue packages include help from our team with setup and coordination, and parking is free. Room hire is charged by the hour for the space you book. Call us on <strong className="text-accent-text">01753 682707</strong> for a quote.
                             </p>
                         </CardBody></Card>
                     </div>

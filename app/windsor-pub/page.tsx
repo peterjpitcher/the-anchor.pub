@@ -414,7 +414,7 @@ export default function WindsorPubPage() {
                 If you&rsquo;re looking for pubs near Windsor, you know the drill: fight for a parking space in River Street or King Edward VII car park, pay through the nose, then squeeze into a packed High Street pub where half the crowd are day-trippers clutching castle guidebooks. There&rsquo;s nothing wrong with the tourist pubs, they serve their purpose, but sometimes you want somewhere that feels like <em>yours</em>.
               </p>
               <p>
-                That&rsquo;s the drive that brings Windsor residents our way. The quickest route is straight down the A308 through Datchet, picking up Horton Road past Wraysbury, about 20 minutes of easy, mostly single-carriageway driving with barely a traffic light in sight. If you&rsquo;d rather use the motorway, the M25 from Junction 13 or 14 drops you practically on our doorstep. Either way, you swap Windsor&rsquo;s parking charges (easily three or four quid an hour) for 20 free spaces right outside the door.
+                That&rsquo;s the drive that brings Windsor residents our way. The quickest route is straight down the A308 through Datchet, picking up Horton Road past Wraysbury, about 20 minutes of easy, mostly single-carriageway driving with barely a traffic light in sight. If you&rsquo;d rather use the motorway, the M25 from Junction 13 or 14 drops you practically on our doorstep. Either way, you swap Windsor&rsquo;s parking charges for 20 free spaces right outside the door.
               </p>
               <p>
                 We get a lot of Windsor Great Park walkers who have spent the morning on the Long Walk or around Virginia Water and want a proper pub lunch without heading back into town. Castle staff pop in after their shifts too, they&rsquo;ve told us they prefer somewhere they won&rsquo;t bump into visitors from work. And if you&rsquo;ve just done the Theatre Royal or a Windsor Racecourse meeting, we&rsquo;re a brilliant pit-stop on the way home, quieter, cheaper, and you can actually hear your mates talk.
@@ -462,7 +462,7 @@ export default function WindsorPubPage() {
           },
           {
             question: "Is there parking at The Anchor for Windsor visitors?",
-            answer: "Yes! We have 20 free parking spaces with no time restrictions. This is a huge advantage over Windsor where parking can cost £3-4 per hour. You can relax and enjoy your visit without watching the clock."
+            answer: "Yes! We have 20 free parking spaces with no time restrictions. You can relax and enjoy your visit without watching the clock."
           },
           {
             question: "What's the best route from Windsor to avoid traffic?",

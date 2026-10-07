@@ -11,6 +11,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Family Friendly Pub Near Heathrow | Kids Menu & Garden',
@@ -63,7 +64,7 @@ export default function FamilyDiningPage() {
                         { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
                         { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
                         { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
-                        { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true }
+                        ...ACCESS_AMENITY_FEATURES,
                     ],
                     "servesCuisine": ["British", "Pub Food", "Pizza"],
                     "acceptsReservations": true,

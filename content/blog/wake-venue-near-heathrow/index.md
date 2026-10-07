@@ -129,7 +129,7 @@ Wakes are often arranged within a week or two. Good venues are used to this. Her
 2. **Give a rough guest count, not an exact one.** Nobody expects precision. "Somewhere between 30 and 50" is perfectly fine.
 3. **Ask for a simple menu.** The simpler the catering, the easier it is for the venue to accommodate at short notice.
 4. **Confirm a point of contact.** Let the venue know who they should call with questions -- and make sure it's someone who's able to take calls during the planning period.
-5. **Don't worry about deposits.** Many venues, including The Anchor, don't require a deposit for wake bookings. They understand the circumstances.
+5. **Ask about the deposit.** At The Anchor: A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 
 ## Practical Planning Tips
 
@@ -169,7 +169,9 @@ Absolutely. The Anchor is just seven minutes from Heathrow Terminal 5, and well 
 
 ### Is The Anchor accessible for elderly guests?
 
-Yes. The venue is entirely on the ground floor, including the private hire area and all facilities. There is no step at the main entrance. We also have 20 free parking spaces on site, so guests can park close to the door.
+Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on 01753 682707 and we'll help.
+
+We also have 20 free parking spaces on site, so guests can park close to the door.
 
 ---
 

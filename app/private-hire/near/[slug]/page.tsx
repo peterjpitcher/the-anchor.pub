@@ -18,6 +18,7 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
 
 // Generate static params for all landmarks at build time
 export async function generateStaticParams() {
@@ -717,7 +718,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
         amenityFeature: [
             { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
             { '@type': 'LocationFeatureSpecification', name: 'Private Dining Room', value: true },
-            { '@type': 'LocationFeatureSpecification', name: 'Step-free access to most areas', value: true },
+            ...ACCESS_AMENITY_FEATURES,
             { '@type': 'LocationFeatureSpecification', name: 'Catering', value: true },
             { '@type': 'LocationFeatureSpecification', name: 'Dog friendly', value: true },
         ],

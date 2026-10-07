@@ -3,7 +3,7 @@ title: "60th Birthday Party Ideas and Venues Near Heathrow"
 slug: 60th-birthday-party-ideas-venues
 date: "2026-04-12"
 publishDate: "2026-04-12"
-description: "Celebrating a 60th birthday? Relaxed party ideas and accessible venues near Heathrow for a memorable milestone."
+description: "Celebrating a 60th birthday? Relaxed party ideas and venues near Heathrow for a memorable milestone."
 author: "The Anchor Team"
 keywords:
   - 60th birthday party ideas
@@ -191,9 +191,9 @@ Three formats that suit a 60th, cheapest first:
 
 **The evening celebration.** Premium buffet, welcome prosecco, a bar tab with a limit you set, and a photo timeline.
 
-Free parking, the private space, the sound system and a dedicated events coordinator come as part of it in every case.
+Free parking, the sound system and a dedicated events coordinator come as part of it in every case. Room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire).
 
-Every option includes free parking, a private space, AV equipment, a dedicated events coordinator, and free WiFi. No hidden charges. No car park surcharges. No "plus VAT" surprises.
+Every option includes free parking, AV equipment, a dedicated events coordinator, and free WiFi. Room hire is charged by the hour for the space you book.
 
 ## Frequently asked questions about 60th birthday parties
 

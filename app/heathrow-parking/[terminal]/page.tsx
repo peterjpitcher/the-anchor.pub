@@ -11,34 +11,31 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
+import { PARKING_REFUND_WORDING } from '@/lib/approved-wording'
 
 const TERMINAL_PAGES = {
   'terminal-2': {
     number: '2',
     transferTime: '10-12 minutes',
     routeHint: 'via Stanwell Moor Road (A3044)',
-    taxiRange: '£20-25',
     airportIntent: 'Terminal 2 long-stay and short-stay options'
   },
   'terminal-3': {
     number: '3',
     transferTime: '10-12 minutes',
     routeHint: 'via Stanwell Moor Road and Tunnel Road',
-    taxiRange: '£20-25',
     airportIntent: 'Terminal 3 long-stay, short-stay and postcode lookups'
   },
   'terminal-4': {
     number: '4',
     transferTime: '10-12 minutes',
     routeHint: 'via Stanwell Moor Road (A3044)',
-    taxiRange: '£22-27',
     airportIntent: 'Terminal 4 overnight and long-term parking'
   },
   'terminal-5': {
     number: '5',
     transferTime: '7 minutes',
     routeHint: 'via Stanwell Moor Road (A3044)',
-    taxiRange: '£18-24',
     airportIntent: 'Terminal 5 cheap parking and short-stay alternatives'
   }
 } as const
@@ -66,8 +63,8 @@ export function generateMetadata({ params }: { params: { terminal: string } }): 
 
   const terminal = TERMINAL_PAGES[params.terminal]
   const canonical = `/heathrow-parking/${params.terminal}`
-  const title = `Cheap Heathrow Terminal ${terminal.number} Parking from £15/day`
-  const description = `Compare cheap Heathrow Terminal ${terminal.number} parking options. The Anchor in Stanwell Moor is ${terminal.transferTime} away with key-retention parking from £15 per day.`
+  const title = `Cheap Heathrow Terminal ${terminal.number} Parking`
+  const description = `Compare cheap Heathrow Terminal ${terminal.number} parking options. The Anchor in Stanwell Moor is ${terminal.transferTime} away, and you keep your keys.`
 
   return {
     title,
@@ -101,11 +98,11 @@ function buildFaqs(terminalNumber: string) {
     },
     {
       question: `How much does Terminal ${terminalNumber} parking cost at The Anchor?`,
-      answer: 'Rates start from £5 per hour, £15 per day and £75 per week. You keep your keys, park in a CCTV-monitored area, and arrange your own taxi or rideshare transfer.'
+      answer: 'Our hourly, daily and weekly prices are on our Heathrow parking page, read live from our booking system. You keep your keys, park in a CCTV-monitored area, and arrange your own taxi or rideshare transfer.'
     },
     {
       question: `Can I amend or cancel my Terminal ${terminalNumber} parking booking?`,
-      answer: 'Yes. You can amend or cancel up to 24 hours before arrival for a full refund. If your flight changes close to departure, call 01753 682707 and we will try to help.'
+      answer: `Yes. ${PARKING_REFUND_WORDING} If your flight changes close to departure, call 01753 682707 and we will try to help.`
     }
   ]
 }
@@ -133,7 +130,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
       <InteriorHero
         image="/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg"
         crumb="Heathrow Parking"
-        title={`Cheap Heathrow Terminal ${terminalNumber} Parking from £15/day`}
+        title={`Cheap Heathrow Terminal ${terminalNumber} Parking`}
         lead={`Compare Terminal ${terminalNumber} parking costs and book a cheaper off-airport option in Stanwell Moor. Typical transfer: ${terminal.transferTime} (${terminal.routeHint}).`}
         badges={
           <>
@@ -173,8 +170,10 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
               </Card>
               <Card accent>
                 <CardBody className="p-6">
-                  <h3 className="text-lg font-semibold text-ink-strong">Typical taxi fare</h3>
-                  <p className="mt-2 text-sm text-ink-muted">{terminal.taxiRange} depending on traffic and time of day.</p>
+                  <h3 className="text-lg font-semibold text-ink-strong">Today&apos;s prices</h3>
+                  <p className="mt-2 text-sm text-ink-muted">
+                    On our <Link href="/heathrow-parking" className="text-accent-text underline">Heathrow parking page</Link>, read live from our booking system.
+                  </p>
                 </CardBody>
               </Card>
               <Card accent>
@@ -199,7 +198,8 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
                 <p className="mt-3 text-ink-muted">
                   If you are comparing official Heathrow short-stay and long-stay options, always use Heathrow Airport&apos;s
                   live parking pages for the latest official postcodes and routing. If you want a cheaper off-airport option,
-                  The Anchor postcode is <strong>TW19 6AQ</strong> with online booking from <strong>£15/day</strong>.
+                  The Anchor postcode is <strong>TW19 6AQ</strong>, and today&apos;s prices are on our{' '}
+                  <Link href="/heathrow-parking" className="text-accent-text underline">Heathrow parking page</Link>.
                 </p>
                 <p className="mt-3 text-sm text-ink-muted">
                   Heathrow now describes Short Stay as Terminal Parking and Long Stay as Park &amp; Ride on its official parking pages.

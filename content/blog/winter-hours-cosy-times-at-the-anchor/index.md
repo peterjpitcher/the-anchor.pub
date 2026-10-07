@@ -81,7 +81,7 @@ Looking for a **warm winter retreat near Heathrow Airport**? The Anchor in **Sta
 - Free on-site parking (no cold walks!)
 - Well-lit entrance and car park
 - Covered smoking area
-- Wheelchair accessible throughout
+- Step free from the car park. One step from the bar, with a ramp on request. We don't have an accessible toilet.
 
 ### Contact Us About Winter Hours
 

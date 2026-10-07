@@ -206,7 +206,7 @@ Three shapes most 30ths take, cheapest first:
 
 **Push the boat out.** Indoor BBQ, welcome prosecco, a bigger bar tab, and a photo wall.
 
-Whichever you pick, free parking for every guest, a private space, the sound system and a dedicated events coordinator are all part of it rather than line items on top.
+Whichever you pick, free parking for every guest, the sound system and a dedicated events coordinator are all part of it. Room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire).
 
 ## Frequently asked questions about 30th birthday parties
 
@@ -232,7 +232,7 @@ It varies. At The Anchor, [private hire](/private-hire) accommodates 10+ to 150 
 
 **Do I need to pay a deposit?**
 
-Most venues require a deposit to secure your date. At The Anchor, it's £250, and you'll confirm final numbers and food choices closer to the date. The quote-on-enquiry model means you're not paying for an empty room, every pound goes toward food and drinks.
+Most venues require a deposit to secure your date. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions. You'll confirm final numbers and food choices closer to the date. Room hire is charged by the hour, on top of your food and drinks.
 
 ---
 

@@ -6,6 +6,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { InteriorHero } from '@/components/hero'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
+import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING } from '@/lib/approved-wording'
 import {
   STATIC_BAR_HOURS_SUMMARY,
   STATIC_HOURS_REVIEW_NOTE,
@@ -43,7 +44,7 @@ const primaryFacts = [
   ['Parking', `${PARKING.capacity} free on-site customer parking spaces.`],
   ['Dog policy', 'Dogs are welcome inside the pub and in the beer garden.'],
   ['Family policy', 'Families are welcome for food, Sunday roast, private hire and hosted events.'],
-  ['Accessibility', 'Step-free access is available to most areas. There is currently no accessible toilet.'],
+  ['Accessibility', ACCESS_WORDING],
   ['Private hire capacity', `${PRIVATE_HIRE_CAPACITY_SUMMARY}. Larger events are by enquiry.`],
   ['Hosted event types', 'Quiz nights, Music Bingo, Cash Bingo, karaoke when listed, and terrestrial live sport.'],
   ['Areas served', 'Stanwell Moor, Staines, Heathrow, Ashford, Colnbrook, Bedfont and nearby Surrey villages.'],
@@ -109,7 +110,7 @@ const factsSchema = {
         { '@type': 'LocationFeatureSpecification', name: 'Free customer parking', value: true },
         { '@type': 'LocationFeatureSpecification', name: 'Dog friendly', value: true },
         { '@type': 'LocationFeatureSpecification', name: 'Beer garden', value: true },
-        { '@type': 'LocationFeatureSpecification', name: 'Step-free access to most areas', value: true },
+        ...ACCESS_AMENITY_FEATURES,
       ],
     },
   ],

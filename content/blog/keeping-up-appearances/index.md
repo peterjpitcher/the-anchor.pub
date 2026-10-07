@@ -53,7 +53,6 @@ Our **renovated pub near Terminal 5** now offers:
 - Newly lined parking spaces
 - Better lighting for safety
 - Improved traffic flow
-- Designated disabled parking
 - Clear signage throughout
 - Space for larger groups
 
@@ -86,7 +85,6 @@ We've replaced the high fence with a charming white picket fence, creating:
 - First-class facilities
 - Modern comfort
 - Traditional charm maintained
-- Better accessibility
 - Photo-worthy exterior
 - Welcoming atmosphere
 

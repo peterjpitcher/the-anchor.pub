@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { LARGE_GROUP_DEPOSIT_THRESHOLD } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_POLICY_COPY, LARGE_GROUP_DEPOSIT_THRESHOLD } from '@/lib/constants'
 
 /**
  * The threshold moved from 10 to 15 on 2026-08-09, and seven customer-facing sentences
@@ -62,10 +62,9 @@ describe('no page still quotes the old deposit threshold', () => {
   })
 
   it('keeps the shared policy copy in step with the constant', () => {
-    const constants = fs.readFileSync(path.join(process.cwd(), 'lib/constants.ts'), 'utf8')
-    const copy = /LARGE_GROUP_DEPOSIT_POLICY_COPY =\s*\n?\s*"([^"]+)"/.exec(constants)?.[1]
-    expect(copy).toBeDefined()
-    expect(copy).toContain(`${LARGE_GROUP_DEPOSIT_THRESHOLD} or more`)
+    // The copy is now the approved SSOT section 16 sentence, held once in
+    // lib/approved-wording.ts and re-exported from lib/constants.ts.
+    expect(LARGE_GROUP_DEPOSIT_POLICY_COPY).toContain(`${LARGE_GROUP_DEPOSIT_THRESHOLD} or more`)
   })
 
   it('keeps the SSOT free of a contradicting threshold', () => {

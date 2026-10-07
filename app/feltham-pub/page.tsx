@@ -383,7 +383,7 @@ export default function FelthamPubPage() {
                 stone-baked pizza without fighting for a table.
               </p>
               <p>
-                Coming from Feltham station? A taxi takes about fifteen minutes and costs less than a tenner. For those
+                Coming from Feltham station? A taxi takes about fifteen minutes. For those
                 heading home after an England match at Twickenham, skip the crush around the rugby ground pubs, The
                 Anchor is roughly twenty minutes via the A316 and M3, even on a busy match day, with guaranteed free
                 parking at the other end. It is a much more relaxed way to keep the evening going.

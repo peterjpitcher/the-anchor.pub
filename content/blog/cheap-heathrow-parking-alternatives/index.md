@@ -116,7 +116,7 @@ If you are comparing costs by terminal, use these dedicated pages:
 4. On the day, park in The Anchor’s car park, keep your keys and head inside if you fancy refreshments.
 5. Arrange a taxi or rideshare to your terminal (7–12 minutes). The daytime 442 bus stops outside the pub.
 
-Need to change plans? Amend or cancel up to 24 hours beforehand for a full refund.
+Need to change plans? You can change or cancel your parking booking up to 24 hours before your booked arrival time, and a cancelled booking is refunded less the payment fee.
 
 ## Frequently searched questions (with straight answers)
 

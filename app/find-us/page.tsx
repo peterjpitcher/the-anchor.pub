@@ -24,6 +24,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { ACCESS_SHORT_WORDING, ACCESS_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
   title: { absolute: 'Find The Anchor | TW19 6AQ, 7 Mins from Heathrow T5' },
@@ -231,7 +232,7 @@ export default async function FindUsPage() {
                   <ul className="list-inside list-disc space-y-2 text-ink-muted">
                     <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
                     <li>Turn left onto Horton Road; pub is 200 yards on right</li>
-                    <li>Taxi fare ~£18, free parking on arrival saves £20+</li>
+                    <li>Free parking when you arrive</li>
                   </ul>
                 </CardBody>
               </Card>
@@ -250,7 +251,7 @@ export default async function FindUsPage() {
                   <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminal 4 (12 mins)</h3>
                   <ul className="list-inside list-disc space-y-2 text-ink-muted">
                     <li>Take Southern Perimeter Rd to Stanwell Moor Rd</li>
-                    <li>Taxis and rideshares average £22 each way</li>
+                    <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor, TW19 6AQ</li>
                     <li>Plenty of time for a meal before evening departures</li>
                   </ul>
                 </CardBody>
@@ -375,7 +376,7 @@ export default async function FindUsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
                     <h3 className="font-display text-h4 text-ink-strong mb-2">ALWAYS FREE</h3>
-                    <p className="text-ink-muted">Unlike Heathrow (£7.50/hour!)</p>
+                    <p className="text-ink-muted">No charge while you visit</p>
                   </div>
                   <div>
                     <h3 className="font-display text-h4 text-ink-strong mb-2">NO TIME LIMITS</h3>
@@ -388,7 +389,7 @@ export default async function FindUsPage() {
                 </div>
                 <div className="mt-6 bg-surface-sunk rounded-sm border border-line p-4">
                   <p className="text-ink-strong font-semibold text-lg">
-                    Compare: Heathrow T5 Short Stay = £7.50/hour | The Anchor = FREE!
+                    Parking at The Anchor is free while you visit.
                   </p>
                   <p className="text-sm text-ink-muted mt-2">
                     Perfect for picking up/dropping off at Heathrow without the parking fees!
@@ -504,8 +505,8 @@ export default async function FindUsPage() {
                     <p className="text-sm">Water bowls available</p>
                   </div>
                   <div>
-                    <strong className="text-ink-strong">Accessible Entry</strong>
-                    <p className="text-sm">Step free from the car park</p>
+                    <strong className="text-ink-strong">Getting In</strong>
+                    <p className="text-sm">{ACCESS_SHORT_WORDING}</p>
                   </div>
                   <div>
                     <strong className="text-ink-strong">All Cards Accepted</strong>
@@ -556,7 +557,7 @@ export default async function FindUsPage() {
           },
 	          {
 	            question: "Can I walk to The Anchor from nearby hotels?",
-	            answer: "If you're staying at the Premier Inn Heathrow Terminal 5, we're about a 15-minute walk. From other Heathrow hotels, we recommend a taxi (around £25) or take the 442 bus which stops directly outside the pub."
+	            answer: "If you're staying at the Premier Inn Heathrow Terminal 5, we're about a 15-minute walk. From other Heathrow hotels, we recommend a taxi or the 442 bus, which stops directly outside the pub."
 	          },
           {
             question: "What's the best way to find The Anchor?",
@@ -564,7 +565,7 @@ export default async function FindUsPage() {
           },
           {
             question: "Is The Anchor wheelchair accessible?",
-            answer: "Getting in from the car park is step free, and so are the bar and the dining area. There's one step between the bar and the beer garden, and we'll put our ramp out for it if you ask. We don't currently have an accessible toilet."
+            answer: ACCESS_WORDING
           },
           {
             question: "What payment methods does The Anchor accept?",

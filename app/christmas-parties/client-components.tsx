@@ -22,6 +22,7 @@ import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { StickyDrawer } from '@/components/ui'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { CONTACT } from '@/lib/constants'
+import { CHRISTMAS_PRIVATE_DEPOSIT_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
 import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
 
 const CONTACT_EMAIL = CONTACT.email
@@ -71,7 +72,7 @@ export interface ChristmasTierView {
   priceFrom: string
   /** Lowest live kids price, symbol-free. Only ever set where a kids tier exists. */
   kidsPriceFrom: string
-  /** True when the two prices differ between Tue-Thu and Fri-Sat. */
+  /** True when the two prices differ between Tue-Thu and Fri-Sun. */
   dayRateVaries: boolean
   items: ChristmasDishView[]
 }
@@ -416,7 +417,7 @@ function buildFaqItems(
     },
     {
       question: 'Which days of the week can we book Christmas dinner?',
-      answer: `Tuesday, Wednesday, Thursday, Friday and Saturday, at a lunchtime or an evening sitting, plus Sunday between 1pm and 6pm. Tuesday to Thursday is our weekday rate and Friday to Saturday is the weekend rate, so a midweek date is the cheaper one for a group watching its budget. Every Christmas dinner booking is for ${facts.minPartySize} guests or more, whichever day you pick.`
+      answer: `Tuesday, Wednesday, Thursday, Friday and Saturday, at a lunchtime or an evening sitting, plus Sunday between 1pm and 6pm. Tuesday to Thursday is our weekday rate, and Friday, Saturday and Sunday are the weekend rate, so a midweek date is the cheaper one for a group watching its budget. Every Christmas dinner booking is for ${facts.minPartySize} guests or more, whichever day you pick.`
     },
     {
       // The service window ends on 20 December, so the page said nothing at all
@@ -433,7 +434,7 @@ function buildFaqItems(
     },
     {
       question: 'How do we book Christmas at The Anchor?',
-      answer: `Send us an enquiry from this page or call ${CONTACT_PHONE}. Christmas dinner needs ${facts.minPartySize} guests or more and at least ${facts.minNoticeHours} hours notice, and every Christmas booking takes a £${facts.depositPerPerson} per person deposit that comes off your bill. More than ${facts.privateHireThreshold} guests is private hire, so email ${CONTACT_EMAIL} for those.`
+      answer: `Send us an enquiry from this page or call ${CONTACT_PHONE}. Christmas dinner needs ${facts.minPartySize} guests or more and at least ${facts.minNoticeHours} hours notice, and a Christmas table booking takes a £${facts.depositPerPerson} per person deposit that comes off your bill. More than ${facts.privateHireThreshold} guests is private hire, with the £250 private hire deposit instead, so email ${CONTACT_EMAIL} for those.`
     },
     {
       question: 'Is there a minimum group size for Christmas dinner?',
@@ -445,7 +446,7 @@ function buildFaqItems(
     },
     {
       question: 'Do you take a deposit for Christmas bookings?',
-      answer: `Yes. Every Christmas booking takes a £${facts.depositPerPerson} per person deposit at the time of booking, whatever the size of your group. It comes off your final bill, and if you need to cancel up to and including seven days before your booking date we refund it in full. Inside seven days the deposit is not refunded.`
+      answer: `Yes. Every Christmas table booking, from ${facts.minPartySize} to ${facts.privateHireThreshold} guests, takes a £${facts.depositPerPerson} per person deposit at the time of booking. It comes off your final bill, and if you need to cancel up to and including seven days before your booking date we refund it in full. Inside seven days the deposit is not refunded. ${CHRISTMAS_PRIVATE_DEPOSIT_WORDING} ${PRIVATE_HIRE_DEPOSIT_WORDING}`
     },
     {
       question: 'Do we have to pre-order our meals?',
@@ -563,7 +564,7 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'briefcase' as const,
     title: 'Easy for Organisers',
-    description: 'One clear contact for your booking, one deposit rule and a written confirmation of what your group is getting. Ask us about billing when you enquire.'
+    description: 'One clear contact for your booking, a clear deposit and a written confirmation of what your group is getting. Ask us about billing when you enquire.'
   }
 ]
 
@@ -744,7 +745,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Group size</strong>{facts.minPartySize} guests or more</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Notice</strong>At least {facts.minNoticeHours} hours, no same-day bookings</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Pre-order</strong>Choices due {deadlineDays} days before your date</li>
-              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Deposit</strong>£{facts.depositPerPerson} per person, every booking, any size</li>
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Deposit</strong>£{facts.depositPerPerson} per person on every table booking, from {facts.minPartySize} to {facts.privateHireThreshold} guests</li>
             </ul>
           </div>
         </Container>
@@ -862,7 +863,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">What if we are more than {facts.privateHireThreshold}?</dt>
-                  <dd className="mt-1 text-sm text-ink-muted">That becomes private hire rather than a table booking. Between {facts.privateHireThreshold + 1} and {facts.buffetMinimumGuests - 1} guests we arrange it as a private booking, so call or email us and we will look after it. Email <a href={CONTACT_EMAIL_LINK} className="font-semibold text-accent-text underline">{CONTACT_EMAIL}</a> and we will shape it around your group.</dd>
+                  <dd className="mt-1 text-sm text-ink-muted">That becomes private hire rather than a table booking. Between {facts.privateHireThreshold + 1} and {facts.buffetMinimumGuests - 1} guests we arrange it as a private booking, so call or email us and we will look after it. Email <a href={CONTACT_EMAIL_LINK} className="font-semibold text-accent-text underline">{CONTACT_EMAIL}</a> and we will shape it around your group. {CHRISTMAS_PRIVATE_DEPOSIT_WORDING} {PRIVATE_HIRE_DEPOSIT_WORDING}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">Is there a DJ or entertainment?</dt>
@@ -913,7 +914,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-                  <span><strong className="text-ink-strong">£{facts.depositPerPerson} per person deposit.</strong> On every Christmas booking, whatever the size of the group. Taken at the time of booking and deducted from your bill, and refunded in full if you cancel up to and including seven days before your booking date.</span>
+                  <span><strong className="text-ink-strong">£{facts.depositPerPerson} per person deposit.</strong> On every Christmas table booking, from {facts.minPartySize} to {facts.privateHireThreshold} guests. Taken at the time of booking and deducted from your bill, and refunded in full if you cancel up to and including seven days before your booking date.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Icon name="utensils" className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
@@ -1287,7 +1288,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">One deposit rule</strong>, £{facts.depositPerPerson} per person on every Christmas booking, so finance can budget it before you send the invite.</span>
+                    <span><strong className="text-ink-strong">A simple deposit</strong>, £{facts.depositPerPerson} per person on a table booking of up to {facts.privateHireThreshold}, so finance can budget it before you send the invite.</span>
                   </li>
                 </ul>
               </div>
@@ -1813,7 +1814,7 @@ function ChristmasMenuAndPricing({
                   : 'No kids portion and no kids price. Children may order this tier at the adult price.'}
               </p>
               {tier.dayRateVaries && (
-                <p className="mt-1 text-sm text-ink-muted">Priced differently Tuesday to Thursday and Friday to Saturday.</p>
+                <p className="mt-1 text-sm text-ink-muted">Priced differently Tuesday to Thursday and Friday to Sunday.</p>
               )}
             </article>
           ))}
@@ -1834,7 +1835,7 @@ function ChristmasMenuAndPricing({
                   <td className="px-4 py-4 font-semibold text-accent-text">
                     {tierPriceLabel(tier)}
                     {tier.dayRateVaries && (
-                      <span className="block text-xs font-normal text-ink-muted">Tue-Thu and Fri-Sat priced differently</span>
+                      <span className="block text-xs font-normal text-ink-muted">Tue-Thu and Fri-Sun priced differently</span>
                     )}
                   </td>
                   <td className="px-4 py-4">

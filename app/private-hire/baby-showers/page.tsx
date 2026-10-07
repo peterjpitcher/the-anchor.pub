@@ -16,6 +16,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
+import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Baby Shower Venue Near Ashford Hospital',
@@ -58,7 +59,7 @@ export default function BabyShowersPage() {
         "maximumAttendeeCapacity": 50,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
+            ...ACCESS_AMENITY_FEATURES,
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Afternoon Tea Packages", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Mocktail Menu", "value": true },
@@ -225,7 +226,7 @@ export default function BabyShowersPage() {
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
-                                All baby shower packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with pricing discussed on enquiry. Call us on <strong className="text-accent-text">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
+                                All baby shower packages include dedicated staff, and parking is free. Room hire is charged by the hour for the space you book. Call us on <strong className="text-accent-text">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
                             </p>
                         </CardBody></Card>
                     </div>
