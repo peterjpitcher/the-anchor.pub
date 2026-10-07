@@ -1,3 +1,30 @@
+# Six Nations page made year-neutral, 7 October 2026
+
+Branch `fix/six-nations-page-year-neutral`, from main at a492f407 (PR #200). Local only: the owner
+sees the wording before anything is pushed.
+
+`/live-sport/six-nations` still advertised the 2026 tournament in October: a dated title and hero,
+the 2026 fixture list, and Event structured data ending 14 March 2026. `docs/SSOT.md` has no Six
+Nations entry. It confirms live sport on BBC, ITV and Channel 4 only (§6, §16), and the Nations
+Championship screenings (§10).
+
+- [x] Map the page: route, JSON-LD, sitemap, redirects, internal links, header promo, tests
+- [x] Check what the SSOT and `SSOT.json` confirm about rugby and live sport
+- [x] Rewrite the page from SSOT facts only, pasting the §16 approved wording where it exists.
+      Removed: the 2026 fixtures, the Event JSON-LD, the dated title, hero and descriptions, the
+      "Book Early for Big Games" alert, the claims of every match, 4 screens and commentary, and
+      the Six Nations scarf image (its alt text called it the pub during the Six Nations; it is not)
+- [x] Title set as an absolute title so the root template does not add the brand twice; canonical
+      now `./`; sitemap `lastModified` moved to 7 October 2026
+- [x] `tests/unit/six-nations-page-year-neutral.test.tsx`: 7 tests holding the page year-neutral
+- [x] `npm run lint:next`, `npx tsc --noEmit`, `npm test`, `npm run test:utc`, `npm run build` on
+      Node 20, then the built page read back from `next start`
+- [ ] Owner approves the wording before any push
+
+Left alone on purpose: the unmounted pop-up and its test (PR #195); `SixNationsFixtures.tsx`, now
+unused; `/live-sport`, `/drinks` and `lib/tag-seo-content.ts`, which still make Six Nations claims
+the SSOT does not confirm; the 2023 Six Nations blog post.
+
 # Accessibility audit's reflow check could not see content cut off by the page, 6 October 2026
 
 Branch `fix/a11y-audit-reflow-blind-spot`, from main at 1baf0238 (PR #196). Local only until the
