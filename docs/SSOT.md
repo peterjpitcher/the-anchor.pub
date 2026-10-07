@@ -394,7 +394,7 @@ This applies to every surface: menu pages, the Christmas menu, JSON-LD, PDFs and
 
 ### Kids menu (regular)
 
-Chicken goujons and chips · Fish fingers and chips · Sausage, mash and gravy · Cheeseburger and chips · Chicken burger and chips · Veg burger and chips · Mac and cheese · Fish finger wrap and chips · Chicken goujon wrap and chips · On Sundays, a kids roast of beef, pork or turkey. (Mirrored from the management app on 11 September 2026.)
+Chicken goujons and chips · Fish fingers and chips · Sausage, mash and gravy · Cheeseburger and chips · Chicken burger and chips · Veg burger and chips · Fish finger wrap and chips · Chicken goujon wrap and chips · On Sundays, a kids roast of beef, pork or turkey. (Mirrored from the management app on 11 September 2026. Kids mac and cheese was dropped on the owner's instruction, 7 October 2026; the adult Mac and Cheese stays.)
 
 ## 6. Drinks
 
@@ -1117,6 +1117,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **7 October 2026, kids mac and cheese dropped.** The owner confirmed that Kids Mac & Cheese is off the kids menu (§5). It was removed from the kids list here, from `SSOT.json`, from `/family-friendly-pub-heathrow` and from one blog post. The management app's kids menu still returned the dish on that date, so the record there is still to be switched off; until it is, the live menu pages keep showing it. The adult Mac and Cheese is unaffected.
 
 - **7 October 2026, three owner answers on sport and the TVs.** The commentary is on for big games and tournaments, not for the Six Nations only and not for everything that is on ("yes for big games/tournaments"; §8, §10, §16). F1 is shown only when it is on terrestrial TV ("only whatever is on terrestrial tv"; §10, §16): `/live-sport` had promised "all F1 qualifying sessions and races live" and listed live race weekends and qualifying sessions, and the live sport guide and the Euro 2024 post named Channel 4 races and highlights. The TVs can be used for slideshows at a private hire, with connection cables provided ("yes"; §11, §16): `/private-hire/retirement-parties` keeps both facts but no longer calls them "large screens", and a surprise party post no longer names a USB stick or a wireless connection. In the same change, on the owner's instruction, three older sport posts (Euro 2024, Autumn Internationals 2024, Premier League 2024-25) lost "big screens", "HD screens", "multiple HD screens" and a "planned fifth screen", and the live sport guide no longer says the pub "never has" had Sky Sports: §6 says terrestrial only since January 2025 and nothing about before. `SSOT.json` carries the slideshow fact in `private_hire.av_slideshows`, and `tests/unit/six-nations-claims-match-ssot.test.ts` now covers the F1 and commentary rules. All owner-confirmed.
 - **7 October 2026, the Six Nations and the TVs.** We show Six Nations games that are on terrestrial TV, on 4 TVs, with the commentary on (owner-confirmed; §8, §10, §16). Until now this document had no Six Nations entry and no screen count, while `/live-sport/six-nations` still advertised the 2026 tournament in October with its fixture list, "every match", "4 HD screens" and Event structured data that ended on 14 March 2026. The page is now year-neutral and says only what §10 records. `SSOT.json` carries the 4 TVs in `venue.amenities`.

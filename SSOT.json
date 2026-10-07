@@ -678,7 +678,7 @@
       "mushy_peas_not_minted": "Always 'mushy peas', never 'minted peas'",
       "garden_veg_burger": "Always 'Garden Veg Burger', never 'Vegetable Burger'",
       "garden_club_pizza": "Contains roasted courgettes, caramelised onions, rocket, NOT grilled courgette, peppers, balsamic glaze",
-      "gluten_free_fish_and_chips": "We do not offer NGCI fish and chips. There is no NGCI batter, no NGCI fried or grilled fish, and no separate fryer. Please see the NGCI options on this page or ask the team about allergens before ordering.",
+      "gluten_free_fish_and_chips": "We do not offer NGCI (No Gluten Containing Ingredients) fish and chips. There is no NGCI batter, no NGCI fried or grilled fish, and no separate fryer. Please see our NGCI menu or ask the team about allergens before ordering.",
       "ngci_not_gluten_free": "Never claim a dish, base, gravy or menu is 'gluten-free'. That is a regulated term meaning below 20 ppm, which a single shared kitchen cannot guarantee. Use NGCI (No Gluten Containing Ingredients), spelled out on first use, always with the cross-contamination caveat. The /food-menu/gluten-free URL and meta description keep the search phrase; the visible label does not. Machine tokens (dietary_flags gluten_free, the API dietary-menu parameter, the GTM filter value) are not copy and never change."
     },
     "allergen_display_rule": {
@@ -693,7 +693,6 @@
       "Cheeseburger and chips",
       "Chicken burger and chips",
       "Veg burger and chips",
-      "Mac and cheese",
       "Fish finger wrap and chips",
       "Chicken goujon wrap and chips",
       "On Sundays, a kids roast of beef, pork or turkey"
