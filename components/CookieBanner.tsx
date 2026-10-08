@@ -150,10 +150,23 @@ export default function CookieBanner() {
               <div className="flex-1 text-xs sm:text-sm text-ink">
                 <p className="font-medium text-ink-strong">Cookies: it&apos;s your choice</p>
                 <p className="mt-0.5 sm:mt-1 text-ink-muted">
-                  We&apos;d like to use cookies to see how our website is used and which of our adverts work. They stay off unless you accept.{' '}
+                  We&apos;d like to use cookies to see how our website is used and which of our adverts work. They stay off unless you accept. You can{' '}
+                  {/* In the sentence, not a third button beside the other two: three
+                      buttons did not fit a 320px phone (the last one ran off the
+                      edge, measured 8 October 2026), and the only two things in the
+                      button row are now the two answers, side by side and alike. */}
+                  <button
+                    type="button"
+                    onClick={openPreferences}
+                    className="underline hover:text-accent-text"
+                  >
+                    choose which cookies
+                  </button>{' '}
+                  or{' '}
                   <Link href="/privacy-policy" className="underline hover:text-accent-text">
-                    Read our privacy policy
+                    read our privacy policy
                   </Link>
+                  .
                 </p>
               </div>
 
@@ -178,15 +191,6 @@ export default function CookieBanner() {
                   aria-label="Accept all cookies"
                 >
                   Accept all
-                </Button>
-                <Button
-                  onClick={openPreferences}
-                  variant="outline"
-                  size="sm"
-                  className="min-h-[48px]"
-                  aria-label="Choose which cookies"
-                >
-                  Choose
                 </Button>
               </div>
             </div>

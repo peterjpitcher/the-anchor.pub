@@ -51,9 +51,9 @@ describe('the bar', () => {
     const text = container.textContent ?? ''
 
     expect(text).toContain(
-      "We'd like to use cookies to see how our website is used and which of our adverts work. They stay off unless you accept."
+      "We'd like to use cookies to see how our website is used and which of our adverts work. They stay off unless you accept. You can choose which cookies or read our privacy policy."
     )
-    expect(screen.getByRole('link', { name: 'Read our privacy policy' })).toHaveAttribute('href', '/privacy-policy')
+    expect(screen.getByRole('link', { name: 'read our privacy policy' })).toHaveAttribute('href', '/privacy-policy')
   })
 
   it('never says that carrying on means you agree', () => {
@@ -86,6 +86,16 @@ describe('the bar', () => {
     expect(reject.className).not.toBe('')
   })
 
+  it('has only the two answers in its button row, so nothing sits beside them looking like a third', () => {
+    renderBanner()
+    const row = screen.getByRole('button', { name: 'Reject all cookies' }).parentElement as HTMLElement
+
+    expect(within(row).getAllByRole('button').map((button) => button.textContent?.trim())).toEqual([
+      'Reject all',
+      'Accept all'
+    ])
+  })
+
   it('puts Reject first, so it is never the one further from the thumb or the eye', () => {
     renderBanner()
     const reject = screen.getByRole('button', { name: 'Reject all cookies' })
@@ -98,7 +108,7 @@ describe('the bar', () => {
 describe('the settings panel', () => {
   async function openPanel() {
     renderBanner()
-    await userEvent.setup().click(screen.getByRole('button', { name: 'Choose which cookies' }))
+    await userEvent.setup().click(screen.getByRole('button', { name: 'choose which cookies' }))
     return screen.getByRole('dialog', { name: 'Cookie Preferences' })
   }
 
