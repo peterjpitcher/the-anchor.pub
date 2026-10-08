@@ -107,6 +107,15 @@ export function getLowestFoodPrice(packages: CateringPackage[]): string {
 }
 
 /** Format a package price for display */
+/**
+ * True for the Christmas-only buffets: Festive Sandwich & Salad, Festive Hot
+ * Finger and Festive Premium Grazing (SSOT section 7). A name match, used only
+ * until the public config returns the management app's seasonal flag.
+ */
+export function isFestivePackageName(name: string | null | undefined): boolean {
+  return /^\s*festive\b/i.test(name ?? '')
+}
+
 export function formatPackagePrice(pkg: CateringPackage): string {
   if (pkg.pricingModel === 'free') return 'Free'
   if (pkg.pricingModel === 'variable') return 'Flexible'

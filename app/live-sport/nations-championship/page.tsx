@@ -13,9 +13,38 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { englandNationsFixtures, nationsEditorial, nationsFaqs } from '@/content/nations-championship'
 import { PhoneLink } from '@/components/PhoneLink'
+import { isNationsChampionshipPromoOpen } from '@/lib/nations-championship/promo-window'
+import {
+  NationsChampionshipStanding,
+  NATIONS_STANDING_DESCRIPTION,
+  NATIONS_STANDING_TITLE
+} from '@/components/features/nations-championship/NationsChampionshipStanding'
 
 export const dynamic = 'force-dynamic'
-export const metadata: Metadata = {
+const BREADCRUMBS = [{ name: 'Home', url: '/' }, { name: 'Live Sport', url: '/live-sport' }, { name: 'Nations Championship', url: NATIONS_CHAMPIONSHIP_PATH }]
+
+// After Finals Weekend (29 November 2026, London date) this route turns
+// year-neutral by itself: owner decision 18, 7 October 2026. It is rendered per
+// request, so the title, the description and the page all change on the same
+// morning. The window is the one the header link and the strips already use
+// (lib/nations-championship/config.ts), so there is one end date to change.
+const standingMetadata: Metadata = {
+  title: { absolute: NATIONS_STANDING_TITLE },
+  description: NATIONS_STANDING_DESCRIPTION,
+  alternates: { canonical: './' },
+  openGraph: {
+    title: NATIONS_STANDING_TITLE,
+    description: NATIONS_STANDING_DESCRIPTION,
+    url: NATIONS_CHAMPIONSHIP_PATH,
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor in Stanwell Moor' }],
+  },
+}
+
+export function generateMetadata(): Metadata {
+  return isNationsChampionshipPromoOpen() ? tournamentMetadata : standingMetadata
+}
+
+const tournamentMetadata: Metadata = {
   title: { absolute: 'Nations Championship 2026 near Heathrow | The Anchor' },
   description: 'Choose your Nations Championship rugby game at The Anchor near Heathrow. Check pub opening and food service times, then book a table for a confirmed screening.',
   alternates: { canonical: './' },
@@ -27,6 +56,13 @@ export const metadata: Metadata = {
   },
 }
 export default async function NationsChampionshipPage() {
+  if (!isNationsChampionshipPromoOpen()) {
+    return <>
+      <BreadcrumbJsonLd items={BREADCRUMBS} />
+      <NationsChampionshipStanding />
+    </>
+  }
+
   let feed: ScreeningFeed | null = null
   try { feed = await getNationsChampionshipFeed() } catch { /* Honest unavailable state below. */ }
   const pageUrl = `https://www.the-anchor.pub${NATIONS_CHAMPIONSHIP_PATH}`
@@ -40,7 +76,7 @@ export default async function NationsChampionshipPage() {
     })) },
   }
   return <>
-    <BreadcrumbJsonLd items={[{ name: 'Home', url: '/' }, { name: 'Live Sport', url: '/live-sport' }, { name: 'Nations Championship', url: NATIONS_CHAMPIONSHIP_PATH }]} />
+    <BreadcrumbJsonLd items={BREADCRUMBS} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(schema) }} />
     <InteriorHero image={DEFAULT_PAGE_HEADER_IMAGE} kicker="November rugby at The Anchor" title="Watch Nations Championship rugby near Heathrow" lead="Pick your game and book your table. We show terrestrial TV games during our existing opening hours, with food when the kitchen is serving." crumb="Nations Championship" actions={<Button asChild variant="primary" size="lg"><Link href="#fixtures">Choose a game and book</Link></Button>} />
     <section className="bg-canvas py-section-y"><Container>

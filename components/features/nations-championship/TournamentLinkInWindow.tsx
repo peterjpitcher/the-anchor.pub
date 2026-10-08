@@ -15,8 +15,10 @@ interface TournamentLinkInWindowProps {
  * when the header link ends).
  *
  * The server decides first so the strip is in the HTML. The browser checks
- * again, because the page is built once per deploy and its HTML can be weeks
- * older than the visitor's clock. Navigation does the same for the header link.
+ * again, because the page's HTML can be older than the visitor's clock: pages
+ * are rebuilt on a five-minute timer, but only when somebody visits, so the
+ * first visitor after a quiet spell gets the copy built before it. Navigation
+ * does the same for the header link.
  */
 export function TournamentLinkInWindow({ initiallyOpen }: TournamentLinkInWindowProps) {
   const [open, setOpen] = useState(initiallyOpen)

@@ -81,7 +81,7 @@ const defaultItems: NavigationItem[] = [
     href: '/food-menu',
     items: [
       { label: 'Full Food Menu', href: '/food-menu', description: 'Pub classics, prices and dietary filters' },
-      { label: 'Sunday Roast', href: '/sunday-roast', description: 'Carved fresh to order, every Sunday' },
+      { label: 'Sunday Roast', href: '/sunday-roast', description: 'Carved fresh to order on Sundays' },
       { label: 'Stone-Baked Pizza', href: '/pizza-menu', description: 'Hand-stretched pizzas from the live menu' },
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow', description: 'A proper chippy tea near Heathrow' },
       { label: 'Kids Menu', href: '/food-menu#kids', description: 'Children’s dishes and current prices' },
@@ -111,7 +111,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Quiz Night', href: '/quiz-night', description: 'Pub quiz nights, teams and prizes' },
       { label: 'Music Bingo', href: '/music-bingo', description: 'Hosted music bingo with food and prizes' },
       { label: 'Cash Bingo', href: '/cash-bingo', description: 'Classic bingo sessions with cash prizes' },
-      { label: 'Karaoke', href: '/karaoke', description: 'Singalong nights and party groups' }
+      { label: 'Karaoke', href: '/karaoke', description: 'Occasional nights, see the next date' }
     ]
   },
   {
@@ -184,9 +184,10 @@ export function Navigation({
 
   // --- Promo CTA scheduling ---
   // The first render uses the list the server worked out, so the links are in
-  // the HTML. This re-check against the visitor's clock stays because most pages
-  // are built once per deploy: without it a promo would run on past its end
-  // date, or not start, until somebody deployed.
+  // the HTML. This re-check against the visitor's clock stays because a page's
+  // HTML can be older than the visitor's clock. Every page is rebuilt on a
+  // five-minute timer, but only when somebody visits, so the first visitor after
+  // a quiet spell is served the copy built before it (site review DT-018).
   useEffect(() => {
     setActivePromoCtaButtons(getActiveHeaderPromos(promoCtaButtons))
   }, [promoCtaButtons])

@@ -10,6 +10,8 @@
  * `parseLondonDate` in lib/time-london.ts expects.
  */
 
+import { nowInLondonComponents } from './time-london'
+
 const iso = (year: number, month: number, day: number): string =>
   `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
 
@@ -62,4 +64,36 @@ export function getFathersDay(year: number): string {
   // 0 = Sunday. Days to the first Sunday, then two more weeks.
   const daysToFirstSunday = (7 - june1.getUTCDay()) % 7
   return iso(year, 6, 1 + daysToFirstSunday + 14)
+}
+
+/**
+ * The next time a yearly occasion falls, on or after today's London date.
+ *
+ * The occasion pages typed their dates ("2027-03-07", "Sunday 20 June 2027"),
+ * so each would name a day that had gone from the morning after until somebody
+ * edited code. Pass one of the functions above: on the day itself the answer
+ * is still today, and from the next morning it is next year's date.
+ *
+ * The only function here that reads the clock, and it takes the moment as an
+ * argument so it can be tested.
+ */
+export function nextOccurrence(dateForYear: (year: number) => string, now: Date = new Date()): string {
+  const { year, month, day } = nowInLondonComponents(now)
+  const today = iso(year, month, day)
+  const thisYear = dateForYear(year)
+  return thisYear >= today ? thisYear : dateForYear(year + 1)
+}
+
+/** "Sunday 28 March 2027", from a YYYY-MM-DD date. */
+export function formatOccasionLabel(isoDate: string): string {
+  const [year, month, day] = isoDate.split('-').map(Number)
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC'
+  }).formatToParts(new Date(Date.UTC(year, month - 1, day)))
+  const pick = (type: string): string => parts.find((part) => part.type === type)?.value ?? ''
+  return `${pick('weekday')} ${pick('day')} ${pick('month')} ${pick('year')}`
 }

@@ -1,3 +1,5 @@
+import { OccasionMenuNotice, occasionMenuLine } from '@/components/seasonal/OccasionMenuNotice'
+import { getFathersDay, nextOccurrence, formatOccasionLabel } from '@/lib/recurring-dates'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -21,8 +23,8 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 // ships in the post-launch walk-in state. Keyword cluster layered: 'fathers day
 // pub lunch', 'fathers day sunday roast', 'fathers day pub near me', 'where to
 // take dad for sunday roast'. (Spec §8.6, keyword plan delivered in conversation.)
-const FATHERS_DAY_DATE = '2027-06-20'
-const FATHERS_DAY_LABEL = 'Sunday 20 June 2027'
+const FATHERS_DAY_DATE = nextOccurrence(getFathersDay)
+const FATHERS_DAY_LABEL = formatOccasionLabel(FATHERS_DAY_DATE)
 const FATHERS_DAY_SERVICE_WINDOW = '1pm to 6pm'
 const FATHERS_DAY_LAST_BOOKING = '5:30pm'
 
@@ -63,9 +65,7 @@ export default function FathersDayPage() {
   const faqs = [
     {
       question: "What's on the Father's Day menu?",
-      answer:
-        "Father's Day falls on a Sunday, so the full Sunday roast menu is on, with roast turkey, roast pork, roast beef or a vegan wellington. " +
-        "Current dishes and prices are listed on the Sunday roast menu."
+      answer: occasionMenuLine("Father's Day")
     },
     {
       question: "Do I need to book for Father's Day?",
@@ -81,9 +81,7 @@ export default function FathersDayPage() {
     },
     {
       question: 'Is there a set menu or special pricing?',
-      answer:
-        "There's no separate set menu, it's our regular Sunday roast menu, which is what makes it special. " +
-        "Proper food, cooked from scratch, with current prices on the Sunday roast menu."
+      answer: occasionMenuLine("Father's Day")
     },
     {
       question: "What time is Father's Day lunch served?",
@@ -99,66 +97,10 @@ export default function FathersDayPage() {
     }
   ]
 
-  const fathersDayEventSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    '@id': `${WEBSITE_ORIGIN}/fathers-day#event`,
-    name: "Father's Day Lunch at The Anchor",
-    description:
-      `Treat Dad to Father's Day pub lunch at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
-      `Sunday roast from the current menu. Serving ${FATHERS_DAY_SERVICE_WINDOW}. ` +
-      `Walk in or book ahead. Beer garden with plane spotting, free parking.`,
-    startDate: `${FATHERS_DAY_DATE}T13:00:00+01:00`,
-    endDate: `${FATHERS_DAY_DATE}T18:00:00+01:00`,
-    eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    location: {
-      '@type': 'Place',
-      name: 'The Anchor',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: CONTACT.address.street,
-        addressLocality: CONTACT.address.town,
-        addressRegion: CONTACT.address.county,
-        postalCode: CONTACT.address.postcode,
-        addressCountry: CONTACT.address.country
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: CONTACT.coordinates.lat,
-        longitude: CONTACT.coordinates.lng
-      }
-    },
-    organizer: {
-      '@type': 'Organization',
-      name: 'The Anchor',
-      url: WEBSITE_ORIGIN,
-      telephone: CONTACT.phoneIntl,
-      email: CONTACT.email
-    },
-    offers: {
-      '@type': 'Offer',
-      url: `${WEBSITE_ORIGIN}${FATHERS_DAY_BOOKING_URL}`,
-      priceCurrency: 'GBP',
-      availability: 'https://schema.org/InStock'
-    },
-    image: [
-      `${WEBSITE_ORIGIN}${DEFAULT_SUNDAY_LUNCH_IMAGE}`,
-      `${WEBSITE_ORIGIN}${DEFAULT_FOOD_IMAGE}`,
-      `${WEBSITE_ORIGIN}${DEFAULT_DRINKS_IMAGE}`
-    ],
-    url: `${WEBSITE_ORIGIN}/fathers-day`
-  }
-
   return (
     <>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdSafeStringify(fathersDayEventSchema)
-        }}
-      />
+      {/* No Event structured data. What runs on the day is confirmed nearer the
+          time (owner, 7 October 2026), so there is no event to describe yet. */}
 
             <InteriorHero
         image={DEFAULT_PAGE_HEADER_IMAGE}
@@ -167,6 +109,8 @@ export default function FathersDayPage() {
         title="Father’s Day at The Anchor"
         lead={`A proper Sunday roast, a cold pint, planes coming in low overhead, and the family all in one place. That's Father's Day sorted. Sunday roast from the current menu • Walk in or book ahead • Served ${FATHERS_DAY_SERVICE_WINDOW}`}
       />
+
+      <OccasionMenuNotice occasion="Father's Day" />
 
       {/* Treat Dad, Father's Day pub lunch */}
       <section className="py-section-y bg-surface">

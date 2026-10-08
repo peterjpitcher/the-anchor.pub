@@ -6,6 +6,7 @@ import { fontVariables } from './fonts'
 import { WebVitals } from './web-vitals'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
+import { nowInLondonComponents } from '@/lib/time-london'
 import { OrangeJellyCredit } from '@/components/OrangeJellyCredit'
 import { HeaderStatusSectionDirect } from '@/components/layout/HeaderStatusSectionDirect'
 import { StickyCtas } from '@/components/layout/StickyCtas'
@@ -20,6 +21,7 @@ import { DeferredRender } from '@/components/DeferredRender'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getSeasonalSkin, getSeasonalSkinStyle } from '@/lib/winter-season'
 import { getHeaderPromoCtas } from '@/lib/header-promos'
+import { isValentinesInDiary } from '@/lib/seasonal/valentines'
 import { getActiveHeaderPromos } from '@/lib/header-promo-window'
 import { IcicleLights } from '@/components/seasonal/IcicleLights'
 import {
@@ -104,7 +106,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -118,7 +120,10 @@ export default function RootLayout({
   // would have gone dark on 1 January 2027. The World Cup entry has been
   // removed rather than left: its window closed on 19 July 2026, so it could
   // never display again and was just dead config.
-  const promoCtaButtons = getHeaderPromoCtas()
+  // The Valentine's link is the exception: it shows only when a Valentine's
+  // event is in the diary. The check answers false without a request outside
+  // the weeks the link could show, and can never fail the page.
+  const promoCtaButtons = getHeaderPromoCtas(now, { valentinesListed: await isValentinesInDiary(now) })
   // The ones open right now, worked out here so their links are in the HTML.
   // Navigation used to add them after hydration, which made the header strip
   // taller and pushed the page down as it loaded.
@@ -262,6 +267,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                       here and handed to the client footer as a slot. Same size
                       and colour as the copyright line above it. */}
                   <Footer
+                    copyright={{ year: nowInLondonComponents().year }}
                     credit={
                       <OrangeJellyCredit
                         className="text-sm text-anchor-cream-text/[0.82]"

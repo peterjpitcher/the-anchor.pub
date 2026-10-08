@@ -136,6 +136,15 @@ export function getChristmasDay(): ChristmasDayView {
   }
 }
 
+/**
+ * "Christmas 2026", from the year the service window ends in.
+ *
+ * The year was typed into the page kicker, the booking badge and the
+ * cross-link, so a new year's window in the SSOT would have left three labels
+ * saying last year (site review DT-014). They read this instead.
+ */
+export const CHRISTMAS_LABEL: string = `Christmas ${CHRISTMAS_WINDOW_END.slice(0, 4)}`
+
 /** Deposit per person on every Christmas booking, in pounds. */
 export const CHRISTMAS_DEPOSIT_PER_PERSON = 10
 

@@ -28,8 +28,14 @@ interface FooterProps {
     social?: SocialLink[]
   }
   features?: string[]
-  copyright?: {
-    year?: number
+  /**
+   * The copyright year. Required, and never worked out here: this is a client
+   * component, so a clock read in it runs once on the server and again in the
+   * browser. Around New Year the two disagreed, and React threw the server
+   * page away and redrew it. The root layout passes the London year.
+   */
+  copyright: {
+    year: number
   }
   /**
    * The Orange Jelly credit line, shown under the copyright. It is an async
@@ -150,7 +156,7 @@ export function Footer({
   legalSection = defaultLegalSection,
   contact = defaultContact,
   features = defaultFeatures,
-  copyright = { year: new Date().getFullYear() },
+  copyright,
   credit,
   className
 }: FooterProps) {

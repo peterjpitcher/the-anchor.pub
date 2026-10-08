@@ -11,6 +11,8 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
+import { FestiveKitchenNotice } from '@/components/seasonal/FestiveKitchenNotice'
+import { getFestiveKitchenStatus, getFestiveKitchenWording } from '@/lib/festive-kitchen-closure'
 import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowItWorks'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { TimedBookingPrompt } from '@/components/sunday-lunch/TimedBookingPrompt'
@@ -64,6 +66,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 function getSundayLunchFaqs() {
+  // While the kitchen's festive break is near or under way, the answer about
+  // times carries the dated exception (lib/festive-kitchen-closure.ts).
+  const festive = getFestiveKitchenStatus()
+  const festiveWording = festive.state === 'none' ? null : getFestiveKitchenWording()
+
   return [
     {
       question: 'Do I need to book a table for Sunday roast?',
@@ -71,7 +78,9 @@ function getSundayLunchFaqs() {
     },
     {
       question: 'What time is Sunday roast served at The Anchor?',
-      answer: 'Every Sunday from 1pm to 6pm. The last tables are seated at 5:30pm.'
+      answer: festiveWording
+        ? `Sundays from 1pm to 6pm. The last tables are seated at 5:30pm. ${festiveWording}`
+        : 'Every Sunday from 1pm to 6pm. The last tables are seated at 5:30pm.'
     },
     {
       question: 'Do you have to pre-order the roast?',
@@ -127,6 +136,8 @@ function buildMenuJsonLd(menuItems: MenuPageItem[]) {
 }
 
 export default async function SundayRoastPage() {
+  // "Every Sunday" is not true across the kitchen's festive break.
+  const roastFrequency = getFestiveKitchenStatus().state === 'none' ? 'every Sunday' : 'on Sundays'
   const sunday = getSundayRoastContent()
   const sundayMenu = await getSundayLunchMenuPageData()
   const faqs = getSundayLunchFaqs()
@@ -184,6 +195,7 @@ export default async function SundayRoastPage() {
           <div className="py-3">
             <LaunchAnnouncement variant="banner" />
           </div>
+          <FestiveKitchenNotice className="mb-3" />
         </div>
       </div>
 
@@ -193,7 +205,7 @@ export default async function SundayRoastPage() {
             Sunday Roast Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-ink-muted mx-auto">
-            The Anchor serves a proper Sunday roast every Sunday from 1pm to 6pm, seven minutes from Heathrow Terminal 5 in Stanwell Moor. Here is the part most places near the airport cannot say: you do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
+            The Anchor serves a proper Sunday roast {roastFrequency} from 1pm to 6pm, seven minutes from Heathrow Terminal 5 in Stanwell Moor. Here is the part most places near the airport cannot say: you do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
           </p>
           <ul
             aria-label="At a glance"

@@ -802,6 +802,13 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 > Event details are managed per event in the management app, which owns them (§15). The summaries above are mirrors kept for reference.
 
+### Mother's Day, Easter Sunday and Father's Day
+
+- **These are special days, not normal Sundays.** (Owner-confirmed, 7 October 2026.) The roast may be the same, but a set menu or something different may run, and that is confirmed for each day nearer the time.
+- Until a day's menu is confirmed, its page says so and promises no dish, price, sitting or offer for the day. Do not publish Event structured data for any of the three until the day's details are confirmed.
+- The dates are worked out in `lib/recurring-dates.ts`, never typed.
+- **Valentine's Day:** nothing is recorded here, so nothing is promoted. `/valentines-day` and its header link show an event only when the management app's diary lists one.
+
 ### Retired entertainment formats
 
 - **Open mic is discontinued.** Do not list, promote, or link to open mic nights. The retired `/open-mic` route redirects to `/whats-on`.

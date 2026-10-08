@@ -1,3 +1,5 @@
+import { MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
+import { OccasionMenuNotice } from '@/components/seasonal/OccasionMenuNotice'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -39,14 +41,11 @@ const MOTHERS_DAY_DYNAMIC: SeasonalDynamicFields = {}
 // layered (per spec §8.6 + keyword plan): mothers day lunch near me,
 // mothers day sunday roast near me, mothers day sunday roast, mothers day pub
 // lunch, mothers day sunday roast.
-const MOTHERS_DAY_DATE = '2027-03-07' // Mothering Sunday 2027 (owner-confirmed)
+const MOTHERS_DAY_DATE = MOTHERS_DAY_SERVICE_DATE // one source: lib/mothers-day-booking.ts
 const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
 const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
 const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm to 6pm'
 const MOTHERS_DAY_LAST_BOOKING_LABEL = '5:30pm'
-// Offer validity start for the 2027 service. Walk-in/booking model, no
-// pre-order or cut-off; validFrom only satisfies Google's Event offer schema.
-const MOTHERS_DAY_OFFER_VALID_FROM = '2027-01-01'
 
 const MOTHERS_DAY_BOOKING_URL = '/book-table'
 const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Lunch'
@@ -175,70 +174,10 @@ export default function MothersDayPage() {
     }
   ]
 
-  const mothersDayEventSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    '@id': `${WEBSITE_ORIGIN}/mothers-day#event`,
-    name: 'Mother’s Day Sunday Roast near Staines at The Anchor',
-    description:
-      `Mother’s Day Sunday roast near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
-      `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
-      `No set sittings, walk in or book ahead. ` +
-      `Current dishes and prices are listed on the Sunday roast menu. A dedicated vegan main is available, served with our regular vegan gravy.`,
-    startDate: MOTHERS_DAY_SERVICE_START_ISO,
-    endDate: MOTHERS_DAY_SERVICE_END_ISO,
-    eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    location: {
-      '@type': 'Place',
-      name: 'The Anchor',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: CONTACT.address.street,
-        addressLocality: CONTACT.address.town,
-        addressRegion: CONTACT.address.county,
-        postalCode: CONTACT.address.postcode,
-        addressCountry: CONTACT.address.country
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: CONTACT.coordinates.lat,
-        longitude: CONTACT.coordinates.lng
-      }
-    },
-    organizer: {
-      '@type': 'Organization',
-      name: 'The Anchor',
-      url: WEBSITE_ORIGIN,
-      telephone: CONTACT.phoneIntl,
-      email: CONTACT.email
-    },
-    // No `offers` block on purpose, same reasoning as /easter-sunday: there is
-    // no fixed Mother's Day package to price, it is the normal Sunday roast
-    // charged from the live menu. A zero or invented price would be a false
-    // offer, and clearing a Search Console warning is not worth that.
-    image: [
-      toAbsoluteUrl(eventImage),
-      toAbsoluteUrl(DEFAULT_SUNDAY_LUNCH_IMAGE),
-      toAbsoluteUrl(DEFAULT_FOOD_IMAGE),
-      toAbsoluteUrl(DEFAULT_DRINKS_IMAGE)
-    ],
-    url: `${WEBSITE_ORIGIN}/mothers-day`,
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${WEBSITE_ORIGIN}/mothers-day`
-    }
-  }
-
   return (
     <>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdSafeStringify(mothersDayEventSchema)
-        }}
-      />
+      {/* No Event structured data. What runs on the day is confirmed nearer the
+          time (owner, 7 October 2026), so there is no event to describe yet. */}
 
             <InteriorHero
         image={DEFAULT_PAGE_HEADER_IMAGE}
@@ -247,6 +186,8 @@ export default function MothersDayPage() {
         title="Mother’s Day Sunday Roast Near Staines"
         lead={`${heroDescription} ${heroLeadText}`}
       />
+
+      <OccasionMenuNotice occasion="Mother's Day" />
 
       <section className="py-section-y bg-surface">
         <Container>

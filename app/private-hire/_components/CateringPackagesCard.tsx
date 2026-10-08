@@ -1,5 +1,5 @@
 import { Card, CardBody } from '@/components/ui'
-import { formatPackagePrice, getCateringData } from '@/lib/api/catering-packages'
+import { formatPackagePrice, getCateringData, isFestivePackageName } from '@/lib/api/catering-packages'
 import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
 
 /**
@@ -8,7 +8,12 @@ import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
  */
 export async function CateringPackagesCard() {
   const { foodPackages } = await getCateringData()
-  const packages = [...foodPackages].sort((a, b) => {
+  // The three festive buffets are Christmas offers (SSOT section 7). This card
+  // sits on the year-round occasion pages, wakes and baby showers included, so
+  // they are left off it; /christmas-parties lists them. Matched on the name
+  // because the public config does not yet carry the management app's
+  // seasonal flag (site review C1-049).
+  const packages = foodPackages.filter(pkg => !isFestivePackageName(pkg.name)).sort((a, b) => {
     const priceOrder = (a.costPerHead || 0) - (b.costPerHead || 0)
     return priceOrder !== 0 ? priceOrder : a.name.localeCompare(b.name)
   })

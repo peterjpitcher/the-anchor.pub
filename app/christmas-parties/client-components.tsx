@@ -131,6 +131,8 @@ export interface ChristmasSeasonView {
   state: 'upcoming' | 'active' | 'ended'
   /** For example "10 November to 20 December 2026". */
   windowLabel: string
+  /** "Christmas 2026", built from the window's year on the server. */
+  christmasLabel?: string
   /** Earliest selectable enquiry date, already carrying the 24 hour notice floor. */
   minEnquiryDate: string
   /** Latest selectable enquiry date, the last day of the service window. */
@@ -418,7 +420,7 @@ function buildFaqItems(
     },
     {
       question: 'Which days of the week can we book Christmas dinner?',
-      answer: `Tuesday, Wednesday, Thursday, Friday and Saturday, at a lunchtime or an evening sitting, plus Sunday between 1pm and 6pm. Tuesday to Thursday is our weekday rate, and Friday, Saturday and Sunday are the weekend rate, so a midweek date is the cheaper one for a group watching its budget. Every Christmas dinner booking is for ${facts.minPartySize} guests or more, whichever day you pick.`
+      answer: `Tuesday, Wednesday, Thursday, Friday and Saturday, plus Sunday between 1pm and 6pm. Sitting times follow the kitchen's hours on the day. Tuesday to Thursday is our weekday rate, and Friday, Saturday and Sunday are the weekend rate, so a midweek date is the cheaper one for a group watching its budget. Every Christmas dinner booking is for ${facts.minPartySize} guests or more, whichever day you pick.`
     },
     {
       // The service window ends on 20 December, so the page said nothing at all
@@ -587,12 +589,12 @@ function buildPartyIdeas(facts: ChristmasFactsView) {
   return [
     {
       title: 'Festive game nights',
-      description: 'In December our quiz, music bingo and cash bingo nights take a festive turn, and they are open to everyone. Book your group in for one of them, with food before or after. What\u2019s On has the dates.',
+      description: 'In December our quiz, music bingo and cash bingo nights take a festive turn, and they are open to everyone. Book your group in for one of them, with food before it starts. What\u2019s On has the dates.',
       ideal: 'Groups that enjoy friendly competition'
     },
     {
       title: 'A sit-down Christmas lunch or dinner',
-      description: `The one most groups book: your own table, a lunchtime or evening sitting, and 1, 2 or 3 courses chosen by each guest. Tuesday to Saturday, or a Sunday between 1pm and 6pm, for ${facts.minPartySize} guests or more.`,
+      description: `The one most groups book: your own table, and 1, 2 or 3 courses chosen by each guest. Tuesday to Saturday, or a Sunday between 1pm and 6pm, for ${facts.minPartySize} guests or more.`,
       ideal: 'Teams and families who want to sit down and eat together'
     },
     {
@@ -756,7 +758,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         <Container>
           <div className="mx-auto space-y-8">
             <div className="space-y-3 text-center">
-              <Badge className="mx-auto w-fit bg-red-100 text-red-700">Christmas 2026 bookings</Badge>
+              <Badge className="mx-auto w-fit bg-red-100 text-red-700">{season.christmasLabel ?? 'Christmas'} bookings</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">What would you like to book?</h2>
               <p className="mx-auto text-base text-ink-muted">
                 Choose the option that fits your plans. We will confirm availability, prices and the next steps when we reply.
@@ -942,7 +944,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               <Badge className="bg-red-100 text-red-700 w-fit">1, 2 or 3 courses each</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">Sit-down Christmas lunch or dinner</h2>
               <p className="text-base sm:text-lg text-ink-muted">
-                Choose a lunchtime or evening sitting for your group, Tuesday to Saturday, or a Sunday sitting between 1pm and
+                Choose a sitting for your group, Tuesday to Saturday, or a Sunday sitting between 1pm and
                 6pm. There are no Monday sittings, the kitchen is closed. When you enquire, we will confirm availability for
                 your date, the prices and what happens next.
               </p>

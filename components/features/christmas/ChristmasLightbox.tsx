@@ -13,8 +13,12 @@ const SUPPRESSION_KEY = 'christmas_2026_lightbox_seen'
 // Show once per user for the season
 const SUPPRESSION_DAYS = 365
 
-const CAMPAIGN_START = new Date('2026-08-01T00:00:00').getTime()
-const CAMPAIGN_END = new Date('2026-12-15T23:59:59').getTime()
+// London instants, written with their offsets. Without one the two dates were
+// read in each visitor's own time zone. 1 August is in summer time (UTC+1) and
+// 15 December is not. The pop-up names 2026 and stops by itself on this end
+// date, so it cannot show last year's label in a later year.
+const CAMPAIGN_START = new Date('2026-08-01T00:00:00+01:00').getTime()
+const CAMPAIGN_END = new Date('2026-12-15T23:59:59Z').getTime()
 
 /**
  * Routes where the lightbox must never fire.

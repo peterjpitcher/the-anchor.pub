@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Badge, Card, CardBody, SectionHeading } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
+import { FestiveKitchenNotice } from '@/components/seasonal/FestiveKitchenNotice'
 import { formatMenuAllergenLine, getMenuItemAllergens } from '@/lib/menu-allergens'
 import type { MenuPageItem } from '@/lib/menu-page-data'
 
@@ -48,6 +49,8 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
           title="Proper Sunday roasts"
           lead="Walk in any time from 1pm to 6pm. No pre-order, no Saturday cut-off and no per-roast prepayment. Booking is recommended for groups and peak slots, but it is never required."
         />
+
+        <FestiveKitchenNotice className="mb-4" />
 
         <Card accent>
           <CardBody className="py-2">

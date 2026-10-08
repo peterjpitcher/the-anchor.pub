@@ -21,7 +21,8 @@ import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_MINIMUM_NOTICE_HOURS,
   CHRISTMAS_MINIMUM_PARTY_SIZE,
-  formatChristmasWindowLabel
+  formatChristmasWindowLabel,
+  getChristmasSeasonStatus
 } from '@/lib/christmas-season'
 
 const OG_DESCRIPTION = 'Work events, team meals and office Christmas parties near Heathrow. Private hire and free parking, around 7 minutes from Terminal 5.'
@@ -56,7 +57,17 @@ type SsotCorporateFacts = {
 const { venue: SSOT_VENUE, christmas_2026: SSOT_CHRISTMAS } = ssot as unknown as SsotCorporateFacts
 
 
+const CHRISTMAS_OVER_LINE = "This year's Christmas sittings have finished. Dates for next Christmas go on our Christmas page once they're confirmed."
+
 export default function CorporateEventsPage() {
+  // The same rule as every other page that names the Christmas window: once no
+  // date in it can still be booked, the dated bullet, the dated answer and the
+  // "See Christmas Booking Dates" button go. This page was the one caller of
+  // formatChristmasWindowLabel() with no such gate, so from 21 December it
+  // would have kept saying "Festive service runs 10 November to 20 December".
+  // The out-of-season line promises nothing about next year.
+  const christmasBookable = getChristmasSeasonStatus().isBookable
+
   return (
     <>
       {/* Hero Section */}
@@ -238,47 +249,55 @@ export default function CorporateEventsPage() {
               charge to reach us. It suits a lunchtime team meal, an evening work Christmas do, or a full private hire of the
               dining room or beer garden.
             </p>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <Card accent><CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">How Christmas bookings work</h3>
-                <ul className="space-y-2 text-ink-muted">
-                  <li><strong className="text-ink-strong">Festive service runs {formatChristmasWindowLabel()}</strong></li>
-                  <li><strong className="text-ink-strong">Minimum {CHRISTMAS_MINIMUM_PARTY_SIZE} guests</strong> on every Christmas booking</li>
-                  <li><strong className="text-ink-strong">Sittings Tuesday to Saturday</strong>, plus Sunday between 1pm and 6pm. Mondays are not available, the kitchen is closed</li>
-                  <li><strong className="text-ink-strong">At least {CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice</strong> - no same-day Christmas bookings</li>
-                  <li><strong className="text-ink-strong">£{CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit</strong>, deducted from your final bill</li>
-                  <li><strong className="text-ink-strong">Meal choices 7 days ahead</strong> for the two and three course tiers</li>
-                  <li><strong className="text-ink-strong">Groups above 20</strong> are handled as private hire, with the £250 private hire deposit instead, so give us a call</li>
-                </ul>
-              </CardBody></Card>
-              <Card accent><CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">What your team gets</h3>
-                <ul className="space-y-2 text-ink-muted">
-                  <li><strong className="text-ink-strong">A festive set menu</strong> at one, two or three courses</li>
-                  <li><strong className="text-ink-strong">A glass of prosecco</strong> for adults on the two and three course tiers, swappable for orange juice</li>
-                  <li><strong className="text-ink-strong">Festive buffets</strong> for parties of {SSOT_CHRISTMAS.buffets.min_guests} guests or more</li>
-                  <li><strong className="text-ink-strong">Room for {SSOT_VENUE.capacity.christmas_seated} seated</strong> or {SSOT_VENUE.capacity.christmas_standing} standing at Christmas</li>
-                  <li><strong className="text-ink-strong">The full dish list and prices are on the Christmas page</strong>, both served live from our booking system</li>
-                </ul>
-              </CardBody></Card>
-            </div>
-            <p className="mt-8 text-lg text-ink-muted">
-              Dates, courses and the deposit are all set out on our{' '}
-              <Link href="/christmas-parties" className="font-semibold text-accent-text underline">
-                work Christmas party venue near Heathrow
-              </Link>{' '}
-              page. If you are still at the planning stage, the{' '}
-              <Link href="/blog/christmas-party-planning-checklist-for-organisers" className="font-semibold text-accent-text underline">
-                Christmas party checklist for organisers
-              </Link>{' '}
-              walks through the decisions in order: headcount first, then the date, the deposit and the allergen question.
-            </p>
+            {christmasBookable ? (
+              <>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <Card accent><CardBody>
+                    <h3 className="font-display text-h4 text-ink-strong mb-4">How Christmas bookings work</h3>
+                    <ul className="space-y-2 text-ink-muted">
+                      <li><strong className="text-ink-strong">Festive service runs {formatChristmasWindowLabel()}</strong></li>
+                      <li><strong className="text-ink-strong">Minimum {CHRISTMAS_MINIMUM_PARTY_SIZE} guests</strong> on every Christmas booking</li>
+                      <li><strong className="text-ink-strong">Sittings Tuesday to Saturday</strong>, plus Sunday between 1pm and 6pm. Mondays are not available, the kitchen is closed</li>
+                      <li><strong className="text-ink-strong">At least {CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice</strong> - no same-day Christmas bookings</li>
+                      <li><strong className="text-ink-strong">£{CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit</strong>, deducted from your final bill</li>
+                      <li><strong className="text-ink-strong">Meal choices 7 days ahead</strong> for the two and three course tiers</li>
+                      <li><strong className="text-ink-strong">Groups above 20</strong> are handled as private hire, with the £250 private hire deposit instead, so give us a call</li>
+                    </ul>
+                  </CardBody></Card>
+                  <Card accent><CardBody>
+                    <h3 className="font-display text-h4 text-ink-strong mb-4">What your team gets</h3>
+                    <ul className="space-y-2 text-ink-muted">
+                      <li><strong className="text-ink-strong">A festive set menu</strong> at one, two or three courses</li>
+                      <li><strong className="text-ink-strong">A glass of prosecco</strong> for adults on the two and three course tiers, swappable for orange juice</li>
+                      <li><strong className="text-ink-strong">Festive buffets</strong> for parties of {SSOT_CHRISTMAS.buffets.min_guests} guests or more</li>
+                      <li><strong className="text-ink-strong">Room for {SSOT_VENUE.capacity.christmas_seated} seated</strong> or {SSOT_VENUE.capacity.christmas_standing} standing at Christmas</li>
+                      <li><strong className="text-ink-strong">The full dish list and prices are on the Christmas page</strong>, both served live from our booking system</li>
+                    </ul>
+                  </CardBody></Card>
+                </div>
+                <p className="mt-8 text-lg text-ink-muted">
+                  Dates, courses and the deposit are all set out on our{' '}
+                  <Link href="/christmas-parties" className="font-semibold text-accent-text underline">
+                    work Christmas party venue near Heathrow
+                  </Link>{' '}
+                  page. If you are still at the planning stage, the{' '}
+                  <Link href="/blog/christmas-party-planning-checklist-for-organisers" className="font-semibold text-accent-text underline">
+                    Christmas party checklist for organisers
+                  </Link>{' '}
+                  walks through the decisions in order: headcount first, then the date, the deposit and the allergen question.
+                </p>
+              </>
+            ) : (
+              <p className="text-lg font-medium text-ink-strong">{CHRISTMAS_OVER_LINE}</p>
+            )}
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Button asChild variant="primary" size="lg" fullWidth className="sm:w-auto">
-                <Link href="/christmas-parties" className="w-full sm:w-auto">
-                  See Christmas Booking Dates
-                </Link>
-              </Button>
+              {christmasBookable ? (
+                <Button asChild variant="primary" size="lg" fullWidth className="sm:w-auto">
+                  <Link href="/christmas-parties" className="w-full sm:w-auto">
+                    See Christmas Booking Dates
+                  </Link>
+                </Button>
+              ) : null}
               <Button asChild variant="outline" size="lg" fullWidth className="sm:w-auto">
                 <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
                   Talk to Us About Your Work Party
@@ -510,18 +529,27 @@ export default function CorporateEventsPage() {
             question: "What technology and equipment do you provide for business meetings?",
             answer: "We provide free WiFi throughout the pub and beer garden, TVs, a sound system with microphones, and multiple power points throughout our spaces. We do not have a projector, so tell us what you plan to show and we will talk it through before you book."
           },
-          {
-            question: "Can we hold our office Christmas party at The Anchor?",
-            answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, with the £250 private hire deposit instead, so call us on 01753 682707 and we will plan it with you.`
-          },
-          {
-            question: "How many people can you seat for a work Christmas party?",
-            answer: `At Christmas we seat ${SSOT_VENUE.capacity.christmas_seated} guests, or host up to ${SSOT_VENUE.capacity.christmas_standing} standing. You can take the dining room, the beer garden or the whole venue depending on the size of your team, and a festive buffet is available for parties of ${SSOT_CHRISTMAS.buffets.min_guests} guests or more.`
-          },
-          {
-            question: "What is on the Christmas menu for work parties?",
-            answer: "The festive set menu runs at one, two or three courses, and adults on the two and three course tiers get a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered, so we need everyone's meal choices 7 days before your booking date. The one course tier has no pre-order, so it's the only one we can book inside that week. The full dish list and the prices are both on the Christmas parties page, served live from our booking system."
-          },
+          ...(christmasBookable
+            ? [
+              {
+                question: "Can we hold our office Christmas party at The Anchor?",
+                answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, with the £250 private hire deposit instead, so call us on 01753 682707 and we will plan it with you.`
+              },
+              {
+                question: "How many people can you seat for a work Christmas party?",
+                answer: `At Christmas we seat ${SSOT_VENUE.capacity.christmas_seated} guests, or host up to ${SSOT_VENUE.capacity.christmas_standing} standing. You can take the dining room, the beer garden or the whole venue depending on the size of your team, and a festive buffet is available for parties of ${SSOT_CHRISTMAS.buffets.min_guests} guests or more.`
+              },
+              {
+                question: "What is on the Christmas menu for work parties?",
+                answer: "The festive set menu runs at one, two or three courses, and adults on the two and three course tiers get a glass of prosecco, swappable for orange juice. The two and three course tiers are pre-ordered, so we need everyone's meal choices 7 days before your booking date. The one course tier has no pre-order, so it's the only one we can book inside that week. The full dish list and the prices are both on the Christmas parties page, served live from our booking system."
+              },
+              ]
+            : [
+                {
+                  question: "Can we hold our office Christmas party at The Anchor?",
+                  answer: `Yes, in season. ${CHRISTMAS_OVER_LINE} Call us on 01753 682707 to talk about a work party.`
+                }
+              ]),
           {
             question: "Can you provide a VAT invoice for our company?",
             answer: "Yes. We can issue a VAT invoice for corporate bookings. Tell our events coordinator the company name and address you need on it, and we will send it over after your event."

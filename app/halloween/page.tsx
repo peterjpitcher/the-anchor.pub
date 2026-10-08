@@ -12,9 +12,10 @@ import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
-import { isHalloweenPartyOver } from '@/lib/seasonal/halloween'
+import { getHalloweenCopy } from '@/lib/seasonal/halloween'
 
 const HALLOWEEN_BOOKING_URL = '/book-table?purpose=food'
+const GENERAL_BOOKING_URL = '/book-table'
 
 const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.county}, ${CONTACT.address.postcode}`
 const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
@@ -41,103 +42,54 @@ const HALLOWEEN_DYNAMIC: SeasonalDynamicFields & { verifiedAt?: string } = {
   bookingStatus: 'Book a table if you want to eat before the party',
 }
 
+// Title, description and both social cards switch with the page body, from the
+// one clock read in lib/seasonal/halloween.ts. Before this only the title and
+// description changed, so a link shared on 1 November still carried
+// "Saturday 31 October, 8pm till midnight" in its preview.
 export function generateMetadata(): Metadata {
-  const over = isHalloweenPartyOver()
-  const title = over
-    ? 'Halloween Party Near Heathrow'
-    : 'Halloween Party Near Heathrow, Free Entry'
-  const description = over
-    ? 'Our Halloween fancy-dress party near Heathrow, in Stanwell Moor. This year has been and gone; next year’s theme goes up as soon as it is confirmed.'
-    : 'Halloween party near Heathrow, Saturday 31 October. Free entry, fancy dress, free parking. This year’s theme: Enter If You Dare, The House of Horrors.'
+  const copy = getHalloweenCopy()
 
   return {
-    ...baseMetadata,
-    title,
-    description,
+    title: copy.metaTitle,
+    description: copy.metaDescription,
+    alternates: { canonical: './' },
+    openGraph: {
+      title: copy.socialTitle,
+      description: copy.socialDescription,
+      images: [DEFAULT_PAGE_HEADER_IMAGE],
+      type: 'website',
+    },
+    twitter: getTwitterMetadata({
+      title: copy.socialTitle,
+      description: copy.socialDescription,
+      images: [DEFAULT_PAGE_HEADER_IMAGE],
+    }),
   }
 }
 
-const baseMetadata: Metadata = {
-  title: 'Halloween Party Near Heathrow, Free Entry',
-  description:
-    'Halloween party near Heathrow, Saturday 31 October. Free entry, fancy dress, free parking. This year’s theme: Enter If You Dare, The House of Horrors.',
-  alternates: { canonical: './' },
-  openGraph: {
-    title: 'Halloween Party Near Heathrow, Free Entry | The Anchor',
-    description:
-      'Halloween party at The Anchor near Heathrow, Saturday 31 October, 8pm till midnight. Free entry, fancy dress and free parking. This year: The House of Horrors.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
-    type: 'website',
-  },
-  twitter: getTwitterMetadata({
-    title: 'Halloween Party Near Heathrow, Free Entry | The Anchor',
-    description:
-      'Halloween party at The Anchor near Heathrow, Saturday 31 October, 8pm till midnight. Free entry, fancy dress and free parking. This year: The House of Horrors.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
-  }),
-}
-
-const faqs = [
-  {
-    question: 'Is there a Halloween party at The Anchor?',
-    answer:
-      'Yes. This year it is Enter If You Dare: The House of Horrors, on Saturday 31 October from 8pm until midnight. Entry is free, fancy dress is encouraged and the bar is open until midnight.',
-  },
-  {
-    question: 'Do I have to wear fancy dress?',
-    answer:
-      'Fancy dress is the heart of the night and very much encouraged, but it is not compulsory. Come dressed up for the full experience, or come as you are and enjoy the disco either way.',
-  },
-  {
-    question: 'What is this year\u2019s Halloween theme?',
-    answer:
-      'Enter If You Dare: The House of Horrors. The fancy-dress theme changes every year, so it is never the same night twice. Come as anything that fits the theme, or just come as something spooky.',
-  },
-  {
-    question: 'Do you serve food on Halloween?',
-    answer:
-      'Yes, but plan around the kitchen. The full menu runs until 6pm, the kitchen is closed from 6pm to 9pm, and pizza is served from 9pm to midnight, to eat in or take away. Book a table if you\u2019d like to eat before 6pm.',
-  },
-  {
-    question: 'What Halloween events are on near me?',
-    answer:
-      'We run two: A Hint of Halloween Quiz Night on Wednesday 7 October, which is our normal quiz with a few spooky touches and \u00a33 entry, and the House of Horrors Halloween party on Saturday 31 October, which is free to get into. Both are in Stanwell Moor, a few minutes from Heathrow and a short drive from Staines.',
-  },
-  {
-    question: 'How much does it cost to get in?',
-    answer:
-      'The Halloween party on 31 October is free entry, with no ticket needed. The Hint of Halloween quiz on 7 October is \u00a33 per person, paid in cash on arrival.',
-  },
-  {
-    question: 'Is there parking?',
-    answer:
-      `Free on-site parking is available for guests, with ${PARKING.capacity} spaces. We\u2019re about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car. You\u2019ll find us at ${addressLine}.`,
-  },
-]
-
 /**
- * The date this year's party actually happens. Everything date-sensitive on the
- * page keys off this.
+ * Everything on this page that names this year's date, times, theme or food
+ * service comes from getHalloweenCopy(), or sits behind `partyOver` below.
  *
- * Without it, the page states "Saturday 31 October, 8pm till midnight, free
+ * Without that, the page states "Saturday 31 October, 8pm till midnight, free
  * entry" as flat fact, so on 1 November it would still be inviting people to a
  * party that had already happened, and would carry on doing so until someone
  * remembered to edit it. Seasonal pages are most visited exactly when the date
  * is closest, which is also when being wrong costs most.
  */
 export default function HalloweenPage() {
-  const partyOver = isHalloweenPartyOver()
-  const dynamicFields = partyOver ? {} : HALLOWEEN_DYNAMIC
+  const copy = getHalloweenCopy(new Date(), addressLine)
+  const partyOver = copy.partyOver
+  const bookingUrl = partyOver ? GENERAL_BOOKING_URL : HALLOWEEN_BOOKING_URL
 
   return (
     <>
-
-            <InteriorHero
+      <InteriorHero
         image="/images/page-headers/whats-on/whats-on.jpg"
         crumb="Halloween"
-        kicker="Saturday 31 October, 8pm till midnight"
+        kicker={copy.heroKicker}
         title="Halloween at The Anchor"
-        lead="Enter If You Dare: The House of Horrors is this year's Halloween party at The Anchor in Stanwell Moor. Free entry, fancy dress encouraged, music all night and the bar open until midnight. Eat before the party, park for free, and walk in."
+        lead={copy.heroLead}
       />
 
       <section className="py-section-y bg-surface">
@@ -150,59 +102,82 @@ export default function HalloweenPage() {
               </h2>
               <p className="text-ink-muted text-lg leading-relaxed">
                 Halloween at The Anchor is a fancy-dress disco, our take on a proper local Halloween night.
-                Think music, a dressed-up crowd and a buzzing bar, the kind of cheeky, lively evening you
-                get at a real village pub rather than a stiff club night. Pull a costume together, round up
-                your friends, and come and join in.
+                Think music, a dressed-up crowd and a buzzing bar, the kind of lively evening you
+                get at a real village pub rather than a stiff club night.
+                {partyOver ? null : ' Pull a costume together, round up your friends, and come and join in.'}
               </p>
-              <p className="text-ink-muted leading-relaxed">
-                The fancy-dress theme changes every year, so it never feels like the same night twice. This
-                year it is <strong className="text-ink-strong">Enter If You Dare: The House of Horrors</strong>,
-                on Saturday 31 October from 8pm until midnight. Entry is free and there is no ticket to buy,
-                so bring whoever you like. Everything on the night is listed on our{' '}
-                <Link href="/whats-on" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
-                  What&apos;s On page
-                </Link>
-                {' '}alongside the rest of our Halloween events.
-              </p>
+              {partyOver ? (
+                <p className="text-ink-muted leading-relaxed">
+                  The fancy-dress theme changes every year, so it never feels like the same night twice. This
+                  year&apos;s party has been and gone. Next year&apos;s theme goes up here and on our{' '}
+                  <Link href="/whats-on" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
+                    What&apos;s On page
+                  </Link>
+                  {' '}once it is confirmed.
+                </p>
+              ) : (
+                <p className="text-ink-muted leading-relaxed">
+                  The fancy-dress theme changes every year, so it never feels like the same night twice. This
+                  year it is <strong className="text-ink-strong">Enter If You Dare: The House of Horrors</strong>,
+                  on Saturday 31 October from 8pm until midnight. Entry is free and there is no ticket to buy,
+                  so bring whoever you like. It is listed on our{' '}
+                  <Link href="/whats-on" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
+                    What&apos;s On page
+                  </Link>
+                  {' '}too.
+                </p>
+              )}
               <div className="flex flex-wrap items-center gap-3">
                 <Badge variant="green">Fancy-dress disco</Badge>
-                <Badge variant="green">House of Horrors</Badge>
-                <Badge variant="success">Free entry</Badge>
+                {partyOver ? null : <Badge variant="green">House of Horrors</Badge>}
+                {partyOver ? null : <Badge variant="success">Free entry</Badge>}
                 <Badge variant="success">Free parking</Badge>
                 <Badge variant="green">Dog friendly</Badge>
               </div>
             </div>
 
-            {/* This year's theme (A11 dynamic block) */}
-            <SeasonalDynamicDetails
-              fields={dynamicFields}
-              heading="This year's Halloween"
-              intro={
-                partyOver
-                  ? 'This year\u2019s Halloween party has been and gone. Next year\u2019s theme goes up here once it is confirmed.'
-                  : "Here's what's confirmed for this year's Halloween party at The Anchor."
-              }
-            />
+            {/* This year's details. SeasonalDynamicDetails renders nothing when it
+                has no fields, so the "been and gone" line could never show from
+                inside it. After the party it is its own block. */}
+            {partyOver ? (
+              <Card accent>
+                <CardBody className="space-y-2">
+                  <h3 className="text-h4 text-ink-strong">This year&apos;s Halloween</h3>
+                  <p className="text-sm text-ink-muted leading-relaxed">
+                    This year&apos;s Halloween party has been and gone. Next year&apos;s theme goes up here once it is confirmed.
+                  </p>
+                </CardBody>
+              </Card>
+            ) : (
+              <SeasonalDynamicDetails
+                fields={HALLOWEEN_DYNAMIC}
+                heading="This year's Halloween"
+                intro="Here's what's confirmed for this year's Halloween party at The Anchor."
+              />
+            )}
 
-            {/* Food & Drink */}
-            <div className="space-y-4">
-              <h2 className="text-h3 text-ink-strong">
-                Food &amp; drink
-              </h2>
-              <p className="text-ink-muted leading-relaxed">
-                The full menu runs until 6pm, so come early if you want dinner. The kitchen is closed from 6pm to
-                9pm, then pizza is served from 9pm to midnight, to eat in or take away. Take a look at
-                our{' '}
-                <Link href="/food-menu" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
-                  food menu
-                </Link>{' '}
-                and{' '}
-                <Link href="/drinks" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
-                  drinks menu
-                </Link>{' '}
-                to plan ahead.
-              </p>
-            </div>
+            {/* Food & Drink. These are the kitchen times for 31 October 2026 only
+                (SSOT section 10, Party nights), so they go when the night has. */}
+            {partyOver ? null : (
+              <div className="space-y-4">
+                <h2 className="text-h3 text-ink-strong">
+                  Food &amp; drink
+                </h2>
+                <p className="text-ink-muted leading-relaxed">
+                  The full menu runs until 6pm, so come early if you want dinner. The kitchen is closed from 6pm to
+                  9pm, then pizza is served from 9pm to midnight, to eat in or take away. Take a look at
+                  our{' '}
+                  <Link href="/food-menu" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
+                    food menu
+                  </Link>{' '}
+                  and{' '}
+                  <Link href="/drinks" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
+                    drinks menu
+                  </Link>{' '}
+                  to plan ahead.
+                </p>
+              </div>
+            )}
 
             {/* Families welcome */}
             <div className="space-y-4">
@@ -212,48 +187,56 @@ export default function HalloweenPage() {
               <p className="text-ink-muted leading-relaxed">
                 The Anchor is a family-friendly pub, and children are very welcome, with the beer garden giving
                 little ones plenty of space. If you&apos;re bringing the family along, give us a call and we&apos;ll talk
-                you through what works best for this year&apos;s night.
+                you through what works best for the night.
               </p>
             </div>
 
-            {/* Booking */}
-            <Card accent>
-              <CardBody className="space-y-4">
-                <h2 className="text-h4 text-ink-strong">Booking</h2>
-                <p className="text-ink-muted leading-relaxed">
-                  Walk-ins are welcome for drinks all evening. If you&apos;d like to eat before the disco, we recommend
-                  booking a table. The party itself is free entry with no ticket, so you can just turn up for that.
-                </p>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
-                    <a href={HALLOWEEN_BOOKING_URL}>Book a Table for Food</a>
-                  </Button>
-                  <PhoneButton
-                    phone={CONTACT.phone}
-                    source="halloween_booking"
-                    variant="outline"
-                    size="lg"
-                    className="w-full sm:w-auto"
-                  >
-                    Call {CONTACT.phone}
-                  </PhoneButton>
-                </div>
-                <p className="text-sm text-ink-muted">
-                  Tables for 8+ guests, please call.
-                </p>
-              </CardBody>
-            </Card>
+            {/* Booking. About eating before this year's party, so it goes too. */}
+            {partyOver ? null : (
+              <Card accent>
+                <CardBody className="space-y-4">
+                  <h2 className="text-h4 text-ink-strong">Booking</h2>
+                  <p className="text-ink-muted leading-relaxed">
+                    Walk-ins are welcome for drinks all evening. If you&apos;d like to eat before the disco, we recommend
+                    booking a table. The party itself is free entry with no ticket, so you can just turn up for that.
+                  </p>
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
+                      <a href={HALLOWEEN_BOOKING_URL}>Book a Table for Food</a>
+                    </Button>
+                    <PhoneButton
+                      phone={CONTACT.phone}
+                      source="halloween_booking"
+                      variant="outline"
+                      size="lg"
+                      className="w-full sm:w-auto"
+                    >
+                      Call {CONTACT.phone}
+                    </PhoneButton>
+                  </div>
+                  <p className="text-sm text-ink-muted">
+                    Tables for 8+ guests, please call.
+                  </p>
+                </CardBody>
+              </Card>
+            )}
           </div>
         </Container>
       </section>
 
       <CtaBand
-        title="Halloween at The Anchor, Saturday 31 October"
-        copy="Enter If You Dare: The House of Horrors runs from 8pm until midnight. Free entry, fancy dress encouraged and free parking. Book a table if you want to eat first, or just walk in."
+        title={copy.ctaTitle}
+        copy={copy.ctaCopy}
         primary={
-          <Button asChild variant="primary" size="lg">
-            <a href={HALLOWEEN_BOOKING_URL}>Book a Table</a>
-          </Button>
+          partyOver ? (
+            <Button asChild variant="primary" size="lg">
+              <Link href="/whats-on">See what&apos;s on</Link>
+            </Button>
+          ) : (
+            <Button asChild variant="primary" size="lg">
+              <a href={HALLOWEEN_BOOKING_URL}>Book a Table</a>
+            </Button>
+          )
         }
         secondary={
           <PhoneButton
@@ -306,12 +289,12 @@ export default function HalloweenPage() {
         </Container>
       </section>
 
-      <FAQAccordionWithSchema title="Halloween FAQs" faqs={faqs} />
+      <FAQAccordionWithSchema title="Halloween FAQs" faqs={copy.faqs} />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: HALLOWEEN_BOOKING_URL, title: 'Book a Table', description: 'Reserve online in minutes' },
+          { href: bookingUrl, title: 'Book a Table', description: 'Reserve online in minutes' },
           { href: '/whats-on', title: "What's On", description: 'Upcoming events and entertainment' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location,

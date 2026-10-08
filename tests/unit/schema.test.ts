@@ -1,4 +1,6 @@
-import { quizNightEventSeries, bingoEventSeries, webSiteSchema } from '@/lib/schema'
+import fs from 'fs'
+import path from 'path'
+import { quizNightEventSeries, bingoEventSeries, webSiteSchema, rollingSeriesEndDate } from '@/lib/schema'
 import { getEnhancedSchemas } from '@/lib/schema-with-reviews'
 import { generateEventSchema } from '@/lib/schema-utils'
 import { staticEvents } from '@/lib/static-events'
@@ -24,6 +26,22 @@ describe('schema dates', () => {
   it('bingoEventSeries endDate is in the future', () => {
     const endDate = new Date(bingoEventSeries.endDate as string)
     expect(endDate.getTime()).toBeGreaterThan(Date.now() + 90 * 24 * 60 * 60 * 1000)
+  })
+
+  // The music bingo series is written in its page, not in lib/schema.ts, and
+  // had a typed end date of 2026-12-31 (site review DT-009).
+  it('the music bingo series uses the same rolling end date, not a typed one', () => {
+    const source = fs.readFileSync(path.join(process.cwd(), 'app', 'music-bingo', 'page.tsx'), 'utf8')
+    expect(source).toContain('"endDate": rollingSeriesEndDate()')
+    expect(source).not.toMatch(/"endDate":\s*"\d{4}-\d{2}-\d{2}"/)
+  })
+
+  it.each([
+    ['2026-10-08T12:00:00Z', '2027-12-31'],
+    ['2026-12-31T23:59:00Z', '2027-12-31'],
+    ['2027-01-01T00:00:00Z', '2028-12-31']
+  ])('the rolling end date at %s is %s, always at least a year out', (instant, expected) => {
+    expect(rollingSeriesEndDate(new Date(instant))).toBe(expected)
   })
 
 })

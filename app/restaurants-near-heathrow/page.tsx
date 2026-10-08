@@ -592,7 +592,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
           {
             question: "Do you serve Sunday roast, and do I need to book?",
-            answer: "Yes. We serve Sunday roast every Sunday from 1pm to 6pm, and walk-ins are welcome with no pre-order required. Booking is recommended for larger groups and busy times, but it is not required. The current roasts and their prices are live on the food menu."
+            answer: "Yes. We serve Sunday roast on Sundays from 1pm to 6pm, and walk-ins are welcome with no pre-order required. Booking is recommended for larger groups and busy times, but it is not required. The current roasts and their prices are live on the food menu."
           },
           {
             question: "Is parking really free?",

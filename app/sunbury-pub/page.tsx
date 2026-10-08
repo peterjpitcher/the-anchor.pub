@@ -232,7 +232,7 @@ export default function SunburyPubPage() {
                     },
                     {
                         question: "Do I need to book for Sunday Roast?",
-                        answer: "No. We serve roasts every Sunday from 1pm to 6pm and walk-ins are welcome, with no pre-order needed. Booking is still worth it at peak times or for a bigger group, and groups of more than 20 need to book by phone on 01753 682707."
+                        answer: "No. We serve roasts on Sundays from 1pm to 6pm and walk-ins are welcome, with no pre-order needed. Booking is still worth it at peak times or for a bigger group, and groups of more than 20 need to book by phone on 01753 682707."
                     }
                 ]}
                 className="bg-surface"
