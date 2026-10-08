@@ -236,13 +236,6 @@
               "vegetarian": false
             },
             {
-              "name": "Mac & Cheese",
-              "price": "14",
-              "description": "Creamy macaroni cheese topped with crispy onions, served with salad and garlic bread.",
-              "allergens": ["gluten", "milk", "mustard"],
-              "vegetarian": true
-            },
-            {
               "name": "Spinach & Ricotta Cannelloni",
               "price": "14",
               "description": "Spinach and ricotta cannelloni baked in tomato sauce, served with salad and garlic bread.",

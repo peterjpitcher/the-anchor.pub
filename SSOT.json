@@ -501,11 +501,6 @@
             "price": "LIVE_FROM_DB"
           },
           {
-            "name": "Mac & Cheese",
-            "price": "LIVE_FROM_DB",
-            "vegetarian": true
-          },
-          {
             "name": "Spinach & Ricotta Cannelloni",
             "price": "LIVE_FROM_DB",
             "vegetarian": true
