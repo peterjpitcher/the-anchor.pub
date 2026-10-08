@@ -9,10 +9,12 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import Link from 'next/link'
+import { getCateringData } from '@/lib/api/catering-packages'
 
 export const metadata: Metadata = {
-    title: 'Summer Garden Party Venue Near Heathrow | BBQ Hire',
-    description: `Host your summer event in our large pub garden. BBQ packages, outdoor bar options, and plenty of sunshine. Perfect for birthdays and team socials near Heathrow.`,
+    title: 'Summer Garden Party Venue Near Heathrow',
+    description: `Host your summer event in our pub garden near Heathrow. Garden hire and buffet catering, including our Indoor BBQ package, for birthdays and team socials.`,
     openGraph: {
         title: 'Summer Garden Parties at The Anchor',
         description: 'Sun, Cider, and BBQ. The perfect ingredients for a summer bash.',
@@ -29,7 +31,25 @@ export const metadata: Metadata = {
     }
 }
 
-export default function SummerGardenPartiesPage() {
+// What this page offers is what SSOT section 11 holds: the garden as a hire
+// space, and the catering list, which includes the Indoor BBQ package. It used
+// to sell a chef's outdoor BBQ ("we man the grill"), an outdoor bottle bar and
+// a part-garden hire, none of which is on file (site review C3-030). The BBQ
+// minimum is read from the live catering data, never typed.
+async function getIndoorBbqMinimum(): Promise<number | null> {
+    try {
+        const { foodPackages } = await getCateringData()
+        const bbq = foodPackages.find((pkg) => pkg.name.trim().toLowerCase() === 'indoor bbq')
+        return bbq && bbq.minimumGuests > 0 ? bbq.minimumGuests : null
+    } catch {
+        return null
+    }
+}
+
+export default async function SummerGardenPartiesPage() {
+    const bbqMinimum = await getIndoorBbqMinimum()
+    const bbqMinimumLine = bbqMinimum ? ` It's for ${bbqMinimum} guests or more.` : ''
+
     return (
         <>
 
@@ -37,7 +57,7 @@ export default function SummerGardenPartiesPage() {
               image="/images/page-headers/home/page-headers-homepage.jpg"
               crumb="Summer Garden Parties"
               title="Summer Garden Party Venue"
-              lead="Exclusive areas, BBQ packages, and festival vibes."
+              lead="Garden hire and buffet catering for your summer get-together."
             />
 
             <section className="py-section-y bg-surface">
@@ -47,7 +67,7 @@ export default function SummerGardenPartiesPage() {
                             A Beer Garden Under the Flight Path
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            When the British summer finally arrives, The Anchor's garden is a lovely place to be. With a large grassy area, plenty of picnic benches, and dedicated space for private events, it's a great spot for soaking up the sun.
+                            When the British summer finally arrives, The Anchor's garden is a lovely place to be. You can hire the garden for a private event, and it's a great spot for soaking up the sun.
                         </p>
                     </div>
                 </Container>
@@ -58,20 +78,20 @@ export default function SummerGardenPartiesPage() {
                     <div className="mx-auto">
                         <SectionHeading
                             title="Summer Party Packages"
-                            lead="More than just a few sausages on the grill."
+                            lead="Food for your garden party comes from our catering list."
                         />
 
                         <div className="grid gap-5 sm:grid-cols-2 mb-8">
                             <Card accent hover>
                                 <CardBody>
-                                    <h3 className="text-lg font-semibold text-ink-strong mb-2">Chef&apos;s BBQ</h3>
-                                    <p className="text-ink-muted">We man the grill so you don&apos;t have to. Gourmet burgers, marinated chicken, and fresh salads.</p>
+                                    <h3 className="text-lg font-semibold text-ink-strong mb-2">Indoor BBQ package</h3>
+                                    <p className="text-ink-muted">Our Indoor BBQ package is on the catering list.{bbqMinimumLine} Ask us for what&apos;s in it and the price.</p>
                                 </CardBody>
                             </Card>
                             <Card accent hover>
                                 <CardBody>
-                                    <h3 className="text-lg font-semibold text-ink-strong mb-2">Outdoor Service</h3>
-                                    <p className="text-ink-muted">For large events, we can set up an outdoor bottle bar so drinks are never far away.</p>
+                                    <h3 className="text-lg font-semibold text-ink-strong mb-2">More buffets</h3>
+                                    <p className="text-ink-muted">There are more buffets on the list too. See them, with prices, on our <Link href="/private-hire" className="text-accent-text underline">private hire page</Link>.</p>
                                 </CardBody>
                             </Card>
                         </div>
@@ -122,11 +142,11 @@ export default function SummerGardenPartiesPage() {
                 faqs={[
                     {
                         question: "Is there a minimum number for a BBQ?",
-                        answer: "For a private BBQ buffet, we usually require a minimum of 20 guests. For smaller groups, our main menu is always available."
+                        answer: `Our Indoor BBQ package is a buffet from our catering list.${bbqMinimumLine} Call us on ${CONTACT.phone} and we'll talk through the food for your group.`
                     },
                     {
                         question: "Can we hire the whole garden?",
-                        answer: "We can section off a large private area for you, but we generally keep part of the garden open for our regular customers unless it is a very large exclusive hire."
+                        answer: `The garden is one of our hire spaces. Call us on ${CONTACT.phone} and we'll talk through what you need.`
                     },
                     {
                         question: "Is it dog friendly?",
