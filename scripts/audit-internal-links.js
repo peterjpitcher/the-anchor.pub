@@ -9,7 +9,7 @@
  *
  *   - a file in public/,
  *   - a route in the production build (.next/routes-manifest.json and the
- *     prerendered pages), so run `npm run build` first,
+ *     prerendered pages) when there is one, else the pages in app/,
  *   - the redirect rules in config/redirects/*.json and next.config.js.
  *
  * A link is reported when it would 404, or when it passes through a redirect
@@ -67,10 +67,7 @@ function readJson(relative) {
 
 function loadBuild() {
   const manifestPath = path.join(ROOT, '.next', 'routes-manifest.json')
-  if (!fs.existsSync(manifestPath)) {
-    console.error('No production build found. Run `npm run build` first.')
-    process.exit(2)
-  }
+  if (!fs.existsSync(manifestPath)) return loadFromSource()
   const manifest = readJson('.next/routes-manifest.json')
   const prerender = readJson('.next/prerender-manifest.json')
   const staticRoutes = new Set(manifest.staticRoutes.map((route) => route.page))
@@ -85,6 +82,41 @@ function loadBuild() {
     .filter((rule) => !rule.internal)
     .map((rule) => ({ source: rule.source, destination: rule.destination, regex: new RegExp(rule.regex), has: rule.has }))
   return { staticRoutes, dynamicRoutes, prerendered, patternRedirects }
+}
+
+/**
+ * With no build to read, work the routes out from the app/ folder. Good enough
+ * to run in the lint chain: it knows every page and route handler, but not the
+ * pattern redirects in next.config.js, so a link that only a pattern rescues
+ * is reported as not found. The built check is the exact one.
+ */
+function loadFromSource() {
+  console.log('(no production build found: routes are read from app/ instead)')
+  const appDir = path.join(ROOT, 'app')
+  const staticRoutes = new Set()
+  const dynamicRoutes = []
+  for (const file of walk(appDir)) {
+    if (!/^(page|route)\.(tsx|ts|jsx|js|mdx)$/.test(path.basename(file))) continue
+    const segments = path
+      .relative(appDir, path.dirname(file))
+      .split(path.sep)
+      .filter((segment) => segment && !/^\(.*\)$/.test(segment))
+    const page = '/' + segments.join('/')
+    if (page.includes('[...unmatched]')) continue
+    if (!page.includes('[')) {
+      staticRoutes.add(page)
+      continue
+    }
+    const pattern = segments
+      .map((segment) => {
+        if (/^\[\[?\.\.\./.test(segment)) return '.+'
+        if (/^\[.+\]$/.test(segment)) return '[^/]+'
+        return segment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      })
+      .join('/')
+    dynamicRoutes.push({ page, regex: new RegExp(`^/${pattern}$`) })
+  }
+  return { staticRoutes, dynamicRoutes, prerendered: new Set(), patternRedirects: [] }
 }
 
 function loadConcreteRedirects() {

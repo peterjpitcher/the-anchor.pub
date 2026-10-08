@@ -50,7 +50,7 @@ The dates were typed in `app/sitemap.ts` in a dozen named batches and were older
 ## 5. Blog (template and listing only; no file under `content/blog` is changed)
 
 - [x] **Redirected posts in listings (SM-012).** A post whose address redirects is dropped once, in `getAllBlogPosts`. Four such posts were still linked 22 times across the blog, through related reading and previous or next links. The sitemap's own list of seven retired slugs is gone.
-- [x] **Bylines and dates (SM-024).** A team byline is published as the business, not a person. `dateModified` is `lastUpdated` from the post's frontmatter when set, else the last commit to the post. The publisher logo is the black one with its real size. The tag pages named the publisher "The Anchor - Heathrow Pub & Dining".
+- [x] **Bylines and dates (SM-024).** A team byline is published as the business, not a person. `dateModified` is `updated` from the post's frontmatter when set (the date the page prints as "Updated"), else the last commit to the post. The publisher logo is the black one with its real size.
 
 ## 6. Links
 
@@ -63,20 +63,18 @@ The dates were typed in `app/sitemap.ts` in a dozen named batches and were older
 
 | Check | What it does |
 |---|---|
-| `npm run audit:links` | After a build, collects every internal address in `app`, `components`, `content` and `lib` and checks it against the built routes, `public/` and the redirect rules. Reports a 404 or a link that only arrives by redirect. |
+| `npm run audit:links` | Collects every internal address in `app`, `components`, `content` and `lib` and checks it against the built routes (or the pages in `app/` when there is no build), `public/` and the redirect rules. Reports a 404 or a link that only arrives by redirect. |
 | `npm run audit:rendered` | Now also loads the pages outside the sitemap, and fails on a broken breadcrumb address or a picture address with no file. Warns on a missing share picture or a page that shares as another. |
-| `tests/unit/search-data.test.ts` | 24 tests for the faults above, including that every picture path written in `app`, `components` and `lib` is a real file. |
+| `tests/unit/search-data.test.ts` | 26 tests for the faults above, including that every picture path written in `app`, `components` and `lib` is a real file. |
 
-`npm run audit:links` is not in the lint chain yet. It reports 12 links in two blog posts (below) and would fail until those are fixed.
+`npm run audit:links` is in the lint chain (`npm run lint`). On the merged tree it checks 2,138 links and reports none.
 
 ## 8. Not done here, and why
 
 | Finding | State | Why |
 |---|---|---|
-| SM-006 | Left for the blog package | The wrong WhatsApp number (`4401753...`) is in four files under `content/blog`, which another branch is editing. |
-| SM-013, blog part | Left for the blog package | Eleven `/pub-near-*` links in `heathrow-hotel-dining-vs-local-pub` and one `/function-room-hire` link in `pub-vs-hotel-celebration-venue`. |
-| SM-022 | Left for the blog package | Two redirect rules to repoint at `/restaurants-near-heathrow`. Listed under P15 in the owner defaults. |
-| SM-028 | Left for the blog package | Six post folders still exist although their addresses redirect. They are now inert (section 5), but deleting them is a `content/blog` change. |
+| SM-006, SM-022, the blog part of SM-013 | Closed by the blog batch (PR #222) | Checked on the merged tree: no `4401753` WhatsApp number is left, the two rules point at `/restaurants-near-heathrow`, and no blog link passes through a redirect. |
+| SM-028 | Done after the merge | The blog batch deleted the six folders. A test now fails if a post folder is also a redirect source. |
 | SM-027 | Not built | Nine pages are reached only from the sitemap page. Linking them needs new copy, seven are area pages whose "areas we serve" status is open until the SSOT review, and two are under copy correction. |
 | SM-021 | Owner action | One Cloudflare redirect rule (http or no-www straight to https://www). Not in this repository. |
 | FD-012 | Not built | Optional tidy-up of old picture addresses. No visitor-facing fault. |
@@ -90,3 +88,16 @@ The dates were typed in `app/sitemap.ts` in a dozen named batches and were older
 - Every "accessible toilet" and "baby changing" entry in the structured data is a `false` value or a plain "we don't have". None is a claim.
 - All 195 sitemap pages return 200, carry their own canonical address and are indexable. The 16 pages checked outside the sitemap have the right canonical too.
 - The quiz, Music Bingo and cash bingo prices in the structured data (£3, £5, £10) match SSOT section 10.
+
+## 10. Merge with the blog batch (PR #222)
+
+Main was merged into this branch after the blog batch landed. Four files conflicted. Where both branches had solved the same thing, one version is kept.
+
+| File | Kept |
+|---|---|
+| `lib/markdown.ts` | The blog batch's `updated` and `hideDate` fields. This branch's `lastUpdated` field is deleted. The filter that drops redirected posts stays. |
+| `app/blog/[slug]/page.tsx` | The blog batch's template, whole. The byline and `dateModified` come from this branch's two helpers, and the template's inline copy of the byline rule is deleted. |
+| `app/blog/tag/[tag]/page.tsx` | The blog batch's publisher, a pointer to the one Organization record. |
+| `app/sitemap.ts` | Neither side keeps a list of retired slugs. One comment says why. |
+
+The page counts in sections 3 and 9 were taken before the merge. On the merged build the sitemap holds 196 pages; all 196 and the 16 checked outside it pass the rendered-page audit with no errors.

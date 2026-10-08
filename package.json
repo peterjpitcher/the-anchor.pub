@@ -9,7 +9,7 @@
     "build": "next build",
     "sitemap:lastmod": "node scripts/generate-sitemap-lastmod.js --write",
     "start": "next start",
-    "lint": "npm run lint:next && npm run audit:hero && npm run audit:menu-pages && npm run audit:page-width && npm run audit:redirects && npm run audit:jsonld && npm run audit:freshness && npm run audit:palette && npm run audit:opacity",
+    "lint": "npm run lint:next && npm run audit:hero && npm run audit:menu-pages && npm run audit:page-width && npm run audit:redirects && npm run audit:jsonld && npm run audit:freshness && npm run audit:palette && npm run audit:opacity && npm run audit:links",
     "audit:page-width": "node scripts/audit-page-width.js",
     "audit:redirects": "node scripts/audit-redirects.js",
     "audit:jsonld": "node scripts/audit-jsonld-safety.js",
