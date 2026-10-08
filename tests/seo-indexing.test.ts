@@ -981,7 +981,7 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     // available" (site review finding B3-016); the other two were a 2023 burger
     // offer and a 2023 company parties post. Each goes to the live page that
     // covers its subject today. The two menu destinations carry the section, as
-    // the retired /food-menu/pizza and /food-menu/burgers pages already do.
+    // the retired /food/pizza and /burger-menu pages already do.
     const retired: Array<[string, string]> = [
       ['/blog/buy-one-get-one-free-on-all-pizza-every-tuesday', '/food-menu#pizza'],
       ['/blog/pizza-deals-stanwell-heathrow-tuesdays', '/food-menu#pizza'],
