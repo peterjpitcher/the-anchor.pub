@@ -104,7 +104,7 @@ function renderSiteWithBannerShowing() {
     jest.advanceTimersByTime(1500)
   })
   jest.useRealTimers()
-  expect(screen.getByText('We value your privacy')).toBeInTheDocument()
+  expect(screen.getByText("Cookies: it's your choice")).toBeInTheDocument()
 }
 
 function panel(): HTMLElement {
@@ -137,7 +137,7 @@ beforeEach(() => {
   window.localStorage.clear()
   clearEveryCookie()
   // GTMProvider wires its listener once per window; each test gets a fresh one.
-  delete window.__gtmInitialized
+  delete window.__gtmLoaded
   window.gtag = jest.fn()
 })
 
@@ -151,7 +151,7 @@ afterEach(() => {
 describe('switching a category off in the preferences panel', () => {
   it('marketing off removes the marketing cookies and leaves the analytics ones', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     plant(ANALYTICS_COOKIES, SITE_WIDE)
     plant(MARKETING_COOKIES, SITE_WIDE)
     renderSite()
@@ -165,7 +165,7 @@ describe('switching a category off in the preferences panel', () => {
 
   it('analytics off removes the analytics cookies and leaves the marketing ones', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     plant(ANALYTICS_COOKIES, SITE_WIDE)
     plant(MARKETING_COOKIES, SITE_WIDE)
     renderSite()
@@ -179,7 +179,7 @@ describe('switching a category off in the preferences panel', () => {
 
   it('both off removes both, and the choice itself is kept', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     plant(ANALYTICS_COOKIES, SITE_WIDE)
     plant(MARKETING_COOKIES, SITE_WIDE)
     renderSite()
@@ -188,7 +188,7 @@ describe('switching a category off in the preferences panel', () => {
 
     expect(held([...ANALYTICS_COOKIES, ...MARKETING_COOKIES])).toEqual([])
     // The cookie that records the refusal has to outlive the ones it refuses.
-    expect(getConsentStatus()).toMatchObject({ analytics: false, marketing: false, preferences: true })
+    expect(getConsentStatus()).toMatchObject({ analytics: false, marketing: false })
   })
 })
 
@@ -203,7 +203,7 @@ describe('Reject All', () => {
     const rejectButtons = screen.getAllByRole('button', { name: 'Reject all cookies' })
     await user.click(rejectButtons[rejectButtons.length - 1])
 
-    expect(getConsentStatus()).toMatchObject({ analytics: false, marketing: false, preferences: false })
+    expect(getConsentStatus()).toMatchObject({ analytics: false, marketing: false })
     expect(held([...ANALYTICS_COOKIES, ...MARKETING_COOKIES])).toEqual([])
   })
 })
@@ -211,7 +211,7 @@ describe('Reject All', () => {
 describe('turning a category on', () => {
   it('deletes nothing when marketing is switched on in the panel', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: false, preferences: false })
+    setConsentStatus({ analytics: true, marketing: false })
     plant(ANALYTICS_COOKIES, SITE_WIDE)
     plant(['a-cookie-of-our-own'])
     renderSite()
@@ -231,7 +231,7 @@ describe('turning a category on', () => {
     const acceptButtons = screen.getAllByRole('button', { name: 'Accept all cookies' })
     await user.click(acceptButtons[acceptButtons.length - 1])
 
-    expect(getConsentStatus()).toMatchObject({ analytics: true, marketing: true, preferences: true })
+    expect(getConsentStatus()).toMatchObject({ analytics: true, marketing: true })
     expect(held([...ANALYTICS_COOKIES, ...MARKETING_COOKIES])).toEqual([...ANALYTICS_COOKIES, ...MARKETING_COOKIES])
   })
 })
@@ -292,9 +292,64 @@ describe('which cookies the clean-up reaches', () => {
     plant(ANALYTICS_COOKIES, SITE_WIDE)
     plant(MARKETING_COOKIES, SITE_WIDE)
 
-    setConsentStatus({ analytics: true, marketing: false, preferences: false })
+    setConsentStatus({ analytics: true, marketing: false })
 
     expect(held(MARKETING_COOKIES)).toEqual([])
     expect(held(ANALYTICS_COOKIES)).toEqual(ANALYTICS_COOKIES)
+  })
+})
+
+// The same tags keep a copy of their identifier in the browser's storage, which
+// deleting cookies does not touch. Both names were seen on a production build
+// after Accept on 7 October 2026. The notice says a category switched off is
+// deleted from the browser, so the storage goes with the cookies.
+describe('what the tags keep in browser storage', () => {
+  const GOOGLE_AD_CLICK = '_gcl_ls'
+  const CLARITY_SESSION = '_cltk'
+  const OURS = ['christmas_2026_lightbox_seen', 'event_banner_dismissed_until']
+
+  function plantStorage() {
+    window.localStorage.setItem(GOOGLE_AD_CLICK, 'planted')
+    window.sessionStorage.setItem(CLARITY_SESSION, 'planted')
+    OURS.forEach((key) => window.localStorage.setItem(key, 'planted'))
+    window.sessionStorage.setItem('event_banner_session_show', 'true')
+  }
+
+  afterEach(() => {
+    window.sessionStorage.clear()
+  })
+
+  it('goes on Reject All, and the notes that only keep a pop-up closed stay', () => {
+    plantStorage()
+
+    rejectAllCookies()
+
+    expect(window.localStorage.getItem(GOOGLE_AD_CLICK)).toBeNull()
+    expect(window.sessionStorage.getItem(CLARITY_SESSION)).toBeNull()
+    OURS.forEach((key) => expect(window.localStorage.getItem(key)).toBe('planted'))
+    expect(window.sessionStorage.getItem('event_banner_session_show')).toBe('true')
+  })
+
+  it('goes for the category switched off, and only that one', () => {
+    setConsentStatus({ analytics: true, marketing: true })
+    plantStorage()
+
+    setConsentStatus({ analytics: true, marketing: false })
+
+    expect(window.localStorage.getItem(GOOGLE_AD_CLICK)).toBeNull()
+    expect(window.sessionStorage.getItem(CLARITY_SESSION)).toBe('planted')
+
+    setConsentStatus({ analytics: false, marketing: false })
+
+    expect(window.sessionStorage.getItem(CLARITY_SESSION)).toBeNull()
+  })
+
+  it('is left alone while both categories are on', () => {
+    plantStorage()
+
+    setConsentStatus({ analytics: true, marketing: true })
+
+    expect(window.localStorage.getItem(GOOGLE_AD_CLICK)).toBe('planted')
+    expect(window.sessionStorage.getItem(CLARITY_SESSION)).toBe('planted')
   })
 })

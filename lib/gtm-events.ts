@@ -1048,7 +1048,6 @@ export function trackCookieConsent(data: {
   action: 'accept_all' | 'reject_all' | 'save_preferences'
   analytics: boolean
   marketing: boolean
-  preferences: boolean
 }) {
   // sendToApi is deliberately false. This event fires with requireConsent:false
   // so GTM can react to the consent decision, but forwarding it server-side to
@@ -1060,8 +1059,7 @@ export function trackCookieConsent(data: {
   pushToDataLayer({
     event: 'cookie_consent_update',
     consent_analytics: data.analytics,
-    consent_marketing: data.marketing,
-    consent_preferences: data.preferences
+    consent_marketing: data.marketing
   }, { requireConsent: false, sendToApi: false })
 }
 

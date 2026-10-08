@@ -55,8 +55,8 @@ const SITE_WIDE = '.the-anchor.pub'
 const MARKETING_COOKIES = ['_fbp', 'li_fat_id']
 const ANALYTICS_COOKIES = ['_ga', '_clck']
 
-type Choice = Pick<CookieConsent, 'analytics' | 'marketing' | 'preferences'>
-type SwitchName = 'Analytics Cookies' | 'Marketing Cookies' | 'Preference Cookies'
+type Choice = Pick<CookieConsent, 'analytics' | 'marketing'>
+type SwitchName = 'Analytics Cookies' | 'Marketing Cookies'
 
 /** What was true at the moment the page was asked to reload. */
 interface AtReload {
@@ -78,7 +78,7 @@ function cookiesOnDevice(): string[] {
 function storedChoice(): Choice | null {
   const consent = getConsentStatus()
   if (!consent) return null
-  return { analytics: consent.analytics, marketing: consent.marketing, preferences: consent.preferences }
+  return { analytics: consent.analytics, marketing: consent.marketing }
 }
 
 function plant(names: string[]) {
@@ -117,7 +117,7 @@ function renderSiteWithBannerShowing() {
     jest.advanceTimersByTime(1500)
   })
   jest.useRealTimers()
-  expect(screen.getByText('We value your privacy')).toBeInTheDocument()
+  expect(screen.getByText("Cookies: it's your choice")).toBeInTheDocument()
 }
 
 function panel(): HTMLElement {
@@ -151,7 +151,7 @@ beforeEach(() => {
   window.localStorage.clear()
   clearEveryCookie()
   // GTMProvider wires its listener once per window; each test gets a fresh one.
-  delete window.__gtmInitialized
+  delete window.__gtmLoaded
   window.gtag = jest.fn()
 
   atReload = []
@@ -177,7 +177,7 @@ afterEach(() => {
 describe('switching a category off reloads the page', () => {
   it('marketing off: once, with the choice stored, Google told and the cookies gone first', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     plant([...ANALYTICS_COOKIES, ...MARKETING_COOKIES])
     renderSite()
     reload.mockClear()
@@ -187,7 +187,7 @@ describe('switching a category off reloads the page', () => {
     expect(reload).toHaveBeenCalledTimes(1)
     // The page that loads next reads this cookie before Tag Manager starts. Reloading
     // ahead of the write would bring every tag straight back.
-    expect(atReload[0].choice).toEqual({ analytics: true, marketing: false, preferences: true })
+    expect(atReload[0].choice).toEqual({ analytics: true, marketing: false })
     expect(atReload[0].googleToldTo).toEqual([expect.objectContaining({ ad_storage: 'denied', analytics_storage: 'granted' })])
     expect(atReload[0].cookies).toEqual(expect.arrayContaining(ANALYTICS_COOKIES))
     MARKETING_COOKIES.forEach((name) => expect(atReload[0].cookies).not.toContain(name))
@@ -197,7 +197,7 @@ describe('switching a category off reloads the page', () => {
 
   it('analytics off: once, with the choice stored first', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     plant([...ANALYTICS_COOKIES, ...MARKETING_COOKIES])
     renderSite()
     reload.mockClear()
@@ -205,26 +205,26 @@ describe('switching a category off reloads the page', () => {
     await saveInPanel(user, ['Analytics Cookies'])
 
     expect(reload).toHaveBeenCalledTimes(1)
-    expect(atReload[0].choice).toEqual({ analytics: false, marketing: true, preferences: true })
+    expect(atReload[0].choice).toEqual({ analytics: false, marketing: true })
     expect(atReload[0].cookies).toEqual(expect.arrayContaining(MARKETING_COOKIES))
     ANALYTICS_COOKIES.forEach((name) => expect(atReload[0].cookies).not.toContain(name))
   })
 
   it('both off in one save: one reload, not one for each', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     renderSite()
     reload.mockClear()
 
     await saveInPanel(user, ['Analytics Cookies', 'Marketing Cookies'])
 
     expect(reload).toHaveBeenCalledTimes(1)
-    expect(atReload[0].choice).toEqual({ analytics: false, marketing: false, preferences: true })
+    expect(atReload[0].choice).toEqual({ analytics: false, marketing: false })
   })
 
   it('marketing off while analytics was already off still reloads', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: false, marketing: true, preferences: false })
+    setConsentStatus({ analytics: false, marketing: true })
     renderSite()
     reload.mockClear()
 
@@ -236,16 +236,16 @@ describe('switching a category off reloads the page', () => {
   // The panel is the only way a visitor reaches these today. They are here because the
   // reload lives where the choice is written, so no later caller can save one without it.
   it('covers every way a choice is written, not only the panel', () => {
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     reload.mockClear()
     rejectAllCookies()
     expect(reload).toHaveBeenCalledTimes(1)
 
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     reload.mockClear()
     setConsentStatus({ marketing: false })
     expect(reload).toHaveBeenCalledTimes(1)
-    expect(atReload[1].choice).toEqual({ analytics: true, marketing: false, preferences: true })
+    expect(atReload[1].choice).toEqual({ analytics: true, marketing: false })
   })
 })
 
@@ -258,7 +258,7 @@ describe('nothing was running, so nothing is reloaded', () => {
     const acceptButtons = screen.getAllByRole('button', { name: 'Accept all cookies' })
     await user.click(acceptButtons[acceptButtons.length - 1])
 
-    expect(storedChoice()).toEqual({ analytics: true, marketing: true, preferences: true })
+    expect(storedChoice()).toEqual({ analytics: true, marketing: true })
     expect(reload).not.toHaveBeenCalled()
   })
 
@@ -269,7 +269,7 @@ describe('nothing was running, so nothing is reloaded', () => {
     const rejectButtons = screen.getAllByRole('button', { name: 'Reject all cookies' })
     await user.click(rejectButtons[rejectButtons.length - 1])
 
-    expect(storedChoice()).toEqual({ analytics: false, marketing: false, preferences: false })
+    expect(storedChoice()).toEqual({ analytics: false, marketing: false })
     expect(reload).not.toHaveBeenCalled()
   })
 
@@ -279,31 +279,31 @@ describe('nothing was running, so nothing is reloaded', () => {
 
     await saveInPanel(user, [])
 
-    expect(storedChoice()).toEqual({ analytics: false, marketing: false, preferences: false })
+    expect(storedChoice()).toEqual({ analytics: false, marketing: false })
     expect(reload).not.toHaveBeenCalled()
   })
 
   it('switching a category on', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: false, preferences: false })
+    setConsentStatus({ analytics: true, marketing: false })
     renderSite()
     reload.mockClear()
 
     await saveInPanel(user, ['Marketing Cookies'])
 
-    expect(storedChoice()).toEqual({ analytics: true, marketing: true, preferences: false })
+    expect(storedChoice()).toEqual({ analytics: true, marketing: true })
     expect(reload).not.toHaveBeenCalled()
   })
 
   it('saving the panel with nothing changed', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: false, preferences: true })
+    setConsentStatus({ analytics: true, marketing: false })
     renderSite()
     reload.mockClear()
 
     await saveInPanel(user, [])
 
-    expect(storedChoice()).toEqual({ analytics: true, marketing: false, preferences: true })
+    expect(storedChoice()).toEqual({ analytics: true, marketing: false })
     expect(reload).not.toHaveBeenCalled()
   })
 
@@ -314,23 +314,9 @@ describe('nothing was running, so nothing is reloaded', () => {
     expect(reload).not.toHaveBeenCalled()
   })
 
-  // No tag runs on the preferences category: it only changes Google's
-  // personalization_storage signal, which the update already carries.
-  it('switching only the preferences category off', async () => {
-    const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
-    renderSite()
-    reload.mockClear()
-
-    await saveInPanel(user, ['Preference Cookies'])
-
-    expect(storedChoice()).toEqual({ analytics: true, marketing: true, preferences: false })
-    expect(reload).not.toHaveBeenCalled()
-  })
-
   it('flicking a switch off and then cancelling', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     renderSite()
     reload.mockClear()
 
@@ -338,7 +324,7 @@ describe('nothing was running, so nothing is reloaded', () => {
     await user.click(within(panel()).getByRole('checkbox', { name: 'Marketing Cookies' }))
     await user.click(within(panel()).getByRole('button', { name: 'Cancel' }))
 
-    expect(storedChoice()).toEqual({ analytics: true, marketing: true, preferences: true })
+    expect(storedChoice()).toEqual({ analytics: true, marketing: true })
     expect(reload).not.toHaveBeenCalled()
   })
 })
