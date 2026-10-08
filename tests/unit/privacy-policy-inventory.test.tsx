@@ -69,8 +69,7 @@ describe('every outside host a page may load from has its company named in the n
     'challenges.cloudflare.com': 'Cloudflare',
     'www.clarity.ms': 'Microsoft Clarity',
     '*.clarity.ms': 'Microsoft Clarity',
-    'snap.licdn.com': 'LinkedIn',
-    'api.aviationstack.com': 'Aviationstack'
+    'snap.licdn.com': 'LinkedIn'
   }
 
   const headers = JSON.parse(read('config/security-headers.json')) as Array<{ key: string; value: string }>

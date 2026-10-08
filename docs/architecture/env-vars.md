@@ -41,7 +41,6 @@ This is the canonical list of environment variables consumed by the website. Sou
 | Var | Purpose | Declared in `.env.example` | Used in |
 |---|---|---|---|
 | `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container ID | no (hardcoded default `GTM-WWFQTQS`) | `app/layout.tsx`, `components/tracking/*` |
-| `NEXT_PUBLIC_AVIATIONSTACK_API_KEY` | Heathrow flight data on parking pages | yes | parking page client modules |
 | `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Microsoft Clarity script ID | yes | analytics bootstrap |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel ID for booking conversion tracking | yes | `lib/meta-pixel.ts` |
 | `NEXT_PUBLIC_PAYPAL_CLIENT_ID` | PayPal SDK client ID for inline checkout | yes | parking + table-booking PayPal buttons |
