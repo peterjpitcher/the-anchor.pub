@@ -30,8 +30,6 @@ jest.mock('@/lib/turnstile', () => ({
 const mockApi = {
   createParkingPaymentOrder: jest.fn(),
   getParkingAvailability: jest.fn(),
-  getEvent: jest.fn(),
-  checkEventAvailability: jest.fn(),
   getBookingPeriodSafe: jest.fn()
 }
 jest.mock('@/lib/api', () => ({ anchorAPI: mockApi }))
@@ -275,14 +273,6 @@ describe('reads that spend the booking system key', () => {
       }
     },
     {
-      label: 'event availability',
-      upstream: mockApi.checkEventAvailability,
-      call: async (address = VISITOR) => {
-        const { POST } = await import('@/app/api/events/[id]/availability/route')
-        return POST(jsonRequest('/api/events/evt-1/availability', { seats: 2 }, address), { params: { id: 'evt-1' } })
-      }
-    },
-    {
       label: 'table booking periods',
       upstream: mockApi.getBookingPeriodSafe,
       call: async (address = VISITOR) => {
@@ -296,8 +286,6 @@ describe('reads that spend the booking system key', () => {
     '%s: the twenty-first in a minute from one address is refused and the booking system is not asked',
     async (_label, testCase) => {
       mockApi.getParkingAvailability.mockResolvedValue([{ remaining: 3 }])
-      mockApi.getEvent.mockResolvedValue({ bookings_enabled: true })
-      mockApi.checkEventAvailability.mockResolvedValue({ available: true, remaining_capacity: 20 })
       mockApi.getBookingPeriodSafe.mockResolvedValue({ ok: true, data: null })
 
       for (let i = 0; i < 20; i += 1) {

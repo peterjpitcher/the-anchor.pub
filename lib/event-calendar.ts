@@ -415,12 +415,6 @@ export function buildEventIcs(event: Event): string {
   return `${lines.join('\r\n')}\r\n`
 }
 
-type EventsCalendarIcsOptions = {
-  calendarName?: string
-  calendarDescription?: string
-  prodId?: string
-}
-
 function buildVEventLines(event: Event, dtstamp: string): string[] | null {
   const { start, end } = getEventCalendarRangeUtc(event)
   if (Number.isNaN(start.getTime())) return null
@@ -444,30 +438,4 @@ function buildVEventLines(event: Event, dtstamp: string): string[] | null {
     `URL:${escapeIcsText(url)}`,
     'END:VEVENT'
   ]
-}
-
-export function buildEventsCalendarIcs(events: Event[], options: EventsCalendarIcsOptions = {}): string {
-  const dtstamp = formatCalendarUtc(new Date())
-
-  const lines: string[] = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    `PRODID:${escapeIcsText(options.prodId || '-//The Anchor//Events//EN')}`,
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    ...(options.calendarName ? [`X-WR-CALNAME:${escapeIcsText(options.calendarName)}`] : []),
-    ...(options.calendarDescription ? [`X-WR-CALDESC:${escapeIcsText(options.calendarDescription)}`] : []),
-    `X-WR-TIMEZONE:${EVENT_TIME_ZONE}`
-  ]
-
-  for (const event of events) {
-    const eventLines = buildVEventLines(event, dtstamp)
-    if (eventLines) {
-      lines.push(...eventLines)
-    }
-  }
-
-  lines.push('END:VCALENDAR')
-
-  return `${lines.join('\r\n')}\r\n`
 }

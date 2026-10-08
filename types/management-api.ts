@@ -30,7 +30,6 @@ export type {
 export type {
   Event,
   EventsResponse,
-  EventAvailability,
   EventCategory,
   EventCategoriesResponse,
 } from '@/lib/api/events'

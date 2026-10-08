@@ -36,6 +36,7 @@
     "tagline": "Where Everyone's Welcome",
     "type": "Independent British village pub and restaurant",
     "pub_group": "Greene King Tenants network",
+    "tenancy": "Billy and Peter co-own the tenancy (owner-confirmed 2026-10-08). Peter is Peter Pitcher. No surname for Billy is on record: never add one.",
     "heritage_statement": "Part of the community since 1751",
     "detailed_heritage": "A village pub since 1751, with evidence of an Anchor Inn on the site by at least 1730. The present building appears to be mid-Victorian, standing on the site of the earlier pub. Stood here before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.",
     "founding_year": 1751,
@@ -84,6 +85,7 @@
         "442"
       ],
       "bus_boards_at": "Heathrow Terminal 5",
+      "bus_terminals_note": "Terminal 5 is the only terminal the 442 goes to (owner-confirmed 2026-10-08).",
       "bus_stop": "Horton Road, by the pub",
       "bus_note": "Corrected 2026-10-08 against Surrey County Council's timetables (read 2026-10-07). The 441 and the 555 do not come to Stanwell Moor, so never name them. Never state a fare, a frequency, a journey time or a last bus time.",
       "taxis": "The bar team will give a taxi number; customers make their own arrangements (owner-confirmed 2026-10-07).",
@@ -244,7 +246,8 @@
       "extended": "Additional parking available nearby",
       "marked_disabled_bay": false,
       "marked_disabled_bay_note": "There is no marked disabled parking bay (owner-confirmed 2026-10-07). Never write disabled parking, a disabled bay or Blue Badge bays.",
-      "coaches": "A small coach fits in the car park. A full-size coach must park on the main road where safe (owner-confirmed 2026-10-07)."
+      "coaches": "A small coach fits in the car park. A full-size coach must park on the main road where safe (owner-confirmed 2026-10-07).",
+      "cctv_footage_kept": "CCTV footage is kept for 1 month (owner-confirmed 2026-10-08)."
     },
     "pool_and_darts": {
       "pool_ball_colours": "Yellow and red, not spots and stripes",
@@ -329,15 +332,17 @@
     ],
     "corporate_invoicing": {
       "vat_invoice_available": true,
-      "note": "VAT invoices can be issued for corporate bookings. Purchase orders, split billing and payment terms remain undocumented, do not claim them.",
-      "_confirmed": "Owner-confirmed 11 August 2026"
+      "vat_receipt_available": true,
+      "note": "We give VAT receipts and VAT invoices (owner-confirmed 2026-10-08). Purchase orders, split billing and payment terms remain undocumented, do not claim them.",
+      "_confirmed": "Owner-confirmed 11 August 2026 (invoices for corporate bookings); widened 8 October 2026 to VAT receipts and VAT invoices."
     },
     "currency": "GBP",
     "price_range": "££",
-    "spaces_note": "TWO indoor spaces, not three: the main bar area and the dining room. The 1995 conservatory was replaced by the dining room extension (renovation 2024); 'conservatory' is legacy wording and some guests still use it for the dining room. Never list it as a separate space. The dining room is warm and cosy with French doors onto the garden; in winter the doors are usually kept shut, and the garden remains accessible just outside. (Owner-confirmed 2026-08-15.)"
+    "spaces_note": "TWO indoor spaces, not three: the main bar area and the dining room. The conservatory was replaced by the new dining room, built in 2024 (owner-confirmed 2026-10-08; nobody knows when the conservatory was built, so never give it a year); 'conservatory' is legacy wording and some guests still use it for the dining room. Never list it as a separate space. The dining room is warm and cosy with French doors onto the garden; in winter the doors are usually kept shut, and the garden remains accessible just outside. (Owner-confirmed 2026-08-15.)"
   },
   "beer_garden": {
     "seats": 64,
+    "table_booking_note": "You can book a table in the garden, but not a specific table (owner-confirmed 2026-10-08). Never promise a particular table or spot.",
     "flight_path": "Directly under Heathrow's southern runway approach path",
     "aircraft_frequency": "Every 90 seconds during peak times",
     "aircraft_altitude": "500-800 feet overhead",
@@ -928,7 +933,8 @@
       "prizes": "Not every game is played for cash: some are played for a free drink and some for a £10 food voucher. Drinks, chocolate, vouchers and cash boosts may vary by event. Snowball increases by £20 and 2 calls at the next cash bingo night when unclaimed. Current jackpot values belong in event records only.",
       "_prizes_confirmed": "Owner-confirmed 2026-09-12: some games are played for a free drink and some for a £10 food voucher. Which games those are varies by event, so name the prize type without promising a game number. The £10 book, the jackpot_rule and the snowball_rule are unchanged.",
       "jackpot_rule": "Half of all book sales (£5 of every £10 book) go into the final game's cash jackpot, so the prize grows with the room. Owner-confirmed 2026-09-11.",
-      "snowball_rule": "Grows by £20 and 2 calls at the next cash bingo night when unclaimed. Only players from one of the previous three cash bingo nights can win it. Mirrored from the management app 2026-09-11."
+      "snowball_rule": "Grows by £20 and 2 calls at the next cash bingo night when unclaimed. Only players from one of the previous three cash bingo nights can win it. Mirrored from the management app 2026-09-11.",
+      "snowball_guarantee_note": "We can't guarantee a Snowball (owner-confirmed 2026-10-08). Never promise a Snowball for a future night, or project what it will be worth."
     },
     "music_bingo": {
       "schedule": "Once a month on a Friday. Rest of 2026: 2026-10-16, 2026-11-13, 2026-12-11; the 2026-09-11 night was cancelled in the management app on the day. Mirrored from the management app 2026-09-11; owner-confirmed 2026-09-11 that 2026 dates will not move. Take any later date from the event records.",
@@ -1240,6 +1246,7 @@
     "_decorating_rules_confirmed": "Owner-confirmed 2026-10-07.",
     "dietary": "We never promise nut-free, dairy-free or halal for a private booking, but we do our best (owner-confirmed 2026-10-07).",
     "celebration_cake": "For parties, someone bringing a celebration cake signs the outside-food waiver (owner-confirmed 2026-10-07).",
+    "food_storage": "We don't offer any food storage for any food brought in, to avoid risks of cross-contamination (owner-confirmed 2026-10-08). Never offer to store, chill or keep a cake or any other food a guest brings.",
     "dedicated_events_coordinator": true,
     "free_wifi": true,
     "free_parking": "For all attendees",
@@ -1674,7 +1681,7 @@
         "description": "Historic Thames-side meadows where Magna Carta was sealed; ancient Ankerwycke Yew; free access."
       }
     ],
-    "dining_room_history": "Original conservatory built in 1995 for George and Alex Best's wedding reception. Replaced with new dining room extension, renovation started April 2024, ready for Euro 2024 (14 June). Features French doors to garden.",
+    "dining_room_history": "Original conservatory built for George and Alex Best's wedding reception; the year it was built is not known (owner, 2026-10-08), so never give one. Replaced with new dining room extension, renovation started April 2024, ready for Euro 2024 (14 June). Features French doors to garden.",
     "greene_king_partnership": "Renovation funding supported by Greene King."
   },
   "food_hygiene": {

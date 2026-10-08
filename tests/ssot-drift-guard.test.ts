@@ -688,6 +688,38 @@ describe('SSOT drift guard, the corrections and owner facts of 8 October 2026', 
     )
   })
 
+  it("records the owner's answers of 8 October 2026 in both files", () => {
+    expect(ssot.venue.parking.cctv_footage_kept).toMatch(/^CCTV footage is kept for 1 month/)
+    expect(mdPlain).toContain('CCTV footage is kept for 1 month.')
+    expect(ssot.venue.corporate_invoicing.vat_receipt_available).toBe(true)
+    expect(ssot.venue.corporate_invoicing.vat_invoice_available).toBe(true)
+    expect(mdPlain).toContain('VAT receipts and VAT invoices: we give both.')
+    expect(ssot.beer_garden.table_booking_note).toMatch(
+      /^You can book a table in the garden, but not a specific table/,
+    )
+    expect(mdPlain).toContain('"You can book a table in the garden, but not a specific table."')
+    expect(ssot.identity.tenancy).toMatch(/^Billy and Peter co-own the tenancy/)
+    expect(mdPlain).toContain('Billy and Peter co-own the tenancy.')
+    expect(ssot.private_hire.food_storage).toMatch(
+      /^We don't offer any food storage for any food brought in, to avoid risks of cross-contamination/,
+    )
+    expect(mdPlain).toContain(
+      '"We don\'t offer any food storage for any food brought in, to avoid risks of cross-contamination."',
+    )
+    expect(ssot.events.cash_bingo.snowball_guarantee_note).toMatch(/^We can't guarantee a Snowball/)
+    expect(mdPlain).toContain('"We can\'t guarantee a Snowball."')
+    expect(ssot.location.access.bus_terminals_note).toMatch(/^Terminal 5 is the only terminal the 442 goes to/)
+    expect(mdPlain).toContain('Terminal 5 is the only terminal it goes to.')
+    expect(mdPlain).toContain('The new dining room was built in 2024.')
+    expect(mdPlain).toContain('those applicants are covered by the same 12 months.')
+  })
+
+  it('gives the conservatory no year, because nobody knows when it was built', () => {
+    // Owner, 8 October 2026. SSOT.json used to say "built in 1995" in two places.
+    expect(JSON.stringify(ssot)).not.toMatch(/1995 conservatory|conservatory built in 1995/i)
+    expect(md).not.toMatch(/1995 conservatory|conservatory (was )?built in 1995/i)
+  })
+
   it('carries the decorating rules in full, in both files', () => {
     expect(ssot.private_hire.decorating_rules).toEqual([
       'No confetti cannons at all',

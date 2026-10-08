@@ -49,6 +49,13 @@
 // 14, site review package P19). Nothing on the site contacts it any more. Also
 // written on a branch: if it goes live on a later day, move the date to that
 // day.
+//
+// 8 October 2026, later: five owner answers of that day. CCTV footage is kept
+// for 1 month; emails sent through Resend record whether they were opened; the
+// "future roles" tick on the job form is the same 12 months; and Orange Jelly
+// Limited is described as based in Stanwell Moor, the one thing its own notice
+// says about where it is. Also written on a branch: if it goes live on a later
+// day, move the date to that day.
 export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-08'
 
 /**
@@ -65,4 +72,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-08'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  '511205989fba80414b8b330ac74fd028c03d166b75bdf2c8b127cc93440e7218'
+  '36de6b995dae268acd3d9889116875bdc2aad0e87489adb1f235cce5a18d01ce'

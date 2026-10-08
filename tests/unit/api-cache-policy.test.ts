@@ -30,7 +30,6 @@ describe('middleware: /api reads are not stored by default', () => {
     // Live availability.
     '/api/table-bookings/availability?date=2026-10-21&party_size=2&time=19:00',
     '/api/parking/availability?start=2026-10-21&end=2026-10-28',
-    '/api/events/abc/availability',
     // Personal, or keyed by something personal.
     '/api/parking/bookings/00000000-0000-4000-8000-000000000000',
     '/api/table-bookings/ABC123?customer_email=guest%40example.com',
@@ -40,12 +39,11 @@ describe('middleware: /api reads are not stored by default', () => {
     '/api/events/abc',
     // Everything else that used to inherit the public rule.
     '/api/table-bookings/periods?date=2026-12-20&party_size=2',
-    '/api/reviews/status',
     '/api/public/private-booking/config',
-    '/api/health',
     '/api/analytics',
     // A route nobody has written yet starts out not stored.
     '/api/something-new',
+    '/api/health',
   ])('%s is no-store', (path) => {
     const cacheControl = headersFor(path).get('cache-control') ?? ''
     expect(cacheControl).toBe('no-store, max-age=0')
@@ -78,7 +76,7 @@ describe('middleware: /api reads are not stored by default', () => {
     // its own public header (reviews, the calendar files) replaces the
     // middleware's Cache-Control but would be left carrying this one, which
     // would silently switch its caching off.
-    for (const path of ['/api/reviews', '/api/calendar/upcoming', '/api/customers/lookup?phone=1']) {
+    for (const path of ['/api/reviews', '/api/calendar/event/quiz-night', '/api/customers/lookup?phone=1']) {
       expect(headersFor(path).get('cdn-cache-control')).toBeNull()
     }
   })

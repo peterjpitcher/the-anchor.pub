@@ -78,10 +78,8 @@ project: the-anchor-pub
 **API Routes**:
 - `/api/events` (GET)
 - `/api/events/[id]` (GET)
-- `/api/events/[id]/availability` (POST)
 - `/api/event-bookings` (POST)
 - `/api/event-waitlist` (POST)
-- `/api/calendar/upcoming` (GET)
 - `/api/calendar/event/[id]` (GET)
 - `/api/event-categories` (GET)
 - `/api/public/private-booking` (POST) — Private hire enquiry form

@@ -24,7 +24,7 @@ import { formatLondonLongDate } from '@/lib/time-london'
  *
  * The rule for every sentence: it is a fact about the code, or a decision the
  * owner has made, and the comment above it says which. Where a fact could not
- * be found (a company number, how long CCTV footage is kept, a legal basis) the
+ * be found (a company number, a legal basis) the
  * sentence is left out rather than guessed. tasks/changes/
  * 2026-10-08-privacy-and-consent.md lists what was left out and why.
  *
@@ -91,9 +91,13 @@ export default function PrivacyPolicyPage() {
             This policy says what The Anchor does with your personal information when you use this website, book with us, enquire about an event or apply for a job.
           </p>
           {/* Owner fact 28, 7 October 2026 (docs/SSOT.md section 1). No company
-              number or registered office is given: neither is in the SSOT. */}
+              number or registered office is given, on purpose. Asked for them on
+              8 October 2026, the owner pointed at Orange Jelly Limited's own
+              notice (www.orangejelly.co.uk/privacy, read that day), which gives
+              neither. It says the business is "based in Stanwell Moor", and
+              that is all this sentence takes from it. */}
           <p>
-            Orange Jelly Limited is the business responsible for your personal information. Where this policy says &quot;we&quot;, &quot;us&quot; or &quot;our&quot;, it means The Anchor and Orange Jelly Limited.
+            Orange Jelly Limited, a small business based in Stanwell Moor, is the business responsible for your personal information. Where this policy says &quot;we&quot;, &quot;us&quot; or &quot;our&quot;, it means The Anchor and Orange Jelly Limited.
           </p>
           <p>
             To ask anything about your information, email <EmailLink email="manager@the-anchor.pub" source="privacy_policy" /> or call <PhoneLink phone="01753 682707" source="privacy_policy" />.
@@ -145,10 +149,16 @@ export default function PrivacyPolicyPage() {
           <p>
             The links in our texts and emails are our own short links. When you tap one, our booking system records the tap: the time, your IP address, the town or city, region and country it points to, your browser and device, and the page you came from. Each link in a marketing email also carries a code that tells us which email it came from and who we sent it to, so a booking you make afterwards can be linked to that email.
           </p>
-          {/* docs/SSOT.md section 8: the car park has CCTV. How long footage is
-              kept is not recorded anywhere, so it is not stated. */}
+          {/* Owner, 8 October 2026: Resend records whether an email was opened.
+              Recruitment email goes through Microsoft 365 instead (see the list
+              in section 6), so the line names Resend rather than every email. */}
           <p>
-            Our car park is covered by CCTV. To ask about footage, email <EmailLink email="manager@the-anchor.pub" source="privacy_policy" />.
+            The emails we send through Resend record whether they were opened.
+          </p>
+          {/* docs/SSOT.md section 8: the car park has CCTV, and footage is kept
+              for 1 month (owner-confirmed 8 October 2026). */}
+          <p>
+            Our car park is covered by CCTV. We keep the footage for 1 month. To ask about footage, email <EmailLink email="manager@the-anchor.pub" source="privacy_policy" />.
           </p>
 
           <h2 id="job-applications" className="scroll-mt-28">3. Job applications</h2>
@@ -189,6 +199,12 @@ export default function PrivacyPolicyPage() {
               removed the name as well. See the change note. */}
           <p>
             If you don&apos;t get the job, we delete your CV and your contact details 12 months after you apply. We keep a short record for good: your name, the role, the date, the outcome and the reason.
+          </p>
+          {/* Owner, 8 October 2026 (docs/SSOT.md section 2, Jobs): the tick on
+              the form, "keep my details for future suitable roles", is covered
+              by the same 12 months. */}
+          <p>
+            That&apos;s the same if you tick the box asking us to keep your details for future roles: we keep them for 12 months, then delete them.
           </p>
 
           <h2>4. How we use your information</h2>
@@ -361,7 +377,7 @@ export default function PrivacyPolicyPage() {
                 up for, which the code cannot tell us. Hence "can". The website's
                 own fallback emails go through Microsoft Graph
                 (lib/microsoft-graph-mail.ts). */}
-            <li><strong>Resend</strong> - Sends our marketing emails, and tells us what happened to each one, such as delivered or bounced. It can also send our booking emails.</li>
+            <li><strong>Resend</strong> - Sends our marketing emails, and tells us what happened to each one, such as delivered, opened or bounced. It can also send our booking emails.</li>
             <li><strong>Microsoft</strong> - Sends our emails about job applications through Microsoft 365, and can send our booking emails. Microsoft Clarity runs only if you accept analytics cookies.</li>
             <li><strong>PayPal</strong> - Takes payments for deposits, event tickets and airport parking. You pay PayPal directly, so your card details never reach us.</li>
             <li><strong>Google</strong> - Our Google calendar holds private hire bookings and job interviews, with the name and contact details for each. Google Maps loads when you ask for a map. Google Analytics and Google Tag Manager run only if you accept analytics cookies.</li>
@@ -390,6 +406,7 @@ export default function PrivacyPolicyPage() {
             <li><strong>Food pre-orders:</strong> two years after the date of the booking, we delete each person&apos;s name, what they ordered and any dietary note.</li>
             <li><strong>Your contact choices:</strong> we keep the choice. After 24 months we remove the web page and browser details we noted when you made it.</li>
             <li><strong>Job applications:</strong> see section 3.</li>
+            <li><strong>CCTV footage:</strong> 1 month.</li>
             <li><strong>Cookies, the advert record and page speed records:</strong> see section 5.</li>
           </ul>
 

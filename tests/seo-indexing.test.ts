@@ -416,6 +416,35 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     )
   })
 
+  it('sends /free-parking to the free parking section of Find Us, not the paid parking page', () => {
+    // Owner answer, 8 October 2026. The address used to land on
+    // /heathrow-parking, the paid product, which is the opposite of what
+    // someone asking for free parking wants (docs/SSOT.md section 8 keeps the
+    // two apart). The section is the id on app/find-us/page.tsx.
+    const rule = lookupRedirect('/free-parking')
+    expect(rule?.destination).toBe('/find-us#parking')
+    expect(getRedirectStatus(rule!)).toBe(301)
+    expect(ALL_REDIRECTS.filter((r) => r.source === '/free-parking')).toHaveLength(1)
+    expect(lookupRedirect('/find-us')).toBeUndefined()
+    expect(fs.readFileSync(path.join(process.cwd(), 'app/find-us/page.tsx'), 'utf8')).toContain('id="parking"')
+
+    // End to end through the middleware on both hosts: one 301, and the
+    // section survives. A query string is kept and sits before the section.
+    for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+      const response = middleware(
+        new NextRequest(`https://${host}/free-parking`, { headers: { host, 'x-forwarded-proto': 'https' } }),
+      )
+      expect(response.status).toBe(301)
+      expect(response.headers.get('location')).toBe('https://www.the-anchor.pub/find-us#parking')
+    }
+    const withQuery = middleware(
+      new NextRequest('https://www.the-anchor.pub/free-parking?utm_source=test', {
+        headers: { host: 'www.the-anchor.pub', 'x-forwarded-proto': 'https' },
+      }),
+    )
+    expect(withQuery.headers.get('location')).toBe('https://www.the-anchor.pub/find-us?utm_source=test#parking')
+  })
+
   it('redirects the retired open-mic page to the events hub', () => {
     // Open mic used to land on /live-music. Live music is now discontinued in
     // full and that route is retired too (docs/SSOT.md §"Live Music,
@@ -916,6 +945,125 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
 
       // End to end through the middleware, on the canonical host and the apex:
       // one 301, and the destination is the rule's target.
+      for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+        const response = middleware(
+          new NextRequest(`https://${host}${source}`, { headers: { host, 'x-forwarded-proto': 'https' } }),
+        )
+        expect(response.status).toBe(301)
+        expect(response.headers.get('location')).toBe(`https://www.the-anchor.pub${destination}`)
+      }
+    }
+
+    // Nothing in the sitemap, and no link left in a page, a component or a post.
+    const sitemapPaths = (await sitemap()).map((entry) => toPath(entry.url))
+    for (const [source] of retired) {
+      expect(sitemapPaths).not.toContain(source)
+    }
+    const stillLinked: string[] = []
+    const walk = (dir: string): void => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name)
+        if (entry.isDirectory()) walk(full)
+        else if (/\.(tsx?|md|mdx|json)$/.test(entry.name)) {
+          const text = fs.readFileSync(full, 'utf8')
+          for (const [source] of retired) {
+            if (text.includes(source)) stillLinked.push(`${path.relative(process.cwd(), full)}: ${source}`)
+          }
+        }
+      }
+    }
+    for (const dir of ['app', 'components', 'content', 'lib']) walk(path.join(process.cwd(), dir))
+    expect(stillLinked).toEqual([])
+  })
+
+  it('retires seven thin blog posts in one hop, with every older address repointed (owner answer, 8 October 2026)', async () => {
+    // Five were stubs that said only that an offer or a beer was "no longer
+    // available" (site review finding B3-016); the other two were a 2023 burger
+    // offer and a 2023 company parties post. Each goes to the live page that
+    // covers its subject today. The two menu destinations carry the section, as
+    // the retired /food/pizza and /burger-menu pages already do.
+    const retired: Array<[string, string]> = [
+      ['/blog/buy-one-get-one-free-on-all-pizza-every-tuesday', '/food-menu#pizza'],
+      ['/blog/pizza-deals-stanwell-heathrow-tuesdays', '/food-menu#pizza'],
+      ['/blog/national-burger-day', '/food-menu#burgers'],
+      ['/blog/pravha-beer', '/drinks'],
+      ['/blog/stanwell-moor-brew', '/drinks'],
+      ['/blog/free-pint-offer-this-november', '/drinks'],
+      ['/blog/company-celebrations', '/corporate-events'],
+    ]
+    // Older Wix and /post/ addresses that used to land on one of the seven.
+    const olderAddresses: Record<string, string[]> = {
+      '/food-menu#pizza': ['/post/buy-one-get-one-free-on-all-pizza-every-tuesday'],
+      '/food-menu#burgers': [
+        '/blog/celebrating-national-burger-day-a-half-price-burge',
+        '/post/celebrating-national-burger-day-a-half-price-burge',
+        '/post/celebrating-national-burger-day-a-half-price-burger-feast',
+      ],
+      '/drinks': [
+        '/blog/enjoy-pravha-at-the-anchor-the-light-and-refreshin',
+        '/post/enjoy-pravha-at-the-anchor-the-light-and-refreshin',
+        '/post/enjoy-pravha-at-the-anchor',
+        '/blog/introducing-stanwell-moor-brew-at-the-anchor-thean',
+        '/post/introducing-stanwell-moor-brew-at-the-anchor-thean',
+        '/post/stanwell-moor-brew-craft-beer',
+        '/post/free-pint-offer-this-november',
+        '/post/free-pint-stanwell-moor',
+      ],
+      '/corporate-events': [
+        '/blog/host-your-company-celebrations-at-the-anchor-pub-i',
+        '/post/host-your-company-celebrations-at-the-anchor-pub-i',
+      ],
+    }
+
+    // The destinations are live pages, not redirects.
+    const destinationFiles: Record<string, string> = {
+      '/food-menu#pizza': 'app/food-menu/page.tsx',
+      '/food-menu#burgers': 'app/food-menu/page.tsx',
+      '/drinks': 'app/drinks/page.tsx',
+      '/corporate-events': 'app/corporate-events/page.tsx',
+    }
+    for (const [destination, file] of Object.entries(destinationFiles)) {
+      expect(fs.existsSync(path.join(process.cwd(), file))).toBe(true)
+      expect(lookupRedirect(destination.split('#')[0])).toBeUndefined()
+    }
+
+    const nextConfig = require('../next.config.js')
+    const frameworkPatterns = ((await nextConfig.redirects()) as RedirectRule[]).map(
+      (rule) => new RegExp(`^${rule.source.replace(/:\w+\*/g, '.*').replace(/:\w+/g, '[^/]+')}$`),
+    )
+    const vercelSources: string[] = (
+      JSON.parse(fs.readFileSync(path.join(process.cwd(), 'vercel.json'), 'utf8')).redirects || []
+    ).map((rule: { source: string }) => rule.source)
+
+    for (const [source, destination] of retired) {
+      // Exactly one rule per source, nothing still lands on the old address,
+      // and the post's folder is gone so nobody edits it by mistake.
+      expect(ALL_REDIRECTS.filter((r) => r.source === source).map((r) => r.destination)).toEqual([destination])
+      expect(ALL_REDIRECTS.filter((r) => r.destination === source)).toEqual([])
+      expect(fs.existsSync(path.join(process.cwd(), 'content', source))).toBe(false)
+    }
+
+    const everyAddress: Array<[string, string]> = [
+      ...retired,
+      ...Object.entries(olderAddresses).flatMap(([destination, sources]) =>
+        sources.map((source): [string, string] => [source, destination]),
+      ),
+    ]
+    expect(everyAddress).toHaveLength(7 + 14)
+
+    for (const [source, destination] of everyAddress) {
+      const rule = lookupRedirect(source)
+      expect(rule?.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+      expect(destinationFiles[destination]).toBeDefined()
+
+      // Which layer: no next.config.js pattern and no vercel.json rule may
+      // catch the address first and send it somewhere else.
+      expect(frameworkPatterns.filter((pattern) => pattern.test(source))).toEqual([])
+      expect(vercelSources).not.toContain(source)
+
+      // End to end through the middleware, on the canonical host and the apex:
+      // one 301, and the destination is the rule's target, section included.
       for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
         const response = middleware(
           new NextRequest(`https://${host}${source}`, { headers: { host, 'x-forwarded-proto': 'https' } }),

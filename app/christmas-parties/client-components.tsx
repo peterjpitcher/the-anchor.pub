@@ -1169,7 +1169,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           */}
           {/*
             TWO spaces, not three. The dining room and what older copy called
-            the conservatory are the same room: SSOT.json records that the 1995
+            the conservatory are the same room: SSOT.json records that the old
             conservatory was replaced by the dining room extension in 2024, and
             venue.capacity carries only main_area_* and dining_room_*. This page
             was the last place on the site still listing a third space, which

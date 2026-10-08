@@ -68,6 +68,7 @@ The facts most copy needs. Each is detailed, with its source, further down.
 - **Naming rule:** Use **"The Anchor"** as the default customer-facing name. Use "The Anchor Pub" only where SEO value warrants it (page titles, alt text, schema name fields). Never use "The Anchor Pub" as the conversational default.
 - **Type:** Independent British village pub and restaurant.
 - **Pub group:** Greene King Tenants network.
+- **Tenancy:** Billy and Peter co-own the tenancy. (Owner-confirmed, 8 October 2026.) Peter is Peter Pitcher. No surname for Billy is on record, so write "Billy" and never add one.
 - **Personal data:** Orange Jelly Limited is the business responsible for customers' personal data. (Owner-confirmed, 7 October 2026.) Name it wherever a page or a form has to say who is responsible for the data.
 - **Motto:** Eat, Drink, Enjoy.
 - **Tagline:** Where Everyone's Welcome.
@@ -236,7 +237,7 @@ The checkable half of this section and of §14 is enforced in the management app
 - **Coordinates:** 51.462509, -0.502067.
 - **Google Maps:** https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ.
 - **M25:** 2 minutes from Junction 14.
-- **Bus:** Route 442. It stops on Horton Road by the pub and runs from Heathrow Terminal 5. **The 441 and the 555 do not come to Stanwell Moor, so never name them.** (Corrected 8 October 2026 against Surrey County Council's timetables, read 7 October 2026. This line used to read "Routes 441, 442, 555 from Heathrow Central Bus Station", which was wrong on the routes and on the boarding point.) Never state a fare, a frequency, a journey time or a last bus time: none is recorded here, and all of them change.
+- **Bus:** Route 442. It stops on Horton Road by the pub and runs from Heathrow Terminal 5. Terminal 5 is the only terminal it goes to. (Owner-confirmed, 8 October 2026.) **The 441 and the 555 do not come to Stanwell Moor, so never name them.** (Corrected 8 October 2026 against Surrey County Council's timetables, read 7 October 2026. This line used to read "Routes 441, 442, 555 from Heathrow Central Bus Station", which was wrong on the routes and on the boarding point.) Never state a fare, a frequency, a journey time or a last bus time: none is recorded here, and all of them change.
 - **Taxis:** The bar team will give a taxi number; customers make their own arrangements. (Owner-confirmed, 7 October 2026.) Never say we book, call, arrange or keep a taxi for anyone. Approved wording is in §16.
 - **ULEZ:** Outside the ULEZ zone. Never quote a saving figure: whether a driver pays the charge depends on their vehicle and their route, so no figure is true for everyone (owner decision, 10 September 2026; §14).
 - **Location framing:** Stanwell Moor, near Heathrow Airport, the closest proper pub to Terminal 5, ~7 minutes by car.
@@ -256,6 +257,8 @@ General range to use in copy: **7–12 minutes** from any Heathrow terminal.
 ### Jobs
 
 Both jobs, bar staff and kitchen team, are open at £12.71 an hour, for now. (Owner-confirmed, 7 October 2026.) "For now" is the owner's wording: the rate and which jobs are open can change, so re-confirm both at each review. `/join-our-team` and its two role pages carry the rate.
+
+**How long an unsuccessful application is kept.** If someone does not get the job, the CV and contact details are deleted 12 months after they apply, and a short record is kept for good: name, role, date, outcome and reason. (Owner decision, 7 October 2026.) Ticking "keep my details for future roles" does not change that: those applicants are covered by the same 12 months. (Owner-confirmed, 8 October 2026.) The form says so beside the tick, and so does the privacy policy.
 
 ## 3. Opening Hours (regular)
 
@@ -564,6 +567,7 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 - **No free-parking time cap.** Never state a two or three hour limit for guests using the pub. Owner-confirmed 15 August 2026.
 - **Leaving a car for longer** (for example while flying) is the separate **paid** airport parking product, not guest parking. Keep the two clearly distinct in copy.
 - Level surface, close to entrance. CCTV and floodlit.
+- **CCTV footage is kept for 1 month.** (Owner-confirmed, 8 October 2026.) The privacy policy says so.
 - Additional parking available nearby.
 - **There is no marked disabled parking bay.** (Owner-confirmed, 7 October 2026.) Never write "disabled parking", "a disabled bay", "Blue Badge bays" or "accessible parking bays". The car park is level and close to the entrance, which is true and fine to say.
 - **Coaches:** a small coach fits in the car park. A full-size coach must park on the main road where safe. (Owner-confirmed, 7 October 2026.) Never promise coach parking without saying which.
@@ -578,6 +582,10 @@ The paid airport parking on `/heathrow-parking` is a separate product from guest
 - **Paying:** PayPal or card. A website booking has a 30-minute payment window. (Mirrored from `SSOT.json`; neither has an owner confirmation date on record.)
 - **The car park:** CCTV, floodlit, level surface, as for guest parking above.
 - **Getting to the terminal:** customers arrange their own transfer. We give a taxi number and do not book one (§2).
+
+### The dining room
+
+The new dining room was built in 2024. (Owner-confirmed, 8 October 2026.) It replaced the conservatory, which some guests still call it. **Nobody knows when the conservatory was built** (owner, 8 October 2026), so never give it a year: an older note here said 1995, and that is withdrawn.
 
 ### Amenities
 
@@ -664,10 +672,12 @@ step from the bar, ramp on request.
 
 - Cash, credit card, debit card, American Express, contactless.
 - Currency: GBP. Price range: ££.
+- **VAT receipts and VAT invoices:** we give both. (Owner-confirmed, 8 October 2026.) Purchase orders, split billing and payment terms are still not on record, so do not claim them.
 
 ## 9. Beer Garden
 
 - **Seats:** 64.
+- **Booking a table in the garden:** "You can book a table in the garden, but not a specific table." (Owner-confirmed, 8 October 2026.) Never promise a particular table, or a particular spot in the garden.
 - **Flight path:** Directly under Heathrow's southern runway approach path.
 - **Never publish a runway designator.** Do not write 27R, 27L, 09L or 09R in page copy, FAQs or JSON-LD (§18 records the incident). The designator adds nothing a visitor needs, and it is the sort of claim an enthusiast will notice and correct in public. Say "under Heathrow's southern runway approach path", and use the weekly alternation for timing.
 - **Aircraft frequency:** Approximately every 90 seconds during peak times.
@@ -724,6 +734,7 @@ step from the bar, ramp on request.
 - **Jackpot:** half of all book sales go into the final cash jackpot, so the prize grows with the room. (Owner-confirmed 11 September 2026.) It is the last game, and it takes £5 from every £10 book. (Mirrored from the management app on 11 September 2026.) Other prizes vary by event.
 - **Not every game is played for cash.** Some games are played for a free drink, and some for a £10 food voucher. (Owner-confirmed 12 September 2026.) Which games those are varies by event, so name the prize type without promising a game number. The £10 book, the half of book sales that builds the final jackpot and the Snowball rules are unchanged.
 - **Snowball (game 9):** a full house within a set number of calls. If nobody wins it, it grows by £20 and two calls at the next cash bingo night. To win it you must have played at one of the previous three cash bingo nights. Current values belong in event records only. (Mirrored from the management app on 11 September 2026.) **For the record, as of 30 September 2026 it stands at £180:** nobody won it on 2 September or on 30 September. (Owner-confirmed, 7 October 2026.) It changes at every cash bingo night, so this figure is dated, not current: never copy it into a page, and take the live value from the event record.
+- **"We can't guarantee a Snowball."** (Owner-confirmed, 8 October 2026.) Cash bingo copy must never promise a Snowball for a future night, and never project what it will be worth: no "it will be £200 next time", no "the Snowball will be played". Explaining the rule above is fine. So is pointing at that night's own page for the current figure.
 
 ### Music Bingo
 
@@ -933,6 +944,8 @@ Nine PDFs, one per occasion, in `public/downloads/`. Registry: `lib/brochures.ts
 
 **Celebration cakes:** for parties, someone bringing a celebration cake signs the outside-food waiver. (Owner-confirmed, 7 October 2026.) It is the same waiver as Bring Your Own Food in the table above. A cake is welcome; say the waiver comes with it.
 
+**No food storage:** "We don't offer any food storage for any food brought in, to avoid risks of cross-contamination." (Owner-confirmed, 8 October 2026.) That covers a celebration cake and anything under Bring Your Own Food. Never offer to store, chill or keep food that a guest brings, before or during a booking. The approved cake wording in §16 makes no such offer, and must not gain one.
+
 ### Kids Catering
 
 Minimum 20 children on each.
@@ -1040,6 +1053,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 
 ### Events
 - **Curry Club, or a curry night**, discontinued (owner-confirmed 11 September 2026, §10). Never list, promote or link to either. The Chicken Katsu Curry on the menu and the curry buffet in §11 are unaffected.
+- **A promised or projected Snowball.** "We can't guarantee a Snowball" (owner, 8 October 2026, §10). Never say a future cash bingo night will have one, or what it will be worth.
 
 ### Operations
 - **A ULEZ saving figure**, in any form: "£12.50 a day", "save £12.50", "saves each driver £12.50". Retired 10 September 2026 (owner decision). Whether someone pays the charge depends on their vehicle and their route, so no figure is true for everyone. Say "we're outside the ULEZ zone" and stop. The tests fail on any ULEZ sentence that carries a £ figure.
@@ -1299,6 +1313,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **8 October 2026, nine owner answers.** Given by the owner in chat on 8 October 2026. CCTV footage is kept for 1 month (§8). We give VAT receipts and VAT invoices (§8). A table can be booked in the garden, but not a specific table (§9). Billy and Peter co-own the tenancy; no surname for Billy is on record (§1). We offer no storage for food brought in, to avoid risks of cross-contamination (§11); the approved cake wording in §16 already made no such offer and is unchanged. The new dining room was built in 2024, and nobody knows when the conservatory was built, so the 1995 date that `SSOT.json` carried in two places is withdrawn (§8). "We can't guarantee a Snowball", so cash bingo copy never promises or projects one for a future night (§10, §14); no page did. Terminal 5 is the only terminal the 442 goes to (§2). An unsuccessful job applicant who ticks "keep my details for future roles" is covered by the same 12 months as everyone else (§2).
 
 - **8 October 2026, cash bingo is "arrive by 6:30pm".** §16 told every night, "both bingos" included, to use "Arrive from 6:30pm", while §10 has held the owner's words for cash bingo since 17 August 2026: "I want people in for 6:30pm". §10 stands and §16 now gives cash bingo its own line. The `/cash-bingo` page already said "by"; each cash bingo night's own page said "from" and now reads the label from the event's category (site review finding C2-027). In the same change §16 gained two short blocks, "Luggage" and "Charging a phone or laptop", so the one sentence each page now uses has a home here; neither adds a fact (§8 already lists luggage storage, and no socket is promised).
 

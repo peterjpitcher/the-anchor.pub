@@ -109,7 +109,7 @@ export function ExitIntentBookingModal() {
       </ModalHeader>
       <ModalBody>
         <p className="text-base text-ink leading-relaxed">
-          Sunday roast books up fast, want to grab a table while you&apos;re here?
+          Want to grab a table while you&apos;re here?
         </p>
       </ModalBody>
       <ModalFooter>

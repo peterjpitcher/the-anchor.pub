@@ -147,7 +147,7 @@
   },
   {
     "source": "/free-parking",
-    "destination": "/heathrow-parking",
+    "destination": "/find-us#parking",
     "permanent": true
   },
   {
