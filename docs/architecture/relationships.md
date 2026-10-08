@@ -57,7 +57,6 @@ project: the-anchor-pub
 **External Integrations**:
 - **Management API** — Parking availability, rates, booking management
 - **PayPal** — Payment processing
-- **AviationStack** — Heathrow flight data (informational display)
 - **OpenWeatherMap** — Weather forecasts
 - **Google Analytics** — Parking booking conversions
 
@@ -211,7 +210,6 @@ project: the-anchor-pub
 | `NEXT_PUBLIC_GTM_ID` | Client | Google Tag Manager | All pages |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Client | Meta Pixel | Booking conversion pages |
 | `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Client | Microsoft Clarity | All pages |
-| `NEXT_PUBLIC_AVIATIONSTACK_API_KEY` | Client | AviationStack | Parking landing page widget |
 | `OPENWEATHER_API_KEY` | Server | OpenWeatherMap | Informational weather display |
 | `MICROSOFT_TENANT_ID`, `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`, `MICROSOFT_USER_EMAIL` | Server | Microsoft Graph | `/api/enquiry/*`, `/api/careers` |
 | `CHRISTMAS_ENQUIRY_TO`, `RECRUITMENT_APPLICATION_TO` | Server | Email routing | Enquiry form handlers |

@@ -6,7 +6,6 @@ import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
-import { FlightStatus, FlightDelayWidget } from '@/components/FlightStatus'
 import { TerminalNavigation } from '@/components/TerminalNavigation'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -322,20 +321,6 @@ export default function Terminal5Page() {
         </div>
       </section>
 
-      {/* Live Flight Information */}
-      <section className="py-section-y bg-canvas">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto">
-            <SectionHeading
-              title="Live Terminal 5 Flight Information"
-              subtitle="Check flight times while you enjoy your meal or drink"
-              align="center"
-            />
-            <FlightStatus terminal="5" type="both" limit={5} />
-          </div>
-        </div>
-      </section>
-
       {/* Terminal 5 Specific Info */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
@@ -344,10 +329,6 @@ export default function Terminal5Page() {
               title="Terminal 5 Travel Tips"
               align="center"
             />
-
-            <div className="mb-8">
-              <FlightDelayWidget terminal="5" />
-            </div>
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
               <h3 className="font-display text-h3 text-ink-strong mb-4">Terminal 5 Insider Tips</h3>

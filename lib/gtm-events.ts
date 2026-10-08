@@ -829,13 +829,6 @@ export function trackOpeningHoursCheck() {
   })
 }
 
-export function trackFlightStatusCheck(terminal: string) {
-  pushToDataLayer({
-    event: 'flight_status_check',
-    terminal: terminal
-  })
-}
-
 // Navigation tracking
 export function trackNavigationClick(data: {
   label: string
