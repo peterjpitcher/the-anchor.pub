@@ -153,7 +153,6 @@ describe('notes kept in browser storage', () => {
     promo_private_hire_2026_disabled: 'lib/promos/privateHire2026.ts',
     sunday_lunch_booking_prompt_dismissed: 'components/sunday-lunch/TimedBookingPrompt.tsx',
     sunday_lunch_exit_intent_shown: 'components/conversion/ExitIntentBookingModal.tsx',
-    sunday_lunch_scroll_tooltip_shown: 'components/conversion/ScrollProgressBookingTooltip.tsx',
     plane_spotting_booking_prompt_shown: 'components/plane-spotting/PlaneSpottingBookingPrompt.tsx',
     'anchor-private-hire-selected-space': 'components/private-hire/venue-tour/venue-tour-data.ts'
   }
@@ -170,7 +169,6 @@ describe('notes kept in browser storage', () => {
     'components/EventCountdownBanner.tsx',
     'components/PrivateBookingCalculator.tsx',
     'components/conversion/ExitIntentBookingModal.tsx',
-    'components/conversion/ScrollProgressBookingTooltip.tsx',
     'components/features/christmas/ChristmasLightbox.tsx',
     'components/plane-spotting/PlaneSpottingBookingPrompt.tsx',
     'components/private-hire/venue-tour/InteractiveVenueFloorPlan.tsx',

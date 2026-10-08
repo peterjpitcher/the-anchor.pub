@@ -231,8 +231,11 @@ export default function PrivacyPolicyPage() {
               choice. None is read by the server and none holds a name, number,
               email or reference. tests/unit/privacy-policy-inventory.test.tsx
               fails if the code gains a key this list does not have. */}
-          <p>
-            We also keep a few notes in your browser&apos;s storage so that a pop-up or banner you&apos;ve closed stays closed, the Christmas page knows you&apos;ve already sent an enquiry, and the private hire page remembers the room you picked. They stay in your browser, they aren&apos;t sent to us, and they say nothing about who you are. Their names are christmas_2026_lightbox_seen, christmas_enquiry_submitted, christmas_enquiry_lightbox_last, event_banner_dismissed_until, event_banner_session_show, promo_private_hire_2026_dismissed_until, promo_private_hire_2026_disabled, sunday_lunch_booking_prompt_dismissed, sunday_lunch_exit_intent_shown, sunday_lunch_scroll_tooltip_shown, plane_spotting_booking_prompt_shown and anchor-private-hire-selected-space.
+          {/* The names are long single words, so they may break anywhere: at
+              320px the longest ran 39px past the edge of the screen (the house
+              reflow check, 8 October 2026). Markup only; the words are the same. */}
+          <p className="[overflow-wrap:anywhere]">
+            We also keep a few notes in your browser&apos;s storage so that a pop-up or banner you&apos;ve closed stays closed, the Christmas page knows you&apos;ve already sent an enquiry, and the private hire page remembers the room you picked. They stay in your browser, they aren&apos;t sent to us, and they say nothing about who you are. Their names are christmas_2026_lightbox_seen, christmas_enquiry_submitted, christmas_enquiry_lightbox_last, event_banner_dismissed_until, event_banner_session_show, promo_private_hire_2026_dismissed_until, promo_private_hire_2026_disabled, sunday_lunch_booking_prompt_dismissed, sunday_lunch_exit_intent_shown, plane_spotting_booking_prompt_shown and anchor-private-hire-selected-space.
           </p>
           {/* Turnstile loads from challenges.cloudflare.com on the pages with a
               form; PayPal's buttons load from paypal.com at the payment step.

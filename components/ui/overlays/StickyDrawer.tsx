@@ -236,7 +236,9 @@ export const StickyDrawer = forwardRef<HTMLDivElement, StickyDrawerProps>(
             </div>
             <button
               type="button"
-              className="ml-3 flex-shrink-0 rounded-full p-1.5 text-ink-muted transition-colors hover:bg-surface-sunk hover:text-ink focus:outline-none focus:ring-2 focus:ring-accent-text"
+              // The circle stays 28px; the invisible ring round it makes the
+              // tap target 44px (site review LS-016).
+              className="relative ml-3 flex-shrink-0 rounded-full p-1.5 text-ink-muted transition-colors hover:bg-surface-sunk hover:text-ink focus:outline-none focus:ring-2 focus:ring-accent-text before:absolute before:-inset-2 before:content-['']"
               onClick={() => requestClose('close_button')}
               aria-label="Close"
               data-drawer-close="true"
@@ -260,48 +262,9 @@ export const StickyDrawer = forwardRef<HTMLDivElement, StickyDrawerProps>(
 
 StickyDrawer.displayName = 'StickyDrawer'
 
-interface StickyDrawerTriggerProps extends BaseComponentProps {
-  children: React.ReactNode
-  onClick: () => void
-  visible: boolean
-  position?: 'bottom-right' | 'bottom-center'
-}
-
-export function StickyDrawerTrigger({
-  children,
-  onClick,
-  visible,
-  position = 'bottom-right',
-  className,
-  testId
-}: StickyDrawerTriggerProps) {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  if (!isClient || !visible) return null
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        'fixed z-40 shadow-gold transition-all duration-300 text-sm',
-        // Dark gold with white, as the primary button: 5.59:1. The mid gold
-        // it had took charcoal at 4.33:1 (site review AX-007, 7 October 2026).
-        'bg-anchor-gold-dark text-white font-semibold',
-        'hover:bg-anchor-green',
-        'focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2 focus:ring-offset-canvas',
-        position === 'bottom-right' && 'bottom-5 right-5 rounded-full px-4 py-2.5',
-        position === 'bottom-center' && 'bottom-5 left-1/2 -translate-x-1/2 rounded-full px-5 py-2.5',
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
-        className
-      )}
-      data-testid={testId}
-    >
-      {children}
-    </button>
-  )
-}
+// StickyDrawerTrigger, the floating button that opened a drawer from the bottom
+// corner of the screen, was removed on 8 October 2026. Its one use was "Get
+// Instant Quote" on the private hire pages, which sat behind the site-wide
+// booking bar (owner decision 12, site review LS-006). A drawer is opened from a
+// button in the page, or from the booking bar. Do not add a floating trigger
+// back: the strip at the bottom of the screen belongs to the bar.
