@@ -99,7 +99,6 @@ const PAGES = [
   ['/private-hire', 'testimonial star ratings'],
   ['/whats-on', 'event listing, seasonal nav pill'],
   ['/book-table', 'booking flow'],
-  ['/drinks/managers-special', 'gold badge variant'],
   // Added 5 Oct after the privacy notice was found close to unreadable on the
   // dark season skin: a bare `prose` wrapper, so Tailwind Typography's
   // light-theme greys sat on a near-black page (headings 1.01:1, body 1.7:1).

@@ -56,24 +56,13 @@ export default async function DrinksMenuPage() {
     )
   }
 
-  const menuDataWithoutManagersSpecial = {
-    ...menuData,
-    categories: menuData.categories.map(category => {
-      if (category.id !== 'spirits') return category
-      return {
-        ...category,
-        sections: category.sections.filter(section => section.title !== "Manager's Special")
-      }
-    })
-  }
-
   const enhancedDrinksMenuSchema = {
     "@context": "https://schema.org",
     "@type": "Menu",
     "@id": "https://www.the-anchor.pub/drinks#menu",
     "name": "The Anchor Drinks Menu",
     "description": "Full bar service with draught beers, lagers, wines, spirits and soft drinks at The Anchor in Stanwell Moor, Surrey",
-    "hasMenuSection": menuDataWithoutManagersSpecial.categories.map(category => ({
+    "hasMenuSection": menuData.categories.map(category => ({
       "@type": "MenuSection",
       "name": category.title,
       "description": `${category.title} selection at The Anchor`,
@@ -240,7 +229,7 @@ export default async function DrinksMenuPage() {
       {/* Menu Content */}
       <section className="bg-surface py-section-y">
         <div className="container">
-          <FoodMenuSection menuData={menuDataWithoutManagersSpecial} showFilters={false} showAllergens={false} />
+          <FoodMenuSection menuData={menuData} showFilters={false} showAllergens={false} />
         </div>
       </section>
 

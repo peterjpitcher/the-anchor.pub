@@ -671,7 +671,7 @@
   },
   {
     "source": "/blog/tag/manager-picks",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {

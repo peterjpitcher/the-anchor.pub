@@ -212,7 +212,7 @@
   },
   {
     "source": "/blog/tag/GreatSpiritsGreatValue",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -222,7 +222,7 @@
   },
   {
     "source": "/blog/tag/DoubleUpOffer",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -282,12 +282,12 @@
   },
   {
     "source": "/special-offers",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
     "source": "/managers-special",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -789,6 +789,31 @@
   {
     "source": "/live-sport/f1",
     "destination": "/live-sport",
+    "permanent": true
+  },
+  {
+    "source": "/drinks/managers-special",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/private-hire/near/kempton-park-crematorium",
+    "destination": "/private-hire/wakes",
+    "permanent": true
+  },
+  {
+    "source": "/private-hire/near/spelthorne-registration-office",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/private-hire/near/staines-registration-office",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/private-hire/near/windsor-register-office",
+    "destination": "/private-hire",
     "permanent": true
   }
 ]

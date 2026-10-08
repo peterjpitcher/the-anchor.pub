@@ -216,7 +216,7 @@
   },
   {
     "source": "/blog/botanist-gin-july-2025",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -346,7 +346,7 @@
   },
   {
     "source": "/blog/the-anchor-s-monthly-manager-s-special-enjoy-25-of",
-    "destination": "/blog/monthly-managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -361,7 +361,7 @@
   },
   {
     "source": "/blog/the-botanist-gin-special-offer-july-2025-the-ancho",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -406,7 +406,7 @@
   },
   {
     "source": "/post/25-off-kraken-rum-this-june-manager-s-special",
-    "destination": "/blog/25-off-kraken-rum-this-june-manager-s-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -441,7 +441,7 @@
   },
   {
     "source": "/post/bombay-sapphire-special-this-month-theanchor-pub",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -796,7 +796,7 @@
   },
   {
     "source": "/post/the-anchor-s-monthly-manager-s-special-enjoy-25-of",
-    "destination": "/blog/monthly-managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -811,7 +811,7 @@
   },
   {
     "source": "/post/the-botanist-gin-special-offer-july-2025-the-ancho",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -892,6 +892,16 @@
   {
     "source": "/post/:slug",
     "destination": "/blog",
+    "permanent": true
+  },
+  {
+    "source": "/blog/monthly-managers-special",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/blog/25-off-kraken-rum-this-june-manager-s-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
