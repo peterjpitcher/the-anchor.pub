@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { RATE_LIMITS, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 import { MAX_BODY_BYTES, formatWebVitalLine, parseWebVitalReport } from '@/lib/web-vitals-record'
 
 /**
@@ -17,7 +18,14 @@ function reject(error: string, status: number): NextResponse {
   return NextResponse.json({ error }, { status })
 }
 
-export async function POST(request: NextRequest): Promise<NextResponse> {
+export async function POST(request: NextRequest): Promise<Response> {
+  // A page sends a handful of these, so the ceiling is 60 a minute for one
+  // address. Per server (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'web-vitals', RATE_LIMITS.beacon)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { error: 'Too many requests' })
+  }
+
   const declaredLength = Number(request.headers.get('content-length') ?? 0)
   if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
     return reject('Payload too large', 413)

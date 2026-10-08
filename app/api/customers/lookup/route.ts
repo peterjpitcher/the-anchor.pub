@@ -4,6 +4,7 @@ import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { safeJsonParse } from '@/lib/upstream-json'
 import { mapUpstreamFailure } from '@/lib/guest-error-messages'
+import { RATE_LIMITS, limitByAddress } from '@/lib/rate-limit'
 
 // Never built ahead of time or kept: every answer is about one phone number.
 export const dynamic = 'force-dynamic'
@@ -18,24 +19,6 @@ const API_KEY = process.env.ANCHOR_API_KEY
 type CustomerLookupResponse = {
   known: boolean
   lookup_degraded?: boolean
-}
-
-// ── Per-IP rate limiting to protect the shared upstream API key budget ───────
-const LOOKUP_RATE_LIMIT_WINDOW_MS = 60_000
-const LOOKUP_RATE_LIMIT_MAX = 6 // generous for real users, blocks automated abuse
-const lookupRateLimitMap = new Map<string, number[]>()
-
-function isLookupRateLimited(ip: string): boolean {
-  const now = Date.now()
-  const timestamps = lookupRateLimitMap.get(ip) ?? []
-  const recent = timestamps.filter((t) => now - t < LOOKUP_RATE_LIMIT_WINDOW_MS)
-  if (recent.length >= LOOKUP_RATE_LIMIT_MAX) {
-    lookupRateLimitMap.set(ip, recent)
-    return true
-  }
-  recent.push(now)
-  lookupRateLimitMap.set(ip, recent)
-  return false
 }
 
 // The reason is for our logs only. It used to be sent back in `meta.reason`,
@@ -73,8 +56,11 @@ export async function POST(request: NextRequest) {
     return createDegradedLookupResponse('missing_api_key')
   }
 
-  const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
-  if (isLookupRateLimited(clientIp)) {
+  // Protects the management app's shared key from one address hammering this
+  // lookup. Per server (lib/rate-limit.ts). The answer stays the degraded one,
+  // not a 429: the booking form carries on without the lookup, so the guest
+  // loses a convenience and never the booking.
+  if (limitByAddress(request, 'customer-lookup', RATE_LIMITS.customerLookup).limited) {
     return createDegradedLookupResponse('rate_limited')
   }
 

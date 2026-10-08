@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { anchorAPI } from '@/lib/api'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 import { GUEST_FALLBACK } from '@/lib/guest-error-messages'
+import { PAYMENT_RATE_LIMIT_MESSAGE, RATE_LIMITS, checkRateLimit, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 const ROUTE = 'api/parking/payment/create-order'
 import {
@@ -35,6 +36,14 @@ const CreateOrderSchema = z.object({
 })
 
 export async function POST(request: NextRequest) {
+  // Each accepted call makes a pending booking that holds one of the parking
+  // spaces, and a PayPal order. Ten an hour from one address is far more than a
+  // guest pressing the button again needs. Per server (lib/rate-limit.ts).
+  const byAddress = limitByAddress(request, 'parking-payment-create', RATE_LIMITS.paymentCreate)
+  if (byAddress.limited) {
+    return tooManyRequests(byAddress, { error: PAYMENT_RATE_LIMIT_MESSAGE, code: 'RATE_LIMITED' })
+  }
+
   let body: unknown
   try {
     body = await request.json()
@@ -50,6 +59,14 @@ export async function POST(request: NextRequest) {
       { error: issues?.[0]?.message || 'Invalid payload' },
       { status: 400 }
     )
+  }
+
+  // The same ceiling for one mobile number, whichever address it comes from.
+  // The number is the key of an in-memory count only: it is never logged.
+  const phoneKey = parsed.data.customer.mobile_number.replace(/[^\d+]/g, '')
+  const byPhone = checkRateLimit('parking-payment-create-phone', phoneKey || null, RATE_LIMITS.paymentCreate)
+  if (byPhone.limited) {
+    return tooManyRequests(byPhone, { error: PAYMENT_RATE_LIMIT_MESSAGE, code: 'RATE_LIMITED' })
   }
 
   // Derive an idempotency key from the booking fingerprint so duplicate button

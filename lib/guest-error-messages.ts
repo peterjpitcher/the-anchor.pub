@@ -21,6 +21,13 @@ import { BLOCKED_REASON_COPY } from '@/lib/table-booking/submission'
 
 export const GUEST_PHONE = '01753 682707'
 
+/**
+ * Said by the server and by the forms when a submission has no security token.
+ * It carries the number because a guest whose browser never loaded the check
+ * has no token to send and nothing more they can do online.
+ */
+export const SECURITY_CHECK_REQUIRED_MESSAGE = `Please complete the security check before submitting. If it will not load, call ${GUEST_PHONE} and we will help.`
+
 export type GuestErrorContext =
   | 'table_booking'
   | 'table_deposit'

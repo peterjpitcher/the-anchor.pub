@@ -1,6 +1,7 @@
 import { anchorAPI } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { isValidIsoDate } from '@/lib/table-booking-service-windows'
+import { RATE_LIMITS, RATE_LIMIT_MESSAGE, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 /**
  * The seasonal period that applies to a date, proxied to the browser.
@@ -21,6 +22,13 @@ import { isValidIsoDate } from '@/lib/table-booking-service-windows'
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
+  // Spends the management app's shared key, so one address gets 20 a minute.
+  // Per server (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'table-booking-periods', RATE_LIMITS.publicRead)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { success: false, error: RATE_LIMIT_MESSAGE, code: 'RATE_LIMITED' })
+  }
+
   const url = new URL(request.url)
   const date = url.searchParams.get('date') || ''
   const partySizeRaw = url.searchParams.get('party_size')

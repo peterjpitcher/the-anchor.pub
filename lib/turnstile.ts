@@ -1,5 +1,6 @@
 import { logError } from '@/lib/error-handling'
 import { reportFailure } from '@/lib/report-failure'
+import { SECURITY_CHECK_REQUIRED_MESSAGE } from '@/lib/guest-error-messages'
 
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 
@@ -25,7 +26,12 @@ export async function verifyTurnstileToken(token: string | null | undefined): Pr
   }
 
   if (!token || typeof token !== 'string' || token.trim().length === 0) {
-    return { success: false, error: 'Please complete the security check before submitting.' }
+    // The phone number matters here: a guest whose browser never loaded the
+    // widget has no token to send and nothing they can do about it online.
+    return {
+      success: false,
+      error: SECURITY_CHECK_REQUIRED_MESSAGE
+    }
   }
 
   try {

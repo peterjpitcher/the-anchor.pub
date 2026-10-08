@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
+import { PAYMENT_RATE_LIMIT_MESSAGE, RATE_LIMITS, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 const ROUTE = 'api/table-bookings/paypal/create-order'
 
@@ -30,6 +31,12 @@ function jsonNoStore(body: unknown, init?: ResponseInit) {
  * Every failure is now reported, and `error` is always one plain sentence.
  */
 export async function POST(request: NextRequest): Promise<Response> {
+  // Ten orders an hour from one address. Per server (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'table-deposit-create', RATE_LIMITS.paymentCreate)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { success: false, code: 'RATE_LIMITED', error: PAYMENT_RATE_LIMIT_MESSAGE })
+  }
+
   const bodyRaw = await request.json().catch(() => null)
   const parsed = BodySchema.safeParse(bodyRaw)
   if (!parsed.success) {

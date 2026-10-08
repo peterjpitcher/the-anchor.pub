@@ -285,8 +285,7 @@ async function attemptManagementApi(
 
 async function proxyToManagementApi(
   payload: RecruitmentPayload,
-  cvFile: File | null,
-  originalFormData: FormData
+  cvFile: File | null
 ): Promise<
   | { state: 'success'; response: unknown }
   | { state: 'validation_error'; status: number; error: string }
@@ -327,7 +326,11 @@ async function proxyToManagementApi(
   upstreamForm.set('sms_consent', payload.smsConsent === 'yes' ? 'true' : 'false')
   upstreamForm.set('future_recruitment_consent', payload.futureRecruitmentConsent === 'yes' ? 'true' : 'false')
   appendIfPresent(upstreamForm, 'privacy_notice_version', 'join-our-team-2026-06-07')
-  appendIfPresent(upstreamForm, 'turnstile_token', asTrimmedString(originalFormData.get('turnstile_token')))
+  // The applicant's Turnstile token is NOT sent upstream. It was minted by this
+  // site's widget and has already been verified in POST with this site's
+  // secret (checkSpamProtection). The management app holds a different widget's
+  // secret and checks a token only for callers with no API key, so a forwarded
+  // token reaches no valid verifier. This call authenticates with the API key.
 
   if (cvFile && cvFile.size > 0) {
     upstreamForm.set('cv', cvFile)
@@ -526,7 +529,7 @@ export async function POST(request: NextRequest) {
       throw error
     }
 
-    const proxyResult = await proxyToManagementApi(payload, cvFile instanceof File ? cvFile : null, formData)
+    const proxyResult = await proxyToManagementApi(payload, cvFile instanceof File ? cvFile : null)
     if (proxyResult.state === 'success') {
       return NextResponse.json({ success: true, source: 'management', data: proxyResult.response })
     }

@@ -2,11 +2,19 @@ import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
+import { RATE_LIMITS, RATE_LIMIT_MESSAGE, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 export async function GET(
   request: Request,
   { params }: { params: { reference: string } }
 ) {
+  // Spends the management app's shared key, so one address gets 20 a minute.
+  // Per server (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'table-booking-read', RATE_LIMITS.publicRead)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { success: false, error: RATE_LIMIT_MESSAGE, code: 'RATE_LIMITED' })
+  }
+
   // From the header only. An email address in the query string would sit in
   // every request log on the way here.
   const customerEmail = request.headers.get('x-customer-email') || ''
@@ -59,6 +67,13 @@ export async function DELETE(
   request: Request,
   { params }: { params: { reference: string } }
 ) {
+  // Spends the management app's shared key, so one address gets 20 a minute.
+  // Per server (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'table-booking-cancel', RATE_LIMITS.publicRead)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { success: false, error: RATE_LIMIT_MESSAGE, code: 'RATE_LIMITED' })
+  }
+
   // From the header only. An email address in the query string would sit in
   // every request log on the way here.
   const customerEmail = request.headers.get('x-customer-email') || ''

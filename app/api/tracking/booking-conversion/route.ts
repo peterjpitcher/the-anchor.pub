@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { RATE_LIMITS, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
 
@@ -39,6 +40,14 @@ const payloadSchema = z.object({
 })
 
 export async function POST(request: Request) {
+  // Whatever arrives here is forwarded to CheersAI with the server's secret. A
+  // booking sends one, so 20 a minute from one address is generous. Per server
+  // (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'booking-conversion', RATE_LIMITS.publicRead)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { error: 'Too many requests' })
+  }
+
   let payload: z.infer<typeof payloadSchema>
   try {
     payload = payloadSchema.parse(await request.json())
