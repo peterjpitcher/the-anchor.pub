@@ -184,9 +184,10 @@ export function Navigation({
 
   // --- Promo CTA scheduling ---
   // The first render uses the list the server worked out, so the links are in
-  // the HTML. This re-check against the visitor's clock stays because most pages
-  // are built once per deploy: without it a promo would run on past its end
-  // date, or not start, until somebody deployed.
+  // the HTML. This re-check against the visitor's clock stays because a page's
+  // HTML can be older than the visitor's clock. Every page is rebuilt on a
+  // five-minute timer, but only when somebody visits, so the first visitor after
+  // a quiet spell is served the copy built before it (site review DT-018).
   useEffect(() => {
     setActivePromoCtaButtons(getActiveHeaderPromos(promoCtaButtons))
   }, [promoCtaButtons])

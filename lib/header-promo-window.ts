@@ -25,8 +25,8 @@ export interface PromoWindow {
  *
  * One function for both sides of the header. The root layout calls it on the
  * server so the links are in the HTML, and Navigation calls it again in the
- * browser because most pages are built once per deploy and their HTML can be
- * weeks older than the visitor's clock. When this lived only in a Navigation
+ * browser because a page's HTML can be older than the visitor's clock: pages
+ * are rebuilt on a five-minute timer, but only when somebody visits. When this lived only in a Navigation
  * effect the links were added after hydration, which made the strip 12px
  * taller and pushed every desktop page down as it loaded (CLS 0.19 for real
  * visitors, 6 October 2026).
