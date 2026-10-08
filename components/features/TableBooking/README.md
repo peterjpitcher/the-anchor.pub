@@ -81,12 +81,11 @@ API key server-side:
 | Route | Purpose |
 |-------|---------|
 | `GET /api/table-bookings/availability` | Time slots for a date |
-| `POST /api/table-bookings` | Create a booking. `/api/table-bookings/create` re-exports the same handler |
+| `POST /api/table-bookings` | Create a booking |
 | `POST /api/table-bookings/paypal/*` | Deposit payment |
 
-`app/api/booking/agent/route.ts` is a **separate booking channel** used by the AI agent. It creates real
-bookings and is not part of this component tree, so any change to the booking contract has to be applied
-there too or the two quietly diverge.
+`app/api/booking/agent/route.ts` was a separate booking channel. It was retired on 28 July 2026 and
+answers 410; it is kept only as a tombstone, so there is no second place to keep in step.
 
 ## Two things that are easy to get wrong
 

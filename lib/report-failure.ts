@@ -111,7 +111,6 @@ const ROUTE_LABELS: Record<string, string> = {
   'api/enquiry/christmas': 'Christmas enquiries',
   'api/enquiry/recruitment': 'Job applications',
   'api/careers': 'Job applications (careers form)',
-  'api/parking/bookings': 'Parking bookings',
   'api/parking/payment/create-order': 'Parking: starting a payment',
   'api/parking/payment/capture': 'Parking: taking a payment',
   'lib/turnstile': 'The security check on every form'

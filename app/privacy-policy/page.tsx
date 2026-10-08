@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
           <h2>2. What we collect</h2>
           <h3>What you give us</h3>
           {/* Each line is the fields its form sends: app/api/table-bookings,
-              app/api/event-bookings, app/api/parking/bookings, the private hire
+              app/api/event-bookings, app/api/parking/payment/create-order, the private hire
               and Christmas enquiry routes, and what the management app stores
               for each. The accessible table answer is a yes or no only. */}
           <ul>

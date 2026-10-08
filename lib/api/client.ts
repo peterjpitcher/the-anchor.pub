@@ -18,8 +18,6 @@ import type { BookingPeriodResponse, TableAvailabilityResponse, TableBookingLoad
 import type {
   ParkingRateCard,
   ParkingAvailabilitySlot,
-  ParkingBookingRequest,
-  ParkingBookingResponse,
   ParkingBookingDetails,
   ParkingCreateOrderRequest,
   ParkingCreateOrderResponse,
@@ -1230,10 +1228,10 @@ export class AnchorAPI {
     idempotencyKey?: string
   ): Promise<TableBookingResponse> {
     const payload = this.toManagementTableBookingPayload(data)
-    const endpoint =
-      typeof window === 'undefined'
-        ? '/table-bookings'
-        : '/table-bookings/create'
+    // Always the management endpoint. A browser branch used to post to a
+    // website alias, /api/table-bookings/create, which nothing called; the form
+    // posts to /api/table-bookings and that route calls this on the server.
+    const endpoint = '/table-bookings'
 
     const key =
       idempotencyKey ||
@@ -1270,21 +1268,6 @@ export class AnchorAPI {
       message: 'Invalid table booking response from API',
       status: 502,
       details: unwrapped
-    }
-  }
-
-  async cancelTableBooking(
-    reference: string,
-    options?: { reason?: string; customerEmail?: string }
-  ): Promise<{ success: boolean; message: string }> {
-    throw {
-      code: 'NOT_SUPPORTED',
-      message: 'Booking cancellation by reference is not available in the current management API.',
-      status: 501,
-      details: {
-        reference: reference || null,
-        hasCustomerEmail: Boolean(options?.customerEmail)
-      }
     }
   }
 
@@ -1327,19 +1310,6 @@ export class AnchorAPI {
     return this.request<ParkingAvailabilitySlot[]>(endpoint, {
       next: { revalidate: 0 }
     } as RequestInit)
-  }
-
-  async createParkingBooking(data: ParkingBookingRequest, idempotencyKey?: string): Promise<ParkingBookingResponse> {
-    const headers: Record<string, string> = {}
-    if (idempotencyKey) {
-      headers['Idempotency-Key'] = idempotencyKey
-    }
-
-    return this.request<ParkingBookingResponse>('/parking/bookings', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers
-    })
   }
 
   async getParkingBooking(id: string): Promise<ParkingBookingDetails> {

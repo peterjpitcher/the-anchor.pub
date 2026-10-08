@@ -19,9 +19,7 @@ project: the-anchor-pub
 
 **API Routes**:
 - `/api/table-bookings/availability` (GET)
-- `/api/table-bookings/create` (POST) — [ROUTE NOT FOUND — verify naming]
 - `/api/table-bookings` (POST)
-- `/api/table-bookings/[reference]` (GET, DELETE)
 - `/api/table-bookings/paypal/create-order` (POST)
 - `/api/table-bookings/paypal/capture-order` (POST)
 
@@ -49,12 +47,9 @@ project: the-anchor-pub
 **Frontend Pages**:
 - `/heathrow-parking` (page.tsx) — Parking info landing
 - `/heathrow-parking/[terminal]` (page.tsx) — Terminal-specific parking info
-- `/parking/bookings/[id]` (page.tsx) — Booking confirmation
 
 **API Routes**:
 - `/api/parking/availability` (GET)
-- `/api/parking/bookings` (POST)
-- `/api/parking/bookings/[id]` (GET)
 - `/api/parking/rates` (GET)
 - `/api/parking/payment/create-order` (POST)
 - `/api/parking/payment/capture` (POST)
@@ -230,7 +225,7 @@ project: the-anchor-pub
 ```
 User fills booking form
   ↓
-Client submits POST /api/table-bookings/create
+Client submits POST /api/table-bookings
   ↓
 Route handler validates API key, CAPTCHA
   ↓

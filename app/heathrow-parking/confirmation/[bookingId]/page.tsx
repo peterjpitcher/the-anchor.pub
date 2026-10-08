@@ -7,7 +7,8 @@ import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 
-// Next.js 15: params is a Promise, must be awaited before use.
+// params is typed as a Promise and awaited, the form Next.js 15 requires. The
+// project runs Next.js 14, where awaiting it is harmless.
 interface Props {
   params: Promise<{ bookingId: string }>
 }
@@ -48,7 +49,7 @@ function formatDateTime(iso: string) {
 }
 
 export default async function ParkingConfirmationPage({ params }: Props) {
-  const { bookingId } = await params // Next.js 15: must await params
+  const { bookingId } = await params
   let booking: ParkingBookingDetails | null = null
   try {
     booking = await anchorAPI.getParkingBooking(bookingId)

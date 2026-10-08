@@ -5,8 +5,9 @@
 
 // Test imports to ensure TypeScript compilation
 import { GET as getAvailability } from '@/app/api/table-bookings/availability/route'
-import { POST as createBooking } from '@/app/api/table-bookings/create/route'
-import * as bookingByReference from '@/app/api/table-bookings/[reference]/route'
+import fs from 'fs'
+import path from 'path'
+import { POST as createBooking } from '@/app/api/table-bookings/route'
 
 describe('Table Booking API Routes', () => {
   beforeEach(() => {
@@ -41,10 +42,18 @@ describe('Table Booking API Routes', () => {
     })
   })
 
-  describe('Booking Details Route', () => {
-    it('exports the DELETE handler and no GET (the read was removed on 8 October 2026)', () => {
-      expect(typeof bookingByReference.DELETE).toBe('function')
-      expect((bookingByReference as Record<string, unknown>).GET).toBeUndefined()
+  describe('Booking addresses nothing on the site used', () => {
+    // Deleted on 8 October 2026 (site review PY-009 and WP-015, owner decision 20).
+    // The cancel address could only ever answer 501, the alias re-exported the
+    // real route, and the parking POST created a booking the management app
+    // treated as made by staff. A deleted route answers 404.
+    it.each([
+      'app/api/table-bookings/[reference]/route.ts',
+      'app/api/table-bookings/create/route.ts',
+      'app/api/parking/bookings/route.ts',
+      'app/api/booking/payment-return/route.ts'
+    ])('%s is gone', (file) => {
+      expect(fs.existsSync(path.join(process.cwd(), file))).toBe(false)
     })
   })
 })
@@ -187,9 +196,4 @@ const typeChecks = async () => {
   }
   const booking: TableBookingResponse = await anchorAPI.createTableBooking(bookingRequest)
 
-  // Cancel booking
-  const cancellation = await anchorAPI.cancelTableBooking('REF123', {
-    reason: 'Changed plans',
-    customerEmail: 'guest@example.com'
-  })
 }
