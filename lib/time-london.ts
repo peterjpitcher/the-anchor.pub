@@ -36,74 +36,130 @@ export function nowInLondon(base: Date = new Date()): Date {
   return new Date(Date.UTC(year, month - 1, day, 12, 0, 0))
 }
 
-/**
- * Converts London date range strings to Date instants
- * @param startYYYYMMDD - Start date in YYYY-MM-DD format (inclusive at 00:00:00 London)
- * @param endYYYYMMDD - End date in YYYY-MM-DD format (inclusive at 23:59:59 London)
- */
-export function londonRangeToInstants(
-  startYYYYMMDD: string, 
-  endYYYYMMDD: string
-): { start: Date; end: Date } {
-  const [sy, sm, sd] = startYYYYMMDD.split('-').map(Number)
-  const [ey, em, ed] = endYYYYMMDD.split('-').map(Number)
+/** Today's calendar date in London, as YYYY-MM-DD. */
+export function londonIsoDate(base: Date = new Date()): string {
+  const { year, month, day } = nowInLondonComponents(base)
+  return `${String(year).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+}
 
-  // Create dates in London timezone
-  // Start: 00:00:00 London time on start date
-  const startFormatter = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Europe/London',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-  })
+type LondonWallClock = {
+  year: number
+  month: number
+  day: number
+  hour: number
+  minute: number
+}
 
-  // Create a date at midnight London time for the start
-  const startDate = new Date(Date.UTC(sy, sm - 1, sd, 0, 0, 0))
-  // Adjust for London timezone
-  const startLondon = new Date(startDate.toLocaleString('en-US', { timeZone: 'Europe/London' }))
-  
-  // Create a date at 23:59:59 London time for the end
-  const endDate = new Date(Date.UTC(ey, em - 1, ed, 23, 59, 59))
-  // Adjust for London timezone
-  const endLondon = new Date(endDate.toLocaleString('en-US', { timeZone: 'Europe/London' }))
+const LONDON_WALL_CLOCK = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/London',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  // h23, not `hour12: false`: some ICU builds resolve the latter to h24, where
+  // midnight formats as "24".
+  hourCycle: 'h23'
+})
 
-  return { 
-    start: new Date(Date.UTC(sy, sm - 1, sd, 0, 0, 0)),
-    end: new Date(Date.UTC(ey, em - 1, ed, 23, 59, 59, 999))
+/** The London wall clock at an instant. */
+export function londonWallClock(instant: Date): LondonWallClock {
+  const parts = LONDON_WALL_CLOCK.formatToParts(instant)
+  const read = (type: Intl.DateTimeFormatPartTypes) =>
+    Number(parts.find((part) => part.type === type)?.value ?? Number.NaN)
+  return {
+    year: read('year'),
+    month: read('month'),
+    day: read('day'),
+    hour: read('hour') % 24,
+    minute: read('minute')
   }
 }
 
+const pad2 = (value: number) => String(value).padStart(2, '0')
+
 /**
- * Checks if a date is within a range (inclusive)
+ * An instant as the value of an `<input type="datetime-local">`, on the London
+ * clock: "2026-11-10T10:00".
+ *
+ * Date#getHours and its siblings read the clock of the device showing the page.
+ * The pub's car park runs on UK time, so the boxes are filled in UK time
+ * whatever the device is set to.
  */
-export function isLondonDateInRange(now: Date, start: Date, end: Date): boolean {
-  return now >= start && now <= end
+export function toLondonDateTimeLocal(instant: Date): string {
+  const { year, month, day, hour, minute } = londonWallClock(instant)
+  return `${String(year).padStart(4, '0')}-${pad2(month)}-${pad2(day)}T${pad2(hour)}:${pad2(minute)}`
 }
 
 /**
- * Gets the London wall clock time as a formatted string
- * Useful for debugging and logging
+ * A date and time typed on the London clock ("2026-11-10T10:00"), as an instant.
+ *
+ * `new Date('2026-11-10T10:00')` reads the string on the DEVICE's clock, so a
+ * phone set to New York time turned a 10am arrival into 3pm in London, and the
+ * guest only found out on the confirmation page, after paying.
+ *
+ * The two clock-change edges are settled the way a guest would expect:
+ *  - the hour that happens twice when the clocks go back (01:00 to 01:59 on the
+ *    last Sunday of October) is read as the FIRST one, still on summer time;
+ *  - the hour that never happens when they go forward (01:00 to 01:59 on the
+ *    last Sunday of March) is read as the same time an hour later, as a phone's
+ *    own clock would show it.
+ *
+ * Returns null for anything that is not a real date and time.
  */
-export function getLondonTimeString(date: Date = new Date()): string {
-  return date.toLocaleString('en-GB', {
+export function londonWallClockToInstant(value: string): Date | null {
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?$/.exec(String(value).trim())
+  if (!match) return null
+
+  const [year, month, day, hour, minute] = match.slice(1, 6).map(Number)
+  const second = match[6] ? Number(match[6]) : 0
+  if (month < 1 || month > 12 || day < 1 || day > 31 || hour > 23 || minute > 59 || second > 59) {
+    return null
+  }
+
+  // The typed time read as if London were on UTC. London is never behind UTC and
+  // never more than an hour ahead, so the real instant is this or an hour before.
+  const asUtc = Date.UTC(year, month - 1, day, hour, minute, second)
+  const typed = new Date(asUtc)
+  if (typed.getUTCMonth() !== month - 1 || typed.getUTCDate() !== day) return null
+
+  const matches = (candidate: number) => {
+    const clock = londonWallClock(new Date(candidate))
+    return (
+      clock.year === year &&
+      clock.month === month &&
+      clock.day === day &&
+      clock.hour === hour &&
+      clock.minute === minute
+    )
+  }
+
+  const HOUR_MS = 60 * 60 * 1000
+  // Summer time first, so the repeated hour in October resolves to its first pass.
+  if (matches(asUtc - HOUR_MS)) return new Date(asUtc - HOUR_MS)
+  if (matches(asUtc)) return new Date(asUtc)
+  // The missing hour in March: no instant shows this time on a London clock.
+  return new Date(asUtc)
+}
+
+/**
+ * An instant as "10 Nov 2026, 10:00" on the London clock, for a summary line.
+ */
+export function formatLondonDateTime(instant: Date): string {
+  return instant.toLocaleString('en-GB', {
     timeZone: 'Europe/London',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    // h23, not `hour12: false` — the latter logs midnight as "24:30:00".
-    hourCycle: 'h23'
+    dateStyle: 'medium',
+    timeStyle: 'short'
   })
 }
 
 /**
- * Parse a YYYY-MM-DD string to a Date at midnight London time
+ * A YYYY-MM-DD calendar date as a Date pinned to 00:00 UTC on that date.
+ *
+ * It is a calendar-date anchor, NOT midnight in London: during British Summer
+ * Time London's midnight is 23:00 UTC the day before. Use it to compare or
+ * format whole dates (always with `timeZone: 'UTC'` or the helpers in this
+ * file). For a real London time of day, use `londonWallClockToInstant`.
  */
 export function parseLondonDate(dateStr: string): Date {
   const [year, month, day] = dateStr.split('-').map(Number)
