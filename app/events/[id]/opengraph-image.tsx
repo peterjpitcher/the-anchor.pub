@@ -3,6 +3,7 @@ import { anchorAPI, formatEventTime } from '@/lib/api'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventPresentation } from '@/lib/event-presentation'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 export const runtime = 'nodejs'
 
@@ -143,7 +144,7 @@ export default async function OpenGraphImage({ params }: { params: { id: string 
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontSize: 24, color: 'rgba(255,255,255,0.85)' }}>
-            Stanwell Moor • 7 mins from Heathrow T5
+            Stanwell Moor • {HEATHROW_TIMES.terminal5} mins from Heathrow T5
           </div>
           <div style={{ fontSize: 24, fontWeight: 800, color: '#f3c46a' }}>
             the-anchor.pub

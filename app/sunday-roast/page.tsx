@@ -1,4 +1,4 @@
-import { WELLINGTON_WORDING } from '@/lib/approved-wording'
+import { WELLINGTON_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardBody, SectionHeading } from '@/components/ui'
@@ -28,6 +28,7 @@ import { SundayRoastFeature } from '../food-menu/_components/SundayRoastFeature'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { ChristmasCrossLink } from '@/components/features/christmas/ChristmasCrossLink'
+import { HEATHROW_TIMES, PARKING } from '@/lib/constants'
 
 const SUNDAY_LUNCH_BOOKING_URL = SUNDAY_ROAST.bookingHref
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
@@ -37,8 +38,8 @@ export const revalidate = 60 * 60
 export async function generateMetadata(): Promise<Metadata> {
   const menu = await getSundayLunchMenuPageData()
   const description = menu.menuData
-    ? 'Proper Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm, no booking and no pre-order needed. Beef, pork, turkey and a vegan option.'
-    : 'Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm at The Anchor, Stanwell Moor, no booking needed. Call us for the current Sunday dish list.'
+    ? `Proper Sunday roast ${HEATHROW_TIMES.terminal5} minutes from Heathrow T5. Walk in 1pm to 6pm, no booking and no pre-order needed. Beef, pork, turkey and a vegan option.`
+    : `Sunday roast ${HEATHROW_TIMES.terminal5} minutes from Heathrow T5. Walk in 1pm to 6pm at The Anchor, Stanwell Moor, no booking needed. Call us for the current Sunday dish list.`
 
   // Rendered title is this plus the root layout suffix, so keep it short enough
   // that " | The Anchor" still fits inside Google's ~60 character cut-off.
@@ -91,15 +92,15 @@ function getSundayLunchFaqs() {
     },
     {
       question: "Where's the best Sunday roast near Heathrow Airport?",
-      answer: 'The Anchor in Stanwell Moor is around seven minutes from Terminal 5, traffic dependent, with free parking, fresh made-to-order roasts and no booking needed.'
+      answer: `The Anchor in Stanwell Moor is around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking, fresh made-to-order roasts and no booking needed.`
     },
     {
       question: 'Is there parking, and is it free?',
-      answer: 'Yes. 20 free on-site spaces with CCTV, no meters and no time limit while you dine. The pub is also outside the ULEZ zone.'
+      answer: `Yes. ${PARKING.capacity} free on-site spaces with CCTV, no meters and no time limit while you dine. The pub is also outside the ULEZ zone.`
     },
     {
       question: 'Can we fit in a Sunday roast before a flight from Heathrow?',
-      answer: 'Usually, yes. We are around seven minutes from Terminal 5 and last tables are seated at 5:30pm. A pre-flight roast works well with around 90 minutes to spare; allow longer if you need to return a hire car or expect a busy security queue.'
+      answer: `Usually, yes. We are around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 and last tables are seated at 5:30pm. A pre-flight roast works well with around 90 minutes to spare; allow longer if you need to return a hire car or expect a busy security queue.`
     }
   ] as const
 }
@@ -208,7 +209,7 @@ export default async function SundayRoastPage() {
             Sunday Roast Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-ink-muted mx-auto">
-            The Anchor serves a proper Sunday roast {roastFrequency} from 1pm to 6pm, seven minutes from Heathrow Terminal 5 in Stanwell Moor. Here is the part most places near the airport cannot say: you do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
+            The Anchor serves a proper Sunday roast {roastFrequency} from 1pm to 6pm, {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 in Stanwell Moor. Here is the part most places near the airport cannot say: you do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
           </p>
           <ul
             aria-label="At a glance"
@@ -390,9 +391,9 @@ export default async function SundayRoastPage() {
           />
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
-              ['7 minutes from Terminal 5', 'A short drive from Heathrow Terminal 5 by car, and easy to reach from the other terminals.'],
-              ['Free on-site parking', '20 spaces with CCTV, no meters and no time limit while you are dining.'],
-              ['Outside the ULEZ zone', 'No daily charge to drive in and park up for your roast.'],
+              [`${HEATHROW_TIMES.terminal5} minutes from Terminal 5`, 'A short drive from Heathrow Terminal 5 by car, and easy to reach from the other terminals.'],
+              ['Free on-site parking', `${PARKING.capacity} spaces with CCTV, no meters and no time limit while you are dining.`],
+              ['Outside the ULEZ zone', ULEZ_WORDING],
               ['Step-free access', 'Step-free from the car park through to the bar and dining area.'],
               ['Dog friendly', 'The dog comes too, inside the pub and in the beer garden.'],
               ['Good for a stop', 'Easy for travellers, locals around Staines and Stanwell Moor, or anyone on the way back from the airport.']
@@ -459,7 +460,7 @@ export default async function SundayRoastPage() {
                 <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-dark text-white font-bold">1</span>
                 <div>
                   <p className="font-semibold text-ink-strong">Land at T5</p>
-                  <p className="text-sm text-ink-muted">7-minute drive with free parking at the pub.</p>
+                  <p className="text-sm text-ink-muted">{HEATHROW_TIMES.terminal5}-minute drive with free parking at the pub.</p>
                 </div>
               </li>
               <li className="flex gap-4">
@@ -510,7 +511,7 @@ export default async function SundayRoastPage() {
 
       <CtaBand
         title="Book your Sunday roast at The Anchor"
-        copy="Sunday service runs 1pm to 6pm. 7 minutes from Heathrow Terminal 5."
+        copy={`Sunday service runs 1pm to 6pm. ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`}
       >
         <BookTableButton
           source="sunday_roast_final_cta"

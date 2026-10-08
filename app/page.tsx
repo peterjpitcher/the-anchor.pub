@@ -33,6 +33,7 @@ import {
   formatChristmasWindowLabel,
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
+import { BUS_WORDING, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 
 // Revalidate every hour so live status, hours and events stay fresh.
 export const revalidate = 60 * 60
@@ -47,16 +48,16 @@ export const metadata: Metadata = {
   // Absolute on purpose. This title already leads with the brand, so letting the
   // root layout append " | The Anchor" would render the name twice and push the
   // whole thing to 68 characters. Absolute keeps it at 54 and reads cleanly.
-  title: { absolute: 'The Anchor Pub, Stanwell Moor | 7 Mins from Heathrow T5' },
+  title: { absolute: `The Anchor Pub, Stanwell Moor | ${HEATHROW_TIMES.terminal5} Mins from Heathrow T5` },
   description:
-    'The Anchor, Horton Road, Stanwell Moor TW19 6AQ. Pub food, Sunday roast, beer garden and free parking, 7 mins from Heathrow T5. Book a table.',
+    `The Anchor, Horton Road, Stanwell Moor TW19 6AQ. Pub food, Sunday roast, beer garden and free parking, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5. Book a table.`,
   alternates: {
     canonical: '/'
   },
   openGraph: {
     title: 'The Anchor Stanwell Moor | Pub Food Near Heathrow T5',
     description:
-      'Proper pub food in Stanwell Moor, 7 minutes from Heathrow Terminal 5 with free parking, Sunday roast, events and private hire.',
+      `Proper pub food in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking, Sunday roast, events and private hire.`,
     url: '/',
     siteName: 'The Anchor',
     images: [
@@ -71,7 +72,7 @@ export const metadata: Metadata = {
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: 'The Anchor Pub, Stanwell Moor | 7 Mins from Heathrow T5',
+    title: `The Anchor Pub, Stanwell Moor | ${HEATHROW_TIMES.terminal5} Mins from Heathrow T5`,
     description:
       'Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining. Parking is free for guests while visiting us.',
     images: [DEFAULT_OG_IMAGE]
@@ -117,12 +118,12 @@ const SPECIAL_CARDS = [
   {
     icon: PiggyBank,
     title: 'Eat well, spend less',
-    copy: 'Airport food costs twice as much. Enjoy a proper pub meal at fair village prices, 7 minutes from the terminals.'
+    copy: `Airport food costs twice as much. Enjoy a proper pub meal at fair village prices, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`
   },
   {
     icon: Plane,
     title: 'Made for Heathrow trips',
-    copy: 'A pre-flight meal, meeting arrivals or filling a layover. Free parking, luggage welcome, just 7 minutes from Terminal 5.'
+    copy: `A pre-flight meal, meeting arrivals or filling a layover. Free parking, luggage welcome, just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`
   },
   {
     icon: Heart,
@@ -418,15 +419,15 @@ export default async function HomePage() {
                 <ul className="mt-6 space-y-3 text-ink-muted">
                   <li className="flex items-start gap-3">
                     <Plane size={20} strokeWidth={1.75} className="mt-0.5 flex-shrink-0 text-accent" aria-hidden />
-                    <span>7 minutes from Heathrow Terminal 5</span>
+                    <span>{HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Bus size={20} strokeWidth={1.75} className="mt-0.5 flex-shrink-0 text-accent" aria-hidden />
-                    <span>Bus routes 441, 442 &amp; 555 stop nearby</span>
+                    <span>{BUS_WORDING}</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <SquareParking size={20} strokeWidth={1.75} className="mt-0.5 flex-shrink-0 text-accent" aria-hidden />
-                    <span>20 free customer parking spaces</span>
+                    <span>{PARKING.capacity} free customer parking spaces</span>
                   </li>
                 </ul>
 

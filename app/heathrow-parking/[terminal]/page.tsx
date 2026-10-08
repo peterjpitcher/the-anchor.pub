@@ -10,32 +10,28 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { PARKING_REFUND_WORDING } from '@/lib/approved-wording'
 
 const TERMINAL_PAGES = {
   'terminal-2': {
     number: '2',
-    transferTime: '10-12 minutes',
-    routeHint: 'via Stanwell Moor Road (A3044)',
+    transferTime: `${HEATHROW_TIMES.terminal2} minutes`,
     airportIntent: 'Terminal 2 long-stay and short-stay options'
   },
   'terminal-3': {
     number: '3',
-    transferTime: '10-12 minutes',
-    routeHint: 'via Stanwell Moor Road and Tunnel Road',
+    transferTime: `${HEATHROW_TIMES.terminal3} minutes`,
     airportIntent: 'Terminal 3 long-stay, short-stay and postcode lookups'
   },
   'terminal-4': {
     number: '4',
-    transferTime: '10-12 minutes',
-    routeHint: 'via Stanwell Moor Road (A3044)',
+    transferTime: `${HEATHROW_TIMES.terminal4} minutes`,
     airportIntent: 'Terminal 4 overnight and long-term parking'
   },
   'terminal-5': {
     number: '5',
-    transferTime: '7 minutes',
-    routeHint: 'via Stanwell Moor Road (A3044)',
+    transferTime: `${HEATHROW_TIMES.terminal5} minutes`,
     airportIntent: 'Terminal 5 cheap parking and short-stay alternatives'
   }
 } as const
@@ -86,11 +82,11 @@ export function generateMetadata({ params }: { params: { terminal: string } }): 
   }
 }
 
-function buildFaqs(terminalNumber: string) {
+function buildFaqs(terminalNumber: string, transferTime: string) {
   return [
     {
       question: `Is this official Heathrow Terminal ${terminalNumber} parking?`,
-      answer: `No. The Anchor is off-airport parking in Stanwell Moor, around ${terminalNumber === '5' ? '7' : '10-12'} minutes from Terminal ${terminalNumber}. Many travellers choose it when comparing official Heathrow rates with cheaper local alternatives.`
+      answer: `No. The Anchor is off-airport parking in Stanwell Moor, around ${transferTime} from Terminal ${terminalNumber}. Many travellers choose it when comparing official Heathrow rates with cheaper local alternatives.`
     },
     {
       question: `What is the postcode for Heathrow Terminal ${terminalNumber} short-stay parking?`,
@@ -131,7 +127,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         image="/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg"
         crumb="Heathrow Parking"
         title={`Cheap Heathrow Terminal ${terminalNumber} Parking`}
-        lead={`Compare Terminal ${terminalNumber} parking costs and book a cheaper off-airport option in Stanwell Moor. Typical transfer: ${terminal.transferTime} (${terminal.routeHint}).`}
+        lead={`Compare Terminal ${terminalNumber} parking costs and book a cheaper off-airport option in Stanwell Moor. Typical transfer: ${terminal.transferTime}.`}
         badges={
           <>
             <Badge variant="sand">{`Terminal ${terminalNumber}`}</Badge>
@@ -248,7 +244,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
 
       <FAQAccordionWithSchema
         title={`Terminal ${terminalNumber} parking FAQs`}
-        faqs={buildFaqs(terminalNumber)}
+        faqs={buildFaqs(terminalNumber, terminal.transferTime)}
         className="bg-surface"
       />
 

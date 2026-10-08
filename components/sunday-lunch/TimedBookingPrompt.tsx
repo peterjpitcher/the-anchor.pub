@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_POLICY_COPY, HEATHROW_TIMES } from '@/lib/constants'
 import { currentPagePath, floatingLayers } from '@/lib/floating-layers'
 import {
   Modal,
@@ -134,8 +134,8 @@ export function TimedBookingPrompt({
       <ModalBody>
         <p className="text-base text-ink leading-relaxed">
           {sunday.isLive
-            ? 'Sundays book up fast at The Anchor. We are 7 minutes from Heathrow Terminal 5. Walk-ins are welcome 1pm to 6pm, but a quick booking guarantees your table.'
-            : `${sunday.availabilityLong} We are 7 minutes from Heathrow Terminal 5, and booking ahead is recommended for launch Sundays.`}
+            ? `Sundays book up fast at The Anchor. We are ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Walk-ins are welcome 1pm to 6pm, but a quick booking guarantees your table.`
+            : `${sunday.availabilityLong} We are ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and booking ahead is recommended for launch Sundays.`}
         </p>
         <p className="mt-3 text-sm text-ink-muted leading-relaxed">
           {/* Reads the shared constant rather than restating the rule. This paragraph

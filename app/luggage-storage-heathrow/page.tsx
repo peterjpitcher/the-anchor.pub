@@ -6,7 +6,7 @@ import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, HEATHROW_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -14,16 +14,16 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Luggage Friendly Pub Near Heathrow | Bring Your Bags',
-    description: `Visiting near Heathrow with luggage? You're welcome to bring your bags to ${BRAND.name}, we have plenty of space. Enjoy a meal just 7 mins from T5 with free parking.`,
+    description: `Visiting near Heathrow with luggage? You're welcome to bring your bags to ${BRAND.name}, we have plenty of space. Enjoy a meal just ${HEATHROW_TIMES.terminal5} mins from T5 with free parking.`,
     openGraph: {
         title: 'Luggage Friendly Pub Near Heathrow, Bring Your Bags to The Anchor',
-        description: 'Visiting near Heathrow with luggage? Bring your bags with you and enjoy a proper British meal, 7 minutes from Terminal 5.',
+        description: `Visiting near Heathrow with luggage? Bring your bags with you and enjoy a proper British meal, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`,
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Luggage Friendly Pub Near Heathrow, Bring Your Bags to The Anchor',
-        description: 'Visiting near Heathrow with luggage? Bring your bags with you and enjoy a proper British meal, 7 minutes from Terminal 5.',
+        description: `Visiting near Heathrow with luggage? Bring your bags with you and enjoy a proper British meal, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`,
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -163,7 +163,7 @@ export default function LuggageStoragePage() {
                     },
                     {
                         question: "How far are you from Terminal 5?",
-                        answer: "We are about 5-7 minutes drive. It is a very quick taxi ride to the drop-off point."
+                        answer: `We are ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 by car. It is a very quick taxi ride to the drop-off point.`
                     }
                 ]}
                 className="bg-surface"

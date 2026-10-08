@@ -6,10 +6,6 @@ jest.mock('@/hooks/useBusinessHours', () => ({
   useBusinessHours: jest.fn()
 }))
 
-jest.mock('@/hooks/useKitchenStatus', () => ({
-  useKitchenStatus: jest.fn(() => ({ kitchen: null }))
-}))
-
 import { useBusinessHours } from '@/hooks/useBusinessHours'
 
 // Mock API responses for different scenarios

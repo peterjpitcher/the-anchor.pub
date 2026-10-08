@@ -12,6 +12,8 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { PARKING_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const metadata: Metadata = {
     title: 'Birthday Party Venue Near Heathrow | 30th, 40th, 50th Parties',
@@ -96,7 +98,7 @@ export default function MilestoneBirthdaysPage() {
                             Birthday Party Venue Near Heathrow &amp; Staines: 21st, 30th, 40th, 50th
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for 10+ to 150 guests, buffet packages, and free parking. Pricing discussed on enquiry, you only pay for what you order on top of the room hire. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
+                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for {PRIVATE_HIRE_CAPACITY.recommendedRange}, buffet packages, and free parking. Pricing discussed on enquiry, you only pay for what you order on top of the room hire. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
                         </p>
                     </div>
                 </Container>
@@ -113,7 +115,7 @@ export default function MilestoneBirthdaysPage() {
                             {[
                                 { title: "Entertainment Ready", description: "Space for DJs or live singers to get the party started." },
                                 { title: "Hearty Buffets", description: "Keep your guests fuelled with finger food, sliders, or pizza buffets." },
-                                { title: "Easy Access", description: "Free parking for drivers and tons of Uber availability for the drinkers." },
+                                { title: "Easy Access", description: PARKING_WORDING },
                             ].map(feature => (
                                 <Card key={feature.title} accent className="h-full">
                                     <CardBody className="flex h-full flex-col gap-2">
@@ -175,13 +177,13 @@ export default function MilestoneBirthdaysPage() {
                             <div className="space-y-3">
                                 <h3 className="font-display text-h3 text-ink-strong">30th Birthday Party Venue Near Heathrow</h3>
                                 <p className="text-ink-muted">
-                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats 26 for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. Pricing discussed on enquiry means your budget goes on exactly what you want, food, drinks, and entertainment. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">30th birthday party ideas</Link> for inspiration.
+                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats {PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated} for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. Pricing discussed on enquiry means your budget goes on exactly what you want, food, drinks, and entertainment. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">30th birthday party ideas</Link> for inspiration.
                                 </p>
                             </div>
                             <div className="space-y-3">
                                 <h3 className="font-display text-h3 text-ink-strong">40th Birthday Party Venue</h3>
                                 <p className="text-ink-muted">
-                                    The big four-oh is when parties get good, people know what they like, and the crowd is always up for it. Most 40th birthday parties here are 30&ndash;50 guests with a premium buffet, welcome drinks, and a DJ. Free parking means nobody needs a designated driver. See our <Link href="/blog/40th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">40th birthday party ideas</Link> guide.
+                                    The big four-oh is when parties get good, people know what they like, and the crowd is always up for it. Most 40th birthday parties here go for a premium buffet, welcome drinks, and a DJ. See our <Link href="/blog/40th-birthday-party-ideas-venues" className="text-accent-text hover:underline font-semibold">40th birthday party ideas</Link> guide.
                                 </p>
                             </div>
                             <div className="space-y-3">

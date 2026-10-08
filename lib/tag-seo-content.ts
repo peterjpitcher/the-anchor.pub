@@ -1,3 +1,6 @@
+import { PARKING, HEATHROW_TIMES } from '@/lib/constants'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
+import { ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 // Copy for the blog tag pages. Every fact here comes from docs/SSOT.md.
 //
 // A tag page exists only for a tag carried by at least one post that is not
@@ -59,7 +62,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaDescription: 'Quiz nights, cash bingo and Music Bingo with Nikki Manfadge at The Anchor in Stanwell Moor. See what\'s on for the latest dates.',
     heroContent: 'Quiz night, cash bingo and Music Bingo with Nikki Manfadge all happen here. Come along, you don\'t need to be a regular.',
     introContent: 'The quiz is monthly, on a Wednesday, and Peter, the owner, hosts it himself. Cash bingo runs on set Wednesdays, and Music Bingo with Nikki Manfadge is on a Friday. Karaoke, tasting nights and party nights happen now and then. See what\'s on for the latest dates.',
-    valueProposition: 'Pick a night, see what\'s on for the dates and book your places. We\'ve 20 free parking spaces right outside.',
+    valueProposition: `Pick a night, see what's on for the dates and book your places. We've ${PARKING.capacity} free parking spaces right outside.`,
     keywords: ['pub events stanwell moor', 'events near heathrow', 'what\'s on stanwell moor', 'quiz night stanwell moor', 'music bingo stanwell moor']
   },
 
@@ -78,7 +81,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Heathrow Parking Guides',
     description: 'Guides to parking near Heathrow, terminal by terminal',
     metaTitle: 'Heathrow Parking Guides | The Anchor Stanwell Moor',
-    metaDescription: 'Guides to parking near Heathrow from The Anchor in Stanwell Moor, 7 to 12 minutes by car from any terminal.',
+    metaDescription: `Guides to parking near Heathrow from The Anchor in Stanwell Moor, ${HEATHROW_TIMES.rangeWords} by car from any terminal.`,
     heroContent: 'Flying from Heathrow and working out where to leave the car? These guides walk you through it.',
     introContent: 'We run paid airport parking from our own car park in Stanwell Moor. It\'s floodlit, on a level surface and has CCTV. You arrange your own transfer to the terminal, and you can collect your car at any hour. It\'s separate from the free parking you get while you\'re visiting the pub.',
     valueProposition: 'You can change or cancel your parking booking up to 24 hours before your booked arrival time, and a cancelled booking is refunded less the payment fee.',
@@ -133,7 +136,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Food & Drink',
     description: 'Sunday roasts, pizzas, pub classics and what\'s behind the bar',
     metaTitle: 'Food & Drink | The Anchor Stanwell Moor',
-    metaDescription: 'Food and drink at The Anchor in Stanwell Moor: Sunday roasts, stone-baked pizzas, pub classics and the bar. 20 free parking spaces.',
+    metaDescription: `Food and drink at The Anchor in Stanwell Moor: Sunday roasts, stone-baked pizzas, pub classics and the bar. ${PARKING.capacity} free parking spaces.`,
     heroContent: 'Sunday roasts, stone-baked pizzas and pub classics. Here\'s what we\'ve written about the food and the bar.',
     introContent: 'The kitchen does fish and chips, burgers, pies and stone-baked pizzas, with roasts on Sundays. There\'s nothing to order in advance for a Sunday roast. Behind the bar we\'ve draught lagers, bottled ales and spirits.',
     valueProposition: 'Hungry? Book a table online or call us on 01753 682707. Kitchen times change by day, so check our live hours before you come.',
@@ -146,7 +149,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Guides | The Anchor Stanwell Moor',
     metaDescription: 'Practical guides from The Anchor in Stanwell Moor: visiting the pub, planning a party and travelling through Heathrow.',
     heroContent: 'First visit, planning a party or flying from Heathrow? These guides give you the practical answers.',
-    introContent: 'You\'ll find guides to Sunday roasts, private hire and getting to and from the airport. We\'re 7 minutes by car from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4.',
+    introContent: `You'll find guides to Sunday roasts, private hire and getting to and from the airport. We're ${HEATHROW_TIMES.terminal5} minutes by car from Terminal 5, ${HEATHROW_TIMES.terminal2} minutes from Terminals 2 and 3, and ${HEATHROW_TIMES.terminal4} minutes from Terminal 4.`,
     valueProposition: 'Got a question our guides don\'t cover? Email manager@the-anchor.pub or call 01753 682707.',
     keywords: ['visitor guide stanwell moor pub', 'heathrow area guide TW19', 'pub near heathrow tips', 'planning a party stanwell moor', 'the anchor pub guides']
   },
@@ -155,9 +158,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Private Hire & Events',
     description: 'Private hire, party planning and ideas for your event at The Anchor',
     metaTitle: 'Private Hire | The Anchor Stanwell Moor',
-    metaDescription: 'Private hire at The Anchor in Stanwell Moor for 10 to 150 guests. Birthdays, retirement parties, christenings and wakes, with free parking.',
-    heroContent: 'Planning a party? We host private hire for 10 to 150 guests. These posts help you plan yours.',
-    introContent: 'We host milestone birthdays, retirement parties, christenings, engagement parties, baby showers and wakes. You can hire the dining room, the garden or the whole pub. The dining room seats 26, or holds up to 50 standing, and its French doors open onto the beer garden. Room hire is charged by the hour for the space you book.',
+    metaDescription: `Private hire at The Anchor in Stanwell Moor for ${PRIVATE_HIRE_CAPACITY.recommendedRange}. Birthdays, retirement parties, christenings and wakes, with free parking.`,
+    heroContent: `Planning a party? We host private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}. These posts help you plan yours.`,
+    introContent: `We host milestone birthdays, retirement parties, christenings, engagement parties, baby showers and wakes. You can hire the dining room, the garden or the whole pub. The dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}, or holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing, and its French doors open onto the beer garden. ${ROOM_HIRE_WORDING}`,
     valueProposition: 'Tell us your date and rough numbers and we\'ll talk you through it. Email manager@the-anchor.pub or call 01753 682707.',
     keywords: ['private hire stanwell moor', 'function room near heathrow', 'party venue TW19', 'private event pub stanwell moor', 'book function room stanwell moor']
   },
@@ -166,10 +169,10 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Travel Tips',
     description: 'Heathrow travel tips from a village pub near the airport',
     metaTitle: 'Travel Tips | The Anchor Near Heathrow',
-    metaDescription: 'Travel tips from The Anchor in Stanwell Moor, 7 to 12 minutes by car from any Heathrow terminal. Where to eat before a flight and where to park.',
+    metaDescription: `Travel tips from The Anchor in Stanwell Moor, ${HEATHROW_TIMES.rangeWords} by car from any Heathrow terminal. Where to eat before a flight and where to park.`,
     heroContent: 'Flying from Heathrow? These posts cover the practical stuff.',
-    introContent: 'We\'re 7 to 12 minutes by car from any Heathrow terminal, so plenty of travellers call in. These posts cover where to park, how long to allow for the drive to your terminal and where to eat before you fly.',
-    valueProposition: 'Flying soon? Come in for a meal before you go. We\'ve 20 free parking spaces for while you\'re with us. Check our live hours before you set off.',
+    introContent: `We're ${HEATHROW_TIMES.rangeWords} by car from any Heathrow terminal, so plenty of travellers call in. These posts cover where to park, how long to allow for the drive to your terminal and where to eat before you fly.`,
+    valueProposition: `Flying soon? Come in for a meal before you go. We've ${PARKING.capacity} free parking spaces for while you're with us. Check our live hours before you set off.`,
     keywords: ['travel tips heathrow airport', 'pre flight meal near heathrow', 'things to do before flight heathrow', 'pub near heathrow for travellers', 'heathrow travel advice stanwell moor']
   },
 
@@ -177,9 +180,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Heathrow & Airport Life',
     description: 'Posts about Heathrow Airport and what\'s nearby',
     metaTitle: 'Heathrow | The Anchor Stanwell Moor',
-    metaDescription: 'Heathrow posts from The Anchor in Stanwell Moor, 7 to 12 minutes by car from any terminal. Terminal guides and local tips.',
+    metaDescription: `Heathrow posts from The Anchor in Stanwell Moor, ${HEATHROW_TIMES.rangeWords} by car from any terminal. Terminal guides and local tips.`,
     heroContent: 'Posts about Heathrow, the terminals and life next door to the airport.',
-    introContent: 'We\'re 7 to 12 minutes by car from any Heathrow terminal, and we\'ve 20 free parking spaces right outside. Airport staff coming off shift call in, and so do travellers. The beer garden sits under Heathrow\'s southern runway approach path, so you can watch the planes come over.',
+    introContent: `We're ${HEATHROW_TIMES.rangeWords} by car from any Heathrow terminal, and we've ${PARKING.capacity} free parking spaces right outside. Airport staff coming off shift call in, and so do travellers. The beer garden sits under Heathrow's southern runway approach path, so you can watch the planes come over.`,
     valueProposition: 'We\'re on Horton Road in Stanwell Moor. Book a table or just turn up.',
     keywords: ['pub near heathrow airport', 'heathrow airport local pub', 'pub near heathrow terminal 5', 'eating near heathrow terminals', 'stanwell moor heathrow pub']
   },
@@ -188,9 +191,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Birthday Celebrations',
     description: 'Birthday party ideas and planning tips',
     metaTitle: 'Birthday Parties | The Anchor Stanwell Moor',
-    metaDescription: 'Plan a birthday party at The Anchor in Stanwell Moor. Private hire for 10 to 150 guests, buffets and free parking.',
+    metaDescription: `Plan a birthday party at The Anchor in Stanwell Moor. Private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, buffets and free parking.`,
     heroContent: 'We host birthday parties, from the dining room to the whole pub. These posts help you plan yours.',
-    introContent: 'The dining room seats 26, or holds up to 50 standing. The whole pub takes 119 seated or 300 standing. We do buffets, and you\'re welcome to bring a celebration cake. We\'ll ask whoever brings it to sign our outside-food waiver.',
+    introContent: `The dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}, or holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing. The whole pub takes ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.seated} seated or ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing} standing. We do buffets, and you're welcome to bring a celebration cake. We'll ask whoever brings it to sign our outside-food waiver.`,
     valueProposition: 'Planning a birthday? Email manager@the-anchor.pub with your rough numbers and the date you\'d like. We\'ll talk you through the options.',
     keywords: ['birthday party venue stanwell moor', 'milestone birthday pub near heathrow', 'birthday celebration TW19', 'private birthday party stanwell moor', '50th birthday venue near heathrow']
   },

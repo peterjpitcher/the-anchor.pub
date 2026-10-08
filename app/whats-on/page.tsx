@@ -36,15 +36,17 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { HEATHROW_TIMES } from '@/lib/constants'
+import { getEndedEventSummary } from '@/lib/event-copy'
 
 export const metadata: Metadata = {
   // Short enough that the root layout's " | The Anchor" suffix still fits inside
   // Google's ~60 character cut-off.
   title: "Quiz, Music Bingo & Cash Bingo Near Heathrow",
-  description: "Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5. See the dates.",
+  description: `Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5. See the dates.`,
   openGraph: {
     title: "Quiz, Music Bingo & Cash Bingo Near Heathrow | The Anchor",
-    description: "Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
+    description: `Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5.`,
     images: ["/images/events/quiz-night/quiz-night-hero-tables-full.jpg"],
     // Stated rather than left to the default. This hub is a standing page, not
     // an article or a single event.
@@ -52,7 +54,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: "Quiz, Music Bingo & Cash Bingo Near Heathrow | The Anchor",
-    description: "Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
+    description: `Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5.`,
     images: ["/images/events/quiz-night/quiz-night-hero-tables-full.jpg"]
   }),
   alternates: {
@@ -268,7 +270,7 @@ export default async function WhatsOnPage() {
         crumb="What's On"
         kicker="What's on"
         title="What's On at The Anchor"
-        lead="Quiz nights, Music Bingo and cash bingo in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking. Pick a night, check the date and book your places."
+        lead={`Quiz nights, Music Bingo and cash bingo in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking. Pick a night, check the date and book your places.`}
         badges={
           // No "Free entry nights" chip: quiz, Music Bingo and cash bingo are
           // all paid (docs/SSOT.md §10), and only karaoke is free.
@@ -390,7 +392,7 @@ export default async function WhatsOnPage() {
         <Container>
           <SectionHeading
             kicker="Seasonal occasions"
-            title="Plan ahead for the dates people search for"
+            title="Dates to plan ahead for"
             lead="Guides for the seasonal pub dates near Heathrow, from bank holiday weekends to New Year's Eve."
           />
 
@@ -437,7 +439,11 @@ export default async function WhatsOnPage() {
                       {event.name}
                     </h3>
                     <p className="mt-2 text-sm text-ink-muted">
-                      {event.brief || event.shortDescription || event.description || 'See details from this recent event at The Anchor.'}
+                      {/* Never the stored sales line on a finished night: "Join
+                          Nikki for two themed rounds" under a date that has
+                          gone. getEndedEventSummary keeps a summary only when
+                          it is not an invitation. */}
+                      {getEndedEventSummary(event) || 'See the details from this night at The Anchor.'}
                     </p>
                   </Card>
                 </Link>
@@ -483,8 +489,8 @@ export default async function WhatsOnPage() {
       <OrganicSearchClusterLinks
         cluster="events"
         currentPath="/whats-on"
-        title="Find the right event page"
-        intro="Use these pages for live sport, quiz night and Music Bingo searches before you reserve a table."
+        title="More to do at The Anchor"
+        intro="Live sport, quiz night and Music Bingo each have a page of their own, with the dates and how to book."
       />
 
       {/* 5. CtaBand (§7.3.5) */}

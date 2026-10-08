@@ -1,6 +1,6 @@
 import type { Event } from '@/lib/api/events'
-import { formatEventLocalDate } from '@/lib/event-calendar'
-import { normalizeEventStatus, isEventInPast } from '@/lib/event-lifecycle'
+import { formatEventLocalDate, isEventOver } from '@/lib/event-calendar'
+import { normalizeEventStatus } from '@/lib/event-lifecycle'
 import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 
 /**
@@ -451,7 +451,11 @@ const TITLE_DATE = new RegExp(
  * the title.
  */
 export function getEventPageTitle(
-  event: Pick<Event, 'name' | 'startDate'> & { metaTitle?: string | null }
+  event: Pick<Event, 'name' | 'startDate'> & {
+    metaTitle?: string | null
+    endDate?: string | null
+    duration?: string | null
+  }
 ): string {
   const recordTitle = stripBrandSuffix(event.metaTitle || event.name)
   if (TITLE_DATE.test(recordTitle)) return recordTitle
@@ -462,7 +466,8 @@ export function getEventPageTitle(
   // "Wed 16 Sept" while it is on sale; "4 March 2026" once it has been.
   const dateLabel = formatEventLocalDate(
     event.startDate,
-    isEventInPast(event)
+    // Over, not merely started: the title keeps its on-sale form while the night runs.
+    isEventOver(event)
       ? { day: 'numeric', month: 'long', year: 'numeric' }
       : { weekday: 'short', day: 'numeric', month: 'short' }
   )
@@ -516,12 +521,14 @@ export interface EventSeoStrategy {
  */
 export function getEventSeoStrategy(
   event: Pick<Event, 'startDate' | 'event_status' | 'eventStatus' | 'category'> &
-    { slug?: string | null } &
+    { slug?: string | null; endDate?: string | null; duration?: string | null } &
     DiscontinuedFields &
     BannedClaimFields
 ): EventSeoStrategy {
   const status = normalizeEventStatus(event)
-  const isPast = isEventInPast(event)
+  // Keyed to the finish: a night that is under way is still 'active', and its
+  // page does not show the ended banner.
+  const isPast = isEventOver(event)
 
   // Discontinued formats, and any event whose copy carries a claim the SSOT
   // verifies as false, stay reachable but out of search whatever their date.

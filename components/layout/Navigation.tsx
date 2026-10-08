@@ -16,6 +16,7 @@ import {
   type ModalCloseReason
 } from '@/lib/gtm-events'
 import { getActiveHeaderPromos } from '@/lib/header-promo-window'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 interface HeaderCtaButton {
   label: string
@@ -121,10 +122,11 @@ const defaultItems: NavigationItem[] = [
       { label: 'Find Us', href: '/find-us', description: 'Address, map, phone number and travel info' },
       { label: 'Our Venue', href: '/our-pub', description: 'Explore the pub, garden, facilities and venue photos' },
       { label: 'Near Heathrow', href: '/near-heathrow', description: 'Why we work well for airport stops' },
-      { label: 'From Terminal 5', href: '/near-heathrow/terminal-5', description: 'Seven minutes from Terminal 5' },
+      { label: 'From Terminal 5', href: '/near-heathrow/terminal-5', description: `${HEATHROW_TIMES.terminal5} minutes from Terminal 5` },
       { label: 'Plane Spotting', href: '/plane-spotting-heathrow', description: 'Watch aircraft from the beer garden' },
-      // /free-parking 301-redirects to /heathrow-parking; link straight there to avoid the hop.
-      { label: 'Free Customer Parking', href: '/heathrow-parking', description: 'Free on-site parking for our guests' },
+      // Free guest parking is not the paid airport parking product (docs/SSOT.md
+      // section 8), so this goes to the parking part of Find Us, never /heathrow-parking.
+      { label: 'Free Customer Parking', href: '/find-us#parking', description: 'Free on-site parking for our guests' },
       { label: 'Book Heathrow Parking', href: '/heathrow-parking', description: 'Reserve airport parking with us' }
     ]
   }

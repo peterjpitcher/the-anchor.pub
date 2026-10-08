@@ -27,6 +27,7 @@ import { PsychBadge } from '@/components/psychology'
 import { JsonLd } from '@/components/JsonLd'
 import { bingoEventSeries } from '@/lib/schema'
 import { ACCESS_WORDING } from '@/lib/approved-wording'
+import { BUS_WORDING, PARKING } from '@/lib/constants'
 
 /**
  * The title stays pub-qualified on purpose. GKP measures "bingo night near me"
@@ -69,7 +70,7 @@ const WHAT_IT_IS = [
   },
   {
     title: 'The rolling snowball',
-    body: 'Every cash bingo night nobody claims it, the snowball grows by £20 and gains two extra calls for the next one, which makes it easier to win the longer it survives. The current target is on the event listing.'
+    body: 'Every cash bingo night nobody claims it, the snowball grows by £20 and gains two extra calls for the next one, which makes it easier to win the longer it survives. The current target is on that night’s own page.'
   }
 ]
 
@@ -92,7 +93,7 @@ const FAQS = [
   {
     question: 'How does the snowball jackpot work?',
     answer:
-      'It is a full house within a set number of calls. Each night it goes unclaimed it grows by £20 and gains two extra calls at the next cash bingo, so it gets easier to win over time. To win it you need to have played at one of the previous three cash bingo nights. The current target is on the event listing below, because it changes from night to night.'
+      'It is a full house within a set number of calls. Each night it goes unclaimed it grows by £20 and gains two extra calls at the next cash bingo, so it gets easier to win over time. To win it you need to have played at one of the previous three cash bingo nights. The current target is on that night’s own page, because it changes from night to night.'
   },
   {
     question: 'Do I need to book in advance?',
@@ -182,12 +183,17 @@ export default async function CashBingoPage() {
           </PageTitle>
           <p className="mx-auto text-center text-lg text-ink-muted">
             Traditional bingo in a village pub rather than a bingo hall: ten games, a friendly caller,
-            numbers on the pub screens, and hot food from the kitchen while you play. Everyone aged 18
+            numbers on the pub screens, and food from the kitchen when it&apos;s open. Everyone aged 18
             or over can play and win, and supervised under-18s are welcome to come along.{' '}
             {heroDescription}
           </p>
           <div className="mt-4 flex justify-center">
-            <PsychBadge variant="prize" label="Cash prizes every game" />
+            {/* This badge used to promise cash on all ten games. It cannot:
+                some games are played for a free
+                drink and some for a £10 food voucher (docs/SSOT.md section 10,
+                owner-confirmed 12 September 2026). The jackpot is the last
+                game and is always cash. */}
+            <PsychBadge variant="prize" label="Cash jackpot on the last game" />
           </div>
         </Container>
       </section>
@@ -219,8 +225,8 @@ export default async function CashBingoPage() {
                     the final cash jackpot, so it grows with the size of the room.
                   </p>
                   <p className="text-ink-muted">
-                    Ten quick games with two planned pauses, so you can top up drinks and order from
-                    the kitchen without missing a call. Expect classic bingo banter, spot prizes and a
+                    Ten quick games with two planned pauses, so you can top up drinks, and order food
+                    if the kitchen&apos;s open, without missing a call. Expect classic bingo banter, spot prizes and a
                     snowball countdown that gets louder as the numbers close in.
                   </p>
                   <p className="text-sm text-ink-muted">
@@ -255,7 +261,7 @@ export default async function CashBingoPage() {
           <div className="mx-auto">
             <h2 className="mb-6 text-center text-h3 text-ink-strong">Upcoming cash bingo dates</h2>
             <p className="mb-8 text-center text-ink-muted">
-              Confirmed nights are below, each with its own snowball target. For everything else we
+              Confirmed nights are below. Each night&rsquo;s own page gives its snowball target. For everything else we
               have on, see{' '}
               <Link href="/whats-on" className="font-semibold text-accent-text hover:text-accent-text">
                 What&rsquo;s On
@@ -360,11 +366,11 @@ export default async function CashBingoPage() {
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">
                 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
-                Bedfont and Egham, with 20 free parking spaces on site.
+                Bedfont and Egham, with {PARKING.capacity} free parking spaces on site.
               </p>
               <ul className="space-y-3 text-sm text-ink-muted">
-                <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
-                <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
+                <li><strong>Driving:</strong> use postcode TW19 6AQ. {PARKING.capacity} free spaces, first come, first served.</li>
+                <li><strong>Public transport:</strong> {BUS_WORDING} Uber and Bolt know us well.</li>
                 <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">

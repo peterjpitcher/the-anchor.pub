@@ -1,5 +1,7 @@
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from './image-fallbacks'
 import { ACCESS_AMENITY_FEATURES } from './approved-wording'
+import { CONTACT, PRICE_RANGE } from './constants'
+import { PRIVATE_HIRE_CAPACITY } from './private-hire-capacity'
 
 const DEFAULT_SCHEMA_IMAGES = [
   `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
@@ -37,8 +39,8 @@ export const organizationSchema = {
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 51.462509,
-    "longitude": -0.502067
+    "latitude": CONTACT.coordinates.lat,
+    "longitude": CONTACT.coordinates.lng
   },
   "telephone": "+441753682707",
   "email": "manager@the-anchor.pub"
@@ -66,12 +68,12 @@ export const localBusinessSchema = {
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 51.462509,
-    "longitude": -0.502067
+    "latitude": CONTACT.coordinates.lat,
+    "longitude": CONTACT.coordinates.lng
   },
   "url": "https://www.the-anchor.pub",
   "telephone": "+441753682707",
-  "priceRange": "££",
+  "priceRange": PRICE_RANGE,
   "servesCuisine": ["British", "Pizza", "Pub Food"],
   "acceptsReservations": "true",
   "menu": "https://www.the-anchor.pub/food-menu",
@@ -137,7 +139,7 @@ export const localBusinessSchema = {
   "currenciesAccepted": "GBP",
   "publicAccess": true,
   "isAccessibleForFree": true,
-  "maximumAttendeeCapacity": 250,
+  "maximumAttendeeCapacity": PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing,
   "smokingAllowed": false,
   "keywords": "pub near Heathrow, restaurant Stanwell Moor, British food Surrey, beer garden, dog friendly pub",
   "contactPoint": [
@@ -160,8 +162,8 @@ export const localBusinessSchema = {
     "@type": "GeoCircle",
     "geoMidpoint": {
       "@type": "GeoCoordinates",
-      "latitude": 51.462509,
-      "longitude": -0.502067
+      "latitude": CONTACT.coordinates.lat,
+      "longitude": CONTACT.coordinates.lng
     },
     "geoRadius": "16000"
   }
@@ -333,8 +335,8 @@ export const parkingFacilitySchema = {
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 51.462509,
-    "longitude": -0.502067
+    "latitude": CONTACT.coordinates.lat,
+    "longitude": CONTACT.coordinates.lng
   },
   "maximumVehicleHeight": {
     "@type": "QuantitativeValue",

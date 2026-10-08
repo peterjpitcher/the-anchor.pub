@@ -6,12 +6,13 @@ import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PRICE_RANGE } from '@/lib/constants'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
+import { ACCESS_AMENITY_FEATURES, FAMILIES_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Family Friendly Pub Near Heathrow | Kids Menu & Garden',
@@ -46,16 +47,16 @@ export default function FamilyDiningPage() {
                     "telephone": "+441753682707",
                     "address": {
                         "@type": "PostalAddress",
-                        "streetAddress": "Horton Road",
-                        "addressLocality": "Stanwell Moor",
+                        "streetAddress": CONTACT.address.street,
+                        "addressLocality": CONTACT.address.town,
                         "addressRegion": "Surrey",
                         "postalCode": "TW19 6AQ",
                         "addressCountry": "GB"
                     },
                     "geo": {
                         "@type": "GeoCoordinates",
-                        "latitude": 51.462509,
-                        "longitude": -0.502067
+                        "latitude": CONTACT.coordinates.lat,
+                        "longitude": CONTACT.coordinates.lng
                     },
                     "amenityFeature": [
                         { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
@@ -68,7 +69,7 @@ export default function FamilyDiningPage() {
                     ],
                     "servesCuisine": ["British", "Pub Food", "Pizza"],
                     "acceptsReservations": true,
-                    "priceRange": "££"
+                    "priceRange": PRICE_RANGE
                 }) }}
             />
 
@@ -102,7 +103,7 @@ export default function FamilyDiningPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
-                                { title: 'Large Beer Garden', description: 'Seating for 64, right under the Heathrow flight path. It adjoins the car park, so please keep little ones supervised.' },
+                                { title: 'Large Beer Garden', description: `Seating for ${PRIVATE_HIRE_CAPACITY.spaces.gardenTerrace.seated}, right under the Heathrow flight path. It adjoins the car park, so please keep little ones supervised.` },
                                 { title: 'Kids Menu', description: 'Proper portions of favourites like fish fingers and sausages - nothing too fancy!' },
                                 { title: 'Plane Spotting', description: 'We are under the flight path! Kids love watching the giant planes land nearby.' }
                             ].map(feature => (
@@ -123,14 +124,11 @@ export default function FamilyDiningPage() {
                     <Card accent className="mx-auto">
                         <CardBody className="p-8">
                             <h2 className="font-display text-h3 text-center text-ink-strong mb-6">Facilities for Little Ones</h2>
+                            <p className="mb-6 text-center text-ink-muted">{FAMILIES_WORDING}</p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <p className="font-semibold text-ink-strong">High Chairs</p>
                                     <p className="text-sm text-ink-muted">Plenty available, just ask when booking.</p>
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-ink-strong">Baby Changing</p>
-                                    <p className="text-sm text-ink-muted">We don&apos;t have baby changing facilities. Bottle warming is on request, and breastfeeding is welcome.</p>
                                 </div>
                                 <div>
                                     <p className="font-semibold text-ink-strong">Kid-Friendly Drinks</p>
@@ -150,7 +148,7 @@ export default function FamilyDiningPage() {
                     },
                     {
                         question: "Can we bring a pushchair inside?",
-                        answer: "Yes. The bar and dining area are step free from the car park, and there is plenty of space between tables for buggies and pushchairs."
+                        answer: `Yes. The bar and dining area are step free from the car park, and there is plenty of space between tables for buggies and pushchairs. ${FAMILIES_WORDING}`
                     },
                     {
                         question: "Is the food fast?",

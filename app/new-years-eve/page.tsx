@@ -9,6 +9,8 @@ import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
+import { DOGS_WORDING, PARKING_WORDING, TAXI_WORDING } from '@/lib/approved-wording'
+import { bookingConfig } from '@/lib/booking-config'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
@@ -92,7 +94,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
     {
       question: 'Is there parking?',
       answer:
-        `Yes. We have ${PARKING.capacity} free parking spaces on site, ideal for designated drivers. If you are drinking, taxis are easy to arrange for the short trip back to local hotels or home.`,
+        `${PARKING_WORDING} If you'd rather not drive: ${TAXI_WORDING}`,
     },
   ]
 
@@ -154,7 +156,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               No long taxi home. No surge pricing. No spending half the night in a queue. Just a village pub
-              that knows how to throw a party, with 20 free parking spaces right outside for whoever&apos;s
+              that knows how to throw a party, with {PARKING.capacity} free parking spaces right outside for whoever&apos;s
               driving.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -162,8 +164,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
                 <CardBody className="space-y-2">
                   <h3 className="text-lg font-semibold text-ink-strong">Free parking</h3>
                   <p className="text-sm text-ink-muted">
-                    20 free spaces on site. Your designated driver parks for free, or grab an easy taxi home,
-                    no surge pricing out here.
+                    {PARKING_WORDING}
                   </p>
                 </CardBody>
               </Card>
@@ -189,8 +190,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
                 <CardBody className="space-y-2">
                   <h3 className="text-lg font-semibold text-ink-strong">Dog-friendly</h3>
                   <p className="text-sm text-ink-muted">
-                    Well-behaved dogs are welcome in the early evening. If your dog isn&apos;t a fan of
-                    fireworks, we&apos;re a calm spot before things get lively later on.
+                    {DOGS_WORDING}
                   </p>
                 </CardBody>
               </Card>
@@ -355,7 +355,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
       {/* Booking CTA */}
       <CtaBand
         title="Book your New Year's Eve"
-        copy="New Year's Eve always fills up. Book your table now to guarantee your spot. Large groups (8+), give us a call so we can sort the right space."
+        copy={`New Year's Eve always fills up. Book your table now to guarantee your spot. Groups of more than ${bookingConfig.maxOnlinePartySize}, give us a call so we can sort the right space.`}
         primary={
           <Button asChild variant="primary" size="lg">
             <a href={NYE_BOOKING_URL}>Book Your Spot Online</a>

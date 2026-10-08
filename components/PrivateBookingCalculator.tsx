@@ -3,6 +3,7 @@
 import { useState, useEffect, useId, useMemo, useRef } from 'react'
 import { PrivateBookingConfig, PrivateBookingItem, getPrivateBookingConfig, formatCurrency } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { londonIsoDate } from '@/lib/time-london'
 import { PrivateBookingInquiryForm } from './PrivateBookingInquiryForm'
 import { useCountdown } from '@/hooks/useCountdown'
 import { trackQuoteToolCompleted, trackQuoteToolStarted } from '@/lib/gtm-events'
@@ -365,7 +366,7 @@ export function PrivateBookingCalculator({
                             type="date"
                             aria-labelledby={`${fieldId}-date-label`}
                             value={selectedDate}
-                            min={new Date(Date.now() + 86400000).toISOString().split('T')[0]}
+                            min={londonIsoDate(new Date(Date.now() + 86400000))}
                             onChange={(e) => {
                                 trackQuoteStartedOnce()
                                 setSelectedDate(e.target.value)

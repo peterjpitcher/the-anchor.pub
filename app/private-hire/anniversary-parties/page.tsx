@@ -3,7 +3,7 @@ import { Button, SectionHeading, Card, CardBody, Container } from '@/components/
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, HEATHROW_TIMES, DRIVE_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -13,19 +13,22 @@ import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDown
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
+
+const { diningRoom, mainArea } = PRIVATE_HIRE_CAPACITY.spaces
 
 export const metadata: Metadata = {
     title: 'Anniversary Party Venue Near Heathrow',
-    description: `Anniversary party venue near Heathrow and Staines. A private dining room for 10 to 150 guests, buffet catering and free parking at ${BRAND.name}.`,
+    description: `Anniversary party venue near Heathrow and Staines. Private dining room (${diningRoom.seated} seated, ${diningRoom.standing} standing), buffet catering and free parking at ${BRAND.name}.`,
     openGraph: {
         title: 'Anniversary Party Venue | The Anchor Stanwell Moor',
-        description: 'Celebrate a milestone anniversary at The Anchor. Private dining room, catering handled, free parking, and a dog-friendly garden seven minutes from Heathrow.',
+        description: `Celebrate a milestone anniversary at The Anchor. Private dining room, catering handled, free parking, and a dog-friendly garden ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Anniversary Party Venue | The Anchor Stanwell Moor',
-        description: 'Celebrate a milestone anniversary at The Anchor. Private dining room, catering handled, free parking, and a dog-friendly garden seven minutes from Heathrow.',
+        description: `Celebrate a milestone anniversary at The Anchor. Private dining room, catering handled, free parking, and a dog-friendly garden ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         images: [DEFAULT_CORPORATE_IMAGE]
     }),
     alternates: {
@@ -50,7 +53,7 @@ export default function AnniversaryPartiesPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/anniversary-parties",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "Anniversary party venue near Heathrow Airport with a private dining room for 10+ to 150 guests, buffets and drinks at live prices, and free parking. Room hire and terms quoted on enquiry. Stanwell Moor, Surrey.",
+        "description": `Anniversary party venue near Heathrow Airport with a private dining room (${diningRoom.seated} seated, ${diningRoom.standing} standing) and room for up to ${mainArea.standing} guests across the pub, buffets and drinks at live prices, and free parking. Room hire and terms quoted on enquiry. Stanwell Moor, Surrey.`,
         "potentialAction": {
             "@type": "CommunicateAction",
             "target": {
@@ -75,7 +78,7 @@ export default function AnniversaryPartiesPage() {
                 image={DEFAULT_CORPORATE_IMAGE}
                 crumb="Anniversary Parties"
                 title="Anniversary Party Venue Near Heathrow, celebrate at The Anchor"
-                lead="A private dining room for 10+ to 150 guests, catering and drinks handled, and free parking, seven minutes from Heathrow"
+                lead={`A private dining room (${diningRoom.seated} seated, ${diningRoom.standing} standing) and room for up to ${mainArea.standing} guests across the pub, catering and drinks handled, and free parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5`}
                 actions={
                     <>
                         <Button asChild variant="primary" size="lg" fullWidth>
@@ -97,7 +100,7 @@ export default function AnniversaryPartiesPage() {
                             Anniversary Party Venue Near Heathrow &amp; Staines
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Whether you are marking a wedding anniversary, a ruby or golden milestone, or simply another year together, The Anchor is an anniversary party venue near Heathrow with free parking and room for 10+ to 150 guests. Seven minutes from Terminal 5 in Stanwell Moor, we handle the catering, the drinks, and the space, so you can spend the day with the people who matter rather than running the event.
+                            Whether you are marking a wedding anniversary, a ruby or golden milestone, or simply another year together, The Anchor is an anniversary party venue near Heathrow with free parking and room for {PRIVATE_HIRE_CAPACITY.recommendedRange}. We&apos;re in Stanwell Moor, {HEATHROW_TIMES.terminal5} minutes from Terminal 5, and we handle the catering, the drinks, and the space, so you can spend the day with the people who matter rather than running the event.
                         </p>
                     </div>
                 </Container>
@@ -141,16 +144,16 @@ export default function AnniversaryPartiesPage() {
                                 <h3 className="font-display text-h4 text-ink-strong">The Venue</h3>
                                 <ul className="space-y-2 text-ink-muted">
                                     <li><strong className="text-ink-strong">Room hire:</strong> a hire fee covers your space and varies by day and party size. We confirm the fee and full terms when you enquire.</li>
-                                    <li><strong className="text-ink-strong">Dining room:</strong> 26 seated, or up to 50 standing. French doors open straight onto the beer garden in summer.</li>
-                                    <li><strong className="text-ink-strong">Capacity:</strong> 10+ to 150 guests. Smaller groups get a reserved area; larger parties get the dining room to yourselves.</li>
+                                    <li><strong className="text-ink-strong">Dining room:</strong> {diningRoom.seated} seated, or up to {diningRoom.standing} standing. French doors open straight onto the beer garden in summer.</li>
+                                    <li><strong className="text-ink-strong">Capacity:</strong> {PRIVATE_HIRE_CAPACITY.recommendedRange} across the pub. Smaller groups get a reserved area, or you can have the dining room to yourselves.</li>
                                     <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table photos, anniversary signs, bring them along. We just ask for no confetti or glitter.</li>
                                 </ul>
                             </CardBody></Card>
                             <Card><CardBody className="space-y-3">
                                 <h3 className="font-display text-h4 text-ink-strong">The Practical Bits</h3>
                                 <ul className="space-y-2 text-ink-muted">
-                                    <li><strong className="text-ink-strong">Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
-                                    <li><strong className="text-ink-strong">7 minutes from Heathrow T5</strong>, handy if family are flying in for the occasion.</li>
+                                    <li><strong className="text-ink-strong">Free parking:</strong> {PARKING.capacity} spaces right outside the door. No meters, no time limits.</li>
+                                    <li><strong className="text-ink-strong">{HEATHROW_TIMES.terminal5} minutes from Heathrow T5</strong>, handy if family are flying in for the occasion.</li>
                                     <li><strong className="text-ink-strong">AV equipment:</strong> TVs and a sound system for slideshows of the years gone by, or a few words and a toast.</li>
                                     <li><strong className="text-ink-strong">Deposit:</strong> {PRIVATE_HIRE_DEPOSIT_WORDING}</li>
                                     <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
@@ -174,11 +177,11 @@ export default function AnniversaryPartiesPage() {
                                 <p className="text-sm text-ink-muted">We confirm hire and terms before you book</p>
                             </div>
                             <div className="text-center space-y-2">
-                                <p className="font-display text-h3 text-accent-text">10+ to 150</p>
-                                <p className="text-sm text-ink-muted">Guests, intimate dinner to full party</p>
+                                <p className="font-display text-h3 text-accent-text">{PRIVATE_HIRE_CAPACITY.recommendedRange}</p>
+                                <p className="text-sm text-ink-muted">Intimate dinner to full party</p>
                             </div>
                             <div className="text-center space-y-2">
-                                <p className="font-display text-h3 text-accent-text">20 free</p>
+                                <p className="font-display text-h3 text-accent-text">{PARKING.capacity} free</p>
                                 <p className="text-sm text-ink-muted">Parking spaces outside the door</p>
                             </div>
                         </div>
@@ -219,10 +222,10 @@ export default function AnniversaryPartiesPage() {
                             <Card accent><CardBody className="space-y-4">
                                 <h3 className="font-display text-h4 text-ink-strong">A Larger Celebration</h3>
                                 <p className="text-ink-muted">
-                                    Want to gather everyone for a big milestone? Our dining room hosts larger anniversary parties, with the bar on hand and the garden open in summer. We can arrange buffet stations and space for a few words and a toast.
+                                    Want to gather everyone for a big milestone? Our dining room holds up to {diningRoom.standing} standing and the main area up to {mainArea.standing}, with the bar on hand and the garden open in summer. We can arrange buffet stations and space for a few words and a toast.
                                 </p>
                                 <ul className="list-disc pl-5 text-ink-muted space-y-2">
-                                    <li>Room for 10+ to 150 guests</li>
+                                    <li>Room for {PRIVATE_HIRE_CAPACITY.recommendedRange} across the pub</li>
                                     <li>Buffet packages to suit all budgets</li>
                                     <li>Space for music, speeches, and a slideshow</li>
                                 </ul>
@@ -271,7 +274,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "How many guests can you fit for an anniversary party?",
-                        answer: "Our private dining room seats 26, or holds up to 50 standing. For larger anniversary celebrations we can accommodate 10+ to 150 guests across the dining room and beer garden. Smaller groups get a reserved area; larger parties take the dining room to themselves."
+                        answer: `Our private dining room seats ${diningRoom.seated}, or holds up to ${diningRoom.standing} standing. For larger anniversary celebrations there's room for up to ${mainArea.standing} across the pub. Smaller groups get a reserved area.`
                     },
                     {
                         question: "Can we decorate the room?",
@@ -291,7 +294,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "Is there parking for anniversary party guests?",
-                        answer: "Yes. We have 20 free parking spaces right outside the pub, with no meters and no time limits. It is one of the biggest advantages of choosing a pub over a town-centre hotel."
+                        answer: `Yes. We have ${PARKING.capacity} free parking spaces right outside the pub, with no meters and no time limits. It is one of the biggest advantages of choosing a pub over a town-centre hotel.`
                     },
                     {
                         question: "How far in advance should we book?",
@@ -303,7 +306,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "Where is The Anchor?",
-                        answer: "We are in Stanwell Moor, Surrey, 7 minutes from Heathrow Terminal 5 and about 8 minutes from Staines, and we sit outside the ULEZ zone. Postcode for sat nav: TW19 6AQ. We are just off the M25 at Junction 14."
+                        answer: `We are in Stanwell Moor, Surrey, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and about ${DRIVE_TIMES.staines} minutes from Staines, and we sit outside the ULEZ zone. Postcode for sat nav: TW19 6AQ. We are just off the M25 at Junction 14.`
                     }
                 ]}
                 className="bg-canvas"

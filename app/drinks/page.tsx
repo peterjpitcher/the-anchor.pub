@@ -14,7 +14,7 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { generateNutritionInfo, generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, POSTAL_ADDRESS_SCHEMA, PRICE_RANGE } from '@/lib/constants'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBusinessHours } from '@/lib/api'
@@ -26,15 +26,15 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-  description: 'Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, 7 mins from T5. View the drinks menu.',
+  description: `Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, ${HEATHROW_TIMES.terminal5} mins from T5. View the drinks menu.`,
   openGraph: {
     title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-    description: 'Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, 7 mins from T5. View the drinks menu.',
+    description: `Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, ${HEATHROW_TIMES.terminal5} mins from T5. View the drinks menu.`,
     images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-    description: 'Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, 7 mins from T5. View the drinks menu.',
+    description: `Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, ${HEATHROW_TIMES.terminal5} mins from T5. View the drinks menu.`,
     images: [DEFAULT_DRINKS_IMAGE]
   }),
   alternates: {
@@ -103,15 +103,8 @@ export default async function DrinksMenuPage() {
       "@type": "BarOrPub",
       "@id": "https://www.the-anchor.pub/#business",
       "name": "The Anchor",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Horton Road",
-        "addressLocality": "Stanwell Moor",
-        "addressRegion": "Surrey",
-        "postalCode": "TW19 6AQ",
-        "addressCountry": "GB"
-      },
-      "priceRange": "££",
+      "address": POSTAL_ADDRESS_SCHEMA,
+      "priceRange": PRICE_RANGE,
       "servesCuisine": ["British"],
       "telephone": "+441753682707",
       "url": "https://www.the-anchor.pub"
@@ -286,7 +279,7 @@ export default async function DrinksMenuPage() {
         <div className="container">
           <div className="mx-auto">
             <SectionHeading
-              title="Your Local After Landing, 7 Minutes from Terminal 5"
+              title={`Your Local After Landing, ${HEATHROW_TIMES.terminal5} Minutes from Terminal 5`}
             />
             <div className="grid gap-6 md:grid-cols-3">
               {[
@@ -300,7 +293,7 @@ export default async function DrinksMenuPage() {
                 },
                 {
                   title: "Traveller's Rest",
-                  body: "Just landed or about to fly? We're your local. A quick taxi from every terminal (7 to 12 minutes), free parking if you drive, and a proper British welcome."
+                  body: `Just landed or about to fly? We're your local. A quick taxi from every terminal (${HEATHROW_TIMES.rangeWords}), free parking if you drive, and a proper British welcome.`
                 }
               ].map((item) => (
                 <Card key={item.title} accent>
@@ -442,7 +435,7 @@ export default async function DrinksMenuPage() {
           },
           {
             question: "Where can I find well-kept draught beer near Heathrow?",
-            answer: "The Anchor is just 7 minutes from Heathrow Terminal 5, and 7 to 12 minutes from the other terminals, with a proper choice of draught beers and premium lagers. We're much better value than airport bars and have a proper pub atmosphere with our beer garden."
+            answer: `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and ${HEATHROW_TIMES.rangeWords} from the other terminals, with a proper choice of draught beers and premium lagers. We're much better value than airport bars and have a proper pub atmosphere with our beer garden.`
           },
           {
             question: "Do you have non-alcoholic drink options?",

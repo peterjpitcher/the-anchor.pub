@@ -6,7 +6,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, PARKING, GEO_COORDINATES_SCHEMA, POSTAL_ADDRESS_SCHEMA } from '@/lib/constants'
 import {
   Badge,
   Button,
@@ -17,7 +17,8 @@ import {
   Grid,
 } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
-import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
+import { ACCESS_AMENITY_FEATURES, DOGS_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const metadata: Metadata = {
   title: 'About Us | Our Story Since 1751',
@@ -56,19 +57,8 @@ const aboutPageSchema = {
     foundingDate: '1751',
     description:
       'Traditional British village pub established in 1751, located in Stanwell Moor near Heathrow Airport.',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Horton Road',
-      addressLocality: 'Stanwell Moor',
-      addressRegion: 'Surrey',
-      postalCode: 'TW19 6AQ',
-      addressCountry: 'GB',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 51.462509,
-      longitude: -0.502067,
-    },
+    address: POSTAL_ADDRESS_SCHEMA,
+    geo: GEO_COORDINATES_SCHEMA,
     telephone: '+441753682707',
     email: 'manager@the-anchor.pub',
     url: 'https://www.the-anchor.pub',
@@ -142,7 +132,7 @@ export default function AboutPage() {
 
               <p>
                 These days, we&apos;re the closest traditional pub to Heathrow Airport, just
-                seven minutes from Terminal 5. The flight path that runs over our beer garden
+                {HEATHROW_TIMES.terminal5} minutes from Terminal 5. The flight path that runs over our beer garden
                 turned out to be one of the best things about us. Planes pass overhead every
                 90 seconds during peak times, and what started as background noise became a
                 genuine attraction. People come from miles around to watch A380s and
@@ -178,14 +168,14 @@ export default function AboutPage() {
                   'Our beer garden sits directly beneath Heathrow\u2019s approach path. Aircraft pass overhead every 90 seconds at peak times, a view you won\u2019t find at any other pub.',
               },
               {
-                title: '20 Free Parking Spaces',
+                title: `${PARKING.capacity} Free Parking Spaces`,
                 description:
                   'No meters, no apps, no charges. Free on-site parking for every guest, a rare thing this close to Heathrow.',
               },
               {
                 title: 'Dog-Friendly Throughout',
                 description:
-                  'Your four-legged friends are welcome inside and in the beer garden. Water bowls provided, treats available at the bar.',
+                  DOGS_WORDING,
               },
               {
                 title: '5-Star Food Hygiene',
@@ -200,7 +190,7 @@ export default function AboutPage() {
               {
                 title: 'Outside the ULEZ Zone',
                 description:
-                  "We're outside the ULEZ, so there's no charge at our end of the journey. One less thing to worry about.",
+                  ULEZ_WORDING,
               },
             ].map(({ title, description }) => (
               <Card key={title} accent hover className="h-full">
@@ -280,7 +270,7 @@ export default function AboutPage() {
                       Private Hire
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      Flexible private hire for 10+ to 150 guests. Birthdays, corporate events,
+                      Flexible private hire for {PRIVATE_HIRE_CAPACITY.recommendedRange}. Birthdays, corporate events,
                       celebrations, we handle the lot.
                     </p>
                     <p className="text-accent-text font-semibold">Plan your event &rarr;</p>
@@ -296,7 +286,7 @@ export default function AboutPage() {
                       Beer Garden &amp; Plane Spotting
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      64 seats under the flight path. Dog-friendly, full food
+                      {PRIVATE_HIRE_CAPACITY.spaces.gardenTerrace.seated} seats under the flight path. Dog-friendly, full food
                       and drink service outdoors.
                     </p>
                     <p className="text-accent-text font-semibold">Explore the garden &rarr;</p>
@@ -408,17 +398,17 @@ export default function AboutPage() {
           {
             question: 'Is The Anchor dog-friendly?',
             answer:
-              'Yes, dogs are welcome throughout The Anchor including the bar area and beer garden. We provide water bowls, and treats are available at the bar.',
+              `Yes. ${DOGS_WORDING}`,
           },
           {
             question: 'How far is The Anchor from Heathrow?',
             answer:
-              'The Anchor is just 7 minutes by car from Heathrow Terminal 5 and approximately 11\u201312 minutes from Terminals 2, 3, and 4. We are the closest traditional pub to Heathrow Airport.',
+              `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes by car from Heathrow Terminal 5 and ${HEATHROW_TIMES.terminal2} to ${HEATHROW_TIMES.terminal4} minutes from Terminals 2, 3 and 4. We are the closest traditional pub to Heathrow Airport.`,
           },
           {
             question: 'Does The Anchor have parking?',
             answer:
-              'Yes, we have 20 free parking spaces for guests with no time limit while you are visiting. No meters, no apps, no charges.',
+              `Yes, we have ${PARKING.capacity} free parking spaces for guests with no time limit while you are visiting. No meters, no apps, no charges.`,
           },
           {
             question: 'Is The Anchor inside the ULEZ zone?',
@@ -468,7 +458,7 @@ export default function AboutPage() {
             </PhoneButton>
           </div>
           <p className="text-sm text-anchor-cream-text/70">
-            Horton Road, Stanwell Moor, Surrey TW19 6AQ &middot; 7 mins from Heathrow T5 &middot; Free parking
+            Horton Road, Stanwell Moor, Surrey TW19 6AQ &middot; {HEATHROW_TIMES.terminal5} mins from Heathrow T5 &middot; Free parking
           </p>
         </div>
       </CtaBand>

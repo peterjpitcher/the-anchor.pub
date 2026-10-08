@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   twitter: getTwitterMetadata({
-    title: 'Sitemap | The Anchor - Heathrow Pub & Dining',
+    title: 'Sitemap | The Anchor Stanwell Moor',
     description: 'Complete sitemap of The Anchor website. Find all our pages including menus, events, location information and special offers.'
   }),
   alternates: {
@@ -155,7 +155,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Pool & Darts', href: '/pool-darts-pub' },
       { label: 'Dog Friendly Pub', href: '/dog-friendly-pub-heathrow' },
       { label: 'Family Friendly', href: '/family-friendly-pub-heathrow' },
-      { label: 'Free Parking', href: '/heathrow-parking' },
+      { label: 'Free Parking', href: '/find-us#parking' },
     ]
   },
   {

@@ -9,23 +9,23 @@ import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BusinessHours } from '@/components/BusinessHours'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Pub with Pool Table & Darts',
-    description: 'Play pool and darts at The Anchor in Stanwell Moor. Pool table (£1/game), dartboard (free), proper pub games with a pint. 7 mins from Heathrow, free parking.',
+    description: `Play pool and darts at The Anchor in Stanwell Moor. Pool table (£1/game), dartboard (free), proper pub games with a pint. ${HEATHROW_TIMES.terminal5} mins from Heathrow T5, free parking.`,
     openGraph: {
         title: 'Pub with Pool Table & Darts Near You | The Anchor',
-        description: 'Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor, 7 mins from Heathrow with free parking.',
+        description: `Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5 with free parking.`,
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'Pool table and darts at The Anchor pub in Stanwell Moor' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Pub with Pool Table & Darts Near You | The Anchor',
-        description: 'Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor, 7 mins from Heathrow with free parking.',
+        description: `Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5 with free parking.`,
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -56,7 +56,7 @@ export default function PoolAndDartsPage() {
                             Some pubs stick a wobbly table in a dark corner and call it a games area. Not here. The Anchor has a quality pool table kept level and re-covered regularly, a dartboard with a proper throw area, and enough space to actually play without elbowing the person behind you. We&apos;re also upgrading the darts setup in 2026 with a professional board, electronic scorer, and better lighting.
                         </p>
                         <p className="text-lg text-ink-muted">
-                            Whether you&apos;re killing time before a flight, settling a long-running grudge match with a mate, or just fancy a frame and a pint on a Tuesday evening, this is a pub where the games are taken seriously and the beer is cold. We&apos;re seven minutes from Heathrow Terminal 5 with free parking, so there&apos;s no excuse not to drop in.
+                            Whether you&apos;re killing time before a flight, settling a long-running grudge match with a mate, or just fancy a frame and a pint on a Tuesday evening, this is a pub where the games are taken seriously and the beer is cold. We&apos;re {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking, so there&apos;s no excuse not to drop in.
                         </p>
                     </div>
                 </Container>
@@ -115,7 +115,7 @@ export default function PoolAndDartsPage() {
 
                         <div className="max-w-none text-ink-muted space-y-4">
                             <p>
-                                The Anchor isn&apos;t a pool hall, it&apos;s a pub that happens to have genuinely good games facilities. That means you get the full pub experience alongside your game: proper beer on tap, food from the kitchen (Tuesday to Sunday), and a beer garden with planes landing overhead every ninety seconds if you fancy watching the show between frames.
+                                The Anchor isn&apos;t a pool hall, it&apos;s a pub that happens to have genuinely good games facilities. That means you get the full pub experience alongside your game: proper beer on tap, food from the kitchen (kitchen times vary by date, so check before you come or call {CONTACT.phone}), and a beer garden with planes landing overhead every ninety seconds if you fancy watching the show between frames.
                             </p>
                             <p>
                                 Most people who come to play pool or throw darts end up staying longer than they planned. That&apos;s not an accident, it&apos;s what happens when you combine decent equipment with a relaxed atmosphere and no pressure to rush.
@@ -126,8 +126,8 @@ export default function PoolAndDartsPage() {
                                     <CardBody>
                                         <h3 className="font-display text-h4 text-ink-strong mb-3">Getting Here</h3>
                                         <ul className="space-y-2 text-sm text-ink-muted">
-                                            <li>7 minutes from Heathrow Terminal 5</li>
-                                            <li>20 free parking spaces on site</li>
+                                            <li>{HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5</li>
+                                            <li>{PARKING.capacity} free parking spaces on site</li>
                                             <li>Stanwell Moor, TW19 6AQ</li>
                                         </ul>
                                     </CardBody>
@@ -185,7 +185,7 @@ export default function PoolAndDartsPage() {
                     },
                     {
                         question: "Do you have parking?",
-                        answer: "Yes, 20 free parking spaces on site. No fees, no time limit while you're visiting. The car park is level, CCTV-monitored, and floodlit."
+                        answer: `Yes, ${PARKING.capacity} free parking spaces on site. No fees, no time limit while you're visiting. The car park is level, CCTV-monitored, and floodlit.`
                     },
                     {
                         question: "What other pub games do you have?",

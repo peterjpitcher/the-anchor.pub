@@ -17,6 +17,7 @@ import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPac
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const metadata: Metadata = {
     title: 'Baby Shower Venue Near Ashford Hospital',
@@ -56,7 +57,7 @@ export default function BabyShowersPage() {
         "url": "https://www.the-anchor.pub/private-hire/baby-showers",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
         "description": "Bright and airy venue for baby showers with afternoon tea packages, mocktails, and private spaces near Ashford Hospital.",
-        "maximumAttendeeCapacity": 50,
+        "maximumAttendeeCapacity": PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
             ...ACCESS_AMENITY_FEATURES,
@@ -135,7 +136,7 @@ export default function BabyShowersPage() {
                                 <span className="mr-2 font-semibold text-accent-text">Ideally located near:</span>
                                 {nearbyHospitals.map(l => (
                                     <Link key={l.slug} href={`/private-hire/near/${l.slug}`} className="font-medium text-ink-muted hover:underline">
-                                        {l.name} ({l.distance})
+                                        {l.name}{l.distance ? ` (${l.distance})` : ''}
                                     </Link>
                                 ))}
                             </div>

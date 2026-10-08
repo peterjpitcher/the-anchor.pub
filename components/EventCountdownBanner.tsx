@@ -10,6 +10,8 @@ import { EventBookingButton } from '@/components/EventBookingButton'
 import { useFloatingLayer } from '@/hooks/useFloatingLayer'
 import { usePastHero } from '@/hooks/usePastHero'
 import { useFocusedControlBehind, useFooterBehind } from '@/hooks/useLayerStepAside'
+import { formatEventLocalDate, formatEventLocalTime, getEventLocalDateTimeParts, getEventLocalIsoDate } from '@/lib/event-calendar'
+import { londonIsoDate } from '@/lib/time-london'
 
 const BANNER_STORAGE_KEY = 'event_banner_dismissed_until'
 const SESSION_ELIGIBILITY_KEY = 'event_banner_session_show'
@@ -57,15 +59,34 @@ interface BannerState {
   hoursUntil: number
 }
 
-const getWeekday = (date: Date) =>
-  new Intl.DateTimeFormat('en-GB', { weekday: 'long' }).format(date)
+// The day, date and time on the card are the pub's, read with the event date helpers.
+// They used to be formatted with no time zone, which in a browser means the visitor's
+// own: a phone on New York time showed a 7pm quiz as 14:00, and one on Sydney time
+// showed a Saturday night event as Sunday morning.
+const getWeekday = (startDate: string) => formatEventLocalDate(startDate, { weekday: 'long' })
 
-const getFormattedDate = (date: Date) =>
-  new Intl.DateTimeFormat('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short'
-  }).format(date)
+const getFormattedDate = (startDate: string) =>
+  formatEventLocalDate(startDate, { weekday: 'short', day: 'numeric', month: 'short' })
+
+const getStartTime = (startDate: string) => formatEventLocalTime(startDate)
+
+/** Evening starts at 5pm: an event at or after it is "tonight", an earlier one "today". */
+const EVENING_STARTS_AT_HOUR = 17
+
+/**
+ * 'today', 'tonight' or 'tomorrow' for an event starting within 24 hours, decided
+ * on the London calendar.
+ *
+ * It used to be decided on hours remaining (12 or fewer meant "tonight", otherwise
+ * "tomorrow"), so a 7pm event read "Happening tomorrow" from midnight until 7am on
+ * the day itself, beside a message naming today's date.
+ */
+const getDayWord = (startDate: string, now: Date): 'today' | 'tonight' | 'tomorrow' => {
+  const eventIso = getEventLocalIsoDate(startDate)
+  if (eventIso && eventIso !== londonIsoDate(now)) return 'tomorrow'
+  const startHour = getEventLocalDateTimeParts(startDate)?.hour ?? 0
+  return startHour >= EVENING_STARTS_AT_HOUR ? 'tonight' : 'today'
+}
 
 const computeTiming = (dateString: string) => {
   const eventDate = new Date(dateString)
@@ -137,13 +158,19 @@ export const shouldSuppressPath = (pathname: string | null) => {
 
 type BannerTone = 'dark' | 'light' | 'alert' | 'muted'
 
-const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => {
-  const eventDate = new Date(event.startDate)
+/** Exported for test. `now` is passed in so a test can pin the clock. */
+export const getUrgencyCopy = (
+  event: Pick<Event, 'name' | 'startDate'>,
+  daysUntil: number,
+  hoursUntil: number,
+  now: Date = new Date()
+) => {
+  const startDate = event.startDate
 
   if (hoursUntil <= 24) {
     return {
-      title: `Happening ${hoursUntil <= 12 ? 'tonight' : 'tomorrow'}: ${event.name}`,
-      message: `Starts ${getFormattedDate(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}. Book early to get your preferred time.`,
+      title: `Happening ${getDayWord(startDate, now)}: ${event.name}`,
+      message: `Starts ${getFormattedDate(startDate)} at ${getStartTime(startDate)}. Book early to get your preferred time.`,
       tone: 'alert' as BannerTone,
       backgroundClass: 'bg-red-600 text-white'
     }
@@ -152,7 +179,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
   if (daysUntil <= 2) {
     return {
       title: `${event.name} is almost here`,
-      message: `Join us this ${getWeekday(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}. Book early to get your preferred time.`,
+      message: `Join us this ${getWeekday(startDate)} at ${getStartTime(startDate)}. Book early to get your preferred time.`,
       tone: 'light' as BannerTone,
       backgroundClass: 'bg-anchor-gold-dark text-anchor-charcoal'
     }
@@ -160,7 +187,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
 
   if (daysUntil <= 4) {
     return {
-      title: `${event.name} this ${getWeekday(eventDate)}`,
+      title: `${event.name} this ${getWeekday(startDate)}`,
       message: 'Book early to get your preferred time.',
       tone: 'dark' as BannerTone,
       backgroundClass: 'bg-anchor-green text-white'
@@ -168,7 +195,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
   }
 
   return {
-    title: `${event.name} next ${getWeekday(eventDate)}`,
+    title: `${event.name} next ${getWeekday(startDate)}`,
     message: 'Book early to get your preferred time.',
     tone: 'muted' as BannerTone,
     backgroundClass: 'bg-anchor-green/95 text-white'
@@ -336,7 +363,7 @@ export function EventCountdownBanner() {
     return null
   }
 
-  const { event, eventDate } = banner
+  const { event } = banner
 
   const handleDismiss = () => {
     if (banner) {
@@ -369,8 +396,8 @@ export function EventCountdownBanner() {
   }
 
   const imageSrc = getEventSquareImage(event)
-  const weekday = getWeekday(eventDate)
-  const timeString = eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+  const weekday = getWeekday(event.startDate)
+  const timeString = getStartTime(event.startDate)
 
   return (
     // `data-layer-showing` is the coordinator's answer. The card stays mounted
