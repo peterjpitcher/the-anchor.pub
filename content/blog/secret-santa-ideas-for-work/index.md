@@ -2,6 +2,7 @@
 title: "Secret Santa Ideas Under £10 That Won't End Up in the Bin"
 description: "Thirty Secret Santa ideas for work, all under £10, sorted by category. For anyone who wants to stop giving novelty socks."
 date: "2026-04-11"
+updated: '2026-10-08'
 author: "The Anchor Team"
 keywords:
   - secret santa ideas for work
@@ -179,8 +180,8 @@ Just as important as knowing what to buy is knowing what to swerve. Here's the b
 
 Secret Santa is sorted. But what about the rest of the christmas do? If you're the one tasked with organising christmas party ideas for work this year, we might be able to help.
 
-The Anchor hosts office christmas parties and private celebrations throughout the festive season. We're just off the M25 near Heathrow, with private dining space, set menus, and a team that actually enjoys helping people have a good time, rather than just processing bookings.
+The Anchor takes work Christmas bookings from 10 November to 20 December 2026. We're 2 minutes from Junction 14 of the M25 near Heathrow, with a dining room, a 1, 2 and 3 course Christmas menu, and a team that actually enjoys helping people have a good time, rather than just processing bookings.
 
-If you're looking for a christmas party near me (well, near Heathrow), [get in touch about our Christmas party packages](/christmas-parties) or give us a ring.
+If you're looking for a christmas party near me (well, near Heathrow), [get in touch about our Christmas menu](/christmas-parties) or give us a ring on 01753 682707.
 
 Happy gifting. And good luck with Dave from accounts.

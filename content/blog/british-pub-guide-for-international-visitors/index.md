@@ -2,6 +2,7 @@
 title: A First-Timer's Guide to British Pub Culture (For International Visitors Near Heathrow)
 description: "First time in a British pub? How to order at the bar, what the beers are, what a Sunday roast involves and what nobody tells you."
 date: '2026-03-01'
+updated: '2026-10-08'
 author: The Anchor Team
 keywords:
   - british pub culture guide
@@ -44,7 +45,7 @@ For food, you may be given a table number and asked to order at the bar, or a st
 
 This is where international visitors often need the most guidance.
 
-**British ales:** A cornerstone of British pub culture. At The Anchor, we serve bottled ales, Abbot Ale, Greene King IPA, Old Speckled Hen, and Newcastle Brown Ale, alongside our draught lagers and ciders. Ask the bar staff for a recommendation.
+**British ales:** A cornerstone of British pub culture. At The Anchor, we serve bottled ales alongside our draught lagers. See the [drinks menu](/drinks), or ask the bar staff for a recommendation.
 
 **Craft beer on tap:** Modern kegged beers, served colder, often from smaller breweries. Good range available at most pubs.
 
@@ -65,9 +66,9 @@ A proper Sunday roast includes:
 - Seasonal vegetables
 - Rich gravy
 
-At The Anchor, Sunday roasts are served 1pm-6pm from Sunday 17 May 2026, walk in or book ahead once service launches, no pre-order needed. Everything is still cooked fresh to order, not warmed up under heat lamps.
+Here's how it works at The Anchor. Roasts are carved fresh every Sunday from 1pm to 6pm. There's nothing to order in advance, so walk in whenever suits you. Last seating is 5:30pm.
 
-[Book Sunday roast →](/sunday-roast)
+[See the Sunday roast menu →](/sunday-roast)
 
 ## What to Expect When You Arrive
 
@@ -75,7 +76,7 @@ At The Anchor, Sunday roasts are served 1pm-6pm from Sunday 17 May 2026, walk in
 
 **The atmosphere:** British pubs are often louder than you might expect, conversation, laughter, sometimes sport on TV. This is normal and not a sign of trouble.
 
-**Dogs:** Well-behaved dogs are welcome in most British pub gardens and in the bar areas of genuinely good locals. The Anchor is dog-friendly.
+**Dogs:** Well-behaved dogs are welcome in most British pub gardens and in the bar areas of genuinely good locals. The Anchor is dog-friendly. Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting.
 
 **Children:** Most pubs serve families during food service hours. Well-behaved children are welcome.
 
@@ -91,19 +92,19 @@ At The Anchor, Sunday roasts are served 1pm-6pm from Sunday 17 May 2026, walk in
 
 ## The Anchor: Near Heathrow, Properly Local
 
-The Anchor in Stanwell Moor is a genuine village local that has been serving the community for generations. It's 7 minutes from Heathrow Terminal 5 and 10–15 minutes from all other terminals, far enough from the airport to feel completely removed from it, close enough to be practical for layovers and hotel guests.
+The Anchor in Stanwell Moor is a genuine village local that has been serving the community for generations. It's 7 minutes from Heathrow Terminal 5, 11 from Terminals 2 and 3 and 12 from Terminal 4, far enough from the airport to feel completely removed from it, close enough to be practical for layovers and hotel guests.
 
 For international visitors passing through Heathrow, it offers something the airport simply cannot: an authentic British experience that hasn't been designed for tourists.
 
 **What to try:**
 - One bottled British ale (ask what's on)
 - Fish & chips (the most British dish)
-- Sunday roast (weekends, book in advance)
+- Sunday roast (Sundays, no need to book)
 - A seat in the beer garden on a clear day
 
-**Getting here:** Taxi or Uber to TW19 6AQ. 7–15 minutes from any Heathrow hotel.
+**Getting here:** Taxi or Uber to TW19 6AQ. We're a short drive from the Heathrow hotels.
 
-**Opening hours:** Check our website for current opening and kitchen hours at [the-anchor.pub](https://www.the-anchor.pub).
+**Opening hours:** See our [find us page](/find-us) for current opening and kitchen hours.
 
 [Book a table →](/book-table) | Call: 01753 682707
 

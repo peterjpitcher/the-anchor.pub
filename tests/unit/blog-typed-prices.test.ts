@@ -149,7 +149,8 @@ describe('blog posts do not type out our prices', () => {
 
   it('reads every post', () => {
     // Guards the guard: a walk that found nothing would pass everything below.
-    expect(posts.length).toBeGreaterThan(100)
+    // 89 posts after the 8 October 2026 retirements (site review P15), down from 116.
+    expect(posts.length).toBeGreaterThan(80)
   })
 
   it('finds none of our food or drink prices typed into a post', () => {

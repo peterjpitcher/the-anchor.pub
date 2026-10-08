@@ -1,4 +1,5 @@
 import lastmod from '@/config/sitemap-lastmod.json'
+import { getPostDateLine } from '@/lib/blog/post-dates'
 
 /**
  * When each page last changed, worked out from git by
@@ -37,12 +38,14 @@ export function getRouteLastModified(path: string): Date | undefined {
 /**
  * The last change to a blog post.
  *
- * `lastUpdated` in the post's frontmatter wins when an editor has set it. If
- * not, it is the later of the published date and the last commit to the post's
- * folder, so a post scheduled ahead is never dated before it was published.
+ * `updated` in the post's frontmatter wins when an editor has set it: it is
+ * the date the page prints as "Updated", read by the same rule (a real date,
+ * later than the published one). If not, it is the later of the published date
+ * and the last commit to the post's folder, so a post scheduled ahead is never
+ * dated before it was published.
  */
-export function getBlogLastModified(post: { slug: string; date: string; lastUpdated?: string }): Date | undefined {
-  const stated = toDate(post.lastUpdated)
+export function getBlogLastModified(post: { slug: string; date: string; updated?: string }): Date | undefined {
+  const stated = toDate(getPostDateLine(post).updated?.iso)
   if (stated) return stated
   const published = toDate(post.date)
   const committed = toDate(BLOG_DATES[post.slug])

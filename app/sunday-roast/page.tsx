@@ -38,7 +38,7 @@ export const revalidate = 60 * 60
 export async function generateMetadata(): Promise<Metadata> {
   const menu = await getSundayLunchMenuPageData()
   const description = menu.menuData
-    ? 'Proper Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm, no booking and no pre-order needed. Beef, pork, turkey, pies and a vegan option.'
+    ? 'Proper Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm, no booking and no pre-order needed. Beef, pork, turkey and a vegan option.'
     : 'Sunday roast 7 minutes from Heathrow T5. Walk in 1pm to 6pm at The Anchor, Stanwell Moor, no booking needed. Call us for the current Sunday dish list.'
 
   // Rendered title is this plus the root layout suffix, so keep it short enough

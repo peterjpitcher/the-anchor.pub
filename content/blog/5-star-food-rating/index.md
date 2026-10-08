@@ -2,11 +2,9 @@
 title: 5 Star Food Hygiene Rating Near Heathrow
 slug: 5-star-food-rating
 description: >-
-  The Anchor pub near Heathrow Airport maintains 5-star food hygiene rating for
-  over 4 years. Clean, safe dining in Stanwell Moor, just 7 minutes from
-  Terminal 5. Perfect for Heathrow workers seeking quality meals. All staff
-  Level 2 qualified, Spelthorne Council approved. Trusted by Staines locals for
-  safe, delicious pub food. Free parking available.
+  The Anchor near Heathrow Airport has held a 5-star food hygiene rating since
+  2019. Clean, safe dining in Stanwell Moor, 7 minutes from Terminal 5. All
+  staff are Level 2 qualified. Free parking available.
 date: '2023-08-22'
 oldUrl: >-
   https://www.the-anchor.pub/post/the-anchor-celebrates-another-5-star-rating-in-foo
@@ -38,7 +36,7 @@ noindex: true
 
 ## 5-Star Food Hygiene Excellence Near Heathrow Airport
 
-We're elated to share the news! The Anchor in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, continues to maintain our coveted 5-star rating in food hygiene. This accolade marks our unwavering dedication over 4 and a half years, consistently showcasing top-notch standards in food safety and cleanliness. For **Heathrow workers** seeking safe, quality meals, **Staines families** wanting trusted dining, and travelers near the **airport** looking for hygienic food options, this achievement guarantees peace of mind with every meal.
+We're elated to share the news. The Anchor in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, continues to maintain our coveted 5-star rating in food hygiene. We've held it since 2019. For **Heathrow workers** seeking safe, quality meals, **Staines families** wanting trusted dining, and travelers near the **airport** looking for hygienic food options, it's a rating you can check for yourself.
 
   
 
@@ -64,7 +62,7 @@ Our steadfast partnership with **Spelthorne Council's Food Hygiene team** has be
     
 6.  **A Message for Peer Establishments:** Upholding such high standards is no small feat. We cheer on other establishments, urging them to persist in their commendable endeavours for community well-being.
     
-7.  **Gratitude Galore:** A mammoth thank you to Spelthorne for their ceaseless support over the past 4.5 years. Their partnership has been both enlightening and enriching.
+7.  **Gratitude Galore:** A mammoth thank you to Spelthorne for their ceaseless support since 2019. Their partnership has been both enlightening and enriching.
     
 
 ## What Our 5-Star Rating Means for You
@@ -72,12 +70,9 @@ Our steadfast partnership with **Spelthorne Council's Food Hygiene team** has be
 ### For Heathrow Workers
 - **Safe lunch spot** during breaks
 - **Consistent quality** you can trust daily
-- **Quick service** with hygiene assured
 - **No worries** about food safety after long shifts
 
 ### For Local Families
-- **Child-safe** food preparation
-- **Allergy awareness** and careful handling
 - **Clean environment** for family meals
 - **Peace of mind** for regular visits
 
@@ -92,7 +87,6 @@ Our steadfast partnership with **Spelthorne Council's Food Hygiene team** has be
 - **Daily deep cleans** of all kitchen areas
 - **Temperature monitoring** of all stored foods
 - **Regular staff training** updates
-- **Allergen management** protocols
 - **Supplier vetting** for quality ingredients
 - **Equipment maintenance** schedules
 - **Customer feedback** actively welcomed
@@ -101,24 +95,22 @@ Our steadfast partnership with **Spelthorne Council's Food Hygiene team** has be
 
 While our 5-star hygiene rating ensures safety, we also promise:
 - **Fresh ingredients** sourced responsibly
-- **Home-cooked meals** made with care
 - **Generous portions** at fair prices
 - **Menu variety** including vegetarian options
-- **Daily specials** using seasonal produce
 
 ## Visit The Anchor for Safe, Quality Dining Near Heathrow
 
 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-**From Heathrow**: Just 7 minutes from all terminals
-**Parking**: Free on-site parking
-**Hygiene Rating**: 5 Stars (4.5+ years maintained)
+**From Heathrow**: 7 minutes from Terminal 5
+**Parking**: 20 free spaces on site
+**Hygiene Rating**: 5 stars, since 2019
 **Staff**: All Level 2 food hygiene qualified
-**Menu**: Full menu available during kitchen hours
+**Menu**: See our [food menu](/food-menu), and kitchen hours on the [find us page](/find-us)
 **Bookings**: 01753 682707
 
 ### Why Choose The Anchor for Dining Near Terminal 5
 
-- **Proven track record** - 4.5+ years of 5-star ratings
+- **Proven track record** - a 5-star rating since 2019
 - **Qualified team** - Every staff member trained
 - **Council approved** - Spelthorne's gold standard
 - **Transparent kitchen** - Nothing to hide

@@ -32,7 +32,7 @@ noindex: true
 
 ![A small, fluffy puppy with a blue harness sitting on green grass. The text reads "The Anchor, Stanwell Moor Village, starting a pet-friendly business while welcoming a new pet" by guest blogger Cindy Aldridge.](/content/blog/pet-friendly-business-tips/hero.jpg)
 
-Looking to create a **pet-friendly business near Heathrow**? The Anchor pub in Stanwell Moor has perfected the art of welcoming both two-legged and four-legged customers! Just 7 minutes from Terminal 5, we've learned valuable lessons about building a successful dog-friendly venue that serves our diverse community of airport workers, local families, and pet lovers.
+Looking to create a **pet-friendly business near Heathrow**? At The Anchor in Stanwell Moor, 7 minutes from Terminal 5, dogs are welcome throughout the pub, on a lead. This guest post is general advice for any business thinking of doing the same.
 
 Starting a business and welcoming pets into your venue is a multifaceted adventure that brings both delight and opportunity. In this guide, courtesy of [The Anchor](https://www.the-anchor.pub/), we share our expertise on creating a thriving pet-friendly business in the Heathrow area, where the harmony of entrepreneurship and pet hospitality can boost your bottom line.
 
@@ -52,7 +52,7 @@ The area around **Heathrow Terminal 5** presents unique opportunities for pet-fr
 
 ### Creating a Safe Haven for Pets
 
-Your pet customers' safety should be a top priority. Based on our experience at **The Anchor near Heathrow**, consider:
+Your pet customers' safety should be a top priority. As general advice for any venue, consider:
 
 **Essential Safety Measures:**
 - [Remove toxic plants](https://www.bluecross.org.uk/advice/dog/health-and-injuries/plants-poisonous-to-dogs)
@@ -75,7 +75,7 @@ Setting up your **pet-friendly business near Terminal 5** requires specific [ess
 - Comfortable resting areas
 - Secure leash hooks
 - Appropriate signage
-- Treats for well-behaved visitors
+- Biscuits for well-behaved visitors
 
 ### Setting a Routine for Success
 
@@ -112,7 +112,7 @@ Flowscape suggests [creating designated spaces](https://flowscapesolutions.com/b
 Operating near **Heathrow Airport** offers unique advantages:
 
 **Ideal Pet-Friendly Businesses:**
-- Pubs and restaurants (like The Anchor!)
+- Pubs and restaurants (like The Anchor)
 - Cafes and coffee shops
 - Retail stores
 - Professional services
@@ -182,13 +182,12 @@ To ensure [safety for all](https://www.warnergoodman.co.uk/site/blog/news/pets-i
 - Noise management
 - Space conflicts
 
-## Learning from The Anchor's Success
+## What Makes It Work
 
-As a thriving **dog-friendly pub near Heathrow**, we've discovered:
+In general, pet-friendly venues do well with:
 
 **Success Factors:**
 - Consistency in policies
-- Staff training investment
 - Community engagement
 - Clear communication
 - Quality over quantity
@@ -247,13 +246,13 @@ See our **pet-friendly success near Terminal 5** in action:
 **Location & Details:**
 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 7 minutes from Heathrow Terminal 5  
-Bus routes 441 & 442  
+Bus route 442  
 Free parking  
-Dogs always welcome  
-Water and treats provided
+Dogs welcome throughout the pub, on a lead  
+Water bowls and biscuits provided
 
 Starting a pet-friendly business near Heathrow Airport offers exciting opportunities. With meticulous planning, unwavering dedication, and learning from established venues like The Anchor, you can achieve a harmonious balance between entrepreneurship and pet hospitality.
 
-_For the coziest pet-friendly corner in Stanwell Moor Village, stop in_ [_The Anchor_](https://www.the-anchor.pub/) _today!_
+_For the coziest pet-friendly corner in Stanwell Moor Village, stop in_ [_The Anchor_](https://www.the-anchor.pub/) _today._
 
 *Your guide to creating a successful pet-friendly business in the Heathrow area - where entrepreneurship meets tail-wagging hospitality*

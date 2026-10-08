@@ -22,22 +22,6 @@ function toOptionalTrimmedString(value: unknown): string | undefined {
   return trimmed || undefined
 }
 
-/**
- * A frontmatter date as a YYYY-MM-DD string, or undefined when it is missing
- * or is not a date. YAML hands an unquoted date over as a Date object and a
- * quoted one as a string, so both are accepted.
- */
-function toFrontmatterDate(value: unknown): string | undefined {
-  if (value instanceof Date) {
-    return Number.isNaN(value.getTime()) ? undefined : value.toISOString().slice(0, 10)
-  }
-  if (typeof value !== 'string') return undefined
-  const trimmed = value.trim()
-  return /^\d{4}-\d{2}-\d{2}/.test(trimmed) && !Number.isNaN(new Date(trimmed).getTime())
-    ? trimmed
-    : undefined
-}
-
 function escapeHtmlAttribute(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -52,8 +36,10 @@ export interface BlogPost {
   description: string
   date: string
   publishDate?: string
-  /** Set in frontmatter when a post is edited after it was published. */
-  lastUpdated?: string
+  /** Optional YYYY-MM-DD: the day the post was last brought up to date. */
+  updated?: string
+  /** True when the front matter date is a placeholder and must not be printed. */
+  hideDate?: boolean
   author: string
   keywords: string[]
   tags: string[]
@@ -103,7 +89,9 @@ export function getBlogPostMeta(slug: string): BlogPost | null {
     )
     const imageAlts = existingImages.map((imageName) => {
       const alt = imageAltLookup.get(imageName) || ''
-      return alt || `Photo from The Anchor in Stanwell Moor`
+      // No alt text on file means we cannot describe the picture, so it is
+      // marked as decoration rather than given a made-up description.
+      return alt
     })
 
     return {
@@ -112,7 +100,8 @@ export function getBlogPostMeta(slug: string): BlogPost | null {
       description: data.description || '',
       date: data.date || '',
       publishDate: toOptionalTrimmedString(data.publishDate),
-      lastUpdated: toFrontmatterDate(data.lastUpdated),
+      updated: toOptionalTrimmedString(data.updated),
+      hideDate: data.hideDate === true,
       author: data.author || '',
       keywords: toStringArray(data.keywords),
       tags: toStringArray(data.tags),
@@ -194,7 +183,9 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     )
     const imageAlts = existingImages.map((imageName) => {
       const alt = imageAltLookup.get(imageName) || ''
-      return alt || `Photo from The Anchor in Stanwell Moor`
+      // No alt text on file means we cannot describe the picture, so it is
+      // marked as decoration rather than given a made-up description.
+      return alt
     })
 
     return {
@@ -203,7 +194,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       description: data.description || '',
       date: data.date || '',
       publishDate: toOptionalTrimmedString(data.publishDate),
-      lastUpdated: toFrontmatterDate(data.lastUpdated),
+      updated: toOptionalTrimmedString(data.updated),
+      hideDate: data.hideDate === true,
       author: data.author || '',
       keywords: toStringArray(data.keywords),
       tags: toStringArray(data.tags),
@@ -287,7 +279,7 @@ export function distributeImages(
         index < paragraphs.length - 1) {
       const imagePath = `/content/blog/${blogSlug}/${images[imageIndex]}`
       const imageAlt = escapeHtmlAttribute(
-        imageAlts[imageIndex] || 'Photo from The Anchor in Stanwell Moor'
+        imageAlts[imageIndex] || ''
       )
       result += `
         <figure class="not-prose my-8 mx-auto w-full max-w-full sm:max-w-xl lg:max-w-[420px] xl:max-w-[460px]">

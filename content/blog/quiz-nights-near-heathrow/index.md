@@ -1,7 +1,8 @@
 ---
-title: "Quiz Nights Near Heathrow & Staines: Where to Play (2026)"
-description: "Find the best pub quiz nights near Heathrow and Staines. Day, time, entry fee, and prizes for every local quiz, from casual fun to competitive trivia."
+title: "Quiz Nights Near Heathrow & Staines: Where to Play"
+description: "Pub quiz nights near Heathrow and Staines: how our monthly quiz works, what it costs and what you can win, plus tips for a good night."
 date: "2026-03-20"
+updated: '2026-10-08'
 author: "Billy"
 keywords:
   - quiz night near heathrow
@@ -18,16 +19,13 @@ hero: "hero.jpg"
 images: []
 ---
 
-Whether you're a trivia obsessive or just want a fun night out, there's a pub quiz running near Heathrow most nights of the week. Some are free, some cost a couple of quid, and the prizes range from a round of drinks to a decent bar tab. Here's everything you need to know about quiz nights in the area, who runs them, when they're on, and whether they're worth turning up for.
+Whether you're a trivia obsessive or just want a fun night out, a pub quiz is hard to beat. Here's how ours works, what to check before you try another quiz near Heathrow, and a few tips for a good night.
 
-## Quick Comparison: Quiz Nights Near Heathrow
+## At a Glance: The Anchor Quiz Night
 
 | Pub | Day | Start | Entry | Prize | Team Size | Distance from T5 |
 | --- | --- | --- | --- | --- | --- | --- |
-| **The Anchor**, Stanwell Moor | Monthly (Wednesdays) | 7pm | £3 pp | £25 bar voucher | Up to 6 | 7 mins |
-| **Greene King pubs** (various) | Usually Tue/Wed | 7–8pm | Free–£2 | £50–£100 voucher | Open | 10–20 mins |
-| **Independent pubs**, Staines | Various | 7–8pm | £1–£3 | Varies | Varies | 15 mins |
-| **Wetherspoon**, Staines | Usually Thurs | 8pm | Free | Drinks vouchers | Open | 15 mins |
+| **The Anchor**, Stanwell Moor | Monthly (Wednesdays) | Arrive from 6:30pm for a 7pm start | £3 pp | £25 bar voucher | Up to 6 | 7 mins |
 
 ---
 
@@ -35,44 +33,30 @@ Whether you're a trivia obsessive or just want a fun night out, there's a pub qu
 
 **Best for:** Smaller teams, friendly atmosphere, a proper pub setting
 
-The Anchor runs a monthly quiz night on Wednesdays, and it's become one of the better-known pub quizzes near Heathrow. Entry is £3 per person, teams can have up to six players, and the winning team takes home a £25 bar voucher. It's general knowledge, no niche specialist rounds that leave half the room baffled, with a few picture and music rounds thrown in to keep things interesting.
+The Anchor runs a monthly quiz night on a Wednesday. Entry is £3 a person and teams can have up to 6 players. Arrive from 6:30pm for a 7pm start.
+
+There are five rounds: four rounds of 10 questions, plus an interactive quick-fire round in the middle, played on your phone, and a comfort break. The winning team gets a £25 bar voucher, and second from last gets a bottle of house wine.
 
 ### What makes it different
 
-This isn't a chain quiz run off an app by someone who'd rather be somewhere else. The questions are written locally, the quizmaster actually knows the regulars, and there's a decent atmosphere without it getting too rowdy. Teams of two or three are just as welcome as full tables of six, you won't get steamrollered by a team of twelve who've been doing this since 1997.
+Peter, the owner, hosts the quiz himself. Teams of two or three are just as welcome as full tables of six. Coming on your own or as a pair? We'll find you a team to join on the night.
 
 ### Food and drink
 
-Every team has its own table, and you can eat at it during the quiz. The full food menu is available, so you're not limited to chips and nuts. There's a good range of draught beers, wines, and spirits. If you're driving, soft drinks and coffee are sorted.
+Every team has its own table, and you can eat at it during the quiz. Food is served during kitchen hours, so check the times on our [find us page](/find-us#opening-hours) and order before the quiz starts. There's a good range of draught beers, wines, and spirits. If you're driving, soft drinks and coffee are sorted.
 
 ### Practical details
 
-- **Free parking**, about 20 spaces in the pub car park
+- **Free parking**, 20 spaces in the pub car park
 - **Location:** Horton Road, Stanwell Moor, TW19 6AQ, seven minutes from Heathrow Terminal 5
 - **Booking:** worth doing, one table per team. Your booking holds your team's table, and you eat at the same table
-- **Dates:** Check The Anchor's social media or website for the next quiz date
+- **Dates:** see [what's on](/whats-on) for the next quiz date
 
 ---
 
 ## Other Local Quiz Nights
 
-### Greene King and Managed Pub Quizzes
-
-The bigger pub chains near Staines and the surrounding area tend to run weekly quizzes, usually on a Tuesday or Wednesday evening. These are often managed through apps like SpeedQuizzing, where you answer on your phone rather than writing on paper.
-
-**Pros:** They're regular (usually weekly), entry is free or very cheap, and the prizes can be decent, £50 to £100 in drinks vouchers is standard for a Greene King quiz. You'll find them at pubs along the A30 corridor and in Staines town centre.
-
-**Cons:** The atmosphere can be a bit flat. The questions come from a central database, so if you do several Greene King quizzes in the same week, you might see repeats. And because there's no team size limit, you'll occasionally come up against a table of fifteen people who treat it like the World Cup final.
-
-### Independent Pub Quizzes in Staines
-
-A few independent pubs around Staines run their own quiz nights, typically costing £1 to £3 per person. These tend to have better atmosphere than the chain versions, the questions are usually written by someone who actually drinks there, and the regulars are generally welcoming to newcomers.
-
-The challenge is finding them. Independent pub quizzes don't always get listed online, and they can move nights or go on hiatus without much notice. Your best bet is to check the pub's Facebook page or just pop in and ask. Staines High Street and the surrounding area has a few options worth exploring.
-
-### Wetherspoon, Staines
-
-The local Wetherspoon runs a free quiz, usually on Thursday evenings. It's no-frills trivia, cheap drinks, basic prizes, and a crowd that ranges from serious quizzers to people who wandered in for a pint and decided to have a go. No entry fee, which is hard to argue with.
+Other pubs around Staines and the villages near the airport run quiz nights too, chain pubs and independents alike. Nights, entry fees and prizes change, and we can't vouch for anyone else's details, so check with the pub before you go. A pub's own website or Facebook page is the best place to look.
 
 ---
 
@@ -80,19 +64,19 @@ The local Wetherspoon runs a free quiz, usually on Thursday evenings. It's no-fr
 
 ### Arrive early
 
-Wherever you go, the best tables go first. If the quiz starts at 7pm, aim for 6:30pm. That matters most at smaller pubs like The Anchor, where seating is limited.
+Wherever you go, the best tables go first. If the quiz starts at 7pm, aim for 6:30pm. At The Anchor, arrive from 6:30pm for a 7pm start.
 
 ### Team size matters
 
-The sweet spot is four to five people. Big enough to cover most knowledge gaps, small enough that everyone actually gets involved. With two people you'll struggle on the music round; with eight, half the team ends up just chatting.
+The sweet spot is four to five people. Big enough to cover most knowledge gaps, small enough that everyone actually gets involved. With two people you'll struggle to cover every subject; with eight, half the team ends up just chatting.
 
 ### Phones away
 
-Most quizzes have a strict no-phones policy during rounds. Some quizmasters will disqualify you on the spot, and honestly, nobody wants to be that team. Leave the Googling at home.
+Most quizzes ask you to put your phone away, and nobody wants to be that team. Ours does too, with one exception: the interactive round in the middle is played on your phone. Using a phone at any other time costs 5 points. Leave the Googling at home.
 
 ### Order food early
 
-If you're planning to eat, get your food order in before the quiz starts. Nobody wants their main course arriving during the tie-breaker question, and kitchen times can be unpredictable on busy quiz nights.
+If you're planning to eat, get your food order in before the quiz starts. Nobody wants their main course arriving during the tie-breaker question.
 
 ### Don't take it too seriously
 
@@ -108,20 +92,20 @@ For most pub quizzes, you can just turn up. At The Anchor, booking is worth doin
 
 ### Are pub quizzes suitable for couples or small groups?
 
-Absolutely. You don't need a big team to enjoy a quiz night. Most quizzes welcome pairs and solo players, some pubs will even help you join up with another small group. At The Anchor, teams of two or three do perfectly well.
+Absolutely. You don't need a big team to enjoy a quiz night. Most quizzes welcome pairs and solo players, some pubs will even help you join up with another small group. At The Anchor, solo players and pairs are found a team to join on the night.
 
 ### How much does a pub quiz cost near Heathrow?
 
-Anywhere from free to £3 per person. Chain pub quizzes (Greene King, Wetherspoon) are usually free or £1. Independent pubs like The Anchor typically charge £2 to £3, with the entry fees going towards the prize pot.
+It varies from pub to pub, so check before you go. The Anchor charges £3 a person.
 
 ### What kind of questions do pub quizzes ask?
 
-Most are general knowledge, history, geography, science, sport, music, TV, and film. Some include picture rounds, music rounds (name that tune), or themed rounds. They're designed to be fun rather than impossibly hard, so you don't need to be a quiz champion to enjoy yourself.
+Most are general knowledge, history, geography, science, sport, music, TV, and film. Some include picture rounds, music rounds (name that tune), or themed rounds. They're designed to be fun rather than impossibly hard, so you don't need to be a quiz champion to enjoy yourself. At The Anchor it's four rounds of 10 questions, plus an interactive quick-fire round in the middle, played on your phone.
 
 ### Is there a pub quiz on every night of the week near Heathrow?
 
-Not quite, but close. Between Staines, the A30 corridor, and the villages near the airport, you can find a quiz on most nights from Tuesday to Thursday. Weekends are less common. The Anchor's monthly Wednesday quiz is a reliable fixture, check their website for the next date.
+We can't speak for every pub, so check each one's listings before you set off. The Anchor's quiz is monthly, on a Wednesday. See [what's on](/whats-on) for the next date.
 
 ---
 
-**The Anchor** is at Horton Road, Stanwell Moor, TW19 6AQ, seven minutes from Heathrow Terminal 5. Free parking, dog friendly, and open to everyone. Call 01753 682707 or visit [the-anchor.pub](https://www.the-anchor.pub) for upcoming quiz dates.
+**The Anchor** is at Horton Road, Stanwell Moor, TW19 6AQ, seven minutes from Heathrow Terminal 5. Free parking, dog friendly, and open to everyone. Call 01753 682707 or see [what's on](/whats-on) for upcoming quiz dates.

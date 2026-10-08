@@ -193,7 +193,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
             Visit The Anchor Today
           </h2>
           <p className="text-xl mb-8 mx-auto text-anchor-cream-text/85">
-            Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
+            Come and see it all for yourself. You&apos;ll find us on Horton Road in Stanwell Moor.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="primary" size="lg">
@@ -245,10 +245,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
             "publisher": {
               "@type": "Organization",
               "name": "The Anchor",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://www.the-anchor.pub/images/branding/the-anchor-pub-logo-black-transparent.png"
-              }
+              "@id": "https://www.the-anchor.pub/#organization"
             }
           })
         }}

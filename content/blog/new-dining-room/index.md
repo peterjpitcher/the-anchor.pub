@@ -51,7 +51,7 @@ Nestled in the heart of **Stanwell Moor Village**, just **7 minutes from Heathro
 
   
 
-The new extension, fondly to be known as the Dining Room, is poised to become a beacon of light and comfort. Envision windows spanning the sides, inviting the sunshine in and creating a space bathed in natural light. At the rear, French doors will open up to the fresh air, seamlessly blending the indoors with the beauty of our garden. The roof, though retaining its charming pitched exterior, will be flat inside, a nod to modernity with a purpose. This design is more than aesthetic; it's about enveloping our guests in warmth during the winter and providing a cool haven in the summer, perfect for those escaping the busy **Heathrow terminals** nearby.
+The new extension, fondly to be known as the Dining Room, is poised to become a beacon of light and comfort. Envision windows spanning the sides, inviting the sunshine in and creating a space bathed in natural light. At the rear, French doors will open up to the fresh air, seamlessly blending the indoors with the beauty of our garden. The roof, though retaining its charming pitched exterior, will be flat inside, a nod to modernity with a purpose. This design is more than aesthetic; it's about keeping the room warm through the winter.
 
   
 
@@ -95,7 +95,7 @@ The new Dining Room will not merely be a space; it will be an experience. Envisi
 - **Corporate events** for local businesses
 - **Special occasions** throughout the year
 
-Alongside this physical transformation, we are also elevating our culinary offerings. The year 2024 will see The Anchor introducing a menu brimming with home-cooked delights, marrying tradition with innovation.
+Alongside this physical transformation, we are also elevating our culinary offerings.
 
   
 
@@ -107,7 +107,7 @@ Alongside this physical transformation, we are also elevating our culinary offer
 
   
 
-The conservatory holds a special place in the history of The Anchor and the hearts of our patrons. Erected for George and Alex Best's wedding reception in 1995, it has been a venue for countless family celebrations and community events. As we transition to the Dining Room, we carry forward this legacy of togetherness and joy. It's not just a renovation; it's a continuation of a story woven into the fabric of our village.
+The conservatory holds a special place in the history of The Anchor and the hearts of our patrons. It has been a venue for countless family celebrations and community events. As we transition to the Dining Room, we carry forward this legacy of togetherness and joy. It's not just a renovation; it's a continuation of a story woven into the fabric of our village.
 
   
 
@@ -143,8 +143,8 @@ We acknowledge that the transformation journey might bring a bit of hustle and b
 ## Visit The Anchor's New Dining Room Near Heathrow
 
 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-**From Heathrow**: Just 7 minutes from all terminals
-**Parking**: Free on-site parking
+**From Heathrow**: 7 minutes from Terminal 5
+**Parking**: 20 free spaces on site
 **Opening**: Spring 2024
 **Bookings**: 01753 682707
 **Private Hire**: Available for groups

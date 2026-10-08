@@ -356,8 +356,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   // Get all blog posts
-  // getAllBlogPosts already leaves out any post whose address redirects, so
-  // there is no second list of retired slugs to keep in step here.
+  // A retired post has no folder in content/blog (its redirect lives in
+  // config/redirects), and getAllBlogPosts leaves out any post whose address
+  // redirects, so there is no separate list of slugs to keep in step here.
+  // tests/unit/search-data.test.ts fails if a post folder is also a redirect
+  // source.
   const blogPosts = await getAllBlogPosts()
   const indexableBlogPosts = blogPosts.filter((post) => !post.noindex)
 

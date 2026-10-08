@@ -56,12 +56,12 @@
   },
   {
     "source": "/blog/best-places-to-eat-near-heathrow",
-    "destination": "/blog/eating-near-heathrow-prices-compared",
+    "destination": "/restaurants-near-heathrow",
     "permanent": true
   },
   {
     "source": "/blog/best-pub-food-near-heathrow",
-    "destination": "/blog/eating-near-heathrow-prices-compared",
+    "destination": "/restaurants-near-heathrow",
     "permanent": true
   },
   {

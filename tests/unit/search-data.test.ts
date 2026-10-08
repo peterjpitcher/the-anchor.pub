@@ -142,8 +142,27 @@ describe('blog bylines and dates', () => {
     expect(blogAuthorSchema('Billy')).toEqual({ '@type': 'Person', name: 'Billy' })
   })
 
-  it("uses the editor's lastUpdated date when a post has one", () => {
-    expect(blogDateModified({ slug: 'no-such-post', date: '2025-01-01', lastUpdated: '2026-03-04' })).toBe('2026-03-04')
+  it("uses the editor's updated date when a post has one, the same date the page prints", () => {
+    expect(blogDateModified({ slug: 'no-such-post', date: '2025-01-01', updated: '2026-03-04' })).toBe('2026-03-04')
+    expect(getBlogLastModified({ slug: 'no-such-post', date: '2025-01-01', updated: '2026-03-04' })).toEqual(
+      new Date('2026-03-04'),
+    )
+  })
+
+  it('ignores an updated date that is not a date, or is not later than the published one', () => {
+    expect(blogDateModified({ slug: 'no-such-post', date: '2025-01-01', updated: 'soon' })).toBe('2025-01-01')
+    expect(blogDateModified({ slug: 'no-such-post', date: '2025-01-01', updated: '2024-06-01' })).toBe('2025-01-01')
+  })
+
+  it('no post folder is also a redirect source', () => {
+    // A folder whose address redirects is dead weight: editing it changes
+    // nothing a visitor sees. Delete the folder or remove the redirect.
+    const blogDir = path.join(ROOT, 'content', 'blog')
+    const both = fs
+      .readdirSync(blogDir, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && lookupRedirect(`/blog/${entry.name}`))
+      .map((entry) => entry.name)
+    expect(both).toEqual([])
   })
 
   it('never dates a change before the post was published', () => {

@@ -13,13 +13,12 @@ tags:
   - offers
   - news
 featured: false
-hero: hero.jpg
 images: []
 canonical: 'https://www.the-anchor.pub/blog/pizza-deals-stanwell-heathrow-tuesdays'
 noindex: true
 ---
 **Update:** The Tuesday pizza deal is no longer available.
 
-We still serve stone-baked pizzas, but food deals and prices must come from the live approved source. Please check the current menu or ask the team before travelling for any offer.
+We still serve stone-baked pizzas. You'll find current dishes and prices on the food menu.
 
 [View the current food menu](/food-menu) or [book a table](/book-table).
