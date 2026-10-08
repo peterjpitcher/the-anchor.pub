@@ -1,4 +1,5 @@
 import type { GameNightConfig } from './types'
+import { PARKING } from '@/lib/constants'
 
 /**
  * Quiz night. Facts from docs/SSOT.md §10: monthly, currently Wednesdays, arrive
@@ -53,7 +54,7 @@ export const quizNight: GameNightConfig = {
     { label: 'Teams', value: 'Up to 6 players' },
     { label: 'Time', value: '7pm to 9:30pm' },
     { label: 'House rule', value: 'Phones away, except the interactive round' },
-    { label: 'Parking', value: 'Free, 20 spaces' }
+    { label: 'Parking', value: `Free, ${PARKING.capacity} spaces` }
   ],
 
   bookingCtaPrefix: 'Book your team in for',
