@@ -2,6 +2,7 @@ import { type CSSProperties, type ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HeroFrost } from '@/components/seasonal/HeroFrost'
+import { HERO_BADGE_FILL, HERO_SCRIM_BANDS, heroScrimBackground } from '@/lib/hero-scrim'
 
 export interface InteriorHeroProps {
   /** Full-bleed background image src (decorative). */
@@ -24,9 +25,12 @@ export interface InteriorHeroProps {
   note?: string
 }
 
-// Exact two-gradient scrim from spec §5.1 (source: site.css .ta-hero--interior).
-const SCRIM_BACKGROUND =
-  'linear-gradient(95deg, rgba(12,29,17,0.92) 0%, rgba(12,29,17,0.74) 46%, rgba(12,29,17,0.34) 100%), linear-gradient(0deg, rgba(12,29,17,0.55) 0%, rgba(12,29,17,0) 45%)'
+// The wash over the photo, one per width band. The numbers and the reasons are
+// in lib/hero-scrim.ts: under the text column it never drops below the level at
+// which every text style here reads at 4.5:1 over a pure white photo.
+// Each band is shown only at its own widths (the classes are written out in
+// full because Tailwind cannot see a class name that is built at run time).
+const SCRIM_BAND_CLASSES = ['lg:hidden', 'hidden lg:block xl:hidden', 'hidden xl:block'] as const
 
 /**
  * InteriorHero — the single hero used by every interior page (spec §5.1).
@@ -63,30 +67,40 @@ export function InteriorHero({
         style={{ objectPosition: focal }}
       />
 
-      {/* Scrim layer — fixed two-gradient wash for legible text on any photo. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-[1]"
-        style={{ background: SCRIM_BACKGROUND }}
-      />
+      {/* Seasonal frost, drawn UNDER the wash (owner decision 19, 7 October
+          2026). It used to sit on top, where it lightened the corners the
+          breadcrumb and badges sit in. Underneath, it shows where the wash is
+          thin, which is where there is no text, and cannot lighten anything the
+          text sits on. Invisible outside 1 Nov to 31 Dec: its opacity comes
+          from --winter-frost, which the root layout only emits in season. */}
+      <HeroFrost />
 
-      {/* Film grain — dark-surface texture at 6% opacity. */}
+      {/* Scrim layer: the wash that keeps text legible on any photo. */}
+      {HERO_SCRIM_BANDS.map((band, index) => (
+        <div
+          key={band.minWidth}
+          aria-hidden
+          data-hero-scrim={band.minWidth}
+          className={`absolute inset-0 z-[1] ${SCRIM_BAND_CLASSES[index]}`}
+          style={{ background: heroScrimBackground(band) }}
+        />
+      ))}
+
+      {/* Film grain: dark-surface texture at 6% opacity. */}
       <div
         aria-hidden
         className="absolute inset-0 z-[1] opacity-[0.06] bg-[var(--grain)]"
       />
 
-      {/* Seasonal frost. Invisible outside 1 Nov to 31 Dec: its opacity comes
-          from --winter-frost, which the root layout only emits in season. */}
-      <HeroFrost />
-
-      {/* Content — bottom-left, capped at 760px inside the 1280 container. */}
+      {/* Content: bottom-left, capped at 760px inside the 1280 container from
+          lg up, so it stays on the part of the photo the wash holds dark. */}
       <div className="container relative z-[2] w-full">
         <div
-          className="flex flex-col gap-4"
+          data-hero-text
+          className="flex flex-col gap-4 lg:max-w-[760px]"
           style={{ paddingBlock: 'clamp(2.5rem, 6vw, 4.5rem)' } as CSSProperties}
         >
-          <nav aria-label="Breadcrumb" className="text-xs text-anchor-cream-text/[0.72]">
+          <nav aria-label="Breadcrumb" className="text-xs text-anchor-cream-text/90">
             <Link href="/" className="transition-colors hover:text-anchor-gold-bright">
               Home
             </Link>
@@ -108,7 +122,13 @@ export function InteriorHero({
             <p className="text-xl text-anchor-cream-text/90">{lead}</p>
           )}
 
-          {badges && <div className="flex flex-wrap gap-2">{badges}</div>}
+          {/* Sand badges get a solid fill here. Their dark-surface fill is gold
+              at 16%, which let a light photo show through the pill. */}
+          {badges && (
+            <div className="flex flex-wrap gap-2" style={{ '--tile': HERO_BADGE_FILL } as CSSProperties}>
+              {badges}
+            </div>
+          )}
 
           {/* Above the actions, not below them. On a phone three stacked buttons
               pushed it to the foot of the first screen, 23px clear of the cookie

@@ -7,8 +7,12 @@
  * property in season, so out of season these are three invisible divs. That
  * keeps 101 interior pages from having to know what month it is.
  *
- * Sits above the hero's scrim and below its content, so the worst-case
- * lightening is in the corners, where no text sits.
+ * Where it sits against the hero's dark wash matters, because frost lightens
+ * whatever is under it. On the interior hero the breadcrumb and badges sit in
+ * the left-hand corners on a phone, so there the frost is drawn UNDER the wash
+ * (components/hero/InteriorHero.tsx, owner decision 19, 7 October 2026) and
+ * only shows where the wash is thin and there is no text. On the homepage hero
+ * the text is centred and the corners are empty, so it stays on top.
  */
 export function HeroFrost() {
   const frost = 'var(--winter-frost, 0)'
