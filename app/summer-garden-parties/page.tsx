@@ -110,7 +110,10 @@ export default async function SummerGardenPartiesPage() {
                 <Container>
                     <div className="mx-auto text-center">
                         <SectionHeading title="Perfect for..." />
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {/* Three cards. "Receptions" was removed on 8 October 2026: on its
+                            own it reads as wedding receptions, which we do not market
+                            (docs/SSOT.md section 14). */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <Card>
                                 <CardBody className="p-4 text-center">
                                     <span className="font-semibold text-ink-strong">Birthdays</span>
@@ -124,11 +127,6 @@ export default async function SummerGardenPartiesPage() {
                             <Card>
                                 <CardBody className="p-4 text-center">
                                     <span className="font-semibold text-ink-strong">Christenings</span>
-                                </CardBody>
-                            </Card>
-                            <Card>
-                                <CardBody className="p-4 text-center">
-                                    <span className="font-semibold text-ink-strong">Receptions</span>
                                 </CardBody>
                             </Card>
                         </div>
