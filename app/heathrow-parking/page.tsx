@@ -415,7 +415,10 @@ export default async function HeathrowParkingPage() {
                 </CardBody>
               </Card>
             </div>
-            <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:justify-center">
+            {/* md:flex-wrap: side by side the two one-line labels need 818px, and at
+                768px they ran 25px off each side of the screen (site review
+                LS-010). They now drop to two rows when they do not fit. */}
+            <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-center">
               <Button asChild variant="outline" size="lg" wrap>
                 <Link href="#price-comparison">
                    View the Heathrow price comparison

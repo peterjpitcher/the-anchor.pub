@@ -175,11 +175,110 @@ describe('TurnstileField', () => {
     it('reserves the wide widget height and sets no minimum width on the slot', () => {
       slotIs(288)
       renderTurnstileField()
-      const slot = screen.getByTestId('turnstile-widget').parentElement as HTMLElement
+      // The widget sits in a box of its own inside the slot (see the next group).
+      const slot = screen.getByTestId('turnstile-widget').parentElement?.parentElement as HTMLElement
 
       expect(slot).toHaveClass('min-h-[65px]')
       expect(slot.className).not.toMatch(/min-w-|(^|\s)w-/)
       expect(slot.getAttribute('style')).toBeNull()
+    })
+  })
+
+  // The wide widget was right when the form mounted and the room has shrunk
+  // since: a phone turned upright, a window dragged narrow. Swapping to the
+  // compact widget would throw the visitor's token away, and left alone the
+  // widget ran 22px past the edge of a 320px screen on /private-hire.
+  describe('a wide widget whose room shrinks after it mounted', () => {
+    type ResizeCallback = () => void
+    let resizeCallbacks: ResizeCallback[]
+    const realResizeObserver = global.ResizeObserver
+
+    beforeEach(() => {
+      resizeCallbacks = []
+      global.ResizeObserver = class {
+        constructor(callback: ResizeCallback) {
+          resizeCallbacks.push(callback)
+        }
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      } as unknown as typeof ResizeObserver
+    })
+
+    afterEach(() => {
+      global.ResizeObserver = realResizeObserver
+    })
+
+    const box = () => screen.getByTestId('turnstile-widget').parentElement as HTMLElement
+    const roomChanges = () => act(() => resizeCallbacks.forEach((callback) => callback()))
+
+    it('lays the wide widget over its slot, so its 300px minimum cannot push the form wider', () => {
+      slotIs(640)
+      renderTurnstileField()
+
+      expect(box().style.position).toBe('absolute')
+      expect(box().style.width).toBe('100%')
+      expect(box().style.minWidth).toBe('300px')
+      expect(box().style.transform).toBe('')
+      expect(box()).toHaveAttribute('data-turnstile-squeezed', 'false')
+      expect(box().parentElement).toHaveClass('relative', 'min-h-[65px]')
+    })
+
+    it('draws the same widget smaller when the slot drops under 300px, and keeps the token', () => {
+      let width = 640
+      slotIs(() => width)
+      const { onTokenChange } = renderTurnstileField()
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
+
+      width = 278
+      roomChanges()
+
+      expect(box().style.transform).toBe(`scale(${278 / 300})`)
+      expect(box().style.transformOrigin).toBe('top left')
+      expect(box()).toHaveAttribute('data-turnstile-squeezed', 'true')
+      // Still the wide widget, still the one that was mounted, token untouched.
+      expect(renderedSize()).toBe('flexible')
+      expect(mockWidgetMounted).toHaveBeenCalledTimes(1)
+      expect(onTokenChange).not.toHaveBeenCalledWith(null)
+    })
+
+    it('goes back to full size when the room comes back', () => {
+      let width = 278
+      slotIs(() => width)
+      // Mounted wide in a slot that could not be measured, then measured narrow.
+      width = 0
+      renderTurnstileField()
+      width = 278
+      roomChanges()
+      expect(box()).toHaveAttribute('data-turnstile-squeezed', 'true')
+
+      width = 400
+      roomChanges()
+      expect(box().style.transform).toBe('')
+      expect(box()).toHaveAttribute('data-turnstile-squeezed', 'false')
+    })
+
+    it('leaves the compact widget in the flow and never scales it', () => {
+      slotIs(288)
+      renderTurnstileField()
+      roomChanges()
+
+      expect(renderedSize()).toBe('compact')
+      expect(box().getAttribute('style')).toBeNull()
+      expect(box().parentElement).not.toHaveClass('relative')
+    })
+
+    it('leaves the widget at full size when the slot cannot be measured', () => {
+      let fail = false
+      slotIs(() => {
+        if (fail) throw new Error('no layout')
+        return 640
+      })
+      renderTurnstileField()
+      fail = true
+
+      expect(() => roomChanges()).not.toThrow()
+      expect(box().style.transform).toBe('')
     })
   })
 

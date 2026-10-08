@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { resolveFloatingLayers } from '@/lib/floating-layers'
 
 const STICKY = fs.readFileSync(
   path.join(process.cwd(), 'components/layout/StickyCtas.tsx'),
@@ -11,39 +12,53 @@ const BANNER = fs.readFileSync(
 )
 
 /**
- * Source-level guards, because the thing worth protecting is a decision rather than a
- * rendered pixel: the sticky bar must never again make itself invisible because another
- * fixed element is on screen.
+ * The thing worth protecting is a decision rather than a rendered pixel: the sticky bar
+ * must never again make itself invisible because the cookie banner is on screen.
  *
  * The original code read `visible && !cookieBannerVisible`. It looked like collision
  * avoidance and behaved like a conversion leak, because the person who has not answered
  * the cookie prompt is by definition a first-time visitor: exactly the one who most needs
  * an obvious way to book, and the one guaranteed not to see it.
  *
- * A DOM test cannot catch a regression here. Both elements are position:fixed and the
- * failure is that one of them is simply absent, which renders as a perfectly valid page.
+ * Since 8 October 2026 the decision is the floating layer coordinator's
+ * (lib/floating-layers.ts), so the first group asks the coordinator. The rest are still
+ * source-level guards: both elements are position:fixed and the failure is that one of
+ * them is simply absent, which renders as a perfectly valid page.
  */
 
 describe('the cookie banner never suppresses the booking bar', () => {
-  it('does not gate visibility on the cookie banner', () => {
-    expect(STICKY).not.toMatch(/showStickyCtas\s*=\s*visible\s*&&\s*!\s*cookieBannerVisible/)
+  it('shows the bar together with the cookie banner', () => {
+    expect(resolveFloatingLayers(['booking-bar', 'cookie-banner'])).toEqual({
+      active: 'cookie-banner',
+      bookingBar: true
+    })
   })
 
-  it('shows whenever the page has scrolled past the hero, and on no other condition', () => {
+  it('asks the coordinator for the bar whenever the page has scrolled past the hero, and on no other condition', () => {
     expect(STICKY).toMatch(/const showStickyCtas = visible\b/)
+    expect(STICKY).toContain("useFloatingLayer('booking-bar', showStickyCtas)")
+    expect(STICKY).not.toMatch(/showStickyCtas\s*=\s*visible\s*&&/)
   })
 
-  it('still tracks the banner, but only to position itself', () => {
-    // The flag is legitimate: it decides the offset and which element owns the safe-area
-    // inset. It must not creep back into the visibility expression.
-    expect(STICKY).toContain('cookieBannerVisible')
-    expect(STICKY).toMatch(/bottom: cookieBannerVisible/)
+  it('does not read the consent cookie for itself', () => {
+    // The bar used to work out whether the banner was up from the cookie. One
+    // coordinator decides now; a second opinion here is how layers came to disagree.
+    expect(STICKY).not.toContain('hasUserConsented')
   })
 })
 
 describe('the two bars are positioned from one shared measurement', () => {
   it('offsets the bar by the height the banner publishes', () => {
     expect(STICKY).toContain('var(--cookie-banner-height, 0px)')
+  })
+
+  it('moves the bar with transform, never with bottom', () => {
+    // Changing `bottom` when the banner arrives a second after the page is counted by
+    // the browser as a layout shift. It was the moving part in 8 of 10 real-visitor
+    // readings that recorded any movement (site review FD-007, LS-003).
+    expect(STICKY).toContain("'translateY(calc(-1 * var(--cookie-banner-height, 0px)))'")
+    expect(STICKY).not.toMatch(/\bbottom:\s/)
+    expect(STICKY).not.toMatch(/transition-\[[^\]]*bottom/)
   })
 
   it('publishes that height from the banner, measured rather than hardcoded', () => {
@@ -69,5 +84,13 @@ describe('the two bars are positioned from one shared measurement', () => {
   it('gives the safe-area inset to whichever element touches the bottom edge', () => {
     // Applying it in both places opens a visible gap inside the bar on notched phones.
     expect(STICKY).toMatch(/paddingBottom: cookieBannerVisible/)
+  })
+
+  it('publishes its own height for the page to keep focused controls clear of it', () => {
+    expect(STICKY).toContain("'--booking-bar-height'")
+    const css = fs.readFileSync(path.join(process.cwd(), 'app/globals.css'), 'utf8')
+    expect(css).toContain(
+      'scroll-padding-bottom: calc(var(--booking-bar-height, 0px) + var(--cookie-banner-height, 0px));'
+    )
   })
 })

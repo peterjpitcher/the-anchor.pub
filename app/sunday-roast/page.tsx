@@ -16,7 +16,6 @@ import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowI
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { TimedBookingPrompt } from '@/components/sunday-lunch/TimedBookingPrompt'
 import { PhoneLink } from '@/components/PhoneLink'
-import { ScrollProgressBookingTooltip } from '@/components/conversion/ScrollProgressBookingTooltip'
 import { ExitIntentBookingModal } from '@/components/conversion/ExitIntentBookingModal'
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
@@ -542,7 +541,6 @@ export default async function SundayRoastPage() {
         </div>
       </section>
 
-      <ScrollProgressBookingTooltip/>
       <ExitIntentBookingModal/>
       <TimedBookingPrompt/>
       <DeferredHomepageTrackers/>

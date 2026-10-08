@@ -9,7 +9,8 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT, BUS_WORDING, HEATHROW_TIMES, PARKING, DRIVE_TIMES } from '@/lib/constants'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
-import { StaticHoursSummary } from '@/components/StaticHoursSummary'
+import { WeekHours } from '@/components/WeekHours'
+import { getBusinessHoursSnapshot } from '@/lib/api'
 import { Section, Button, Grid, Card, CardBody, SectionHeading, Badge } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
@@ -89,9 +90,15 @@ function itemPreview(items: MenuPageItem[], limit = 4): MenuPageItem[] {
 }
 
 export default async function BookPage({ searchParams }: BookTablePageProps) {
-  const [foodMenu, sundayMenu, twoScreenFlow] = await Promise.all([
+  const [foodMenu, sundayMenu, businessHours, twoScreenFlow] = await Promise.all([
     getFoodMenuPageData(),
     getSundayLunchMenuPageData(),
+    // The week's hours for the box beside the form, rendered on the server.
+    // The box used to print "live hours are loading from the management
+    // system" and nothing ever replaced it (site review HT-005). The cached
+    // snapshot; null if the management app cannot be reached, which WeekHours
+    // handles.
+    getBusinessHoursSnapshot(),
     // The approved two-screen booking journey, behind the runtime flag AMS
     // holds. Read server-side, cached for 60 seconds, and OFF in every failure
     // mode, so turning it off is a settings change rather than a deploy.
@@ -246,7 +253,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               </div>
             </Card>
 
-            <StaticHoursSummary compact />
+            <WeekHours initialHours={businessHours} columns={1} />
 
             <Card className="hidden p-5 lg:block">
               <h3 className="text-base font-semibold text-accent-text mb-3">Why The Anchor?</h3>

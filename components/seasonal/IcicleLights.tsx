@@ -26,7 +26,7 @@ export function IcicleLights() {
       style={{ opacity: 'var(--winter-lights, 0)', transition: 'opacity .45s ease' }}
     >
       <div
-        className="absolute inset-x-0 top-[9px] h-[58px] bg-repeat-x bg-[length:auto_40px] sm:bg-[length:auto_58px]"
+        className="absolute inset-x-0 top-[9px] h-[58px] bg-repeat-x bg-[length:auto_40px] md:bg-[length:auto_58px]"
         style={{
           backgroundImage: 'url(/images/seasonal/icicle-lights.png)',
           filter: 'drop-shadow(0 2px 8px rgba(232,181,60,0.3))'

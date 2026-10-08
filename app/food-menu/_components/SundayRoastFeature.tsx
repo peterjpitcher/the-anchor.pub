@@ -35,8 +35,10 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
         <Image
           src="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
           alt="A carved Sunday roast served at The Anchor in Stanwell Moor"
-          width={920}
-          height={690}
+          // The file's real size. Stated as 920 by 690, the box was held at 4:3
+          // and jumped to the photo's own shape when it loaded (site review LS-015).
+          width={1920}
+          height={1072}
           className="h-full w-full object-cover"
           sizes="(max-width: 1024px) 100vw, 50vw"
         />
