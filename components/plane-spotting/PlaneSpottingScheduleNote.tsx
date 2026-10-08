@@ -84,7 +84,7 @@ export function PlaneSpottingScheduleNote({
           {showCta ? (
             <Link
               href={bookingHref(ctaSource, isoDate ?? getLondonIsoDate(), schedule)}
-              className="inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-anchor-gold-dark px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 md:w-auto"
+              className="inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-anchor-gold-dark px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2 md:w-auto"
             >
               Book a Table
             </Link>

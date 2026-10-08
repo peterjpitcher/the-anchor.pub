@@ -19,7 +19,7 @@ export function GameNightFacts({ facts }: { facts: GameNightFact[] }) {
               becomes an anonymous flex item and is dropped: that is why these
               rendered as "Entry£3 per person" despite reading correctly in the
               markup. */}
-          <span className="mr-1 font-normal opacity-70">{fact.label}</span>
+          <span className="mr-1 font-normal">{fact.label}</span>
           <span>{fact.value}</span>
         </Badge>
       ))}

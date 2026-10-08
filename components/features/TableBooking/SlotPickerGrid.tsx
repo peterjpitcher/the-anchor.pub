@@ -67,7 +67,7 @@ function SlotButton({
             ? 'font-normal text-white/80'
             : servesFood
             ? 'font-normal text-ink-muted'
-            : 'font-semibold text-anchor-gold-dark'
+            : 'font-semibold text-accent-text'
         }`}
       >
         {servesFood ? (
@@ -82,7 +82,7 @@ function SlotButton({
       {chairCaption ? (
         <span
           className={`mt-1 block text-xs font-medium ${
-            isSelected ? 'text-white' : 'text-anchor-gold-dark'
+            isSelected ? 'text-white' : 'text-accent-text'
           }`}
         >
           {chairCaption}
@@ -94,7 +94,7 @@ function SlotButton({
             isSelected
               ? 'text-white'
               : slot.busyness === 'busy'
-              ? 'text-anchor-gold-dark'
+              ? 'text-accent-text'
               : 'text-ink-muted'
           }`}
         >

@@ -219,7 +219,7 @@ export function Gallery({
           {filteredImages.map((image, index) => (
             <GridItem key={index}>
               <Card
-                className="group cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:outline-none"
+                className="group cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-accent-text focus-visible:outline-none"
                 onClick={() => handleImageClick(image, index)}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleImageClick(image, index) } }}
                 role="button"

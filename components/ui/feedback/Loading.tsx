@@ -16,7 +16,7 @@ const spinnerVariants = cva(
         xl: 'h-12 w-12'
       },
       color: {
-        primary: 'text-anchor-gold-dark',
+        primary: 'text-accent-text',
         secondary: "text-ink",
         white: 'text-white',
         current: 'text-current'

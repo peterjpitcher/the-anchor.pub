@@ -90,7 +90,7 @@ export default async function RelatedEvents({
               <Link
                 key={event.id}
                 href={href}
-                className="group block overflow-hidden rounded-lg border border-line bg-surface shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-anchor-gold-dark"
+                className="group block overflow-hidden rounded-lg border border-line bg-surface shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-text"
               >
                 {/* Poster, or the date panel when the event has no artwork.
                     Either way the square is filled, so cards in the same row

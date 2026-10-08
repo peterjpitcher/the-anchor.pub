@@ -276,7 +276,7 @@ export function Navigation({
     const isDropdownOpen = openDropdown === item.label
 
     const triggerClass = cn(
-      'inline-flex items-center gap-1 py-2 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2 rounded'
+      'inline-flex items-center gap-1 py-2 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text focus-visible:ring-offset-2 rounded'
     )
 
     const trackTopLevel = () =>
@@ -335,7 +335,7 @@ export function Navigation({
               dropdownTriggerRefs.current[item.label] = node
             }}
             // 24px square meets the WCAG 2.2 minimum target size (2.5.8).
-            className="flex h-6 w-6 items-center justify-center rounded text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2"
+            className="flex h-6 w-6 items-center justify-center rounded text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text focus-visible:ring-offset-2"
             aria-expanded={isDropdownOpen}
             aria-controls={dropdownId}
             aria-label={`${item.label} submenu`}
@@ -397,7 +397,7 @@ export function Navigation({
               <li key={`${subItem.href}-${subItem.label}`}>
                 <Link
                   href={subItem.href}
-                  className="block rounded-sm px-3 py-2 transition-colors hover:bg-surface-sunk focus:outline-none focus-visible:bg-surface-sunk focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                  className="block rounded-sm px-3 py-2 transition-colors hover:bg-surface-sunk focus:outline-none focus-visible:bg-surface-sunk focus-visible:ring-2 focus-visible:ring-accent-text"
                   onClick={() => {
                     trackNavigationClick({
                       label: subItem.label,
@@ -435,7 +435,7 @@ export function Navigation({
       // moves to anchor-gold-dark (5.59:1), and hover to anchor-green, matching
       // Button's primary variant. Hovering back onto anchor-gold would have put
       // the failing colour straight back, just only while the pointer is over it.
-      'inline-flex items-center justify-center gap-1.5 rounded-pill bg-anchor-gold-dark px-4 py-1.5 font-sans text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-anchor-green focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark focus-visible:ring-offset-2',
+      'inline-flex items-center justify-center gap-1.5 rounded-pill bg-anchor-gold-dark px-4 py-1.5 font-sans text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-anchor-green focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text focus-visible:ring-offset-2',
       isDrawer && 'w-full min-h-[44px] py-2.5'
     )
 
@@ -491,7 +491,7 @@ export function Navigation({
   // Quick-link (utility strip): airport parking + phone. "Airport", not "Book":
   // see the note on the mobile-drawer link below.
   const quickLinkClass =
-    'inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark rounded'
+    'inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-text focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text rounded'
 
   return (
     <>
@@ -614,7 +614,7 @@ export function Navigation({
             {/* Burger */}
             <button
               type="button"
-              className="flex h-11 w-11 items-center justify-center rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text lg:hidden"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-nav-drawer"
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
@@ -672,7 +672,7 @@ export function Navigation({
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block min-h-[44px] py-3 font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                      className="block min-h-[44px] py-3 font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                       onClick={() => {
                         trackNavigationClick({
                           label: item.label,
@@ -695,7 +695,7 @@ export function Navigation({
                   <div key={item.href} className="border-b border-line">
                     <button
                       type="button"
-                      className="flex min-h-[44px] w-full items-center justify-between py-3 text-left font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                      className="flex min-h-[44px] w-full items-center justify-between py-3 text-left font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                       aria-expanded={Boolean(isOpen)}
                       aria-controls={sectionId}
                       onClick={() => toggleMobileSection(item.label)}
@@ -716,7 +716,7 @@ export function Navigation({
                         <Link
                           key={`${subItem.href}-${subItem.label}`}
                           href={subItem.href}
-                          className="block min-h-[44px] py-2.5 font-sans text-sm font-medium text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                          className="block min-h-[44px] py-2.5 font-sans text-sm font-medium text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                           onClick={() => {
                             trackNavigationClick({
                               label: subItem.label,
@@ -751,7 +751,7 @@ export function Navigation({
                   genuinely separate (docs/SSOT.md §8) and the label now says so. */}
               <Link
                 href={PARKING_HREF}
-                className="flex min-h-[44px] items-center gap-1.5 border-b border-line py-3 font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold-dark"
+                className="flex min-h-[44px] items-center gap-1.5 border-b border-line py-3 font-sans text-base font-semibold text-ink-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-text"
                 onClick={() => {
                   trackNavigationClick({
                     label: 'Airport parking',

@@ -242,7 +242,7 @@ export function RecruitmentApplicationForm({
               type="text"
               autoComplete="name"
               required
-              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             />
           </FormField>
           <FormField label="Email address" htmlFor="email" required>
@@ -252,7 +252,7 @@ export function RecruitmentApplicationForm({
               type="email"
               autoComplete="email"
               required
-              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             />
           </FormField>
           <FormField label="Phone number" htmlFor="phone" required>
@@ -263,7 +263,7 @@ export function RecruitmentApplicationForm({
               autoComplete="tel"
               inputMode="tel"
               required
-              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             />
           </FormField>
         </div>
@@ -274,7 +274,7 @@ export function RecruitmentApplicationForm({
             name="role"
             value={role}
             onChange={(event) => setRole(event.target.value)}
-            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
           >
             {roleOptions.map((option) => (
               <option key={option} value={option}>
@@ -315,7 +315,7 @@ export function RecruitmentApplicationForm({
             name="experience"
             rows={4}
             required
-            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
           />
         </FormField>
 
@@ -330,7 +330,7 @@ export function RecruitmentApplicationForm({
             name="fit"
             rows={4}
             required
-            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+            className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
           />
         </FormField>
 
@@ -348,7 +348,7 @@ export function RecruitmentApplicationForm({
                   type="checkbox"
                   name="availability"
                   value={option}
-                  className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-anchor-gold-dark focus:ring-anchor-gold-dark"
+                  className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-accent-text focus:ring-accent-text"
                 />
                 <span>{option}</span>
               </label>
@@ -368,7 +368,7 @@ export function RecruitmentApplicationForm({
               name="travel"
               rows={3}
               required
-              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             />
           </FormField>
 
@@ -379,7 +379,7 @@ export function RecruitmentApplicationForm({
                 name="relevantExperience"
                 required
                 defaultValue=""
-                className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+                className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               >
                 <option value="" disabled>
                   Choose one
@@ -398,7 +398,7 @@ export function RecruitmentApplicationForm({
                 name="startDate"
                 required
                 defaultValue=""
-                className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+                className="w-full min-h-[48px] rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               >
                 <option value="" disabled>
                   Choose one
@@ -420,7 +420,7 @@ export function RecruitmentApplicationForm({
             checked={consent}
             onChange={(event) => setConsent(event.target.checked)}
             required
-            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-anchor-gold-dark focus:ring-anchor-gold-dark"
+            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-accent-text focus:ring-accent-text"
           />
           <span>
             I agree for The Anchor to contact me about my application and understand my details will only be used
@@ -434,7 +434,7 @@ export function RecruitmentApplicationForm({
             name="sms_consent"
             checked={smsConsent}
             onChange={(event) => setSmsConsent(event.target.checked)}
-            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-anchor-gold-dark focus:ring-anchor-gold-dark"
+            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-accent-text focus:ring-accent-text"
           />
           <span>I agree to receive recruitment SMS messages about this application.</span>
         </label>
@@ -445,7 +445,7 @@ export function RecruitmentApplicationForm({
             name="future_recruitment_consent"
             checked={futureRecruitmentConsent}
             onChange={(event) => setFutureRecruitmentConsent(event.target.checked)}
-            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-anchor-gold-dark focus:ring-anchor-gold-dark"
+            className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-accent-text focus:ring-accent-text"
           />
           <span>I agree for The Anchor to keep my details for future suitable roles.</span>
         </label>

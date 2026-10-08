@@ -169,7 +169,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
                 href={`/blog/tag/${encodeURIComponent(normalizeTagSlug(t))}`}
                 className={`inline-flex items-center px-4 py-2 rounded-pill border text-sm font-medium transition-all ${
                   normalizeTagSlug(t) === tag
-                    ? 'bg-anchor-gold border-anchor-gold text-white'
+                    ? 'bg-anchor-gold-dark border-anchor-gold-dark text-white'
                     : 'bg-surface border-line text-ink hover:border-line-strong hover:text-accent-text'
                 }`}
               >

@@ -68,16 +68,23 @@ export function getLowCapacityCount(event: Event): number | null {
 }
 
 /**
- * Tinted category chip styling: `{category.color}1f` background (≈12% alpha)
- * with the category colour as the text colour. Returns null when the event has
+ * Tinted category chip styling: `{category.color}1f` background (about 12%
+ * alpha), with the text in the page's own ink. Returns null when the event has
  * no category. (spec §6.2)
+ *
+ * The text used to be the category colour too. That colour comes from the
+ * management app and can be anything: the Quiz Night purple, #9333ea, was
+ * 2.58:1 on the dark card and 4.48:1 on white (site review AX-007, 7 October
+ * 2026). --text on a 12% tint is 4.5:1 or better for every colour, on every
+ * surface, in both skins: a tint that thin cannot move the surface far from
+ * where the ink was chosen to read. The tint still carries the category.
  */
 export function getCategoryChipStyle(event: Event): CSSProperties | null {
   const colour = event.category?.color
   if (!colour) return null
   return {
     backgroundColor: `${colour}1f`,
-    color: colour
+    color: 'var(--text)'
   }
 }
 
