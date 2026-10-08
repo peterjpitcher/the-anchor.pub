@@ -11,11 +11,10 @@ import type { ParkingRateCard, ParkingPricingBreakdownItem } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
-import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import {
   DEFAULT_COMMUNICATION_CONSENT_STATE,
+  GUEST_SERVICE_CONTACT_NOTICE,
   buildCommunicationConsentPayload,
-  type CommunicationConsentState,
 } from '@/lib/communication-consent'
 
 
@@ -176,7 +175,6 @@ interface BookingPayload {
     colour: string
   }
   notes: string
-  communicationConsent: CommunicationConsentState
 }
 
 const stepTitles = [
@@ -223,7 +221,6 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
   })
 
   const [notes, setNotes] = useState('')
-  const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(DEFAULT_COMMUNICATION_CONSENT_STATE)
 
   const router = useRouter()
   const paypalContainerRef = useRef<HTMLDivElement>(null)
@@ -234,7 +231,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
   // Stores the booking_id returned by createOrder so onApprove can pass it to capture
   const pendingBookingIdRef = useRef<string | null>(null)
   // Sync ref keeps createOrder callbacks from closing over stale state
-  const bookingDataRef = useRef({ customer, vehicle, start, end, notes, communicationConsent })
+  const bookingDataRef = useRef({ customer, vehicle, start, end, notes })
 
   const estimate = useMemo(
     () => calculateEstimate(rates, start, end),
@@ -347,8 +344,8 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
   // Keep bookingDataRef current so createOrder always reads the latest state values
   useEffect(() => {
-    bookingDataRef.current = { customer, vehicle, start, end, notes, communicationConsent }
-  }, [customer, vehicle, start, end, notes, communicationConsent])
+    bookingDataRef.current = { customer, vehicle, start, end, notes }
+  }, [customer, vehicle, start, end, notes])
 
   useEffect(() => {
     if (currentStep === 4 && paypalLoaded && !paypalRendered) {
@@ -401,7 +398,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             start_at: iso(bookingDataRef.current.start),
             end_at: iso(bookingDataRef.current.end),
             notes: bookingDataRef.current.notes || undefined,
-            communication_consent: buildCommunicationConsentPayload(bookingDataRef.current.communicationConsent),
+            communication_consent: buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE),
           }),
         })
 
@@ -572,13 +569,17 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
                 onChange={event => setCustomer(prev => ({ ...prev, phone: event.target.value }))}
               />
             </div>
+            {/* The service notice only. No marketing tick boxes here: the owner's
+                rule is no email capture on the airport parking pages, and a
+                "email me the latest" box on this form is exactly that. The
+                booking still records that this notice was shown, with every
+                marketing choice false (buildCommunicationConsentPayload below).
+                "Your details are never shared" used to end this line. They are
+                passed to the companies that take the payment and send the
+                texts and emails, so it came out; the privacy policy names them. */}
             <p className="text-sm text-ink-muted">
-              We use your mobile number to send booking confirmation and updates. Your details are never shared.
+              {GUEST_SERVICE_CONTACT_NOTICE} Our <a href="/privacy-policy" className="underline">privacy policy</a> says who handles your details.
             </p>
-            <CommunicationConsentFields
-              value={communicationConsent}
-              onChange={setCommunicationConsent}
-            />
           </div>
         )
       case 3:

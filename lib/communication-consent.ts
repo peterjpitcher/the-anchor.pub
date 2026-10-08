@@ -32,10 +32,26 @@
 // similar services", and news about the pub's own offering sits inside that. It would not
 // stretch to anything about a third party, and nothing here should ever name one.
 //
-// Both the client payload and the server sanitiser read this same constant
-// (lib/communication-consent-server.ts pins it with z.literal), so there is exactly one
-// place to change and no way for the two to drift.
-export const GUEST_COMMS_CONSENT_TEXT_VERSION = 'guest-comms-consent-v5'
+// Bumped to v6 on 2026-10-08, when the event booking form's notice began covering EMAIL as
+// well as texts (GUEST_EVENT_COMPACT_CONSENT_NOTICE below). Event bookers have been on the
+// marketing email list since August (the management app's audience is anyone with a
+// booking), but the event form told them about texts only. Nothing about who is contacted
+// changed; the notice caught up with it. The table notice's words did not change.
+//
+// The management app accepts any version string and stores it as sent
+// (src/lib/consent/validation.ts in that repository). It also keeps its own copy of the
+// wording beside the version, which still holds the v5 words: that copy has to move there.
+//
+// The client payload reads this constant. The server sanitiser
+// (lib/communication-consent-server.ts) accepts this version and the one before it, so a
+// browser still running the previous bundle during a deploy does not lose its consent
+// record. Drop the old one from GUEST_COMMS_CONSENT_ACCEPTED_VERSIONS at the next bump.
+export const GUEST_COMMS_CONSENT_TEXT_VERSION = 'guest-comms-consent-v6'
+
+export const GUEST_COMMS_CONSENT_ACCEPTED_VERSIONS = [
+  GUEST_COMMS_CONSENT_TEXT_VERSION,
+  'guest-comms-consent-v5',
+] as const
 
 export const GUEST_SERVICE_CONTACT_NOTICE =
   'We will use your phone and email to manage this booking, including confirmations, reminders, payment links, waitlist updates, and changes.'
@@ -75,6 +91,15 @@ export const GUEST_MARKETING_WHATSAPP_LABEL =
 // it is simply not offered at booking time rather than quietly assumed.
 export const GUEST_COMPACT_CONSENT_NOTICE =
   'We will use your phone and email to manage this booking, and to text you the latest from The Anchor: what is on, new menus, offers, and any changes. Reply NOEVENTS to any message to stop those texts.'
+
+// What the event booking form shows from v6. The notice above is kept as the record of
+// what event bookers were shown up to v5, and nothing renders it any more.
+//
+// The same words as the table notice below, because the same thing is true of both: a
+// booking puts you on the email list as well as the text list, and each has its own way
+// out. Its own constant, so the two can part company without rewriting either's history.
+export const GUEST_EVENT_COMPACT_CONSENT_NOTICE =
+  'We will use your phone and email to manage this booking, and to send you the latest from The Anchor: what is on, new menus, offers, and any changes. Reply NOEVENTS to stop texts, or use the unsubscribe link in any email. Booking confirmations and reminders carry on either way.'
 
 // The table-booking version of the same notice, which also covers EMAIL.
 //

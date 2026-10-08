@@ -141,7 +141,7 @@ describe('the consent notice tells the guest both ways out', () => {
     // Moved to v5 on 2026-08-20, when the venue confirmed the scope is the latest from The
     // Anchor generally, including changes as they happen, not only events, menus and offers.
     // Bump this pin deliberately whenever the notices change.
-    expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v5')
+    expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v6')
   })
 
   it('describes the menus and offers that are actually sent, not just the game nights', () => {

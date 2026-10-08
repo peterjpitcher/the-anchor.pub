@@ -1,7 +1,7 @@
 'use client'
 
 import {
-  GUEST_COMPACT_CONSENT_NOTICE,
+  GUEST_EVENT_COMPACT_CONSENT_NOTICE,
   GUEST_MARKETING_EMAIL_LABEL,
   GUEST_MARKETING_SMS_LABEL,
   GUEST_MARKETING_WHATSAPP_LABEL,
@@ -20,7 +20,7 @@ type CommunicationConsentFieldsProps = {
    *
    * 'compact' renders a single line of small print instead, for event bookings
    * where PECR soft opt-in already permits inviting a past guest to the next
-   * similar night. See GUEST_COMPACT_CONSENT_NOTICE for the reasoning.
+   * similar night. See GUEST_EVENT_COMPACT_CONSENT_NOTICE for the reasoning.
    */
   variant?: 'checkboxes' | 'compact'
   idPrefix?: string
@@ -50,7 +50,7 @@ export function CommunicationConsentFields({
     // simply never asked.
     return (
       <p className="text-xs leading-relaxed text-ink-muted">
-        {notice ?? GUEST_COMPACT_CONSENT_NOTICE}
+        {notice ?? GUEST_EVENT_COMPACT_CONSENT_NOTICE}
       </p>
     )
   }
