@@ -30,6 +30,7 @@ The pub is seven minutes from Heathrow, so a visitor's phone is often not on UK 
 - [x] The "ended" notice, "It took place on ...", the past form of the title, the share image's "Event ended" line and the "recent or archived" stage all wait for the finish. They follow from `getEventPresentation`, so the page, the title and the structured data cannot disagree.
 - [x] Booking still closes at the start, exactly as before: the form, the policy card, the booking FAQs, the "Ready to book" band, add-to-calendar, the places-left badge and the offer in the structured data all stop at the start time.
 - [x] Between the start and the finish the booking panel says "This event has started, so online booking has closed." It used to say "This event has already taken place."
+- [x] A night that never took bookings keeps "No booking is needed for this event, just turn up!" while it is on. That is still true, and the event pages change merged today (PR #227) would otherwise have swapped it for the "taken place" line from the start time.
 - [x] Test: `tests/unit/event-over-not-merely-started.test.ts`, 17 cases, including a party that runs through the repeated hour on 25 October 2026.
 
 ## 5. Booking form wording (HT-014, HT-015)
@@ -59,16 +60,16 @@ The pub is seven minutes from Heathrow, so a visitor's phone is often not on UK 
 
 ## Gates
 
-On the final tree, Node 20.19.5:
+On the final tree, rebased on `main` at `51eecd14` (PR #227, event pages), Node 20.19.5:
 
 | Gate | Result |
 |---|---|
 | `npm run lint:next` | No warnings or errors |
 | `npx tsc --noEmit` | Clean |
-| `npm test` (London) | 314 suites, 5,307 passed, 1 skipped |
-| `npm run test:utc` | 314 suites, 5,307 passed, 1 skipped |
+| `npm test` (London) | 315 suites, 5,348 passed, 1 skipped |
+| `npm run test:utc` | 315 suites, 5,348 passed, 1 skipped |
 | `npm run test:zones` (Sydney, then Los Angeles) | 17 suites, 226 passed, in each |
-| `npm run build` | Passed |
+| `npm run build` | Passed, 242 pages |
 
 ## Not done here, and why
 
