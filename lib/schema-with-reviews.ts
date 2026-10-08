@@ -86,7 +86,7 @@ const getEnhancedSchemasCached = unstable_cache(
         ...ACCESS_AMENITY_FEATURES,
         { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
-        { "@type": "LocationFeatureSpecification", "name": "Live Entertainment", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Quiz Nights and Hosted Events", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Plane Spotting", "value": true }
       ],
       "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "Contactless"],

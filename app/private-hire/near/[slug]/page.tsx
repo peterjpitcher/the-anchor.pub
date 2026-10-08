@@ -1,4 +1,4 @@
-import { CHILDREN_WELCOME_WORDING, DOGS_WORDING, FAMILIES_WORDING, PARKING_WORDING, PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { CHILDREN_WELCOME_WORDING, DOGS_WORDING, FAMILIES_WORDING, LUGGAGE_WORDING, PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING, PRIVATE_HIRE_TIMES_WORDING, SLIDESHOW_WORDING, SPORT_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
@@ -136,11 +136,11 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
             reasons: [
                 {
                     title: 'Easy on the travel',
-                    content: `We are ${HEATHROW_TIMES_WORDING}. ${PARKING_WORDING} There is luggage storage if anyone is heading on to a flight afterwards.`,
+                    content: `We are ${HEATHROW_TIMES_WORDING}. ${PARKING_WORDING} ${LUGGAGE_WORDING}`,
                 },
                 {
-                    title: 'Built for shift patterns',
-                    content: 'Airport teams rarely keep nine-to-five hours. Talk to us about timings and we will work around the rota, whether that is an early finish, a late-afternoon send-off or a weekend get-together.',
+                    title: 'Tell us your timings',
+                    content: `Airport teams rarely keep nine-to-five hours. ${PRIVATE_HIRE_TIMES_WORDING}`,
                 },
             ],
             narrative: {
@@ -148,7 +148,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 paragraphs: [
                     `Heathrow has plenty of places to grab a quick coffee, but far fewer that feel like a proper pub where a group can settle in for the afternoon or evening. The Anchor is a traditional village pub in Stanwell Moor, ${HEATHROW_LINE}. For airport staff, ground crews and travellers with time before a flight, it is an easy escape from the terminals.`,
                     `We host leaving dos, team socials, retirement send-offs and farewell dinners for people moving on or moving away. ${CAPACITY_LINE}, with French doors from the dining room onto the beer garden, which sits directly under the flight path if your group enjoys the planes overhead.`,
-                    `${COORDINATOR_LINE} will help you plan the food, the drinks and the layout. There is free WiFi throughout, and TVs and a sound system in the room. ${DOGS_WORDING} Call us on ${CONTACT.phone} and we will talk through what works for your group.`,
+                    `A dedicated events coordinator will help you plan the food, the drinks and the layout. There is free WiFi throughout, and we have TVs and a sound system. ${DOGS_WORDING} Call us on ${CONTACT.phone} and we will talk through what works for your group.`,
                 ],
             },
             packagesHeading: 'Food, drinks and a room to call your own',
@@ -164,15 +164,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 },
                 {
                     question: 'Can you store luggage during an event?',
-                    answer: `Yes, we offer luggage storage, which is handy if guests are travelling to or from Heathrow around your gathering. Mention it when you call ${CONTACT.phone} and we will make space.`,
+                    answer: `Yes. ${LUGGAGE_WORDING}`,
                 },
                 {
                     question: 'How many people can you cater for?',
                     answer: `${CAPACITY_LINE}. Tell us your numbers and we will recommend the right space.`,
                 },
                 {
-                    question: 'Can you work around airport shift patterns?',
-                    answer: 'Yes. We are used to airport timings and can arrange daytime, evening or weekend gatherings to fit around the rota. Just let us know what suits your team.',
+                    question: 'Can you fit around airport shift times?',
+                    answer: PRIVATE_HIRE_TIMES_WORDING,
                 },
                 {
                     question: 'Is there a room hire charge?',
@@ -203,19 +203,19 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         title: 'A private, respectful space',
-                        content: 'Wakes are held in a self-contained area with its own entrance, set apart from the everyday pub. It is quiet and enclosed, so your gathering stays private throughout the afternoon.',
+                        content: 'Wakes have a private entrance area, set apart from the main bar, so family and friends can gather quietly.',
                     },
                 ],
                 narrative: {
                     heading: `Holding a wake near ${name}`,
                     paragraphs: [
-                        `We have hosted many funeral receptions over the years, and we understand that timings after a service can be unpredictable. We will have the private area set and ready before you arrive from ${name}, and we will never rush you when the gathering naturally winds down.`,
-                        `There is a private entrance area so guests can come and go with dignity, away from the main bar. ${CAPACITY_LINE}, so whether you are expecting a small, close family group or a larger gathering, we can arrange the room to suit. ${COORDINATOR_LINE}, liaising directly with your funeral director if that is easier for you.`,
-                        `If you would like to display photographs, an order of service or flowers, we will set up a dedicated table. You are welcome to play a favourite piece of music through our sound system. Wakes often need to be arranged at short notice, and we can usually accommodate a booking within 24 to 48 hours. Please call us on ${CONTACT.phone}; there is always someone here to help.`,
+                        `We understand that timings after a service can be unpredictable. We will have the private area set and ready before you arrive from ${name}, and we will never rush you when the gathering naturally winds down.`,
+                        `There is a private entrance area so guests can come and go with dignity, away from the main bar. ${CAPACITY_LINE}, so whether you are expecting a small, close family group or a larger gathering, we can arrange the room to suit. You'll have ${COORDINATOR_LINE}.`,
+                        `If you would like to display photographs, an order of service or flowers, we will set up a dedicated table. You are welcome to play a favourite piece of music through our sound system. Wakes often need to be arranged at short notice, and we can usually accommodate a booking within 24 to 48 hours. Please call us on ${CONTACT.phone}.`,
                     ],
                 },
                 packagesHeading: 'Catering for the gathering',
-                packagesIntro: `We offer buffets, afternoon teas and unlimited tea and coffee. ${PRIVATE_HIRE_DIETARY_WORDING} We will give you a clear, tailored quote covering room hire and catering when you call.`,
+                packagesIntro: `We offer buffets, afternoon teas and unlimited tea and coffee. ${PRIVATE_HIRE_DIETARY_WORDING} We will give you a clear quote covering room hire and catering when you call.`,
                 faqs: [
                     ...howFar('. We will have the private area ready before you arrive, and we are happy to allow for a slightly later start if the service runs on.'),
                     {
@@ -224,7 +224,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is there a private space for the wake?',
-                        answer: 'Yes. Wakes are held in a self-contained area with a private entrance, set apart from the main bar, so your gathering stays quiet and private throughout.',
+                        answer: 'Yes. Wakes have a private entrance area, set apart from the main bar.',
                     },
                     {
                         question: 'Is there a room hire charge for a wake?',
@@ -269,10 +269,10 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                 ],
                 narrative: {
-                    heading: `Christening receptions near ${name}`,
+                    heading: `Christening celebrations near ${name}`,
                     paragraphs: [
                         `A christening or naming day is a happy, family occasion, and we love hosting the celebration that follows. The Anchor is ${isFrom}, ${HEATHROW_LINE}, so guests travelling from further afield can find us easily.`,
-                        `${DINING_ROOM_LINE}. ${COORDINATOR_LINE}, so you can relax and enjoy the day. ${FAMILIES_WORDING}`,
+                        `${DINING_ROOM_LINE}. You'll have ${COORDINATOR_LINE}, so you can relax and enjoy the day. ${FAMILIES_WORDING}`,
                         `Choose from buffets, afternoon teas or a sit-down meal, with options for every age and appetite. ${DOGS_WORDING} Call us on ${CONTACT.phone} to talk through your celebration and we will help you plan it.`,
                     ],
                 },
@@ -306,7 +306,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: "Yes. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions. Call us to confirm the details.",
+                        answer: `Yes. ${PRIVATE_HIRE_DEPOSIT_WORDING}`,
                     },
                 ],
             }
@@ -320,7 +320,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 pageLabel: 'Team Events & Celebrations',
                 crumb: `Event venue near ${name}`,
                 lead: `An easy, relaxed venue for staff and family gatherings${away}`,
-                badges: [...distanceBadge, 'Flexible Timings', 'Free Parking', 'Private Dining Room'],
+                badges: [...distanceBadge, 'Free Parking', 'Private Dining Room'],
                 bookingContext: 'private_party',
                 eventType: 'Other',
                 intro: `Whether it is a leaving do, a team lunch, a baby shower or a get-together away from the ward, The Anchor gives staff and families near ${name} somewhere relaxed to gather. We${distance ? ` are ${distance} away and` : ''} have free parking. ${landmark.description}`,
@@ -330,16 +330,16 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                         content: `${distance ? `We are ${distance} from ${name}. ` : ''}${PARKING_WORDING}`,
                     },
                     {
-                        title: 'Timings that work around shifts',
-                        content: 'Hospital teams keep all sorts of hours. Talk to us and we will arrange a daytime, evening or weekend gathering that fits around the rota.',
+                        title: 'Tell us your timings',
+                        content: `Hospital teams keep all sorts of hours. ${PRIVATE_HIRE_TIMES_WORDING}`,
                     },
                 ],
                 narrative: {
                     heading: `Gatherings for teams and families near ${name}`,
                     paragraphs: [
                         `The Anchor is a traditional village pub ${isFrom}, ${HEATHROW_LINE}. We host leaving dos, retirement send-offs, team lunches, baby showers and family celebrations for staff and visitors who want a relaxed space away from the hospital.`,
-                        `${DINING_ROOM_LINE}. ${COORDINATOR_LINE}, and there is free WiFi throughout, TVs and a sound system, and a dog-friendly garden.`,
-                        `We know hospital schedules can be unpredictable, so we keep things flexible and can work around shift changes and last-minute numbers. Choose from buffets, afternoon teas or a sit-down meal. Call us on ${CONTACT.phone} and we will help you arrange it.`,
+                        `${DINING_ROOM_LINE}. You'll have ${COORDINATOR_LINE}, and there is free WiFi throughout, TVs and a sound system, and a dog-friendly garden.`,
+                        `We know hospital schedules can be unpredictable, so tell us the times you have in mind. Choose from buffets, afternoon teas or a sit-down meal. Call us on ${CONTACT.phone} and we will help you arrange it.`,
                     ],
                 },
                 packagesHeading: 'Food and drinks for your gathering',
@@ -347,8 +347,8 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 faqs: [
                     ...howFar(', an easy journey for staff finishing a shift or families marking an occasion.'),
                     {
-                        question: 'Can you work around hospital shift patterns?',
-                        answer: 'Yes. We are used to flexible timings and can arrange daytime, evening or weekend gatherings to fit around the rota. Just let us know what suits your team.',
+                        question: 'Can you fit around hospital shift times?',
+                        answer: PRIVATE_HIRE_TIMES_WORDING,
                     },
                     {
                         question: 'What kinds of events do you host?',
@@ -372,7 +372,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: "Yes. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.",
+                        answer: `Yes. ${PRIVATE_HIRE_DEPOSIT_WORDING}`,
                     },
                 ],
             }
@@ -393,7 +393,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         title: 'Equipped for working sessions',
-                        content: 'The private dining room has a TV and a sound system for presentations, plus a relaxed atmosphere for the social side. There is no projector, but the TV handles slides and video well.',
+                        content: SLIDESHOW_WORDING,
                     },
                 ],
                 narrative: {
@@ -410,7 +410,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     ...howFar(', an easy off-site journey with free parking when the team arrives.'),
                     {
                         question: 'Is there free WiFi and somewhere to present?',
-                        answer: 'Yes. There is free WiFi throughout the venue, and the private dining room has a TV and a sound system for presentations and video. We do not have a projector, but the TV handles slides well.',
+                        answer: `Yes. There is free WiFi throughout the venue. ${SLIDESHOW_WORDING}`,
                     },
                     {
                         question: 'What kinds of corporate events do you host?',
@@ -434,7 +434,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: "Yes. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.",
+                        answer: `Yes. ${PRIVATE_HIRE_DEPOSIT_WORDING}`,
                     },
                 ],
             }
@@ -455,7 +455,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         title: 'Set up for a club night',
-                        content: 'The private dining room has a TV and a sound system for presentations and trophy nights, with a relaxed bar and garden for the social side. Live sport is shown on terrestrial channels.',
+                        content: `${SLIDESHOW_WORDING} There's the bar and the garden for the social side.`,
                     },
                 ],
                 narrative: {
@@ -463,16 +463,16 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     paragraphs: [
                         `The Anchor is a traditional village pub ${isFrom}, ${HEATHROW_LINE}. We host end-of-season dinners, presentation nights, committee meetings, team socials and supporter meet-ups for local clubs and teams.`,
                         `${DINING_ROOM_LINE}. There are TVs and a sound system for presentations and awards (no projector), free WiFi throughout, and a dog-friendly garden. Live sport is shown on terrestrial channels only.`,
-                        `Choose from buffets and sharing platters to sit-down meals and drinks packages, and ${COORDINATOR_LINE}. With free parking and a relaxed, welcoming atmosphere, it is an easy choice for any club occasion. Call us on ${CONTACT.phone} to arrange it.`,
+                        `Choose from buffets, sit-down meals and drinks packages. You'll have ${COORDINATOR_LINE}. With free parking and a relaxed, welcoming atmosphere, it is an easy choice for any club occasion. Call us on ${CONTACT.phone} to arrange it.`,
                     ],
                 },
                 packagesHeading: 'Food and drinks for the club',
-                packagesIntro: 'From finger buffets and sharing platters to sit-down meals, drinks packages and unlimited tea and coffee, we will tailor the night to your club. Room hire and catering are quoted on enquiry.',
+                packagesIntro: 'From finger buffets to sit-down meals, drinks packages and unlimited tea and coffee, we will tailor the night to your club. Room hire and catering are quoted on enquiry.',
                 faqs: [
                     ...howFar(', an easy journey for players, families and supporters, with free parking when you arrive.'),
                     {
                         question: 'Can we hold a presentation or awards night?',
-                        answer: 'Yes. The private dining room has a TV and a sound system for presentations and trophy nights. We do not have a projector, but the TV handles slides and video well.',
+                        answer: `Yes. ${SLIDESHOW_WORDING}`,
                     },
                     {
                         question: 'What kinds of club events do you host?',
@@ -480,7 +480,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Do you show live sport?',
-                        answer: 'We show live sport on terrestrial channels (BBC, ITV and Channel 4). We do not have Sky Sports or TNT Sports.',
+                        answer: SPORT_WORDING,
                     },
                     {
                         question: 'Is there free parking?',
@@ -492,11 +492,11 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can you cater for a large group?',
-                        answer: `Yes. We offer buffets, sharing platters and sit-down meals for larger groups. ${PRIVATE_HIRE_DIETARY_WORDING} Let us know your numbers when you book.`,
+                        answer: `Yes. We offer buffets and sit-down meals for larger groups. ${PRIVATE_HIRE_DIETARY_WORDING} Let us know your numbers when you book.`,
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: "Yes. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.",
+                        answer: `Yes. ${PRIVATE_HIRE_DEPOSIT_WORDING}`,
                     },
                 ],
             }
@@ -571,11 +571,23 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is a deposit required?',
-                        answer: "Yes. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.",
+                        answer: `Yes. ${PRIVATE_HIRE_DEPOSIT_WORDING}`,
                     },
                 ],
             }
     }
+}
+
+// Which landmark types may be listed together under "Other venues near you".
+// Wake venues stand alone: a christening, business or club page must never be
+// padded out with crematoria and cemeteries, and a wake page lists only those.
+const RELATED_TYPES: Record<LandmarkType, LandmarkType[]> = {
+    crematorium: ['crematorium'],
+    church: ['church'],
+    hospital: ['hospital', 'business_park', 'other'],
+    business_park: ['business_park', 'hospital', 'other'],
+    sports_venue: ['sports_venue', 'other'],
+    other: ['other', 'business_park', 'sports_venue', 'hospital'],
 }
 
 // Metadata varies by landmark type so titles and descriptions are not
@@ -641,14 +653,11 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
     const angle = getLandmarkAngle(landmark)
 
-    // Cross-link to other nearby venues (same type first) so each page carries a
-    // distinct internal-link set and the /private-hire/near/* cluster is densely
-    // interlinked, which strengthens crawl signals and reduces the near-duplicate
-    // template footprint without inventing per-landmark facts.
-    const relatedLandmarks = [
-        ...landmarks.filter((l) => l.slug !== landmark.slug && l.type === landmark.type),
-        ...landmarks.filter((l) => l.slug !== landmark.slug && l.type !== landmark.type),
-    ].slice(0, 6)
+    // Cross-link only to landmarks for the same kind of occasion (RELATED_TYPES),
+    // so a christening or club page never lists crematoria and cemeteries.
+    const relatedLandmarks = landmarks.filter(
+        (l) => l.slug !== landmark.slug && RELATED_TYPES[landmark.type].includes(l.type)
+    )
 
     // EventVenue schema, grounded in SSOT venue facts (no price claims).
     const eventVenueSchema = {

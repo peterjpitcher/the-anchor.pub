@@ -7,8 +7,8 @@ import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
-import { CONTACT, BRAND, PARKING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
-import { DOGS_WORDING } from '@/lib/approved-wording'
+import { CONTACT, BRAND, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { DOGS_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -18,7 +18,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Pubs in Wraysbury | Dining & Free Parking',
-    description: `${BRAND.name} is a highly rated pub a short drive from Wraysbury. Famous Sunday Roasts, stone-baked pizzas, and live entertainment. Free parking & family friendly.`,
+    description: `${BRAND.name} is a highly rated pub a short drive from Wraysbury. Famous Sunday Roasts, stone-baked pizzas and quiz nights. Free parking & family friendly.`,
     openGraph: {
         title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
         description: 'Looking for a change from the local? We are just a short drive from Wraysbury with great food and entertainment.',
@@ -121,13 +121,13 @@ export default function WraysburyPubPage() {
                     <div className="mx-auto text-center">
                         <SectionHeading
                             title="Why Wraysbury Residents Visit The Anchor"
-                            lead="We're a popular choice for Wraysbury locals looking for great value and something different."
+                            lead="A proper village pub, a short drive from Wraysbury."
                         />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {[
                                 { title: "Stone-Baked Pizza", description: "Authentic stone-baked pizzas from the live menu" },
-                                { title: "Live Entertainment", description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)" },
+                                { title: "Events", description: "Music Bingo with Nikki Manfadge, quiz nights and cash bingo" },
                                 { title: "Sunday Roast", description: "A proper home-cooked roast with all the trimmings" },
                             ].map((item) => (
                                 <Card key={item.title} accent>
@@ -154,7 +154,7 @@ export default function WraysburyPubPage() {
                                 <CardBody className="p-6">
                                     <h3 className="font-display text-h4 text-ink-strong mb-4">Celebrations</h3>
                                     <p className="text-ink-muted mb-4">
-                                        Planning a party? We frequently host birthdays and celebrations for Wraysbury residents. Our private hire options are flexible and affordable.
+                                        Planning a party? The dining room, the garden or the whole pub can be hired by the hour. Prices and menus are on the private hire page.
                                     </p>
                                     <Link href="/private-hire" className="text-accent-text font-bold hover:underline">
                                         View Private Hire Options →
@@ -166,7 +166,7 @@ export default function WraysburyPubPage() {
                                 <CardBody className="p-6">
                                     <h3 className="font-display text-h4 text-ink-strong mb-4">What's On</h3>
                                     <p className="text-ink-muted mb-4">
-                                        Join us for Music Bingo hosted by Nikki Manfadge or test your knowledge at our quiz nights. See /whats-on for the latest listings.
+                                        Join us for Music Bingo hosted by Nikki Manfadge or test your knowledge at our quiz nights.
                                     </p>
                                     <Link href="/whats-on" className="text-accent-text font-bold hover:underline">
                                         Check Event Calendar →
@@ -203,13 +203,13 @@ export default function WraysburyPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                Wraysbury is a lovely village, but let&rsquo;s be honest, pubs in Wraysbury are limited. When you fancy a change of scene without a major expedition, The Anchor is a short drive away.
+                                Wraysbury is a lovely village. When you fancy a change of scene without a major expedition, The Anchor is a short drive away.
                             </p>
                             <p>
                                 We think of ourselves as Wraysbury&rsquo;s second local. Plenty of your neighbours are already regulars here. If you&rsquo;re into the Wraysbury reservoir walks or you&rsquo;ve been birdwatching around the gravel pits, we&rsquo;re the natural finishing point: a cold pint, a stone-baked pizza, and a seat in the garden watching the planes come in low overhead.
                             </p>
                             <p>
-                                The Wraysbury Dive Centre crowd know us well too. After a few hours in cold water, there&rsquo;s nothing better than warming up with a proper meal in a proper pub. {DOGS_WORDING}
+                                {DOGS_WORDING}
                             </p>
                             <p>
                                 Non-drivers aren&rsquo;t left out either. Wraysbury station is on the Windsor &amp; Eton line, and a taxi from there to us is a short ride. A few of our regulars do exactly that on quiz nights, taxi over, have a couple of drinks, taxi home. Easy.
@@ -233,8 +233,8 @@ export default function WraysburyPubPage() {
             <OrganicSearchClusterLinks
                 cluster="localPub"
                 currentPath="/wraysbury-pub"
-                title="Compare local pub pages"
-                intro="Use these local pages for nearby pub, food and directions searches before you visit."
+                title="More local guides"
+                intro="More on the food, the pub and how to find us."
             />
 
             <FAQAccordionWithSchema
@@ -245,7 +245,7 @@ export default function WraysburyPubPage() {
                     },
                     {
                         question: "Do you have parking?",
-                        answer: `Yes, we have ${PARKING.capacity} free parking spaces on-site. It's stress-free parking, unlike some village centres.`
+                        answer: `Yes. ${PARKING_WORDING}`
                     },
                     {
                         question: "Is the pub family friendly?",

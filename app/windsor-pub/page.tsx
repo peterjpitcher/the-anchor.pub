@@ -133,13 +133,13 @@ export default function WindsorPubPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="Windsor's Favourite Traditional Pub Experience"
-              lead="A short drive from Windsor, The Anchor offers authentic British hospitality without the tourist prices. Enjoy traditional pub atmosphere, fantastic food, and a warm welcome in our historic Stanwell Moor location."
+              lead="A short drive from Windsor, The Anchor is a proper village pub. Enjoy traditional pub atmosphere, fantastic food, and a warm welcome in our historic Stanwell Moor location."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
                 { title: "Near Windsor", description: "A short drive from Windsor" },
-                { title: "Better Value", description: "Avoid Windsor tourist prices - proper pub rates" },
+                { title: "Fair Village Prices", description: "Our prices are on the live menu" },
                 { title: "Outside the ULEZ", description: ULEZ_WORDING },
               ].map((item) => (
                 <Card key={item.title} accent>
@@ -168,15 +168,15 @@ export default function WindsorPubPage() {
                 <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Escape Windsor's tourist crowds</strong> - Peaceful village pub atmosphere</div>
+                    <div><strong>A change of scene</strong> - Peaceful village pub atmosphere</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Genuine local pricing</strong> - Honest village pub prices</div>
+                    <div><strong>Fair village prices</strong> - See the <Link href="/food-menu" className="underline">live menu</Link></div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>{PARKING.capacity} free spaces</strong> - No expensive Windsor parking fees</div>
+                    <div><strong>{PARKING.capacity} free spaces</strong> - Right outside</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -186,7 +186,7 @@ export default function WindsorPubPage() {
               </div>
 
               <div>
-                <h3 className="font-display text-h3 text-ink-strong mb-4">Special Events & Offers</h3>
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Food and Events</h3>
                 <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -198,7 +198,7 @@ export default function WindsorPubPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)</div>
+                    <div><strong>Music Bingo</strong> - Hosted by Nikki Manfadge. <Link href="/whats-on" className="underline">See what&apos;s on</Link> for dates.</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -210,9 +210,9 @@ export default function WindsorPubPage() {
 
             <Card accent className="mt-8 text-center">
               <CardBody className="p-6">
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Royal Connection</h3>
+                <h3 className="font-display text-h4 text-ink-strong mb-2">A Village Local</h3>
                 <p className="text-lg text-ink-muted">
-                  Many castle staff and Windsor locals are regulars - discover where the real community meets!
+                  A proper village pub, a short drive from Windsor.
                 </p>
               </CardBody>
             </Card>
@@ -225,23 +225,10 @@ export default function WindsorPubPage() {
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="Popular with Windsor Groups"
+              title="For Windsor Groups"
             />
 
-            <div className="grid md:grid-cols-2 gap-5 mb-8">
-              <Card accent>
-                <CardBody className="p-6">
-                  <h3 className="font-display text-h4 text-ink-strong mb-4">Regular Visitors</h3>
-                  <ul className="space-y-2 text-ink-muted">
-                    <li>• Windsor Rugby Club socials</li>
-                    <li>• Eton College staff gatherings</li>
-                    <li>• Windsor & Eton FC supporters</li>
-                    <li>• Local business networking</li>
-                    <li>• Theatre Royal Windsor groups</li>
-                  </ul>
-                </CardBody>
-              </Card>
-
+            <div className="mx-auto max-w-xl mb-8">
               <Card accent>
                 <CardBody className="p-6">
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Perfect For</h3>
@@ -307,12 +294,12 @@ export default function WindsorPubPage() {
             <div className="grid md:grid-cols-3 gap-5 mb-8">
               <Card accent>
                 <CardBody className="p-6">
-                  <h3 className="font-display text-h4 text-ink-strong mb-3">Better Than Tourist Pubs</h3>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">A Proper Village Pub</h3>
                   <ul className="space-y-2 text-ink-muted text-sm">
-                    <li>• Authentic atmosphere</li>
-                    <li>• Local prices</li>
+                    <li>• A village pub since 1751</li>
+                    <li>• Fair village prices</li>
                     <li>• Real community feel</li>
-                    <li>• No tourist crowds</li>
+                    <li>• Where everyone&apos;s welcome</li>
                   </ul>
                 </CardBody>
               </Card>
@@ -343,8 +330,7 @@ export default function WindsorPubPage() {
             </div>
 
             <p className="text-lg text-ink-muted">
-              Join the many Windsor residents who've discovered their new favourite pub -
-              where you're treated like a local, not a tourist!
+              Come over from Windsor and you&apos;ll be treated like a local.
             </p>
           </div>
         </Container>
@@ -359,13 +345,10 @@ export default function WindsorPubPage() {
             />
             <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
-                If you&rsquo;re looking for pubs near Windsor, you know the drill: fight for a parking space in River Street or King Edward VII car park, pay through the nose, then squeeze into a packed High Street pub where half the crowd are day-trippers clutching castle guidebooks. There&rsquo;s nothing wrong with the tourist pubs, they serve their purpose, but sometimes you want somewhere that feels like <em>yours</em>.
+                Looking for pubs near Windsor? Sometimes you want somewhere that feels like <em>yours</em>. We&rsquo;re a short drive away, with {PARKING.capacity} free spaces right outside the door.
               </p>
               <p>
-                That&rsquo;s what brings Windsor residents our way. It&rsquo;s a short drive, and you swap Windsor&rsquo;s parking charges for {PARKING.capacity} free spaces right outside the door.
-              </p>
-              <p>
-                We get a lot of Windsor Great Park walkers who have spent the morning on the Long Walk or around Virginia Water and want a proper pub lunch without heading back into town. Castle staff pop in after their shifts too, they&rsquo;ve told us they prefer somewhere they won&rsquo;t bump into visitors from work. And if you&rsquo;ve just done the Theatre Royal or a Windsor Racecourse meeting, we&rsquo;re a brilliant pit-stop on the way home, quieter, cheaper, and you can actually hear your mates talk.
+                Spent the morning on the Long Walk or around Virginia Water? Come over for a proper pub lunch. And if you&rsquo;ve just done the theatre or a Windsor Racecourse meeting, we&rsquo;re a good stop on the way home.
               </p>
               <p>
                 The beer garden is the clincher for most people. Sit outside with a pint and watch the planes coming into Heathrow overhead, it&rsquo;s a genuinely good free show. {DOGS_WORDING} So if you&rsquo;ve brought the spaniel along for that Great Park walk, they&rsquo;re sorted too.
@@ -393,8 +376,8 @@ export default function WindsorPubPage() {
       <OrganicSearchClusterLinks
         cluster="localPub"
         currentPath="/windsor-pub"
-        title="Compare local pub pages"
-        intro="Use these local pages for nearby pub, food and directions searches before you visit."
+        title="More local guides"
+        intro="More on the food, the pub and how to find us."
       />
 
       {/* FAQ Section */}
@@ -405,8 +388,8 @@ export default function WindsorPubPage() {
             answer: `The Anchor is a short drive from Windsor. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}.`
           },
           {
-            question: "Why do Windsor residents come to The Anchor instead of Windsor pubs?",
-            answer: "Many Windsor locals prefer The Anchor for the authentic village pub atmosphere, significantly lower prices than tourist-focused Windsor pubs, free parking, and the chance to enjoy a proper local without the crowds. Plus, we're outside the ULEZ zone!"
+            question: "Why come to The Anchor from Windsor?",
+            answer: `For a proper village pub with fair village prices, Sunday roasts and stone-baked pizzas, and a beer garden under the Heathrow flight path. ${PARKING_WORDING} ${ULEZ_WORDING}`
           },
           {
             question: "Is there parking at The Anchor for Windsor visitors?",
@@ -417,12 +400,12 @@ export default function WindsorPubPage() {
             answer: `Set your sat nav to ${CONTACT.address.postcode}, or use the Get directions link on this page.`
           },
           {
-            question: "Do you get many customers from Windsor and Eton?",
-            answer: "Absolutely! We have many regulars from Windsor, Old Windsor, Datchet, and Eton. Castle staff, local business people, and sports clubs often choose us for meals and events away from the tourist areas."
+            question: "Is The Anchor handy for Windsor and Eton?",
+            answer: "Yes. We're a short drive from Windsor, Old Windsor, Datchet and Eton, and parking's free when you get here."
           },
           {
             question: "Can you accommodate large Windsor groups?",
-            answer: `Yes! We regularly host groups from Windsor for birthdays, work events, and celebrations. We can accommodate private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}. Many prefer us to Windsor venues for better value and a more relaxed atmosphere.`
+            answer: `Yes. We host birthdays, work events and celebrations, with private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}.`
           }
         ]}
         className="bg-canvas"
@@ -431,7 +414,7 @@ export default function WindsorPubPage() {
       {/* CTA Section */}
       <CtaBand
         title="Discover Windsor's Favourite Local"
-        copy="A short drive from the castle - where Windsor locals escape the tourists"
+        copy="A short drive from the castle, with free parking right outside"
       >
         <Button asChild variant="primary" size="lg">
           <Link href={CONTACT.phoneHref}>Book a Table</Link>

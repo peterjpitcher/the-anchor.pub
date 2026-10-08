@@ -22,7 +22,7 @@ import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
 import { CONTACT, BRAND, HEATHROW_TIMES, DRIVE_TIMES } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
-import { PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
+import { DECORATING_WORDING, PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY, PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 import { OccasionCard } from './_components/OccasionCard'
 import { CateringPackagesCard } from './_components/CateringPackagesCard'
@@ -62,7 +62,7 @@ const occasions = [
         href: '/corporate-events',
         icon: Briefcase,
         title: 'Corporate events',
-        description: 'Meetings, training days and team lunches with AV equipment and free WiFi.',
+        description: 'Meetings, training days and team lunches with TVs, a sound system and free WiFi.',
     },
     {
         href: '/christmas-parties',
@@ -132,7 +132,7 @@ const whyPoints = [
     },
     {
         lead: 'A personal touch.',
-        text: 'You plan your event directly with the team, not a faceless events desk, and bring your own decorations.',
+        text: `You plan your event directly with the team, not a faceless events desk. Bring your own decorations if you like. ${DECORATING_WORDING}`,
     },
     {
         lead: 'Easy to reach.',
@@ -143,10 +143,7 @@ const whyPoints = [
 const roomSetups = [
     { title: 'Banquet', capacity: `Dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}`, desc: 'A seated dining set-up for meals and celebrations' },
     { title: 'Boardroom', capacity: `Dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}`, desc: 'A meeting-table layout for discussions and presentations' },
-    { title: 'Cocktail reception', capacity: `Main area up to ${PRIVATE_HIRE_CAPACITY.spaces.mainArea.standing} standing`, desc: 'A standing reception for larger gatherings' },
-    { title: 'Theatre', capacity: 'Confirmed on enquiry', desc: 'Forward-facing seating for presentations' },
-    { title: 'Classroom', capacity: 'Confirmed on enquiry', desc: 'Tables and chairs for training or workshops' },
-    { title: 'Cabaret', capacity: 'Confirmed on enquiry', desc: 'Social seating arranged around a presentation area' },
+    { title: 'Standing', capacity: `Dining room holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing`, desc: 'A standing get-together with drinks and a buffet' },
 ]
 
 const privateHireFaqs = [
@@ -156,7 +153,7 @@ const privateHireFaqs = [
     },
     {
         question: 'Do you have a private room for hire near Heathrow?',
-        answer: `Yes. Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated} or holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing, with French doors onto the beer garden. The main area suits bigger groups, and exclusive hire of the whole pub covers up to ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.seated} seated or ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing} standing.`,
+        answer: `Yes. Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated} or holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing, with French doors onto the beer garden. For a bigger group, ask about the whole pub: exclusive hire covers up to ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.seated} seated or ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing} standing.`,
     },
     {
         question: 'How many guests can you host?',
@@ -164,7 +161,7 @@ const privateHireFaqs = [
     },
     {
         question: 'Can you host corporate events and meetings?',
-        answer: `Yes. We host meetings, training days and team meals with AV equipment, free WiFi and VAT invoicing, around ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and ${DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14.`,
+        answer: `Yes. We host meetings, training days and team meals with TVs and a sound system, free WiFi and VAT invoicing, around ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and ${DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14.`,
     },
     {
         question: 'Is there parking for private hire guests?',
@@ -172,7 +169,7 @@ const privateHireFaqs = [
     },
     {
         question: 'Can you arrange a wake at short notice?',
-        answer: 'Yes. We accept wake bookings at 24 to 48 hours’ notice where we can, with a private entrance area and a quiet, self-contained room.',
+        answer: 'Yes. We accept wake bookings at 24 to 48 hours’ notice where we can, with a private entrance area.',
     },
     {
         question: 'What kinds of events do you host?',
@@ -251,9 +248,8 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
             ...ACCESS_AMENITY_FEATURES,
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Private Dining Room", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "AV Equipment", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "WiFi", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Private Bar", "value": true }
+            { "@type": "LocationFeatureSpecification", "name": "TVs and sound system", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "WiFi", "value": true }
         ],
         "potentialAction": {
             "@type": "ReserveAction",
@@ -405,7 +401,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                     <SectionHeading
                         kicker="Layouts"
                         title="Configure the space your way"
-                        lead="Six ways to set the room, from a seated dinner to a standing reception. We arrange the layout before you arrive."
+                        lead="Seated or standing, tell us how you'd like the room and we'll set it up before you arrive."
                     />
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {roomSetups.map(setup => (
@@ -527,7 +523,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 links={[
                     { href: '/private-hire/brochures', title: 'All 2026 Event Brochures', description: 'Nine brochures by occasion, with every space, menu and package' },
                     { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
-                    { href: '/private-hire/wakes', title: 'Wakes & Memorials', description: 'A quiet private room with a private entrance and short-notice bookings' },
+                    { href: '/private-hire/wakes', title: 'Wakes & Memorials', description: 'A private entrance area and short-notice bookings' },
                     { href: '/private-hire/anniversary-parties', title: 'Anniversary Parties', description: 'Milestone celebrations with food, drinks and free parking' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                     { href: '/join-our-team', title: 'Work at The Anchor', description: 'Bar and kitchen jobs near Heathrow' },

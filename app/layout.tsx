@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'The Anchor | Pub Near Heathrow Airport | Stanwell Moor',
-    description: 'Traditional British venue near Heathrow with hosted events, live entertainment & great food. Dog-friendly beer garden.',
+    description: 'Traditional British venue near Heathrow with great food, quiz nights and hosted events. Dog-friendly beer garden.',
     // No `url` here. Every page without its own share block inherits this
     // one, and a url set here made each of them share as the homepage. Without
     // it a share uses the address the visitor is on.

@@ -7,7 +7,7 @@ import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
-import { CONTACT, BRAND, PARKING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { CONTACT, BRAND, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
 import { PARKING_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import { bookingConfig } from '@/lib/booking-config'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -82,7 +82,7 @@ export default function SunburyPubPage() {
         image="/images/page-headers/sunbury-pub/find-us.jpg"
         crumb="Sunbury"
         title="Destination Dining Near Sunbury"
-        lead="Escape the town centre for a traditional village experience"
+        lead="A traditional village pub, a short drive from Sunbury"
         actions={
           <BookTableButton source="sunbury_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -104,7 +104,7 @@ export default function SunburyPubPage() {
                             Pubs in Sunbury, a Sunday Roast Worth the Drive
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Many Sunbury residents make the short drive to The Anchor for our famous Sunday roasts. If you&rsquo;re looking for pubs near Sunbury with quality food, better value, and easy parking, we tick every box.
+                            Many Sunbury residents make the short drive to The Anchor for our famous Sunday roasts. If you&rsquo;re looking for pubs near Sunbury with quality food, fair village prices and free parking, come and see us.
                         </p>
                     </div>
                 </Container>
@@ -147,11 +147,11 @@ export default function SunburyPubPage() {
                             <CardBody className="p-8 text-center">
                                 <h3 className="font-display text-h3 text-ink-strong mb-4">Milestone Birthdays & Events</h3>
                                 <p className="text-ink-muted mb-6">
-                                    Struggling to find a venue in Sunbury that ticks all the boxes? We offer private rooms, flexible catering, and {PARKING.capacity} free spaces.
+                                    The dining room, the garden or the whole pub can be hired by the hour. Prices and menus are on the private hire page.
                                 </p>
                                 <div className="flex flex-wrap justify-center gap-4">
                                     <Button asChild variant="primary">
-                                        <Link href="/private-hire">Use Our Venue Finder</Link>
+                                        <Link href="/private-hire">See Private Hire</Link>
                                     </Button>
                                     <PhoneButton phone={CONTACT.phone} source="sunbury_events" variant="outline">Call for a Quote</PhoneButton>
                                 </div>
@@ -185,16 +185,13 @@ export default function SunburyPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                Sunbury&rsquo;s got a decent high street, but if you&rsquo;re after a proper independent pub rather than another chain, the options thin out quickly. That&rsquo;s why a growing number of Sunbury residents have made The Anchor their regular. It&rsquo;s a short drive.
+                                After a proper independent village pub? The Anchor is a short drive from Sunbury.
                             </p>
                             <p>
-                                Kempton Park regulars are some of our biggest fans. After a day at the races, the last thing you want is to fight through Sunbury traffic for an overpriced drink. Nip across to The Anchor instead. Parking is free, and you can settle into a proper pub with a pint to dissect the day&rsquo;s results. Race day Saturdays have become a bit of a tradition for a few Sunbury groups.
+                                If you&rsquo;re a Thames Path walker or you spend your weekends around Sunbury Lock, our beer garden makes a good stop afterwards. You can sit out with a drink and watch the planes come over on their way into Heathrow. It&rsquo;s quite the backdrop for a Sunday roast.
                             </p>
                             <p>
-                                If you&rsquo;re a Thames Path walker or you spend your weekends around Sunbury Lock, you&rsquo;ll know that the riverside pub options can be heaving in summer. We offer the same relaxed, outdoor-drinking atmosphere in our beer garden, minus the crowds, with the added entertainment of watching 747s float overhead on their way into Heathrow. It&rsquo;s quite the backdrop for a Sunday roast.
-                            </p>
-                            <p>
-                                {ULEZ_WORDING} Free parking and proper pub prices that don&rsquo;t make you wince when you get to the bar. That&rsquo;s the deal.
+                                {ULEZ_WORDING} Parking&rsquo;s free, and our prices are on the <Link href="/food-menu" className="underline">live menu</Link>.
                             </p>
                         </div>
                     </div>
@@ -219,8 +216,8 @@ export default function SunburyPubPage() {
                         answer: `It's a short drive. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}.`
                     },
                     {
-                        question: "Why should I drive to The Anchor instead of staying in Sunbury?",
-                        answer: "We offer better value for money, free parking, and a more relaxed village atmosphere. Plus, many say our Sunday Roast is superior!"
+                        question: "Why drive to The Anchor from Sunbury?",
+                        answer: `For Sunday roasts carved fresh, a relaxed village pub and a beer garden under the Heathrow flight path. ${PARKING_WORDING}`
                     },
                     {
                         question: "Do I need to book for Sunday Roast?",

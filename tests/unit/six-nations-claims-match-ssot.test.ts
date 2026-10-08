@@ -1,3 +1,4 @@
+import { SLIDESHOW_WORDING } from '@/lib/approved-wording'
 /**
  * Six Nations and screen claims stay inside docs/SSOT.md (7 October 2026).
  *
@@ -196,7 +197,9 @@ describe('Six Nations and screen claims match the SSOT', () => {
     })
 
     it('keeps the slideshow and cables facts on the retirement parties page, on TVs', () => {
-      expect(retirement).toContain(
+      // The page reads the sentence from its one home, which must still say what the SSOT says.
+      expect(retirement).toContain('${SLIDESHOW_WORDING}')
+      expect(SLIDESHOW_WORDING).toContain(
         'Our TVs can be used for photo slideshows or presentations, and we provide the connection cables.'
       )
       expect(retirement).not.toMatch(/large screens?/i)

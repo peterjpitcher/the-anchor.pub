@@ -37,7 +37,7 @@ export default function EghamPubPage() {
     "@context": "https://schema.org",
     "@type": "BarOrPub",
     "name": BRAND.name,
-    "description": "Traditional British pub serving Egham residents and Royal Holloway students with great food, drinks, and entertainment.",
+    "description": "Traditional British pub a short drive from Egham, with great food, drinks and events.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": CONTACT.address.street,
@@ -50,10 +50,6 @@ export default function EghamPubPage() {
       {
         "@type": "City",
         "name": "Egham"
-      },
-      {
-        "@type": "Place",
-        "name": "Royal Holloway University"
       }
     ],
     "telephone": "+441753682707",
@@ -116,8 +112,8 @@ export default function EghamPubPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
               {[
                 { title: "Quick Journey", description: "A short drive from Egham" },
-                { title: "Student Friendly", description: "Popular with Royal Holloway students & staff" },
-                { title: "Great Value", description: "Competitive prices compared to Egham venues" },
+                { title: "Free Parking", description: `${PARKING.capacity} free spaces right outside` },
+                { title: "Fair Village Prices", description: "Our prices are on the live menu" },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -132,14 +128,13 @@ export default function EghamPubPage() {
             <Card accent>
               <CardBody className="p-8">
                 <h3 className="font-display text-h3 text-ink-strong mb-6">
-                  Why Egham Residents & Students Choose The Anchor
+                  Why Egham Residents Choose The Anchor
                 </h3>
                 <ul className="space-y-4 text-ink">
                   {[
-                    'Free parking - no expensive Egham parking charges',
-                    'Traditional pub atmosphere away from chain venues',
-                    'Perfect for Royal Holloway society meetups',
-                    'Regular quiz nights - build your own team',
+                    'Free parking right outside',
+                    'A traditional village pub atmosphere',
+                    'Monthly quiz nights - bring a team of up to 6',
                     'Our celebrated Sunday roasts worth the journey',
                   ].map((item) => (
                     <li key={item} className="flex items-start">
@@ -173,10 +168,10 @@ export default function EghamPubPage() {
 
             <Card accent className="mt-8">
               <CardBody className="p-6">
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Royal Holloway Students</h3>
+                <h3 className="font-display text-h4 text-ink-strong mb-2">Coming as a Group?</h3>
                 <p className="text-ink-muted">
-                  Organising a society event? We're the perfect venue for Royal Holloway societies and sports teams.
-                  Ideal for end-of-term celebrations, social mixers, and team dinners. Contact us for group bookings.
+                  Organising a club social, a team dinner or an end-of-term get-together? Book a table online, or{' '}
+                  <Link href="/private-hire" className="underline">ask about private hire</Link> for a bigger group.
                 </p>
               </CardBody>
             </Card>
@@ -194,10 +189,10 @@ export default function EghamPubPage() {
             <div className="grid md:grid-cols-2 gap-5">
               <Card accent>
                 <CardBody className="p-6">
-                  <h3 className="font-display text-h4 text-ink-strong mb-3">Royal Holloway Gatherings</h3>
-                  <p className="mb-3 text-ink-muted">Popular with Royal Holloway students and staff</p>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">Group Get-Togethers</h3>
+                  <p className="mb-3 text-ink-muted">A short drive from Egham, with free parking</p>
                   <ul className="space-y-2 text-ink">
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Perfect for society meetups</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Club and society meetups</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>End-of-term celebrations</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Sports team dinners</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Quiz team headquarters</li>
@@ -210,8 +205,8 @@ export default function EghamPubPage() {
                   <p className="mb-3 text-ink-muted">Join other Egham locals who make the journey</p>
                   <ul className="space-y-2 text-ink">
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Stone-Baked Pizzas</li>
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Wednesday Quiz Nights</li>
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Monthly Wednesday Quiz Nights</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span><span>Music Bingo with Nikki Manfadge (<Link href="/whats-on" className="underline">see what&apos;s on</Link>)</span></li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Sunday Roast (walk-ins welcome, 1pm to 6pm)</li>
                   </ul>
                 </CardBody>
@@ -240,10 +235,7 @@ export default function EghamPubPage() {
             />
             <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
-                When you search for pubs in Egham, you&rsquo;ll find a few decent options on the High Street, but anyone who&rsquo;s lived there long enough knows they can get a bit samey. The Anchor offers something different: a genuine village pub with character, a short drive away.
-              </p>
-              <p>
-                Royal Holloway students have been finding their way to us for years. When you&rsquo;ve had enough of the campus bar or the Egham high street circuit, a short taxi ride gets you to a proper pub with real character. We&rsquo;re popular for society socials, end-of-term celebrations, and those post-graduation family lunches where you actually want somewhere that isn&rsquo;t rammed. Parents seem to love the free parking and the beer garden, especially if graduation falls on a sunny day.
+                Searching for pubs in Egham? The Anchor is a genuine village pub with character, a short drive away.
               </p>
               <p>
                 Then there&rsquo;s the Runnymede crowd. If you&rsquo;ve spent the afternoon at the JFK Memorial or walking the meadows, you&rsquo;re a short drive from us. The Air Forces Memorial on Cooper&rsquo;s Hill is another popular starting point, visitors often tell us they stumbled across The Anchor while looking for somewhere to eat afterwards, and now it&rsquo;s become part of the routine. A reflective walk followed by a quiet pint in the garden feels about right.
@@ -274,14 +266,6 @@ export default function EghamPubPage() {
           {
             question: "How far is The Anchor from Egham?",
             answer: `The Anchor is a short drive from Egham town centre. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}. ${PARKING_WORDING}`
-          },
-          {
-            question: "Is The Anchor popular with Royal Holloway students?",
-            answer: "Yes! Many Royal Holloway students and staff visit The Anchor for our relaxed atmosphere, great food, and regular events. We're a short drive from the university campus."
-          },
-          {
-            question: "Can you host Royal Holloway society events?",
-            answer: "Absolutely! We regularly host Royal Holloway society events, sports team celebrations, and end-of-term parties. We can reserve areas for your society and help make your event special."
           }
         ]}
         className="bg-canvas"
@@ -290,7 +274,7 @@ export default function EghamPubPage() {
       {/* CTA Section */}
       <CtaBand
         title="Worth the Journey from Egham"
-        copy="Discover why so many Egham residents and Royal Holloway students make The Anchor their regular"
+        copy="Discover why so many Egham residents make The Anchor their regular"
       >
         <Button asChild variant="primary" size="lg">
           <Link href="tel:+441753682707">Call: 01753 682707</Link>

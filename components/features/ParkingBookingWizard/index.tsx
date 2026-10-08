@@ -505,7 +505,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             </div>
 
             <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
-              <p className="font-semibold text-accent-text">Best rates for longer stays</p>
+              <p className="font-semibold text-accent-text">Our rates</p>
               {isLoadingRates && <p className="mt-1 text-ink-muted">Loading the latest rate card…</p>}
               {ratesError && <p role="alert" className="mt-1 text-anchor-danger">{ratesError}</p>}
 	              {rates && !ratesError && (

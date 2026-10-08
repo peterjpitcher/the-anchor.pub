@@ -20,6 +20,7 @@ import { Badge } from '@/components/ui/primitives/Badge'
 import { Button } from '@/components/ui/primitives/Button'
 import { EventBookingButton } from '@/components/EventBookingButton'
 import { cn } from '@/lib/utils'
+import { getEventArrivalLabel } from '@/lib/event-arrival-label'
 import {
   getCategoryChipStyle,
   getEventDetailHref,
@@ -170,7 +171,7 @@ export function FeaturedEvent({ event, className }: FeaturedEventProps) {
             {/* "Arrive from", never "Doors": the pub opens hours before any event
                 starts, and a "Doors 6:30pm" label tells a customer it is shut
                 until then. docs/SSOT.md §10 bans the wording. */}
-            {doorTime && <MetaCell label="Arrive from" value={doorTime} />}
+            {doorTime && <MetaCell label={getEventArrivalLabel(event)} value={doorTime} />}
           </div>
 
           {/* Actions: md buttons so both fit one row at lg+, keeping the

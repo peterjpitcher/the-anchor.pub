@@ -74,7 +74,7 @@ export default async function DogFriendlyPage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
                                 { title: 'Water Bowls', description: "Fresh water always available. Just ask at the bar if you can't see a bowl." },
-                                { title: 'Treats Available', description: 'Dog biscuits in a jar near the door for our favourite customers.' },
+                                { title: 'Dog Biscuits', description: 'Dog biscuits in a jar near the door for our favourite customers.' },
                                 { title: 'Large Garden', description: 'Plenty of grassy space outside for a sniff and a stretch of the legs.' }
                             ].map(feature => (
                                 <Card key={feature.title} accent hover>

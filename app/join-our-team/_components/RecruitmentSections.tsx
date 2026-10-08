@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button, Icon } from '@/components/ui'
 import { DirectionsButton } from '@/components/DirectionsButton'
+import { STAFF_PAY_WORDING } from '@/lib/constants'
 import type { RecruitmentRoleValue } from '../recruitmentContent'
 
 type Fact = {
@@ -40,7 +41,7 @@ export function QuickFactsBox({ facts, title = 'Quick facts' }: { facts: Fact[];
 export function PayNotice() {
   return (
     <div className="rounded-md border border-line bg-surface p-5 shadow-sm">
-      <p className="text-lg font-semibold text-ink-strong">Pay: £12.71 per hour base rate</p>
+      <p className="text-lg font-semibold text-ink-strong">Pay: {STAFF_PAY_WORDING}</p>
       <p className="mt-2 text-sm leading-relaxed text-ink-muted">
         Holiday pay is handled in line with current UK holiday pay rules and will be clearly shown in your
         contract and payslip.
@@ -109,7 +110,7 @@ export function RoleQuickFacts({ role }: { role?: RecruitmentRoleValue }) {
     <QuickFactsBox
       facts={[
         { label: 'Role', value: roleLabel },
-        { label: 'Pay', value: '£12.71 per hour base rate' },
+        { label: 'Pay', value: STAFF_PAY_WORDING },
         { label: 'Hours', value: 'Part-time, mainly evenings and weekends' },
         { label: 'Location', value: 'The Anchor, Stanwell Moor, TW19 6AQ' },
         { label: 'Parking', value: 'Free on-site parking' },

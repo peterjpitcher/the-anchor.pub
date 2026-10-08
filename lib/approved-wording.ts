@@ -169,3 +169,39 @@ export const COMMENTARY_WORDING = "The commentary's on for big games and tournam
  * about a charge, a saving or a fee.
  */
 export const ULEZ_WORDING = "We're outside the ULEZ zone."
+
+/*
+ * Private hire: times, decorating, cakes and slideshows. Every sentence below
+ * is in docs/SSOT.md section 16. The facts are the owner's of 7 October 2026
+ * (SSOT section 11): "by arrangement" is the whole rule on times, so no page
+ * types a clock time, "early starts" or "until late".
+ */
+
+/** SSOT section 16, "Private hire times". */
+export const PRIVATE_HIRE_TIMES_WORDING =
+  'A start before 12pm or a finish after 10pm is by arrangement, so tell us the times you have in mind.'
+
+/** SSOT section 16, "Decorating at a private hire". The gender reveal included. */
+export const DECORATING_WORDING =
+  "No confetti cannons or confetti balloons, please. Smoke cannons are for outside only, well away from buildings and fencing. Please don't use push pins, Blu Tack, sticky tape or anything else that could damage the paintwork."
+
+/** SSOT section 16, "Bringing a celebration cake". */
+export const CELEBRATION_CAKE_WORDING =
+  "You're welcome to bring a celebration cake. We'll ask whoever brings it to sign our outside-food waiver."
+
+/** SSOT section 16, "Slideshows at a private hire". Never "large screens" or a cable type. */
+export const SLIDESHOW_WORDING =
+  "Our TVs can be used for photo slideshows or presentations, and we provide the connection cables. Test yours with us in advance. We don't have a projector."
+
+/**
+ * SSOT section 16, "Luggage". Section 8 lists "Luggage storage" among the
+ * amenities and nothing more, so no page says "secure", "safe", a size limit
+ * or where the bags go (site review finding C4-024).
+ */
+export const LUGGAGE_WORDING = 'We have luggage storage. Ask the bar team when you arrive.'
+
+/**
+ * SSOT section 16, "Charging a phone or laptop". Plug sockets and "tables with
+ * power points" are not on record (site review finding C4-025).
+ */
+export const CHARGING_WORDING = 'Ask the bar team if you need to charge something.'

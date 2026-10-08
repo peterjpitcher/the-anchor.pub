@@ -1,4 +1,4 @@
-import { PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
+import { PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING, PRIVATE_HIRE_TIMES_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import Link from 'next/link'
 import { Metadata } from 'next'
@@ -39,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
         description: `A private room for wakes and funeral teas near Staines and Heathrow. Seats ${diningRoom.seated}, or ${diningRoom.standing} standing, ${buffetPhrase}, free parking.`,
         openGraph: {
             title: 'Wake Venue Near Staines & Heathrow | The Anchor Stanwell Moor',
-            description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. ${buffetPhrase}. Minutes from local crematoriums.`,
+            description: `Respectful, private spaces for wakes, funeral teas and celebrations of life, with ${buffetPhrase}. Minutes from local crematoriums.`,
             images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         },
         twitter: getTwitterMetadata({
@@ -118,7 +118,7 @@ export default async function WakesPage() {
                 lead="A peaceful, respectful venue for gathering with family and friends. A private entrance area is available, and we can arrange everything at 24 to 48 hours' notice."
                 badges={
                     <>
-                        <Badge variant="sand">Private Entrance</Badge>
+                        <Badge variant="sand">Private Entrance Area</Badge>
                         <Badge variant="sand">Near SW Middlesex Crematorium</Badge>
                         <Badge variant="sand">Compassionate Team</Badge>
                         <Badge variant="sand">{fromPrice ? `Funeral Tea from ${fromPrice}pp` : 'Current catering packages'}</Badge>
@@ -213,7 +213,7 @@ export default async function WakesPage() {
                         {[
                             { title: "Private Dining Room", description: `Our self-contained private dining room seats up to ${diningRoom.seated} guests, or up to ${diningRoom.standing} standing. For larger gatherings the venue can be arranged to suit a wider group. The room is quiet, enclosed, and separate from the main bar area.` },
                             { title: "Getting In and Around", description: ACCESS_WORDING },
-                            { title: "Flexible Timing", description: "We are available any day of the week, including at short notice for same-week bookings. We work around funeral service times. A start before 12pm or a finish after 10pm is by arrangement, so call us and tell us the times you have in mind." },
+                            { title: "Flexible Timing", description: `We can often take a wake booking at 24 to 48 hours' notice. ${PRIVATE_HIRE_TIMES_WORDING}` },
                             { title: "What It Costs", description: `Our packages cover the food, dedicated staff, setup, and cleardown. ${ROOM_HIRE_WORDING} ${PRIVATE_HIRE_DEPOSIT_WORDING}` },
                             { title: "Allergies and Dietary Needs", description: PRIVATE_HIRE_DIETARY_WORDING },
                             { title: "Free Parking", description: `${PARKING_WORDING} We're ${WAKE_VENUE_DRIVE_MINUTES['south-west-middlesex-crematorium']} minutes' drive from South West Middlesex Crematorium.` },
@@ -237,7 +237,7 @@ export default async function WakesPage() {
                     />
                     <div className="mx-auto space-y-4 text-ink-muted">
                         <p>
-                            Organising a wake reception can feel overwhelming, especially during such a difficult time. At The Anchor, we have hosted hundreds of funeral receptions and wakes over the years, and our experienced team knows exactly how to make the day run smoothly. Here is what you can expect when you choose us as your wake venue.
+                            Organising a wake reception can feel overwhelming, especially during such a difficult time. At The Anchor, our team will help the day run smoothly. Here is what you can expect when you choose us as your wake venue.
                         </p>
                         <p>
                             Before the day, we will agree on all the details with you or your funeral director by phone. We are happy to liaise directly with the funeral home if that is easier for you. We will confirm the catering, room layout, arrival time, and any personal touches you would like.
@@ -246,10 +246,10 @@ export default async function WakesPage() {
                             On the morning of your wake reception, our team will prepare the private dining room to your requirements. If you have provided photographs, an order of service, or flower arrangements, we will set these up on a dedicated display table. The room will be clean, warm, and ready before any guests arrive.
                         </p>
                         <p>
-                            When guests begin to arrive, our staff will be on hand to welcome everyone and direct them to the private space. Tea, coffee, and soft drinks can be ready on arrival, or we can serve drinks from the bar as guests settle in. If you have ordered a buffet, we will lay it out at a time that suits your schedule, many families prefer to allow 30 to 45 minutes of mingling before food is served.
+                            When guests begin to arrive, our staff will be on hand to welcome everyone and direct them to the private space. Tea, coffee, and soft drinks can be ready on arrival, or we can serve drinks from the bar as guests settle in. If you have ordered a buffet, we will lay it out at a time that suits your schedule.
                         </p>
                         <p>
-                            Throughout the afternoon, we maintain a discreet presence. Our team is always nearby if you need anything, extra drinks, more napkins, a quiet word about timings, but we will never intrude on your gathering. Many families tell us they appreciated the balance between attentive service and respectful distance.
+                            Throughout the afternoon, we maintain a discreet presence. Our team is always nearby if you need anything, extra drinks, more napkins, a quiet word about timings, but we will never intrude on your gathering.
                         </p>
                         <p>
                             We understand that some gatherings naturally wind down after a couple of hours, while others continue into the early evening. We will never rush you. When you are ready to leave, we take care of all the cleardown and cleaning.
@@ -295,7 +295,7 @@ export default async function WakesPage() {
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
-                                Funeral tea packages cover the food, dedicated staff, setup, and cleardown, and parking is free. {ROOM_HIRE_WORDING} Prices are indicative and may vary based on guest numbers and specific requirements. Call us on <strong className="text-accent-text">01753 682707</strong> for a bespoke quote tailored to your needs.
+                                Funeral tea packages cover the food, dedicated staff, setup, and cleardown, and parking is free. {ROOM_HIRE_WORDING} Prices are indicative and may vary based on guest numbers and specific requirements. Call us on <strong className="text-accent-text">01753 682707</strong> for a quote.
                             </p>
                         </CardBody></Card>
                     </div>
@@ -318,7 +318,10 @@ export default async function WakesPage() {
                 title="How our team looks after people"
                 subtitle="From our Google reviews. We have not published reviews of funerals we have hosted, out of respect for the families concerned."
                 className="py-section-y bg-surface"
-                reviews={getReviewsByTopic('hospitality', 3)}
+                reviews={getReviewsByTopic('hospitality', 4)
+                    // A review of a gender reveal has no place on the wakes page.
+                    .filter((review) => !/gender reveal/i.test(review.quote))
+                    .slice(0, 3)}
             />
 
             <section className="py-section-y bg-surface-sunk">
@@ -333,14 +336,14 @@ export default async function WakesPage() {
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">1</span>
                                 <div>
                                     <h3 className="font-semibold text-ink-strong mb-1">Call us or ask your funeral director to call</h3>
-                                    <p className="text-ink-muted">You can call us directly on 01753 682707, or your funeral director can make the arrangements on your behalf. We are available seven days a week and can often accommodate bookings within 24 to 48 hours.</p>
+                                    <p className="text-ink-muted">You can call us directly on 01753 682707, or your funeral director can make the arrangements on your behalf. We can often accommodate bookings within 24 to 48 hours.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">2</span>
                                 <div>
                                     <h3 className="font-semibold text-ink-strong mb-1">Choose your catering package</h3>
-                                    <p className="text-ink-muted">Select from our classic finger buffet, enhanced buffet, or afternoon tea. We can also create a bespoke menu if you have something specific in mind. {PRIVATE_HIRE_DIETARY_WORDING}</p>
+                                    <p className="text-ink-muted">Select from our sandwich buffet, finger buffet, premium buffet or afternoon tea. {PRIVATE_HIRE_DIETARY_WORDING}</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
@@ -390,7 +393,7 @@ export default async function WakesPage() {
                             Families travelling from Staines will find our location in Stanwell Moor easy to reach by car or taxi. {PARKING_WORDING}
                         </p>
                         <p className="text-ink-muted">
-                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <PhoneLink phone={CONTACT.phone} source="wakes_staines" className="text-accent-text hover:underline" showIcon={false} />, there is always someone here to help.
+                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <PhoneLink phone={CONTACT.phone} source="wakes_staines" className="text-accent-text hover:underline" showIcon={false} />.
                         </p>
                     </div>
                 </Container>
@@ -406,16 +409,12 @@ export default async function WakesPage() {
             <FAQAccordionWithSchema
                 faqs={[
                     {
-                        question: "How quickly can I book a wake?",
-                        answer: "We understand that wakes often need to be arranged at short notice. Call us on 01753 682707 and we will do our best to accommodate you, often within 24-48 hours."
-                    },
-                    {
                         question: "How quickly can you arrange a wake?",
-                        answer: "We understand that funeral arrangements often happen at short notice. We can accommodate wake bookings within 24-48 hours. Call us on 01753 682707 to discuss."
+                        answer: `We understand that funeral arrangements often happen at short notice. We can often accommodate a wake booking within 24 to 48 hours. Call us on ${CONTACT.phone} and we will do our best to help.`
                     },
                     {
                         question: "How much does a wake reception cost?",
-                        answer: "Yes. Room hire is charged by the hour for the space you use, on top of the catering you choose and anything from the bar. Use our pricing calculator on this page for an instant estimate, or call us for a bespoke quote. Staff and parking are included."
+                        answer: `${ROOM_HIRE_WORDING} The catering you choose and anything from the bar are on top. Use our pricing calculator on this page for an instant estimate, or call us for a quote. Parking is free.`
                     },
                     {
                         question: "Can we bring our own flowers or photos?",
@@ -431,7 +430,7 @@ export default async function WakesPage() {
                     },
                     {
                         question: "Can we play our own music?",
-                        answer: "Yes, we have a sound system in the private dining room where you can play a playlist of your choice quietly in the background."
+                        answer: "Yes. You can play a playlist of your choice quietly in the background through our sound system."
                     },
                     {
                         question: PRIVATE_HIRE_DIETARY_QUESTION,

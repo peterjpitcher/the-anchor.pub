@@ -1,4 +1,6 @@
-export type RecruitmentRoleValue = 'Bar Staff' | 'Kitchen Team' | 'Either role' | 'Not sure yet'
+import { STAFF_PAY_WORDING } from '@/lib/constants'
+
+export type RecruitmentRoleValue ='Bar Staff' | 'Kitchen Team' | 'Either role' | 'Not sure yet'
 
 export type RoleSlug = 'bar-staff' | 'kitchen-team'
 
@@ -41,7 +43,7 @@ export const startDateOptions = [
 
 export const quickFacts = [
   { label: 'Roles', value: 'Bar Staff, Kitchen Team' },
-  { label: 'Pay', value: '£12.71 per hour base rate' },
+  { label: 'Pay', value: STAFF_PAY_WORDING },
   {
     label: 'Holiday pay',
     value: 'Handled in line with current UK holiday pay rules and clearly shown in contracts and payslips'
@@ -290,7 +292,7 @@ export const recruitmentRolePages: Record<RoleSlug, RecruitmentRolePage> = {
       'preparing ingredients before service',
       'cooking from the main pub menu',
       'supporting Sunday roast service',
-      'preparing pizzas, burgers, pub classics, sharers and event food',
+      'preparing pizzas, burgers, pub classics and event food',
       'following recipes, portion standards and presentation standards',
       'keeping prep areas, equipment and storage areas clean and organised',
       'following allergen, hygiene and food safety procedures carefully',

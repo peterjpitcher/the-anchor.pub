@@ -24,7 +24,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { ACCESS_SHORT_WORDING, ACCESS_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
+import { ACCESS_SHORT_WORDING, ACCESS_WORDING, CHARGING_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
   title: { absolute: `Find The Anchor | TW19 6AQ, ${HEATHROW_TIMES.terminal5} Mins from Heathrow T5` },
@@ -168,7 +168,7 @@ export default async function FindUsPage() {
                   <div className="mt-6 pt-4 border-t border-line">
                     <p className="font-semibold text-ink-strong mb-3">Look out for these landmarks:</p>
                     <ul className="space-y-2 text-ink-muted">
-                      <li>Centre of Stanwell Moor village</li>
+                      <li>On {CONTACT.address.street} in {CONTACT.address.town}</li>
                       <li>Under the Heathrow flight path</li>
                       <li>Free parking for patrons ({PARKING.capacity} spaces)</li>
                       <li>Traditional pub building with garden</li>
@@ -401,9 +401,9 @@ export default async function FindUsPage() {
                 <CardBody className="p-8">
                   <h3 className="font-display text-h3 text-ink-strong mb-6">Entertainment & Games</h3>
                   <ul className="space-y-3 text-ink-muted">
-                    <li><strong className="text-ink-strong">Pool Table</strong> - Challenge your friends</li>
-                    <li><strong className="text-ink-strong">Darts Board</strong> - Professional setup with oche</li>
-                    <li><strong className="text-ink-strong">Jukebox</strong> - Wide selection of music</li>
+                    <li><strong className="text-ink-strong">Pool Table</strong> - £1 a game</li>
+                    <li><strong className="text-ink-strong">Dartboard</strong> - A standard board for a game with friends</li>
+                    <li><strong className="text-ink-strong">Jukebox</strong> - Put a song on</li>
                     <li><strong className="text-ink-strong">Fruit Machine</strong> - Try your luck (18+)</li>
                     <li><strong className="text-ink-strong">4 TVs</strong> - Terrestrial channels for sports & news</li>
                   </ul>
@@ -414,11 +414,10 @@ export default async function FindUsPage() {
                 <CardBody className="p-8">
                   <h3 className="font-display text-h3 text-ink-strong mb-6">Work & Connectivity</h3>
                   <ul className="space-y-3 text-ink-muted">
-                    <li><strong className="text-ink-strong">Free WiFi</strong> - Fast, reliable, no time limits</li>
-                    <li><strong className="text-ink-strong">Power Points</strong> - Tables with plugs in dining room</li>
-                    <li><strong className="text-ink-strong">Quiet Weekdays</strong> - Perfect for remote work</li>
+                    <li><strong className="text-ink-strong">Free WiFi</strong> - Throughout the pub and beer garden</li>
+                    <li><strong className="text-ink-strong">Charging</strong> - {CHARGING_WORDING}</li>
                     <li><strong className="text-ink-strong">Free Parking for Patrons</strong> - While you visit</li>
-                    <li><strong className="text-ink-strong">Luggage Storage</strong> - Safe storage for travellers</li>
+                    <li><strong className="text-ink-strong">Luggage Storage</strong> - Ask the bar team when you arrive</li>
                   </ul>
                 </CardBody>
               </Card>
@@ -447,9 +446,8 @@ export default async function FindUsPage() {
             <Card accent className="mt-8">
               <CardBody className="text-center">
                 <p className="text-ink-muted">
-                  <strong className="text-accent-text">Digital Nomad Friendly:</strong> Our dining room is equipped with tables
-                  featuring power points, making it perfect for remote workers and digital nomads. Combined with free WiFi
-                  and a quiet weekday atmosphere, it&apos;s an ideal workspace near Heathrow.
+                  <strong className="text-accent-text">Working Remotely?</strong> We&apos;ve free WiFi throughout the pub
+                  and beer garden. {CHARGING_WORDING}
                 </p>
               </CardBody>
             </Card>
@@ -461,7 +459,7 @@ export default async function FindUsPage() {
         cluster="workspace"
         currentPath="/find-us"
         title="Plan your route and visit"
-        intro="Use these related pages for workspace, food and booking decisions once you know how to reach us."
+        intro="More on working from the pub, the food and booking a table."
       />
 
       {/* FAQ Section */}

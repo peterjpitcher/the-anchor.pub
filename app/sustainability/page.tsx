@@ -67,8 +67,7 @@ export default function SustainabilityPage() {
               <CardBody className="p-8">
               <p className="text-ink-muted mb-4">
                 The British Institute of Innkeeping (BII) is the UK&rsquo;s leading professional body for the licensed
-                hospitality industry. They recognised The Anchor as a Sustainability Champion, an award that
-                reflects an independent evaluation of our environmental practices and investments.
+                hospitality industry. They recognised The Anchor as a Sustainability Champion.
               </p>
               <p className="text-ink-muted">
                 This isn&rsquo;t a badge we bought. It&rsquo;s recognition that the steps we&rsquo;ve taken, from
@@ -97,13 +96,12 @@ export default function SustainabilityPage() {
                 <CardBody className="p-8">
                 <h3 className="text-xl text-ink-strong mb-3">FlowMaster</h3>
                 <p className="text-ink-muted mb-4">
-                  A system that reduces how often our beer lines need cleaning, and uses less water and fewer chemicals
-                  when they are cleaned.
+                  A system that reduces how often our beer lines need cleaning, which saves water and energy.
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="bg-surface-sunk rounded-md p-4 border border-line">
                     <p className="text-sm font-semibold text-accent-text mb-1">For the environment</p>
-                    <p className="text-sm text-ink-muted">Less water waste, fewer chemicals going down the drain.</p>
+                    <p className="text-sm text-ink-muted">Less water and energy used on cleaning the lines.</p>
                   </div>
                   <div className="bg-surface-sunk rounded-md p-4 border border-line">
                     <p className="text-sm font-semibold text-accent-text mb-1">For you</p>
@@ -126,7 +124,7 @@ export default function SustainabilityPage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="bg-surface-sunk rounded-md p-4 border border-line">
                     <p className="text-sm font-semibold text-accent-text mb-1">For the environment</p>
-                    <p className="text-sm text-ink-muted">Approximately 35% reduction in cellar cooling energy use.</p>
+                    <p className="text-sm text-ink-muted">About 35% reduction in cellar cooling energy use.</p>
                   </div>
                   <div className="bg-surface-sunk rounded-md p-4 border border-line">
                     <p className="text-sm font-semibold text-accent-text mb-1">For you</p>
@@ -146,7 +144,7 @@ export default function SustainabilityPage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="bg-surface-sunk rounded-md p-4 border border-line">
                     <p className="text-sm font-semibold text-accent-text mb-1">For the environment</p>
-                    <p className="text-sm text-ink-muted">Approximately 33% reduction in energy use for remote cooling units.</p>
+                    <p className="text-sm text-ink-muted">About 33% reduction in remote cooler energy use.</p>
                   </div>
                   <div className="bg-surface-sunk rounded-md p-4 border border-line">
                     <p className="text-sm font-semibold text-accent-text mb-1">For you</p>

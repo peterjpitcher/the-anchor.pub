@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/layout/Card'
 import { SectionHeading } from '@/components/ui'
 
 export interface Testimonial {
-  quote: string      // Raw text, no surrounding quotes — component adds them
+  quote: string      // Raw text, no surrounding quotes, component adds them
   author: string     // Display name
   source?: string    // e.g. "Google Review"
   rating?: number    // 1-5, defaults to 5
@@ -31,7 +31,7 @@ const testimonialSectionVariants = cva('', {
   },
 })
 
-/** Star rating display — accessible, purely presentational. */
+/** Star rating display, accessible, purely presentational. */
 function StarRating({ rating, className }: { rating: number; className?: string }) {
   return (
     // role="img" is required for aria-label to apply. Without it, screen
@@ -71,20 +71,20 @@ function TestimonialCard({
       </p>
       <p className="text-sm text-ink-muted">
         {review.author}
-        {review.source && <> &mdash; {review.source}</>}
+        {review.source && <>, {review.source}</>}
       </p>
     </Card>
   )
 }
 
 /**
- * TestimonialSection — displays customer testimonials in three layout variants.
+ * TestimonialSection, displays customer testimonials in three layout variants.
  *
  * - `full`: Heading + subheading + responsive card grid (default)
  * - `compact`: Horizontal scrollable strip of condensed cards
  * - `pull-quote`: Single prominent blockquote with text attribution
  *
- * Server Component — pure RSC, no client directive.
+ * Server Component, pure RSC, no client directive.
  */
 export function TestimonialSection({
   variant = 'full',
@@ -97,7 +97,7 @@ export function TestimonialSection({
     return null
   }
 
-  // Pull-quote variant — single blockquote
+  // Pull-quote variant, single blockquote
   if (variant === 'pull-quote') {
     const review = reviews[0]
     const rating = review.rating ?? 5
@@ -118,7 +118,7 @@ export function TestimonialSection({
     )
   }
 
-  // Compact variant — horizontal scroll strip
+  // Compact variant, horizontal scroll strip
   if (variant === 'compact') {
     return (
       <div className={cn('flex gap-4 overflow-x-auto pb-4', className)} role="region" tabIndex={0} aria-label="Guest reviews">
@@ -131,7 +131,7 @@ export function TestimonialSection({
     )
   }
 
-  // Full variant (default) — heading + grid
+  // Full variant (default), heading + grid
   return (
     <section className={cn(testimonialSectionVariants({ variant }), className)}>
       <div className="mx-auto px-4 sm:px-6 lg:px-8">

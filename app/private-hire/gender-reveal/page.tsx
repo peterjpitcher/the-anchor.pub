@@ -15,19 +15,20 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { DECORATING_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Gender Reveal Party Venue Near Heathrow',
     description: `Hosting a gender reveal? The Anchor has a garden for an outdoor reveal, with smoke cannons outside only. Celebrate your baby news with family and friends.`,
     openGraph: {
         title: 'Gender Reveal Parties at The Anchor',
-        description: 'Boy or Girl? Host your big reveal in our spacious beer garden. Perfect for photos, smoke cannons, and family celebrations.',
+        description: 'Boy or girl? Host your big reveal in our beer garden, with smoke cannons outside only. Food, drinks and free parking for the family.',
         images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Gender Reveal Parties at The Anchor',
-        description: 'Boy or Girl? Host your big reveal in our spacious beer garden. Perfect for photos, smoke cannons, and family celebrations.',
+        description: 'Boy or girl? Host your big reveal in our beer garden, with smoke cannons outside only. Food, drinks and free parking for the family.',
         images: [DEFAULT_CORPORATE_IMAGE]
     }),
     alternates: {
@@ -116,7 +117,7 @@ export default function GenderRevealPage() {
                             {[
                                 { title: "Garden Space", description: "Our large beer garden is the place for an outdoor reveal. Smoke cannons are for outside only, well away from buildings and fencing." },
                                 { title: "Afternoon Tea", description: "Ask about our buffet or afternoon tea style packages for a classy touch." },
-                                { title: "Family Friendly", description: "Plenty of space for kids to run around while the adults celebrate." },
+                                { title: "Family Friendly", description: "Children are welcome. The garden is next to the car park, so keep little ones with you." },
                             ].map(feature => (
                                 <Card key={feature.title} accent className="h-full text-center">
                                     <CardBody className="flex h-full flex-col gap-2">
@@ -161,7 +162,7 @@ export default function GenderRevealPage() {
                     <Card accent className="mx-auto"><CardBody>
                         <h3 className="font-display text-h4 text-ink-strong mb-3">Weather Contingency</h3>
                         <p className="text-ink-muted">
-                            We always plan for the British weather. If you are hoping for a garden reveal but conditions are poor on the day, we will switch seamlessly to our indoor backup plan. We discuss your preferred reveal method and backup option at the time of booking so that nothing is left to chance.
+                            Plan for the British weather. If conditions are poor on the day, the reveal can move indoors. Smoke cannons can&apos;t come inside, so pick an indoor option too, such as a cake cut or a balloon pop, and tell us both when you book.
                         </p>
                     </CardBody></Card>
                 </Container>
@@ -181,7 +182,6 @@ export default function GenderRevealPage() {
                                     <li>A reserved and cleared reveal space</li>
                                     <li>Help positioning guests for the best angle</li>
                                     <li>Assistance from our team to coordinate timing</li>
-                                    <li>A &quot;keeper of the gender&quot; if you want to be surprised too</li>
                                 </ul>
                             </CardBody></Card>
                             <Card><CardBody>
@@ -190,33 +190,10 @@ export default function GenderRevealPage() {
                                     <li>Your smoke cannons (for the garden) or other reveal prop</li>
                                     <li>A photographer or nominated family member with a phone</li>
                                     <li>Any backdrop, banners, or balloon arrangements</li>
-                                    <li>The sealed gender envelope (if using our keeper service)</li>
                                 </ul>
                             </CardBody></Card>
                         </div>
                     </div>
-                </Container>
-            </section>
-
-            <section className="py-section-y bg-surface-sunk">
-                <Container>
-                    <div className="mx-auto grid md:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h3 className="font-display text-h3 mb-4 text-pink-600">The "It's a Girl" Package</h3>
-                            <p className="mb-4 text-ink-muted">Thinking pink? We can help you set up the area with pink napkins, allow space for pink balloon arches, and assist with the coordination of the reveal.</p>
-                        </div>
-                        <div>
-                            <h3 className="font-display text-h3 mb-4 text-blue-600">The "It's a Boy" Package</h3>
-                            <p className="mb-4 text-ink-muted">Team Blue? We offer the same flexibility. Our staff are experts at keeping secrets if you want to hand us the envelope beforehand!</p>
-                        </div>
-                    </div>
-
-                    <Card accent className="mt-12 text-center"><CardBody>
-                        <h4 className="font-display text-h4 mb-2 text-ink-strong">Need a "Keeper of the Gender"?</h4>
-                        <p className="text-ink-muted">
-                            If you want to be surprised too, you can give the sealed results to our manager, and we will arrange the correct coloured looking cannons or cake cutting for you!
-                        </p>
-                    </CardBody></Card>
                 </Container>
             </section>
 
@@ -231,7 +208,7 @@ export default function GenderRevealPage() {
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
-                                All gender reveal venue packages include help from our team with setup and coordination, and parking is free. Room hire is charged by the hour for the space you book. Call us on <strong className="text-accent-text">01753 682707</strong> for a quote.
+                                All gender reveal venue packages include help from our team with setup and coordination, and parking is free. {ROOM_HIRE_WORDING} Call us on <strong className="text-accent-text">01753 682707</strong> for a quote.
                             </p>
                         </CardBody></Card>
                     </div>
@@ -252,7 +229,6 @@ export default function GenderRevealPage() {
                                 <ul className="text-sm text-ink-muted space-y-2">
                                     <li><strong className="text-accent-text">Smoke cannons</strong>, the most popular choice. Vivid pink or blue smoke against the open sky makes for spectacular photos. Outside only, well away from buildings and fencing.</li>
                                     <li><strong className="text-accent-text">Balloon pop</strong>, pop a balloon together for the big reveal. No confetti-filled balloons, please.</li>
-                                    <li><strong className="text-accent-text">Paint throw</strong>, wearing white, throw coloured powder paint at each other for an unforgettable reveal (and unforgettable photos).</li>
                                 </ul>
                             </CardBody></Card>
                             <Card><CardBody>
@@ -268,7 +244,7 @@ export default function GenderRevealPage() {
                         </div>
                         <Card accent><CardBody className="text-center">
                             <p className="text-ink-muted">
-                                Not sure which reveal method to choose? Our team has seen them all and can help you decide what will work best for your group size, the time of year, and your photography plans. Just ask when you enquire.
+                                Not sure which reveal to choose? Ask when you enquire and we&apos;ll help you pick one that suits your group and the space.
                             </p>
                         </CardBody></Card>
                     </div>
@@ -288,7 +264,7 @@ export default function GenderRevealPage() {
                     <div className="mx-auto text-center">
                         <h2 className="font-display text-h3 text-ink-strong mb-4">Also Considering a Baby Shower?</h2>
                         <p className="text-ink-muted mb-6">
-                            Many families combine their gender reveal with a baby shower celebration. Take a look at our baby shower page for afternoon tea packages, mocktail ideas, and games inspiration.
+                            Many families combine their gender reveal with a baby shower celebration. Take a look at our baby shower page for afternoon tea packages and games inspiration.
                         </p>
                         <Link
                             href="/private-hire/baby-showers"
@@ -312,7 +288,7 @@ export default function GenderRevealPage() {
                     },
                     {
                         question: "What happens if it rains?",
-                        answer: "We always have an indoor backup plan ready. While smoke cannons work best outdoors, we can switch to a balloon pop or cake cut inside our function area. We will agree your indoor backup option at the time of booking."
+                        answer: "The reveal can move indoors. Smoke cannons are for outside only, so pick an indoor option too, such as a balloon pop or a cake cut, and tell us both when you book."
                     },
                     {
                         question: "Can I use the garden or indoors, or both?",
@@ -320,15 +296,11 @@ export default function GenderRevealPage() {
                     },
                     {
                         question: "Can we set up a photo backdrop?",
-                        answer: "Yes. You are welcome to bring your own backdrop, balloon arch, or banner. We will make sure your reserved area has the space and access needed to set it up before guests arrive. Please don't use push pins, Blu Tack, sticky tape or anything else that could damage the paintwork."
-                    },
-                    {
-                        question: "Can you keep the gender secret for us?",
-                        answer: "Yes! If you want to be surprised too, give the sealed gender envelope to our manager beforehand. We will coordinate the reveal prop or cake so that you find out at the same time as your guests."
+                        answer: `Yes. You are welcome to bring your own backdrop, balloon arch, or banner. ${DECORATING_WORDING}`
                     },
                     {
                         question: "Is there a hire fee?",
-                        answer: "Yes, a venue hire fee applies and varies depending on the day, time, and group size. There is pricing discussed on enquiry. Contact us on 01753 682707 for specifics based on your guest count and plans."
+                        answer: `Yes. ${ROOM_HIRE_WORDING} The hourly rates are on our private hire page. Call us on ${CONTACT.phone} for a quote based on your guest count and plans.`
                     },
                     {
                         question: "Can we combine a gender reveal with a baby shower?",

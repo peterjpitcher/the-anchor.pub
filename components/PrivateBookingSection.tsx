@@ -47,7 +47,7 @@ export function PrivateBookingSection({
             <PrivateHireQuickEnquiry eventType={eventType} initialSpaceId={initialSpaceId} />
             <div className="text-center">
               <p className="text-ink-muted mb-6">
-                Use our cost estimator to build a bespoke quote for your event. Choose your space, guest count, catering, and extras to see a live price breakdown.
+                Use our cost estimator to build a quote for your event. Choose your space, guest count, catering, and extras to see a live price breakdown.
               </p>
               <StickyEstimatorDrawer
                 eventType={eventType}

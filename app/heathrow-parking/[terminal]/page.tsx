@@ -32,7 +32,7 @@ const TERMINAL_PAGES = {
   'terminal-5': {
     number: '5',
     transferTime: `${HEATHROW_TIMES.terminal5} minutes`,
-    airportIntent: 'Terminal 5 cheap parking and short-stay alternatives'
+    airportIntent: 'Terminal 5 parking and short-stay alternatives'
   }
 } as const
 
@@ -60,7 +60,7 @@ export function generateMetadata({ params }: { params: { terminal: string } }): 
   const terminal = TERMINAL_PAGES[params.terminal]
   const canonical = `/heathrow-parking/${params.terminal}`
   const title = `Cheap Heathrow Terminal ${terminal.number} Parking`
-  const description = `Compare cheap Heathrow Terminal ${terminal.number} parking options. The Anchor in Stanwell Moor is ${terminal.transferTime} away, and you keep your keys.`
+  const description = `Off-airport parking for Heathrow Terminal ${terminal.number}. The Anchor in Stanwell Moor is ${terminal.transferTime} away by car, and you keep your keys.`
 
   return {
     title,
@@ -86,7 +86,7 @@ function buildFaqs(terminalNumber: string, transferTime: string) {
   return [
     {
       question: `Is this official Heathrow Terminal ${terminalNumber} parking?`,
-      answer: `No. The Anchor is off-airport parking in Stanwell Moor, around ${transferTime} from Terminal ${terminalNumber}. Many travellers choose it when comparing official Heathrow rates with cheaper local alternatives.`
+      answer: `No. The Anchor is off-airport parking in Stanwell Moor, around ${transferTime} from Terminal ${terminalNumber}. Check Heathrow's own price for your dates and compare it with ours.`
     },
     {
       question: `What is the postcode for Heathrow Terminal ${terminalNumber} short-stay parking?`,
@@ -94,7 +94,7 @@ function buildFaqs(terminalNumber: string, transferTime: string) {
     },
     {
       question: `How much does Terminal ${terminalNumber} parking cost at The Anchor?`,
-      answer: 'Our hourly, daily and weekly prices are on our Heathrow parking page, read live from our booking system. You keep your keys, park in a CCTV-monitored area, and arrange your own taxi or rideshare transfer.'
+      answer: 'Our hourly, daily and weekly prices are on our Heathrow parking page, read live from our booking system. The car park is floodlit, level and covered by CCTV. You keep your keys, your car is parked at your own risk, and you arrange your own taxi or rideshare transfer.'
     },
     {
       question: `Can I amend or cancel my Terminal ${terminalNumber} parking booking?`,
@@ -127,13 +127,13 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         image="/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg"
         crumb="Heathrow Parking"
         title={`Cheap Heathrow Terminal ${terminalNumber} Parking`}
-        lead={`Compare Terminal ${terminalNumber} parking costs and book a cheaper off-airport option in Stanwell Moor. Typical transfer: ${terminal.transferTime}.`}
+        lead={`Off-airport parking for Terminal ${terminalNumber} at our pub in Stanwell Moor. Typical transfer: ${terminal.transferTime}.`}
         badges={
           <>
             <Badge variant="sand">{`Terminal ${terminalNumber}`}</Badge>
             <Badge variant="sand">{`Transfer ${terminal.transferTime}`}</Badge>
             <Badge variant="sand">Keep your keys</Badge>
-            <Badge variant="sand">CCTV monitored</Badge>
+            <Badge variant="sand">CCTV and floodlit</Badge>
           </>
         }
         actions={
@@ -155,7 +155,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
           <div className="mx-auto">
             <SectionHeading
               title={`Terminal ${terminalNumber} parking quick facts`}
-              lead={`Travellers searching for ${terminal.airportIntent} often see high on-airport prices. The Anchor gives you a lower-cost alternative while keeping transfer times predictable.`}
+              lead={`Looking at ${terminal.airportIntent}? The Anchor is an off-airport alternative, ${terminal.transferTime} from the terminal by car.`}
             />
             <div className="grid gap-6 md:grid-cols-3">
               <Card accent>
@@ -193,7 +193,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
                 </h2>
                 <p className="mt-3 text-ink-muted">
                   If you are comparing official Heathrow short-stay and long-stay options, always use Heathrow Airport&apos;s
-                  live parking pages for the latest official postcodes and routing. If you want a cheaper off-airport option,
+                  live parking pages for the latest official postcodes and routing. If you want an off-airport option,
                   The Anchor postcode is <strong>TW19 6AQ</strong>, and today&apos;s prices are on our{' '}
                   <Link href="/heathrow-parking" className="text-accent-text underline">Heathrow parking page</Link>.
                 </p>
@@ -252,12 +252,12 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         cluster="heathrowParking"
         currentPath={currentPath}
         title={`More Heathrow Terminal ${terminalNumber} parking help`}
-        intro="Compare the main parking page, the savings guide and directions before you book."
+        intro="Compare the main parking page, the comparison guide and directions before you book."
       />
 
       <CtaBand
         title={`Need cheap Heathrow Terminal ${terminalNumber} parking?`}
-        copy="Book online in minutes and lock your space before prices rise. You keep your keys and arrange your own transfer."
+        copy="Book online in minutes. You keep your keys and arrange your own transfer."
       >
         <Button asChild variant="primary" size="lg">
           <Link href="/heathrow-parking#book-parking">Book Heathrow parking</Link>

@@ -7,7 +7,7 @@ import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, DIRECTIONS_URL } from '@/lib/constants'
-import { PARKING_WORDING } from '@/lib/approved-wording'
+import { PARKING_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -132,7 +132,7 @@ export default function FelthamPubPage() {
           <div className="mx-auto">
             <SectionHeading
               title="Feltham's Favourite Village Escape"
-              lead="Escape the hustle of Feltham High Street for a proper traditional pub experience"
+              lead="A proper traditional village pub, a short drive from Feltham"
               className="text-center mb-12"
             />
 
@@ -165,7 +165,7 @@ export default function FelthamPubPage() {
                   </li>
                   <li className="flex items-start">
                     <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                    <span>Traditional pub atmosphere you won't find in chain venues</span>
+                    <span>A traditional village pub atmosphere</span>
                   </li>
                   <li className="flex items-start">
                     <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -173,7 +173,7 @@ export default function FelthamPubPage() {
                   </li>
                   <li className="flex items-start">
                     <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                    <span>Regular entertainment including Music Bingo hosted by Nikki Manfadge, quiz nights and one-off events (see /whats-on)</span>
+                    <span>Music Bingo hosted by Nikki Manfadge, monthly quiz nights and one-off events. <Link href="/whats-on" className="underline">See what&apos;s on</Link>.</span>
                   </li>
                   <li className="flex items-start">
                     <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -206,7 +206,7 @@ export default function FelthamPubPage() {
         </Container>
       </section>
 
-      {/* Special Offers for Feltham */}
+      {/* For Feltham groups */}
       <section className="py-section-y bg-canvas">
         <Container>
           <div className="mx-auto">
@@ -217,10 +217,9 @@ export default function FelthamPubPage() {
               <Card accent>
                 <CardBody className="p-6">
                   <h3 className="font-display text-h4 text-ink-strong mb-3">Work Gatherings</h3>
-                  <p className="mb-3 text-ink-muted">Popular with teams from Feltham's business parks. Private areas available for corporate events.</p>
+                  <p className="mb-3 text-ink-muted">The dining room, the garden or the whole pub can be hired by the hour. Prices and menus are on the <Link href="/private-hire" className="underline">private hire page</Link>.</p>
                   <ul className="space-y-2 text-ink">
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Buffet menus from current catering packages</li>
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Reserved areas available</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Free parking for all guests</li>
                   </ul>
                 </CardBody>
@@ -230,7 +229,7 @@ export default function FelthamPubPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-3">Weekend Escapes</h3>
                   <p className="mb-3 text-ink-muted">Join Feltham locals who make The Anchor their weekend destination.</p>
                   <ul className="space-y-2 text-ink">
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)</li>
+                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span><span>Music Bingo with Nikki Manfadge (<Link href="/whats-on" className="underline">see what&apos;s on</Link>)</span></li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Sunday roasts {sunday.isLive ? 'served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `start ${SUNDAY_ROAST.launchDateLabel}.`}</li>
                     <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Quiz nights & bingo</li>
                   </ul>
@@ -265,7 +264,7 @@ export default function FelthamPubPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong>Affordable pricing</strong> - Better value than Feltham High Street</span>
+                      <span><strong>Fair village prices</strong> - Our prices are on the live menu</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -303,8 +302,7 @@ export default function FelthamPubPage() {
             <Card accent className="text-center">
               <CardBody className="p-6">
                 <p className="text-lg text-ink mb-4">
-                  <strong>Feltham groups love our flexibility!</strong>
-                  Competitive rates - let's discuss your needs. {PRIVATE_HIRE_CAPACITY.summary}
+                  {ROOM_HIRE_WORDING} {PRIVATE_HIRE_CAPACITY.summary}
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button asChild variant="primary" size="md">
@@ -343,24 +341,19 @@ export default function FelthamPubPage() {
             <div className="prose max-w-none text-ink-muted space-y-4">
               <p>
                 Feltham's commercial corridor stretches from Bedfont Lakes Business Park through to the trading estates
-                along Feltham Hill Road, thousands of people finishing shifts every evening with limited options for a
-                proper sit-down meal nearby. Most end up in chain restaurants or grabbing a takeaway. The Anchor is a
+                along Feltham Hill Road. If you are finishing a shift and fancy a proper sit-down meal, The Anchor is a
                 short drive away, with free parking and hearty pub food. Kitchen times vary by date, so check
                 before you come or call {CONTACT.phone}. It is the kind of place where you can unwind with a pint of draught beer and a
-                stone-baked pizza without fighting for a table.
+                stone-baked pizza.
               </p>
               <p>
-                Coming from Feltham station? It is a short drive by taxi. For those
-                heading home after an England match at Twickenham, skip the crush around the rugby ground pubs. The
-                Anchor has free parking, and it is a much more relaxed way to keep the evening going.
+                Coming from Feltham station? It is a short drive by taxi. Heading home after an England match at
+                Twickenham? The Anchor has free parking, and it is a relaxed way to keep the evening going.
               </p>
               <p>
-                If you have been searching for pubs in Feltham, you will know the options are fairly thin on the ground
-                these days, mostly chains, a handful of takeaways, and the odd sports bar. For those after pubs near Feltham
+                For those after pubs near Feltham
                 with real character, a proper beer garden under the Heathrow flight path, and events like Music Bingo and
-                Thursday quiz nights, The Anchor is well worth the short drive. Plenty of Feltham regulars have made us their
-                go-to midweek escape, and once you have tried a lazy Sunday roast here you will wonder why you ever queued
-                on Feltham High Street.
+                monthly Wednesday quiz nights, The Anchor is well worth the short drive. Come for a lazy Sunday roast and see.
               </p>
             </div>
           </div>
@@ -382,8 +375,8 @@ export default function FelthamPubPage() {
       <OrganicSearchClusterLinks
         cluster="localPub"
         currentPath="/feltham-pub"
-        title="Compare local pub pages"
-        intro="Use these local pages for nearby pub, food and directions searches before you visit."
+        title="More local guides"
+        intro="More on the food, the pub and how to find us."
       />
 
       {/* FAQ Section */}

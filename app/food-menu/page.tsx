@@ -283,14 +283,15 @@ export default async function FoodMenuPage() {
         cluster="heathrowDining"
         currentPath="/food-menu"
         title="Food, restaurants and layover planning"
-        intro="The menu page owns live dishes and prices. Use these related pages for restaurant comparisons and Heathrow timing."
+        intro="Eating before a flight or on a layover? These pages help you plan it."
+        headings="label"
       />
 
       {/* 5. CtaBand (§7.2.5) */}
       <div data-sticky-cta-guard="true">
         <CtaBand
           title="Hungry? Grab a table."
-          copy="Weekends and busy services fill quickly. Book ahead and we will have your table ready."
+          copy="Book ahead and we will have your table ready."
           primary={
             <BookTableButton
               source="food_menu_footer"

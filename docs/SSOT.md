@@ -1269,11 +1269,27 @@ For Formula 1 (§10):
 
 > We don't do breakfast or delivery, but you can phone a takeaway order through to collect.
 
+### Luggage
+
+> We have luggage storage. Ask the bar team when you arrive.
+
+§8 lists "Luggage storage" among the amenities and nothing more. Never "secure", "safe", a size limit or where the bags go.
+
+### Charging a phone or laptop
+
+> Ask the bar team if you need to charge something.
+
+Plug sockets and tables with power points are not on record, so never promise them.
+
 ### Event arrival times
 
 > Arrive from 6:30pm for a 7pm start.
 
-Use it for quiz night, both bingos and the tasting night. Karaoke on 18 September is arrive from 7pm for an 8pm start, and the Halloween party starts at 8pm. (Mirrored from the management app on 11 September 2026.) Take any other night's times from its event record.
+Use it for quiz night, music bingo and the tasting night.
+
+> Arrive by 6:30pm for a 7pm start.
+
+Use it for cash bingo only (§10: the owner wants people in by 6:30pm, so there is time to get a drink, order food and buy books before the first game). Karaoke on 18 September is arrive from 7pm for an 8pm start, and the Halloween party starts at 8pm. (Mirrored from the management app on 11 September 2026.) Take any other night's times from its event record.
 
 Never "doors 6:30pm": the pub is open long before then, and "doors" tells people it isn't (§10).
 
@@ -1299,6 +1315,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
 - **8 October 2026, nine owner answers.** Given by the owner in chat on 8 October 2026. CCTV footage is kept for 1 month (§8). We give VAT receipts and VAT invoices (§8). A table can be booked in the garden, but not a specific table (§9). Billy and Peter co-own the tenancy; no surname for Billy is on record (§1). We offer no storage for food brought in, to avoid risks of cross-contamination (§11); the approved cake wording in §16 already made no such offer and is unchanged. The new dining room was built in 2024, and nobody knows when the conservatory was built, so the 1995 date that `SSOT.json` carried in two places is withdrawn (§8). "We can't guarantee a Snowball", so cash bingo copy never promises or projects one for a future night (§10, §14); no page did. Terminal 5 is the only terminal the 442 goes to (§2). An unsuccessful job applicant who ticks "keep my details for future roles" is covered by the same 12 months as everyone else (§2).
+
+- **8 October 2026, cash bingo is "arrive by 6:30pm".** §16 told every night, "both bingos" included, to use "Arrive from 6:30pm", while §10 has held the owner's words for cash bingo since 17 August 2026: "I want people in for 6:30pm". §10 stands and §16 now gives cash bingo its own line. The `/cash-bingo` page already said "by"; each cash bingo night's own page said "from" and now reads the label from the event's category (site review finding C2-027). In the same change §16 gained two short blocks, "Luggage" and "Charging a phone or laptop", so the one sentence each page now uses has a home here; neither adds a fact (§8 already lists luggage storage, and no socket is promised).
 
 - **8 October 2026, corrections to this document and the owner's facts of 7 October.** Two jobs in one change, both from the 7 October 2026 site review. **Corrections.** The bus line named the 441, 442 and 555 from Heathrow Central Bus Station; Surrey County Council's timetables show only the 442 stops by the pub, and it runs from Terminal 5 (§2, §14, §17). "Christmas parties finish by midnight" was confirmed by the owner on 15 August 2026 and put on `/christmas-parties`, but never written in here; it now is (§7, §11). The pool and darts facts, removed without a decision on 14 May 2026, are back, marked as at May 2026 and without the darts upgrade promise (§8). The quiz capacity mirror moved from 60 to the 49 seats the booking system now offers, and cash bingo's 60 is recorded as 49 seated plus 11 standing (§10). `SSOT.json` gave Staines Moor as a 5-minute walk and the King George VI Reservoir as 15, against the 30 minutes confirmed on 10 September; it said the area pages were not in the sitemap when they are; and it mirrored three airport parking prices this document says it never holds. All three are corrected, the paid parking product has its own entry (§8), and the area pages for Horton, Wraysbury and Longford are noted for the 10 December review (§13). `tests/ssot-drift-guard.test.ts` now fails on a walk time that disagrees, on a parking price in `SSOT.json` and on the 441 or 555 coming back into either file's bus line. **Owner facts, all confirmed 7 October 2026.** Allergens come from the management app, where they should be complete, and a gap is a record to fix there (§5, §15). We never promise nut-free, dairy-free or halal for a private booking, but we do our best (§11, §14, §16). There is no marked disabled parking bay (§8, §14). The tasting night is for over 18s only (§10). For parties, someone bringing a celebration cake signs the outside-food waiver (§11, §16). Orange Jelly Limited is the business responsible for customers' personal data (§1). The vegan Wellington is on the 1 course Christmas menu and has a price (§7). The Manager's Special is retired completely, with redirects; the discount had applied to singles only (§6, §14). Nobody won the Snowball on 2 or 30 September, so it stands at £180 as of 30 September 2026 (§10). No confetti cannons at all, no confetti balloons, smoke cannons outside only and nowhere near buildings or fencing, and no push pins, Blu Tack, sticky tape or anything that could damage paintwork (§11, §14, §16). Both jobs, bar staff and kitchen team, are open at £12.71 an hour, for now (§2). Parking customers can collect their car at any hour (§8). A private booking can start before 12pm and an evening private hire can run later than 10pm, both by arrangement (§11, §16). Mother's Day, Easter Sunday and Father's Day are special days, not normal Sundays: the roast may be the same, but a set menu or something different may run, confirmed for each nearer the time (§4). At least one of the four TVs is in the dining room (§8). A small coach fits in the car park and a full-size coach must park on the main road where safe (§8, §16). The bar team will give a taxi number and customers make their own arrangements (§2, §14, §16). Kids mac and cheese, confirmed the same day, was already recorded below. **On the site**, small wording changes brought pages into line on taxis, confetti and smoke cannons, celebration cakes, private hire finishing times, coach parking and the TV in the dining room. The list of pages, and what was left for a later batch, is in `tasks/changes/2026-10-08-ssot-facts.md`.
 

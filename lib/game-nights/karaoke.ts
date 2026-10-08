@@ -137,7 +137,7 @@ export const karaoke: GameNightConfig = {
     {
       question: 'Can we eat before it starts?',
       answer:
-        'Yes, and the pub is open from 12pm. Kitchen times vary by date, so check the listing for that night or call 01753 682707.'
+        'Yes, when the kitchen is open. Kitchen times vary by date, so check the listing for that night or call 01753 682707.'
     }
   ],
 

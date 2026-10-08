@@ -103,7 +103,7 @@ export default function MothersDayPage() {
     {
       question: 'Do I need to book for Mother’s Day?',
       answer:
-        `Booking is recommended, especially for groups, since Mother’s Day always books up quickly. ` +
+        `Booking is recommended, especially for groups. ` +
         `Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.`
     },
     {
@@ -156,7 +156,7 @@ export default function MothersDayPage() {
                 <div className="space-y-2">
                   <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Booking</p>
                   <p className="text-sm text-ink-muted">
-                    Mother’s Day always books up quickly, so booking ahead is recommended.
+                    Booking ahead is recommended.
                   </p>
                 </div>
 
@@ -213,7 +213,7 @@ export default function MothersDayPage() {
                     <ul className="mt-3 space-y-2 text-sm text-ink-muted">
                       <li className="flex gap-2">
                         <span className="text-accent-text">•</span>
-                        <span>Mother’s Day always books up quickly, so booking ahead is recommended.</span>
+                        <span>Booking ahead is recommended.</span>
                       </li>
                       <li className="flex gap-2">
                         <span className="text-accent-text">•</span>
@@ -302,7 +302,7 @@ export default function MothersDayPage() {
 
       <CtaBand
         title="Book your Mother's Day table"
-        copy={`Mother's Day is on ${eventDateText} at The Anchor in Stanwell Moor (TW19), near Staines-upon-Thames. Mother's Day always books up quickly, so booking ahead is recommended.`}
+        copy={`Mother's Day is on ${eventDateText} at The Anchor in Stanwell Moor (TW19), near Staines-upon-Thames. Booking ahead is recommended.`}
         primary={
           <BookTableButton
             source="mothers_day_cta"

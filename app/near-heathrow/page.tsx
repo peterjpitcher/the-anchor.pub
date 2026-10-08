@@ -21,7 +21,7 @@ import { JourneyTimesCard } from './_components/JourneyTimesCard'
 import { WhyStopList } from './_components/WhyStopList'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { HEATHROW_TIMES, HEATHROW_DISTANCES, PARKING, DRIVE_TIMES, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
-import { DOGS_WORDING, FAMILIES_WORDING, CHILDREN_WELCOME_WORDING } from '@/lib/approved-wording'
+import { CHILDREN_WELCOME_WORDING, DOGS_WORDING, FAMILIES_WORDING, LUGGAGE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 // verifiedAt: '2026-08-26'  Owner: Peter Pitcher.
@@ -196,7 +196,7 @@ export default function NearHeathrowPage() {
                 },
                 {
                   question: "Where can I eat near Heathrow before a flight?",
-                  answer: `The Anchor is one of the easiest places to eat near Heathrow, just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5. We serve freshly made pub food cooked to order, from stone-baked pizzas and burgers to fish and chips, with a vegan Wellington and a kids menu too. You will find everything, including live prices, on our food menu. With free parking and a relaxed dining room, you can have a proper meal and still make your flight with time to spare.`
+                  answer: `The Anchor is one of the easiest places to eat near Heathrow, just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5. We serve freshly made pub food cooked to order, from stone-baked pizzas and burgers to fish and chips, with a kids menu too and a vegan Wellington on Sundays. You will find everything, including live prices, on our food menu. With free parking and a relaxed dining room, you can have a proper meal and still make your flight with time to spare.`
                 },
                 {
                   question: "Where is the best pub for plane spotting near Heathrow?",
@@ -208,7 +208,7 @@ export default function NearHeathrowPage() {
                 },
                 {
                   question: "Can I bring luggage to The Anchor?",
-                  answer: "Yes. We have room for bags and suitcases, and we offer luggage storage while you eat or drink, so you can relax before or after a flight without minding your cases."
+                  answer: `Yes. ${LUGGAGE_WORDING}`
                 },
                 {
                   question: "Is The Anchor family friendly?",

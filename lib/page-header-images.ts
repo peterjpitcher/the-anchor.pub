@@ -44,7 +44,7 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'find-us': 'The Anchor pub exterior on Horton Road, Stanwell Moor with clear signage',
   'near-heathrow': 'The Anchor pub entrance with a jet overhead highlighting its proximity to Heathrow',
   'blog': 'Cosy interior corner of The Anchor with vintage decor and warm atmosphere',
-  'events': 'Packed event night at The Anchor with crowd enjoying live entertainment',
+  'events': 'Packed event night at The Anchor with a crowd enjoying a hosted night',
   'private-hire': 'The Anchor private hire venue dressed for celebrations and group events near Heathrow',
   'heathrow-parking': 'Secure on-site parking at The Anchor near Heathrow with easy terminal access',
   'private-party-venue': 'Private function room dressed for a celebration with candlelight and balloons',
