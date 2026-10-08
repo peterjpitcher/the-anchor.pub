@@ -79,4 +79,11 @@ All five posts touched or checked answer 200 on the live site (a GET with redire
 
 ## Checks
 
-Recorded in the pull request.
+Run on 8 October 2026 under Node 20, on this branch.
+
+- `npm run lint:next`: no warnings or errors.
+- `npx tsc --noEmit`: clean.
+- `npm test` (London): 281 suites passed, 4699 tests passed, 1 skipped.
+- `npm run test:utc`: 281 suites passed, 4699 tests passed, 1 skipped.
+- `npm run build`: completed.
+- `npx jest tests/ssot-drift-guard.test.ts`: part of both runs above, passing with seven new tests.
