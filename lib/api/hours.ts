@@ -142,15 +142,10 @@ export interface BusinessHours {
     summary: string
     note: string | null
   }>
-  patterns?: {
-    regularClosures: string[]
-    typicalBusyTimes: {
-      [key: string]: string[]
-    }
-    quietTimes: {
-      [key: string]: string[]
-    }
-  }
+  // The feed also sends `patterns`, `services.bar` (a Friday happy hour),
+  // `services.privateHire` and `sundayLunch.bookingRequired`. Nobody has
+  // confirmed any of them (site review finding HT-021, 7 October 2026), so they
+  // are left off this type on purpose: no page may read them.
   services?: {
     kitchen: {
       lunch?: {
@@ -164,22 +159,9 @@ export interface BusinessHours {
       sundayLunch?: {
         available: boolean
         slots: string[]
-        bookingRequired: boolean
         lastOrderTime: string
         message?: string | null
       }
-    }
-    bar: {
-      happyHour?: {
-        days: string[]
-        start: string
-        end: string
-      }
-    }
-    privateHire: {
-      available: boolean
-      minimumNotice: string
-      spaces: string[]
     }
   }
   planning?: {
