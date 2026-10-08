@@ -549,7 +549,7 @@ export default async function HeathrowHotelsPubPage() {
                     Quick Quote
                   </PhoneButton>
                   <Button asChild variant="outline" size="md">
-                    <Link href="https://wa.me/441753682707?text=Hi,%20we" target="_blank" rel="noopener noreferrer">WhatsApp</Link>
+                    <Link href="https://wa.me/441753682707" target="_blank" rel="noopener noreferrer">WhatsApp</Link>
                   </Button>
                 </div>
               </CardBody>

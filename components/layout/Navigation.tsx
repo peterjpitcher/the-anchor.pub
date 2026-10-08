@@ -66,7 +66,7 @@ interface NavigationProps {
 }
 
 const PHONE_DISPLAY = '01753 682707'
-const PHONE_TEL = 'tel:01753682707'
+const PHONE_TEL = 'tel:+441753682707'
 const PARKING_HREF = '/heathrow-parking'
 const BOOK_TABLE_HREF = '/book-table'
 

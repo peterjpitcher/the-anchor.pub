@@ -354,7 +354,7 @@ export default function AshfordPubPage() {
                      Call: 01753 682707
                   </PhoneButton>
                   <Button asChild variant="outline" size="md">
-                    <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
+                    <Link href="https://wa.me/441753682707" target="_blank" rel="noopener noreferrer">
                        WhatsApp Us
                     </Link>
                   </Button>
