@@ -13,7 +13,7 @@
 
 import { render, cleanup } from '@testing-library/react'
 import CorporateEventsPage from '@/app/corporate-events/page'
-import { CHRISTMAS_LAST_BOOKABLE_DATE, formatChristmasWindowLabel } from '@/lib/christmas-season'
+import { CHRISTMAS_LABEL, CHRISTMAS_LAST_BOOKABLE_DATE, CHRISTMAS_WINDOW_END, formatChristmasWindowLabel } from '@/lib/christmas-season'
 
 jest.mock('next/navigation', () => ({
   usePathname: () => '/corporate-events'
@@ -65,5 +65,20 @@ describe('/corporate-events and the Christmas window', () => {
     const html = at('2026-12-21T12:00:00Z')
     expect(html).not.toMatch(/\b2027\b/)
     expect(html).toContain("once they're confirmed")
+  })
+
+  // Site review DT-014: the year was typed into three labels.
+  it('the "Christmas <year>" label is built from the window, not typed', () => {
+    const fs = require('fs') as typeof import('fs')
+    const path = require('path') as typeof import('path')
+    expect(CHRISTMAS_LABEL).toBe(`Christmas ${CHRISTMAS_WINDOW_END.slice(0, 4)}`)
+    for (const file of [
+      'app/christmas-parties/page.tsx',
+      'app/christmas-parties/client-components.tsx',
+      'components/features/christmas/ChristmasCrossLink.tsx'
+    ]) {
+      const source = fs.readFileSync(path.join(process.cwd(), file), 'utf8')
+      expect(source).not.toMatch(/>Christmas 20\d{2}[ <]|'Christmas 20\d{2}'/)
+    }
   })
 })

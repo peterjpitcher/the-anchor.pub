@@ -31,6 +31,7 @@ import {
   CHRISTMAS_WINDOW_END,
   CHRISTMAS_WINDOW_START,
   formatChristmasWindowLabel,
+  CHRISTMAS_LABEL,
   getChristmasDay,
   getChristmasSeasonStatus,
   getLondonIsoDate,
@@ -220,6 +221,7 @@ function buildSeasonView(): ChristmasSeasonView {
   return {
     state: status.state,
     windowLabel: formatChristmasWindowLabel(),
+    christmasLabel: CHRISTMAS_LABEL,
     minEnquiryDate: earliestWithNotice > CHRISTMAS_WINDOW_START ? earliestWithNotice : CHRISTMAS_WINDOW_START,
     maxEnquiryDate: CHRISTMAS_WINDOW_END,
     isBookable: status.isBookable,
@@ -442,7 +444,7 @@ export default async function ChristmasPartiesPage() {
       <InteriorHero
         image={HERO_IMAGE}
         crumb="Christmas Parties"
-        kicker={seasonEnded ? 'The Anchor, Stanwell Moor' : 'Christmas 2026'}
+        kicker={seasonEnded ? 'The Anchor, Stanwell Moor' : CHRISTMAS_LABEL}
         title="Christmas parties and Christmas dinner near Staines and Heathrow"
         lead={heroLead}
         actions={

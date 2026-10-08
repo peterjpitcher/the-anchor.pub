@@ -12,6 +12,13 @@ import fs from 'fs'
 import path from 'path'
 import { isFestivePackageName } from '@/lib/api/catering-packages'
 
+// The catering module wraps its fetch in React's server-only cache(), which
+// the test build of React does not have.
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  cache: (fn: unknown) => fn
+}))
+
 const read = (file: string): string => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
 const code = (file: string): string => read(file).replace(/^\s*\/\/.*$/gm, '')
 

@@ -4,7 +4,8 @@ import {
   CHRISTMAS_DEPOSIT_PER_PERSON,
   CHRISTMAS_MINIMUM_PARTY_SIZE,
   formatChristmasWindowLabel,
-  getChristmasSeasonStatus
+  getChristmasSeasonStatus,
+  CHRISTMAS_LABEL
 } from '@/lib/christmas-season'
 
 /**
@@ -42,7 +43,7 @@ export function ChristmasCrossLink({ hook }: ChristmasCrossLinkProps) {
     <section className="py-section-y bg-canvas">
       <div className="container mx-auto px-4">
         <div className="rounded-2xl border border-line bg-surface p-6 md:p-8">
-          <p className="text-xs font-semibold uppercase tracking-wide text-accent-text">Christmas 2026</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-accent-text">{CHRISTMAS_LABEL}</p>
           <h2 className="mt-2 font-display text-h3 text-ink-strong">Christmas at The Anchor</h2>
           <p className="mt-3 text-ink-muted">
             {hook} Christmas dinner runs {formatChristmasWindowLabel()}, for groups of{' '}

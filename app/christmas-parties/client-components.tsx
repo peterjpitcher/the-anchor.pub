@@ -131,6 +131,8 @@ export interface ChristmasSeasonView {
   state: 'upcoming' | 'active' | 'ended'
   /** For example "10 November to 20 December 2026". */
   windowLabel: string
+  /** "Christmas 2026", built from the window's year on the server. */
+  christmasLabel?: string
   /** Earliest selectable enquiry date, already carrying the 24 hour notice floor. */
   minEnquiryDate: string
   /** Latest selectable enquiry date, the last day of the service window. */
@@ -756,7 +758,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
         <Container>
           <div className="mx-auto space-y-8">
             <div className="space-y-3 text-center">
-              <Badge className="mx-auto w-fit bg-red-100 text-red-700">Christmas 2026 bookings</Badge>
+              <Badge className="mx-auto w-fit bg-red-100 text-red-700">{season.christmasLabel ?? 'Christmas'} bookings</Badge>
               <h2 className="text-3xl font-bold text-ink-strong">What would you like to book?</h2>
               <p className="mx-auto text-base text-ink-muted">
                 Choose the option that fits your plans. We will confirm availability, prices and the next steps when we reply.
