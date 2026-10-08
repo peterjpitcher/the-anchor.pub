@@ -245,8 +245,8 @@ describe('starting a payment', () => {
 describe('reads that spend the booking system key', () => {
   it('customer lookup: the seventh in a minute gets the degraded answer and the booking system is not asked', async () => {
     const fetchMock = upstreamAnswers({ success: true, data: { known: true } })
-    const { GET } = await import('@/app/api/customers/lookup/route')
-    const lookup = () => GET(getRequest('/api/customers/lookup?phone=07700900123'))
+    const { POST } = await import('@/app/api/customers/lookup/route')
+    const lookup = () => POST(jsonRequest('/api/customers/lookup', { phone: '07700900123' }))
     for (let i = 0; i < 6; i += 1) {
       expect((await (await lookup()).json()).data).toEqual({ known: true })
     }
@@ -257,7 +257,8 @@ describe('reads that spend the booking system key', () => {
     expect(seventh.status).toBe(200)
     const payload = await seventh.json()
     expect(payload.data).toEqual({ known: false, lookup_degraded: true })
-    expect(payload.meta.reason).toBe('rate_limited')
+    // The reason stays in our logs; it is not sent back.
+    expect(payload.meta).toBeUndefined()
     expect(fetchMock).toHaveBeenCalledTimes(6)
   })
 
