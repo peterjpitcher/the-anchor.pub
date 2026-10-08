@@ -5,7 +5,7 @@ import { TurnstileField, type TurnstileFieldRef } from '@/components/security/Tu
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { DEFAULT_COMMUNICATION_CONSENT_STATE, buildCommunicationConsentPayload } from '@/lib/communication-consent'
 import { trackPrivateHireEnquiryStarted, trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
-import { toGuestMessage } from '@/lib/guest-error-messages'
+import { SECURITY_CHECK_REQUIRED_MESSAGE, toGuestMessage } from '@/lib/guest-error-messages'
 
 interface PrivateHireQuickEnquiryProps {
   eventType?: string
@@ -63,7 +63,7 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
       return
     }
     if (siteKey && !token) {
-      setError('Please complete the security check.')
+      setError(SECURITY_CHECK_REQUIRED_MESSAGE)
       return
     }
     if (reply === 'Email' && !email.trim()) {

@@ -198,7 +198,11 @@ describe('recruitment enquiry proxy', () => {
 
       expect(response.status).toBe(403)
       expect(payload.success).toBe(false)
-      expect(payload.error).toBe('Please complete the security check before submitting.')
+      // With the phone number: an applicant whose browser never loaded the
+      // check has no token to send and nothing more they can do online.
+      expect(payload.error).toBe(
+        'Please complete the security check before submitting. If it will not load, call 01753 682707 and we will help.'
+      )
       // Not Cloudflare, not the management app, not the fallback email.
       expect(global.fetch).not.toHaveBeenCalled()
     })
