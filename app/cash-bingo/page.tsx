@@ -70,7 +70,7 @@ const WHAT_IT_IS = [
   },
   {
     title: 'The rolling snowball',
-    body: 'Every cash bingo night nobody claims it, the snowball grows by £20 and gains two extra calls for the next one, which makes it easier to win the longer it survives. The current target is on the event listing.'
+    body: 'Every cash bingo night nobody claims it, the snowball grows by £20 and gains two extra calls for the next one, which makes it easier to win the longer it survives. The current target is on that night’s own page.'
   }
 ]
 
@@ -93,7 +93,7 @@ const FAQS = [
   {
     question: 'How does the snowball jackpot work?',
     answer:
-      'It is a full house within a set number of calls. Each night it goes unclaimed it grows by £20 and gains two extra calls at the next cash bingo, so it gets easier to win over time. To win it you need to have played at one of the previous three cash bingo nights. The current target is on the event listing below, because it changes from night to night.'
+      'It is a full house within a set number of calls. Each night it goes unclaimed it grows by £20 and gains two extra calls at the next cash bingo, so it gets easier to win over time. To win it you need to have played at one of the previous three cash bingo nights. The current target is on that night’s own page, because it changes from night to night.'
   },
   {
     question: 'Do I need to book in advance?',
@@ -188,7 +188,12 @@ export default async function CashBingoPage() {
             {heroDescription}
           </p>
           <div className="mt-4 flex justify-center">
-            <PsychBadge variant="prize" label="Cash prizes every game" />
+            {/* This badge used to promise cash on all ten games. It cannot:
+                some games are played for a free
+                drink and some for a £10 food voucher (docs/SSOT.md section 10,
+                owner-confirmed 12 September 2026). The jackpot is the last
+                game and is always cash. */}
+            <PsychBadge variant="prize" label="Cash jackpot on the last game" />
           </div>
         </Container>
       </section>
@@ -256,7 +261,7 @@ export default async function CashBingoPage() {
           <div className="mx-auto">
             <h2 className="mb-6 text-center text-h3 text-ink-strong">Upcoming cash bingo dates</h2>
             <p className="mb-8 text-center text-ink-muted">
-              Confirmed nights are below, each with its own snowball target. For everything else we
+              Confirmed nights are below. Each night&rsquo;s own page gives its snowball target. For everything else we
               have on, see{' '}
               <Link href="/whats-on" className="font-semibold text-accent-text hover:text-accent-text">
                 What&rsquo;s On

@@ -590,6 +590,50 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     }
   })
 
+  it('sends nine old event addresses to the page the night lives on now (site review finding FD-003)', () => {
+    // The management app replaces an event's address when the night is renamed
+    // or its date moves, and keeps no history, so the old address answered
+    // "not found". These nine were asked for in the week to 7 October 2026 and
+    // each has one clear successor. Two more from the same log are left alone
+    // on purpose, because nothing says where they went:
+    // /events/tasting-night-2026-12-11 and /events/cash-bingo-2026-10-21.
+    const RENAMED: Array<[string, string]> = [
+      ['halloween-party-2026-10-31', 'halloween-events-near-me-monster-mash-the-anchor-halloween-party-2026-10-31'],
+      ['tasting-night-2026-11-20', 'christmas-night-out-tasting-night-2026-11-20'],
+      ['music-bingo-2026-11-11', 'sequins-showstoppers-strictly-season-music-bingo-2026-11-13'],
+      ['music-bingo-2026-12-09', 'christmas-music-bingo-sleigh-my-name-festive-music-bingo-2026-12-11'],
+      ['quiz-night-2026-09-16', 'autumn-kick-off-quiz-night-2026-09-16'],
+      ['only-fools-and-horses-quiz-night-2026-09-25', 'pub-quiz-lovely-jubbly-only-fools-and-horses-quiz-night-2026-09-25'],
+      ['karaoke-night-2026-09-19', 'big-sing-friday-karaoke-night-2026-09-18'],
+      ['music-bingo-2026-08-14', 'cowboys-queens-country-music-bingo-2026-08-14'],
+      ['quiz-night-2026-05-06', 'pub-quiz-night-2026-05-06'],
+    ]
+
+    for (const [oldSlug, currentSlug] of RENAMED) {
+      const source = `/events/${oldSlug}`
+      const destination = `/events/${currentSlug}`
+
+      const rule = lookupRedirect(source)
+      expect(rule).toBeDefined()
+      expect(rule!.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+      // One hop: the current address is not itself a redirect.
+      expect(lookupRedirect(destination)).toBeUndefined()
+
+      const response = middleware(
+        new NextRequest(`https://www.the-anchor.pub${source}`, {
+          headers: { host: 'www.the-anchor.pub', 'x-forwarded-proto': 'https' },
+        }),
+      )
+      expect(response.status).toBe(301)
+      expect(response.headers.get('location')).toBe(`https://www.the-anchor.pub${destination}`)
+    }
+
+    for (const unknown of ['/events/tasting-night-2026-12-11', '/events/cash-bingo-2026-10-21']) {
+      expect(lookupRedirect(unknown)).toBeUndefined()
+    }
+  })
+
   it("retires the Manager's Special and the four wrong landmark pages in one hop (owner decisions, 7 October 2026)", async () => {
     // Fact 32: the Manager's Special page and function are retired completely.
     // Decision 15 (site review finding C1-006): four "private hire near" pages

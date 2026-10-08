@@ -17,7 +17,10 @@ type EventBookingFactsStripProps = {
   event: Event
   eventDate: string
   eventTime: string
-  /** 'historic' switches the labels to past tense for an event that has been and gone. */
+  /**
+   * 'historic' switches the labels to past tense for an event that has been
+   * and gone; 'did-not-run' labels a cancelled night's facts as its plan.
+   */
   variant?: EventFactsVariant
 }
 
@@ -28,18 +31,25 @@ export function EventBookingFactsStrip({
   variant = 'live'
 }: EventBookingFactsStripProps) {
   const isHistoric = variant === 'historic'
+  // A cancelled night has a plan, not a history: "Took place", "Entry was" and
+  // "Started" would each be false for it.
+  const didNotRun = variant === 'did-not-run'
   const compactDate = formatEventLocalDate(event.startDate, {
     weekday: 'short',
     day: 'numeric',
     month: 'short'
   })
   const priceLabel =
-    getEventPriceLabel(event) || (isHistoric ? 'See event details' : 'Check booking step')
+    getEventPriceLabel(event) || (isHistoric || didNotRun ? 'See event details' : 'Check booking step')
 
   const facts: Fact[] = [
-    { label: isHistoric ? 'Took place' : 'Date', value: compactDate || eventDate, Icon: CalendarDays },
-    { label: isHistoric ? 'Entry was' : 'Price', value: priceLabel, Icon: PoundSterling },
-    { label: isHistoric ? 'Started' : 'Start', value: eventTime, Icon: Clock },
+    {
+      label: didNotRun ? 'Was due on' : isHistoric ? 'Took place' : 'Date',
+      value: compactDate || eventDate,
+      Icon: CalendarDays
+    },
+    { label: didNotRun ? 'Entry' : isHistoric ? 'Entry was' : 'Price', value: priceLabel, Icon: PoundSterling },
+    { label: didNotRun ? 'Planned start' : isHistoric ? 'Started' : 'Start', value: eventTime, Icon: Clock },
     { label: 'Parking', value: `Free parking, ${PARKING.capacity} spaces`, Icon: Car }
   ]
 

@@ -6,6 +6,21 @@ import { formatEventLocalDate } from '@/lib/event-calendar'
 import { getEventWebsitePath } from '@/lib/event-url'
 import type { Event } from '@/lib/api'
 import { readableInkOn } from '@/lib/contrast'
+import { formatEventBookingMoney } from '@/lib/event-booking-experience'
+
+/**
+ * A card price in the same form as the page it sits on.
+ *
+ * These cards printed "£3.00" directly under an event page whose own facts
+ * said "£3" (site review finding C2-040). Pounds go through the formatter the
+ * facts strip and the booking form use; anything that is not a plain pound
+ * amount keeps the general formatter.
+ */
+function formatCardPrice(price: string | number, currency: string = 'GBP'): string {
+  const amount = typeof price === 'number' ? price : Number(price)
+  if (currency === 'GBP' && Number.isFinite(amount)) return formatEventBookingMoney(amount)
+  return formatPrice(price, currency)
+}
 
 /**
  * Stands in for the poster on events that have no artwork of their own.
@@ -137,14 +152,14 @@ export default async function RelatedEvents({
                       {(() => {
                         const lowest = getLowestTicketTypePrice(event)
                         if (lowest === null) return null
-                        return lowest <= 0 ? 'Free entry' : `from ${formatPrice(lowest)}`
+                        return lowest <= 0 ? 'Free entry' : `from ${formatCardPrice(lowest)}`
                       })()}
                     </p>
                   ) : event.offers ? (
                     <p className="text-accent-text text-sm font-semibold">
-                      {event.offers.price === '0' || event.offers.price === '0.00'
+                      {Number(event.offers.price) === 0
                         ? 'Free entry'
-                        : formatPrice(event.offers.price, event.offers.priceCurrency)}
+                        : formatCardPrice(event.offers.price, event.offers.priceCurrency)}
                     </p>
                   ) : null}
                 </div>

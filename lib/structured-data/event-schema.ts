@@ -6,6 +6,7 @@ import { getEventWebsiteUrl } from '@/lib/event-url'
 import { getSchemaEventStatus, getSchemaOfferAvailability, getSafeAccessibilityNotes, CATEGORY_ROUTES } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { getEventSchemaDescription } from '@/lib/event-copy'
+import { getEventAgeRule, TASTING_NIGHT_AGE_RULE } from '@/lib/event-age-rule'
 
 
 const SITE_ORIGIN = 'https://www.the-anchor.pub'
@@ -142,6 +143,8 @@ export function buildEventSchema(event: Event) {
   // offer, a reserve action or remaining capacity.
   const presentation = getEventPresentation(event)
   const isBookable = presentation.includeSchemaOffers
+  const isUpcoming = presentation.phase === 'upcoming'
+  const ageRule = getEventAgeRule(event)
   const eventUrl = getEventWebsiteUrl(event, { absolute: true })
   // Category fallback rather than one generic pub photo, and absolute rather
   // than the site-relative path the fallbacks are stored as: a crawler that
@@ -226,7 +229,11 @@ export function buildEventSchema(event: Event) {
     identifier: event.identifier || event.id,
     name: event.name,
     description: getEventSchemaDescription(event),
-    ...(event.shortDescription && { disambiguatingDescription: event.shortDescription }),
+    // Upcoming only. The short description is the record's sales line ("Don't
+    // miss out! Get your tickets"), and `description` above is already put in
+    // the right tense for a night that is over or off, so this would have
+    // contradicted it one property later.
+    ...(isUpcoming && event.shortDescription && { disambiguatingDescription: event.shortDescription }),
     ...(event.keywords && {
       keywords: Array.isArray(event.keywords) ? event.keywords.join(', ') : event.keywords
     }),
@@ -275,9 +282,17 @@ export function buildEventSchema(event: Event) {
     ...(thumbnailUrl && { thumbnailUrl }),
     organizer: sanitiseOrganizer(event.organizer),
     ...(typeof isAccessibleForFree === 'boolean' ? { isAccessibleForFree } : {}),
-    ...(event.maximumAttendeeCapacity && {
-      maximumAttendeeCapacity: event.maximumAttendeeCapacity
-    }),
+    // Upcoming only. The management app now works capacity out from the room
+    // layout, so a finished night's record reports whatever today's layout
+    // gives: past pages were publishing capacities from 34 to 118 for the same
+    // room (site review finding C2-050). A capacity is a fact about a night
+    // somebody can still book.
+    ...(isUpcoming &&
+      event.maximumAttendeeCapacity && {
+        maximumAttendeeCapacity: event.maximumAttendeeCapacity
+      }),
+    // schema.org's own form for "18 and over" is an open-ended range.
+    ...(ageRule === TASTING_NIGHT_AGE_RULE && { typicalAgeRange: '18-' }),
     ...(isBookable &&
       event.remainingAttendeeCapacity !== undefined && {
         remainingAttendeeCapacity: event.remainingAttendeeCapacity

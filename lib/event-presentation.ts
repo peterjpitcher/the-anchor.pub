@@ -21,8 +21,16 @@ import {
 
 export type EventPhase = 'upcoming' | 'ended' | 'cancelled'
 
-/** How the facts strip presents itself: live booking facts vs historical record. */
-export type EventFactsVariant = 'live' | 'historic'
+/**
+ * How the facts strip presents itself: live booking facts, the record of a
+ * night that happened, or the plan for a night that did not.
+ *
+ * `did-not-run` exists because `historic` labels its facts "Took place",
+ * "Entry was" and "Started", and the strip used that for anything that was not
+ * upcoming. A cancelled night got all three under a banner saying it was
+ * cancelled (site review finding C2-008).
+ */
+export type EventFactsVariant = 'live' | 'historic' | 'did-not-run'
 
 export interface EventPresentation {
   phase: EventPhase
@@ -112,7 +120,14 @@ export function getEventPresentation(
     // redirects at app/events/[id]/page.tsx:344, but the control also mounts on
     // category date cards, so the flag guards it rather than the route.
     showAddToCalendar: isUpcoming && status !== 'postponed' && status !== 'draft',
-    factsVariant: isUpcoming ? 'live' : 'historic',
+    // Cancelled at any date, and postponed once the listed date has gone: in
+    // both cases the night on this page did not happen.
+    factsVariant:
+      phase === 'cancelled' || (status === 'postponed' && hasEnded)
+        ? 'did-not-run'
+        : isUpcoming
+          ? 'live'
+          : 'historic',
     includeSchemaOffers: isUpcoming
   }
 }
