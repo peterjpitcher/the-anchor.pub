@@ -1,0 +1,114 @@
+{
+  "about": "The one register of dates typed into this repository that change what a visitor or Google sees. scripts/audit-freshness.js reads it: `npm run audit:freshness` lists anything inside its warning period, and fails if an entry no longer matches the code. A weekly GitHub Action runs the same check and opens an issue. When you type a date into a file, or change one listed here, change this file in the same commit.",
+  "fields": {
+    "id": "Short name, unique.",
+    "what": "What the date is, in plain words.",
+    "file": "Where it is typed.",
+    "find": "The exact text in that file that carries the date. The audit fails if it is not there, so the register cannot drift from the code.",
+    "date": "The date itself, or for a reminder the day by which someone must act (YYYY-MM-DD, London).",
+    "warnDays": "How many days before the date the audit starts to list it.",
+    "whenItPasses": "What a visitor or Google sees once the date has passed.",
+    "action": "What a person needs to do, and by when.",
+    "afterPassing": "'act' if it stays wrong until someone changes it (the audit keeps listing it), 'nothing' if the site handles the date by itself."
+  },
+  "dates": [
+    {
+      "id": "job-adverts-valid-through",
+      "what": "The date both job adverts tell Google they expire.",
+      "file": "app/join-our-team/recruitmentContent.ts",
+      "find": "recruitmentValidThrough = '2027-05-12'",
+      "date": "2027-05-12",
+      "warnDays": 30,
+      "whenItPasses": "Google treats the bar staff and kitchen team adverts as closed and drops them from job search.",
+      "action": "In April 2027: if still hiring, move recruitmentDatePosted and recruitmentValidThrough on a year. If not, remove the JobPosting data.",
+      "afterPassing": "act"
+    },
+    {
+      "id": "brochure-year",
+      "what": "The year in the private hire brochure titles and file names.",
+      "file": "lib/brochures.ts",
+      "find": "title: '2026 Event Brochure'",
+      "date": "2026-12-31",
+      "warnDays": 45,
+      "whenItPasses": "Brochure links across the site still say '2026' in 2027.",
+      "action": "Before 31 December 2026: supply the 2027 brochures, or make the titles year-neutral.",
+      "afterPassing": "act"
+    },
+    {
+      "id": "christmas-next-year",
+      "what": "A reminder, not a date a visitor sees: Christmas is set up for 2026 only. The year is in the SSOT block name.",
+      "file": "SSOT.json",
+      "find": "\"christmas_2026\"",
+      "date": "2027-06-30",
+      "warnDays": 30,
+      "whenItPasses": "Nothing Christmas shows for 2027: no header link, no cross-links, no pop-up, and the Christmas page says the season has finished.",
+      "action": "In June 2027: confirm the 2027 service window, kitchen break and prices in the management app, then update the SSOT block and the code that names it.",
+      "afterPassing": "act"
+    },
+    {
+      "id": "runway-alternation-start-week",
+      "what": "The week the plane-spotting note counts from to say 'from 3pm' or 'until 3pm'.",
+      "file": "lib/heathrow-runway-alternation.ts",
+      "find": "ANCHOR_WEEK_COMMENCING = '2026-01-05'",
+      "date": "2027-01-04",
+      "warnDays": 21,
+      "whenItPasses": "If Heathrow's 2027 alternation programme does not carry straight on from 2026, the note is a week out: it says 'from 3pm' in an 'until 3pm' week.",
+      "action": "In early January 2027: check the start week against Heathrow's published 2027 runway alternation programme, then update the date here and in the file.",
+      "afterPassing": "act"
+    },
+    {
+      "id": "halloween-party-ends",
+      "what": "When the Halloween page stops inviting people to the 2026 party.",
+      "file": "lib/seasonal/halloween.ts",
+      "find": "new Date('2026-11-01T00:30:00Z')",
+      "date": "2026-11-01",
+      "warnDays": 14,
+      "whenItPasses": "The Halloween page switches by itself to saying the party has been and gone.",
+      "action": "Nothing on the day. When a 2027 party is confirmed, set the new date here and in the file.",
+      "afterPassing": "nothing"
+    },
+    {
+      "id": "nations-championship-window",
+      "what": "The last day of the Nations Championship header link and strips.",
+      "file": "lib/nations-championship/config.ts",
+      "find": "endsOn: '2026-11-29'",
+      "date": "2026-11-29",
+      "warnDays": 7,
+      "whenItPasses": "The header link and the strips go by themselves the next day.",
+      "action": "Nothing on the day. Set new dates here and in the file when the next tournament is confirmed.",
+      "afterPassing": "nothing"
+    },
+    {
+      "id": "christmas-pop-up-ends",
+      "what": "The last day of the Christmas pop-up.",
+      "file": "components/features/christmas/ChristmasLightbox.tsx",
+      "find": "new Date('2026-12-15T23:59:59Z')",
+      "date": "2026-12-15",
+      "warnDays": 7,
+      "whenItPasses": "The pop-up stops by itself.",
+      "action": "Nothing on the day. It is set up again with 'christmas-next-year'.",
+      "afterPassing": "nothing"
+    },
+    {
+      "id": "christmas-service-window-ends",
+      "what": "The last Christmas sitting.",
+      "file": "SSOT.json",
+      "find": "\"end\": \"2026-12-20\"",
+      "date": "2026-12-20",
+      "warnDays": 7,
+      "whenItPasses": "The Christmas page says enquiries have closed, then that the season has finished. The header link and cross-links go by themselves.",
+      "action": "Nothing on the day. It is set up again with 'christmas-next-year'.",
+      "afterPassing": "nothing"
+    }
+  ],
+  "checkedFiles": {
+    "about": "Files whose claims can go stale without anyone touching them. Each carries one or more `verifiedAt: 'YYYY-MM-DD'` stamps; `days` is how long a check stays good for. Owner of every claim: Peter Pitcher (decision 5, 26 August 2026).",
+    "files": [
+      { "file": "app/quiz-night/themed/page.tsx", "days": 90, "why": "event dates, charity partners" },
+      { "file": "app/halloween/page.tsx", "days": 180, "why": "annual event, theme changes yearly" },
+      { "file": "app/heathrow-parking/page.tsx", "days": 90, "why": "parking prices and transfer claims" },
+      { "file": "lib/local-seo-data.ts", "days": 365, "why": "landmark drive times and addresses" },
+      { "file": "app/near-heathrow/page.tsx", "days": 180, "why": "terminal drive times" }
+    ]
+  }
+}

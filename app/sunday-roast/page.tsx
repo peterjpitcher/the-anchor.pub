@@ -10,7 +10,6 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { FestiveKitchenNotice } from '@/components/seasonal/FestiveKitchenNotice'
 import { getFestiveKitchenStatus, getFestiveKitchenWording } from '@/lib/festive-kitchen-closure'
 import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowItWorks'
@@ -196,10 +195,8 @@ export default async function SundayRoastPage() {
       />
 
       <div className="bg-surface">
-        <div className="container">
-          <div className="py-3">
-            <LaunchAnnouncement variant="banner" />
-          </div>
+        {/* pt-6 keeps the space the launch banner's wrapper used to hold. */}
+        <div className="container pt-6">
           <FestiveKitchenNotice className="mb-3" />
         </div>
       </div>

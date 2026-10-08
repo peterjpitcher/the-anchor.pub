@@ -166,11 +166,6 @@
     "permanent": true
   },
   {
-    "source": "/favicon.ico",
-    "destination": "/favicon.png",
-    "permanent": true
-  },
-  {
     "source": "/blog/hashtags/:tag",
     "destination": "/blog/tags",
     "permanent": true
@@ -321,11 +316,6 @@
     "permanent": true
   },
   {
-    "source": "/whats-new/",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
     "source": "/who-are-we",
     "destination": "/",
     "permanent": true
@@ -398,11 +388,6 @@
   {
     "source": "/copy-4-of-drinks1/:path*",
     "destination": "/drinks",
-    "permanent": true
-  },
-  {
-    "source": "/cdn-cgi/:path*",
-    "destination": "/",
     "permanent": true
   },
   {

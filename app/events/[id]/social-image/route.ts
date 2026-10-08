@@ -54,14 +54,16 @@ export async function GET(
       return fallbackResponse(request, params.id)
     }
 
+    // `failOn: 'none'` is sharp 0.35's name for the old `failOnError: false`:
+    // a poster with a damaged tail still produces an image.
     const [background, foreground] = await Promise.all([
-      sharp(source, { failOnError: false })
+      sharp(source, { failOn: 'none' })
         .rotate()
         .resize(WIDTH, HEIGHT, { fit: 'cover' })
         .blur(24)
         .modulate({ brightness: 0.55, saturation: 0.85 })
         .toBuffer(),
-      sharp(source, { failOnError: false })
+      sharp(source, { failOn: 'none' })
         .rotate()
         .resize(HEIGHT, HEIGHT, {
           fit: 'contain',

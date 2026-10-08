@@ -189,10 +189,26 @@ export interface ReportedMetric {
   name: string
   value: number
   rating: string
+  /** The browser's own id for this reading. Used to spot a repeat; never sent. */
+  id?: string
   attribution?: {
     largestShiftTarget?: string
     largestShiftSource?: { previousRect?: Rect; currentRect?: Rect }
   }
+}
+
+/**
+ * A key that is the same for the same reading reported twice, or null when the
+ * reading carries no id and so cannot be told apart from a new one.
+ *
+ * The browser can hand the same reading over more than once as a page is left
+ * (three of the first ten INP rows on 7 October 2026 were exact repeats, sent
+ * within 21 milliseconds of the first). A changed value under the same id is a
+ * real update and gets a different key.
+ */
+export function readingKey(metric: ReportedMetric): string | null {
+  if (typeof metric.id !== 'string' || !metric.id) return null
+  return `${metric.name}|${metric.id}|${metric.value}`
 }
 
 export interface PageContext {

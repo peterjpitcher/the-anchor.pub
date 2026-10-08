@@ -204,7 +204,7 @@ export function ManagementTableBookingForm({
   twoScreenFlow = false
 }: ManagementTableBookingFormProps) {
   // Trigger re-renders so time-based cutoffs update without requiring a reload.
-  // (Retained because the LaunchAnnouncement, hold-expiry and other time-derived
+  // (Retained because hold-expiry and other time-derived
   // surfaces benefit from a periodic tick; the legacy Sunday-lunch / Mother's-Day
   // cutoff calculations that originally drove this have been retired in §8.1.)
   //
@@ -819,7 +819,7 @@ export function ManagementTableBookingForm({
   // Sunday roast as a separate booking type, the Saturday-1pm cutoff, the
   // dedicated Mother's Day mode, and the Sunday menu pre-order flow are all
   // retired with the walk-in launch (spec §6, §7.8, §8.1). Sundays are now
-  // regular food bookings; deposit gating is purely group-size based (10+).
+  // regular food bookings; deposit gating is purely group-size based (15 or more).
   const requiresGroupDeposit = requiresDeposit(partySize)
   const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
   // The refund bands belong to the group deposit only. A Christmas sitting has

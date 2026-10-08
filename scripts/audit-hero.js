@@ -3,7 +3,35 @@
 const fs = require('fs')
 const path = require('path')
 const ts = require('typescript')
-const { getDefaultHeaderImage, getPageHeaderImage } = require('../lib/page-header-images.ts')
+
+/**
+ * Load a TypeScript module from lib/ by compiling it in memory first.
+ *
+ * This used to be a plain `require('../lib/page-header-images.ts')`. Node 20
+ * cannot read TypeScript, so the script stopped on this line with "Unexpected
+ * token 'export'" before it had checked anything, and because it runs first in
+ * `npm run lint`, none of the eight audits after it ran either. It only ever
+ * worked on a Node new enough to strip types by itself. Compiling with the
+ * typescript package, which is already a dependency, works on every version.
+ */
+function requireTypeScript(relativePath) {
+  const filename = path.join(__dirname, relativePath)
+  const { outputText } = ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2020,
+      esModuleInterop: true,
+    },
+    fileName: filename,
+  })
+  const compiled = new module.constructor(filename, module)
+  compiled.filename = filename
+  compiled.paths = module.paths
+  compiled._compile(outputText, filename)
+  return compiled.exports
+}
+
+const { getDefaultHeaderImage, getPageHeaderImage } = requireTypeScript('../lib/page-header-images.ts')
 
 const APP_DIR = path.join(process.cwd(), 'app')
 
