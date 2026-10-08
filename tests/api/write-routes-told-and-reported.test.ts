@@ -42,13 +42,11 @@ jest.mock('@/lib/booking-conversion-forwarding', () => ({
 }))
 
 const mockGetBusinessHours = jest.fn()
-const mockCreateParkingBooking = jest.fn()
 const mockCreateParkingPaymentOrder = jest.fn()
 const mockCaptureParkingPayment = jest.fn()
 jest.mock('@/lib/api', () => ({
   anchorAPI: {
     getBusinessHours: (...args: unknown[]) => mockGetBusinessHours(...args),
-    createParkingBooking: (...args: unknown[]) => mockCreateParkingBooking(...args),
     createParkingPaymentOrder: (...args: unknown[]) => mockCreateParkingPaymentOrder(...args),
     captureParkingPayment: (...args: unknown[]) => mockCaptureParkingPayment(...args)
   }
@@ -911,45 +909,6 @@ describe('parking', () => {
       status: 500,
       code: 'INTERNAL_ERROR'
     })
-
-  describe('POST /api/parking/bookings', () => {
-    async function post() {
-      const { POST } = await import('@/app/api/parking/bookings/route')
-      return read(await POST(jsonRequest(BOOKING)))
-    }
-
-    it('books the space and reports nothing', async () => {
-      mockCreateParkingBooking.mockResolvedValue({ id: BOOKING_ID, reference: GUEST.reference })
-
-      const answer = await post()
-
-      expect(answer.status).toBe(201)
-      expect(answer.body.success).toBe(true)
-      expectNothingReported()
-    })
-
-    it('tells the guest and reports it, with no name and no number plate, when the booking system fails', async () => {
-      mockCreateParkingBooking.mockRejectedValue(CLIENT_FAULT())
-
-      const answer = await post()
-
-      expect(answer.status).toBe(500)
-      expect(answer.body.success).toBe(false)
-      expectGuestTold(answer)
-      expectReported('api/parking/bookings')
-    })
-
-    it('logs full dates as a refusal and alerts nobody', async () => {
-      mockCreateParkingBooking.mockRejectedValue({ status: 409, code: 'CAPACITY_UNAVAILABLE', message: 'No capacity' })
-
-      const answer = await post()
-
-      expect(answer.status).toBe(409)
-      expect(answer.body.error.message).toContain(PHONE_NUMBER)
-      expect(log.lines()[0]).toMatchObject({ kind: 'refused', upstreamCode: 'CAPACITY_UNAVAILABLE', alert: 'none' })
-      expect(mockSendAlertEmail).not.toHaveBeenCalled()
-    })
-  })
 
   describe('POST /api/parking/payment/create-order', () => {
     const ORDER = { ...BOOKING, start_at: '2026-11-01T08:00:00+00:00', end_at: '2026-11-05T08:00:00+00:00' }

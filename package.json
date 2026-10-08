@@ -2,6 +2,9 @@
   "name": "the-anchor-pub",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22 <23"
+  },
   "scripts": {
     "dev": "next dev",
     "dev:clean": "rm -rf .next && next dev",
@@ -47,7 +50,7 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
-    "sharp": "^0.34.3",
+    "sharp": "^0.35.5",
     "tailwind-merge": "^3.3.1",
     "typescript": "^5.7.0",
     "zod": "^4.3.5"

@@ -6,94 +6,173 @@ on:
   push:
     branches: [main]
 
-# Cancel in-flight runs for the same branch when a new commit lands.
+# A new commit on a pull request replaces the run before it. Runs on main are
+# never cancelled: two merges landing close together used to cancel the first
+# one's checks, so main had commits nothing had checked (five times in three
+# days, 5 to 7 October 2026).
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: '1'
 
 jobs:
-  # Fast guardrails — must pass on every PR. These are the regressions that
-  # have shipped before and required GSC remediation (see
-  # tasks/gsc-indexing-fix/FINAL-SPEC.md).
-  seo-and-lint:
-    name: SEO regression + lint
+  # ESLint, the nine house audits and the type check. The audits read files only:
+  # hero images, menu pages, page width, redirect rules, JSON-LD safety, dated
+  # claims, palette, opacity modifiers and internal links. `npm run lint` is the
+  # same command a developer runs, so CI and a laptop cannot drift apart.
+  checks:
+    name: Lint, audits and types
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
+      - name: Set up
+        uses: ./.github/actions/setup
 
-      - name: Install dependencies
-        run: npm ci
+      - name: ESLint and the house audits
+        run: npm run lint
 
-      - name: SEO regression tests
-        # Guards robots.txt, sitemap.xml, redirect chains, the apex/host
-        # flattening map, sitemap event resilience, and event lifecycle
-        # decisions. Failure here means an indexability regression — see
-        # tasks/gsc-indexing-fix/FINAL-SPEC.md and url-lifecycle-policy.md.
-        run: npm test -- --runInBand seo-indexing event-seo-strategy sitemap-events
+      - name: Type check
+        # `next build` checks the app's types but not the tests'. This checks both.
+        run: npx tsc --noEmit
 
-      - name: Lint
-        # The full `npm run lint` also executes `audit:hero`, which currently
-        # reports pre-existing CTA/image findings unrelated to the GSC indexing
-        # guardrails. Keep CI focused on ESLint until that separate audit debt
-        # is fixed.
-        run: npm run lint:next
+      - name: Dependency advisories
+        # Reported, not enforced. Next.js 14 carries the one critical advisory and
+        # the upgrade is its own project (site review finding PL-009). Remove
+        # `continue-on-error` when that lands, so a new critical advisory fails.
+        continue-on-error: true
+        run: npm audit --omit=dev --audit-level=critical
 
-  # The full Jest suite. Previously CI only ran the three SEO-guardrail suites
-  # above, so two unrelated suites (TrustBar, ManagementTableBookingForm) rotted
-  # for weeks without anyone noticing — 33 failing tests on a clean `main`.
-  # Running everything here keeps `npm test` usable as a merge gate.
+  # The full Jest suite, once in each zone that matters. Europe/London is the
+  # business. UTC is the serverless runtime, and is where a date that is only
+  # right in London shows up. The SEO guardrails (robots, sitemap, redirects,
+  # event lifecycle) are part of this suite, so they are not run a second time.
   test:
-    name: Unit tests
+    name: Tests (${{ matrix.zone }})
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - zone: Europe/London
+            script: test
+          - zone: UTC
+            script: test:utc
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
+      - name: Set up
+        uses: ./.github/actions/setup
 
       - name: Jest
-        run: npm test -- --ci --runInBand
+        run: npm run ${{ matrix.script }} -- --ci
 
-  # Full build verifies that no TypeScript or build-time errors land. Slower,
-  # but still well under 10 minutes on a clean repo. Kept as a separate job so
-  # SEO + lint failures fail-fast.
+      - name: A visitor's device in another zone
+        # Runs the hours, header and date suites as a phone in Sydney and in Los
+        # Angeles, when the script exists. London and UTC cover the business and
+        # the server; a fault in what the visitor's own clock does needs a third.
+        if: matrix.script == 'test'
+        run: npm run --if-present test:zones
+
+  # The production build. No secrets: runtime API calls are skipped during
+  # static generation when the key is missing, and lib/required-env.js only
+  # enforces settings on Vercel.
   build:
     name: Production build
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up
+        uses: ./.github/actions/setup
+
+      - name: Restore the Next.js build cache
+        uses: actions/cache@v6
         with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
+          path: .next/cache
+          key: next-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          restore-keys: |
+            next-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
 
       - name: Build
-        # next build runs typecheck implicitly. ANCHOR_API_KEY is not required
-        # for the build to succeed; runtime API calls are skipped during static
-        # generation when the key is missing.
-        env:
-          NEXT_TELEMETRY_DISABLED: '1'
         run: npm run build
+
+  # Accessibility in a real browser (WCAG 2.2 AA), against a production build of
+  # this commit. It needs the booking system's key, because a page with no menu,
+  # hours or events on it has nothing to check. The key is the repository secret
+  # ANCHOR_API_KEY. Where it is absent (it is never given to a pull request from
+  # a fork, and it may simply not be set) every step is skipped and the job
+  # passes with a notice, so a missing secret cannot block a merge.
+  #
+  # The audit loads pages and opens menus and dialogs. It never sends a form.
+  accessibility:
+    name: Accessibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      ANCHOR_API_KEY: ${{ secrets.ANCHOR_API_KEY }}
+    steps:
+      - name: Is the key available?
+        id: key
+        run: |
+          if [ -n "$ANCHOR_API_KEY" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Accessibility audit skipped::The ANCHOR_API_KEY secret is not available to this run, so the browser audit did not run."
+          fi
+
+      - name: Checkout
+        if: steps.key.outputs.present == 'true'
+        uses: actions/checkout@v7
+
+      - name: Set up
+        if: steps.key.outputs.present == 'true'
+        uses: ./.github/actions/setup
+
+      - name: Restore the browser
+        if: steps.key.outputs.present == 'true'
+        id: browser
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Chromium
+        if: steps.key.outputs.present == 'true' && steps.browser.outputs.cache-hit != 'true'
+        run: npx playwright install chromium
+
+      - name: Install Chromium's system libraries
+        if: steps.key.outputs.present == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Build
+        if: steps.key.outputs.present == 'true'
+        run: npm run build
+
+      - name: Serve the build and run the audit
+        if: steps.key.outputs.present == 'true'
+        run: |
+          npx next start -p 3100 > next-start.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 60); do
+            if curl --silent --fail --output /dev/null http://localhost:3100/robots.txt; then break; fi
+            sleep 1
+          done
+          npm run audit:a11y -- --base http://localhost:3100
+
+      - name: Server log, if the audit failed
+        if: failure() && steps.key.outputs.present == 'true'
+        run: tail -n 100 next-start.log || true

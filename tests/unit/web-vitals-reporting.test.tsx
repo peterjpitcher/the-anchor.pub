@@ -258,6 +258,59 @@ describe('what the page speed record holds', () => {
   })
 })
 
+describe('the same reading reported twice is counted once (site review FD-010)', () => {
+  it('sends one request when the same INP reading arrives twice', () => {
+    report(metric('INP', { value: 72, id: 'v4-inp-1' }))
+    report(metric('INP', { value: 72, id: 'v4-inp-1' }))
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('sends one request when the same CLS reading arrives twice', () => {
+    reportShift(metric('CLS', { id: 'v4-cls-1', attribution: CLS_ATTRIBUTION }))
+    reportShift(metric('CLS', { id: 'v4-cls-1', attribution: CLS_ATTRIBUTION }))
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('still sends an update: the same id with a new value', () => {
+    report(metric('INP', { value: 72, id: 'v4-inp-1' }))
+    report(metric('INP', { value: 160, id: 'v4-inp-1' }))
+
+    expect(sentBodies().map((body) => body.value)).toEqual([72, 160])
+  })
+
+  it('still sends two different readings that happen to share a value', () => {
+    report(metric('INP', { value: 72, id: 'v4-inp-1' }))
+    report(metric('INP', { value: 72, id: 'v4-inp-2' }))
+
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not hold back a reading that carries no id, because it cannot be told apart', () => {
+    report(metric('LCP', { id: undefined }))
+    report(metric('LCP', { id: undefined }))
+
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('sends a reading that was held back while analytics was off, once it is back on', () => {
+    storeChoice({ analytics: false })
+    report(metric('INP', { value: 72, id: 'v4-inp-1' }))
+    expect(fetchMock).not.toHaveBeenCalled()
+
+    storeChoice({ analytics: true })
+    report(metric('INP', { value: 72, id: 'v4-inp-1' }))
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('still never sends the id itself', () => {
+    report(metric('INP', { value: 72, id: 'v4-inp-1' }))
+
+    expect(JSON.stringify(sentBodies())).not.toContain('v4-inp-1')
+  })
+})
+
 describe('recordablePath', () => {
   it.each([
     ['/', '/'],

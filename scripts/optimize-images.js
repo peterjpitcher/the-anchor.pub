@@ -88,7 +88,8 @@ async function optimiseFile(filePath) {
     return
   }
 
-  let pipeline = sharp(original, { failOnError: false })
+  // sharp 0.35 renamed `failOnError: false` to `failOn: 'none'`.
+  let pipeline = sharp(original, { failOn: 'none' })
 
   let metadata
   try {

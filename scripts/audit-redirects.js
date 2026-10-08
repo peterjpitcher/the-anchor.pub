@@ -43,6 +43,41 @@ const MIDDLEWARE_FALLBACK_SOURCES = new Set(['/post/:slug', '/post/:slug/:rest*'
 
 const isPattern = (s) => s.includes(':') || s.includes('*') || s.includes('(')
 
+/**
+ * Paths middleware.ts never sees. Kept in step with `config.matcher` there:
+ * '/((?!_next/static|_next/image|favicon.ico).*)'. A test asserts the two agree.
+ */
+const MIDDLEWARE_SKIPS = ['/_next/static', '/_next/image', '/favicon.ico']
+
+/**
+ * Why a rule's source can never be requested in a way that reaches the rule,
+ * or null when it can.
+ *
+ * Three rules sat in the files for months doing nothing, and the audit passed
+ * them, because it only asked where a rule points:
+ *
+ *   /whats-new/      Next.js answers a trailing slash with its own 308 to the
+ *                    path without one, so a source ending in '/' is never
+ *                    looked up.
+ *   /favicon.ico     Concrete rules are served by middleware.ts, and its
+ *                    matcher skips this path.
+ *   /cdn-cgi/:path*  Cloudflare sits in front of the site and answers every
+ *                    /cdn-cgi/ address itself; the request never arrives.
+ */
+function unreachableReason(source) {
+  if (typeof source !== 'string') return null
+  if (source === '/cdn-cgi' || source.startsWith('/cdn-cgi/')) {
+    return 'Cloudflare answers /cdn-cgi/ itself, so the request never reaches the site'
+  }
+  if (isPattern(source)) return null
+  if (source.length > 1 && source.endsWith('/')) {
+    return 'a source ending in "/" is never looked up: Next.js redirects the trailing slash away first'
+  }
+  const skipped = MIDDLEWARE_SKIPS.find((prefix) => source === prefix || source.startsWith(`${prefix}/`) || source.startsWith(prefix))
+  if (skipped) return `middleware.ts does not run for ${skipped}, and concrete rules are served by middleware`
+  return null
+}
+
 function load() {
   const rules = []
   for (const file of LOAD_ORDER) {
@@ -121,6 +156,12 @@ function audit() {
     }
   }
 
+  // 5. Rules that can never fire, wherever they point (site review SM-020).
+  for (const r of rules) {
+    const reason = unreachableReason(r.source)
+    if (reason) add('unreachable-source', { source: r.source, file: r.file, reason })
+  }
+
   // 4. Destinations that are neither an absolute URL nor a rooted path.
   for (const r of rules) {
     const d = String(r.destination || '')
@@ -132,7 +173,7 @@ function audit() {
   return { rules, patterns, concrete, layer1, problems }
 }
 
-module.exports = { audit, isPattern, MIDDLEWARE_FALLBACK_SOURCES, LOAD_ORDER }
+module.exports = { audit, isPattern, unreachableReason, MIDDLEWARE_SKIPS, MIDDLEWARE_FALLBACK_SOURCES, LOAD_ORDER }
 
 if (require.main === module) {
   const { rules, patterns, concrete, layer1, problems } = audit()
@@ -141,7 +182,7 @@ if (require.main === module) {
   console.log(`patterns deferred to middleware:             ${patterns.length - layer1.length}`)
 
   const byKind = problems.reduce((a, p) => { (a[p.kind] = a[p.kind] || []).push(p); return a }, {})
-  const FATAL = ['shadowed-by-pattern', 'conflicting-source', 'self-redirect', 'invalid-destination', 'invalid-pattern', 'chain', 'destination-redirects-again']
+  const FATAL = ['shadowed-by-pattern', 'conflicting-source', 'self-redirect', 'invalid-destination', 'invalid-pattern', 'chain', 'destination-redirects-again', 'unreachable-source']
 
   if (!problems.length) {
     console.log('\nNo problems found.')

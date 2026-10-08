@@ -13,7 +13,6 @@ import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
 import { GTMProvider } from '@/components/tracking/GTMProvider'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
 import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
 import { DeferredRender } from '@/components/DeferredRender'
@@ -150,10 +149,10 @@ export default async function RootLayout({
       style={getSeasonalSkinStyle(skin)}
     >
       <head>
-        {/* Resource hints for performance */}
-        <link rel="preconnect" href="https://management.orangejelly.co.uk" />
-        {/* No hint for Google's hosts here: nothing of Google's is contacted
-            until the visitor accepts analytics cookies (GTMProvider). */}
+        {/* No preconnect hints. Nothing of Google's is contacted until the
+            visitor accepts analytics cookies (GTMProvider), and the browser
+            never talks to the management app: every call to it is made on the
+            server, so a hint for it opened a connection nothing used. */}
 
         {/* Meta tags */}
         <meta name="theme-color" content="#005131" />
@@ -251,7 +250,6 @@ function gtag(){dataLayer.push(arguments);}
                     one here put a footer landmark inside a footer landmark on
                     every page (site review AX-019, 7 October 2026). */}
                 <div>
-                  <LaunchAnnouncement variant="slim" />
                   {/* The credit reads its feed on the server, so it is rendered
                       here and handed to the client footer as a slot. Same size
                       and colour as the copyright line above it. */}

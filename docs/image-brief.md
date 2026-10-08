@@ -66,7 +66,6 @@ No copyrighted song lyrics should be visible on any screen in the frame.
 Pub atmosphere during a live sport broadcast. Guests watching a large screen, pints on the table, engaged expressions. Terrestrial sport on screen (football, rugby preferred). The screen does not need to be sharp — motion blur is fine. Warm pub lighting. Do not show Sky/TNT/BT Sport logos.
 
 - Aspect ratio: 16:9 landscape, minimum 1400 × 788 px
-- Note: The Six Nations page already has `six-nations/hero-pub.jpg` — this is a good reference for tone
 
 ---
 
@@ -213,7 +212,6 @@ These pages have dedicated, purpose-built photos — use as quality/tone benchma
 | `/christmas-parties` | `page-headers/christmas-parties/2026/hero-table.jpg` | Decorated table, festive styling — gold standard for event page heroes |
 | `/sunday-lunch` | `food/sunday-roast/the-anchor-sunday-roast-hero.jpg` | Food hero — well-lit, appetite-appealing |
 | `/beer-garden` | `page-headers/beer-garden/beer-garden.jpg` | Exterior space photo |
-| `/live-sport/six-nations` | `six-nations/hero-pub.jpg` | Pub interior during live sport — use as tone ref for item 3 above |
 | `/our-pub` | Multiple `our-pub/*.jpg` images | Interior photos — good pub character reference |
 
 ---
