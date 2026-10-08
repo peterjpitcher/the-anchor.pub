@@ -6,7 +6,7 @@ import { toPublicParkingBooking } from './parking'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { computeLargeGroupDepositAmount } from '@/lib/constants'
 
-import type { EventsResponse, EventCategoriesResponse, EventAvailability, Event } from './events'
+import type { EventsResponse, EventCategoriesResponse, Event } from './events'
 import { FALLBACK_EVENT_CATEGORIES } from './events'
 import type { MenuResponse, DietaryMenuResponse, SundayLunchMenuResponse, MenuSectionItem } from './menu'
 import {
@@ -905,46 +905,6 @@ export class AnchorAPI {
 
   async getEventCategories(): Promise<EventCategoriesResponse> {
     return this.request<EventCategoriesResponse>('/event-categories')
-  }
-
-  // Event availability
-  async checkEventAvailability(eventId: string, seats: number = 1): Promise<EventAvailability> {
-    const requestedSeats = Number.isFinite(seats) && seats > 0 ? Math.floor(seats) : 1
-
-    if (typeof window !== 'undefined') {
-      return this.request<EventAvailability>(`/events/${eventId}/availability`, {
-        method: 'POST',
-        body: JSON.stringify({ seats: requestedSeats })
-      })
-    }
-
-    const event = await this.getEvent(eventId)
-    const maxCapacity =
-      typeof event.maximumAttendeeCapacity === 'number' && Number.isFinite(event.maximumAttendeeCapacity)
-        ? Math.max(Math.floor(event.maximumAttendeeCapacity), 0)
-        : typeof event.capacity === 'number' && Number.isFinite(event.capacity)
-        ? Math.max(Math.floor(event.capacity), 0)
-        : 0
-    const remainingRaw =
-      typeof event.remainingAttendeeCapacity === 'number' && Number.isFinite(event.remainingAttendeeCapacity)
-        ? event.remainingAttendeeCapacity
-        : typeof event.seats_remaining === 'number' && Number.isFinite(event.seats_remaining)
-        ? event.seats_remaining
-        : event.is_full === true
-        ? 0
-        : maxCapacity
-    const remaining = Math.max(Math.floor(remainingRaw), 0)
-    const capacity = Math.max(maxCapacity, remaining)
-    const booked = Math.max(capacity - remaining, 0)
-
-    return {
-      available: remaining >= requestedSeats,
-      event_id: event.id || eventId,
-      capacity,
-      booked,
-      remaining,
-      percentage_full: capacity > 0 ? Math.round((booked / capacity) * 100) : 0
-    }
   }
 
   // Menu

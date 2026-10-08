@@ -227,18 +227,6 @@ export interface EventsResponse {
   }
 }
 
-// Event availability check
-export interface EventAvailability {
-  available: boolean
-  event_id?: string
-  capacity?: number
-  booked?: number
-  remaining?: number
-  percentage_full?: number
-  reason?: string
-  message?: string
-}
-
 // Event categories
 export interface EventCategory {
   id: string
@@ -1109,16 +1097,6 @@ export async function getEventsByCategory(category: string, limit: number = 20):
   } catch (error) {
     logError('api-events-by-category', error, { category, limit })
     return []
-  }
-}
-
-export async function checkEventAvailability(eventId: string, seats: number = 1): Promise<EventAvailability | null> {
-  const { anchorAPI } = await import('./client')
-  try {
-    return await anchorAPI.checkEventAvailability(eventId, seats)
-  } catch (error) {
-    logError('api-check-availability', error, { eventId, seats })
-    return null
   }
 }
 

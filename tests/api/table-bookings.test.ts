@@ -56,6 +56,32 @@ describe('Table Booking API Routes', () => {
       expect(fs.existsSync(path.join(process.cwd(), file))).toBe(false)
     })
   })
+
+  describe('Other addresses nothing on the site used', () => {
+    // Deleted on 8 October 2026 (the rest of site review finding WP-015, owner
+    // answer of that day). Nothing in app, components, lib, content, the
+    // redirect rules or the management app called or linked any of them.
+    // /api/calendar/event/[id], which the Add to calendar button uses, stays.
+    it.each([
+      'app/api/calendar/upcoming/route.ts',
+      'app/api/reviews/status/route.ts',
+      'app/api/health/route.ts',
+      'app/api/events/[id]/availability/route.ts'
+    ])('%s is gone', (file) => {
+      expect(fs.existsSync(path.join(process.cwd(), file))).toBe(false)
+    })
+
+    it('keeps the addresses the site does use', () => {
+      for (const file of [
+        'app/api/calendar/event/[id]/route.ts',
+        'app/api/reviews/route.ts',
+        'app/api/events/[id]/route.ts',
+        'app/api/events/route.ts'
+      ]) {
+        expect(fs.existsSync(path.join(process.cwd(), file))).toBe(true)
+      }
+    })
+  })
 })
 
 jest.mock('@/lib/spam-protection', () => ({

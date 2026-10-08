@@ -31,13 +31,12 @@ project: the-anchor-pub
 | `/api/parking/payment/create-order` | POST | Initiate PayPal payment for parking |
 | `/api/parking/payment/capture` | POST | Capture PayPal payment for parking |
 
-### Event Routes (4)
+### Event Routes (3)
 
 | Route | Methods | Purpose |
 |-------|---------|---------|
 | `/api/events` | GET | List all upcoming events |
 | `/api/events/[id]` | GET | Get event details |
-| `/api/events/[id]/availability` | POST | Get availability for event booking |
 | `/api/event-bookings` | POST | Create an event booking |
 
 ### Business Data Routes (2)
@@ -47,19 +46,17 @@ project: the-anchor-pub
 | `/api/business/hours` | GET | Get opening hours + special closures |
 | `/api/managers-special` | GET | Get current manager's special offer |
 
-### Review Routes (3)
+### Review Routes (2)
 
 | Route | Methods | Purpose |
 |-------|---------|---------|
 | `/api/reviews` | GET | List recent reviews |
-| `/api/reviews/status` | GET | Get review submission status |
 | `/api/managers-special-image` | GET | Get manager's special image asset |
 
-### Calendar & Customer Routes (3)
+### Calendar & Customer Routes (2)
 
 | Route | Methods | Purpose |
 |-------|---------|---------|
-| `/api/calendar/upcoming` | GET | Get upcoming events for calendar |
 | `/api/calendar/event/[id]` | GET | Get event details for calendar |
 | `/api/customers/lookup` | GET | Tells the booking form whether a mobile number already belongs to a customer (phone only, yes or no) |
 
@@ -80,11 +77,10 @@ project: the-anchor-pub
 | `/api/web-vitals` | POST | Send Core Web Vitals metrics |
 | `/api/booking/agent` | GET, POST | **RETIRED 2026-07-28.** Returns 410 Gone. Was a public, unauthenticated endpoint that created real table bookings, with no known caller |
 
-### Other Routes (8)
+### Other Routes (6)
 
 | Route | Methods | Purpose |
 |-------|---------|---------|
-| `/api/health` | GET | Health check (public). Runs on request: 200 when the required settings are present and the booking system's hours endpoint answers, 503 with a short reason when not |
 | `/api/careers` | POST | Submit career inquiry |
 | `/api/event-categories` | GET | Get event category list |
 | `/api/event-waitlist` | POST | Join event waitlist |
@@ -98,7 +94,6 @@ project: the-anchor-pub
 
 These endpoints do not require authentication:
 
-- Health checks: `/api/health`
 - Data reads: `/api/events`, `/api/events/[id]`, `/api/business/hours`, `/api/reviews`, `/api/managers-special`, `/api/calendar/*`, `/api/event-categories`, `/api/parking/rates`
 - Config: `/api/public/private-booking/config`
 

@@ -95,11 +95,6 @@ describe('runtime event reads', () => {
     expect(response.status).toBe(200)
     expect(await response.json()).toMatchObject({ data: { events: [event] } })
   })
-
-  it('does not invent event availability when the browser proxy fails', async () => {
-    mockFetch.mockRejectedValue(new Error('fetch failed'))
-    await expect(anchorAPI.checkEventAvailability('real-event', 2)).rejects.toMatchObject({ code: 'NETWORK_ERROR' })
-  })
 })
 
 it('uses empty build data rather than publishing an invented event', async () => {
