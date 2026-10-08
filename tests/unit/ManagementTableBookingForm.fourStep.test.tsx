@@ -82,7 +82,7 @@ function setupFetchMock(availability: (url: URL) => { date?: string; time_slots:
       )
     }
 
-    if (raw.startsWith('/api/customers/lookup?')) {
+    if (raw.startsWith('/api/customers/lookup')) {
       return Promise.resolve(
         jsonResponse({ success: true, data: { known: false, lookup_degraded: false } })
       )

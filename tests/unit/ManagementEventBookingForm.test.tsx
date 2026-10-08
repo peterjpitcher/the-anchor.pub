@@ -308,6 +308,30 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByRole('button', { name: 'Continue' })).not.toBeInTheDocument()
   })
 
+  it('lets the submit button fit the booking card on a narrow phone', () => {
+    // 'Book your places' at the large size needs 237px on one line. Inside the
+    // game-night booking card a 320px phone leaves it 212px, and the button
+    // held the whole column 25px too wide on /cash-bingo and /music-bingo.
+    render(
+      <ManagementEventBookingForm
+        event={{
+          id: 'evt-bingo',
+          name: 'Cash Bingo',
+          startDate: '2026-11-18T19:00:00+00:00',
+          time: '19:00',
+          booking_mode: 'communal',
+          seats_remaining: 49
+        }}
+        compact
+      />
+    )
+
+    expect(screen.getByRole('button', { name: 'Book your places' })).toHaveClass(
+      'max-sm:whitespace-normal',
+      'max-sm:px-4'
+    )
+  })
+
   it('keeps the submit button enabled on a cash_only event without any guest names', async () => {
     render(
       <ManagementEventBookingForm

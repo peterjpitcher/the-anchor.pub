@@ -28,6 +28,8 @@ const trackSlotFlagShown = jest.fn()
 const trackSlotInvalidated = jest.fn()
 const trackBookingErrorShown = jest.fn()
 
+import { analyticsSaleId } from '@/lib/tracking/booking-identifiers'
+
 jest.mock('@/lib/gtm-events', () => ({
   trackTableBookingClick: (...args: unknown[]) => trackTableBookingClick(...args),
   trackTableBookingFunnel: (...args: unknown[]) => trackTableBookingFunnel(...args),
@@ -141,7 +143,7 @@ function setupFetchMock(options: {
       )
     }
 
-    if (url.startsWith('/api/customers/lookup?')) {
+    if (url.startsWith('/api/customers/lookup')) {
       return Promise.resolve(
         jsonResponse({
           success: true,
@@ -720,7 +722,7 @@ describe('ManagementTableBookingForm', () => {
         )
       }
 
-      if (url.startsWith('/api/customers/lookup?')) {
+      if (url.startsWith('/api/customers/lookup')) {
         return Promise.resolve(
           new Response(
             JSON.stringify({
@@ -904,7 +906,7 @@ describe('ManagementTableBookingForm', () => {
         )
       }
 
-      if (url.startsWith('/api/customers/lookup?')) {
+      if (url.startsWith('/api/customers/lookup')) {
         return Promise.resolve(
           new Response(
             JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }),
@@ -998,13 +1000,18 @@ describe('ManagementTableBookingForm', () => {
       expect(screen.getByText(/We've sent confirmation details by email/i)).toBeInTheDocument()
     )
 
-    // GA4 purchase event should fire with the booking reference as transaction_id,
-    // carry an estimated booking value rather than the (always £0) deposit, and
-    // go through the Measurement Protocol as well as the dataLayer.
+    // GA4 purchase event should fire with a sale id made from the booking
+    // reference as transaction_id (never the reference itself), carry an
+    // estimated booking value rather than the (always £0) deposit, and go
+    // through the Measurement Protocol as well as the dataLayer.
+    expect(analyticsSaleId('TB-CONF-1')).toMatch(/^sale_[0-9a-f]{16}$/)
+    for (const [pushed] of jest.mocked(pushToDataLayer).mock.calls) {
+      expect(JSON.stringify(pushed)).not.toContain('TB-CONF-1')
+    }
     expect(pushToDataLayer).toHaveBeenCalledWith(
       expect.objectContaining({
         event: 'purchase',
-        transaction_id: 'TB-CONF-1',
+        transaction_id: analyticsSaleId('TB-CONF-1'),
         // 4 covers at the £25 per-cover figure the site already sends Meta.
         // Sending the deposit here is what made GA4 Total revenue read £0.00.
         value: 100,
@@ -1789,7 +1796,7 @@ describe('ManagementTableBookingForm', () => {
             })
           )
         }
-        if (url.startsWith('/api/customers/lookup?')) {
+        if (url.startsWith('/api/customers/lookup')) {
           return Promise.resolve(
             new Response(JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }), {
               status: 200,
@@ -2165,7 +2172,7 @@ describe('ManagementTableBookingForm', () => {
         if (url.startsWith('/api/events?')) {
           return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
         }
-        if (url.startsWith('/api/customers/lookup?')) {
+        if (url.startsWith('/api/customers/lookup')) {
           return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
         }
         if (url.startsWith('/api/table-bookings/availability')) {
@@ -2250,7 +2257,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url.startsWith('/api/table-bookings/availability')) {
@@ -2417,7 +2424,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url.startsWith('/api/table-bookings/availability')) {
@@ -2490,7 +2497,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url.startsWith('/api/table-bookings/availability')) {
@@ -3068,7 +3075,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url.startsWith('/api/table-bookings/availability')) {
@@ -3203,7 +3210,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/table-bookings/availability')) {
             return Promise.resolve(jsonResponse({ success: true, data }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url === '/api/table-bookings') {
@@ -3338,7 +3345,7 @@ describe('ManagementTableBookingForm', () => {
             if (url.startsWith('/api/events?')) {
               return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
             }
-            if (url.startsWith('/api/customers/lookup?')) {
+            if (url.startsWith('/api/customers/lookup')) {
               return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
             }
             if (url.startsWith('/api/table-bookings/availability')) {
@@ -3776,6 +3783,16 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByText(/Welcome back/i)).toBeInTheDocument())
       expect(screen.queryByLabelText('First Name')).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/Last Name/i)).not.toBeInTheDocument()
+
+      // The number is asked about in the body of a POST. No address the form
+      // requests ever carries it, because addresses are what logs record.
+      const requests = (global.fetch as jest.Mock).mock.calls as Array<[RequestInfo | URL, RequestInit | undefined]>
+      const lookups = requests.filter(([input]) => String(input).includes('/api/customers/lookup'))
+      expect(lookups).toHaveLength(1)
+      expect(String(lookups[0][0])).toBe('/api/customers/lookup')
+      expect(lookups[0][1]?.method).toBe('POST')
+      expect(JSON.parse(String(lookups[0][1]?.body))).toEqual({ phone: '07700900000', default_country_code: '44' })
+      for (const [input] of requests) expect(String(input)).not.toContain('07700900000')
 
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())

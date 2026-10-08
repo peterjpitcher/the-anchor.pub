@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Alert, Button, Icon } from '@/components/ui'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
-import { toGuestMessage } from '@/lib/guest-error-messages'
+import { SECURITY_CHECK_REQUIRED_MESSAGE, toGuestMessage } from '@/lib/guest-error-messages'
 import {
   availabilityOptions,
   experienceOptions,
@@ -97,7 +97,7 @@ export function RecruitmentApplicationForm({
       return 'Please choose at least one usual availability option.'
     }
     if (TURNSTILE_SITE_KEY && !turnstileToken) {
-      return 'Please complete the security check before submitting.'
+      return SECURITY_CHECK_REQUIRED_MESSAGE
     }
     if (!consent) return 'Please confirm we can contact you about your application.'
 

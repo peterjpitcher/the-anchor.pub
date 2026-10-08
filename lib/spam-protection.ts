@@ -1,29 +1,7 @@
 import { NextRequest } from 'next/server'
 import { verifyTurnstileToken } from '@/lib/turnstile'
 import { logError } from '@/lib/error-handling'
-
-// ── Rate limiter ────────────────────────────────────────────────────────────
-const RATE_LIMIT_WINDOW_MS = 60_000
-const RATE_LIMIT_MAX_REQUESTS = 5
-const rateLimitMap = new Map<string, number[]>()
-
-function getClientIp(request: NextRequest | Request): string {
-  const headers = request.headers
-  return headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
-}
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now()
-  const timestamps = rateLimitMap.get(ip) ?? []
-  const recent = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS)
-  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
-    rateLimitMap.set(ip, recent)
-    return true
-  }
-  recent.push(now)
-  rateLimitMap.set(ip, recent)
-  return false
-}
+import { RATE_LIMITS, RATE_LIMIT_MESSAGE, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 // Minimum seconds a real user needs to fill any form
 const MIN_FORM_DURATION_SECONDS = 3
@@ -85,15 +63,14 @@ export async function checkSpamProtection(
   body: Record<string, unknown>,
   options?: { skipTurnstile?: boolean }
 ): Promise<SpamCheckResult> {
-  // 1. Rate limit by IP
-  const clientIp = getClientIp(request)
-  if (isRateLimited(clientIp)) {
+  // 1. Rate limit by address. Per server (lib/rate-limit.ts), with Retry-After
+  //    and the phone number, so a guest who is refused knows how long to wait
+  //    and who to ring instead.
+  const rateLimit = limitByAddress(request, 'form-submission', RATE_LIMITS.formSubmission)
+  if (rateLimit.limited) {
     return {
       blocked: true,
-      response: Response.json(
-        { success: false, error: 'Too many attempts. Please wait a minute and try again, or call 01753 682707.' },
-        { status: 429 }
-      )
+      response: tooManyRequests(rateLimit, { success: false, error: RATE_LIMIT_MESSAGE, reason: 'rate_limited' })
     }
   }
 

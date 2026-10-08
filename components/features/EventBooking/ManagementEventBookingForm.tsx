@@ -6,6 +6,8 @@ import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
 import {
+  TURNSTILE_RECOVERY_DELAY_MS,
+  TURNSTILE_RECOVERY_TITLE,
   TurnstileField,
   type TurnstileFieldRef,
   type TurnstileFieldStatus,
@@ -53,19 +55,9 @@ function getTurnstileSiteKey(): string {
   return process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 }
 
-/**
- * How long we wait for Cloudflare to hand over a token before we say something.
- *
- * The submit button is disabled until a token exists, so a widget that is
- * blocked by an extension, killed by a corporate proxy or simply never loaded
- * left the guest looking at a dead button with nothing on screen to explain it.
- * Ten seconds is long enough for a slow phone on a weak signal to finish
- * quietly, and short enough that nobody sits there wondering what they did.
- */
-const TURNSTILE_RECOVERY_DELAY_MS = 10_000
-
-const TURNSTILE_RECOVERY_TITLE = 'Security check not completed'
-
+// The wait and the title are the shared widget's (see TurnstileField), so this
+// form's own panel and every other form's panel appear at the same moment and
+// under the same heading. Only the sentences below are this form's.
 const TURNSTILE_RECOVERY_MESSAGE =
   'Our security check has not finished, so we cannot take this booking online yet. Everything you have typed is still here.'
 
@@ -1178,10 +1170,18 @@ export function ManagementEventBookingForm({
             </div>
           )}
 
+          {/*
+            `wrap`: at this size a button has 48px of padding each side, so
+            'Book your places' needs 237px on one line. The game-night pages
+            nest this form in a card and leave it 212px on a 320px phone, and
+            the button held the whole booking column 25px too wide. Below 640px
+            the padding drops to 16px and the label fits on one line.
+          */}
           <Button
             type="submit"
             fullWidth
             size="lg"
+            wrap
             loading={loading}
             aria-describedby={turnstileUnavailable ? TURNSTILE_RECOVERY_REGION_ID : undefined}
             disabled={(turnstileSiteKey ? !turnstileToken : false) || !ticketSelectionValid}

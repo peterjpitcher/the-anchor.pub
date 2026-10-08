@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sanitizeTrackingUrlContext } from '@/lib/tracking/url-context'
+import { stripBookingIdentifiers } from '@/lib/tracking/booking-identifiers'
+import { RATE_LIMITS, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 const GA4_COLLECT_URL = 'https://www.google-analytics.com/mp/collect'
 
@@ -201,6 +203,14 @@ async function forwardToGa4(
 }
 
 export async function POST(request: NextRequest) {
+  // Whatever arrives here is forwarded to Google Analytics with the server's
+  // secret, so one address gets 60 batches a minute. Per server
+  // (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'analytics', RATE_LIMITS.beacon)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { error: 'Too many requests' })
+  }
+
   const verboseLogging = process.env.API_DEBUG_LOGS === 'true'
 
   try {
@@ -210,9 +220,10 @@ export async function POST(request: NextRequest) {
       : Array.isArray(data?.events)
         ? data.events
         : [data]
-    // Older browser bundles can still send full URLs. Apply the same boundary
-    // before logging or forwarding them to GA4.
-    const events = incomingEvents.map(sanitizeTrackingUrlContext)
+    // Older browser bundles can still send full URLs, booking references and
+    // booking ids. Apply the same boundary before logging or forwarding them
+    // to GA4.
+    const events = incomingEvents.map(event => stripBookingIdentifiers(sanitizeTrackingUrlContext(event)))
 
     if (process.env.NODE_ENV === 'development' && verboseLogging) {
       console.log('[Analytics API]', {

@@ -73,7 +73,7 @@ function mockRequests(): { sent: SentRequest[]; bookingBodies: Array<Record<stri
         })
       )
     }
-    if (url.startsWith('/api/customers/lookup?')) {
+    if (url.startsWith('/api/customers/lookup')) {
       return Promise.resolve(jsonResponse({ success: true, data: { known: false, lookup_degraded: false } }))
     }
     if (url === '/api/table-bookings') {

@@ -1,11 +1,19 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
+import { RATE_LIMITS, RATE_LIMIT_MESSAGE, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  // Spends the management app's shared key, so one address gets 20 a minute.
+  // Per server (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'event-availability', RATE_LIMITS.publicRead)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { success: false, error: RATE_LIMIT_MESSAGE, code: 'RATE_LIMITED' })
+  }
+
   try {
     // Parse request body to get seats parameter
     const body = await request.json()

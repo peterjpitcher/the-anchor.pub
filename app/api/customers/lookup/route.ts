@@ -4,6 +4,10 @@ import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { safeJsonParse } from '@/lib/upstream-json'
 import { mapUpstreamFailure } from '@/lib/guest-error-messages'
+import { RATE_LIMITS, limitByAddress } from '@/lib/rate-limit'
+
+// Never built ahead of time or kept: every answer is about one phone number.
+export const dynamic = 'force-dynamic'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -17,58 +21,54 @@ type CustomerLookupResponse = {
   lookup_degraded?: boolean
 }
 
-// ── Per-IP rate limiting to protect the shared upstream API key budget ───────
-const LOOKUP_RATE_LIMIT_WINDOW_MS = 60_000
-const LOOKUP_RATE_LIMIT_MAX = 6 // generous for real users, blocks automated abuse
-const lookupRateLimitMap = new Map<string, number[]>()
-
-function isLookupRateLimited(ip: string): boolean {
-  const now = Date.now()
-  const timestamps = lookupRateLimitMap.get(ip) ?? []
-  const recent = timestamps.filter((t) => now - t < LOOKUP_RATE_LIMIT_WINDOW_MS)
-  if (recent.length >= LOOKUP_RATE_LIMIT_MAX) {
-    lookupRateLimitMap.set(ip, recent)
-    return true
-  }
-  recent.push(now)
-  lookupRateLimitMap.set(ip, recent)
-  return false
-}
-
+// The reason is for our logs only. It used to be sent back in `meta.reason`,
+// which told anyone asking whether the key was missing, whether they had been
+// limited or what the management app had answered (site review, 7 October 2026).
 function createDegradedLookupResponse(reason: string, status = 200) {
+  console.warn(`[api/customers/lookup] answered without a lookup: ${reason}`)
+
   const data: CustomerLookupResponse = {
     known: false,
     lookup_degraded: true
   }
 
   return NextResponse.json(
-    {
-      success: true,
-      data,
-      meta: {
-        source: 'brand_lookup_fallback',
-        reason
-      }
-    },
+    { success: true, data },
     { status, headers: PRIVATE_NO_STORE_HEADERS }
   )
 }
 
-export async function GET(request: NextRequest) {
+const MAX_PHONE_LENGTH = 32
+
+function asTrimmedString(value: unknown): string {
+  return typeof value === 'string' ? value.trim() : ''
+}
+
+// POST, with the number in the body. As a GET the number sat in the web
+// address, which is the part of a request that hosting, proxy and browser
+// history all record.
+//
+// The onward call to the management app is still a GET with the number in its
+// query string, because that is the only form its lookup accepts. That hop is
+// server to server; moving it needs a change in the management app.
+export async function POST(request: NextRequest) {
   if (!API_KEY) {
     return createDegradedLookupResponse('missing_api_key')
   }
 
-  const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
-  if (isLookupRateLimited(clientIp)) {
+  // Protects the management app's shared key from one address hammering this
+  // lookup. Per server (lib/rate-limit.ts). The answer stays the degraded one,
+  // not a 429: the booking form carries on without the lookup, so the guest
+  // loses a convenience and never the booking.
+  if (limitByAddress(request, 'customer-lookup', RATE_LIMITS.customerLookup).limited) {
     return createDegradedLookupResponse('rate_limited')
   }
 
-  const phone = request.nextUrl.searchParams.get('phone')?.trim() || ''
-  const defaultCountryCode =
-    request.nextUrl.searchParams.get('default_country_code')?.trim() || '44'
+  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null
+  const phone = asTrimmedString(body?.phone)
+  const defaultCountryCode = asTrimmedString(body?.default_country_code) || '44'
 
-  if (phone.length < 5) {
+  if (phone.length < 5 || phone.length > MAX_PHONE_LENGTH || !/^\d{1,4}$/.test(defaultCountryCode)) {
     return createApiErrorResponse('Phone number is required', 400)
   }
 
@@ -99,11 +99,7 @@ export async function GET(request: NextRequest) {
           known: upstreamData?.known === true || Boolean(upstreamData?.customer)
         }
         return NextResponse.json(
-          {
-            success: true,
-            data,
-            meta: { source: 'brand_lookup' }
-          },
+          { success: true, data },
           // Keyed by a phone number, so never stored anywhere shared.
           { status: 200, headers: PRIVATE_NO_STORE_HEADERS }
         )
@@ -134,4 +130,13 @@ export async function GET(request: NextRequest) {
     logError('api/customers/lookup', error)
     return createDegradedLookupResponse('network_error')
   }
+}
+
+// A page left open from before this route became a POST still asks with a GET
+// and the number in the address. It is answered "could not check", which the
+// forms already handle by asking for a name as they would for a new guest, so
+// nobody is stopped from booking by a deploy. The number is not read, not
+// looked up and not passed on. Nothing on the site sends this any more.
+export async function GET() {
+  return createDegradedLookupResponse('get_not_supported')
 }

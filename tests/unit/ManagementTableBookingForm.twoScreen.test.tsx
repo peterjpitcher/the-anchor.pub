@@ -4,6 +4,7 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { STEP_FREE_TABLE_EXPLANATION } from '@/components/features/TableBooking/TableRefinements'
 import { clearBookingAttributionForTest } from '@/lib/booking-attribution'
+import { analyticsSaleId } from '@/lib/tracking/booking-identifiers'
 
 /**
  * The approved two-screen journey (spec D1), which renders only when the
@@ -127,7 +128,7 @@ function setupFetchMock(options: {
       )
     }
 
-    if (url.startsWith('/api/customers/lookup?')) {
+    if (url.startsWith('/api/customers/lookup')) {
       return Promise.resolve(
         jsonResponse({
           success: true,
@@ -313,7 +314,9 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Check previous booking attempt' }))
     await screen.findByText('TB-RECOVERED')
     expect(trackTableBookingFunnel.mock.calls.filter(([event]) => event.step === 'success')).toEqual([[expect.objectContaining({ step: 'success', fixtureId: context.fixtureId, bookingDate: BOOKING_DATE, bookingTime: '13:00' })]])
-    expect(pushToDataLayer.mock.calls.filter(([event]) => event.event === 'purchase')).toEqual([[expect.objectContaining({ event: 'purchase', fixture_id: context.fixtureId, transaction_id: 'TB-RECOVERED' }), { sendToApi: true }]])
+    expect(pushToDataLayer.mock.calls.filter(([event]) => event.event === 'purchase')).toEqual([[expect.objectContaining({ event: 'purchase', fixture_id: context.fixtureId, transaction_id: analyticsSaleId('TB-RECOVERED') }), { sendToApi: true }]])
+    // A sale id made from the reference. The reference itself is never pushed.
+    expect(JSON.stringify(pushToDataLayer.mock.calls)).not.toContain('TB-RECOVERED')
     expect(attempts).toHaveLength(2)
     expect(attempts[1].payload).toMatchObject({ notes: 'Original notes', fixture_id: context.fixtureId })
     expect(attempts[1].headers['Idempotency-Key']).toBe(attempts[0].headers['Idempotency-Key'])
