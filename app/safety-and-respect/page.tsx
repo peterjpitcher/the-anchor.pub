@@ -6,9 +6,17 @@ import { InteriorHero } from '@/components/hero'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
+import { pageOpenGraph } from '@/lib/page-open-graph'
+const PAGE_TITLE = 'Safety and Respect'
+const PAGE_DESCRIPTION =
+  'A pub where everyone is genuinely welcome. Our commitment to a safe, respectful environment at The Anchor, Stanwell Moor.'
+
 export const metadata: Metadata = {
-  title: 'Safety and Respect',
-  description: 'A pub where everyone is genuinely welcome. Our commitment to a safe, respectful environment at The Anchor, Stanwell Moor.',
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  // Its own share block. Without one the page inherits the root layout's,
+  // which describes the homepage.
+  openGraph: pageOpenGraph({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
   alternates: {
     canonical: '/safety-and-respect'
   }

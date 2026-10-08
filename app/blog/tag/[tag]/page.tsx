@@ -44,7 +44,12 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   const seoContent = getTagSEOContent(tag)
 
   return {
-    title: seoContent.metaTitle,
+    // The root layout adds " | The Anchor" to a plain title. Nearly every tag
+    // title already names the pub, so those are sent as written; twelve pages
+    // used to read "... | The Anchor | The Anchor".
+    title: seoContent.metaTitle.includes('The Anchor')
+      ? { absolute: seoContent.metaTitle }
+      : seoContent.metaTitle,
     description: seoContent.metaDescription,
     alternates: {
       canonical: `/blog/tag/${tag}`,

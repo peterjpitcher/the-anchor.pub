@@ -43,7 +43,8 @@ const EARLY_ELIMINATION_WINNERS = [
 const WINNER_COUNT = MAIN_WINNERS.length + EARLY_ELIMINATION_WINNERS.length
 
 export const metadata: Metadata = {
-  title: 'World Cup 2026 Sweepstake Winners | The Anchor',
+  // The root layout adds " | The Anchor". Written out here as well, it rendered twice.
+  title: 'World Cup 2026 Sweepstake Winners',
   description: `See every World Cup 2026 sweepstake winner at ${BRAND.name}, including the £100 champion and all bonus prize winners.`,
   openGraph: {
     title: 'World Cup 2026 Sweepstake Winners | The Anchor',
