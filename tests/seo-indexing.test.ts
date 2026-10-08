@@ -416,6 +416,35 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     )
   })
 
+  it('sends /free-parking to the free parking section of Find Us, not the paid parking page', () => {
+    // Owner answer, 8 October 2026. The address used to land on
+    // /heathrow-parking, the paid product, which is the opposite of what
+    // someone asking for free parking wants (docs/SSOT.md section 8 keeps the
+    // two apart). The section is the id on app/find-us/page.tsx.
+    const rule = lookupRedirect('/free-parking')
+    expect(rule?.destination).toBe('/find-us#parking')
+    expect(getRedirectStatus(rule!)).toBe(301)
+    expect(ALL_REDIRECTS.filter((r) => r.source === '/free-parking')).toHaveLength(1)
+    expect(lookupRedirect('/find-us')).toBeUndefined()
+    expect(fs.readFileSync(path.join(process.cwd(), 'app/find-us/page.tsx'), 'utf8')).toContain('id="parking"')
+
+    // End to end through the middleware on both hosts: one 301, and the
+    // section survives. A query string is kept and sits before the section.
+    for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+      const response = middleware(
+        new NextRequest(`https://${host}/free-parking`, { headers: { host, 'x-forwarded-proto': 'https' } }),
+      )
+      expect(response.status).toBe(301)
+      expect(response.headers.get('location')).toBe('https://www.the-anchor.pub/find-us#parking')
+    }
+    const withQuery = middleware(
+      new NextRequest('https://www.the-anchor.pub/free-parking?utm_source=test', {
+        headers: { host: 'www.the-anchor.pub', 'x-forwarded-proto': 'https' },
+      }),
+    )
+    expect(withQuery.headers.get('location')).toBe('https://www.the-anchor.pub/find-us?utm_source=test#parking')
+  })
+
   it('redirects the retired open-mic page to the events hub', () => {
     // Open mic used to land on /live-music. Live music is now discontinued in
     // full and that route is retired too (docs/SSOT.md §"Live Music,
