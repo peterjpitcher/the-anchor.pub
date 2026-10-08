@@ -16,8 +16,48 @@ import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
+import { getNextValentinesYear, isValentinesCandidate } from '@/lib/seasonal/valentines'
 
 export const dynamic = 'force-dynamic'
+
+const HOLDING_LINE = "We haven't announced our Valentine's plans yet."
+const HOLDING_DESCRIPTION =
+  "Valentine's and Galentine's at The Anchor in Stanwell Moor, near Heathrow. We haven't announced our plans yet. You can book a table as usual."
+
+function ValentinesHolding(): React.JSX.Element {
+  return (
+    <>
+      <InteriorHero
+        image="/images/page-headers/home/page-headers-homepage.jpg"
+        crumb="Valentine's & Galentine's"
+        title="Valentine's and Galentine's at The Anchor"
+        lead={`${HOLDING_LINE} When we do, the details go here and on What's On.`}
+      />
+      <section className="py-section-y bg-surface">
+        <Container>
+          <div className="mx-auto space-y-6">
+            <h2 className="text-h3 text-ink-strong">Nothing announced yet</h2>
+            <p className="text-lg leading-relaxed text-ink-muted">
+              {HOLDING_LINE} In the meantime you can book a table as usual, for two or for the whole group. Our kitchen
+              times change by day, so check them when you choose your time.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
+                <a href="/book-table">Book a table</a>
+              </Button>
+              <Button asChild variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
+                <Link href="/whats-on" className="w-full sm:w-auto">See what&apos;s on</Link>
+              </Button>
+              <PhoneButton phone="01753 682707" source="valentines_holding" variant="outline" size="lg" className="w-full sm:w-auto">
+                Call 01753 682707
+              </PhoneButton>
+            </div>
+          </div>
+        </Container>
+      </section>
+    </>
+  )
+}
 
 const VALENTINES_DAY_BOOKING_URL =
   '/book-table?purpose=food'
@@ -74,28 +114,6 @@ function getTextExcerpt(value: string, maxLength: number): string {
   }
 
   return `${truncated}…`
-}
-
-function getNextValentinesYear(now: Date): number {
-  const valentinesEnd = new Date(Date.UTC(now.getUTCFullYear(), 1, 14, 23, 59, 59))
-  return now.getTime() > valentinesEnd.getTime() ? now.getUTCFullYear() + 1 : now.getUTCFullYear()
-}
-
-function isValentinesCandidate(event: Event): boolean {
-  const haystack = [
-    event.name,
-    event.shortDescription,
-    event.description,
-    event.about,
-    event.slug,
-    event.identifier,
-    event.keywords
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase()
-
-  return haystack.includes('valentin')
 }
 
 function getFebruaryDateRange(year: number): { fromDate: string; toDate: string } {
@@ -171,7 +189,7 @@ export async function generateMetadata(): Promise<Metadata> {
         proseccoOffer ? `${proseccoOffer}.` : 'Book early to secure your preferred time.',
         `Date: ${eventDateLabel}.`
       ].join(' ')
-    : `A relaxed Valentine's and Galentine's near Heathrow, for couples, friends and small groups. Good food, proper drinks, free parking. Book for ${eventDateLabel}.`
+    : HOLDING_DESCRIPTION
 
   const keywords = event?.keywords
     ? event.keywords
@@ -205,6 +223,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ValentinesDayPage() {
   const { event, targetYear } = await getValentinesEvent()
+
+  // Nothing in the diary: a plain holding page, with no date, no time and no
+  // promise of an evening or a menu (site review C1-018). 14 February 2027 is
+  // a Sunday, when the kitchen shuts at 6pm, and the old fallback invited
+  // people to "book for 14 February" for "an easy evening" of "good food".
+  if (!event) return <ValentinesHolding />
 
   const heroImage = (event ? getEventHeroImage(event) : null) || DEFAULT_EVENT_IMAGE
   const eventDate = event ? formatEventDate(event.startDate) : `14 February ${targetYear}`
@@ -257,7 +281,7 @@ export default async function ValentinesDayPage() {
           question: 'What time is food served?',
           answer: dinnerRange
             ? `Our full menu is available ${formatTimeRange(dinnerRange)}. ${lateMenuRange ? `A late menu runs ${formatTimeRange(lateMenuRange)}.` : ''}`.trim()
-            : 'Our full menu is served earlier in the evening. Book your table to dine.'
+            : `Food times are on the event listing. If they are not there yet, call us on 01753 682707.`
         },
         {
           question: 'What time does the night run until?',

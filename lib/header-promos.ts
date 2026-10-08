@@ -76,12 +76,30 @@ function christmasPromo(): HeaderPromo {
  * Every promo whose window could plausibly be open now or soon. Navigation does
  * the actual filtering; this just makes sure the right candidates are present.
  */
-export function getHeaderPromoCtas(testDate?: Date): HeaderPromo[] {
+export interface HeaderPromoOptions {
+  /**
+   * Whether a Valentine's event is in the management app's diary. The root
+   * layout passes the live answer (lib/seasonal/valentines.ts). When it is
+   * false the Valentine's link is left out: on the calendar alone it appeared
+   * on 20 December, five days before Christmas, pointing at a page with nothing
+   * confirmed. Left undefined, the entries are returned as the calendar has
+   * them, which is what the date arithmetic tests ask for.
+   */
+  valentinesListed?: boolean
+}
+
+export const VALENTINES_PROMO_LABEL = "Valentine's Day"
+
+export function getHeaderPromoCtas(testDate?: Date, options: HeaderPromoOptions = {}): HeaderPromo[] {
   const { year } = nowInLondonComponents(testDate ?? new Date())
-  return [
+  const occasions = [
     ...occasionsForYear(year),
     // Next year's too, so a promo's lead window can cross 31 December.
-    ...occasionsForYear(year + 1),
+    ...occasionsForYear(year + 1)
+  ].filter((promo) => options.valentinesListed !== false || promo.label !== VALENTINES_PROMO_LABEL)
+
+  return [
+    ...occasions,
     christmasPromo(),
     // Owner requested a top-bar link from 5 September through Finals Weekend.
     // One tournament only: it must not return automatically in a later year.
