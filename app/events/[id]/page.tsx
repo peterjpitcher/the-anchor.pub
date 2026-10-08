@@ -10,7 +10,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
 import { InteriorHero } from '@/components/hero'
-import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration } from '@/lib/api'
+import { anchorAPI, formatEventDate, formatEventTime, formatDoorClockTime, formatEventDuration } from '@/lib/api'
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -48,6 +48,7 @@ import { isEventOver } from '@/lib/event-calendar'
 import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead, getEventCategoryModifier } from '@/lib/event-copy'
 import { getEventSocialCopy } from '@/lib/event-social-copy'
 import { getEventAgeRule } from '@/lib/event-age-rule'
+import { getEventArrivalLabel } from '@/lib/event-arrival-label'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
@@ -546,7 +547,10 @@ export default async function EventPage({ params }: Props) {
   const eventTime = formatEventTime(event.startDate)
   // "Arrive from 6:30pm" is an instruction, so it is only given for a night
   // somebody can still arrive at (site review finding C2-023).
-  const headerDoorTime = presentation.phase === 'upcoming' ? formatDoorTime(event.doorTime) : null
+  // "Arrive by" for cash bingo, "Arrive from" for every other night (C2-027).
+  const arrivalLabel = getEventArrivalLabel(event)
+  const headerDoorClockTime = presentation.phase === 'upcoming' ? formatDoorClockTime(event.doorTime) : null
+  const headerDoorTime = headerDoorClockTime ? `${arrivalLabel} ${headerDoorClockTime}` : null
   // The format's age rule from docs/SSOT.md, for a kind of night that has one.
   const ageRule = getEventAgeRule(event)
   const eventBookingCopy = getEventBookingCopy(event)
@@ -665,7 +669,7 @@ export default async function EventPage({ params }: Props) {
     { label: 'End time', value: endTime },
     // "Arrive from", never "Doors open": the pub opens hours before any event
     // starts. docs/SSOT.md §10 bans the wording.
-    { label: 'Arrive from', value: doorsTime },
+    { label: arrivalLabel, value: doorsTime },
     { label: 'Last entry', value: lastEntryTime },
     { label: 'Duration', value: durationLabel },
     // "Scheduled" on a night that has already happened reads as though it is

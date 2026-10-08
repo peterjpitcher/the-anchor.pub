@@ -36,14 +36,14 @@ export default function BabyGuinnessPage() {
         image="/images/page-headers/drinks/drinks-summery.png"
         crumb="Baby Guinness"
         title="Baby Guinness Shot"
-        lead="Stanwell Moor's Favourite Party Starter"
+        lead="A tiny pint in a shot glass"
       />
 
       <section className="bg-canvas py-section-y">
         <div className="container">
           <article className="mx-auto">
             <h2 className="mb-6 text-h2 text-ink-strong">
-              Baby Guinness Shot: The Anchor&apos;s Favourite Party Starter
+              Baby Guinness Shots at The Anchor
             </h2>
 
             <div className="mb-8 flex gap-4">
@@ -53,15 +53,14 @@ export default function BabyGuinnessPage() {
             <section className="mb-12">
               <h2 className="mb-4 text-h3 text-ink-strong">What is a Baby Guinness?</h2>
               <p className="mb-4 leading-relaxed text-ink-muted">
-                The Baby Guinness is our most popular layered shot that looks exactly like a tiny pint
+                The Baby Guinness is a layered shot that looks exactly like a tiny pint
                 of Guinness - complete with the distinctive dark body and creamy white head. Despite its
                 name, it contains no actual Guinness! Instead, it&apos;s made with coffee liqueur (usually Kahlúa)
                 as the base and Irish cream liqueur (typically Bailey&apos;s) floated on top.
               </p>
               <p className="leading-relaxed text-ink-muted">
-                This clever visual trick makes it one of the most Instagram-worthy shots you can order,
-                and at The Anchor, we&apos;ve perfected the art of pouring them. Located just {HEATHROW_TIMES.terminal5} minutes from
-                Heathrow Terminal 5, we&apos;re the perfect spot for pre-flight celebrations or welcoming
+                It&apos;s a clever visual trick, and we love pouring them. We&apos;re {HEATHROW_TIMES.terminal5} minutes from
+                Heathrow Terminal 5, so it&apos;s an easy stop for a pre-flight celebration or for welcoming
                 friends back from their travels.
               </p>
             </section>
@@ -99,7 +98,6 @@ export default function BabyGuinnessPage() {
                   <CardBody>
                     <h3 className="mb-2 font-semibold text-ink-strong">Party Occasions</h3>
                     <ul className="space-y-1 text-ink-muted">
-                      <li>Hen parties and stag dos</li>
                       <li>Birthday celebrations</li>
                       <li>Work leaving parties</li>
                       <li>Pre-flight send-offs</li>
@@ -112,7 +110,12 @@ export default function BabyGuinnessPage() {
                     <ul className="space-y-1 text-ink-muted">
                       <li>After your Sunday roast</li>
                       <li>Before our monthly quiz night</li>
-                      <li>During hosted event nights (see /whats-on)</li>
+                      <li>
+                        On one of our{' '}
+                        <Link href="/whats-on" className="text-accent-text underline underline-offset-4">
+                          hosted nights
+                        </Link>
+                      </li>
                       <li>Happy endings to any meal</li>
                     </ul>
                   </CardBody>
@@ -128,10 +131,7 @@ export default function BabyGuinnessPage() {
                 exactly like a miniature pint of Ireland&apos;s most famous stout, but tasted completely different.
               </p>
               <p className="leading-relaxed text-ink-muted">
-                The combination of coffee and cream flavours makes it surprisingly smooth and easy to drink,
-                which is why it&apos;s become one of the most ordered shots in pubs across the UK. At The Anchor,
-                we&apos;ve been serving Baby Guinness shots for years, and they remain one of our top sellers -
-                especially during our weekend events.
+                The combination of coffee and cream flavours makes it smooth and sweet.
               </p>
             </section>
 
@@ -153,11 +153,9 @@ export default function BabyGuinnessPage() {
               <Card accent>
                 <CardBody>
                   <ul className="space-y-3 text-ink-muted">
-                    <li><strong className="text-ink-strong">Better Value:</strong> Proper pub pricing without airport markup</li>
                     <li><strong className="text-ink-strong">Perfect Location:</strong> Just {HEATHROW_TIMES.terminal5} minutes from Terminal 5</li>
-                    <li><strong className="text-ink-strong">Experienced Staff:</strong> We make hundreds every month</li>
-                    <li><strong className="text-ink-strong">A proper local:</strong> Friendly village pub, not a chain</li>
-                    <li><strong className="text-ink-strong">Free Parking:</strong> No airport parking fees here!</li>
+                    <li><strong className="text-ink-strong">A proper local:</strong> A friendly village pub</li>
+                    <li><strong className="text-ink-strong">Free Parking:</strong> Right outside while you&apos;re with us</li>
                   </ul>
                 </CardBody>
               </Card>
@@ -172,14 +170,8 @@ export default function BabyGuinnessPage() {
                   It&apos;s called that because it looks like a tiny pint of Guinness when properly layered.</p>
                 </div>
                 <div>
-                  <h3 className="mb-2 font-semibold text-ink-strong">How strong is a Baby Guinness?</h3>
-                  <p className="text-ink-muted">It&apos;s relatively mild at around 17% ABV when mixed. The Kahlúa
-                  is 20% ABV and Bailey&apos;s is 17% ABV, making it lighter than most straight spirits.</p>
-                </div>
-                <div>
                   <h3 className="mb-2 font-semibold text-ink-strong">Can I order Baby Guinness for a large group?</h3>
-                  <p className="text-ink-muted">Absolutely! They&apos;re perfect for celebrations. For groups of
-                  10 or more, give us a heads up and we&apos;ll have them ready when you arrive.</p>
+                  <p className="text-ink-muted">Yes. Order a round at the bar and we&apos;ll pour them for you.</p>
                 </div>
                 <div>
                   <h3 className="mb-2 font-semibold text-ink-strong">How much is a Baby Guinness?</h3>

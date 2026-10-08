@@ -14,7 +14,7 @@ import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDown
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
-import { ACCESS_SHORT_WORDING, NO_ACCESSIBLE_TOILET_WORDING } from '@/lib/approved-wording'
+import { ACCESS_SHORT_WORDING, NO_ACCESSIBLE_TOILET_WORDING, ROOM_HIRE_WORDING, SLIDESHOW_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Retirement Party Venue Near Heathrow',
@@ -109,14 +109,14 @@ export default function RetirementPartiesPage() {
                 <Container>
                     <div className="mx-auto">
                         <SectionHeading
-                            title="Stress-Free Planning for Organizers"
+                            title="Stress-Free Planning for Organisers"
                         />
 
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             {[
                                 { title: "Speech Friendly", description: "Quiet areas available for speeches and presentations without shouting over music." },
                                 { title: "Getting In and Around", description: `${ACCESS_SHORT_WORDING} ${NO_ACCESSIBLE_TOILET_WORDING}` },
-                                { title: "Catering Options", description: "Classic buffet spread, tea & coffee stations, or full 3-course meals." },
+                                { title: "Catering Options", description: "Buffets, unlimited tea and coffee, or a sit-down meal ordered from our menu." },
                             ].map(feature => (
                                 <Card key={feature.title} accent className="h-full">
                                     <CardBody className="flex h-full flex-col gap-2">
@@ -175,7 +175,7 @@ export default function RetirementPartiesPage() {
                 faqs={[
                     {
                         question: "How much does a retirement party at The Anchor cost?",
-                        answer: "It depends on your guest count, catering choices, and any extras like DJ or decorations. Use our pricing calculator on this page for an instant estimate, or call us on 01753 682707 for a personalised quote. Room hire is charged by the hour for the space you book."
+                        answer: `It depends on your guest count and catering choices. Use our pricing calculator on this page for an instant estimate, or call us on ${CONTACT.phone} for a personalised quote. ${ROOM_HIRE_WORDING}`
                     },
                     {
                         question: "Can we set up a tab?",
@@ -183,11 +183,11 @@ export default function RetirementPartiesPage() {
                     },
                     {
                         question: "Can we show a slideshow?",
-                        answer: "Yes. Our TVs can be used for photo slideshows or presentations, and we provide the connection cables. Test yours with us in advance. We don't have a projector."
+                        answer: `Yes. ${SLIDESHOW_WORDING}`
                     },
                     {
                         question: "How many people can you fit?",
-                        answer: `Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}, or holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing for a buffet and drinks reception. If you are expecting more, the main area takes bigger groups, and exclusive hire of the whole pub covers up to ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.seated} seated or ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing} standing.`
+                        answer: `Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}, or holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing for a buffet and drinks. If you are expecting more, ask about the whole pub: exclusive hire covers up to ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.seated} seated or ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing} standing.`
                     }
                 ]}
                 className="bg-canvas"

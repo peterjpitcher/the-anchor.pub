@@ -55,7 +55,7 @@ export const cashBingo: GameNightConfig = {
   facts: [
     { label: 'Books', value: '£10 each, cash only' },
     { label: 'First game', value: '7pm, arrive by 6:30pm' },
-    { label: 'Games', value: '10, plus the snowball' },
+    { label: 'Games', value: '10, with the Snowball on game 9' },
     // Both halves of the age rule, never one without the other (docs/SSOT.md
     // §10): "18+ to play. Supervised under-18s are welcome to attend but may
     // not play." This chip published only the first half, which reads as a door

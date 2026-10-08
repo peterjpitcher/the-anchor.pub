@@ -17,7 +17,7 @@ import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPac
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
-import { ACCESS_AMENITY_FEATURES, ACCESS_SHORT_WORDING, ACCESS_WORDING, FAMILIES_WORDING, NO_ACCESSIBLE_TOILET_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
+import { ACCESS_AMENITY_FEATURES, ACCESS_SHORT_WORDING, ACCESS_WORDING, CELEBRATION_CAKE_WORDING, DECORATING_WORDING, FAMILIES_WORDING, NO_ACCESSIBLE_TOILET_WORDING, PARKING_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 const { diningRoom, gardenTerrace } = PRIVATE_HIRE_CAPACITY.spaces
@@ -60,7 +60,7 @@ export default function ChristeningsPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/christenings",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "Family-friendly venue for christening parties and baptism receptions near local churches in Stanwell Moor.",
+        "description": "Family-friendly venue for christening parties and baptism receptions in Stanwell Moor, close to churches in Stanwell and Staines.",
         "maximumAttendeeCapacity": diningRoom.standing,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
@@ -207,7 +207,7 @@ export default function ChristeningsPage() {
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {[
                             { title: "Child Friendly", description: `We welcome children of all ages. ${FAMILIES_WORDING}` },
-                            { title: "Bring Your Cake", description: "You are welcome to bring a celebration cake. We'll provide the knife and napkins." },
+                            { title: "Bring Your Cake", description: CELEBRATION_CAKE_WORDING },
                             { title: "Photo Opportunities", description: "Our garden area and traditional pub backdrop provide a lovely setting for family photos (weather permitting)." },
                         ].map(feature => (
                             <Card key={feature.title} accent className="h-full text-center">
@@ -233,7 +233,7 @@ export default function ChristeningsPage() {
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">1</span>
                                 <div>
                                     <h3 className="font-semibold text-ink-strong mb-1">Book the venue early</h3>
-                                    <p className="text-ink-muted">We recommend securing your date 2–4 weeks ahead of the ceremony, particularly for Sundays when our roast is popular. Call us on 01753 682707 or use the enquiry form below.</p>
+                                    <p className="text-ink-muted">Get in touch as soon as you have a date. Call us on 01753 682707 or use the enquiry form below.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
@@ -247,14 +247,14 @@ export default function ChristeningsPage() {
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">3</span>
                                 <div>
                                     <h3 className="font-semibold text-ink-strong mb-1">Decorations and cake</h3>
-                                    <p className="text-ink-muted">You are welcome to bring balloons, table decorations, and a celebration cake. We'll provide the knife and napkins. Please avoid loose confetti and glitter, which are difficult to clean up.</p>
+                                    <p className="text-ink-muted">You are welcome to bring balloons and table decorations. {DECORATING_WORDING} {CELEBRATION_CAKE_WORDING}</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
                                 <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-dark text-white font-semibold flex items-center justify-center text-sm">4</span>
                                 <div>
                                     <h3 className="font-semibold text-ink-strong mb-1">Photo opportunities</h3>
-                                    <p className="text-ink-muted">Our beer garden and warm pub interior provide a lovely backdrop for family photographs. You are welcome to arrive a little early on the day to set up and capture those first moments.</p>
+                                    <p className="text-ink-muted">Our beer garden and warm pub interior provide a lovely backdrop for family photographs. Tell us when you&apos;d like to set up and we&apos;ll agree it.</p>
                                 </div>
                             </li>
                         </ol>
@@ -348,11 +348,11 @@ export default function ChristeningsPage() {
                 faqs={[
                     {
                         question: "Can we bring a celebration cake?",
-                        answer: "Yes, absolutely. You are very welcome to bring your own cake. We will provide a knife, plates, and napkins. Just let us know in advance so we can keep it safe in our kitchen until it's needed. We'll ask whoever brings it to sign our outside-food waiver."
+                        answer: CELEBRATION_CAKE_WORDING
                     },
                     {
                         question: "What are the decoration rules?",
-                        answer: "Balloons, banners, and table centrepieces are all welcome. We ask that you avoid loose confetti and glitter as these are very difficult to clean from our carpets and upholstery."
+                        answer: `Balloons, banners, and table centrepieces are all welcome. ${DECORATING_WORDING}`
                     },
                     {
                         question: "How long after the church service should we book the reception to start?",
@@ -380,7 +380,7 @@ export default function ChristeningsPage() {
                     },
                     {
                         question: "Is there a room hire fee?",
-                        answer: "Yes, a room hire fee applies for christening parties. The fee varies depending on the day, time, and group size. There is pricing discussed on enquiry. Contact us for specific details based on your guest numbers."
+                        answer: `Yes. ${ROOM_HIRE_WORDING} The hourly rates are on our private hire page. Contact us for a quote based on your guest numbers.`
                     }
                 ]}
             />

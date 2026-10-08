@@ -7,6 +7,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { buildJobPostingSchema, RecruitmentRoleBody } from '../_components/RecruitmentRolePage'
 import { recruitmentRolePages } from '../recruitmentContent'
+import { STAFF_PAY_WORDING } from '@/lib/constants'
 
 const role = recruitmentRolePages['kitchen-team']
 
@@ -82,7 +83,7 @@ export default function KitchenTeamRecruitmentPage() {
         <Container>
           <Card accent className="p-6">
             <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-              <RoleFact label="Pay" value="£12.71 per hour base rate" />
+              <RoleFact label="Pay" value={STAFF_PAY_WORDING} />
               <RoleFact label="Hours" value="Part-time, mainly evenings and weekends" />
               <RoleFact label="Location" value="The Anchor, Stanwell Moor, TW19 6AQ" />
               <RoleFact label="Parking" value="Free on-site parking" />

@@ -11,12 +11,13 @@ import { BusinessHours } from '@/components/BusinessHours'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { PARKING_WORDING } from '@/lib/approved-wording'
 
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Pub with Pool Table & Darts',
-    description: `Play pool and darts at The Anchor in Stanwell Moor. Pool table (£1/game), dartboard (free), proper pub games with a pint. ${HEATHROW_TIMES.terminal5} mins from Heathrow T5, free parking.`,
+    description: `Play pool and darts at The Anchor in Stanwell Moor. Pool table (£1 a game) and a dartboard, proper pub games with a pint. ${HEATHROW_TIMES.terminal5} mins from Heathrow T5, free parking.`,
     openGraph: {
         title: 'Pub with Pool Table & Darts Near You | The Anchor',
         description: `Pool table, dartboard, and a proper pint. Play pool or throw darts at The Anchor in Stanwell Moor, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5 with free parking.`,
@@ -41,7 +42,7 @@ export default function PoolAndDartsPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Pool & Darts"
         title="Pub with Pool Table and Darts Near Heathrow"
-        lead="A proper pub with a proper pool table and a dartboard. Rack up a frame for £1, throw arrows for free, and settle it all over a cold pint. Check current opening hours before visiting."
+        lead="A proper pub with a pool table and a dartboard. Rack up a frame for £1, throw some arrows, and settle it all over a cold pint. Check current opening hours before visiting."
       />
 
             <AmenityStrip/>
@@ -53,10 +54,10 @@ export default function PoolAndDartsPage() {
                             A Pub with Pool Table, Darts & Great Beer
                         </h2>
                         <p className="text-lg text-ink-muted mb-4">
-                            Some pubs stick a wobbly table in a dark corner and call it a games area. Not here. The Anchor has a quality pool table kept level and re-covered regularly, a dartboard with a proper throw area, and enough space to actually play without elbowing the person behind you. We&apos;re also upgrading the darts setup in 2026 with a professional board, electronic scorer, and better lighting.
+                            The Anchor has a pool table and a dartboard. Pool is £1 a game, played with yellow and red balls. The dartboard is a standard board.
                         </p>
                         <p className="text-lg text-ink-muted">
-                            Whether you&apos;re killing time before a flight, settling a long-running grudge match with a mate, or just fancy a frame and a pint on a Tuesday evening, this is a pub where the games are taken seriously and the beer is cold. We&apos;re {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking, so there&apos;s no excuse not to drop in.
+                            Whether you&apos;re killing time before a flight, settling a long-running grudge match with a mate, or just fancy a frame and a pint on a Tuesday evening, this is a pub where you can play a game and the beer is cold. We&apos;re {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking, so there&apos;s no excuse not to drop in.
                         </p>
                     </div>
                 </Container>
@@ -66,7 +67,7 @@ export default function PoolAndDartsPage() {
                 <Container>
                     <div className="mx-auto">
                         <SectionHeading
-                            kicker="Kept level so the cloth plays true"
+                            kicker="£1 a game"
                             title="Play Pool at The Anchor"
                         />
 
@@ -75,13 +76,11 @@ export default function PoolAndDartsPage() {
                                 <CardBody>
                                     <h3 className="font-display text-h3 text-ink-strong mb-2">Pool Table</h3>
                                     <p className="text-ink-muted mb-4">
-                                        A quality table with a level surface, re-covered regularly so the cloth plays true. No dead spots, no dodgy cushions. Just a clean game with yellow and red balls.
+                                        One pool table, played with yellow and red balls.
                                     </p>
                                     <ul className="space-y-2 text-sm text-ink bg-surface-sunk p-4 rounded-sm">
-                                        <li>Full set of yellows &amp; reds</li>
-                                        <li>Quality cues provided</li>
-                                        <li>£1 per game (coin-operated)</li>
-                                        <li>Change available at the bar</li>
+                                        <li>Yellow and red balls</li>
+                                        <li>£1 per game</li>
                                     </ul>
                                 </CardBody>
                             </Card>
@@ -90,13 +89,11 @@ export default function PoolAndDartsPage() {
                                 <CardBody>
                                     <h3 className="font-display text-h3 text-ink-strong mb-2">Darts</h3>
                                     <p className="text-ink-muted mb-4">
-                                        A dartboard with a proper throw area, not a battered board crammed behind a fruit machine. We&apos;re upgrading to a professional-grade board with electronic scorer and better lighting in 2026.
+                                        A standard dartboard, with no electronic scorer.
                                     </p>
                                     <ul className="space-y-2 text-sm text-ink bg-surface-sunk p-4 rounded-sm">
-                                        <li>Dartboard with clear throw area</li>
-                                        <li>Darts provided (or bring your own)</li>
-                                        <li>Upgrade coming 2026: pro board, electronic scorer &amp; lighting</li>
-                                        <li>Completely free to play</li>
+                                        <li>Standard dartboard</li>
+                                        <li>No electronic scorer</li>
                                     </ul>
                                 </CardBody>
                             </Card>
@@ -115,10 +112,7 @@ export default function PoolAndDartsPage() {
 
                         <div className="max-w-none text-ink-muted space-y-4">
                             <p>
-                                The Anchor isn&apos;t a pool hall, it&apos;s a pub that happens to have genuinely good games facilities. That means you get the full pub experience alongside your game: proper beer on tap, food from the kitchen (kitchen times vary by date, so check before you come or call {CONTACT.phone}), and a beer garden with planes landing overhead every ninety seconds if you fancy watching the show between frames.
-                            </p>
-                            <p>
-                                Most people who come to play pool or throw darts end up staying longer than they planned. That&apos;s not an accident, it&apos;s what happens when you combine decent equipment with a relaxed atmosphere and no pressure to rush.
+                                The Anchor isn&apos;t a pool hall, it&apos;s a pub with a pool table and a dartboard. That means you get the full pub experience alongside your game: beer on tap, food from the kitchen (kitchen times vary by date, so check before you come or call {CONTACT.phone}), and a beer garden under the Heathrow flight path, with a plane about every 90 seconds at busy times, if you fancy watching the show between frames.
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
@@ -157,12 +151,12 @@ export default function PoolAndDartsPage() {
                             title="Fancy Playing Competitively?"
                         />
                         <p className="text-ink-muted mb-4">
-                            We don&apos;t have a pool or darts team yet, but we&apos;re always on the lookout for a great captain to pull one together and lead it to glory. If you&apos;re the kind of person who organises the WhatsApp group, picks the team name, and actually turns up on match night, we want to hear from you.
+                            We don&apos;t have a pool team or a darts team at the moment, but we&apos;re always looking for a great captain to pull one together. If that sounds like you, we want to hear from you.
                         </p>
                         <Card accent className="max-w-xl mx-auto">
                             <CardBody>
                                 <h3 className="font-display text-h4 text-ink-strong mb-2">Could You Captain a Team?</h3>
-                                <p className="text-ink-muted">Know your way around a pool table or a dartboard? We&apos;re looking for someone to start a team. Pop in or call us on 01753 682707.</p>
+                                <p className="text-ink-muted">Know your way around a pool table or a dartboard? We&apos;re looking for someone to start a team. Pop in or call us on {CONTACT.phone}.</p>
                             </CardBody>
                         </Card>
                     </div>
@@ -172,28 +166,20 @@ export default function PoolAndDartsPage() {
             <FAQAccordionWithSchema
                 faqs={[
                     {
-                        question: "Can I reserve the pool table?",
-                        answer: "During normal pub hours it works on a winner-stays-on or chalkboard system. For private events, the table can be reserved, get in touch to arrange it."
-                    },
-                    {
                         question: "How much does it cost to play pool?",
-                        answer: "£1 per game, coin-operated. If you only have a card, the bar can provide change. Darts is completely free."
-                    },
-                    {
-                        question: "Can children play pool and darts?",
-                        answer: "Yes, children are welcome to play under adult supervision, provided they're tall enough to reach the table safely and treat the equipment respectfully."
+                        answer: "£1 per game."
                     },
                     {
                         question: "Do you have parking?",
-                        answer: `Yes, ${PARKING.capacity} free parking spaces on site. No fees, no time limit while you're visiting. The car park is level, CCTV-monitored, and floodlit.`
+                        answer: `Yes. ${PARKING_WORDING}`
                     },
                     {
                         question: "What other pub games do you have?",
-                        answer: "Alongside pool and darts, we have a jukebox and board games. For organised entertainment, we run quiz nights, cash bingo and music bingo throughout the month. Check what's on for the current dates."
+                        answer: "Alongside pool and darts, we have a jukebox and board games. We also run a monthly quiz night and music bingo, and cash bingo on set dates. Check what's on for the current dates."
                     },
                     {
-                        question: "Do you have a darts or pool league I can join?",
-                        answer: "Not yet, but we'd love to start one. We're looking for a captain to pull a team together for either pool or darts. If that's you, ask at the bar or call us on 01753 682707."
+                        question: "Do you have a darts or pool team I can join?",
+                        answer: `Not at the moment. We're always looking for a great captain to pull a team together for pool or for darts. If that's you, ask at the bar or call us on ${CONTACT.phone}.`
                     }
                 ]}
                 className="bg-canvas"
@@ -205,7 +191,7 @@ export default function PoolAndDartsPage() {
             >
                 <PhoneButton phone={CONTACT.phone} source="pool_cta" variant="primary" size="lg">Call us</PhoneButton>
                 <Button asChild variant="outline" size="lg">
-                    <Link href="/whats-on">What&apos;s on this week</Link>
+                    <Link href="/whats-on">What&apos;s on</Link>
                 </Button>
                 <DirectionsButton href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ" source="pool_darts_directions" variant="outline" size="lg">
                     Get directions

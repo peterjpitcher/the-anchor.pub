@@ -18,7 +18,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
-import { FAMILIES_WORDING } from '@/lib/approved-wording'
+import { FAMILIES_WORDING, SPORT_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Live Sport Pub Near Heathrow | 4 TVs',
@@ -92,7 +92,7 @@ export default async function LiveSportPage() {
                  * phone button. The primary goes to /book-table rather than to an
                  * on-page anchor because, unlike the game nights, this page carries
                  * no booking form of its own, and the page's own FAQ tells people
-                 * that booking is what secures a seat for a big game.
+                 * to book a table for a big game.
                  */
                 <>
                   <BookTableButton
@@ -135,10 +135,10 @@ export default async function LiveSportPage() {
                 <Container>
                     <div className="mx-auto text-center">
                         <PageTitle className="text-accent-text mb-4">
-                            Never Miss a Moment
+                            Sport on BBC, ITV and Channel 4
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Whether it's a Six Nations game, an F1 race or a major tournament, if it's on terrestrial TV we show it. We've 4 TVs, and the commentary's on for big games and tournaments.
+                            {SPORT_WORDING} We've 4 TVs, and the commentary's on for big games and tournaments.
                         </p>
                     </div>
                 </Container>
@@ -164,7 +164,7 @@ export default async function LiveSportPage() {
                                 },
                                 {
                                     title: "A Room That Reacts",
-                                    description: "Enjoy a cold pint and great food in a proper pub atmosphere. No booking required, just turn up and enjoy."
+                                    description: "Enjoy a cold pint and great food in a proper pub atmosphere. You can walk in. For a big game, book a table."
                                 }
                             ].map((feature) => (
                                 <GridItem key={feature.title}>
@@ -190,9 +190,9 @@ export default async function LiveSportPage() {
                                 <CardBody>
                                     <h3 className="text-xl text-accent-text mb-4 border-b border-line pb-2">Football</h3>
                                     <ul className="space-y-2 text-ink-muted">
-                                        <li>• International Tournaments (Euros / World Cup)</li>
-                                        <li>• FA Cup (Select Games)</li>
-                                        <li>• Women's Super League (BBC games)</li>
+                                        <li>• The World Cup</li>
+                                        <li>• The Euros</li>
+                                        <li>• Only when they're on BBC, ITV or Channel 4</li>
                                     </ul>
                                 </CardBody>
                             </Card>
@@ -201,8 +201,8 @@ export default async function LiveSportPage() {
                                     <h3 className="text-xl text-accent-text mb-4 border-b border-line pb-2">Rugby</h3>
                                     <ul className="space-y-2 text-ink-muted">
                                         <li>• Six Nations</li>
-                                        <li>• Autumn Internationals</li>
-                                        <li>• World Cups</li>
+                                        <li>• Nations Championship</li>
+                                        <li>• Only when they're on BBC, ITV or Channel 4</li>
                                     </ul>
                                 </CardBody>
                             </Card>
@@ -219,17 +219,15 @@ export default async function LiveSportPage() {
                                 <CardBody>
                                     <h3 className="text-xl text-accent-text mb-4 border-b border-line pb-2">Other Sport</h3>
                                     <ul className="space-y-2 text-ink-muted">
-                                        <li>• Cricket (Terrestrial Only)</li>
-                                        <li>• Golf Majors (Highlights/BBC)</li>
-                                        <li>• Horse Racing (ITV Racing)</li>
-                                        <li>• Athletics & Olympics</li>
+                                        <li>• Whatever is on BBC, ITV or Channel 4</li>
+                                        <li>• Call {CONTACT.phone} to check</li>
                                     </ul>
                                 </CardBody>
                             </Card>
                         </div>
 
-                        <Alert variant="info" title="Specific Requests?" className="mx-auto mt-8">
-                            <p>Want to watch a specific game shown on BBC, ITV, or Channel 4? Just ask the bar staff! If we have a screen free, we'll happily put it on for you. Please remember we cannot show games exclusive to Sky or TNT.</p>
+                        <Alert variant="info" title="Want a particular game on?" className="mx-auto mt-8">
+                            <p>Call us on {CONTACT.phone} if you want a particular game on. It has to be on BBC, ITV or Channel 4. We can't show anything that's only on Sky Sports or TNT Sports.</p>
                         </Alert>
                     </div>
                 </Container>
@@ -241,7 +239,7 @@ export default async function LiveSportPage() {
                         <CardBody className="p-8 text-center">
                             <h2 className="text-xl text-accent-text">World Cup Football</h2>
                             <p className="mt-3 text-sm text-ink-muted">
-                                We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. You can see who won the pub sweep too.
+                                We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs. The commentary's on for big games and tournaments. You can see who won the pub sweep too.
                             </p>
                             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
                                 <Button asChild variant="primary">
@@ -266,9 +264,11 @@ export default async function LiveSportPage() {
                                 8 September 2026 (three months of Search Console: zero
                                 impressions). The fact it carried is true and useful, so
                                 it stays here; only the CTA to the dead page has gone.
+                                It names boxing only when it is on terrestrial TV and
+                                does not promise any one fight (site review C2-010).
                             */}
                             <p className="mt-3 text-sm text-ink-muted">
-                                When a fight lands on BBC, ITV or Channel 4, it goes on our TVs. We cannot show anything that is only on Sky or TNT.
+                                We show boxing only when it's on BBC, ITV or Channel 4. Call us on {CONTACT.phone} to check a fight. We can't show anything that's only on Sky Sports or TNT Sports.
                             </p>
                         </CardBody>
                     </Card>
@@ -278,12 +278,12 @@ export default async function LiveSportPage() {
             <FAQAccordionWithSchema
                 faqs={[
                     {
-                        question: "Do I need to book a table for football matches?",
-                        answer: "For big games (like England matches or Cup Finals), booking is essential as we get very full. For standard league games, walk-ins are usually fine, but booking guarantees a good view."
+                        question: "Do I need to book a table to watch sport?",
+                        answer: `You can walk in. For a big game, book a table, and call us on ${CONTACT.phone} if you want a particular game on.`
                     },
                     {
                         question: "Do you show Premier League games?",
-                        answer: "We only show Premier League games that are broadcast on terrestrial television (BBC, ITV or Channel 4). We do not have Sky Sports or TNT Sports packages."
+                        answer: "Only if a game is on BBC, ITV or Channel 4. We don't have Sky Sports or TNT Sports."
                     },
                     {
                         question: "Are children allowed during matches?",
@@ -299,11 +299,11 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Do you have Sky Sports or TNT?",
-                        answer: "No, we show terrestrial channels only (BBC, ITV, Channel 4). This covers the Six Nations games, F1, international football, cricket, golf and horse racing that those channels show."
+                        answer: `No. ${SPORT_WORDING}`
                     },
                     {
-                        question: "Can I request a specific match or event?",
-                        answer: "If it is on a terrestrial channel, yes. Let us know in advance and we will make sure it is on."
+                        question: "Can I ask for a particular game?",
+                        answer: `Call us on ${CONTACT.phone} if you want a particular game on. It has to be on BBC, ITV or Channel 4.`
                     },
                     {
                         question: "Is there food available during live sport?",
@@ -316,8 +316,8 @@ export default async function LiveSportPage() {
                 <Container>
                     <SectionHeading title="What We're Showing" subtitle="Terrestrial sport on our 4 TVs" />
                     <div className="prose mx-auto max-w-none text-ink-muted">
-                        <p>We show every major sporting event available on BBC, ITV, and Channel 4. That includes Six Nations games, Formula 1, international football qualifiers and cricket when those channels have them. We've 4 TVs, and the commentary's on for big games and tournaments.</p>
-                        <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches, just call ahead or book online.</p>
+                        <p>{SPORT_WORDING} We've 4 TVs, and the commentary's on for big games and tournaments.</p>
+                        <p>You can walk in. For a big game, book a table, and call us on {CONTACT.phone} if you want a particular game on.</p>
                     </div>
                 </Container>
             </section>
@@ -330,8 +330,8 @@ export default async function LiveSportPage() {
             />
 
             <CtaBand
-                title="Secure Your Spot for the Big Game"
-                copy="Don't leave it to chance. Book a table with a view of the screen."
+                title="Book a Table for the Big Game"
+                copy="You can walk in. For a big game, book a table."
             >
                 <BookTableButton source="sport_cta" variant="primary" size="lg" className="w-full sm:w-auto">
                     Book a Table

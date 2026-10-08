@@ -156,7 +156,7 @@ export default async function SummerGardenPartiesPage() {
 
             <CtaBand
                 title="Book Your Spot in the Sun"
-                copy="Dates fill up fast when the forecast is good."
+                copy="Tell us the date you have in mind and we'll check it's free."
                 primary={
                     <Button asChild variant="primary" size="lg">
                         <a href="mailto:manager@the-anchor.pub?subject=Summer%20Party%20Enquiry">Enquire Now</a>

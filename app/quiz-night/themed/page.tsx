@@ -123,11 +123,6 @@ const FAQS = [
     question: 'Are the seasonal quizzes themed?',
     answer:
       'Not fully, and we would rather say so. A quiz with a seasonal name is our normal varied quiz with a few seasonal questions mixed in. You do not need specialist knowledge for those, unlike a show-themed night.'
-  },
-  {
-    question: 'Can you run a themed quiz for our group?',
-    answer:
-      'Yes. We put on custom trivia nights for work teams, birthdays and fundraisers, with rounds written around whatever you like. Email manager@the-anchor.pub or call 01753 682707.'
   }
 ]
 

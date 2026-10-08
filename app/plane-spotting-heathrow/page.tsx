@@ -19,7 +19,7 @@ import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpot
 import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { HEATHROW_TIMES, CONTACT, BUS_WORDING } from '@/lib/constants'
-import { DOGS_WORDING } from '@/lib/approved-wording'
+import { CHARGING_WORDING, DOGS_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const metadata: Metadata = {
@@ -48,7 +48,7 @@ export default async function PlaneSpottingHeathrowPage() {
     '@type': 'TouristAttraction',
     '@id': 'https://www.the-anchor.pub/plane-spotting-heathrow',
     name: 'The Anchor - Heathrow Plane Spotting Pub',
-    description: 'Heathrow plane spotting venue with a beer garden under the southern runway approach path, offering food, drinks and shelter year-round.',
+    description: 'Heathrow plane spotting venue with a beer garden under the southern runway approach path, offering food and drinks.',
     url: 'https://www.the-anchor.pub/plane-spotting-heathrow',
     image: DEFAULT_NEAR_HEATHROW_IMAGE,
     address: {
@@ -110,7 +110,7 @@ export default async function PlaneSpottingHeathrowPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <p className="mx-auto text-center text-lg text-ink-muted">
-            Looking for a Heathrow viewing area with food and shelter? The Anchor is the commercial landing page for visiting our beer garden. For a full comparison of every spotting location, use our dedicated Heathrow plane spotting locations guide.
+            Looking for a Heathrow viewing area with food and drink? This page is about visiting our beer garden. For a full comparison of every spotting location, use our dedicated Heathrow plane spotting locations guide.
           </p>
           <div className="mt-4 flex justify-center">
             <Button asChild variant="outline" size="md" wrap>
@@ -127,7 +127,7 @@ export default async function PlaneSpottingHeathrowPage() {
           ['Plane spotting day', 'Use the beer garden as a comfortable base when overhead arrivals are operating.'],
           ['Lunch between arrivals', 'Book a table and keep your group settled between busy approach windows.'],
           ['Family meal', 'Pub classics, pizzas and a garden that keeps the visit relaxed.'],
-          ['Sunday roast', 'Served Sundays from 1pm to 6pm, ideal after a morning in the garden.'],
+          ['Sunday roast', 'Served Sundays from 1pm to 6pm. Walk in, nothing to pre-order.'],
           ['Aviation meet-up', 'Food, WiFi, free parking and a clear meeting point near Terminal 5.'],
         ]}
       />
@@ -139,7 +139,7 @@ export default async function PlaneSpottingHeathrowPage() {
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast Before/After Spotting</h3>
                 <p className="text-sm text-ink-muted mb-4">
-                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and real gravy after a spotting morning.
+                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and real gravy.
                 </p>
                 <div className="flex flex-col gap-2 items-start">
                   <BookTableButton
@@ -180,7 +180,7 @@ export default async function PlaneSpottingHeathrowPage() {
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Hot Food & Drinks</h3>
                 <p className="text-sm text-ink-muted mb-4">
-                  Burgers, fish & chips, sharers and a full bar served to the beer garden during kitchen hours. Free parking and WiFi keep you comfortable between arrivals.
+                  Burgers, fish & chips, pizzas and a full bar served to the beer garden during kitchen hours. Free parking and WiFi keep you comfortable between arrivals.
                 </p>
                 <div className="flex flex-col gap-2 items-start">
                   <BookTableButton
@@ -212,13 +212,13 @@ export default async function PlaneSpottingHeathrowPage() {
         <Container>
           <SectionHeading
             title="Best Heathrow Plane Spotting Locations"
-            lead="Front-row views, hot food and shelter when the weather turns, everything you need for an aviation day out."
+            lead="Front-row views, hot food and a full bar for an aviation day out."
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { title: 'Under the Flight Path', description: 'You sit directly under Heathrow\u2019s southern runway approach path. Aircraft overhead is expected during the active window, not guaranteed.' },
-              { title: 'Photo-Friendly Garden', description: 'Low perimeter fencing, open sky and WiFi for FlightRadar24. Tripods welcome.' },
-              { title: 'Proper Refreshments', description: 'Stone-baked pizzas, Sunday roasts and full drinks menu available. Toilets, power sockets and indoor seating if the rain hits.' }
+              { title: 'Photo-Friendly Garden', description: 'Open sky and free WiFi for FlightRadar24.' },
+              { title: 'Proper Refreshments', description: 'Stone-baked pizzas, Sunday roasts and full drinks menu available. If it rains we’ll do our best to find you a spot inside.' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
                 <CardBody>
@@ -240,11 +240,10 @@ export default async function PlaneSpottingHeathrowPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mx-auto">
             <Card accent>
               <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-3">Best Times to Visit</h3>
+                <h3 className="font-display text-h4 text-ink-strong mb-3">When Planes Are Overhead</h3>
                 <ul className="list-disc list-inside text-ink-muted space-y-2">
-                  <li>06:00-09:00 for sunrise arrivals and cargo</li>
-                  <li>16:00-20:00 evening long-haul waves</li>
                   <li>One week planes land overhead until 3pm, the next week from 3pm</li>
+                  <li>Check our opening hours before you travel</li>
                 </ul>
               </CardBody>
             </Card>
@@ -272,28 +271,6 @@ export default async function PlaneSpottingHeathrowPage() {
         </Container>
       </section>
 
-      <section className="py-section-y bg-canvas">
-        <Container>
-          <SectionHeading
-            title="Other Heathrow Viewing Areas & Spotting Spots"
-            lead="Make a full day of it by pairing The Anchor with these classic viewing spots."
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {[
-              { title: 'Myrtle Avenue', description: 'Legendary arrivals spot in Hatton Cross. Pair with The Anchor for food, drinks and a different angle on the approach.' },
-              { title: 'Visitors Centre / Renaissance Hotel', description: 'A well-known spot for watching aircraft. Wrap up the day with a pint at The Anchor before heading home.' }
-            ].map(feature => (
-              <Card key={feature.title} accent hover>
-                <CardBody>
-                  <h3 className="font-display text-h4 text-ink-strong mb-2">{feature.title}</h3>
-                  <p className="text-ink-muted">{feature.description}</p>
-                </CardBody>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       <FAQAccordionWithSchema
         className="bg-surface"
         faqs={[
@@ -302,20 +279,20 @@ export default async function PlaneSpottingHeathrowPage() {
             answer: 'Booking is recommended at busy times (sunny weekends, major aviation events). Walk-ins are welcome subject to garden capacity and weather.'
           },
           {
-            question: 'Is there shelter if it rains?',
-            answer: 'Yes, indoors. The garden isn\'t covered, but the dining room opens straight onto it, so you can sit out a shower and head back out when it passes. Staff are happy to update you on runway usage.'
+            question: 'What happens if it rains?',
+            answer: 'The garden isn\'t covered. If it rains we\'ll do our best to find you a spot inside.'
           },
           {
             question: 'What aircraft will I see from The Anchor?',
-            answer: 'When arrivals are overhead, you may see British Airways, Virgin Atlantic, Emirates A380s, Qatar Airways, American Airlines and cargo airlines. Plane spotting is weather and Heathrow operations dependent, so aircraft overhead cannot be guaranteed.'
+            answer: 'It depends on what is landing at Heathrow that day. Plane spotting is weather and Heathrow operations dependent, so aircraft overhead cannot be guaranteed.'
           },
           {
             question: 'Can I charge batteries or use WiFi?',
-            answer: 'Yes. We provide free WiFi for flight tracking and have indoor sockets for charging devices while you grab a drink or meal.'
+            answer: `We have free WiFi for flight tracking. ${CHARGING_WORDING}`
           },
           {
             question: 'Are families and dogs welcome?',
-            answer: `Absolutely. ${DOGS_WORDING} We have children’s meals plus soft drinks, mocktails and hot drinks for family visits.`
+            answer: `Absolutely. ${DOGS_WORDING} We have children’s meals plus soft drinks and hot drinks for family visits.`
           }
         ]}
       />

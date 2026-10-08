@@ -27,7 +27,7 @@ export const dynamic = 'force-dynamic'
 
 const PAGE_TITLE = 'Sitemap'
 const PAGE_DESCRIPTION =
-  'Complete sitemap of The Anchor website. Find all our pages including menus, events, location information and special offers.'
+  'Sitemap of The Anchor website. Find our pages for menus, events, private hire and how to find us.'
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: 'Sitemap | The Anchor Stanwell Moor',
-    description: 'Complete sitemap of The Anchor website. Find all our pages including menus, events, location information and special offers.'
+    description: PAGE_DESCRIPTION
   }),
   alternates: {
     canonical: '/sitemap-page'
@@ -53,6 +53,9 @@ const sitemapSections: SitemapSection[] = [
     title: 'Main Pages',
     links: [
       { label: 'Home', href: '/' },
+      { label: 'About Us', href: '/about' },
+      { label: 'Our History', href: '/history' },
+      { label: 'The Anchor Facts', href: '/about/the-anchor-facts' },
       { label: 'Find Us', href: '/find-us' },
       { label: 'Book a Table', href: '/book-table' },
       { label: 'Private Hire & Events', href: '/private-hire' },

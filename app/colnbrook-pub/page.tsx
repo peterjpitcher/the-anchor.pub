@@ -8,7 +8,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
-import { PARKING_WORDING, DOGS_WORDING } from '@/lib/approved-wording'
+import { PARKING_WORDING, DOGS_WORDING, GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
 import { bookingConfig } from '@/lib/booking-config'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -104,7 +104,7 @@ export default function ColnbrookPubPage() {
                             Minutes from Poyle Industrial Estate & Colnbrook
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Finish your shift and relax. If you are looking for pubs in Colnbrook, we are the go-to spot for businesses in Poyle and residents alike, with proper food and a room that fills up nicely.
+                            Finish your shift and relax. If you are looking for pubs in Colnbrook, we&apos;re a short drive away, with proper food and a warm welcome.
                         </p>
                     </div>
                 </Container>
@@ -145,9 +145,9 @@ export default function ColnbrookPubPage() {
 
                         <Card accent className="mb-8">
                             <CardBody className="p-8 text-center">
-                                <h3 className="font-display text-h3 text-ink-strong mb-4">Poyle Business Specials</h3>
+                                <h3 className="font-display text-h3 text-ink-strong mb-4">Work Dos and Team Events</h3>
                                 <p className="text-ink-muted mb-6">
-                                    We regularly host team meetings, leaving dos, and Christmas parties for companies based in the Poyle Industrial Estate. We can offer buffet packages and private areas.
+                                    Team meeting, leaving do or Christmas party? The dining room, the garden or the whole pub can be hired by the hour. Prices and menus are on the <Link href="/private-hire" className="underline">private hire page</Link>.
                                 </p>
                                 <div className="flex flex-wrap justify-center gap-4">
                                     <Button asChild variant="primary">
@@ -181,31 +181,26 @@ export default function ColnbrookPubPage() {
                 <Container>
                     <div className="mx-auto">
                         <SectionHeading
-                            title="The Closest Proper Pub to Poyle & Colnbrook"
+                            title="A Proper Pub Near Poyle & Colnbrook"
                             className="text-center mb-8"
                         />
                         <div className="prose max-w-none text-ink-muted space-y-4">
                             <p>
                                 The Poyle and Colnbrook industrial estates employ thousands of people in logistics, air
-                                cargo, and aviation services, from DHL and FedEx warehouses to smaller freight
-                                forwarders lining the Colnbrook bypass. When the shift ends, options are slim. A few
-                                takeaways on Colnbrook High Street, the odd cafe that closes at four, and not much else.
-                                The Anchor is a short drive away, and it is the closest proper pub with a full kitchen.
+                                cargo, and aviation services. When the shift ends, The Anchor is a short drive away,
+                                a proper pub with a full kitchen.
                             </p>
                             <p>
-                                Colnbrook itself has a proud history. The Ostrich Inn on the High Street claims to be
-                                one of the oldest pubs in England, and it is a lovely spot for a quiet pint. But if you
-                                are looking for a bigger beer garden, free parking for the whole team, regular events
+                                You&apos;ll find a beer garden, free parking, events
                                 like quiz nights and Music Bingo, and a kitchen turning out stone-baked pizzas and
-                                Sunday roasts, The Anchor fills a different niche. We are two village pubs serving the
-                                same community in our own ways.
+                                Sunday roasts.
                             </p>
                             <p>
                                 We also welcome families visiting the Colnbrook area who need somewhere warm and
                                 friendly to sit down for a proper meal. {DOGS_WORDING} Children are welcome too, and the pub
                                 has the kind of relaxed atmosphere where people linger over a second coffee or an extra
                                 round. Whether you are a warehouse supervisor winding down after a twelve-hour shift or
-                                a family looking for a Sunday roast spot away from the airport chaos, you will find a
+                                a family looking for a Sunday roast spot, you will find a
                                 genuine welcome at The Anchor.
                             </p>
                         </div>
@@ -232,7 +227,7 @@ export default function ColnbrookPubPage() {
                     },
                     {
                         question: "Can you accommodate large work groups?",
-                        answer: `Yes, we have plenty of space including a private function room. Groups of more than ${bookingConfig.maxOnlinePartySize}, give us a call on ${CONTACT.phone} so we can prepare tables for you.`
+                        answer: `Yes. You can book a table for up to ${bookingConfig.maxOnlinePartySize} online. ${GROUP_DEPOSIT_WORDING} A bigger group is a private hire, so give us a call on ${CONTACT.phone}.`
                     },
                     {
                         question: "Is there parking?",

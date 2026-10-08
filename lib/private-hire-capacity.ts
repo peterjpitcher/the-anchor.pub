@@ -26,5 +26,6 @@ export const PRIVATE_HIRE_CAPACITY = {
   }
 } as const
 
-export const PRIVATE_HIRE_CAPACITY_SUMMARY =
-  `${PRIVATE_HIRE_CAPACITY.summary} ${PRIVATE_HIRE_CAPACITY.largerEventsCopy}`
+// The summary already says "larger events and full-venue hire by enquiry", so
+// largerEventsCopy is not appended: it used to print that sentence twice.
+export const PRIVATE_HIRE_CAPACITY_SUMMARY = PRIVATE_HIRE_CAPACITY.summary

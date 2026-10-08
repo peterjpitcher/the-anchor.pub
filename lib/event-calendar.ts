@@ -1,5 +1,6 @@
 import type { Event } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
+import { getEventArrivalLabel } from '@/lib/event-arrival-label'
 import { normaliseProseField } from '@/lib/text/normalise-api-prose'
 
 const EVENT_TIME_ZONE = 'Europe/London'
@@ -363,7 +364,7 @@ function buildCalendarDescription(event: Event, eventUrl: string): string {
     normaliseProseField(event.shortDescription || event.description) || 'Event at The Anchor'
   const arrivalTime = formatEventDoorTime(event)
 
-  return [summary, arrivalTime ? `Arrive from ${arrivalTime}.` : null, `More info: ${eventUrl}`]
+  return [summary, arrivalTime ? `${getEventArrivalLabel(event)} ${arrivalTime}.` : null, `More info: ${eventUrl}`]
     .filter(Boolean)
     .join('\n\n')
 }

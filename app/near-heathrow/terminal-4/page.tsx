@@ -10,7 +10,8 @@ import { DirectionsButton } from '@/components/DirectionsButton'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { HeroBadge } from '@/components/HeroBadge'
-import { PARKING, CONTACT, HEATHROW_TIMES, BRAND, DIRECTIONS_URL, PRICE_RANGE } from '@/lib/constants'
+import { PARKING, CONTACT, HEATHROW_TIMES, HEATHROW_TIMES_WORDING, BRAND, DIRECTIONS_URL, PRICE_RANGE } from '@/lib/constants'
+import { TAXI_WORDING } from '@/lib/approved-wording'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: `Pubs Near Heathrow Terminal 4 | ${HEATHROW_TIMES.terminal4} Mins Away | Free Parking`,
-    description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and draught beers.',
+    description: `The Anchor is a village pub ${HEATHROW_TIMES.terminal4} minutes from Heathrow Terminal 4 by car, with free parking, British dishes and draught beers.`,
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -50,7 +51,7 @@ export default function Terminal4Page() {
         image="/images/page-headers/near-heathrow-terminal-4/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 4 for Food and Free Parking"
-        lead="Perfect for SkyTeam & budget travellers • Free parking • Real British hospitality"
+        lead="Handy before or after a flight • Free parking • Real British hospitality"
         actions={
           <BookTableButton source="terminal_4_hero" context="terminal_4" variant="primary" size="lg" fullWidth>
             Book a Table
@@ -91,8 +92,8 @@ export default function Terminal4Page() {
       </section>
 
       <CtaBand
-        title="Overnight at Terminal 4?"
-        copy="Our layover dining guide covers late arrivals, overnight stays, and morning transfers back to T4."
+        title="Got a Layover at Terminal 4?"
+        copy="Our Heathrow layover dining guide has journey times from each terminal and how much time to allow."
         primary={
           <Button asChild variant="primary" size="lg">
             <Link href="/heathrow-layover-dining">Open Layover Guide</Link>
@@ -111,7 +112,7 @@ export default function Terminal4Page() {
           <div className="mx-auto">
             <SectionHeading
               title="Eat & Drink Before You Fly"
-              subtitle="Reserve a table so your food and drinks are waiting when you arrive."
+              subtitle="Walk in or book a table. Check our kitchen times before you travel."
             />
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
@@ -156,7 +157,7 @@ export default function Terminal4Page() {
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="text-xl font-semibold text-accent-text mb-2">Pub Menu & Drinks</h3>
                 <p className="text-sm text-ink-muted mb-4">
-                  Burgers, fish & chips, cocktails and draught beers served fast with free parking, a better alternative to hotel bars.
+                  Burgers, fish & chips, cocktails and draught beers served fast with free parking, an alternative to hotel bars.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -201,7 +202,7 @@ export default function Terminal4Page() {
               { title: `${HEATHROW_TIMES.terminal4} mins`, description: 'by car' },
               { title: 'Free', description: 'parking' },
               { title: 'Value', description: 'prices' },
-              { title: 'SkyTeam', description: 'Terminal 4' }
+              { title: 'Free WiFi', description: 'throughout the pub' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
                 <CardBody>
@@ -250,8 +251,8 @@ export default function Terminal4Page() {
                     </ul>
                   </div>
                   <div className="p-4 bg-surface-sunk rounded-sm border border-line">
-                    <p className="font-semibold text-accent-text mb-2">Budget Tip:</p>
-                    <p className="text-sm text-ink-muted">Share a taxi with other travellers - ask at the rank!</p>
+                    <p className="font-semibold text-accent-text mb-2">Return taxi:</p>
+                    <p className="text-sm text-ink-muted">{TAXI_WORDING}</p>
                   </div>
                 </div>
               </div>
@@ -289,10 +290,10 @@ export default function Terminal4Page() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
-                { title: "SkyTeam Alliance Hub", content: "Terminal 4 hosts Air France, KLM, and other SkyTeam partners, plus many Middle Eastern and Asian carriers. Experience British culture before your journey." },
-                { title: "Budget-Friendly Option", content: `T4 also serves many budget airlines. Enjoy proper British pub food with generous portions in a relaxed atmosphere, just ${HEATHROW_TIMES.terminal4} minutes from T4.` },
-                { title: "Transit Alternative", content: "T4 is furthest from central terminals. If you have a long connection, escape to The Anchor instead of waiting in crowded lounges." },
-                { title: "24-Hour Terminal Benefits", content: "T4 handles many overnight flights. Join us for a late afternoon meal or evening drink - much more comfortable than terminal seating!" }
+                { title: "A Short Drive Away", content: `We're ${HEATHROW_TIMES.terminal4} minutes from Terminal 4 by car. Traffic can add to that, so leave a margin.` },
+                { title: "Proper Pub Food", content: "Proper British pub food with generous portions in a relaxed atmosphere." },
+                { title: "Long Connection?", content: "If you have a long connection, come to The Anchor instead of waiting in the terminal. Leave yourself plenty of time to get back through security." },
+                { title: "Before an Evening Flight", content: "Join us for a late afternoon meal or an evening drink. It's more comfortable than terminal seating." }
               ].map(box => (
                 <Card key={box.title} accent>
                   <CardBody>
@@ -316,42 +317,13 @@ export default function Terminal4Page() {
             />
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
-              <h3 className="font-display text-h3 text-ink-strong mb-4">Airlines & Destinations</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <p className="font-semibold mb-2">Major Airlines:</p>
-                  <ul className="space-y-1 text-ink-muted text-sm">
-                    <li>• Air France - Paris CDG</li>
-                    <li>• KLM - Amsterdam</li>
-                    <li>• Etihad - Abu Dhabi</li>
-                    <li>• Malaysia Airlines - Kuala Lumpur</li>
-                    <li>• Qatar Airways - Doha</li>
-                    <li>• Plus many more Asian/ME carriers</li>
-                  </ul>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">Terminal Features:</p>
-                  <ul className="space-y-1 text-ink-muted text-sm">
-                    <li>• Separate from T2/T3 complex</li>
-                    <li>• Free terminal train to T2/T3</li>
-                    <li>• Generally quieter than other terminals</li>
-                    <li>• Good for overnight layovers</li>
-                    <li>• Limited dining after 9pm</li>
-                  </ul>
-                </div>
-              </div>
+              <h3 className="font-display text-h3 text-ink-strong mb-4">Getting Back to Terminal 4</h3>
+              <ul className="space-y-1 text-ink-muted text-sm">
+                <li>• Allow {HEATHROW_TIMES.terminal4} minutes by car from The Anchor, and more if the traffic is heavy</li>
+                <li>• Check your airline&apos;s advice on when to be at the terminal</li>
+                <li>• {TAXI_WORDING}</li>
+              </ul>
             </div>
-
-            <Card accent>
-              <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-3">Insider Tips</h3>
-                <ul className="space-y-3 text-ink-muted list-disc list-inside">
-                  <li>T4 to T5 connections need 90+ minutes - consider a quick meal with us instead!</li>
-                  <li>Air France morning flights are busy - T4 security peaks 5:30-7:30am</li>
-                  <li>Many Gulf carrier flights depart late evening - perfect for an early dinner</li>
-                </ul>
-              </CardBody>
-            </Card>
           </div>
         </div>
       </section>
@@ -393,7 +365,7 @@ export default function Terminal4Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Authentic ales and home-cooked meals</span>
+                      <span>Draught lagers, bottled ales and home-cooked meals</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -402,11 +374,11 @@ export default function Terminal4Page() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3">Fair Village Prices</h4>
                   <ul className="space-y-2 text-ink-muted">
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Pub prices, not hotel prices</span>
+                      <span>Fair village prices, shown on our live menu</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -414,7 +386,7 @@ export default function Terminal4Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Free parking saves on hotel charges</span>
+                      <span>Free parking right outside</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -471,8 +443,8 @@ export default function Terminal4Page() {
         links={[
           { href: '/find-us', title: 'Directions & Parking', description: 'Directions and free parking' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Order sunshine-ready cocktails in the beer garden' },
-          { href: '/private-hire', title: 'Private Hire Venue', description: 'Book celebrations for SkyTeam crew or family events' },
-          { href: '/near-heathrow/terminal-2', title: 'Terminal 2 Guide', description: 'See our tips for other Heathrow terminals' }
+          { href: '/private-hire', title: 'Private Hire Venue', description: 'Book a celebration or family event' },
+          { href: '/near-heathrow/terminal-2', title: 'Terminal 2 Guide', description: 'Journey times and food near Terminal 2' }
         ]}
         className="py-section-y"
       />
@@ -497,11 +469,11 @@ export default function Terminal4Page() {
           },
           {
             question: "What time should I leave for Terminal 4?",
-            answer: `Allow ${HEATHROW_TIMES.terminal4} minutes to reach Terminal 4 from our pub, plus time for parking and security. We recommend leaving at least 2 hours before your flight for European destinations, 3 hours for Middle Eastern and Asian flights.`
+            answer: `Allow ${HEATHROW_TIMES.terminal4} minutes to reach Terminal 4 from our pub, plus time for traffic, parking and security. Check your airline's advice on when to be at the terminal.`
           },
           {
             question: "Is The Anchor good for Terminal 4 hotel guests?",
-            answer: "Absolutely! Many guests from Terminal 4 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, traditional ales, and home-cooked food at pub prices."
+            answer: "Absolutely! Many guests from Terminal 4 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, draught lagers, bottled ales and home-cooked food at fair village prices."
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 4 hotel?",
@@ -513,7 +485,7 @@ export default function Terminal4Page() {
 	          },
           {
             question: "Is Terminal 4 far from other terminals?",
-            answer: "Yes, Terminal 4 is separate from the Central Terminal Area (T2/T3). If you have connections, consider having a meal with us instead of rushing between terminals. We're centrally located for all terminals."
+            answer: `Terminal 4 is separate from Terminals 2 and 3. We're ${HEATHROW_TIMES_WORDING}.`
           }
         ]}
         className="bg-canvas"

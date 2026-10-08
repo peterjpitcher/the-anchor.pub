@@ -267,7 +267,7 @@ export const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
       id: 'drag-shows',
       name: 'Hosted Nights',
       slug: 'drag-shows',
-      description: 'Listed hosted nights and one-off event evenings. Nikki Manfadge currently hosts Music Bingo. See /whats-on for details.',
+      description: 'Listed hosted nights and one-off event evenings. Nikki Manfadge currently hosts Music Bingo. The dates are on our website.',
       color: '#8b5cf6',
       icon: '',
       is_active: true,
@@ -415,7 +415,7 @@ export function createFallbackEvent(eventId: string): Event {
     url: `https://www.the-anchor.pub/events/${id}`,
     identifier: id,
     metaTitle: 'Event at The Anchor',
-    metaDescription: 'Join us at The Anchor for live entertainment near Heathrow Airport.',
+    metaDescription: 'Join us at The Anchor for quiz nights and hosted events near Heathrow Airport.',
     category: {
       id: 'fallback',
       name: 'Venue Event',
@@ -618,7 +618,7 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
     // Generate a default description based on event type
     const name = event.name.toLowerCase()
     if (name.includes('drag')) {
-      return 'Join us for a listed hosted night or special entertainment. See /whats-on for the latest details.'
+      return "Join us for a listed hosted night or special entertainment. Our What's On page has the latest details."
     } else if (name.includes('quiz')) {
       return 'Test your knowledge at our popular quiz night. Great prizes to be won!'
     } else if (name.includes('bingo')) {

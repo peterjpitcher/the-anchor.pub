@@ -98,7 +98,7 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
         secondaryHref: '/food-menu',
         badges: ROAST_BADGES,
         bandTitle: 'Got a date in mind?',
-        bandCopy: 'Sundays fill up quickly in February. Tell us when and we will hold a table.'
+        bandCopy: 'Tell us when and we will hold a table.'
       }
     case 3:
       return {

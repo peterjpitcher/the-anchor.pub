@@ -76,7 +76,7 @@ export default function EasterSundayPage() {
     {
       question: 'Is The Anchor family-friendly at Easter?',
       answer:
-        'Yes. Children are very welcome, and the dog-friendly beer garden gives little ones room to run around. It is a relaxed, family Easter Sunday, not a fussy one.'
+        'Yes. Children are very welcome, and the beer garden is dog-friendly too. It is next to the car park, so keep little ones with you. It is a relaxed, family Easter Sunday, not a fussy one.'
     },
     {
       question: 'Are you open over the Easter weekend and on Easter Monday?',
@@ -171,7 +171,7 @@ export default function EasterSundayPage() {
             </p>
             <p className="text-ink-muted leading-relaxed">
               Children are very welcome, dogs are welcome throughout the pub, on a lead, and there is space for everyone
-              to relax. A plane passes overhead every 90 seconds or so, which, as it turns out, keeps the little ones
+              to relax. At busy times a plane passes overhead about every 90 seconds, which, as it turns out, keeps the little ones
               (and a few of the grown-ups) entertained between courses.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -187,7 +187,7 @@ export default function EasterSundayPage() {
       {/* Booking CTA */}
       <CtaBand
         title="Book your Easter Sunday table"
-        copy="A family Easter Sunday at The Anchor in Stanwell Moor. Booking is recommended, as Easter Sunday gets busy."
+        copy="A family Easter Sunday at The Anchor in Stanwell Moor. Booking is recommended."
         primary={
           <BookTableButton
             source="easter_sunday_cta"

@@ -289,7 +289,7 @@ export default async function DrinksMenuPage() {
                 },
                 {
                   title: 'Meeting Point',
-                  body: 'Picking someone up? Skip expensive airport parking. Meet here for a relaxed drink while they clear customs.'
+                  body: 'Picking someone up? Meet here for a relaxed drink while they clear customs.'
                 },
                 {
                   title: "Traveller's Rest",
@@ -330,7 +330,7 @@ export default async function DrinksMenuPage() {
                 {
                   title: 'Local Institution',
                   body: 'Serving Stanwell Moor and Staines for generations. Where locals meet, airport workers unwind, and visitors become regulars. Your neighbourhood bar with a global touch.',
-                  note: "Ask about our locals' card for exclusive offers!"
+                  note: "New to the village? Come in and say hello."
                 },
                 {
                   title: 'Quality & Choice',
@@ -360,8 +360,8 @@ export default async function DrinksMenuPage() {
             />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { title: 'Summer', body: "Pimm's jugs, ice-cold lagers, and frozen cocktails in the sun-drenched beer garden" },
-                { title: 'Autumn', body: 'Warming ales, harvest ciders, and our famous hot toddy as the evenings draw in' },
+                { title: 'Summer', body: "Pimm's jugs, ice-cold lagers and cocktails in the beer garden" },
+                { title: 'Autumn', body: 'Warming ales, harvest ciders, and a hot toddy as the evenings draw in' },
                 { title: 'Winter', body: "Bailey's hot chocolate, hearty stouts and warming spirits in the warm" },
                 { title: 'Spring', body: 'Fresh G&Ts, crisp rosé, and the return of beer garden season' }
               ].map((item) => (
@@ -388,8 +388,8 @@ export default async function DrinksMenuPage() {
               <CardBody>
                 <h3 className="mb-2 text-h4 text-ink-strong">Popular shots at the bar</h3>
                 <p className="mb-3 text-sm text-ink-muted">
-                  Guests regularly order popular shots like Baby Guinness at our Heathrow bar, alongside creamy
-                  liqueurs and seasonal specials. Tell us what you like and we will recommend a pour.
+                  You can order shots like a Baby Guinness at the bar, alongside creamy liqueurs.
+                  Tell us what you like and we&apos;ll suggest one.
                 </p>
                 <Link
                   href="/drinks/baby-guinness"
@@ -431,27 +431,27 @@ export default async function DrinksMenuPage() {
           },
           {
             question: "Do you serve cocktails at The Anchor?",
-            answer: "Yes! We have a full cocktail menu featuring classics like Mojitos, Margaritas, Espresso Martinis, and many more. Our skilled bartenders can also make your favourite cocktail on request."
+            answer: "Yes! We have a full cocktail menu featuring classics like Mojitos, Margaritas, Espresso Martinis, and many more. See the cocktail list on this page for what we're serving."
           },
           {
             question: "Where can I find well-kept draught beer near Heathrow?",
-            answer: `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and ${HEATHROW_TIMES.rangeWords} from the other terminals, with a proper choice of draught beers and premium lagers. We're much better value than airport bars and have a proper pub atmosphere with our beer garden.`
+            answer: `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and ${HEATHROW_TIMES.rangeWords} from the other terminals, with a proper choice of draught beers and premium lagers, a proper pub atmosphere and a beer garden.`
           },
           {
             question: "Do you have non-alcoholic drink options?",
-            answer: "Yes. We offer a full range of soft drinks, mocktails, coffee, tea, and non-alcoholic beers, so everyone can enjoy their visit whether they're drinking alcohol or not."
+            answer: "Yes. We've soft drinks, fruit juices, coffee, tea and hot chocolate, plus Peroni 0% if you'd like an alcohol-free beer."
           },
           {
-            question: "Can I book the bar area for a private drinks party?",
-            answer: "Yes, our bar area can be reserved exclusively for cocktail receptions and casual events. We offer comprehensive drinks packages including welcome drinks, wine packages, and bar tabs. Our experienced team will help create the perfect drinks solution for your celebration. Contact us on 01753 682707 to discuss your requirements."
+            question: "Can I book a private drinks party?",
+            answer: `Yes. You can hire the dining room or the garden, and we can set up welcome drinks or a bar tab. Call us on ${CONTACT.phone} or see our private hire page.`
           },
           {
             question: "What wines do you serve at The Anchor?",
-            answer: "We offer a carefully selected wine list including our iHeart house wines available in 187ml bottles (perfect single-serve size) or 700ml bottles. We also have premium wine options by the bottle. Our selection includes red, white, rosé, and sparkling wines to suit all tastes and budgets."
+            answer: "We offer a carefully selected wine list including our iHeart house wines available in 187ml bottles (perfect single-serve size) or 750ml bottles. We also have premium wine options by the bottle. Our selection includes red, white, rosé, and sparkling wines to suit all tastes and budgets."
           },
           {
             question: "What payment methods are accepted at the bar?",
-            answer: "We accept cash and all major credit and debit cards, including American Express. Whether you're settling a tab, buying rounds, or paying for events, we make it easy with multiple payment options."
+            answer: "We accept cash and all major credit and debit cards, including American Express. Entry to quiz night and bingo is cash only."
           }
         ]}
       />

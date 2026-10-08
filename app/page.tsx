@@ -117,8 +117,8 @@ const PATH_CARDS = [
 const SPECIAL_CARDS = [
   {
     icon: PiggyBank,
-    title: 'Eat well, spend less',
-    copy: `Airport food costs twice as much. Enjoy a proper pub meal at fair village prices, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`
+    title: 'Fair village prices',
+    copy: `Enjoy a proper pub meal at fair village prices, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`
   },
   {
     icon: Plane,

@@ -27,7 +27,7 @@ import { PsychBadge } from '@/components/psychology'
 import { JsonLd } from '@/components/JsonLd'
 import { bingoEventSeries } from '@/lib/schema'
 import { ACCESS_WORDING } from '@/lib/approved-wording'
-import { BUS_WORDING, PARKING } from '@/lib/constants'
+import { BUS_WORDING, DRIVE_TIMES, PARKING } from '@/lib/constants'
 
 /**
  * The title stays pub-qualified on purpose. GKP measures "bingo night near me"
@@ -66,7 +66,7 @@ const WHAT_IT_IS = [
   },
   {
     title: 'Winnings paid on the night',
-    body: 'Cash prizes are handed over there and then, alongside spot prizes and the odd bit of chocolate. Prizes vary from night to night.'
+    body: 'Cash prizes are handed over there and then. Not every game is played for cash: some are played for a free drink and some for a £10 food voucher. Prizes vary from night to night.'
   },
   {
     title: 'The rolling snowball',
@@ -78,7 +78,7 @@ const FAQS = [
   {
     question: 'What time does cash bingo start and finish?',
     answer:
-      'Please arrive by 6:30pm so you have time for a drink, to order food and to buy your books. The first game is at 7pm and we finish around 9:30pm, with breaks along the way. The pub itself is open from 12pm, so you are welcome much earlier.'
+      'Please arrive by 6:30pm so you have time for a drink, to order food and to buy your books. The first game is at 7pm and we finish around 9:30pm. The pub itself is open from 12pm, so you are welcome much earlier.'
   },
   {
     question: 'How much is it to play and how do I pay?',
@@ -99,11 +99,6 @@ const FAQS = [
     question: 'Do I need to book in advance?',
     answer:
       'Yes, we would recommend it. Seating is communal, so booking everyone in one go is how we make sure your group sits together. If booking is not open yet, call 01753 682707.'
-  },
-  {
-    question: 'Can we host a private cash bingo fundraiser?',
-    answer:
-      'Yes. From corporate socials to charity nights we can supply callers, books and a prize structure. Email manager@the-anchor.pub or call 01753 682707.'
   }
 ]
 
@@ -225,13 +220,8 @@ export default async function CashBingoPage() {
                     the final cash jackpot, so it grows with the size of the room.
                   </p>
                   <p className="text-ink-muted">
-                    Ten quick games with two planned pauses, so you can top up drinks, and order food
-                    if the kitchen&apos;s open, without missing a call. Expect classic bingo banter, spot prizes and a
+                    Ten games, with the Snowball on game 9. Expect classic bingo banter and a
                     snowball countdown that gets louder as the numbers close in.
-                  </p>
-                  <p className="text-sm text-ink-muted">
-                    Caller&rsquo;s decision is final, mobiles stay on silent, and tied games split the
-                    winnings evenly.
                   </p>
                 </CardBody>
               </Card>
@@ -306,7 +296,7 @@ export default async function CashBingoPage() {
             {/* Kitchen times vary by date and come from the live hours
                 (docs/SSOT.md §3), so none is written here, as on /karaoke. */}
             <p className="mb-5 text-ink-muted">
-              Kitchen times vary by date, so order at your table when you arrive, or call 01753 682707
+              Kitchen times vary by date, so order when you arrive and food is brought to your table, or call 01753 682707
               to check that night&rsquo;s times. You do not need a separate dining booking, because
               your bingo booking is your seat for the night.
             </p>
@@ -365,12 +355,12 @@ export default async function CashBingoPage() {
             <div>
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">
-                The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
-                Bedfont and Egham, with {PARKING.capacity} free parking spaces on site.
+                The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. {DRIVE_TIMES.staines} minutes from Staines
+                by car, with {PARKING.capacity} free parking spaces on site.
               </p>
               <ul className="space-y-3 text-sm text-ink-muted">
                 <li><strong>Driving:</strong> use postcode TW19 6AQ. {PARKING.capacity} free spaces, first come, first served.</li>
-                <li><strong>Public transport:</strong> {BUS_WORDING} Uber and Bolt know us well.</li>
+                <li><strong>Public transport:</strong> {BUS_WORDING}</li>
                 <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">

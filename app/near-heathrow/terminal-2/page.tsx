@@ -11,7 +11,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { HeroBadge } from '@/components/HeroBadge'
 import { PARKING, CONTACT, HEATHROW_TIMES, BRAND, DIRECTIONS_URL, PRICE_RANGE } from '@/lib/constants'
-import { PARKING_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { PARKING_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -51,7 +51,7 @@ export default function Terminal2Page() {
         image="/images/page-headers/near-heathrow-terminal-2/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 2 for Food and Free Parking"
-        lead="Perfect for Star Alliance travellers • Free parking • Traditional British hospitality"
+        lead="Handy before or after a flight • Free parking • Traditional British hospitality"
         actions={
           <BookTableButton source="terminal_2_hero" context="terminal_2" variant="primary" size="lg" fullWidth>
             Book a Table
@@ -79,7 +79,7 @@ export default function Terminal2Page() {
 
       <CtaBand
         title="Got a Layover at Terminal 2?"
-        copy="Use our Heathrow layover dining guide to time taxis, meals, and returns to security without stress."
+        copy="Our Heathrow layover dining guide has journey times from each terminal and how much time to allow."
         primary={
           <Button asChild variant="primary" size="lg">
             <Link href="/heathrow-layover-dining">Explore Layover Guide</Link>
@@ -98,13 +98,13 @@ export default function Terminal2Page() {
           <div className="mx-auto">
             <SectionHeading
               title="Eat & Drink Before or After Terminal 2"
-              subtitle="Pre-book so your table, roast or pizza order is ready when you arrive."
+              subtitle="Walk in or book a table. Check our kitchen times before you travel."
             />
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="text-xl font-semibold text-accent-text mb-2">Sunday Roast</h3>
                 <p className="text-sm text-ink-muted mb-4">
-                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and gravy before Star Alliance departures.
+                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and gravy before your flight.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -172,7 +172,7 @@ export default function Terminal2Page() {
               { title: `${HEATHROW_TIMES.terminal2} mins`, description: 'by car' },
               { title: 'Free', description: 'parking' },
               { title: 'Real', description: 'British pub' },
-              { title: 'Star Alliance', description: 'Terminal 2' }
+              { title: 'Free WiFi', description: 'throughout the pub' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
                 <CardBody>
@@ -221,7 +221,7 @@ export default function Terminal2Page() {
                   </div>
                   <div className="p-4 bg-surface-sunk rounded-sm border border-line">
                     <p className="font-semibold text-accent-text mb-2">Return taxi:</p>
-                    <p className="text-sm text-ink-muted">Ask at the bar and we&apos;ll give you a taxi number. You&apos;ll need to make your own arrangements.</p>
+                    <p className="text-sm text-ink-muted">{TAXI_WORDING}</p>
                   </div>
                 </div>
               </div>
@@ -257,10 +257,9 @@ export default function Terminal2Page() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
-                { title: 'Star Alliance Hub', content: 'Terminal 2 hosts Star Alliance carriers including Lufthansa, United, Air Canada, and Singapore Airlines. Enjoy authentic British hospitality before your international journey.' },
-                { title: "The Queen's Terminal", content: "Opened by Her Majesty in 2014, T2 is Heathrow's newest terminal. Experience a piece of traditional Britain at The Anchor before entering this modern gateway." },
+                { title: 'A Short Drive Away', content: `We're ${HEATHROW_TIMES.terminal2} minutes from Terminal 2 by car. Traffic can add to that, so leave a margin.` },
                 { title: 'Smart Parking Choice', content: PARKING_WORDING },
-                { title: 'International Meets Local', content: 'Flying to Munich, Toronto, or Singapore? Start with fish & chips or a Sunday roast. Our international guests love experiencing authentic British pub culture.' },
+                { title: 'International Meets Local', content: 'Heading abroad? Start with fish & chips or a Sunday roast in a proper British village pub.' },
                 { title: 'Outside ULEZ Zone', content: ULEZ_WORDING }
               ].map(box => (
                 <Card key={box.title} accent>
@@ -284,40 +283,13 @@ export default function Terminal2Page() {
             />
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
-              <h3 className="font-display text-h3 text-ink-strong mb-4">Airlines & Destinations</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <p className="font-semibold text-ink-strong mb-2">Major Airlines:</p>
-                  <ul className="space-y-1 text-ink-muted text-sm">
-                    <li>• Lufthansa - Frankfurt, Munich</li>
-                    <li>• United Airlines - US destinations</li>
-                    <li>• Air Canada - Toronto, Vancouver</li>
-                    <li>• Singapore Airlines - Singapore</li>
-                    <li>• Swiss - Zurich, Geneva</li>
-                  </ul>
-                </div>
-                <div>
-                  <p className="font-semibold text-ink-strong mb-2">Check-in Advice:</p>
-                  <ul className="space-y-1 text-ink-muted text-sm">
-                    <li>• European flights: 2 hours before</li>
-                    <li>• International: 3 hours before</li>
-                    <li>• US flights: 3.5 hours (extra security)</li>
-                    <li>• Allow {HEATHROW_TIMES.terminal2} minutes drive from The Anchor</li>
-                  </ul>
-                </div>
-              </div>
+              <h3 className="font-display text-h3 text-ink-strong mb-4">Getting Back to Terminal 2</h3>
+              <ul className="space-y-1 text-ink-muted text-sm">
+                <li>• Allow {HEATHROW_TIMES.terminal2} minutes by car from The Anchor, and more if the traffic is heavy</li>
+                <li>• Check your airline&apos;s advice on when to be at the terminal</li>
+                <li>• {TAXI_WORDING}</li>
+              </ul>
             </div>
-
-            <Card accent>
-              <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-3">Insider Knowledge</h3>
-                <ul className="space-y-3 text-ink-muted list-disc list-inside">
-                  <li>T2 is connected to T3 via pedestrian walkway - great for airline connections</li>
-                  <li>The Anchor hosts many Lufthansa and United crews - we know the flight patterns!</li>
-                  <li>T2 security is busiest 6-9am for European departures</li>
-                </ul>
-              </CardBody>
-            </Card>
 
         </Container>
       </section>
@@ -332,19 +304,18 @@ export default function Terminal2Page() {
 
             <div className="prose prose-lg max-w-none text-ink-muted mb-12">
               <p className="text-xl text-center mb-8 text-ink-muted">
-                Looking for pubs near Heathrow Terminal 2? Whether you're flying with Lufthansa, United Airlines, Air Canada, or any of the 23 airlines
-                operating from T2, The Anchor provides the perfect escape from the airport bustle.
+                Looking for pubs near Heathrow Terminal 2? Whoever you&apos;re flying with,
+                The Anchor is a proper escape from the airport bustle.
               </p>
 
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-2xl font-bold text-accent-text mb-4">Before Your Flight</h3>
                   <p className="mb-4 text-ink-muted">
-                    Instead of paying premium prices for average food at the terminal, enjoy a proper meal
+                    Instead of eating at the terminal, enjoy a proper meal
                     at The Anchor. Our traditional British menu offers everything from classic pub favourites
-                    to fish and chips, all at local pub prices during kitchen hours. With Terminal 2's
-                    recommendation to arrive 3 hours early for international flights, you'll have plenty
-                    of time to relax in our beer garden or cosy interior before heading to the gate.
+                    to fish and chips, all at fair village prices during kitchen hours. Relax in our
+                    beer garden or cosy interior, and check your airline&apos;s advice on when to be at the terminal.
                   </p>
                   <p className="text-ink-muted">
                     Many of our regulars are business travellers who've discovered that a calm meal at
@@ -361,28 +332,14 @@ export default function Terminal2Page() {
 	                    only head to the terminal when they've cleared customs.
 	                  </p>
                   <p className="text-ink-muted">
-                    We're particularly popular with families meeting international arrivals. Kids can
-                    play in our garden while adults relax, making those flight delays much more bearable
-                    than sitting in expensive terminal cafes.
+                    Meeting family off a flight? There&apos;s a big garden to sit out in, next to the car
+                    park, so keep little ones with you. It makes a flight delay much more bearable
+                    than sitting in a terminal cafe.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-surface border border-line rounded-md shadow-sm p-8">
-              <h3 className="text-2xl font-bold text-accent-text mb-4 text-center">Local Knowledge</h3>
-              <p className="text-ink-muted mb-4">
-                As Stanwell Moor's village pub, we've been serving Terminal 2 travellers since the
-                Queen opened it in 2014. Our staff know the flight patterns, the best times to
-                travel to avoid traffic, and can even recommend the quickest security lanes based
-                on the time of day. We're not just a pub - we're part of your journey.
-              </p>
-              <p className="text-ink-muted">
-                Regular Terminal 2 flight crews choose The Anchor as their local when staying at
-                nearby hotels. If it's good enough for the professionals who fly every day, you
-                know you're in good hands.
-              </p>
-            </div>
         </Container>
       </section>
 
@@ -422,7 +379,7 @@ export default function Terminal2Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Authentic ales and home-cooked meals</span>
+                      <span>Draught lagers, bottled ales and home-cooked meals</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -431,11 +388,11 @@ export default function Terminal2Page() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3 text-ink-strong">Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3 text-ink-strong">Fair Village Prices</h4>
                   <ul className="space-y-2 text-ink-muted">
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Pub prices, not hotel prices</span>
+                      <span>Fair village prices, shown on our live menu</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -443,7 +400,7 @@ export default function Terminal2Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Free parking saves on hotel charges</span>
+                      <span>Free parking right outside</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -514,11 +471,11 @@ export default function Terminal2Page() {
           },
           {
             question: "What time should I leave for Terminal 2?",
-            answer: `Allow ${HEATHROW_TIMES.terminal2} minutes to reach Terminal 2 from our pub, plus time for parking and security. We recommend leaving at least 2 hours before your flight for European destinations, 3 hours for international.`
+            answer: `Allow ${HEATHROW_TIMES.terminal2} minutes to reach Terminal 2 from our pub, plus time for traffic, parking and security. Check your airline's advice on when to be at the terminal.`
           },
           {
             question: "Is The Anchor good for Terminal 2 hotel guests?",
-            answer: "Absolutely! Many guests from Terminal 2 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, traditional ales, and home-cooked food at pub prices."
+            answer: "Absolutely! Many guests from Terminal 2 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, draught lagers, bottled ales and home-cooked food at fair village prices."
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 2 hotel?",

@@ -170,7 +170,7 @@ export default async function BeerGardenPage() {
               <CardBody>
                 <h2 className="font-display text-h4 text-ink-strong mb-2">Food & Drinks in the Garden</h2>
                 <p className="text-sm text-ink-muted mb-4">
-                  Burgers, fish & chips, sharers and a full drinks list served directly to the beer garden during kitchen hours.
+                  Burgers, fish & chips, pizzas and a full drinks list served directly to the beer garden during kitchen hours.
                 </p>
                 <div className="flex flex-col gap-2 items-start">
                   <BookTableButton source="beer_garden_food_menu_cta" variant="primary" size="sm">Book a Table</BookTableButton>
@@ -216,7 +216,6 @@ export default async function BeerGardenPage() {
                   <ul className="space-y-3 text-ink-muted">
                     <li><strong className="text-ink-strong">Perfect Position</strong>: Under Heathrow&apos;s southern runway approach path</li>
                     <li><strong className="text-ink-strong">Low & Loud</strong>: When operating, aircraft pass at approximately 500-800 feet</li>
-                    <li><strong className="text-ink-strong">Photo Friendly</strong>: Unobstructed views perfect for photography</li>
                     <li><strong className="text-ink-strong">Refreshments</strong>: Full bar service delivered to your table</li>
                     <li><strong className="text-ink-strong">Free WiFi</strong>: Free high-speed guest WiFi throughout the venue</li>
                   </ul>
@@ -238,8 +237,7 @@ export default async function BeerGardenPage() {
                   <div className="bg-surface-sunk rounded-sm p-4 border border-line">
                     <p className="text-sm text-ink-muted">
                       <strong className="text-ink-strong">Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are expected overhead until 3pm, the next week from 3pm<br/>
-                      <strong className="text-ink-strong">Caveat:</strong> Weather and Heathrow operations dependent, not guaranteed<br/>
-                      <strong className="text-ink-strong">Overhead Operations:</strong> ~50% of the year (alternating weekly schedule)
+                      <strong className="text-ink-strong">Caveat:</strong> Weather and Heathrow operations dependent, not guaranteed
                     </p>
                   </div>
                 </CardBody>
@@ -274,8 +272,8 @@ export default async function BeerGardenPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { title: 'Spacious Seating', description: 'Multiple tables with umbrellas for sunny days' },
-                { title: 'Dog Friendly', description: 'Water bowls provided, treats available at the bar' },
+                { title: 'Spacious Seating', description: `${PRIVATE_HIRE_CAPACITY.spaces.gardenTerrace.seated} seats in the open air. No part of the garden is covered.` },
+                { title: 'Dog Friendly', description: 'Water bowls and dog biscuits provided' },
                 { title: 'Food Service', description: 'Full menu available in the garden during kitchen hours' },
                 { title: 'Family Friendly', description: 'Children always welcome, with supervision: the garden adjoins the car park' }
               ].map(feature => (
@@ -325,7 +323,6 @@ export default async function BeerGardenPage() {
                   <ul className="space-y-2 text-ink-muted">
                     <li>• <strong className="text-ink-strong">Flightradar24:</strong> Track incoming flights in real-time</li>
                     <li>• <strong className="text-ink-strong">Plane Finder:</strong> Identify aircraft types and airlines</li>
-                    <li>• <strong className="text-ink-strong">LiveATC:</strong> Listen to air traffic control (bring headphones!)</li>
                   </ul>
                 </CardBody>
               </Card>
@@ -345,7 +342,6 @@ export default async function BeerGardenPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-3">Make a Day of It</h3>
                   <ul className="space-y-2 text-ink-muted">
                     <li>• Arrive early to secure the best spotting tables</li>
-                    <li>• Try our aviation-themed cocktails</li>
                     <li>• Join other enthusiasts - great community feel</li>
                     <li>• Food available during kitchen hours</li>
                   </ul>
@@ -383,6 +379,7 @@ export default async function BeerGardenPage() {
       <OrganicSearchClusterLinks
         cluster="beerGarden"
         currentPath="/beer-garden"
+        headings="label"
         title="Plan your garden visit"
         intro="Compare plane spotting, food and dog-friendly options before you book a table."
       />

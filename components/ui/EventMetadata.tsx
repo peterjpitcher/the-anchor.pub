@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import { formatEventDate, formatEventTime, formatDoorClockTime, formatPrice, type Event } from '@/lib/api'
+import { getEventArrivalLabel } from '@/lib/event-arrival-label'
 
 interface EventMetadataProps {
   event: Partial<Event>
@@ -57,8 +58,8 @@ export function EventMetadata({
         icon: '',
         // "Arrive from", never "Doors": docs/SSOT.md §10 bans the wording,
         // because the pub opens at 12pm and a "Doors" label reads as an opening
-        // time.
-        label: 'Arrive from',
+        // time. Cash bingo is "Arrive by" (site review C2-027).
+        label: getEventArrivalLabel(event),
         value: doorTimeText
       })
     }

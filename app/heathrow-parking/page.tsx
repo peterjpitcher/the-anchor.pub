@@ -16,7 +16,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT, HEATHROW_TIMES, HEATHROW_DISTANCES, BUS, BUS_WORDING } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { PARKING_REFUND_WORDING } from '@/lib/approved-wording'
+import { PARKING_REFUND_WORDING, TAXI_WORDING } from '@/lib/approved-wording'
 
 const formatRate = (value: number) => value.toFixed(2)
 const pricingUnavailable = 'We could not load current parking prices. Please refresh the page or call 01753 682707.'
@@ -74,12 +74,12 @@ const terminalLandingPages = [
   {
     href: '/heathrow-parking/terminal-2',
     title: 'Terminal 2 cheap parking guide',
-    description: 'Alternative to expensive T2 long-stay and short-stay options with transfer tips from Stanwell Moor.'
+    description: 'Off-airport parking for Terminal 2, with transfer tips from Stanwell Moor.'
   },
   {
     href: '/heathrow-parking/terminal-3',
     title: 'Terminal 3 cheap parking guide',
-    description: 'Compare official T3 parking costs versus off-airport rates and plan your fastest transfer.'
+    description: 'Our live rates for Terminal 3 travellers, and how to plan your transfer.'
   },
   {
     href: '/heathrow-parking/terminal-4',
@@ -101,13 +101,13 @@ const featureHighlights = [
   },
   {
     icon: '',
-    title: 'Airport-long stay rates without airport stress',
-    description: 'Hourly, daily, weekly and monthly pricing that undercuts Heathrow long stay car parks and private meet-and-greet operators.'
+    title: 'Prices published up front',
+    description: 'Hourly, daily, weekly and monthly rates, read live from our booking system. Pay in advance when you book.'
   },
   {
     icon: '',
-    title: 'Secure CCTV & lighting all night',
-    description: 'Our car park is floodlit, covered by cameras and overseen by the pub team late into the evening for peace of mind.'
+    title: 'CCTV, floodlit and level',
+    description: 'Our car park is floodlit, level and covered by CCTV. You keep your keys, and your car is parked at your own risk.'
   },
   {
     icon: '',
@@ -120,7 +120,7 @@ const terminalGuides = [
   {
     icon: 'T2',
     title: 'Terminal 2 parking plan',
-    description: `Allow ${HEATHROW_TIMES.terminal2} minutes by car. Beat official Terminal 2 long stay prices by parking with us, then hop in a quick Uber or taxi.`
+    description: `Allow ${HEATHROW_TIMES.terminal2} minutes by car. Park with us, then take an Uber or taxi to the terminal.`
   },
   {
     icon: 'T3',
@@ -135,7 +135,7 @@ const terminalGuides = [
   {
     icon: 'T5',
     title: 'Terminal 5 parking near me',
-    description: 'We are the closest independent long stay parking option to T5. Secure your space for red-eye flights and late returns.'
+    description: `We are ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 by car. You can collect your car at any hour.`
   }
 ]
 
@@ -179,15 +179,15 @@ const faqs = (rateCard: ParkingRateCard | null) => {
 	  },
   {
     question: 'Is this Heathrow airport car parking or parking near Heathrow airport?',
-    answer: `It is secure parking near Heathrow airport in Stanwell Moor, around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 and ${HEATHROW_TIMES.terminal2} to ${HEATHROW_TIMES.terminal4} minutes from Terminals 2, 3 and 4. Many drivers searching for Heathrow airport car parking choose us for better value and faster exits.`
+    answer: `It is parking near Heathrow airport, at our pub in Stanwell Moor, around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 and ${HEATHROW_TIMES.terminal2} to ${HEATHROW_TIMES.terminal4} minutes from Terminals 2, 3 and 4. It is not inside the airport boundary.`
   },
 	  {
 	    question: 'Where can I find cheap parking near Heathrow Terminal 5?',
-	    answer: `Park at The Anchor in Stanwell Moor and take a ${HEATHROW_TIMES.terminal5}-minute taxi to Terminal 5. ${rateCard ? `You pay from £${daily} per day, keep your keys and avoid airport surcharges.` : pricingUnavailable} Taxi and rideshare drivers know our postcode TW19 6AQ, making transfers easy even on red-eye flights.`
+	    answer: `Park at The Anchor in Stanwell Moor and take a ${HEATHROW_TIMES.terminal5}-minute taxi to Terminal 5. ${rateCard ? `You pay from £${daily} per day, and keep your keys.` : pricingUnavailable} Taxi and rideshare drivers know our postcode TW19 6AQ, making transfers easy even on red-eye flights.`
 	  },
 	  {
 	    question: 'How much does Heathrow parking cost at The Anchor?',
-	    answer: rateCard ? `Our current rate card is £${hourly} per hour, £${daily} per day, £${weekly} per week and £${monthly} per month. The booking wizard locks in the best mix automatically before you pay via PayPal.` : pricingUnavailable
+	    answer: rateCard ? `Our current rate card is £${hourly} per hour, £${daily} per day, £${weekly} per week and £${monthly} per month. The booking form works out your price before you pay with PayPal or card.` : pricingUnavailable
 	  },
   {
     question: 'Is this long stay parking near Heathrow Terminals 2, 3, 4 and 5?',
@@ -199,7 +199,7 @@ const faqs = (rateCard: ParkingRateCard | null) => {
   },
   {
     question: 'Is my car safe overnight?',
-    answer: 'Absolutely. We have CCTV, floodlighting, staff presence into the night and local residents overlooking the site. The Anchor is a trusted Heathrow car park for crew and regular flyers.'
+    answer: 'The car park is floodlit, level and covered by CCTV, and you keep your keys. Your car is parked at your own risk. The parking terms on this page set out the detail.'
   },
   {
     question: 'Can I cancel or change my Heathrow car parking booking?',
@@ -214,7 +214,7 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
     '@type': 'ParkingFacility',
     '@id': 'https://www.the-anchor.pub/heathrow-parking#facility',
     name: 'Heathrow Parking at The Anchor',
-    description: 'Secure long stay and short stay Heathrow airport parking with PayPal checkout, CCTV, lighting and on-site hospitality in Stanwell Moor.',
+    description: 'Long stay and short stay Heathrow airport parking in Stanwell Moor. CCTV, floodlit and level, with PayPal checkout. You keep your keys.',
     image: 'https://www.the-anchor.pub/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg',
     url: 'https://www.the-anchor.pub/heathrow-parking',
     telephone: '+441753682707',
@@ -266,7 +266,7 @@ function buildParkingOfferSchema(rateCard: ParkingRateCard | null) {
     '@type': 'Service',
     serviceType: 'Airport parking',
     name: 'Heathrow Long Stay Parking',
-    description: 'Pre-book secure Heathrow airport parking at The Anchor pub with on-site hospitality and PayPal checkout.',
+    description: 'Pre-book Heathrow airport parking at The Anchor pub in Stanwell Moor, with PayPal checkout.',
     provider: {
       '@type': 'LocalBusiness',
       name: 'The Anchor, Stanwell Moor'
@@ -346,11 +346,11 @@ export default async function HeathrowParkingPage() {
         image="/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg"
         crumb="Heathrow Parking"
         title="Heathrow Parking: Book, Pay & Park in Stanwell Moor"
-        lead={`Secure long stay and short stay Heathrow parking${rateCard ? ` from £${formatRate(rateCard.hourly_rate)} per hour` : ''}. Drop your car with us in Stanwell Moor, then grab a taxi to Heathrow in minutes.`}
+        lead={`Long stay and short stay Heathrow parking${rateCard ? ` from £${formatRate(rateCard.hourly_rate)} per hour` : ''}. Drop your car with us in Stanwell Moor, then grab a taxi to Heathrow in minutes.`}
         badges={
           <>
             <Badge variant="sand">PayPal checkout</Badge>
-            <Badge variant="sand">24/7 access</Badge>
+            <Badge variant="sand">Collect at any hour</Badge>
             <Badge variant="sand">CCTV monitored</Badge>
             <Badge variant="sand">Stanwell Moor</Badge>
           </>
@@ -387,22 +387,22 @@ export default async function HeathrowParkingPage() {
           <div className="mx-auto">
             <SectionHeading
               title="Cheap Heathrow Parking Without Hidden Fees"
-              lead={<>Search terms like <strong>cheap parking near Heathrow</strong>, <strong>cheap parking near Heathrow Terminal 5</strong> and <strong>cheap Heathrow airport parking</strong> all point to the same problem: official car parks keep getting pricier. Our Stanwell Moor car park keeps costs simple, publishes prices upfront and still delivers CCTV, lighting and 24/7 access.</>}
+              lead={<>Search terms like <strong>cheap parking near Heathrow</strong>, <strong>cheap parking near Heathrow Terminal 5</strong> and <strong>cheap Heathrow airport parking</strong> all come down to price. Our Stanwell Moor car park publishes its prices up front. It is floodlit, level and covered by CCTV, and you can collect your car at any hour.</>}
             />
             <div className="grid gap-6 md:grid-cols-3">
               <Card accent>
                 <CardBody className="p-6">
-                  <h3 className="text-lg font-semibold text-ink-strong">Daily price promise</h3>
+                  <h3 className="text-lg font-semibold text-ink-strong">Our daily and weekly rates</h3>
                   <p className="mt-2 text-sm text-ink-muted">
-                    {rateCard ? `Lock in from £${formatRate(rateCard.daily_rate)} per day or £${formatRate(rateCard.weekly_rate)} per week, no surge pricing, no pre-authorisation. Pay in advance with PayPal.` : pricingUnavailable}
+                    {rateCard ? `From £${formatRate(rateCard.daily_rate)} per day or £${formatRate(rateCard.weekly_rate)} per week. Pay in advance with PayPal.` : pricingUnavailable}
                   </p>
                 </CardBody>
               </Card>
               <Card accent>
                 <CardBody className="p-6">
-                  <h3 className="text-lg font-semibold text-ink-strong">Terminal-specific savings</h3>
+                  <h3 className="text-lg font-semibold text-ink-strong">Every terminal within reach</h3>
                   <p className="mt-2 text-sm text-ink-muted">
-                    Beat “cheap parking near Heathrow Terminal 5/3/4/2” searches by parking once and taxiing to any terminal in {HEATHROW_TIMES.range}.
+                    Park once, then take a taxi to any terminal in {HEATHROW_TIMES.range}.
                   </p>
                 </CardBody>
               </Card>
@@ -426,7 +426,7 @@ export default async function HeathrowParkingPage() {
               </Button>
               <Button asChild variant="primary" size="lg" wrap>
                 <Link href="#book-parking">
-                   Book the cheapest Heathrow parking
+                   Book Heathrow parking
                 </Link>
               </Button>
             </div>
@@ -440,7 +440,7 @@ export default async function HeathrowParkingPage() {
             Cheap Heathrow Parking, Long Stay &amp; Short Stay{rateCard ? ` from £${formatRate(rateCard.daily_rate)}/day` : ''}
           </PageTitle>
           <p className="mx-auto mt-4 text-center text-lg text-ink-muted">
-            Travellers searching for Heathrow parking, Heathrow car parking or "long stay parking near me" choose The Anchor because we combine affordable airport-long term parking with the warmth of a real pub. Book online in minutes, grab a bite or coffee while you wait, then take a taxi to any Heathrow terminal in {HEATHROW_TIMES.rangeWords}.
+            Travellers searching for Heathrow parking, Heathrow car parking or "long stay parking near me" can park at a real pub. Book online in minutes, grab a bite or coffee while you wait, then take a taxi to any Heathrow terminal in {HEATHROW_TIMES.rangeWords}.
           </p>
         </Container>
       </section>
@@ -457,7 +457,7 @@ export default async function HeathrowParkingPage() {
                 <CardBody className="p-6">
                   <h3 className="text-lg font-semibold text-ink-strong">Terminal 5 car parking alternative</h3>
                   <p className="mt-2 text-sm text-ink-muted">
-                    We are {HEATHROW_TIMES.terminal5} minutes from T5, making us a smart option for Terminal 5 car parking without premium prices.
+                    We are {HEATHROW_TIMES.terminal5} minutes from T5, by car.
                   </p>
                 </CardBody>
               </Card>
@@ -484,7 +484,7 @@ export default async function HeathrowParkingPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-ink-strong">Taxi or rideshare (recommended)</h3>
                     <p className="mt-2 text-sm text-ink-muted">
-                      Local taxi firms reach all Heathrow terminals in around {HEATHROW_TIMES.range}. Book in advance or ask our team on arrival. Uber and Bolt also serve our postcode TW19 6AQ, making door-to-door transfers simple.
+                      Local taxi firms reach all Heathrow terminals in around {HEATHROW_TIMES.range}. Book your own in advance. {TAXI_WORDING} Uber and Bolt also serve our postcode TW19 6AQ, making door-to-door transfers simple.
                     </p>
                   </div>
                   <div>
@@ -507,7 +507,7 @@ export default async function HeathrowParkingPage() {
         <Container>
           <SectionHeading
             title="Why switch from Heathrow long stay car parks to The Anchor?"
-            lead="Airport long term parking should not mean eye-watering prices or stressful shuttles. Our Stanwell Moor site offers straightforward Heathrow parking with hospitality perks you will not find inside the terminal."
+            lead="Our Stanwell Moor car park is straightforward: published prices, your keys in your pocket, and a pub to wait in."
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featureHighlights.map((feature) => (
@@ -560,7 +560,7 @@ export default async function HeathrowParkingPage() {
         <Container>
           <SectionHeading
             title="Directions for each Heathrow terminal"
-            lead="Whether you are flying from Terminal 2, Terminal 3, Terminal 4 or Terminal 5, The Anchor is an easy base for Heathrow car parking. Park, book a taxi and be at departures faster than most official long stay shuttles."
+            lead="Whether you are flying from Terminal 2, Terminal 3, Terminal 4 or Terminal 5, The Anchor is an easy base for Heathrow car parking. Park, then book your own taxi to departures."
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {terminalGuides.map((guide) => (
@@ -594,13 +594,12 @@ export default async function HeathrowParkingPage() {
             <div>
               <h2 className="font-display text-h2 text-ink-strong">Airport long term parking with pub-level perks</h2>
               <p className="mt-4 text-ink-muted">
-                Choose The Anchor when you need reliable Heathrow long stay parking at fair prices. Travellers Googling "cheap long term parking", "long term parking near me" or "airport long term parking rates" land here because we keep pricing transparent and pair it with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, barista coffee, speedy Wi-Fi and restrooms before you head to Heathrow, all while your car stays in a CCTV-covered, well-lit village setting outside the ULEZ. Arrange your own taxi once you've parked.
+                We publish our Heathrow long stay parking prices up front and pair them with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, coffee and free WiFi before you head to Heathrow. The car park is floodlit, level and covered by CCTV, in a village setting outside the ULEZ. Arrange your own taxi once you've parked.
               </p>
               <ul className="mt-4 space-y-2 text-ink-muted">
                 <li>• Flexible booking windows, from four hours to 30 days</li>
                 <li>• PayPal receipts for expenses and insurance</li>
                 <li>• Easy access from M25 Junction 14 and the A3044</li>
-                <li>• Optional overnight pub stays for early flights</li>
               </ul>
             </div>
             <Card accent>
@@ -608,7 +607,7 @@ export default async function HeathrowParkingPage() {
                 <h3 className="font-display text-h3 text-ink-strong">Quick Heathrow parking checklist</h3>
                 <ol className="mt-4 space-y-3 text-ink-muted">
                   <li><strong>1.</strong> Book online and pay with PayPal or card.</li>
-                  <li><strong>2.</strong> Receive confirmation by SMS and email.</li>
+                  <li><strong>2.</strong> We&apos;ll confirm your booking.</li>
                   <li><strong>3.</strong> Park at The Anchor and pop in for refreshments.</li>
                   <li><strong>4.</strong> Taxi or rideshare to your terminal in {HEATHROW_TIMES.range}.</li>
                 </ol>

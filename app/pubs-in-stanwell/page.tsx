@@ -12,7 +12,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from '@/lib/image-fallb
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { ACCESS_AMENITY_FEATURES, PARKING_WORDING } from '@/lib/approved-wording'
+import { ACCESS_AMENITY_FEATURES, PARKING_WORDING, SPORT_WORDING } from '@/lib/approved-wording'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING, DRIVE_TIMES, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
@@ -122,11 +122,11 @@ export default async function PubsInStanwellPage() {
                     <p className="text-ink-muted">
                       Located on Horton Road in the heart of Stanwell Moor, we've been
                       the village's gathering place since 1751, standing here long before
-                      Heathrow existed. Unlike chain pubs, we're independently run with
+                      Heathrow existed. We're independently run, with
                       genuine local character.
                     </p>
                     <ul className="space-y-2 text-ink-muted">
-                      <li>Family-owned and operated</li>
+                      <li>Independently run</li>
                       <li>Know our regulars by name</li>
                       <li>Support local events and causes</li>
                       <li>Traditional pub atmosphere</li>
@@ -198,7 +198,7 @@ export default async function PubsInStanwellPage() {
                 { title: "Great Drinks Selection", description: "Draught lagers, bottled ales, wines, spirits and soft drinks" },
                 { title: "Home-Cooked Food", description: "Traditional British pub food cooked fresh" },
                 { title: "Beautiful Beer Garden", description: "Spacious outdoor area perfect for sunny days" },
-                { title: "Quiz Nights & Hosted Events", description: "Music Bingo with Nikki Manfadge, quizzes, and special events (see /whats-on)" },
+                { title: "Quiz Nights & Events", description: "Music Bingo with Nikki Manfadge, quiz nights and one-off events" },
                 { title: "Family Friendly", description: "Children welcome with kids menu available" },
                 { title: "Sports Coverage", description: "Major sporting events on our screens" },
                 { title: "Private Functions", description: "Host your special occasions with us" },
@@ -216,20 +216,16 @@ export default async function PubsInStanwellPage() {
         </Container>
       </section>
 
-      {/* Compare to Other Pubs */}
+      {/* What The Anchor has. No other pub is named or compared. */}
       <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="How We Compare to Other Local Pubs"
-              lead="Why locals choose The Anchor"
+              title="What You'll Find at The Anchor"
             />
 
             <Card accent>
               <CardBody className="p-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="font-display text-h4 text-ink-strong mb-4">The Anchor Advantages</h3>
                     <ul className="space-y-3 text-ink">
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -245,70 +241,61 @@ export default async function PubsInStanwellPage() {
                       </li>
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                        <div><strong>Value:</strong> Proper pub prices, not tourist rates</div>
+                        <div><strong>Prices:</strong> Fair village prices, on the <Link href="/food-menu" className="underline">live menu</Link></div>
                       </li>
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                        <div><strong>Entertainment:</strong> Regular quiz nights and hosted events</div>
+                        <div><strong>Events:</strong> Quiz nights and Music Bingo</div>
                       </li>
                     </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-display text-h4 text-ink-strong mb-4">Nearby Alternatives</h3>
-                    <div className="space-y-4 text-ink-muted">
-                      <div>
-                        <p className="font-semibold text-ink">The George (Stanwell)</p>
-                        <p className="text-sm">Good pub but limited parking</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-ink">The Bells (Staines)</p>
-                        <p className="text-sm">Town centre location, paid parking</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-ink">Airport Pubs</p>
-                        <p className="text-sm">Convenient but 3x the price</p>
-                      </div>
-                      <div className="pt-3 border-t border-line">
-                        <p className="font-bold text-ink">
-                          The Anchor brings together location,
-                          parking, food, and atmosphere
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </CardBody>
             </Card>
           </div>
         </Container>
       </section>
 
-      {/* Weekly Schedule */}
+      {/* Food and events through the week. Only what docs/SSOT.md fixes to a
+          day is named: Monday (kitchen closed) and Sunday (roast). Event nights
+          come from the What's On page, never a typed weekly slot. */}
       <section className="py-section-y bg-canvas">
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="Something Special Every Day"
-              lead="Our weekly lineup of food and events"
+              title="Food and Events"
+              lead="What to expect through the week"
             />
 
             <div className="grid gap-4">
-              {[
-                { day: "Monday", text: "Drinks only • Kitchen closed • See /find-us for this week's hours" },
-                { day: "Tuesday", text: "Stone-baked pizzas and the full menu • See /find-us for this week's kitchen hours" },
-                { day: "Wednesday-Thursday", text: "Full menu available • See /find-us for this week's kitchen hours" },
-                { day: "Friday - Fish & Chips", text: "Fish & chips served • See /find-us for this week's kitchen hours" },
-                { day: "Saturday - Entertainment Night", text: "Hosted nights & one-off events • See /whats-on for details" },
-                { day: "Sunday - Roast Day", text: "Traditional Sunday roast • Kitchen 1pm-6pm" },
-              ].map((row) => (
-                <Card key={row.day} accent>
-                  <CardBody className="p-4">
-                    <h3 className="font-display text-h4 text-ink-strong">{row.day}</h3>
-                    <p className="text-ink-muted">{row.text}</p>
-                  </CardBody>
-                </Card>
-              ))}
+              <Card accent>
+                <CardBody className="p-4">
+                  <h3 className="font-display text-h4 text-ink-strong">Monday</h3>
+                  <p className="text-ink-muted">Drinks only. The kitchen is closed.</p>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-4">
+                  <h3 className="font-display text-h4 text-ink-strong">Tuesday to Saturday</h3>
+                  <p className="text-ink-muted">
+                    The full menu, stone-baked pizzas included. Kitchen times vary, so check our{' '}
+                    <Link href="/find-us" className="underline">Find Us page</Link> for this week&apos;s hours.
+                  </p>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-4">
+                  <h3 className="font-display text-h4 text-ink-strong">Sunday</h3>
+                  <p className="text-ink-muted">Sunday roasts, 1pm to 6pm. Walk-ins welcome.</p>
+                </CardBody>
+              </Card>
+              <Card accent>
+                <CardBody className="p-4">
+                  <h3 className="font-display text-h4 text-ink-strong">Events</h3>
+                  <p className="text-ink-muted">
+                    Quiz nights, Music Bingo and one-off events.{' '}
+                    <Link href="/whats-on" className="underline">See what&apos;s on</Link> for dates.
+                  </p>
+                </CardBody>
+              </Card>
             </div>
           </div>
         </Container>
@@ -329,7 +316,7 @@ export default async function PubsInStanwellPage() {
                 The area around Stanwell Moor is surprisingly green for somewhere so close to Heathrow. The reservoir walks are a local favourite, the path around the King George VI and Staines reservoirs gives you miles of flat, easy walking with big skies and good birdwatching. St Mary&rsquo;s Church in nearby Stanwell village dates back to the 12th century and is worth a look if you&rsquo;re interested in local history.
               </p>
               <p>
-                What makes Stanwell Moor different from Stanwell village is the feel. Stanwell proper is bigger and more suburban, with its own high street and shops. Stanwell Moor has kept its village character, smaller, quieter, and with a stronger sense of community. Everyone knows everyone, and The Anchor is where those connections happen. Whether it&rsquo;s the Tuesday night pizza crowd, the quiz night regulars, or the Sunday roast families, the pub is where the village comes together.
+                Stanwell Moor has kept its village character. Everyone knows everyone, and The Anchor is where those connections happen. Whether it&rsquo;s the midweek pizza crowd, the quiz night regulars, or the Sunday roast families, the pub is where the village comes together.
               </p>
               <p>
                 We&rsquo;re proud to be the heart of this community. From charity fundraisers to Christmas parties, from welcoming new residents to hosting retirement dos for people who&rsquo;ve been coming here for years, this is what a village pub is supposed to be. If you&rsquo;re in Stanwell or Stanwell Moor and haven&rsquo;t been in yet, you&rsquo;re missing out on your own local.
@@ -359,7 +346,7 @@ export default async function PubsInStanwellPage() {
         faqs={[
           {
             question: "What makes The Anchor worth a visit in Stanwell Moor?",
-            answer: "We're the only traditional pub in Stanwell Moor village, serving our community since 1751. We offer free parking, a large beer garden, home-cooked food, regular quiz nights and hosted events, and a genuine local atmosphere."
+            answer: "We're Stanwell Moor's village pub, here since 1751. We offer free parking, a large beer garden, home-cooked food, regular quiz nights and hosted events, and a genuine local atmosphere."
           },
           {
             question: "Do you have parking at the pub?",
@@ -379,11 +366,11 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "Do you show sports at the pub?",
-            answer: "Yes, we show major sporting events that air on BBC, ITV, Channel 4, and Channel 5. We're a great place to enjoy the big free-to-air football, rugby, and tournament fixtures with fellow fans in a proper pub atmosphere."
+            answer: SPORT_WORDING
           },
           {
             question: "Can I book The Anchor for a private event?",
-            answer: `Yes! We offer flexible private hire for parties, celebrations, wakes, and corporate events. Our spaces suit ${PRIVATE_HIRE_CAPACITY.recommendedRange}, with larger events by enquiry and various catering options. Contact us on ${CONTACT.phone} to discuss your requirements.`
+            answer: `Yes. The dining room, the garden or the whole pub can be hired by the hour, for ${PRIVATE_HIRE_CAPACITY.recommendedRange}. Prices and menus are on the private hire page, or call us on ${CONTACT.phone}.`
           }
         ]}
         className="bg-surface"

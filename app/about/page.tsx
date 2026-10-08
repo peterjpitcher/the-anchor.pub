@@ -23,7 +23,7 @@ import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 export const metadata: Metadata = {
   title: 'About Us | Our Story Since 1751',
   description:
-    "The Anchor in Stanwell Moor has been a village pub since 1751. 5-star food hygiene. Meet the team behind Heathrow\u2019s favourite local pub.",
+    "The Anchor in Stanwell Moor has been a village pub since 1751. 5-star food hygiene.",
   alternates: { canonical: '/about' },
   openGraph: {
     title: 'About The Anchor | Our Story Since 1751',
@@ -165,7 +165,7 @@ export default function AboutPage() {
               {
                 title: 'Under the Flight Path',
                 description:
-                  'Our beer garden sits directly beneath Heathrow\u2019s approach path. Aircraft pass overhead every 90 seconds at peak times, a view you won\u2019t find at any other pub.',
+                  'Our beer garden sits directly beneath Heathrow\u2019s approach path. Aircraft pass overhead every 90 seconds at peak times.',
               },
               {
                 title: `${PARKING.capacity} Free Parking Spaces`,
@@ -222,7 +222,7 @@ export default function AboutPage() {
                       Traditional British Food
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      Pub classics, stone-baked pizzas, burgers, and sharers. Honest food at
+                      Pub classics, stone-baked pizzas and burgers. Honest food at
                       fair prices, served during live kitchen hours.
                     </p>
                     <p className="text-accent-text font-semibold">View menu &rarr;</p>
@@ -251,11 +251,11 @@ export default function AboutPage() {
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
-                      Weekly Events
+                      Hosted Nights
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      Quiz nights, music bingo with Nikki, cash bingo and karaoke when listed.
-                      There&apos;s always something on.
+                      A monthly quiz night, Music Bingo with Nikki, cash bingo on set
+                      Wednesdays, and karaoke when it&apos;s listed.
                     </p>
                     <p className="text-accent-text font-semibold">See what&apos;s on &rarr;</p>
                   </CardBody>

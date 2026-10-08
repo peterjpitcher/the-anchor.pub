@@ -8,24 +8,24 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
-import { PARKING_WORDING } from '@/lib/approved-wording'
+import { LUGGAGE_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Pubs in Longford | Your Nearest Village Local',
-    description: `Staying in Longford or Bath Road hotels? Escape to ${BRAND.name} for authentic British food and better prices. Just a short taxi ride away.`,
+    title: 'Pubs in Longford | A Village Local Nearby',
+    description: `Staying in Longford or a Bath Road hotel? Come to ${BRAND.name} for British pub food cooked to order. Just a short taxi ride away.`,
     openGraph: {
         title: 'Pubs in Longford, The Anchor, Stanwell Moor',
-        description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',
+        description: 'British pub food and drinks at a village pub, a short drive from Longford.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Pubs in Longford, The Anchor, Stanwell Moor',
-        description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',
+        description: 'British pub food and drinks at a village pub, a short drive from Longford.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -80,7 +80,7 @@ export default function LongfordPubPage() {
         image="/images/page-headers/longford-pub/find-us.jpg"
         crumb="Longford"
         title="Authentic British Pub Near Longford"
-        lead="Escape the hotel strip for real food, draught beer, and real prices"
+        lead="Pub food cooked to order, draught beer and fair village prices"
         actions={
           <BookTableButton source="longford_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -102,7 +102,7 @@ export default function LongfordPubPage() {
                             Pubs in Longford, Minutes from Hotels & Bath Road
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Don't settle for overpriced hotel food. The Anchor is your nearest traditional village pub, offering a genuine British experience just a stone's throw from Longford.
+                            The Anchor is a traditional village pub, a short drive from Longford.
                         </p>
                     </div>
                 </Container>
@@ -113,13 +113,13 @@ export default function LongfordPubPage() {
                     <div className="mx-auto text-center">
                         <SectionHeading
                             title="Why Travellers Choose The Anchor"
-                            lead="We're the favourite choice for guests at the Thistle, Premier Inn, and other Longford hotels."
+                            lead="Staying at a Longford hotel? We're a short drive away."
                         />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {[
-                                { title: "Better Value", description: "Significantly cheaper than hotel restaurants for better quality food" },
-                                { title: "Real Atmosphere", description: "Experience a proper British pub with locals, not a sterile hotel bar" },
+                                { title: "Fair Village Prices", description: "Food cooked to order, with prices on the live menu" },
+                                { title: "Real Atmosphere", description: "A proper British village pub, where everyone's welcome" },
                                 { title: "Beer Garden", description: "Relax outside with a drink - perfect for summer evenings" },
                             ].map((item) => (
                                 <Card key={item.title} accent>
@@ -185,16 +185,16 @@ export default function LongfordPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you, it&rsquo;s the soundtrack to your life. We&rsquo;re on the same flight path over here in Stanwell Moor, so we understand completely. The difference is, we&rsquo;ve turned it into a feature. Our beer garden sits right under the flight path, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
+                                If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you, it&rsquo;s the soundtrack to your life. Over here in Stanwell Moor, we&rsquo;ve turned it into a feature. Our beer garden sits under Heathrow&rsquo;s southern runway approach path, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
                             </p>
                             <p>
                                 Getting here from Longford is a short drive or taxi ride, whether you&rsquo;re in the village or at the Bath Road end near the hotels.
                             </p>
                             <p>
-                                Longford&rsquo;s lost a lot of its village character over the years with all the hotel development along Bath Road, and Colnbrook High Street isn&rsquo;t what it was either. That&rsquo;s why a few Longford and Colnbrook residents have adopted The Anchor as their regular. We&rsquo;re a proper village pub with real character, not a hotel bar, not a chain, just an honest local where you can get a decent meal, a well-kept pint, and a genuine welcome.
+                                We&rsquo;re a proper village pub with real character, an honest local where you can get a decent meal, a cold pint and a genuine welcome.
                             </p>
                             <p>
-                                Whether you&rsquo;re a Longford resident looking for a local with some life to it, a hotel worker finishing a shift, or a traveller who&rsquo;s had enough of overpriced airport grub, we&rsquo;re right next door. Come and see what a real pub looks like.
+                                Whether you live in Longford, you&rsquo;ve just finished a shift at one of the hotels, or you&rsquo;re travelling through, we&rsquo;re a short drive away. Come and see us.
                             </p>
                         </div>
                     </div>
@@ -222,8 +222,8 @@ export default function LongfordPubPage() {
                         answer: "We are very close, a short drive or taxi ride. We are the neighbouring village to Longford."
                     },
                     {
-                        question: "Is the food better than the hotel?",
-                        answer: "We certainly think so! Everything is cooked fresh, and we offer pub classics like Fish & Chips, Burgers, and Pies at honest prices."
+                        question: "What food do you serve?",
+                        answer: "Pub classics like fish and chips, burgers and pies, cooked to order. Our prices are on the live menu. The kitchen is closed on Mondays."
                     },
                     {
                         question: "Do you have WiFi?",
@@ -231,15 +231,15 @@ export default function LongfordPubPage() {
                     },
                     {
                         question: "Can I bring my luggage?",
-                        answer: "Yes, if you're stopping by on your way to/from the airport, we can find a safe spot for your bags while you eat."
+                        answer: `Yes. ${LUGGAGE_WORDING}`
                     }
                 ]}
                 className="bg-surface"
             />
 
             <CtaBand
-                title="Escape the Hotel Bubble"
-                copy="Real food, draught beer, right next door."
+                title="Come Over from Longford"
+                copy="Pub food cooked to order and draught beer, a short drive away."
             >
                 <Button asChild variant="primary" size="lg">
                     <Link href={CONTACT.phoneHref}>Book a Table</Link>

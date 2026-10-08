@@ -72,7 +72,7 @@ export const quizNight: GameNightConfig = {
     {
       question: 'Are the questions too hard?',
       answer:
-        'General knowledge, no specialist rounds. Roughly half the questions are gettable for anyone, and the rest are the ones worth arguing over. Friendly rather than serious, with the odd bit of adult humour.'
+        'General knowledge, no specialist rounds. Friendly rather than serious.'
     },
     {
       question: 'What time will we get home?',
@@ -107,7 +107,7 @@ export const quizNight: GameNightConfig = {
     {
       src: '/images/events/quiz-night/quiz-night-busy-room.jpg',
       alt: 'A busy room of quiz players at The Anchor on quiz night',
-      caption: 'A full room most months'
+      caption: 'Teams at their own tables'
     },
     {
       src: '/images/events/quiz-night/quiz-night-host-and-room.jpg',
