@@ -6,7 +6,7 @@
   },
   {
     "source": "/blog/a-night-to-remember-the-anchor-s-gameshow-house-pa",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -31,7 +31,7 @@
   },
   {
     "source": "/blog/celebrate-british-pie-week-heathrow-2024-stanwell-",
-    "destination": "/blog/british-pie-week-2024",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -41,7 +41,7 @@
   },
   {
     "source": "/blog/celebrate-day-of-the-dead-at-the-anchor-with-fun-a",
-    "destination": "/blog/day-of-the-dead-party",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -61,7 +61,7 @@
   },
   {
     "source": "/blog/charity-walk-for-holly-near-heathrow-stanwell-moor",
-    "destination": "/blog/charity-walk-holly",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -106,7 +106,7 @@
   },
   {
     "source": "/blog/creations-by-lee-jewellery-event-at-the-anchor-exc",
-    "destination": "/blog/jewellery-event",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -116,7 +116,7 @@
   },
   {
     "source": "/blog/dive-into-the-anchor-s-autumn-winter-menu-cozy-del",
-    "destination": "/blog/autumn-winter-menu",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -156,7 +156,7 @@
   },
   {
     "source": "/blog/exciting-news-extended-opening-hours-on-fridays-th",
-    "destination": "/blog/friday-extended-hours",
+    "destination": "/lunch-and-dinner",
     "permanent": true
   },
   {
@@ -271,7 +271,7 @@
   },
   {
     "source": "/blog/pancake-day-fun-stanwell-moor-village-staines-the-",
-    "destination": "/blog/pancake-day-celebration",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -311,7 +311,7 @@
   },
   {
     "source": "/blog/st-patrick-s-day-2024-celebrate-at-the-anchor-thea",
-    "destination": "/blog/st-patricks-day-2024",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -376,7 +376,7 @@
   },
   {
     "source": "/blog/valentine-s-special-stanwell-moor-village-staines-",
-    "destination": "/blog/valentines-special",
+    "destination": "/valentines-day",
     "permanent": true
   },
   {
@@ -391,7 +391,7 @@
   },
   {
     "source": "/blog/welcome-to-the-2024-25-premier-league-season-at-th",
-    "destination": "/blog/premier-league-2024-25",
+    "destination": "/live-sport",
     "permanent": true
   },
   {
@@ -416,7 +416,7 @@
   },
   {
     "source": "/post/a-night-to-remember-the-anchor-s-gameshow-house-pa",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -461,7 +461,7 @@
   },
   {
     "source": "/post/celebrate-british-pie-week-heathrow-2024-stanwell-",
-    "destination": "/blog/british-pie-week-2024",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -471,7 +471,7 @@
   },
   {
     "source": "/post/celebrate-day-of-the-dead-at-the-anchor-with-fun-a",
-    "destination": "/blog/day-of-the-dead-party",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -491,7 +491,7 @@
   },
   {
     "source": "/post/charity-walk-for-holly-near-heathrow-stanwell-moor",
-    "destination": "/blog/charity-walk-holly",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -501,7 +501,7 @@
   },
   {
     "source": "/post/creations-by-lee-jewellery-event-at-the-anchor-exc",
-    "destination": "/blog/jewellery-event",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -521,7 +521,7 @@
   },
   {
     "source": "/post/dive-into-the-anchor-s-autumn-winter-menu-cozy-del",
-    "destination": "/blog/autumn-winter-menu",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -546,7 +546,7 @@
   },
   {
     "source": "/post/easter-weekend-fun-at-the-anchor-pub",
-    "destination": "/blog/easter-weekend-fun-at-the-anchor-pub",
+    "destination": "/easter-sunday",
     "permanent": true
   },
   {
@@ -571,7 +571,7 @@
   },
   {
     "source": "/post/exciting-news-extended-opening-hours-on-fridays-th",
-    "destination": "/blog/friday-extended-hours",
+    "destination": "/lunch-and-dinner",
     "permanent": true
   },
   {
@@ -596,7 +596,7 @@
   },
   {
     "source": "/post/gameshow-house-party-success-snatch-phrase-edition",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -661,7 +661,7 @@
   },
   {
     "source": "/post/mothers-day-at-the-anchor-march-19th",
-    "destination": "/blog/mothers-day-at-the-anchor-march-19th",
+    "destination": "/mothers-day",
     "permanent": true
   },
   {
@@ -681,7 +681,7 @@
   },
   {
     "source": "/post/pancake-day-fun-stanwell-moor-village-staines-the-",
-    "destination": "/blog/pancake-day-celebration",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -726,7 +726,7 @@
   },
   {
     "source": "/post/relive-the-laughter-at-the-anchor-s-gameshow-house",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -751,7 +751,7 @@
   },
   {
     "source": "/post/st-patrick-s-day-2024-celebrate-at-the-anchor-thea",
-    "destination": "/blog/st-patricks-day-2024",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -831,7 +831,7 @@
   },
   {
     "source": "/post/unforgettable-gameshow-house-party-at-the-anchor",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -841,7 +841,7 @@
   },
   {
     "source": "/post/valentine-s-special-stanwell-moor-village-staines-",
-    "destination": "/blog/valentines-special",
+    "destination": "/valentines-day",
     "permanent": true
   },
   {
@@ -861,12 +861,12 @@
   },
   {
     "source": "/post/welcome-to-the-2024-25-premier-league-season-at-th",
-    "destination": "/blog/premier-league-2024-25",
+    "destination": "/live-sport",
     "permanent": true
   },
   {
     "source": "/post/winter-hours-cosy-times-at-the-anchor",
-    "destination": "/blog/winter-hours-cosy-times-at-the-anchor",
+    "destination": "/find-us",
     "permanent": true
   },
   {
@@ -881,7 +881,7 @@
   },
   {
     "source": "/post/british-pie-week-march-6th-to-12th-2023",
-    "destination": "/blog/british-pie-week-2024",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -907,6 +907,101 @@
   {
     "source": "/post/:slug/:rest*",
     "destination": "/blog",
+    "permanent": true
+  },
+  {
+    "source": "/blog/autumn-winter-menu",
+    "destination": "/food-menu",
+    "permanent": true
+  },
+  {
+    "source": "/blog/british-pie-week-2024",
+    "destination": "/food-menu",
+    "permanent": true
+  },
+  {
+    "source": "/blog/pancake-day-celebration",
+    "destination": "/food-menu",
+    "permanent": true
+  },
+  {
+    "source": "/blog/christmas-2021",
+    "destination": "/find-us",
+    "permanent": true
+  },
+  {
+    "source": "/blog/winter-hours-cosy-times-at-the-anchor",
+    "destination": "/find-us",
+    "permanent": true
+  },
+  {
+    "source": "/blog/day-of-the-dead-party",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/jewellery-event",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/st-patrick-s-day-2023",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/st-patricks-day-2024",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/charity-walk-holly",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/easter-weekend-fun-at-the-anchor-pub",
+    "destination": "/easter-sunday",
+    "permanent": true
+  },
+  {
+    "source": "/blog/friday-extended-hours",
+    "destination": "/lunch-and-dinner",
+    "permanent": true
+  },
+  {
+    "source": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/blog/mothers-day-at-the-anchor-march-19th",
+    "destination": "/mothers-day",
+    "permanent": true
+  },
+  {
+    "source": "/blog/premier-league-2024-25",
+    "destination": "/live-sport",
+    "permanent": true
+  },
+  {
+    "source": "/blog/six-nations-rugby-at-the-anchor-2023",
+    "destination": "/live-sport/six-nations",
+    "permanent": true
+  },
+  {
+    "source": "/blog/valentines-special",
+    "destination": "/valentines-day",
+    "permanent": true
+  },
+  {
+    "source": "/blog/calling-all-pool-players",
+    "destination": "/pool-darts-pub",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tabs-are-changing",
+    "destination": "/drinks",
     "permanent": true
   }
 ]
