@@ -624,6 +624,95 @@ describe("SSOT drift guard, the owner's answers of 12 September 2026", () => {
   })
 })
 
+describe('SSOT drift guard, the corrections and owner facts of 8 October 2026', () => {
+  it('gives the walk to Staines Moor and the King George VI Reservoir as about 30 minutes in both files', () => {
+    // SSOT.json said 5 minutes and 15 while the Markdown held the owner's 30
+    // (confirmed 10 September 2026). The Markdown is canonical.
+    expect(mdPlain).toContain(
+      'Staines Moor and the King George VI Reservoir are each about a 30-minute walk, one way.',
+    )
+    const nature: Array<{ name: string; distance: string }> = ssot.community_context.nearby_nature
+    for (const name of ['Staines Moor Nature Reserve', 'King George VI Reservoir Path']) {
+      const entry = nature.find((place) => place.name === name)
+      expect(entry?.distance).toBe('About a 30-minute walk, one way')
+    }
+    expect(ssot.venue.dog_policy.nearby_walks).toContain('about a 30-minute walk, one way')
+  })
+
+  it('holds no airport parking price in SSOT.json', () => {
+    // Prices are owned by the management app (section 15). Three typed figures
+    // sat here until 8 October 2026.
+    expect(ssot.heathrow_parking.rates).toBeUndefined()
+    expect(JSON.stringify(ssot.heathrow_parking)).not.toMatch(/_gbp"|£\s?\d/)
+    expect(mdPlain).toContain('This document and SSOT.json hold no parking price')
+  })
+
+  it('names only the 442 bus, from Terminal 5, in both files', () => {
+    // Surrey County Council's timetables: the 441 and the 555 do not come to
+    // Stanwell Moor, and the 442 runs from Terminal 5, not the Central Bus Station.
+    expect(ssot.location.access.bus_routes).toEqual(['442'])
+    expect(ssot.location.access.bus_boards_at).toBe('Heathrow Terminal 5')
+    expect(ssot.location.access.bus_station).toBeUndefined()
+    expect(mdPlain).toContain(
+      'Bus: Route 442. It stops on Horton Road by the pub and runs from Heathrow Terminal 5.',
+    )
+    expect(mdPlain).not.toContain('Bus: Routes 441, 442, 555 from Heathrow Central Bus Station.')
+  })
+
+  it("records the owner's facts of 7 October 2026 in both files", () => {
+    expect(ssot.venue.parking.marked_disabled_bay).toBe(false)
+    expect(mdPlain).toContain('There is no marked disabled parking bay.')
+    expect(ssot.venue.parking.coaches).toMatch(
+      /^A small coach fits in the car park\. A full-size coach must park on the main road where safe/,
+    )
+    expect(mdPlain).toContain(
+      'a small coach fits in the car park. A full-size coach must park on the main road where safe.',
+    )
+    expect(ssot.location.access.taxis).toMatch(
+      /^The bar team will give a taxi number; customers make their own arrangements/,
+    )
+    expect(mdPlain).toContain('The bar team will give a taxi number; customers make their own arrangements.')
+    expect(ssot.events.tasting_nights.age_policy).toMatch(/^Over 18s only/)
+    expect(mdPlain).toContain('Over 18s only. (Owner-confirmed, 7 October 2026.)')
+    expect(ssot.heathrow_parking.collection).toMatch(/^Parking customers can collect their car at any hour/)
+    expect(mdPlain).toContain('parking customers can collect their car at any hour.')
+    expect(ssot.private_hire.times.start).toMatch(/^A private booking can start before 12pm, by arrangement/)
+    expect(ssot.private_hire.times.finish).toMatch(
+      /^An evening private hire can run later than 10pm, by arrangement/,
+    )
+    expect(mdPlain).toContain('A private booking can start before 12pm, by arrangement.')
+    expect(mdPlain).toContain('An evening private hire can run later than 10pm, by arrangement.')
+    expect(ssot.private_hire.times.christmas_parties_finish).toMatch(/^Christmas parties finish by midnight/)
+    expect(mdPlain).toContain(
+      'Christmas parties finish by midnight. (Owner-confirmed, 15 August 2026; recorded here on 8 October 2026.)',
+    )
+  })
+
+  it('carries the decorating rules in full, in both files', () => {
+    expect(ssot.private_hire.decorating_rules).toEqual([
+      'No confetti cannons at all',
+      'No confetti balloons',
+      'Smoke cannons outside only, and nowhere near buildings or fencing',
+      'No push pins, Blu Tack, sticky tape or anything that could damage paintwork',
+    ])
+    for (const rule of ssot.private_hire.decorating_rules as string[]) {
+      expect(mdPlain).toContain(rule)
+    }
+  })
+
+  it("retires the Manager's Special in both files", () => {
+    expect(ssot.drinks.promotions.managers_special).toBeUndefined()
+    expect(ssot.drinks.promotions.managers_special_retired).toMatch(/^RETIRED \(owner decision 2026-10-07\)/)
+    expect(mdPlain).toContain("The Manager's Special is retired.")
+    expect(mdPlain).not.toContain("uses the current live Manager's Special source")
+  })
+
+  it('mirrors the quiz at the 49 seats the booking system offers', () => {
+    expect(ssot.events.quiz_night.capacity).toBe(49)
+    expect(mdPlain).toContain('Capacity: 49 seats, mirrored from the booking system on 7 October 2026.')
+  })
+})
+
 describe('SSOT drift guard — high-risk site copy', () => {
   const CUSTOMER_DIRS = ['app', 'components', 'content/blog', 'lib']
   const CUSTOMER_EXTS = new Set(['.ts', '.tsx', '.md', '.json'])
