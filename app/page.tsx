@@ -106,7 +106,7 @@ const PATH_CARDS = [
   {
     icon: PartyPopper,
     title: "What's on",
-    copy: 'Quiz nights, music bingo, karaoke and one-off events through the year.',
+    copy: 'Quiz nights, music bingo, the occasional karaoke night and one-off events through the year.',
     cta: 'See the diary',
     href: '/whats-on'
   }

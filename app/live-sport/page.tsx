@@ -58,36 +58,9 @@ export default async function LiveSportPage() {
         "image": DEFAULT_PAGE_HEADER_IMAGE
     }
 
-    const screeningEventSchema = {
-        "@context": "https://schema.org",
-        "@type": "ScreeningEvent",
-        "name": "Live Sport Screenings at The Anchor",
-        "description": "Watch Six Nations, World Cup 2026, Euros and F1 on 4 TVs at The Anchor, when they're on terrestrial TV (BBC, ITV, Channel 4).",
-        "location": {
-            "@type": "Place",
-            "name": "The Anchor",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": CONTACT.address.street,
-                "addressLocality": CONTACT.address.town,
-                "addressRegion": "Surrey",
-                "postalCode": CONTACT.address.postcode,
-                "addressCountry": "GB"
-            }
-        },
-        "organizer": {
-            "@id": "https://www.the-anchor.pub/#organization"
-        },
-        "isAccessibleForFree": true,
-        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "GBP",
-            "availability": "https://schema.org/InStock",
-            "description": "Free entry, just turn up and enjoy"
-        }
-    }
+    // No ScreeningEvent here. The page used to tell Google about an undated
+    // "screening" that named World Cup 2026 and carried a free offer marked in
+    // stock. An event with no date is not an event (site review DT-019).
 
     return (
         <>
@@ -99,7 +72,7 @@ export default async function LiveSportPage() {
             />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([sportsSchema, screeningEventSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(sportsSchema) }}
             />
 
             <ScrollDepthTracker />

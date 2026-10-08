@@ -30,6 +30,7 @@ import {
 } from '@/lib/api'
 import Link from 'next/link'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { rollingSeriesEndDate } from '@/lib/schema'
 import { ACCESS_WORDING } from '@/lib/approved-wording'
 
 /**
@@ -192,7 +193,9 @@ export default async function MusicBingoPage() {
           "name": "Music Bingo with Nikki Manfadge at The Anchor",
           "description": "Song clips replace numbers, prizes land across both games, and drag host Nikki Manfadge keeps the singalong energy high. A themed music bingo night in Stanwell Moor.",
           "startDate": "2024-01-01",
-          "endDate": "2026-12-31",
+          // Rolling, like the quiz and cash bingo series. The typed 2026-12-31
+          // would have told Google the series was over from 1 January 2027.
+          "endDate": rollingSeriesEndDate(),
           "eventSchedule": {
             "@type": "Schedule",
             "repeatFrequency": "P1M",

@@ -6,6 +6,7 @@ import { fontVariables } from './fonts'
 import { WebVitals } from './web-vitals'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
+import { nowInLondonComponents } from '@/lib/time-london'
 import { OrangeJellyCredit } from '@/components/OrangeJellyCredit'
 import { HeaderStatusSectionDirect } from '@/components/layout/HeaderStatusSectionDirect'
 import { StickyCtas } from '@/components/layout/StickyCtas'
@@ -262,6 +263,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                       here and handed to the client footer as a slot. Same size
                       and colour as the copyright line above it. */}
                   <Footer
+                    copyright={{ year: nowInLondonComponents().year }}
                     credit={
                       <OrangeJellyCredit
                         className="text-sm text-anchor-cream-text/[0.82]"

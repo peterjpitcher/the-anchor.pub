@@ -600,9 +600,9 @@ export default function HistoryPage(): React.JSX.Element {
                 <Link href="/music-bingo" className="text-accent-text hover:text-accent underline underline-offset-4">
                   music bingo
                 </Link>
-                {' '}and{' '}
+                {' '}and the occasional{' '}
                 <Link href="/karaoke" className="text-accent-text hover:text-accent underline underline-offset-4">
-                  karaoke
+                  karaoke night
                 </Link>
                 . The kids play in the garden while the dogs snooze under the tables. The{' '}
                 <Link href="/food-menu" className="text-accent-text hover:text-accent underline underline-offset-4">

@@ -111,7 +111,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Quiz Night', href: '/quiz-night', description: 'Pub quiz nights, teams and prizes' },
       { label: 'Music Bingo', href: '/music-bingo', description: 'Hosted music bingo with food and prizes' },
       { label: 'Cash Bingo', href: '/cash-bingo', description: 'Classic bingo sessions with cash prizes' },
-      { label: 'Karaoke', href: '/karaoke', description: 'Singalong nights and party groups' }
+      { label: 'Karaoke', href: '/karaoke', description: 'Occasional nights, see the next date' }
     ]
   },
   {

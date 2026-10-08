@@ -195,7 +195,7 @@ export const restaurantSchema = localBusinessSchema
  * The value changes once a year, on 1 January, so it is stable for crawlers.
  * `tests/unit/schema.test.ts` asserts it stays at least 90 days out.
  */
-function rollingSeriesEndDate(now: Date = new Date()): string {
+export function rollingSeriesEndDate(now: Date = new Date()): string {
   return `${now.getUTCFullYear() + 1}-12-31`
 }
 
