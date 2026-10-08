@@ -17,15 +17,20 @@
 // WHAT MAY NEVER GO INTO A BOOKING ANALYTICS PAYLOAD
 //
 // 1. Anything that identifies a person: names, phone numbers, email addresses,
-//    free-text notes, booking references (review F22).
+//    free-text notes, booking references, booking ids (review F22). A helper
+//    may take a reference as an argument, because the Meta conversion needs it
+//    to match the server's copy, but it never goes into a pushToDataLayer
+//    payload. A sale's `transaction_id` is `analyticsSaleId(reference)`. The
+//    dispatcher and /api/analytics both enforce this again on the way out.
 //
 // 2. Anything that infers a health condition or other special-category data
 //    under UK GDPR Article 9. The accessible-table request is the worked
 //    example and is deliberately NOT tracked: asking for a step-free,
 //    standard-height table is a strong inference of a mobility impairment.
-//    These events reach GA4 on analytics-cookie consent, GA4 stamps a session
-//    id, and the same session already carries a booking reference on
-//    `purchase`, so the attribute would be joinable to a named booking.
+//    These events reach GA4 on analytics-cookie consent and GA4 stamps a
+//    session id. `purchase` carries a sale id made from the booking (see
+//    lib/tracking/booking-identifiers.ts), which is not a secret from anyone
+//    who holds the pub's own booking list, so treat the session as joinable.
 //    Analytics-cookie consent is not Article 9 explicit consent, so no
 //    consent state makes this acceptable. Do not add `accessible_table`, a
 //    dietary or allergy field, or anything similar to `option_toggled` or any
@@ -37,6 +42,7 @@
 import { dispatchTrackingEvent, TrackingDispatchOptions } from './tracking/dispatcher'
 import { estimateTableBookingValue } from './booking-conversion-value'
 import { trackMetaBookingPurchase } from './meta-pixel'
+import { analyticsSaleId } from './tracking/booking-identifiers'
 
 interface GTMEvent {
   event: string
@@ -216,7 +222,6 @@ export function trackEventBookingFunnelStep(eventData: {
     event_date: eventData.eventDate,
     party_size: eventData.partySize,
     food_intent: eventData.foodIntent,
-    booking_id: eventData.bookingId,
     blocked_reason: eventData.reason,
     booking_source: eventData.source
   }, { sendToApi: true })
@@ -335,7 +340,6 @@ export function trackEventBookingComplete(eventData: {
     event_category: eventData.eventCategoryName,
     event_category_slug: eventData.eventCategorySlug,
     event_date: eventData.eventDate,
-    booking_id: eventData.bookingId,
     party_size: eventData.tickets,
     food_intent: eventData.foodIntent,
     value: eventData.totalValue,
@@ -347,7 +351,8 @@ export function trackEventBookingComplete(eventData: {
     event_id: eventData.eventId,
     event_name: eventData.eventName,
     event_category: eventData.eventCategoryName,
-    transaction_id: eventData.bookingId || undefined,
+    // A sale id made from the booking id, never the id itself.
+    transaction_id: analyticsSaleId(eventData.bookingId),
     quantity: eventData.tickets,
     value: eventData.totalValue,
     currency: 'GBP'
@@ -480,7 +485,6 @@ export function trackTableBookingFunnel(data: {
   if (data.partySize) eventData.party_size = data.partySize
   if (data.bookingDate) eventData.booking_date = data.bookingDate
   if (data.bookingTime) eventData.booking_time = data.bookingTime
-  if (data.bookingReference) eventData.booking_reference = data.bookingReference
   if (data.bookingType) eventData.booking_type = data.bookingType
   if (data.errorType) eventData.error_type = data.errorType
   if (data.errorMessage) eventData.error_message = data.errorMessage
@@ -534,7 +538,6 @@ export function trackTableBookingFunnel(data: {
       destination: '/booking-confirmation',
       booking_source: data.source,
       booking_type: data.bookingType,
-      booking_reference: data.bookingReference,
       party_size: data.partySize,
       booking_date: data.bookingDate,
       booking_time: data.bookingTime
@@ -547,7 +550,6 @@ export function trackTableBookingFunnel(data: {
         source_component: data.source,
         destination: '/booking-confirmation',
         booking_source: data.source,
-        booking_reference: data.bookingReference,
         party_size: data.partySize,
         booking_date: data.bookingDate,
         booking_time: data.bookingTime

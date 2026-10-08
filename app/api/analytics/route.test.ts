@@ -79,6 +79,36 @@ describe('POST /api/analytics GA4 forwarding', () => {
     expect(JSON.stringify(body)).not.toContain('07700900000')
   })
 
+  it('sends Google no booking reference or id, even from a browser on an older bundle', async () => {
+    const parkingId = '7c9e6679-7425-40de-944b-e07fc1f90ae7'
+    await POST(makeRequest({ events: [
+      {
+        event: 'table_booking_completed', client_id: '111.222',
+        booking_reference: 'TB-OLD-BUNDLE-1', party_size: 4,
+      },
+      {
+        event: 'purchase', client_id: '111.222',
+        transaction_id: 'TB-OLD-BUNDLE-1', booking_id: parkingId, value: 100, currency: 'GBP',
+        page_location: `https://www.the-anchor.pub/heathrow-parking/confirmation/${parkingId}`,
+        page_path: `/heathrow-parking/confirmation/${parkingId}`,
+      },
+    ] }) as never)
+    await flush()
+
+    const body = lastGa4Body()
+    expect(body.events).toHaveLength(2)
+    expect(body.events[0].params).not.toHaveProperty('booking_reference')
+    expect(body.events[0].params.party_size).toBe(4)
+    expect(body.events[1].params).not.toHaveProperty('booking_id')
+    // The sale is still counted once: a stable id made from the reference.
+    expect(body.events[1].params.transaction_id).toMatch(/^sale_[0-9a-f]{16}$/)
+    expect(body.events[1].params.value).toBe(100)
+    expect(body.events[1].params.page_location).toBe('https://www.the-anchor.pub/heathrow-parking/confirmation/[id]')
+    expect(body.events[1].params.page_path).toBe('/heathrow-parking/confirmation/[id]')
+    expect(JSON.stringify(body)).not.toContain('TB-OLD-BUNDLE-1')
+    expect(JSON.stringify(body)).not.toContain(parkingId)
+  })
+
   it('sends session_id so the event joins the browser session', async () => {
     const response = await POST(
       makeRequest(

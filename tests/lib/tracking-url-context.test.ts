@@ -41,6 +41,56 @@ test('declining consent prevents the private-hire event from being dispatched', 
   expect(window.dataLayer).toEqual([])
 })
 
+test('a booking id in a path is replaced with [id], as page speed records already do', () => {
+  const id = '7c9e6679-7425-40de-944b-e07fc1f90ae7'
+  const cleaned = sanitizeTrackingUrlContext({
+    page_path: `/heathrow-parking/confirmation/${id}`,
+    page_location: `https://www.the-anchor.pub/heathrow-parking/confirmation/${id}?payment=success`,
+    page_source: `/parking/bookings/${id}`,
+    landing_path: '/parking/bookings/PK-ANYTHING-AT-ALL',
+    referrer: `https://www.the-anchor.pub/heathrow-parking/confirmation/${id}`,
+    page_referrer: 'https://www.google.com/search',
+    source_url: 'https://www.the-anchor.pub/whats-on/quiz-night',
+  })
+
+  expect(cleaned).toEqual({
+    page_path: '/heathrow-parking/confirmation/[id]',
+    page_location: 'https://www.the-anchor.pub/heathrow-parking/confirmation/[id]',
+    page_source: '/parking/bookings/[id]',
+    landing_path: '/parking/bookings/[id]',
+    referrer: 'https://www.the-anchor.pub/heathrow-parking/confirmation/[id]',
+    // Ordinary pages and other sites are untouched.
+    page_referrer: 'https://www.google.com/search',
+    source_url: 'https://www.the-anchor.pub/whats-on/quiz-night',
+  })
+  expect(JSON.stringify(cleaned)).not.toContain(id)
+})
+
+test('a path that is not a plain site path is dropped: the field for our own path, the page for a full address', () => {
+  expect(sanitizeTrackingUrlContext({
+    page_path: '/book-table/guest@example.invalid',
+    page_location: 'https://www.the-anchor.pub/book-table/guest@example.invalid',
+    referrer: 'https://example.invalid/a%20page/with spaces',
+    utm_source: 'newsletter',
+  })).toEqual({
+    page_location: 'https://www.the-anchor.pub',
+    referrer: 'https://example.invalid',
+    utm_source: 'newsletter',
+  })
+})
+
+test('the dispatcher sends the parking confirmation page as [id], never the booking id', () => {
+  const id = '7c9e6679-7425-40de-944b-e07fc1f90ae7'
+  window.history.replaceState({}, '', `/heathrow-parking/confirmation/${id}`)
+  dispatchTrackingEvent({ event: 'directions_click' }, { sendToApi: false })
+
+  expect(window.dataLayer?.[0]).toMatchObject({
+    page_path: '/heathrow-parking/confirmation/[id]',
+    page_location: `${window.location.origin}/heathrow-parking/confirmation/[id]`,
+  })
+  expect(JSON.stringify(window.dataLayer)).not.toContain(id)
+})
+
 test('drops unsupported URL context and strips embedded credentials', () => {
   expect(sanitizeTrackingUrlContext({
     page_location: 'https://fixture:secret@example.invalid/path?email=private#token',

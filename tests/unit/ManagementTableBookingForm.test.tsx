@@ -28,6 +28,8 @@ const trackSlotFlagShown = jest.fn()
 const trackSlotInvalidated = jest.fn()
 const trackBookingErrorShown = jest.fn()
 
+import { analyticsSaleId } from '@/lib/tracking/booking-identifiers'
+
 jest.mock('@/lib/gtm-events', () => ({
   trackTableBookingClick: (...args: unknown[]) => trackTableBookingClick(...args),
   trackTableBookingFunnel: (...args: unknown[]) => trackTableBookingFunnel(...args),
@@ -998,13 +1000,18 @@ describe('ManagementTableBookingForm', () => {
       expect(screen.getByText(/We've sent confirmation details by email/i)).toBeInTheDocument()
     )
 
-    // GA4 purchase event should fire with the booking reference as transaction_id,
-    // carry an estimated booking value rather than the (always £0) deposit, and
-    // go through the Measurement Protocol as well as the dataLayer.
+    // GA4 purchase event should fire with a sale id made from the booking
+    // reference as transaction_id (never the reference itself), carry an
+    // estimated booking value rather than the (always £0) deposit, and go
+    // through the Measurement Protocol as well as the dataLayer.
+    expect(analyticsSaleId('TB-CONF-1')).toMatch(/^sale_[0-9a-f]{16}$/)
+    for (const [pushed] of jest.mocked(pushToDataLayer).mock.calls) {
+      expect(JSON.stringify(pushed)).not.toContain('TB-CONF-1')
+    }
     expect(pushToDataLayer).toHaveBeenCalledWith(
       expect.objectContaining({
         event: 'purchase',
-        transaction_id: 'TB-CONF-1',
+        transaction_id: analyticsSaleId('TB-CONF-1'),
         // 4 covers at the £25 per-cover figure the site already sends Meta.
         // Sending the deposit here is what made GA4 Total revenue read £0.00.
         value: 100,

@@ -69,6 +69,7 @@ import {
   trackTableBookingClick,
   trackTableBookingFunnel,
 } from '@/lib/gtm-events'
+import { analyticsSaleId } from '@/lib/tracking/booking-identifiers'
 import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
 import {
   LARGE_GROUP_DEPOSIT_PER_PERSON_GBP,
@@ -1594,7 +1595,8 @@ export function ManagementTableBookingForm({
                    pushToDataLayer({
                      event: 'purchase',
                      ...(result.fixture_id ? { fixture_id: result.fixture_id } : {}),
-                     transaction_id: transactionId,
+                     // A sale id made from the reference, never the reference.
+                     transaction_id: analyticsSaleId(transactionId),
                      // Estimated booking value, NOT cash taken. The deposit is a
                      // prepayment against the same bill, so sending it here would
                      // have valued a booking at what was paid up front rather than
@@ -1852,12 +1854,14 @@ export function ManagementTableBookingForm({
       bookingType,
       deviceType: getDeviceType(),
     })
-    // Use the booking reference for GA4 deduplication. The value is an estimate for reporting.
+    // GA4 counts a sale once per transaction_id. It is given a sale id made
+    // from the booking reference, never the reference itself. The value is an
+    // estimate for reporting.
     if (completionId) {
       pushToDataLayer({
         event: 'purchase',
         ...(bookingResult.fixture_id ? { fixture_id: bookingResult.fixture_id } : {}),
-        transaction_id: completionId,
+        transaction_id: analyticsSaleId(completionId),
         value: estimateTableBookingValue(intent.partySize),
         currency: 'GBP',
         booking_source: bookingSource,
