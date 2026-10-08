@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { gateBookingConversionByConsent } from '@/lib/booking-conversion-consent'
+import { requestAllowsCookieCategory } from '@/lib/cookie-consent-server'
 import { RATE_LIMITS, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
@@ -55,7 +57,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid booking conversion payload' }, { status: 400 })
   }
 
-  const result = await forwardBookingConversionToCheersAI(payload)
+  // The body says whether the guest accepted marketing cookies, and the consent
+  // cookie on this request has to agree. Without both, the advert click
+  // references and campaign tags are dropped before anything is passed on.
+  const result = await forwardBookingConversionToCheersAI(
+    gateBookingConversionByConsent(payload, requestAllowsCookieCategory(request, 'marketing'))
+  )
   return NextResponse.json(result, {
     status: 202,
     headers: { 'Cache-Control': 'no-store, max-age=0' },

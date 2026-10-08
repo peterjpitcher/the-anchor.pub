@@ -380,14 +380,24 @@ describe('tracking routes that forward with a server secret', () => {
     const fetchMock = upstreamAnswers({})
     const { POST } = await import('@/app/api/analytics/route')
     const batch = { events: [{ event: 'table_booking_completed', client_id: '111.222', session_id: '1723334455' }] }
+    // A visitor who has accepted analytics cookies: without that the route
+    // forwards nothing at all, and the limit would have nothing to stop.
+    const accepted = () => {
+      const request = jsonRequest('/api/analytics', batch)
+      request.headers.set(
+        'cookie',
+        'anchor-cookie-consent=' + encodeURIComponent(JSON.stringify({ necessary: true, analytics: true, marketing: false }))
+      )
+      return request
+    }
     const statuses: number[] = []
     for (let i = 0; i < 60; i += 1) {
-      statuses.push((await POST(jsonRequest('/api/analytics', batch))).status)
+      statuses.push((await POST(accepted())).status)
     }
     const forwarded = fetchMock.mock.calls.length
     expect(forwarded).toBe(60)
 
-    const refused = await POST(jsonRequest('/api/analytics', batch))
+    const refused = await POST(accepted())
 
     expect(statuses).not.toContain(429)
     await expectRefused(refused, { guestFacing: false })

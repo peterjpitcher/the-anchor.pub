@@ -17,6 +17,8 @@ import {
 import { BOOKING_HORIZON_MESSAGE, isBeyondBookingHorizon } from '@/lib/table-booking/horizon'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { gateBookingConversionByConsent } from '@/lib/booking-conversion-consent'
+import { requestAllowsCookieCategory } from '@/lib/cookie-consent-server'
 import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
 import {
@@ -481,7 +483,7 @@ async function forwardConfirmedTableBookingConversion(
 
   const sourceUrl = buildSourceUrl(attribution, request)
 
-  await forwardBookingConversionToCheersAI({
+  await forwardBookingConversionToCheersAI(gateBookingConversionByConsent({
     sourceSite: 'www.the-anchor.pub',
     bookingId,
     metaEventId: bookingId,
@@ -522,7 +524,7 @@ async function forwardConfirmedTableBookingConversion(
       ? getClientIpAddress(request)
       : null,
     occurredAt: new Date().toISOString()
-  }).catch(() => undefined)
+  }, requestAllowsCookieCategory(request, 'marketing'))).catch(() => undefined)
 }
 
 function screeningUnavailable(message: string, status: number): Response {
