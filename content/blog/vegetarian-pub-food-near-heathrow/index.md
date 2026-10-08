@@ -1,7 +1,8 @@
 ---
-title: "Vegetarian & Vegan Pub Food Near Heathrow (2026 Guide)"
-description: "Where to find proper vegetarian and vegan pub food near Heathrow. Not just a sad salad, real meals from a vegan butternut squash wellington on Sundays to veggie burgers and pizzas."
+title: "Vegetarian & Vegan Pub Food Near Heathrow"
+description: "Where to find proper vegetarian and vegan pub food near Heathrow. Not just a sad salad, real meals from a vegan beetroot and butternut squash Wellington on Sundays to veggie burgers and pizzas."
 date: "2026-03-20"
+updated: '2026-10-08'
 author: "The Anchor Team"
 keywords:
   - vegetarian pub food near heathrow
@@ -22,7 +23,7 @@ Finding proper **vegetarian pub food near Heathrow** used to mean a jacket potat
 
 If you are vegetarian, vegan, or just eating less meat and looking for somewhere near Heathrow that does not treat you as an afterthought, here is what is worth knowing.
 
-**Fast answer:** The Anchor has vegetarian and vegan pub food seven minutes from Heathrow Terminal 5, including pizza, burgers, sides and a meat-free Sunday roast option when Sunday roast is running. Check the [live food menu](/food-menu), the [vegetarian menu page](/food-menu/vegetarian), or the [vegan menu page](/food-menu/vegan) before you travel.
+**Fast answer:** The Anchor has vegetarian and vegan pub food seven minutes from Heathrow Terminal 5, including pizza, burgers, sides and a fully vegan Wellington on the Sunday roast menu. Check the [live food menu](/food-menu), the [vegetarian menu page](/food-menu/vegetarian), or the [vegan menu page](/food-menu/vegan) before you travel.
 
 ## What The Anchor Offers for Vegetarians and Vegans
 
@@ -30,23 +31,23 @@ The Anchor in Stanwell Moor, about seven minutes from Heathrow Terminal 5, takes
 
 ### Vegetarian Highlights
 
-- **Beetroot and butternut squash wellington**, available as part of the [Sunday roast menu](/sunday-roast). A proper vegan centrepiece dish with all the trimmings, not a sad plate of vegetables with gravy poured over them. Walk in or book ahead, served 1pm-6pm, no pre-order needed.
-- **Stone-baked Margherita pizza**, with a proper thin base and fresh toppings. Available every day the kitchen is open.
-- **Vegetable stone-baked pizza**, loaded with roasted veg, same thin base, same price bracket.
+- **Beetroot and butternut squash wellington**, available as part of the [Sunday roast menu](/sunday-roast). Fully vegan as it comes. Ask if you'd like buttered cabbage or a Yorkshire pudding added, both of which make the plate no longer vegan.
+- **Margherita pizza**, stone-baked, 12-inch and hand-stretched.
+- **Veggie Classic pizza**, stone-baked on the same hand-stretched base.
 - **Garden Veg Burger**, a Bangkok Bad Boy vegetable patty in a soft floured bap with butterhead salad and tomato, served with your choice of chips.
 
 ### Vegan Options
 
-- **Beetroot and butternut squash wellington**, on Sundays, fully vegan as it comes.
+- **Beetroot and butternut squash wellington**, on Sundays. Fully vegan as it comes. Ask if you'd like buttered cabbage or a Yorkshire pudding added, both of which make the plate no longer vegan.
 - **Chips, chunky chips, sweet potato fries and onion rings** are all vegan.
 - For anything else, **ask at the bar** which dishes can be made vegan on the day.
 
 ### Good to Know
 
 - **NGCI options** are available on several dishes. NGCI means No Gluten Containing Ingredients. These dishes are made without gluten-containing ingredients, but everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination. If you are coeliac or have a serious intolerance, let the team know when booking and they will talk you through what works.
-- **The kitchen can adapt most dishes** if you ask. They are genuinely happy to accommodate rather than just pointing you at the one vegetarian option on the menu.
+- **Allergies and dietary needs:** Tell us about any allergies or dietary needs when you book and we'll do our best. Everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
 - **Stone-baked pizzas** are available in vegetarian options.
-- **Sunday roast** with the butternut squash wellington is served 1pm-6pm, walk in or [book online](/book-table). Booking is recommended for groups of six or more. Call 01753 682707 for larger parties.
+- **Sunday roast:** Roasts are carved fresh every Sunday from 1pm to 6pm. There's nothing to order in advance, so walk in whenever suits you. Last seating is 5:30pm. [Book online](/book-table) if you're coming as a group. Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
 - **Free parking** and **dog-friendly** throughout the pub. The beer garden is a bonus in warmer months, with planes overhead for a bit of Heathrow theatre.
 
 ## Other Vegetarian and Vegan Options Near Heathrow
@@ -55,42 +56,38 @@ The Anchor is not the only option, of course. Here is a quick survey of what els
 
 ### Chain Restaurants
 
-- **Nando's** (Staines, Feltham), the plant-based burger and several veggie sides make this a reliable choice. Not a pub, but decent for a quick meal.
-- **Wagamama** (Staines), strong on vegetarian and vegan dishes across the whole menu. Katsu curry with tofu is a solid option.
-- **Pizza Express** (Staines), good range of vegetarian pizzas including vegan cheese options. A bit more polished than a pub setting.
-- **Harvester / Toby Carvery** (various locations), the salad bar works for vegetarians, and most now have a plant-based main. The carvery itself is less exciting without the meat, frankly.
+The restaurant chains in the nearby towns usually publish their vegetarian and vegan dishes online. Check each one's own menu before you go, because menus change.
 
 ### Hotel Restaurants
 
-If you are staying at one of the Heathrow hotels, most have at least basic vegetarian options on their restaurant menus. The quality varies hugely. Premier Inn and Travelodge restaurants tend to have a couple of veggie mains. The higher-end hotels, Sofitel, Hilton, will have more extensive options, but you will pay hotel prices for them.
+If you're staying at one of the Heathrow hotels, ask to see the restaurant menu before you sit down, so you know what the meat-free choices are.
 
 ### Independent Restaurants
 
-Staines and Hounslow both have a decent selection of Indian restaurants, which are often the best bet for vegetarian and vegan food near Heathrow. South Indian cuisine in particular offers naturally meat-free dishes rather than adaptations of meat dishes.
+Staines and Hounslow both have Indian restaurants, which often have a wide choice of vegetarian and vegan dishes. South Indian cooking in particular has plenty of dishes that are meat-free to begin with.
 
 ## Tips for Vegetarian and Vegan Diners
 
 A few practical things worth knowing if you are eating out meat-free near Heathrow:
 
 - **Call ahead for vegan-specific requirements.** Most pubs and restaurants can accommodate vegetarians without notice, but vegan dishes, especially involving cheese substitutes or specific allergen considerations, sometimes need a heads-up.
-- **Sunday roast starts Sunday 17 May 2026.** From launch, the butternut squash wellington is served alongside the rest of the roast menu, 1pm-6pm. Booking ahead is sensible for peak slots and groups, but not required.
 - **Ask about cooking methods, not just ingredients.** Chips fried in the same oil as battered fish, bread rolls with butter glazes, soup made with chicken stock, these are the things that catch people out. A good kitchen will know the answer immediately.
-- **Pub gardens are your friend.** If you are travelling with a mix of meat-eaters and vegetarians, a pub like The Anchor works well because there is something for everyone. Nobody has to compromise.
+- **Pub gardens are your friend.** If you are travelling with a mix of meat-eaters and vegetarians, a pub like The Anchor works well: the vegan Wellington sits on the same roast menu as the beef.
 - **Check menus online before you go.** Most places near Heathrow have their menus on their website. It saves the awkward moment of sitting down and finding there is nothing you want to eat. The Anchor's [full menu is here](/food-menu).
 
 ## Frequently Asked Questions
 
 ### Are there any fully vegetarian restaurants near Heathrow?
 
-There are no dedicated vegetarian restaurants in the immediate Heathrow area. Your best options are Indian restaurants in Staines or Hounslow, which have extensive meat-free menus, or pubs and chains with strong vegetarian sections. The Anchor has vegetarian mains and pizzas, vegan sides and a vegan wellington on Sundays.
+We can't speak for every restaurant in the area. Indian restaurants in Staines or Hounslow often have a wide choice of meat-free dishes. The Anchor isn't a vegetarian restaurant, but it has vegetarian mains and pizzas, vegan sides and a vegan wellington on Sundays.
 
 ### Can I get a vegan Sunday roast near Heathrow?
 
-Yes. The Anchor offers a beetroot and butternut squash wellington as part of the [Sunday roast menu](/sunday-roast), served with all the trimmings. Walk in or book ahead, no pre-order needed. Some chain carveries also offer plant-based options, though the quality is inconsistent.
+Yes. The Anchor's beetroot and butternut squash Wellington is on the [Sunday roast menu](/sunday-roast). Fully vegan as it comes. Ask if you'd like buttered cabbage or a Yorkshire pudding added, both of which make the plate no longer vegan. Walk in or book ahead, there's nothing to pre-order.
 
 ### Does The Anchor offer vegetarian pizzas?
 
-Yes, our stone-baked pizza menu includes vegetarian options such as the Margherita and the Veggie Classic. You'll find today's prices on our [food menu](/food-menu).
+Yes, our stone-baked pizza menu includes vegetarian options such as the Margherita and the Veggie Classic. You'll find the prices on our [food menu](/food-menu).
 
 ### Does The Anchor cater for gluten-free diets as well?
 

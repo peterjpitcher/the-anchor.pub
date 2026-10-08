@@ -2,6 +2,7 @@
 title: "Festive Buffet or Sit-Down? Large Groups Near Heathrow"
 description: "Christmas buffet or sit-down meal for a big group near Heathrow? How each format works on the night, the 30-guest buffet minimum, and how to choose."
 date: "2026-08-10"
+updated: '2026-10-08'
 author: "The Anchor Team"
 keywords:
   - buffet food ideas christmas heathrow
@@ -76,7 +77,8 @@ If your group is under 30, the [Christmas set menu](/christmas-parties) is the b
 A few practical things worth knowing before you enquire:
 
 - The festive window runs **10 November to 20 December 2026**, and the 20th is bookable. Within it, sittings run **Tuesday to Saturday, plus Sunday from 1pm to 6pm**. There are **no Monday sittings**, the kitchen is closed. Worth knowing before you go looking for a date that suits forty people.
-- Every Christmas booking takes a **£10 per person deposit**, whatever the party size. It comes straight off your bill on the day, and it is refunded in full if you cancel more than seven days ahead.
+- A Christmas table booking, 4 to 20 guests, takes a **£10 per person deposit**. It comes straight off your bill on the day, and it is refunded in full if you cancel up to and including seven days before your booking date.
+- A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 - We need **24 hours' notice** minimum. No same-day Christmas bookings.
 - **More than 20 guests is not a table booking, it is private hire.** Email manager@the-anchor.pub, call 01753 682707, or WhatsApp the same number, and a person will talk it through with you.
 
@@ -84,7 +86,7 @@ A few practical things worth knowing before you enquire:
 
 Format is the decision. Arrival is the thing that actually goes wrong, and it gets harder the bigger your group is. Forty people means forty separate journeys, and a buffet only absorbs ragged arrivals if people can actually get to you.
 
-Parking is the one that matters most at this size. We have 20 free spaces on site, level and floodlit, no fees and no time limit while you are with us, plus more parking nearby. For a group of 40 that will not hold everybody at once, so it is worth telling people to share cars or come by bus rather than assuming. Buses 441, 442 and 555 run from Heathrow Central Bus Station, and directions are on our [find us page](/find-us).
+Parking is the one that matters most at this size. We have 20 free spaces on site, level and floodlit, no fees and no time limit while you are with us, plus more parking nearby. For a group of 40 that will not hold everybody at once, so it is worth telling people to share cars or come by bus rather than assuming. The 442 bus stops on Horton Road by the pub and runs from Heathrow Terminal 5, and directions are on our [find us page](/find-us).
 
 If your group is coming off shift or off a flight, the numbers are short: 7 minutes from Terminal 5, 11 from Terminals 2 and 3, 12 from Terminal 4, 8 from Staines and 2 minutes from Junction 14 of the M25. We are outside the ULEZ zone. Dogs are welcome throughout, on a lead and off the furniture.
 
@@ -122,7 +124,7 @@ Not automatically, but it is easier to budget. A buffet is one set package for t
 
 ### We are 35 people. Is that a table booking?
 
-No. Anything over 20 guests is private hire, not a table booking. Email manager@the-anchor.pub, call 01753 682707, or WhatsApp 01753 682707 and we will plan it with you. Every Christmas booking also takes a £10 per person deposit, whatever the size, deducted from your final bill.
+No. Anything over 20 guests is private hire, not a table booking. Email manager@the-anchor.pub, call 01753 682707, or WhatsApp 01753 682707 and we will plan it with you. A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 
 ### Is there entertainment at Christmas?
 
