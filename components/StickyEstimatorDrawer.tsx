@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { StickyDrawer, StickyDrawerTrigger, Button } from '@/components/ui'
+import { StickyDrawer, Button } from '@/components/ui'
 import { PrivateBookingCalculator } from '@/components/PrivateBookingCalculator'
 import { trackCtaClick } from '@/lib/gtm-events'
 import type { VenueTourSpaceId } from '@/components/private-hire/venue-tour/venue-tour-data'
@@ -10,7 +10,6 @@ const OPEN_EVENT = 'open-estimator-drawer'
 
 interface StickyEstimatorDrawerProps {
   eventType?: string
-  triggerLabel?: string
   source?: string
   showInlineButton?: boolean
   inlineButtonLabel?: string
@@ -19,59 +18,24 @@ interface StickyEstimatorDrawerProps {
 
 export function StickyEstimatorDrawer({
   eventType,
-  triggerLabel = 'Get Instant Quote',
   source = 'estimator_drawer',
   showInlineButton = false,
   inlineButtonLabel = 'Open Cost Estimator',
   initialSpaceId,
 }: StickyEstimatorDrawerProps) {
   const [open, setOpen] = useState(false)
-  const [triggerVisible, setTriggerVisible] = useState(false)
-  const [guardVisible, setGuardVisible] = useState(false)
 
-  useEffect(() => {
-    const onScroll = () => {
-      setTriggerVisible(window.scrollY > 400)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const guards = Array.from(
-      document.querySelectorAll<HTMLElement>('[data-sticky-cta-guard="true"]')
-    )
-    if (guards.length === 0) {
-      setGuardVisible(false)
-      return
-    }
-    const observer = new IntersectionObserver(
-      entries => {
-        const anyVisible = entries.some(e => e.isIntersecting && e.intersectionRatio >= 0.5)
-        setGuardVisible(anyVisible)
-      },
-      { threshold: [0.25, 0.5, 0.75] }
-    )
-    guards.forEach(g => observer.observe(g))
-    return () => observer.disconnect()
-  }, [])
-
+  // The floating "Get Instant Quote" button was removed on 8 October 2026
+  // (owner decision 12, site review LS-006). It sat in the strip at the bottom
+  // of the screen that the booking bar now occupies, so on all 27 private hire
+  // pages it was behind the bar, and the bar already offers "Enquire about your
+  // date" there. The drawer still opens from the button in the page and from
+  // the 'open-estimator-drawer' event.
   useEffect(() => {
     const handler = () => setOpen(true)
     window.addEventListener(OPEN_EVENT, handler)
     return () => window.removeEventListener(OPEN_EVENT, handler)
   }, [])
-
-  const handleOpen = useCallback(() => {
-    trackCtaClick({
-      id: `${source}_open`,
-      label: triggerLabel,
-      location: 'sticky_trigger',
-      destination: 'estimator_drawer'
-    })
-    setOpen(true)
-  }, [source, triggerLabel])
 
   const handleInlineOpen = useCallback(() => {
     trackCtaClick({
@@ -86,8 +50,6 @@ export function StickyEstimatorDrawer({
   const handleClose = useCallback(() => {
     setOpen(false)
   }, [])
-
-  const showTrigger = triggerVisible && !guardVisible && !open
 
   return (
     <>
@@ -106,20 +68,6 @@ export function StickyEstimatorDrawer({
           </span>
         </Button>
       )}
-
-      <StickyDrawerTrigger
-        onClick={handleOpen}
-        visible={showTrigger}
-        position="bottom-right"
-        testId="estimator-drawer-trigger"
-      >
-        <span className="flex items-center gap-1.5">
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-          </svg>
-          {triggerLabel}
-        </span>
-      </StickyDrawerTrigger>
 
       <StickyDrawer
         open={open}

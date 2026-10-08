@@ -4,7 +4,6 @@ import { CtaBand } from '@/components/CtaBand'
 import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { Metadata } from 'next'
-import { FlightStatus, FlightDelayWidget } from '@/components/FlightStatus'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -308,20 +307,6 @@ export default function Terminal4Page() {
         </div>
       </section>
 
-      {/* Live Flight Information */}
-      <section className="py-section-y bg-canvas">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto">
-            <SectionHeading
-              title="Live Terminal 4 Flight Information"
-              subtitle="Check flight times while you enjoy your meal or drink"
-              align="center"
-            />
-            <FlightStatus terminal="4" type="both" limit={5} />
-          </div>
-        </div>
-      </section>
-
       {/* Terminal 4 Specific Info */}
       <section className="py-section-y bg-surface">
         <div className="container mx-auto px-4">
@@ -330,10 +315,6 @@ export default function Terminal4Page() {
               title="Terminal 4 Travel Tips"
               align="center"
             />
-
-            <div className="mb-8">
-              <FlightDelayWidget terminal="4" />
-            </div>
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
               <h3 className="font-display text-h3 text-ink-strong mb-4">Getting Back to Terminal 4</h3>

@@ -142,7 +142,7 @@ describe('the log line', () => {
 
   it('keeps only the code of a thrown object, never its message', async () => {
     await reportFailure({
-      route: 'api/parking/bookings',
+      route: 'api/parking/payment/create-order',
       status: 500,
       reason: 'CREATE_BOOKING_FAILED',
       error: { code: 'DATABASE_ERROR', message: `Duplicate booking for ${NAME} ${PLATE}` }

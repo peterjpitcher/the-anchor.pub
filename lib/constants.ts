@@ -163,14 +163,10 @@ export const LARGE_GROUP_DEPOSIT_POLICY_COPY = GROUP_DEPOSIT_WORDING
 export const STAFF_HOURLY_RATE_GBP = 12.71
 export const STAFF_PAY_WORDING = `£${STAFF_HOURLY_RATE_GBP.toFixed(2)} per hour base rate`
 
-// Walk-in launch banner timestamps (BST). Used by <LaunchAnnouncement>.
-// - STARTS_AT: start of 17 May 2026 BST (banner switches from pre-launch
-//   "starts on 17 May" copy to launch-day "today from 1pm" copy)
-// - BANNER_ENDS_AT: 18:00 BST on 17 May 2026 (matches the actual end of
-//   Sunday service, not the last-bookable-slot 17:30; banner removes itself
-//   at this point and replacement content is designed collaboratively after)
+// The start of 17 May 2026 in London, the day the Sunday roast went walk-in.
+// lib/sunday-roast.ts still reads it. The banner that announced the launch was
+// removed on 8 October 2026: it had shown nothing since 6pm that day.
 export const WALK_IN_LAUNCH_STARTS_AT_MS = new Date('2026-05-17T00:00:00+01:00').getTime()
-export const WALK_IN_LAUNCH_BANNER_ENDS_AT_MS = new Date('2026-05-17T18:00:00+01:00').getTime()
 
 /** Convenience alias, use this in components instead of CONTACT.phone */
 export const PHONE_NUMBER = CONTACT.phone

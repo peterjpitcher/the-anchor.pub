@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Plane, X } from 'lucide-react'
 import { pushToDataLayer } from '@/lib/gtm-events'
+import { useFloatingLayer } from '@/hooks/useFloatingLayer'
+import { useFocusedControlBehind, useFooterBehind } from '@/hooks/useLayerStepAside'
 import {
   getLondonIsoDate,
   getPlaneSpottingBookingTime,
@@ -23,6 +25,10 @@ export const PLANE_SPOTTING_PROMPT_SESSION_KEY = 'plane_spotting_booking_prompt_
 
 const SCROLL_PERCENT_THRESHOLD = 0.55
 const DESKTOP_EXIT_INTENT_MIN_WIDTH = 1024
+// How far above the bottom of the screen the prompt's lower edge sits once it
+// is lifted over the booking bar: 16px plus a bar of about 76px. The footer is
+// treated as under the prompt from that line up.
+const FOOTER_CLEARANCE_PX = 92
 
 interface PlaneSpottingBookingPromptProps {
   source?: string
@@ -41,17 +47,37 @@ function buildBookingHref(source: string, info?: PlaneSpottingWindowInfo | null)
 export function PlaneSpottingBookingPrompt({
   source = 'plane_spotting_prompt'
 }: PlaneSpottingBookingPromptProps) {
-  const [visible, setVisible] = useState(false)
+  // `wanted` is this prompt's own trigger (55% down the page, or the cursor
+  // leaving the window). Whether it is on screen is the floating layer
+  // coordinator's answer (lib/floating-layers.ts): it is the lowest layer in the
+  // order, so it waits for the cookie banner, a dialog and the event card.
+  const [wanted, setWanted] = useState(false)
   const [schedule, setSchedule] = useState<PlaneSpottingWindowInfo | null>(null)
   const triggeredRef = useRef(false)
+  const triggerRef = useRef<'scroll' | 'exit_intent'>('scroll')
+  const shownRef = useRef(false)
+  const promptRef = useRef<HTMLDivElement>(null)
+  const visible = useFloatingLayer('page-prompt', wanted)
+  // Lifted clear of the booking bar, it sits where the footer's legal links end
+  // up at the bottom of a page, and where a control reached with the Tab key can
+  // be. It steps aside for both, as the event card does.
+  const footerBehind = useFooterBehind(visible, FOOTER_CLEARANCE_PX)
+  const focusBehind = useFocusedControlBehind(promptRef, visible)
 
   const markShown = useCallback((trigger: 'scroll' | 'exit_intent') => {
     if (triggeredRef.current) return
     triggeredRef.current = true
+    triggerRef.current = trigger
 
-    const todaySchedule = getTodayPlaneSpottingWindow()
-    setSchedule(todaySchedule)
-    setVisible(true)
+    setSchedule(getTodayPlaneSpottingWindow())
+    setWanted(true)
+  }, [])
+
+  // Recorded when the prompt is first on screen, which is the moment it used to
+  // be triggered. It can now be later, if something higher in the order is up.
+  useEffect(() => {
+    if (!visible || !schedule || shownRef.current) return
+    shownRef.current = true
 
     try {
       window.sessionStorage.setItem(PLANE_SPOTTING_PROMPT_SESSION_KEY, 'true')
@@ -61,14 +87,14 @@ export function PlaneSpottingBookingPrompt({
 
     pushToDataLayer({
       event: 'plane_spotting_prompt_shown',
-      trigger,
-      plane_spotting_window: todaySchedule.window,
-      plane_spotting_label: todaySchedule.label,
+      trigger: triggerRef.current,
+      plane_spotting_window: schedule.window,
+      plane_spotting_label: schedule.label,
     }, { sendToApi: true })
-  }, [])
+  }, [schedule, visible])
 
   const dismiss = useCallback(() => {
-    setVisible(false)
+    setWanted(false)
     pushToDataLayer({
       event: 'plane_spotting_prompt_dismissed',
       source,
@@ -129,11 +155,20 @@ export function PlaneSpottingBookingPrompt({
   const href = buildBookingHref(source, schedule)
 
   return (
+    // Sits 16px above the booking bar. It used to sit at the bottom of the
+    // screen, in the strip the bar now occupies, so its button was behind the
+    // bar (site review LS-006). Lifted with transform by the height the bar
+    // publishes, which is 0px when the bar is away: a transform moves it without
+    // the browser counting a layout shift.
     <div
+      ref={promptRef}
       role="status"
       aria-live="polite"
       data-testid="plane-spotting-booking-prompt"
-      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-md border border-line bg-surface text-ink shadow-lg"
+      data-footer-behind={footerBehind}
+      data-focus-behind={focusBehind}
+      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-md rounded-md border border-line bg-surface text-ink shadow-lg transition-transform duration-[var(--dur)] ease-[var(--ease-out)] data-[footer-behind=true]:hidden data-[focus-behind=true]:invisible"
+      style={{ transform: 'translateY(calc(-1 * var(--booking-bar-height, 0px)))' }}
     >
       <div className="flex items-start gap-3 p-4">
         <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-anchor-gold/10 text-accent-text">
@@ -153,7 +188,7 @@ export function PlaneSpottingBookingPrompt({
                 source,
                 plane_spotting_window: schedule.window,
               }, { sendToApi: true })
-              setVisible(false)
+              setWanted(false)
             }}
           >
             Book a Table

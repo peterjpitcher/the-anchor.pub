@@ -2,18 +2,13 @@ import fs from 'fs'
 import path from 'path'
 
 /**
- * Source-order regression for /sunday-lunch (Codex Wave 1, defect W-AB AB-001 /
- * W-IA ARCH-002).
+ * Source checks for /sunday-roast.
  *
- * The page metadata + FAQ describe the post-launch state unconditionally
- * (Option A from the Codex handoff). The bridge for visitors arriving before
- * 17 May 2026 is the <LaunchAnnouncement> banner at the top of the page,
- * which flips between pre/post-launch copy via WALK_IN_LAUNCH_STARTS_AT_MS.
- *
- * That bridge only works if the banner renders BEFORE the date-sensitive H1
- * + lead paragraph. Asserting source order of the JSX is the cheapest, most
- * stable regression: rendering the full page would require mocking HeroWrapper
- * and many deps, and a snapshot would obscure the actual invariant.
+ * This file used to assert that the walk-in launch banner rendered before the
+ * page heading, because the banner was the bridge for visitors arriving before
+ * 17 May 2026. The banner showed nothing after 6pm that day and was removed on
+ * 8 October 2026 (site review findings DT-015 and DT-021), so those two checks
+ * went with it. What is left guards the page's wording and layout.
  */
 describe('/sunday-roast source order', () => {
   const pagePath = path.resolve(__dirname, '../../app/sunday-roast/page.tsx')
@@ -21,22 +16,8 @@ describe('/sunday-roast source order', () => {
   const source = fs.readFileSync(pagePath, 'utf8')
   const menuDataSource = fs.readFileSync(menuDataPath, 'utf8')
 
-  it('renders <LaunchAnnouncement /> before the <PageTitle> H1', () => {
-    const launchIndex = source.indexOf('<LaunchAnnouncement')
-    const pageTitleIndex = source.indexOf('<PageTitle')
-
-    expect(launchIndex).toBeGreaterThan(-1)
-    expect(pageTitleIndex).toBeGreaterThan(-1)
-    expect(launchIndex).toBeLessThan(pageTitleIndex)
-  })
-
-  it('renders <LaunchAnnouncement /> before the FAQAccordion (FAQ schema)', () => {
-    const launchIndex = source.indexOf('<LaunchAnnouncement')
-    const faqIndex = source.indexOf('<FAQAccordionWithSchema')
-
-    expect(launchIndex).toBeGreaterThan(-1)
-    expect(faqIndex).toBeGreaterThan(-1)
-    expect(launchIndex).toBeLessThan(faqIndex)
+  it('no longer mounts the launch banner, which ended on 17 May 2026', () => {
+    expect(source).not.toContain('LaunchAnnouncement')
   })
 
   it('still uses the date-aware <SundayLunchHowItWorks /> component', () => {

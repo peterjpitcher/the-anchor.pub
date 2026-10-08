@@ -10,11 +10,10 @@ import { BRAND, CONTACT, HEATHROW_TIMES, PRICE_RANGE } from '@/lib/constants'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import ssot from '@/SSOT.json'
 import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING, CHILDREN_WELCOME_WORDING, DOGS_WORDING, FAMILIES_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
-import {
-  STATIC_BAR_HOURS_SUMMARY,
-  STATIC_HOURS_REVIEW_NOTE,
-  STATIC_KITCHEN_HOURS_SUMMARY,
-} from '@/lib/business-hours-fallback'
+import { STATIC_HOURS_REVIEW_NOTE } from '@/lib/business-hours-fallback'
+import { WeekHours } from '@/components/WeekHours'
+import { getBusinessHoursSnapshot } from '@/lib/api'
+import { buildKitchenSchedule } from '@/lib/hours-utils'
 
 const PAGE_URL = 'https://www.the-anchor.pub/about/the-anchor-facts'
 const PAGE_LAST_MODIFIED = getRouteLastModified('/about/the-anchor-facts')?.toISOString()
@@ -47,8 +46,9 @@ const primaryFacts = [
   ['Email', CONTACT.email],
   ['Food served', 'Pub classics, burgers, fish and chips, stone-baked pizzas, vegetarian options and Sunday roasts.'],
   ['Cuisine', 'British pub food, pizza and Sunday roast.'],
-  ['Bar hours', STATIC_BAR_HOURS_SUMMARY.replace('Bar hours: ', '')],
-  ['Kitchen hours', STATIC_KITCHEN_HOURS_SUMMARY.replace('Kitchen hours: ', '')],
+  // Bar and kitchen hours are not in this list. They were two rows that said
+  // the hours "are loading from the management system" and never changed (site
+  // review HT-005, C3-024). The page now renders the live week below the list.
   ['Parking', PARKING_WORDING],
   ['Dog policy', DOGS_WORDING],
   ['Family policy', `${CHILDREN_WELCOME_WORDING} ${FAMILIES_WORDING}`],
@@ -125,7 +125,13 @@ const factsSchema = {
   ],
 }
 
-export default function AnchorFactsPage() {
+export default async function AnchorFactsPage() {
+  // The week's hours from the management app, rendered on the server: the same
+  // cached read the homepage and /find-us use. Null if it cannot be reached;
+  // the kitchen line then gives the phone number and WeekHours says so itself.
+  const businessHours = await getBusinessHoursSnapshot()
+  const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : ''
+
   return (
     <>
       <JsonLd data={factsSchema} />
@@ -194,6 +200,16 @@ export default function AnchorFactsPage() {
               </div>
             ))}
           </dl>
+
+          <div className="mx-auto mt-10">
+            <h2 className="text-2xl text-ink-strong">Opening hours</h2>
+            <p className="mt-3 text-base leading-relaxed text-ink-muted">
+              {kitchenSchedule
+                ? `Kitchen hours: ${kitchenSchedule}.`
+                : `Call ${CONTACT.phone} for today's kitchen hours.`}
+            </p>
+            <WeekHours initialHours={businessHours} className="mt-5" />
+          </div>
         </Container>
       </section>
 

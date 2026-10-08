@@ -454,6 +454,13 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height, 80px); /* Account for fixed header */
+  /* A control reached with the Tab key is scrolled clear of whatever is docked
+     at the bottom of the screen, instead of ending up behind it (WCAG 2.2
+     SC 2.4.11, site review AX-004). Each layer publishes its own height while
+     it is on screen and 0px otherwise: the booking bar in
+     components/layout/StickyCtas.tsx, the cookie banner in
+     components/CookieBanner.tsx. Scroll padding moves nothing on the page. */
+  scroll-padding-bottom: calc(var(--booking-bar-height, 0px) + var(--cookie-banner-height, 0px));
 }
 
 html,
@@ -583,50 +590,55 @@ img {
 }
 
 /* Blog content specific styles */
-.prose {
-  /* Ensure proper spacing between elements */
-  & > *:first-child {
-    margin-top: 0 !important;
-  }
-  
-  & > *:last-child {
-    margin-bottom: 0 !important;
-  }
+/* Written flat, not nested inside one `.prose { }` block. Nothing in the build
+   flattens CSS nesting, so the nested form reached browsers as written, and one
+   without nesting support (before Chrome 120, Firefox 117, Safari 17.2) dropped
+   some or all of these six rules. The selectors below are the same ones the
+   nested form resolved to. */
 
-  /* Fix image rendering in blog posts */
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
+/* Ensure proper spacing between elements */
+.prose > *:first-child {
+  margin-top: 0 !important;
+}
 
-  /* Ensure lists have proper spacing */
-  ul, ol {
-    padding-left: 1.5rem;
-  }
+.prose > *:last-child {
+  margin-bottom: 0 !important;
+}
 
-  /* Style for inline code */
-  code:not(pre code) {
-    background-color: #f3f4f6;
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
-    font-size: 0.875em;
-    font-weight: 400;
-  }
+/* Fix image rendering in blog posts */
+.prose img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  /* Horizontal rules */
-  hr {
-    margin: 3rem 0;
-    border: 0;
-    border-top: 1px solid #e5e7eb;
-  }
+/* Ensure lists have proper spacing */
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+}
+
+/* Style for inline code */
+.prose code:not(pre code) {
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 400;
+}
+
+/* Horizontal rules */
+.prose hr {
+  margin: 3rem 0;
+  border: 0;
+  border-top: 1px solid #e5e7eb;
 }
 
 /* A blog table scrolls sideways inside this wrapper (lib/markdown-tables.ts).
-   Written flat, not inside the nested block above, so a browser without CSS
-   nesting still gets it. The wrapper carries the 2rem gap the table used to
+   Written flat, like the rules above, so a browser without CSS nesting still
+   gets it. The wrapper carries the 2rem gap the table used to
    have. Two classes in each selector on purpose: with one, Tailwind
    Typography's `h2 + *` rule wins from the lg size up and closes the gap under
    a heading by 8px. */

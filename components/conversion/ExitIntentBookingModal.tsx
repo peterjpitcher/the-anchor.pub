@@ -1,7 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { currentPagePath, floatingLayers } from '@/lib/floating-layers'
 import {
   Modal,
   ModalBody,
@@ -24,8 +25,11 @@ const DESKTOP_MIN_WIDTH = 1024
  */
 export function ExitIntentBookingModal() {
   const [open, setOpen] = useState(false)
+  const releaseLayerRef = useRef<(() => void) | null>(null)
 
   const close = useCallback((reason: 'dismissed' | 'cta_clicked') => {
+    releaseLayerRef.current?.()
+    releaseLayerRef.current = null
     setOpen((current) => {
       if (!current) return current
       pushToDataLayer({
@@ -36,6 +40,11 @@ export function ExitIntentBookingModal() {
       })
       return false
     })
+  }, [])
+
+  useEffect(() => () => {
+    releaseLayerRef.current?.()
+    releaseLayerRef.current = null
   }, [])
 
   useEffect(() => {
@@ -57,6 +66,14 @@ export function ExitIntentBookingModal() {
     const handleMouseLeave = (event: MouseEvent) => {
       if (triggered) return
       if (event.clientY > 0) return
+
+      // One floating layer at a time, one timed pop-up per page view
+      // (lib/floating-layers.ts). Refused while the cookie banner is
+      // unanswered or a dialog is open, or when this page view has already had
+      // a pop-up. A refusal marks nothing as shown, so it can still open later.
+      const release = floatingLayers.claimTimedPopup(currentPagePath())
+      if (!release) return
+      releaseLayerRef.current = release
 
       triggered = true
       try {

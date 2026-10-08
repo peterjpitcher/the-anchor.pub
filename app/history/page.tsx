@@ -443,8 +443,9 @@ export default function HistoryPage(): React.JSX.Element {
                 <Image
                   src="/images/history/lals-prayer-handwritten.png"
                   alt="The original handwritten manuscript of Lal's Prayer by Lal Eeles, landlady of The Anchor"
-                  width={800}
-                  height={1400}
+                  // The file's real size (site review LS-015).
+                  width={1198}
+                  height={2048}
                   className="w-full h-auto"
                   sizes="(max-width: 768px) 100vw, 576px"
                 />

@@ -1,8 +1,9 @@
 export {}
 
-// The three parking write paths, under outage.
+// The two parking write paths, under outage. (A third, POST /api/parking/bookings,
+// was deleted on 8 October 2026: nothing on the site called it. Site review PY-009.)
 //
-// Two of them move money. Until now none of them had a single test, and the
+// Both move money. Until August 2026 neither had a single test, and the
 // two payment routes swallowed every failure with a bare `catch {}`: a guest
 // could be charged by PayPal, the capture could fail, and nothing anywhere
 // recorded it. The rule these tests hold is the same one the private-hire
@@ -21,13 +22,11 @@ jest.mock('@/lib/report-failure', () => ({
   pageFromRequest: () => null,
 }))
 
-const mockCreateParkingBooking = jest.fn()
 const mockCreateParkingPaymentOrder = jest.fn()
 const mockCaptureParkingPayment = jest.fn()
 
 jest.mock('@/lib/api', () => ({
   anchorAPI: {
-    createParkingBooking: (...args: unknown[]) => mockCreateParkingBooking(...args),
     createParkingPaymentOrder: (...args: unknown[]) => mockCreateParkingPaymentOrder(...args),
     captureParkingPayment: (...args: unknown[]) => mockCaptureParkingPayment(...args),
   },
@@ -70,58 +69,6 @@ const UPSTREAM_DOWN = Object.assign(new Error('fetch failed'), {
 
 beforeEach(() => {
   jest.clearAllMocks()
-})
-
-describe('POST /api/parking/bookings under outage', () => {
-  it('never reports success when the management API refuses the write', async () => {
-    mockCreateParkingBooking.mockRejectedValue(UPSTREAM_DOWN)
-
-    const { POST } = await import('@/app/api/parking/bookings/route')
-    const response = await POST(post('http://localhost/api/parking/bookings', VALID_BOOKING) as never)
-    const body = await response.json()
-
-    expect(response.status).toBeGreaterThanOrEqual(500)
-    expect(body.success).toBe(false)
-    expect(body.data).toBeUndefined()
-  })
-
-  it('gives the guest the phone number rather than a dead end', async () => {
-    mockCreateParkingBooking.mockRejectedValue(UPSTREAM_DOWN)
-
-    const { POST } = await import('@/app/api/parking/bookings/route')
-    const response = await POST(post('http://localhost/api/parking/bookings', VALID_BOOKING) as never)
-    const body = await response.json()
-
-    expect(body.error.message).toContain(PHONE)
-  })
-
-  it('logs the failure so the outage is visible to us', async () => {
-    mockCreateParkingBooking.mockRejectedValue(UPSTREAM_DOWN)
-
-    const { POST } = await import('@/app/api/parking/bookings/route')
-    await POST(post('http://localhost/api/parking/bookings', VALID_BOOKING) as never)
-
-    expect(mockReportFailure).toHaveBeenCalledWith(
-      expect.objectContaining({ route: 'api/parking/bookings', kind: 'failed', reason: 'CREATE_BOOKING_FAILED' })
-    )
-    // The line this replaced carried the guest's name and number plate.
-    const reported = JSON.stringify(mockReportFailure.mock.calls)
-    expect(reported).not.toContain(VALID_BOOKING.customer.first_name)
-    expect(reported).not.toContain(VALID_BOOKING.customer.last_name)
-    expect(reported).not.toContain(String(VALID_BOOKING.vehicle.registration).replace(/\s+/g, ''))
-    expect(reported).not.toContain(VALID_BOOKING.customer.mobile_number)
-  })
-
-  it('still points a locked-out guest at the phone when the API key is rejected', async () => {
-    mockCreateParkingBooking.mockRejectedValue({ code: 'UNAUTHORIZED', status: 401 })
-
-    const { POST } = await import('@/app/api/parking/bookings/route')
-    const response = await POST(post('http://localhost/api/parking/bookings', VALID_BOOKING) as never)
-    const body = await response.json()
-
-    expect(body.success).toBe(false)
-    expect(body.error.message).toContain(PHONE)
-  })
 })
 
 describe('POST /api/parking/payment/create-order under outage', () => {

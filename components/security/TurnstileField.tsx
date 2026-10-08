@@ -128,6 +128,36 @@ export function TurnstileField({
     setWidgetSize((decided) => decided ?? pickWidgetSize(slotRef.current))
   }, [])
 
+  // The one case the choice above cannot cover: the wide widget was right when
+  // the form mounted, and the room has shrunk under 300px since (a phone turned
+  // upright, a window dragged narrow, a page zoomed to 400%). The widget cannot
+  // be swapped for the compact one without losing the visitor's token, and left
+  // alone it ran 22px past the edge of a 320px screen on /private-hire.
+  //
+  // So the same widget is drawn smaller. `squeeze` is the scale that makes its
+  // 300px fit the room, or null when it fits already. Nothing is re-rendered by
+  // Cloudflare: only the box around the widget changes, and the token stays.
+  const [squeeze, setSqueeze] = useState<number | null>(null)
+  useEffect(() => {
+    if (widgetSize !== 'flexible') return
+    const slot = slotRef.current
+    if (!slot || typeof ResizeObserver === 'undefined') return
+
+    const measure = () => {
+      try {
+        const available = slot.clientWidth
+        setSqueeze(available > 0 && available < FLEXIBLE_MIN_WIDTH_PX ? available / FLEXIBLE_MIN_WIDTH_PX : null)
+      } catch {
+        // A slot that cannot be measured keeps the widget at full size.
+        setSqueeze(null)
+      }
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(slot)
+    return () => observer.disconnect()
+  }, [widgetSize])
+
   // Held in a ref so an inline arrow passed by the caller does not change the
   // identity of the handlers below on every render, which would hand Cloudflare
   // a fresh set of callbacks each time the parent form re-renders.
@@ -218,27 +248,55 @@ export function TurnstileField({
         library sizes its own box to match the size it is given (150px by
         140px for compact), so its 300px minimum applies to the wide one only.
       */}
-      <div ref={slotRef} className="min-h-[65px]">
+      <div ref={slotRef} className={cn('min-h-[65px]', widgetSize === 'flexible' && 'relative')}>
         {widgetSize ? (
-          <Turnstile
-            id={id}
-            ref={(instance) => {
-              turnstileRef.current = instance ?? null
-            }}
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
-            onSuccess={handleSuccess}
-            onError={clearTokenWithError}
-            onExpire={clearTokenQuietly}
-            onTimeout={clearTokenQuietly}
-            onUnsupported={handleUnsupported}
-            options={{
-              theme: 'light',
-              size: widgetSize,
-              retry: 'auto',
-              refreshExpired: 'auto',
-              refreshTimeout: 'auto'
-            }}
-          />
+          // This box is always here, so the widget inside it is never
+          // remounted.
+          //
+          // The wide widget is laid over its slot rather than in it. In the
+          // flow, its 300px minimum counted towards the width of the form, so a
+          // form with less room than that grew to 300px and took the slot with
+          // it: the slot could never be seen to be too small, and the
+          // neighbouring fields were dragged past the edge as well. Laid over,
+          // it fills the slot exactly as before (the slot keeps the widget's
+          // 65px), and when the slot is under 300px it is scaled from its top
+          // left corner to fit.
+          <div
+            data-turnstile-squeezed={squeeze !== null}
+            style={
+              widgetSize === 'flexible'
+                ? {
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    minWidth: FLEXIBLE_MIN_WIDTH_PX,
+                    transform: squeeze !== null ? `scale(${squeeze})` : undefined,
+                    transformOrigin: 'top left'
+                  }
+                : undefined
+            }
+          >
+            <Turnstile
+              id={id}
+              ref={(instance) => {
+                turnstileRef.current = instance ?? null
+              }}
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+              onSuccess={handleSuccess}
+              onError={clearTokenWithError}
+              onExpire={clearTokenQuietly}
+              onTimeout={clearTokenQuietly}
+              onUnsupported={handleUnsupported}
+              options={{
+                theme: 'light',
+                size: widgetSize,
+                retry: 'auto',
+                refreshExpired: 'auto',
+                refreshTimeout: 'auto'
+              }}
+            />
+          </div>
         ) : null}
       </div>
 

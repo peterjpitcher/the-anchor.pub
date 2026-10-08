@@ -37,6 +37,18 @@
 // retention periods a job enforces or the owner has decided. Written on a
 // branch that had not shipped: if it goes live on a later day, move the date to
 // that day.
+//
+// 8 October 2026, later: sunday_lunch_scroll_tooltip_shown left the list of
+// notes kept in the browser when the Sunday roast page's "Ready to book?" tip
+// was removed (owner decision 12, site review package P17). Nothing writes
+// that key any more. Also written on a branch: if it goes live on a later day,
+// move the date to that day.
+//
+// 8 October 2026, later: the Aviationstack line left the list of companies when
+// the flight boxes were removed from the four terminal pages (owner decision
+// 14, site review package P19). Nothing on the site contacts it any more. Also
+// written on a branch: if it goes live on a later day, move the date to that
+// day.
 export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-08'
 
 /**
@@ -53,4 +65,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-08'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  'd8d433669d0dba7251efd79742eae21b1efd458b992d0c3fef0cece36d6956a5'
+  '511205989fba80414b8b330ac74fd028c03d166b75bdf2c8b127cc93440e7218'

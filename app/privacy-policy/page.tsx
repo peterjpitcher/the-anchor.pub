@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
           <h2>2. What we collect</h2>
           <h3>What you give us</h3>
           {/* Each line is the fields its form sends: app/api/table-bookings,
-              app/api/event-bookings, app/api/parking/bookings, the private hire
+              app/api/event-bookings, app/api/parking/payment/create-order, the private hire
               and Christmas enquiry routes, and what the management app stores
               for each. The accessible table answer is a yes or no only. */}
           <ul>
@@ -230,9 +230,12 @@ export default function PrivacyPolicyPage() {
           {/* Every localStorage and sessionStorage key the site writes without a
               choice. None is read by the server and none holds a name, number,
               email or reference. tests/unit/privacy-policy-inventory.test.tsx
-              fails if the code gains a key this list does not have. */}
-          <p>
-            We also keep a few notes in your browser&apos;s storage so that a pop-up or banner you&apos;ve closed stays closed, the Christmas page knows you&apos;ve already sent an enquiry, and the private hire page remembers the room you picked. They stay in your browser, they aren&apos;t sent to us, and they say nothing about who you are. Their names are christmas_2026_lightbox_seen, christmas_enquiry_submitted, christmas_enquiry_lightbox_last, event_banner_dismissed_until, event_banner_session_show, promo_private_hire_2026_dismissed_until, promo_private_hire_2026_disabled, sunday_lunch_booking_prompt_dismissed, sunday_lunch_exit_intent_shown, sunday_lunch_scroll_tooltip_shown, plane_spotting_booking_prompt_shown and anchor-private-hire-selected-space.
+              fails if the code gains a key this list does not have.
+              The key names are long unbroken strings, so the paragraph lets a
+              line break inside one: at 320px the longest ran 39px past the
+              right edge (found by the accessibility audit, 8 October 2026). */}
+          <p className="[overflow-wrap:anywhere]">
+            We also keep a few notes in your browser&apos;s storage so that a pop-up or banner you&apos;ve closed stays closed, the Christmas page knows you&apos;ve already sent an enquiry, and the private hire page remembers the room you picked. They stay in your browser, they aren&apos;t sent to us, and they say nothing about who you are. Their names are christmas_2026_lightbox_seen, christmas_enquiry_submitted, christmas_enquiry_lightbox_last, event_banner_dismissed_until, event_banner_session_show, promo_private_hire_2026_dismissed_until, promo_private_hire_2026_disabled, sunday_lunch_booking_prompt_dismissed, sunday_lunch_exit_intent_shown, plane_spotting_booking_prompt_shown and anchor-private-hire-selected-space.
           </p>
           {/* Turnstile loads from challenges.cloudflare.com on the pages with a
               form; PayPal's buttons load from paypal.com at the payment step.
@@ -366,11 +369,6 @@ export default function PrivacyPolicyPage() {
             <li><strong>Meta (Facebook and Instagram)</strong> - Advert measurement, only if you accept marketing cookies</li>
             <li><strong>LinkedIn</strong> - Advertising tag, only if you accept marketing cookies</li>
             <li><strong>Upstash</strong> - Counts requests to our booking system so we can block abuse. It sees your IP address.</li>
-            {/* lib/flights.ts, called from the browser by components/FlightStatus.tsx
-                on the four terminal pages. The owner has decided to remove the
-                flight boxes (decision 14). Whoever removes them removes this line
-                and moves the date and fingerprint in lib/legal-pages.ts. */}
-            <li><strong>Aviationstack</strong> - Supplies the live flight times on our four Heathrow terminal pages. Your browser asks it for them directly, so it sees your IP address.</li>
           </ul>
           {/* The management app's own notice (src/app/privacy/page.tsx) already
               says data may be processed outside the UK, "e.g., Twilio in the US".

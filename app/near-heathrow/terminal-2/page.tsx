@@ -6,7 +6,6 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { InteriorHero } from '@/components/hero'
 import { Metadata } from 'next'
-import { FlightStatus, FlightDelayWidget } from '@/components/FlightStatus'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
@@ -275,18 +274,6 @@ export default function Terminal2Page() {
         </Container>
       </section>
 
-      {/* Live Flight Information */}
-      <section className="py-section-y bg-canvas">
-        <Container>
-            <SectionHeading
-              title="Live Terminal 2 Flight Information"
-              subtitle="Check flight times while you enjoy your meal or drink"
-              align="center"
-            />
-            <FlightStatus terminal="2" type="both" limit={5} />
-        </Container>
-      </section>
-
       {/* Terminal 2 Specific Info */}
       <section className="py-section-y bg-surface">
         <Container>
@@ -294,10 +281,6 @@ export default function Terminal2Page() {
               title="Terminal 2 Travel Tips"
               align="center"
             />
-
-            <div className="mb-8">
-              <FlightDelayWidget terminal="2" />
-            </div>
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
               <h3 className="font-display text-h3 text-ink-strong mb-4">Getting Back to Terminal 2</h3>

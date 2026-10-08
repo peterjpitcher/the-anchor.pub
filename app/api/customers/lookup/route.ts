@@ -48,9 +48,9 @@ function asTrimmedString(value: unknown): string {
 // address, which is the part of a request that hosting, proxy and browser
 // history all record.
 //
-// The onward call to the management app is still a GET with the number in its
-// query string, because that is the only form its lookup accepts. That hop is
-// server to server; moving it needs a change in the management app.
+// The onward call to the management app is a POST as well, with the number in
+// its body, so the number is in no web address on either hop. The management
+// app has accepted a POST here since 8 October 2026 (its PR #197).
 export async function POST(request: NextRequest) {
   if (!API_KEY) {
     return createDegradedLookupResponse('missing_api_key')
@@ -73,16 +73,13 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const params = new URLSearchParams({ phone })
-    if (defaultCountryCode) {
-      params.set('default_country_code', defaultCountryCode)
-    }
-
-    const upstream = await fetch(`${API_BASE_URL}/customers/lookup?${params.toString()}`, {
-      method: 'GET',
+    const upstream = await fetch(`${API_BASE_URL}/customers/lookup`, {
+      method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         'X-API-Key': API_KEY
       },
+      body: JSON.stringify({ phone, default_country_code: defaultCountryCode }),
       cache: 'no-store'
     })
 

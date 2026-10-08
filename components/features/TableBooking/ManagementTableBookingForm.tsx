@@ -204,7 +204,7 @@ export function ManagementTableBookingForm({
   twoScreenFlow = false
 }: ManagementTableBookingFormProps) {
   // Trigger re-renders so time-based cutoffs update without requiring a reload.
-  // (Retained because the LaunchAnnouncement, hold-expiry and other time-derived
+  // (Retained because hold-expiry and other time-derived
   // surfaces benefit from a periodic tick; the legacy Sunday-lunch / Mother's-Day
   // cutoff calculations that originally drove this have been retired in §8.1.)
   //
@@ -819,7 +819,7 @@ export function ManagementTableBookingForm({
   // Sunday roast as a separate booking type, the Saturday-1pm cutoff, the
   // dedicated Mother's Day mode, and the Sunday menu pre-order flow are all
   // retired with the walk-in launch (spec §6, §7.8, §8.1). Sundays are now
-  // regular food bookings; deposit gating is purely group-size based (10+).
+  // regular food bookings; deposit gating is purely group-size based (15 or more).
   const requiresGroupDeposit = requiresDeposit(partySize)
   const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
   // The refund bands belong to the group deposit only. A Christmas sitting has
@@ -1517,6 +1517,14 @@ export function ManagementTableBookingForm({
   function renderPendingPayment() {
     if (result?.state !== 'pending_payment') return null
 
+    // A payment link "we've sent" is mentioned only when the booking system
+    // says a message went (`notification_sent: true`). Both are null otherwise,
+    // and the screen then offers the phone and, where there is one, the link
+    // itself, without sending the guest to look for a message.
+    const linkSentTo = paymentLinkDestination(result)
+    const linkReminder = paymentLinkReminderCopy(result)
+    const hasSecondWay = Boolean(result.fallback_payment_url || linkReminder)
+
     return (
       <>
         {paymentState === 'confirmed' ? (
@@ -1529,7 +1537,7 @@ export function ManagementTableBookingForm({
         ) : paymentState === 'error' && !paypalOrderId ? (
           <Alert variant="warning" title="We couldn't open the PayPal payment automatically">
             <p>{paymentError ?? 'Please try again or call 01753 682707 to complete your booking.'}</p>
-            <p className="mt-2">Two ways to finish your booking:</p>
+            <p className="mt-2">{hasSecondWay ? 'Two ways to finish your booking:' : 'To finish your booking:'}</p>
             <ul className="mt-2 list-disc space-y-1 pl-6">
               <li>
                 Call us on{' '}
@@ -1540,7 +1548,7 @@ export function ManagementTableBookingForm({
               </li>
               {result?.fallback_payment_url ? (
                 <li>
-                  Or open the secure payment link we've sent {paymentLinkDestination(result.notification_channel)}, or{' '}
+                  {linkSentTo ? <>Or open the secure payment link we've sent {linkSentTo}, or{' '}</> : <>Or{' '}</>}
                   <a
                     href={result.fallback_payment_url}
                     className="font-semibold underline"
@@ -1550,9 +1558,9 @@ export function ManagementTableBookingForm({
                   </a>
                   .
                 </li>
-              ) : (
-                <li>{paymentLinkReminderCopy(result?.notification_channel)}</li>
-              )}
+              ) : linkReminder ? (
+                <li>{linkReminder}</li>
+              ) : null}
             </ul>
             <p className="mt-2 text-xs">
               Your {isOutsideSeating ? 'booking' : 'table'} is held while you complete payment.

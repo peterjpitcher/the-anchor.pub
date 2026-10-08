@@ -256,12 +256,12 @@ describe('QuickBookSheet reads the state of the booking, not the status of the r
     expectNotBooked()
   })
 
-  it('a confirmed booking with a reported channel shows the done screen and names the channel', async () => {
+  it('a confirmed booking the system says it messaged shows the done screen and names the channel', async () => {
     answerBookingWith({
       status: 201,
       body: {
         success: true,
-        data: { state: 'confirmed', booking_reference: 'TB-OK1', notification_channel: 'sms' },
+        data: { state: 'confirmed', booking_reference: 'TB-OK1', notification_sent: true, notification_channel: 'sms' },
       },
     })
 
@@ -275,33 +275,83 @@ describe('QuickBookSheet reads the state of the booking, not the status of the r
     expect(trackTableBookingClick).toHaveBeenCalledTimes(1)
   })
 
-  it('a confirmed booking with NO reported channel does not claim a message was sent', async () => {
+  // The management app says whether a message went: `notification_sent`. Every
+  // answer below is a confirmed booking that does NOT say one went, so the done
+  // screen must say the table is booked, give the number for anyone who wants
+  // that confirmed by a person, and claim no message.
+  it.each([
+    ['notification_sent false', { notification_sent: false, notification_channel: null }],
+    ['notification_sent false beside a channel', { notification_sent: false, notification_channel: 'email' }],
+    ['a channel but no notification_sent (an older answer)', { notification_channel: 'sms' }],
+    ['neither field', {}],
+    ['notification_sent as the string "true"', { notification_sent: 'true', notification_channel: 'sms' }],
+  ])('a confirmed booking with %s does not claim a message was sent', async (_label, notice) => {
     answerBookingWith({
       status: 201,
-      body: {
-        success: true,
-        data: { state: 'confirmed', booking_reference: 'TB-OK2', notification_channel: null },
-      },
+      body: { success: true, data: { state: 'confirmed', booking_reference: 'TB-OK2', ...notice } },
     })
 
     await bookAtSeven()
 
     expect(await screen.findByText("You're booked in.")).toBeInTheDocument()
     expect(screen.queryByText(/We've sent/)).not.toBeInTheDocument()
-    expect(screen.getByText('Your table is booked. Keep your reference safe.')).toBeInTheDocument()
+    expect(screen.queryByText(/by (email|SMS|WhatsApp)/i)).not.toBeInTheDocument()
+    expect(
+      screen.getByText(
+        (_content, element) =>
+          element?.tagName === 'P' &&
+          element.textContent === "Your table is booked. If you'd like it confirmed by a person, call 01753 682707."
+      )
+    ).toBeInTheDocument()
+    expectPhoneLink()
     expect(screen.getByText('TB-OK2')).toBeInTheDocument()
     expect(trackFormComplete).toHaveBeenCalledTimes(1)
   })
 
-  it('with no channel and no reference it says only that the table is booked', async () => {
+  it('with no message and no reference it still says the table is booked and gives the number', async () => {
     answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed', booking_reference: null } } })
 
     await bookAtSeven()
 
     expect(await screen.findByText("You're booked in.")).toBeInTheDocument()
-    expect(screen.getByText('Your table is booked.')).toBeInTheDocument()
+    expect(screen.getByText(/Your table is booked\./)).toBeInTheDocument()
+    expectPhoneLink()
     expect(screen.queryByText(/We've sent/)).not.toBeInTheDocument()
     expect(screen.queryByText(/reference/i)).not.toBeInTheDocument()
+  })
+
+  it('a second booking in the same sheet does not inherit the first one\'s "sent"', async () => {
+    answerBookingWith({
+      status: 201,
+      body: {
+        success: true,
+        data: { state: 'confirmed', booking_reference: 'TB-A', notification_sent: true, notification_channel: 'email' },
+      },
+    })
+    const { rerender } = render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
+    fireEvent.click(await screen.findByRole('button', { name: /19:00/ }))
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700 900123' } })
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Book table' })).toBeEnabled())
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Book table' }))
+    })
+    expect(await screen.findByText("We've sent confirmation details by email.")).toBeInTheDocument()
+
+    // Closed and opened again: the next answer says nothing about a message.
+    rerender(<QuickBookSheet open={false} onClose={jest.fn()} source="test" />)
+    answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed', booking_reference: 'TB-B' } } })
+    rerender(<QuickBookSheet open onClose={jest.fn()} source="test" />)
+    fireEvent.click(await screen.findByRole('button', { name: /19:00/ }))
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700 900123' } })
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Book table' })).toBeEnabled())
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Book table' }))
+    })
+
+    expect(await screen.findByText('TB-B')).toBeInTheDocument()
+    expect(screen.queryByText(/We've sent/)).not.toBeInTheDocument()
   })
 
   it('does not promise a text before the booking is made', async () => {

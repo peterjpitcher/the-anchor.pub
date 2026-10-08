@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY, HEATHROW_TIMES } from '@/lib/constants'
+import { currentPagePath, floatingLayers } from '@/lib/floating-layers'
 import {
   Modal,
   ModalBody,
@@ -71,27 +72,46 @@ export function TimedBookingPrompt({
 }: TimedBookingPromptProps = {}) {
   const [open, setOpen] = useState(false)
   const sunday = getSundayRoastContent()
+  const releaseLayerRef = useRef<(() => void) | null>(null)
 
   useEffect(() => {
     if (readDismissed()) return
 
-    const timer = window.setTimeout(() => {
-      // Re-check at fire time, protects against the (unlikely) race where
-      // another tab dismissed the prompt while ours was waiting.
-      if (readDismissed()) return
-      setOpen(true)
-      pushToDataLayer({
-        event: 'booking_prompt_open',
-        prompt_id: promptId,
-      })
-    }, delayMs)
+    // One floating layer at a time, one timed pop-up per page view
+    // (lib/floating-layers.ts). Fifteen seconds into a first visit this used to
+    // open on top of the Christmas pop-up, with the cookie banner and the event
+    // card underneath (site review LS-007). The coordinator now holds it back
+    // while the cookie banner is unanswered or a dialog is open, and refuses it
+    // if this page view has already had a pop-up.
+    const cancel = floatingLayers.scheduleTimedPopup({
+      delayMs,
+      attempt: () => {
+        // Re-check at fire time, protects against the (unlikely) race where
+        // another tab dismissed the prompt while ours was waiting.
+        if (readDismissed()) return
+        const release = floatingLayers.claimTimedPopup(currentPagePath())
+        if (!release) return
+        releaseLayerRef.current = release
+        setOpen(true)
+        pushToDataLayer({
+          event: 'booking_prompt_open',
+          prompt_id: promptId,
+        })
+      },
+    })
 
-    return () => window.clearTimeout(timer)
+    return () => {
+      cancel()
+      releaseLayerRef.current?.()
+      releaseLayerRef.current = null
+    }
   }, [delayMs, promptId])
 
   function dismiss(reason: 'close' | 'cta') {
     writeDismissed()
     setOpen(false)
+    releaseLayerRef.current?.()
+    releaseLayerRef.current = null
     pushToDataLayer({
       event: reason === 'cta' ? 'booking_prompt_cta' : 'booking_prompt_dismiss',
       prompt_id: promptId,

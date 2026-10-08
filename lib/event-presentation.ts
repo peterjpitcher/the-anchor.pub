@@ -1,4 +1,5 @@
 import type { Event } from '@/lib/api'
+import { isEventOver } from '@/lib/event-calendar'
 import {
   getEventBookingBlockReason,
   isEventBookingClosed,
@@ -34,8 +35,16 @@ export type EventFactsVariant = 'live' | 'historic' | 'did-not-run'
 
 export interface EventPresentation {
   phase: EventPhase
-  /** True once the event date has passed, whatever its status. */
+  /**
+   * True once the event has FINISHED, whatever its status: after its end time,
+   * not its start. A night that is under way has not ended.
+   */
   hasEnded: boolean
+  /**
+   * True from the start time onwards. Between the start and the finish the
+   * event is under way: it cannot be booked, but it has not "taken place".
+   */
+  hasStarted: boolean
   /** The online booking form itself. */
   showBookingForm: boolean
   /** The "Booking and payment" policy card. */
@@ -69,11 +78,12 @@ type EventPresentationSource = Pick<
   | 'eventStatus'
   | 'bookings_enabled'
   | 'booking_cutoff_at'
->
+> & { endDate?: string | null; duration?: string | null }
 
 export function getEventPhase(event: EventPresentationSource, now: number = Date.now()): EventPhase {
   if (normalizeEventStatus(event) === 'cancelled') return 'cancelled'
-  if (isEventInPast(event, now)) return 'ended'
+  // Keyed to the finish, so a night that is under way is not called "ended".
+  if (isEventOver(event, now)) return 'ended'
   return 'upcoming'
 }
 
@@ -82,8 +92,12 @@ export function getEventPresentation(
   now: number = Date.now()
 ): EventPresentation {
   const phase = getEventPhase(event, now)
-  const hasEnded = isEventInPast(event, now)
+  const hasEnded = isEventOver(event, now)
+  const hasStarted = isEventInPast(event, now)
   const isUpcoming = phase === 'upcoming'
+  // Everything that invites a booking or a diary entry stops at the START, as
+  // it always has. Only the "this is over" presentation waits for the finish.
+  const isBookable = isUpcoming && !hasStarted
 
   // A blocked or cutoff-closed upcoming event still shows its policy and FAQs,
   // because the visitor may yet book by phone. An ended or cancelled event
@@ -103,10 +117,11 @@ export function getEventPresentation(
   return {
     phase,
     hasEnded,
-    showBookingForm: isUpcoming && !bookingBlocked,
-    showBookingPolicy: isUpcoming,
-    showBookingFaqs: isUpcoming,
-    showBookingCtaBand: isUpcoming,
+    hasStarted,
+    showBookingForm: isBookable && !bookingBlocked,
+    showBookingPolicy: isBookable,
+    showBookingFaqs: isBookable,
+    showBookingCtaBand: isBookable,
     showShareButton: isUpcoming,
     // "Cancelled" is worth showing. "Scheduled" on a night that already
     // happened reads as though it is still going ahead.
@@ -119,7 +134,7 @@ export function getEventPresentation(
     // previousStartDate. A draft cannot reach the detail page anyway, which
     // redirects at app/events/[id]/page.tsx:344, but the control also mounts on
     // category date cards, so the flag guards it rather than the route.
-    showAddToCalendar: isUpcoming && status !== 'postponed' && status !== 'draft',
+    showAddToCalendar: isBookable && status !== 'postponed' && status !== 'draft',
     // Cancelled at any date, and postponed once the listed date has gone: in
     // both cases the night on this page did not happen.
     factsVariant:
@@ -128,6 +143,6 @@ export function getEventPresentation(
         : isUpcoming
           ? 'live'
           : 'historic',
-    includeSchemaOffers: isUpcoming
+    includeSchemaOffers: isBookable
   }
 }

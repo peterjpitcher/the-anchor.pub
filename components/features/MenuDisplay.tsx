@@ -3,7 +3,6 @@
 import { useMemo, memo, useRef, useState } from 'react'
 import { MenuData, MenuCategory, MenuSection, MenuItem } from '@/lib/menu-parser'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { SpecialOfferNotifications } from '../SpecialOfferNotifications'
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/layout/Card'
 import { Container, Section } from '@/components/ui/layout/Container'
 import { Grid, GridItem } from '@/components/ui/layout/Grid'
@@ -152,9 +151,6 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold-dark' }: Menu
                   </p>
                 )}
               </div>
-
-              {/* Special Offer Notifications for this section */}
-              <SpecialOfferNotifications targetSection={category.id} />
 
               {category.sections.map((section, sectionIndex) => (
                 <div key={sectionIndex} className="mb-12 last:mb-0">

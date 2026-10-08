@@ -93,6 +93,9 @@ describe('the countdown card steps aside for the footer', () => {
     window.sessionStorage.clear()
     // Half of sessions are shown the card. This one is.
     window.sessionStorage.setItem('event_banner_session_show', 'true')
+    // The card waits until the page has scrolled past its hero (since 8 October
+    // 2026). The footer is a long way past that.
+    Object.defineProperty(window, 'scrollY', { value: 2000, configurable: true })
     const twoDaysOut = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString()
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
@@ -103,6 +106,7 @@ describe('the countdown card steps aside for the footer', () => {
   afterEach(() => {
     global.IntersectionObserver = realIntersectionObserver
     global.fetch = realFetch
+    Object.defineProperty(window, 'scrollY', { value: 0, configurable: true })
     window.localStorage.clear()
     window.sessionStorage.clear()
   })
@@ -146,7 +150,10 @@ describe('the countdown card steps aside for the footer', () => {
     // exact string. It carries no breakpoint: the owner asked for wider screens
     // too (5 October 2026), having first agreed it for phones only.
     expect(wrapper).toHaveClass('data-[footer-under-card=true]:hidden')
+    // The only other thing that hides it this way is the floating layer
+    // coordinator's answer (tests/unit/floating-layers-components.test.tsx).
     expect(Array.from(wrapper.classList).filter((name) => name.endsWith(':hidden'))).toEqual([
+      'data-[layer-showing=false]:hidden',
       'data-[footer-under-card=true]:hidden'
     ])
     // Never a bare `hidden`, which would take the card away for good.

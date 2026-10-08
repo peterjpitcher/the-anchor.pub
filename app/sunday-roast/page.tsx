@@ -10,14 +10,12 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { FestiveKitchenNotice } from '@/components/seasonal/FestiveKitchenNotice'
 import { getFestiveKitchenStatus, getFestiveKitchenWording } from '@/lib/festive-kitchen-closure'
 import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowItWorks'
 import { SectionViewTracker } from '@/components/tracking/SectionViewTracker'
 import { TimedBookingPrompt } from '@/components/sunday-lunch/TimedBookingPrompt'
 import { PhoneLink } from '@/components/PhoneLink'
-import { ScrollProgressBookingTooltip } from '@/components/conversion/ScrollProgressBookingTooltip'
 import { ExitIntentBookingModal } from '@/components/conversion/ExitIntentBookingModal'
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
@@ -196,10 +194,8 @@ export default async function SundayRoastPage() {
       />
 
       <div className="bg-surface">
-        <div className="container">
-          <div className="py-3">
-            <LaunchAnnouncement variant="banner" />
-          </div>
+        {/* pt-6 keeps the space the launch banner's wrapper used to hold. */}
+        <div className="container pt-6">
           <FestiveKitchenNotice className="mb-3" />
         </div>
       </div>
@@ -543,7 +539,6 @@ export default async function SundayRoastPage() {
         </div>
       </section>
 
-      <ScrollProgressBookingTooltip/>
       <ExitIntentBookingModal/>
       <TimedBookingPrompt/>
       <DeferredHomepageTrackers/>

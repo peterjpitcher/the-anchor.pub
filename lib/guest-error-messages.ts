@@ -28,6 +28,14 @@ export const GUEST_PHONE = '01753 682707'
  */
 export const SECURITY_CHECK_REQUIRED_MESSAGE = `Please complete the security check before submitting. If it will not load, call ${GUEST_PHONE} and we will help.`
 
+/**
+ * Said on a confirmation screen when the booking system has not told us that a
+ * confirmation text or email went. The booking is made either way; this gives a
+ * guest who was expecting a message somewhere to turn, without claiming one.
+ * Shared by the table form, the quick booking sheet and the event form.
+ */
+export const CONFIRMED_BY_A_PERSON_WORDING = `If you'd like it confirmed by a person, call ${GUEST_PHONE}.`
+
 export type GuestErrorContext =
   | 'table_booking'
   | 'table_deposit'
@@ -109,6 +117,10 @@ const API_CODE_COPY: Record<string, string | null> = {
   NETWORK_ERROR: null,
   API_KEY_MISSING: null,
   UNREADABLE_RESPONSE: null,
+  CONFIGURATION_MISSING: null,
+  CONFIGURATION_INVALID: null,
+  ENDPOINT_RETIRED: null,
+  BOOKING_NOT_FOUND: null,
   RATE_LIMIT_EXCEEDED:
     'Our booking system is very busy just now. Please try again in a few minutes, or call 01753 682707.',
   IDEMPOTENCY_KEY_IN_PROGRESS:
@@ -192,6 +204,115 @@ const EVENT_PAYMENT_REASON_COPY: Record<string, string> = {
   capture_reference_mismatch: PAY_AGAIN_WARNING,
   confirmation_blocked: PAY_AGAIN_WARNING,
   capture_already_captured_pending_confirmation: PAY_AGAIN_WARNING
+}
+
+const DEPOSIT_PAY_AGAIN_WARNING = GUEST_FALLBACK.table_deposit_capture
+
+/**
+ * Codes the two table deposit routes answer with (upper case). The management
+ * app sends each beside its own sentence; the guest is shown ours.
+ */
+const TABLE_DEPOSIT_CODE_COPY: Record<string, string> = {
+  DEPOSIT_ALREADY_PAID: 'The deposit for this booking has already been paid.',
+  DEPOSIT_NOT_REQUIRED: 'This booking does not need a deposit.',
+  BOOKING_NOT_PAYABLE: 'This booking is no longer open for payment.',
+  PAYMENT_HOLD_EXPIRED: 'The time to pay this deposit has run out. Please start your booking again.',
+  PAYMENT_HOLD_MISSING: 'This booking is not waiting for a deposit.',
+  BOOKING_NOT_PENDING_PAYMENT: 'This booking is not waiting for a deposit.',
+  // PayPal could not be asked for an order, or the order could not be kept.
+  // Nothing has been charged, so trying again is safe.
+  PAYPAL_ORDER_FAILED: GUEST_FALLBACK.table_deposit,
+  PAYPAL_ORDER_NOT_SAVED: GUEST_FALLBACK.table_deposit,
+  // Money may already have moved for every one of these, so the guest is told
+  // to ring before paying a second time.
+  ORDER_MISMATCH: DEPOSIT_PAY_AGAIN_WARNING,
+  AMOUNT_MISMATCH: DEPOSIT_PAY_AGAIN_WARNING,
+  PAYPAL_ORDER_LOOKUP_FAILED: DEPOSIT_PAY_AGAIN_WARNING,
+  CAPTURE_FAILED: DEPOSIT_PAY_AGAIN_WARNING,
+  CAPTURED_AMOUNT_UNVERIFIED: DEPOSIT_PAY_AGAIN_WARNING,
+  CAPTURED_AMOUNT_MISMATCH: DEPOSIT_PAY_AGAIN_WARNING,
+  CAPTURED_BOOKING_UPDATE_FAILED: DEPOSIT_PAY_AGAIN_WARNING
+}
+
+/**
+ * What a code means for our own records, whatever HTTP status carries it.
+ *
+ * The management app sends a stable `code` beside its sentence on the enquiry,
+ * create-booking, deposit and event payment routes (its PR #198). Before that
+ * the website could only go by the status, which got some answers wrong: an
+ * expired payment hold arrives as a 410, which is not one of the statuses read
+ * as "the guest can act", so a guest who had simply run out of time was told
+ * "we could not start your payment" and the pub was emailed about an outage.
+ *
+ * A code listed here decides the kind. A code that is not listed, or an answer
+ * with no code at all, is judged by its status exactly as before.
+ */
+const FAILED_CODES: ReadonlySet<string> = new Set([
+  'UNAUTHORIZED',
+  'FORBIDDEN',
+  'AUTH_UNAVAILABLE',
+  'RATE_LIMIT_UNAVAILABLE',
+  'INTERNAL_ERROR',
+  'DATABASE_ERROR',
+  'CUSTOMER_RESOLUTION_FAILED',
+  'IDEMPOTENCY_KEY_REQUIRED',
+  'PAYMENT_LINK_FAILED',
+  'CONFIGURATION_MISSING',
+  'CONFIGURATION_INVALID',
+  'ENDPOINT_RETIRED',
+  'PAYPAL_ORDER_FAILED',
+  'PAYPAL_ORDER_NOT_SAVED',
+  'PAYPAL_ORDER_LOOKUP_FAILED',
+  'CAPTURE_FAILED',
+  'CAPTURED_AMOUNT_UNVERIFIED',
+  'CAPTURED_AMOUNT_MISMATCH',
+  'CAPTURED_BOOKING_UPDATE_FAILED'
+])
+
+const REFUSED_CODES: ReadonlySet<string> = new Set([
+  'VALIDATION_ERROR',
+  'CAPACITY_UNAVAILABLE',
+  'IDEMPOTENCY_KEY_IN_PROGRESS',
+  'IDEMPOTENCY_KEY_CONFLICT',
+  // Event booking answers the guest can act on.
+  'TICKET_TYPE_SOLD_OUT',
+  'TICKET_TYPE_INVALID',
+  'PRICE_CHANGED',
+  'BOOKING_QUESTIONS_CHANGED',
+  'EVENT_DATE_MISMATCH',
+  'SALES_CLOSED',
+  'BOOKINGS_DISABLED',
+  // A deposit that is already paid, not needed, or out of time.
+  'DEPOSIT_ALREADY_PAID',
+  'DEPOSIT_NOT_REQUIRED',
+  'BOOKING_NOT_PAYABLE',
+  'PAYMENT_HOLD_EXPIRED',
+  'PAYMENT_HOLD_MISSING',
+  'BOOKING_NOT_PENDING_PAYMENT',
+  // An event payment that is out of time, already made, or on a spent link.
+  'HOLD_EXPIRED',
+  'TOKEN_EXPIRED',
+  'INVALID_TOKEN',
+  'TOKEN_USED',
+  'TOKEN_CUSTOMER_MISMATCH'
+])
+
+/**
+ * `failed` or `refused` when the code settles it, null when the status must.
+ * RATE_LIMIT_EXCEEDED is deliberately absent: the management app uses that one
+ * code both for its limit on a single phone number (the guest's to wait out)
+ * and for the allowance on our shared key (ours), so the sentence still decides.
+ */
+export function kindForUpstreamCode(code: string | null | undefined): UpstreamFailureKind | null {
+  const upper = asText(code)?.toUpperCase()
+  if (!upper) return null
+  if (FAILED_CODES.has(upper)) return 'failed'
+  if (REFUSED_CODES.has(upper)) return 'refused'
+  return null
+}
+
+function isTableDepositContext(context: GuestErrorContext): boolean {
+  return context === 'table_deposit' || context === 'table_deposit_capture'
 }
 
 function reasonTableFor(context: GuestErrorContext): Record<string, string> | null {
@@ -318,6 +439,9 @@ export function guestMessageForCode(
   if ((context === 'event_booking' || context === 'event_waitlist') && upper in EVENT_BOOKING_CODE_COPY) {
     return finish(EVENT_BOOKING_CODE_COPY[upper], options)
   }
+  if (isTableDepositContext(context) && upper in TABLE_DEPOSIT_CODE_COPY) {
+    return finish(TABLE_DEPOSIT_CODE_COPY[upper], options)
+  }
   if (upper in API_CODE_COPY) {
     // Once a guest has approved a payment there is one right thing to say,
     // whatever the code: ring before paying again. "Try again in a few
@@ -389,6 +513,8 @@ export function listMappedCodes(): Array<{ context: GuestErrorContext; code: str
     ...fromTable('event_waitlist', WAITLIST_REASON_COPY),
     ...fromTable('event_payment', EVENT_PAYMENT_REASON_COPY),
     ...fromTable('event_payment_capture', EVENT_PAYMENT_REASON_COPY),
+    ...fromTable('table_deposit', TABLE_DEPOSIT_CODE_COPY),
+    ...fromTable('table_deposit_capture', TABLE_DEPOSIT_CODE_COPY),
     ...(Object.keys(GUEST_FALLBACK) as GuestErrorContext[]).flatMap((context) => fromTable(context, API_CODE_COPY))
   ]
 }
@@ -456,12 +582,18 @@ export function mapUpstreamFailure(input: {
   const sentence = pickUpstreamSentence(body)
   const sentenceIsForGuests = Boolean(sentence && !isBareCode(sentence) && (carriesPhone(sentence) || isAllowListed(sentence)))
 
-  // Only a 400 or a 422 is the guest's to correct, and a 409 is a deliberate
-  // no (a clash, a full night). A 429 is the guest's only when the management
-  // app says so in a sentence written for them (its limit for one phone
-  // number); its other 429 is the allowance on our shared key running out.
-  const guestCanAct = status === 400 || status === 422 || status === 409 || (status === 429 && sentenceIsForGuests)
-  const kind: UpstreamFailureKind = guestCanAct ? 'refused' : 'failed'
+  // The code decides first, where the management app sent one we know: it is
+  // the stable part of the answer, and the status and the sentence are not.
+  const kindFromCode = kindForUpstreamCode(code)
+  const isRateLimit = status === 429 || code?.toUpperCase() === 'RATE_LIMIT_EXCEEDED'
+
+  // Without a code we know, the status decides, as it always has. Only a 400
+  // or a 422 is the guest's to correct, and a 409 is a deliberate no (a clash,
+  // a full night). A rate limit is the guest's only when the management app
+  // says so in a sentence written for them (its limit for one phone number);
+  // its other limit is the allowance on our shared key running out.
+  const guestCanAct = status === 400 || status === 422 || status === 409 || (isRateLimit && sentenceIsForGuests)
+  const kind: UpstreamFailureKind = kindFromCode ?? (guestCanAct ? 'refused' : 'failed')
   const resolvedCode = code ?? (kind === 'failed' ? 'UPSTREAM_ERROR' : 'REFUSED')
 
   if (kind === 'failed') {
@@ -473,11 +605,23 @@ export function mapUpstreamFailure(input: {
     return { kind, code: resolvedCode, message: specific ?? fallback }
   }
 
+  const fromCode = guestMessageForCode(code, context)
+  const upperCode = code?.toUpperCase()
+
+  // A code with its own sentence is answered with that sentence, ahead of
+  // whatever the management app wrote. Two codes are too general for that and
+  // let a sentence written for the guest through first: VALIDATION_ERROR (the
+  // Christmas booking rules arrive under it) and RATE_LIMIT_EXCEEDED (the limit
+  // for one phone number says which limit it is).
+  const codeIsGeneral = upperCode === 'VALIDATION_ERROR' || upperCode === 'RATE_LIMIT_EXCEEDED'
+  if (fromCode && kindFromCode && !codeIsGeneral) {
+    return { kind, code: resolvedCode, message: fromCode }
+  }
+
   if (sentenceIsForGuests && sentence) {
     return { kind, code: resolvedCode, message: withGuestPhone(sentence) }
   }
 
-  const fromCode = guestMessageForCode(code, context)
   // VALIDATION_ERROR has a general line; a written sentence beats it where the
   // route says its validation answers can be trusted.
   if (fromCode && code?.toUpperCase() !== 'VALIDATION_ERROR') {

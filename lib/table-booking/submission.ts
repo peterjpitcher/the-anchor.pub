@@ -4,6 +4,13 @@ import {
   type CommunicationConsentState,
 } from '@/lib/communication-consent'
 import type { PageSource } from '@/lib/table-booking/page-source'
+import {
+  confirmationChannel,
+  confirmationSentCopy,
+  wasConfirmationSent,
+  type ConfirmationNotice,
+} from '@/lib/confirmation-notice'
+import { CONFIRMED_BY_A_PERSON_WORDING } from '@/lib/guest-error-messages'
 
 /**
  * What is sent when a guest confirms, and what comes back.
@@ -54,6 +61,9 @@ export type ManagementTableBookingResult = {
   hold_expires_at: string | null
   table_name: string | null
   notification_channel?: 'email' | 'whatsapp' | 'sms' | null
+  // True only when the management app knows a message went to the guest. Read
+  // through lib/confirmation-notice.ts, where a missing field is "not sent".
+  notification_sent?: boolean | null
   booking_id?: string
   deposit_amount?: number
   // Set by the management API when inline PayPal setup fails for a 10+ booking.
@@ -85,37 +95,40 @@ export const BLOCKED_REASON_COPY: Record<string, string> = {
   blocked: 'This slot is not available for online booking right now.'
 }
 
-export function confirmationDeliveryCopy(
-  channel?: ManagementTableBookingResult['notification_channel']
-): string {
-  if (channel === 'email') return "We've sent confirmation details by email."
-  if (channel === 'whatsapp') return "We've sent confirmation details by WhatsApp."
-  if (channel === 'sms') return "We've sent confirmation details by SMS."
-  // No channel reported means the management app does not know that anything
-  // went out. Saying "We've sent confirmation details" then leaves a guest
-  // waiting for a message that is not coming, so say only what is true: the
-  // table is booked, and the reference on screen is their proof of it.
-  return 'Your table is booked. Keep your reference safe.'
+/**
+ * The line under "You're all booked in".
+ *
+ * It says a message was sent only when the management app says one went
+ * (`notification_sent: true`). A channel on its own is not enough, and a
+ * missing field is not "sent": saying "We've sent confirmation details" then
+ * leaves a guest waiting for a message that is not coming. So otherwise it says
+ * what is true, the table is booked, and gives the number for anyone who wants
+ * that confirmed by a person.
+ */
+export function confirmationDeliveryCopy(notice?: ConfirmationNotice | null): string {
+  return confirmationSentCopy(notice) ?? `Your table is booked. ${CONFIRMED_BY_A_PERSON_WORDING}`
 }
 
 /**
- * Where the deposit screen sends the guest to find their payment link. The
- * management app sends that message by email first when the guest has a usable
- * address, so the screen names the channel the API reports rather than
- * assuming a text.
+ * Where the deposit screen sends the guest to find their payment link, or null
+ * when no message is known to have gone, in which case the screen must not
+ * mention one. The management app sends that message by email first when the
+ * guest has a usable address, so the screen names the channel the API reports
+ * rather than assuming a text.
  */
-export function paymentLinkDestination(
-  channel?: ManagementTableBookingResult['notification_channel']
-): string {
+export function paymentLinkDestination(notice?: ConfirmationNotice | null): string | null {
+  if (!wasConfirmationSent(notice)) return null
+  const channel = confirmationChannel(notice)
   if (channel === 'email') return 'to your email'
   if (channel === 'whatsapp') return 'on WhatsApp'
   if (channel === 'sms') return 'to your phone'
   return 'you'
 }
 
-export function paymentLinkReminderCopy(
-  channel?: ManagementTableBookingResult['notification_channel']
-): string {
+/** The "check your messages" line on the deposit screen, or null when nothing is known to have gone. */
+export function paymentLinkReminderCopy(notice?: ConfirmationNotice | null): string | null {
+  if (!wasConfirmationSent(notice)) return null
+  const channel = confirmationChannel(notice)
   if (channel === 'email') return "Or check your email, we've sent you a secure payment link."
   if (channel === 'whatsapp') return "Or check WhatsApp, we've sent you a secure payment link."
   if (channel === 'sms') return "Or check your phone, we've sent you a secure payment link by SMS."

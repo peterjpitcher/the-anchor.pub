@@ -372,6 +372,21 @@ const POPUP_MARK = 'data-a11y-audit-popup'
 const POPUP_TAB_PRESSES = 10
 const FOCUS_HOME_MARK = 'data-a11y-audit-focus-home'
 
+/**
+ * The site's own consent cookie (lib/cookies.ts), as "Reject all" writes it:
+ * a choice has been made, and analytics and marketing are both off.
+ */
+const answeredCookieBanner = () => ({
+  name: 'anchor-cookie-consent',
+  value: encodeURIComponent(JSON.stringify({
+    necessary: true,
+    analytics: false,
+    marketing: false,
+    timestamp: new Date().toISOString(),
+  })),
+  url: BASE,
+})
+
 /** Runs in the page. React stamps `__react*` keys onto DOM nodes as it hydrates. */
 const hasHydrated = () => {
   const el = document.querySelector('button[aria-expanded]') || document.body
@@ -448,7 +463,15 @@ async function auditTimedPopup(browser, AxeBuilder, { violations, incomplete, ke
   const tryKeyboard = Array.isArray(keyboardProblems)
   // A context of its own, not the one the pages shared: a campaign pop-up
   // shows once per visitor and remembers that in localStorage.
-  const context = await browser.newContext({ viewport: { width: 1280, height: 900 } })
+  //
+  // The visitor here has already answered the cookie banner, with everything
+  // off. Since 8 October 2026 a timed pop-up waits for that answer (one floating
+  // layer at a time, lib/floating-layers.ts), so a visitor who had not answered
+  // would see no pop-up and this pass would report "none opened" for ever.
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 900 },
+    storageState: { cookies: [answeredCookieBanner()], origins: [] },
+  })
   try {
     const page = await context.newPage()
     const res = await page.goto(BASE + POPUP_PAGE, { waitUntil: 'domcontentloaded' })
@@ -764,11 +787,13 @@ const pressStickyBookATable = async (page) => {
   return true
 }
 
-/** The floating "Get Instant Quote" button on the private hire pages. */
+/**
+ * The "Open Cost Estimator" button in the private hire page. The floating
+ * "Get Instant Quote" button this used to press was removed on 8 October 2026
+ * (the booking bar replaced it); both opened the same drawer.
+ */
 const pressInstantQuote = async (page) => {
-  await page.mouse.wheel(0, 1200)
-  await page.waitForTimeout(600)
-  const button = page.getByRole('button', { name: /instant quote/i }).first()
+  const button = page.getByRole('button', { name: /open cost estimator/i }).first()
   if (!(await button.count())) return false
   await button.focus()
   await button.press('Enter')

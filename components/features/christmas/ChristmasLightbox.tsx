@@ -9,6 +9,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { currentPagePath, floatingLayers } from '@/lib/floating-layers'
 
 const SUPPRESSION_KEY = 'christmas_2026_lightbox_seen'
 // Show once per user for the season
@@ -136,8 +137,19 @@ export function ChristmasLightbox() {
         return true
     }, [isSuppressedRoute])
 
+	    // One floating layer at a time, and one timed pop-up per page view: the
+	    // coordinator in lib/floating-layers.ts says whether this may open. It
+	    // refuses while the cookie banner is unanswered or a dialog is open, and
+	    // when the page has already had a pop-up (the Sunday roast page has its
+	    // own). A refusal leaves the season's one showing unspent, as the checks
+	    // above do.
+	    const releaseLayerRef = useRef<(() => void) | null>(null)
+
 	    const triggerLightbox = useCallback((trigger?: 'timer' | 'exit_intent') => {
 	        if (checkSuppression() || hasINTERACTED) return
+	        const release = floatingLayers.claimTimedPopup(currentPagePath())
+	        if (!release) return
+	        releaseLayerRef.current = release
 	        triggerRef.current = trigger ?? null
 	        setIsOpen(true)
         // Small delay to allow render before transition
@@ -191,11 +203,27 @@ export function ChristmasLightbox() {
 	        closeReasonRef.current = null
 	    }, [hasINTERACTED, isOpen, modalId])
 
+    // Hand the layer back when the pop-up has gone, or if this unmounts.
     useEffect(() => {
-        // 1. Time delay trigger (Mobile friendly)
-        const timer = setTimeout(() => {
-            triggerLightbox('timer')
-        }, 10000) // 10 seconds (faster than Six Nations)
+        if (isOpen) return
+        releaseLayerRef.current?.()
+        releaseLayerRef.current = null
+    }, [isOpen])
+
+    useEffect(() => () => {
+        releaseLayerRef.current?.()
+        releaseLayerRef.current = null
+    }, [])
+
+    useEffect(() => {
+        // 1. Time delay trigger (Mobile friendly): ten seconds into the page.
+        // If the cookie banner is still unanswered or a dialog is open at that
+        // moment, the coordinator waits for it to go and then a little longer,
+        // so the pop-up never lands on the tap that closed something else.
+        const cancelTimer = floatingLayers.scheduleTimedPopup({
+            delayMs: 10000,
+            attempt: () => triggerLightbox('timer'),
+        })
 
         // 2. Exit intent trigger (Desktop)
         const handleMouseLeave = (e: MouseEvent) => {
@@ -207,7 +235,7 @@ export function ChristmasLightbox() {
         document.addEventListener('mouseleave', handleMouseLeave)
 
         return () => {
-            clearTimeout(timer)
+            cancelTimer()
             document.removeEventListener('mouseleave', handleMouseLeave)
         }
     }, [triggerLightbox])

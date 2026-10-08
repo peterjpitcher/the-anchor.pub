@@ -3,6 +3,7 @@
 import { useState, useEffect, useId, useMemo, useRef } from 'react'
 import { PrivateBookingConfig, PrivateBookingItem, getPrivateBookingConfig, formatCurrency } from '@/lib/api'
 import { cn } from '@/lib/utils'
+import { londonIsoDate } from '@/lib/time-london'
 import { PrivateBookingInquiryForm } from './PrivateBookingInquiryForm'
 import { useCountdown } from '@/hooks/useCountdown'
 import { trackQuoteToolCompleted, trackQuoteToolStarted } from '@/lib/gtm-events'
@@ -365,7 +366,7 @@ export function PrivateBookingCalculator({
                             type="date"
                             aria-labelledby={`${fieldId}-date-label`}
                             value={selectedDate}
-                            min={new Date(Date.now() + 86400000).toISOString().split('T')[0]}
+                            min={londonIsoDate(new Date(Date.now() + 86400000))}
                             onChange={(e) => {
                                 trackQuoteStartedOnce()
                                 setSelectedDate(e.target.value)
@@ -873,7 +874,10 @@ export function PrivateBookingCalculator({
                     className={cn(
                         'group flex items-center justify-center gap-2 bg-anchor-gold-dark hover:bg-anchor-gold-bright text-white font-bold rounded-pill transition-all',
                         compact
-                            ? 'px-4 py-2 text-sm flex-shrink-0'
+                            // Below 360px it may shrink and its label wraps to two lines. Fixed
+                            // at its one-line width, the label ran 8px past the edge of the
+                            // drawer on a 320px phone (site review LS-012).
+                            ? 'px-4 py-2 text-sm flex-shrink-0 max-[359px]:min-w-0 max-[359px]:shrink max-[359px]:px-3 max-[359px]:text-left max-[359px]:leading-tight'
                             : 'min-w-0 w-full break-words px-6 py-4 text-lg md:w-auto md:px-8'
                     )}
                 >

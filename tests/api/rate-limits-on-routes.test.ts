@@ -32,7 +32,6 @@ const mockApi = {
   getParkingAvailability: jest.fn(),
   getEvent: jest.fn(),
   checkEventAvailability: jest.fn(),
-  cancelTableBooking: jest.fn(),
   getBookingPeriodSafe: jest.fn()
 }
 jest.mock('@/lib/api', () => ({ anchorAPI: mockApi }))
@@ -290,17 +289,6 @@ describe('reads that spend the booking system key', () => {
         const { GET } = await import('@/app/api/table-bookings/periods/route')
         return GET(getRequest('/api/table-bookings/periods?date=2026-11-02&party_size=4', address))
       }
-    },
-    {
-      label: 'table booking cancel',
-      upstream: mockApi.cancelTableBooking,
-      call: async (address = VISITOR) => {
-        const { DELETE } = await import('@/app/api/table-bookings/[reference]/route')
-        const request = getRequest('/api/table-bookings/TB-1', address, { 'x-customer-email': 'guest@example.com' })
-        request.method = 'DELETE'
-        request.json = async () => ({})
-        return DELETE(request, { params: { reference: 'TB-1' } })
-      }
     }
   ]
 
@@ -311,7 +299,6 @@ describe('reads that spend the booking system key', () => {
       mockApi.getEvent.mockResolvedValue({ bookings_enabled: true })
       mockApi.checkEventAvailability.mockResolvedValue({ available: true, remaining_capacity: 20 })
       mockApi.getBookingPeriodSafe.mockResolvedValue({ ok: true, data: null })
-      mockApi.cancelTableBooking.mockResolvedValue({ success: true })
 
       for (let i = 0; i < 20; i += 1) {
         expect((await testCase.call()).status).not.toBe(429)

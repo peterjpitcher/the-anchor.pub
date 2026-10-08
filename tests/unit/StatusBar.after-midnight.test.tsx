@@ -12,10 +12,6 @@ jest.mock('@/hooks/useBusinessHours', () => ({
   useBusinessHours: jest.fn()
 }))
 
-jest.mock('@/hooks/useKitchenStatus', () => ({
-  useKitchenStatus: jest.fn(() => ({ kitchen: null }))
-}))
-
 import { useBusinessHours } from '@/hooks/useBusinessHours'
 
 const weekday = { opens: '12:00:00', closes: '22:00:00', kitchen: null, is_closed: false, is_kitchen_closed: true, schedule_config: [] }

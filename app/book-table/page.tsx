@@ -9,8 +9,8 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT, BUS_WORDING, HEATHROW_TIMES, PARKING, DRIVE_TIMES } from '@/lib/constants'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
-import { StaticHoursSummary } from '@/components/StaticHoursSummary'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
+import { WeekHours } from '@/components/WeekHours'
+import { getBusinessHoursSnapshot } from '@/lib/api'
 import { Section, Button, Grid, Card, CardBody, SectionHeading, Badge } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
@@ -31,12 +31,10 @@ import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
-// Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
-// so the LaunchAnnouncement banner flips reliably at the cutover even on
-// cached pages. See spec §8.5.
-// TODO(post-launch): revert to 60 * 60 * 24 (24 hours) after 22 May 2026, or
-// drop the export entirely if the original was using Next.js' default.
-export const revalidate = 60 * 60 // 1 hour during launch fortnight
+// Set to one hour for the walk-in launch in May 2026 and left as it was when the
+// launch banner was removed (8 October 2026). The page reads its search
+// parameters, so it is rendered on every request and this value has no effect.
+export const revalidate = 60 * 60
 
 // The approved access block, split around the phone number so the number can be
 // a tappable link. The words are untouched.
@@ -92,9 +90,15 @@ function itemPreview(items: MenuPageItem[], limit = 4): MenuPageItem[] {
 }
 
 export default async function BookPage({ searchParams }: BookTablePageProps) {
-  const [foodMenu, sundayMenu, twoScreenFlow] = await Promise.all([
+  const [foodMenu, sundayMenu, businessHours, twoScreenFlow] = await Promise.all([
     getFoodMenuPageData(),
     getSundayLunchMenuPageData(),
+    // The week's hours for the box beside the form, rendered on the server.
+    // The box used to print "live hours are loading from the management
+    // system" and nothing ever replaced it (site review HT-005). The cached
+    // snapshot; null if the management app cannot be reached, which WeekHours
+    // handles.
+    getBusinessHoursSnapshot(),
     // The approved two-screen booking journey, behind the runtime flag AMS
     // holds. Read server-side, cached for 60 seconds, and OFF in every failure
     // mode, so turning it off is a settings change rather than a deploy.
@@ -209,7 +213,6 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4 space-y-3">
-              <LaunchAnnouncement variant="banner" />
               <RegretReduction variant="table" />
             </div>
             <ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} fixtureContext={fixtureContext} fixtureMessage={fixtureMessage} />
@@ -250,7 +253,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               </div>
             </Card>
 
-            <StaticHoursSummary compact />
+            <WeekHours initialHours={businessHours} columns={1} />
 
             <Card className="hidden p-5 lg:block">
               <h3 className="text-base font-semibold text-accent-text mb-3">Why The Anchor?</h3>

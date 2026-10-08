@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+// Run this against the DEVELOPMENT server (`next dev`), not a production build.
+// It finds the sticky bar by its data-testid, and next.config.js strips every
+// data-test attribute from a production build (compiler.reactRemoveProperties).
 const assert=require('node:assert/strict')
 const fs=require('node:fs/promises')
 const {chromium,webkit}=require('playwright')

@@ -55,6 +55,43 @@ const MANAGEMENT_ATTEMPTS = 3
 const MANAGEMENT_TIMEOUT_MS = 8000
 const MANAGEMENT_RETRY_DELAYS_MS = [600, 1500]
 
+/**
+ * Whether another attempt can help, by the code the management app's
+ * create-booking route answers with. A code that is not here leaves the
+ * decision to the HTTP status.
+ *
+ * The one the status could not tell apart is a 409. IN_PROGRESS is our own
+ * earlier attempt still holding the claim, which waiting resolves. CONFLICT is
+ * the same key with a different payload, which no amount of waiting changes.
+ */
+const RETRY_BY_CODE: Record<string, boolean | undefined> = {
+  IDEMPOTENCY_KEY_IN_PROGRESS: true,
+  RATE_LIMIT_EXCEEDED: true,
+  INTERNAL_ERROR: true,
+  IDEMPOTENCY_KEY_CONFLICT: false,
+  VALIDATION_ERROR: false,
+  UNAUTHORIZED: false,
+  FORBIDDEN: false
+}
+
+/**
+ * The stable code from a management app error body, or null. The body arrives
+ * as text because it may be a gateway page; only a short single token is ever
+ * returned, so nothing a person wrote can come back from here.
+ */
+function readUpstreamCode(bodyText: string): string | null {
+  try {
+    const body = JSON.parse(bodyText) as { code?: unknown; error?: unknown } | null
+    const nested = body && typeof body.error === 'object' && body.error !== null
+      ? (body.error as { code?: unknown }).code
+      : undefined
+    const code = typeof body?.code === 'string' ? body.code : typeof nested === 'string' ? nested : null
+    return code && /^[A-Z][A-Z0-9_]{1,63}$/.test(code) ? code : null
+  } catch {
+    return null
+  }
+}
+
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -601,6 +638,8 @@ export async function POST(request: NextRequest) {
     // Kept apart from managementFailureDetail, which goes into the fallback
     // email with a slice of the upstream text and so must never be logged.
     let managementStatus: number | null = null
+    // The stable code that came with that status, when there was one.
+    let managementCode: string | null = null
     // Why the enquiry is not in the management system, for the fallback email.
     // Stays null on success; is always set on any path that skips or fails the
     // management call, so the email can never claim less than the truth.
@@ -672,11 +711,18 @@ export async function POST(request: NextRequest) {
             const errorText = await mgmtResponse.text().catch(() => '')
             managementFailureDetail = `HTTP ${mgmtResponse.status} on attempt ${attempt} of ${MANAGEMENT_ATTEMPTS}: ${errorText.slice(0, 300)}`
 
+            // The management app sends a stable code on this route. Where it is
+            // one we know, the code says whether another go can help; where
+            // there is none, the status does, as before. Only the code is
+            // kept for our records, never the sentence beside it.
+            managementCode = readUpstreamCode(errorText)
+            const retryByCode = managementCode ? RETRY_BY_CODE[managementCode] : undefined
+
             // 5xx may heal on retry. 429 is asking us to retry. 409 means our
             // own earlier attempt still holds the idempotency claim, so waiting
             // and retrying resolves to either its stored success or a clean run.
             // Any other 4xx is a payload problem and retrying cannot fix it.
-            const retryable = mgmtResponse.status >= 500 || mgmtResponse.status === 429 || mgmtResponse.status === 409
+            const retryable = retryByCode ?? (mgmtResponse.status >= 500 || mgmtResponse.status === 429 || mgmtResponse.status === 409)
             if (!retryable) break
           } catch (requestError) {
             const message = requestError instanceof Error ? requestError.message : String(requestError)
@@ -697,8 +743,9 @@ export async function POST(request: NextRequest) {
     if (!managementForwarded) {
       // The enquiry is not in the management app. The guest may still be told
       // it arrived, because the email below carries it to a person, but the
-      // outage itself is reported so it cannot run unnoticed. The status only:
-      // the detail string holds upstream text and stays in the fallback email.
+      // outage itself is reported so it cannot run unnoticed. The status and
+      // the code only: the detail string holds upstream text and stays in the
+      // fallback email.
       await reportFailure({
         route: ROUTE,
         status: managementStatus,
@@ -707,6 +754,7 @@ export async function POST(request: NextRequest) {
           : managementStatus === null
             ? 'NO_RESPONSE'
             : 'UPSTREAM_NOT_OK',
+        upstreamCode: managementCode,
         page
       })
 

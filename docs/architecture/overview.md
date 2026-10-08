@@ -29,7 +29,7 @@ project: the-anchor-pub
 | **Styling** | Tailwind CSS v4, CVA for component variants |
 | **Forms** | React Hook Form + Zod validation |
 | **API** | REST, HTTP-only, proxied through `/api/*` routes |
-| **External APIs** | Management API, PayPal, Microsoft Graph, Google Analytics, Meta Pixel, Cloudflare Turnstile, OpenWeatherMap, AviationStack |
+| **External APIs** | Management API, PayPal, Microsoft Graph, Google Analytics, Meta Pixel, Cloudflare Turnstile, OpenWeatherMap |
 | **Hosting** | Vercel (Next.js deployment) |
 | **DNS** | Cloudflare |
 | **Analytics** | Google Tag Manager, Google Analytics 4, Meta Pixel, Microsoft Clarity |
@@ -71,7 +71,6 @@ All routes follow **one of two patterns**:
 
 ### Public Variables (NEXT_PUBLIC_*)
 
-- `NEXT_PUBLIC_AVIATIONSTACK_API_KEY` — Flight data
 - `NEXT_PUBLIC_CLARITY_PROJECT_ID` — Microsoft Clarity
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` — Google Analytics 4
 - `NEXT_PUBLIC_GTM_ID` — Google Tag Manager
@@ -102,7 +101,6 @@ All routes follow **one of two patterns**:
 | **Meta Pixel** | Booking retargeting |
 | **Cloudflare Turnstile** | CAPTCHA anti-spam |
 | **OpenWeatherMap** | Weather display |
-| **AviationStack** | Heathrow flight data |
 | **CheersAI** | Sports fixtures & conversion webhooks |
 
 ## Server Actions

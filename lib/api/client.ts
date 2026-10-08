@@ -1,6 +1,7 @@
 // AnchorAPI class and anchorAPI singleton
 
 import { logError } from '@/lib/error-handling'
+import { londonIsoDate } from '@/lib/time-london'
 import { toPublicParkingBooking } from './parking'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { computeLargeGroupDepositAmount } from '@/lib/constants'
@@ -18,8 +19,6 @@ import type { BookingPeriodResponse, TableAvailabilityResponse, TableBookingLoad
 import type {
   ParkingRateCard,
   ParkingAvailabilitySlot,
-  ParkingBookingRequest,
-  ParkingBookingResponse,
   ParkingBookingDetails,
   ParkingCreateOrderRequest,
   ParkingCreateOrderResponse,
@@ -404,24 +403,9 @@ export class AnchorAPI {
   }
 
   private getLondonIsoDate(): string {
-    try {
-      const formatter = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'Europe/London',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      })
-
-      const parts = formatter.formatToParts(new Date())
-      const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
-      if (map.year && map.month && map.day) {
-        return `${map.year}-${map.month}-${map.day}`
-      }
-    } catch {
-      // Fall through to UTC format
-    }
-
-    return new Date().toISOString().slice(0, 10)
+    // One helper for London's date. This used to fall back to the UTC date, which
+    // is yesterday in London between midnight and 1am all summer.
+    return londonIsoDate()
   }
 
   private mapSundayLunchMenuFromMenu(menu: MenuResponse, menuDate: string): SundayLunchMenuResponse | null {
@@ -764,9 +748,12 @@ export class AnchorAPI {
       requestHeaders: Record<string, string>,
       daysAgo: number
     ): Promise<Event[]> => {
-      const fromDate = new Date()
+      // London's date, stepped back at UTC noon so neither the server's zone nor
+      // a clock change can move it to another day. It was the UTC date, a day
+      // behind London between midnight and 1am in summer.
+      const fromDate = new Date(`${londonIsoDate()}T12:00:00Z`)
       if (daysAgo > 0) {
-        fromDate.setDate(fromDate.getDate() - daysAgo)
+        fromDate.setUTCDate(fromDate.getUTCDate() - daysAgo)
       }
 
       const query = new URLSearchParams({
@@ -882,8 +869,6 @@ export class AnchorAPI {
         idOrSlug: lookupValue
       })
     }
-
-    console.log('Fetching event from events list for capacity data')
 
     for (const daysAgo of searchWindows) {
       try {
@@ -1230,10 +1215,10 @@ export class AnchorAPI {
     idempotencyKey?: string
   ): Promise<TableBookingResponse> {
     const payload = this.toManagementTableBookingPayload(data)
-    const endpoint =
-      typeof window === 'undefined'
-        ? '/table-bookings'
-        : '/table-bookings/create'
+    // Always the management endpoint. A browser branch used to post to a
+    // website alias, /api/table-bookings/create, which nothing called; the form
+    // posts to /api/table-bookings and that route calls this on the server.
+    const endpoint = '/table-bookings'
 
     const key =
       idempotencyKey ||
@@ -1270,21 +1255,6 @@ export class AnchorAPI {
       message: 'Invalid table booking response from API',
       status: 502,
       details: unwrapped
-    }
-  }
-
-  async cancelTableBooking(
-    reference: string,
-    options?: { reason?: string; customerEmail?: string }
-  ): Promise<{ success: boolean; message: string }> {
-    throw {
-      code: 'NOT_SUPPORTED',
-      message: 'Booking cancellation by reference is not available in the current management API.',
-      status: 501,
-      details: {
-        reference: reference || null,
-        hasCustomerEmail: Boolean(options?.customerEmail)
-      }
     }
   }
 
@@ -1327,19 +1297,6 @@ export class AnchorAPI {
     return this.request<ParkingAvailabilitySlot[]>(endpoint, {
       next: { revalidate: 0 }
     } as RequestInit)
-  }
-
-  async createParkingBooking(data: ParkingBookingRequest, idempotencyKey?: string): Promise<ParkingBookingResponse> {
-    const headers: Record<string, string> = {}
-    if (idempotencyKey) {
-      headers['Idempotency-Key'] = idempotencyKey
-    }
-
-    return this.request<ParkingBookingResponse>('/parking/bookings', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers
-    })
   }
 
   async getParkingBooking(id: string): Promise<ParkingBookingDetails> {
