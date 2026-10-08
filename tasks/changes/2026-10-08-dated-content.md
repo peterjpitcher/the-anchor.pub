@@ -72,7 +72,9 @@ Every page is rebuilt at most five minutes after a visit (checked in the build's
 
 - `npm run lint:next`: no warnings or errors.
 - `npx tsc --noEmit`: clean.
-- `npm test` (Europe/London): 289 suites, 4,820 tests passed, 1 skipped.
-- `npm run test:utc`: 289 suites, 4,820 tests passed, 1 skipped.
+Run after bringing the branch up to date with main (merge of PR #217):
+
+- `npm test` (Europe/London): 294 suites, 4,934 tests passed, 1 skipped.
+- `npm run test:utc`: 294 suites, 4,934 tests passed, 1 skipped.
 - `npm run build`: passed.
 - `npx jest tests/ssot-drift-guard.test.ts`: 87 passed.
