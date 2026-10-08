@@ -195,7 +195,7 @@ Here's everything in one place, in the order you need to do it:
 
 If you're thinking about a surprise birthday party near Heathrow, Stanwell Moor, Staines, or the surrounding area, we'd love to help you pull it off. Our events coordinator has managed enough surprise parties to know exactly what works (and what doesn't), and we'll handle the logistics so you can focus on keeping the secret.
 
-Give us a call on [01753 682707](tel:01753682707) or visit our [milestone birthdays page](/private-hire/milestone-birthdays) to see our packages. We'll hold a date while you get your guest list together -- no deposit needed until you're ready to confirm.
+Give us a call on [01753 682707](tel:01753682707) or visit our [milestone birthdays page](/private-hire/milestone-birthdays) to see our packages. We'll hold a date while you get your guest list together.
 
 The Anchor is at Horton Road, Stanwell Moor, Surrey, TW19 6AQ. Free parking for all guests. Two minutes from Junction 14 of the M25.
 

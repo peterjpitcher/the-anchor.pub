@@ -112,7 +112,7 @@ If you are comparing costs by terminal, use these dedicated pages:
 
 1. Visit the [Heathrow parking booking page](/heathrow-parking) and pick your arrival/departure times.
 2. Enter driver and vehicle details. This powers automated SMS confirmations.
-3. Pay with PayPal (or Apple/Google Pay via PayPal). Your receipt arrives instantly.
+3. Pay by PayPal or card. Your receipt arrives instantly.
 4. On the day, park in The Anchor’s car park, keep your keys and head inside if you fancy refreshments.
 5. Arrange a taxi or rideshare to your terminal (7–12 minutes). The daytime 442 bus stops outside the pub.
 
