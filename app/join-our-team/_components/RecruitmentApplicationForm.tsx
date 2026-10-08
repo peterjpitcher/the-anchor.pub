@@ -463,7 +463,13 @@ export function RecruitmentApplicationForm({
             onChange={(event) => setFutureRecruitmentConsent(event.target.checked)}
             className="mt-1 h-4 w-4 rounded border-line-strong bg-surface text-accent-text focus:ring-accent-text"
           />
-          <span>I agree for The Anchor to keep my details for future suitable roles.</span>
+          {/* Owner, 8 October 2026 (docs/SSOT.md section 2, Jobs): the tick is
+              covered by the same 12 months as any unsuccessful application.
+              The privacy policy, section 3, says the same. */}
+          <span>
+            I agree for The Anchor to keep my details for future suitable roles. We keep them for 12 months, then
+            delete them.
+          </span>
         </label>
 
         {TURNSTILE_SITE_KEY ? (

@@ -12,6 +12,8 @@
  * If one of those changes, change the notice and this test with it.
  */
 
+import fs from 'fs'
+import path from 'path'
 import { render } from '@testing-library/react'
 import PrivacyPolicyPage from '@/app/privacy-policy/page'
 
@@ -60,5 +62,22 @@ describe("the privacy notice and the owner's answers of 8 October 2026", () => {
 
     expect(text).toContain('Orange Jelly Limited, a small business based in Stanwell Moor, is the business responsible')
     expect(text).not.toMatch(/company (number|no\.?)|registered (office|in|address)/i)
+  })
+})
+
+describe('the future roles tick on the job application form', () => {
+  // Read from the source: the form is a client component behind a bot check,
+  // and the words beside the tick are fixed text, not state.
+  const FORM = fs
+    .readFileSync(path.join(process.cwd(), 'app/join-our-team/_components/RecruitmentApplicationForm.tsx'), 'utf8')
+    .replace(/\s+/g, ' ')
+
+  it('says, beside the tick, that the details are kept for 12 months', () => {
+    const tick = FORM.slice(FORM.indexOf('name="future_recruitment_consent"'))
+    const label = tick.slice(0, tick.indexOf('</label>'))
+
+    expect(label).toContain(
+      'I agree for The Anchor to keep my details for future suitable roles. We keep them for 12 months, then delete them.'
+    )
   })
 })
