@@ -41,8 +41,8 @@ describe('the privacy notice on event bookings', () => {
     const line = screen.getByText(
       'When you book an event on our website, we record which of our web pages you booked from, and we keep it with your booking.'
     )
-    const heading = screen.getByRole('heading', { level: 3, name: 'Information Automatically Collected' })
-    const next = screen.getByRole('heading', { level: 2, name: '3. Job Applications' })
+    const heading = screen.getByRole('heading', { level: 3, name: 'What we collect automatically' })
+    const next = screen.getByRole('heading', { level: 2, name: '3. Job applications' })
 
     expect(follows(heading, line)).toBe(true)
     expect(follows(line, next)).toBe(true)
@@ -59,11 +59,11 @@ describe('the privacy notice on marketing cookies', () => {
     return list
   }
 
-  it('puts the account under Marketing Cookies, before Preference Cookies', () => {
+  it('puts the account under Marketing Cookies, before the next heading', () => {
     render(<PrivacyPolicyPage />)
 
-    const heading = screen.getByRole('heading', { level: 4, name: 'Marketing Cookies' })
-    const next = screen.getByRole('heading', { level: 4, name: 'Preference Cookies' })
+    const heading = screen.getByRole('heading', { level: 4, name: 'Marketing cookies' })
+    const next = screen.getByRole('heading', { level: 3, name: 'Maps and videos' })
     const list = marketingList()
 
     expect(follows(heading, list)).toBe(true)
@@ -127,7 +127,7 @@ describe('the privacy notice on marketing cookies', () => {
       )
     ).toBeInTheDocument()
 
-    const heading = screen.getByRole('heading', { level: 2, name: '6. Third-Party Services' })
+    const heading = screen.getByRole('heading', { level: 2, name: '6. Who else handles your information' })
     const entry = screen.getByText('LinkedIn')
     expect(follows(heading, entry)).toBe(true)
     expect(entry.closest('li')).toHaveTextContent('Advertising tag, only if you accept marketing cookies')
@@ -136,7 +136,7 @@ describe('the privacy notice on marketing cookies', () => {
   it('lists Meta among the third-party services', () => {
     render(<PrivacyPolicyPage />)
 
-    const heading = screen.getByRole('heading', { level: 2, name: '6. Third-Party Services' })
+    const heading = screen.getByRole('heading', { level: 2, name: '6. Who else handles your information' })
     const entry = screen.getByText('Meta (Facebook and Instagram)')
     expect(follows(heading, entry)).toBe(true)
     expect(entry.closest('li')).toHaveTextContent('Advert measurement, only if you accept marketing cookies')
@@ -154,8 +154,8 @@ describe('the privacy notice on marketing cookies', () => {
       "If you switch analytics or marketing cookies off, we delete them from your browser. We can't delete the cookies that Google, Microsoft, Meta and LinkedIn keep for their own websites. You can clear those in your browser settings."
     )
 
-    const heading = screen.getByRole('heading', { level: 3, name: 'Managing Cookies' })
-    const next = screen.getByRole('heading', { level: 2, name: '6. Third-Party Services' })
+    const heading = screen.getByRole('heading', { level: 3, name: 'Managing cookies' })
+    const next = screen.getByRole('heading', { level: 2, name: '6. Who else handles your information' })
     expect(follows(heading, line)).toBe(true)
     expect(follows(line, next)).toBe(true)
   })

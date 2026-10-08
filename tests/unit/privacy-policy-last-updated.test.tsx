@@ -119,7 +119,7 @@ describe('privacy notice wording guard', () => {
 
     // The whole notice, first section to last. If the date line ever moves
     // into a wrapper of its own, this fails rather than fingerprinting nothing.
-    expect(words).toContain('1. Introduction')
+    expect(words).toContain('1. Who we are')
     expect(words).toContain('12. Complaints')
     expect(words).not.toContain('Last updated:')
 

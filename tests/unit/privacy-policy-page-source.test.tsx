@@ -34,9 +34,9 @@ describe('the privacy notice', () => {
   it('puts the line under what is collected automatically, before the next section', () => {
     render(<PrivacyPolicyPage />)
 
-    const heading = screen.getByRole('heading', { level: 3, name: 'Information Automatically Collected' })
+    const heading = screen.getByRole('heading', { level: 3, name: 'What we collect automatically' })
     const line = screen.getByText(/we record which of our web pages and adverts you came from/)
-    const next = screen.getByRole('heading', { level: 2, name: '3. Job Applications' })
+    const next = screen.getByRole('heading', { level: 2, name: '3. Job applications' })
 
     expect(heading.compareDocumentPosition(line) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
     expect(line.compareDocumentPosition(next) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
@@ -45,7 +45,7 @@ describe('the privacy notice', () => {
   it('keeps the rest of the notice', () => {
     render(<PrivacyPolicyPage />)
 
-    for (const name of ['1. Introduction', '2. Information We Collect', '5. Cookie Policy', '8. Your Rights', '12. Complaints']) {
+    for (const name of ['1. Who we are', '2. What we collect', '5. Cookies and browser storage', '9. Your rights', '12. Complaints']) {
       expect(screen.getByRole('heading', { level: 2, name })).toBeInTheDocument()
     }
   })

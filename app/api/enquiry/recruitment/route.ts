@@ -6,6 +6,13 @@ import { checkSpamProtection } from '@/lib/spam-protection'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
 
+// Which privacy notice the applicant was shown beside the form
+// (RecruitmentApplicationForm.tsx). It moved on 8 October 2026, when the form
+// began saying that applications are kept in the management system and read by
+// an AI service. The management app stores this as sent. Change the notice,
+// change this.
+const JOIN_OUR_TEAM_PRIVACY_NOTICE_VERSION = 'join-our-team-2026-10-08'
+
 const ROUTE = 'api/enquiry/recruitment'
 
 export const runtime = 'nodejs'
@@ -325,7 +332,7 @@ async function proxyToManagementApi(
   upstreamForm.set('privacy_consent', 'true')
   upstreamForm.set('sms_consent', payload.smsConsent === 'yes' ? 'true' : 'false')
   upstreamForm.set('future_recruitment_consent', payload.futureRecruitmentConsent === 'yes' ? 'true' : 'false')
-  appendIfPresent(upstreamForm, 'privacy_notice_version', 'join-our-team-2026-06-07')
+  appendIfPresent(upstreamForm, 'privacy_notice_version', JOIN_OUR_TEAM_PRIVACY_NOTICE_VERSION)
   // The applicant's Turnstile token is NOT sent upstream. It was minted by this
   // site's widget and has already been verified in POST with this site's
   // secret (checkSpamProtection). The management app holds a different widget's
