@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import type { FormEvent } from 'react'
 import { Button } from '../Button'
 
 describe('Button', () => {
@@ -99,17 +100,72 @@ describe('Button', () => {
   it('handles click events', async () => {
     const handleClick = jest.fn()
     render(<Button onClick={handleClick}>Click me</Button>)
-    
+
     await userEvent.click(screen.getByRole('button'))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
   it('shows loading state correctly', () => {
     render(<Button loading>Loading</Button>)
-    
-    expect(screen.getByRole('button')).toBeDisabled()
+
+    // Busy and unavailable, but not `disabled`: a disabled button loses
+    // keyboard focus the moment it is pressed (site review AX-011).
+    expect(screen.getByRole('button')).not.toBeDisabled()
+    expect(screen.getByRole('button')).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByRole('button')).toHaveAttribute('aria-busy', 'true')
     expect(screen.getByRole('button')).toHaveTextContent('Loading...')
     expect(screen.getByRole('button').querySelector('svg')).toHaveClass('animate-spin')
+  })
+
+  it('keeps keyboard focus while loading and ignores a press', async () => {
+    const user = userEvent.setup()
+    const handleClick = jest.fn()
+    const { rerender } = render(<Button onClick={handleClick}>Find a table</Button>)
+    const button = screen.getByRole('button')
+    button.focus()
+
+    rerender(<Button onClick={handleClick} loading>Find a table</Button>)
+    expect(button).toHaveFocus()
+
+    await user.keyboard('{Enter}')
+    await user.click(button)
+    expect(handleClick).not.toHaveBeenCalled()
+
+    rerender(<Button onClick={handleClick}>Find a table</Button>)
+    expect(button).toHaveFocus()
+    expect(button).not.toHaveAttribute('aria-disabled')
+    expect(button).not.toHaveAttribute('aria-busy')
+    await user.click(button)
+    expect(handleClick).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not submit its form while loading, by a press or by Enter in a field', async () => {
+    const user = userEvent.setup()
+    const handleSubmit = jest.fn((event: FormEvent) => event.preventDefault())
+    render(
+      <form onSubmit={handleSubmit}>
+        <input aria-label="Name" />
+        <Button type="submit" loading>Send</Button>
+      </form>
+    )
+
+    await user.click(screen.getByRole('button'))
+    await user.type(screen.getByLabelText('Name'), 'Jane{Enter}')
+    expect(handleSubmit).not.toHaveBeenCalled()
+  })
+
+  it('submits its form once it is no longer loading', async () => {
+    const user = userEvent.setup()
+    const handleSubmit = jest.fn((event: FormEvent) => event.preventDefault())
+    render(
+      <form onSubmit={handleSubmit}>
+        <input aria-label="Name" />
+        <Button type="submit">Send</Button>
+      </form>
+    )
+
+    await user.click(screen.getByRole('button'))
+    expect(handleSubmit).toHaveBeenCalledTimes(1)
   })
 
   it('disables button when disabled prop is true', () => {
@@ -120,10 +176,10 @@ describe('Button', () => {
   it('renders with icon on the left', () => {
     const icon = <span data-testid="icon">→</span>
     render(<Button icon={icon} iconPosition="left">With Icon</Button>)
-    
+
     const button = screen.getByRole('button')
     const iconElement = screen.getByTestId('icon')
-    
+
     expect(button).toContainElement(iconElement)
     expect(iconElement.parentElement).toHaveClass('mr-2')
   })
@@ -131,10 +187,10 @@ describe('Button', () => {
   it('renders with icon on the right', () => {
     const icon = <span data-testid="icon">→</span>
     render(<Button icon={icon} iconPosition="right">With Icon</Button>)
-    
+
     const button = screen.getByRole('button')
     const iconElement = screen.getByTestId('icon')
-    
+
     expect(button).toContainElement(iconElement)
     expect(iconElement.parentElement).toHaveClass('ml-2')
   })
@@ -147,7 +203,7 @@ describe('Button', () => {
   it('forwards ref correctly', () => {
     const ref = jest.fn()
     render(<Button ref={ref}>Button</Button>)
-    
+
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLButtonElement))
   })
 
@@ -166,7 +222,7 @@ describe('Button', () => {
         Submit
       </Button>
     )
-    
+
     const button = screen.getByRole('button')
     expect(button).toHaveAttribute('type', 'submit')
     expect(button).toHaveAttribute('form', 'test-form')
@@ -194,7 +250,7 @@ describe('Button', () => {
         <a href="#test">Link Button</a>
       </Button>
     )
-    
+
     await userEvent.click(screen.getByRole('link', { name: 'Link Button' }))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })

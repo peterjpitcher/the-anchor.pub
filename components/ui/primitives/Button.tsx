@@ -21,7 +21,7 @@ const buttonVariants = cva(
   // Base styles — pill shape, Outfit 600, centred inline-flex with a 2px transparent
   // border so variants that add a border do not shift layout. Lift on hover, settle on
   // active, and never transform whilst disabled (design system spec §4.1).
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill border-2 border-transparent font-sans font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill border-2 border-transparent font-sans font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:translate-y-0',
   {
     variants: {
       variant: {
@@ -94,6 +94,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     disabled = false,
     testId,
     asChild = false,
+    onClick,
     ...props
   }, ref) => {
     const isDisabled = disabled || loading
@@ -152,19 +153,41 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           'aria-disabled': isDisabled,
           'data-testid': testId,
           className: mergedClassName,
+          // Only when the caller gave one: an undefined here would wipe out
+          // the child's own handler.
+          ...(onClick ? { onClick } : {}),
           ...props
         },
         content(child.props.children)
       )
     }
 
+    // A loading button is busy, not gone. With the `disabled` attribute the
+    // browser took keyboard focus off it the moment it was pressed, so after
+    // 'Find a table' a keyboard or screen reader user was left on the page body
+    // with nothing announced (site review AX-011, 7 October 2026). While
+    // loading it now keeps focus, says it is busy and unavailable, and does
+    // nothing when pressed: the click is cancelled before the handler or the
+    // form sees it, which also covers Enter in a field of the same form.
+    const handleClick: ButtonHTMLAttributes<HTMLButtonElement>['onClick'] = (event) => {
+      if (loading) {
+        event.preventDefault()
+        event.stopPropagation()
+        return
+      }
+      onClick?.(event)
+    }
+
     return (
       <button
         ref={ref}
-        disabled={isDisabled}
+        disabled={disabled}
+        aria-disabled={loading || undefined}
+        aria-busy={loading || undefined}
         data-testid={testId}
         className={baseClassName}
         {...props}
+        onClick={handleClick}
       >
         {content(children)}
       </button>
