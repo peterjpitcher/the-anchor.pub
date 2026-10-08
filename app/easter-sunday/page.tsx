@@ -1,3 +1,5 @@
+import { OccasionMenuNotice, occasionMenuLine } from '@/components/seasonal/OccasionMenuNotice'
+import { getEasterSunday, nextOccurrence, formatOccasionLabel } from '@/lib/recurring-dates'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -25,8 +27,10 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 //
 // Easter Sunday 2027 falls on Sunday 28 March 2027. Easter is set by the
 // ecclesiastical calendar, not by us, so this date is fixed, not a choice.
-const EASTER_SUNDAY_LABEL = 'Sunday 28 March 2027'
-const EASTER_SUNDAY_DATE = '2027-03-28'
+// Worked out, not typed, so the morning after Easter the page moves on to next
+// year's date by itself (lib/recurring-dates.ts).
+const EASTER_SUNDAY_DATE = nextOccurrence(getEasterSunday)
+const EASTER_SUNDAY_LABEL = formatOccasionLabel(EASTER_SUNDAY_DATE)
 const EASTER_SUNDAY_SERVICE_WINDOW = '1pm to 6pm'
 const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
 const EASTER_BOOKING_URL = '/book-table'
@@ -82,8 +86,7 @@ export default function EasterSundayPage() {
     },
     {
       question: 'What is on the Easter Sunday menu?',
-      answer:
-        'Our Easter Sunday menu is our regular Sunday roast: roast beef, roast pork, roast turkey or a vegan wellington, all cooked from scratch. Current dishes and prices are live on our Sunday roast menu.'
+      answer: occasionMenuLine('Easter Sunday')
     },
     {
       question: 'Are you open over the Easter weekend and on Easter Monday?',
@@ -96,63 +99,10 @@ export default function EasterSundayPage() {
     }
   ]
 
-  const easterEventSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    '@id': `${WEBSITE_ORIGIN}/easter-sunday#event`,
-    name: 'Easter Sunday Roast at The Anchor',
-    description:
-      'Family-friendly Easter Sunday roast at The Anchor in Stanwell Moor (TW19), near Heathrow Terminal 5. Sunday roast from the current menu, cooked from scratch and served ' + EASTER_SUNDAY_SERVICE_WINDOW + '. Walk in or book ahead. Dog-friendly beer garden, free parking.',
-    startDate: `${EASTER_SUNDAY_DATE}T13:00:00+01:00`,
-    endDate: `${EASTER_SUNDAY_DATE}T18:00:00+01:00`,
-    eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    location: {
-      '@type': 'Place',
-      name: 'The Anchor',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: CONTACT.address.street,
-        addressLocality: CONTACT.address.town,
-        addressRegion: CONTACT.address.county,
-        postalCode: CONTACT.address.postcode,
-        addressCountry: CONTACT.address.country
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: CONTACT.coordinates.lat,
-        longitude: CONTACT.coordinates.lng
-      }
-    },
-    organizer: {
-      '@type': 'Organization',
-      name: 'The Anchor',
-      url: WEBSITE_ORIGIN,
-      telephone: CONTACT.phoneIntl,
-      email: CONTACT.email
-    },
-    // No `offers` block on purpose. Search Console asked for price and
-    // priceCurrency here, and the honest answer is that there is no fixed
-    // Easter package to price: it is the normal Sunday roast on a particular
-    // Sunday, charged from the live menu. Adding a zero price, or a made-up
-    // one, to clear a warning would be a false offer. See the GSC audit,
-    // 17 Aug 2026, "Correct event schema lifecycle and offers".
-    image: [
-      `${WEBSITE_ORIGIN}${DEFAULT_SUNDAY_LUNCH_IMAGE}`,
-      `${WEBSITE_ORIGIN}${DEFAULT_FOOD_IMAGE}`,
-      `${WEBSITE_ORIGIN}${DEFAULT_DRINKS_IMAGE}`
-    ],
-    url: `${WEBSITE_ORIGIN}/easter-sunday`
-  }
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdSafeStringify(easterEventSchema)
-        }}
-      />
+      {/* No Event structured data. What runs on the day is confirmed nearer the
+          time (owner, 7 October 2026), so there is no event to describe yet. */}
 
       <InteriorHero
         image={DEFAULT_SUNDAY_LUNCH_IMAGE}
@@ -161,6 +111,8 @@ export default function EasterSundayPage() {
         title="Easter Sunday Roast at The Anchor"
         lead={`Gather the family for a proper Easter Sunday roast in the heart of Stanwell Moor. Cooked from scratch, served ${EASTER_SUNDAY_SERVICE_WINDOW}, near Heathrow Terminal 5. Walk in or book ahead, with free parking and a dog-friendly beer garden.`}
       />
+
+      <OccasionMenuNotice occasion="Easter Sunday" />
 
       {/* Easter Sunday roast */}
       <section className="py-section-y bg-surface">
