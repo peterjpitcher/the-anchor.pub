@@ -48,7 +48,7 @@ The beauty of this one is the build-up. Everyone gathers round, someone counts d
 
 Handheld confetti cannons loaded with pink or blue tissue paper confetti. Give one to each guest so the whole group fires together on the count. The visual impact of twenty cannons going off simultaneously is genuinely impressive -- far better than a single pop.
 
-**Practical tip:** Go for biodegradable confetti if you're outdoors. Most venues (including us) appreciate not having to pick metallic plastic out of the flower beds for the next fortnight. Budget around £3-5 per cannon, and order extras -- someone will always fire theirs early by accident.
+**Practical tip:** Go for biodegradable confetti if you're outdoors. Check with your venue first: we don't allow confetti cannons or confetti balloons at The Anchor. Budget around £3-5 per cannon, and order extras -- someone will always fire theirs early by accident.
 
 ### Cake Reveal
 
@@ -136,7 +136,7 @@ We host gender reveals regularly, and there are specific reasons parents keep ch
 
 Sixty-four seats across a proper beer garden with plenty of standing room for larger groups. Open sky above -- and if you're timing it right, aircraft coming into land at Heathrow every 90 seconds overhead at about 500-800 feet. It's a genuinely unique backdrop for photos that your guests will talk about long after the party.
 
-The garden connects to the dining room through French doors, so your indoor-outdoor flow works seamlessly. For a messy reveal (smoke cannons, confetti, powder), the garden gives you all the space you need without worrying about the cleanup affecting other diners.
+The garden connects to the dining room through French doors, so your indoor-outdoor flow works seamlessly. For a smoke cannon reveal, the garden gives you the space you need, well away from buildings and fencing. Confetti cannons and confetti balloons aren't allowed.
 
 ### The dining room (your weather backup)
 
@@ -217,7 +217,7 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 
 ### Can I do a smoke cannon or confetti reveal at The Anchor?
 
-Yes -- the beer garden has plenty of space for smoke cannons, confetti, coloured powder, and balloon releases. We host messy reveals regularly and we're set up for it. For indoor reveals (weather backup), stick to balloon box or cake reveals.
+Smoke cannons, yes: in the garden only, and well away from buildings and fencing. Confetti cannons and confetti balloons aren't allowed. For indoor reveals (weather backup), stick to balloon box or cake reveals.
 
 ### Is The Anchor suitable for a gender reveal with young children?
 

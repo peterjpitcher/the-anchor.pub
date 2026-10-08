@@ -83,7 +83,7 @@ Free parking is available for those with rental cars (postcode **TW19 6AQ**).
 ### Return Transport
 - Uber and local taxis are reliable from Stanwell Moor
 - Journey back to any Heathrow hotel takes 7–15 minutes
-- Staff can help call a taxi if needed
+- Ask at the bar for a taxi number, then make your own arrangements
 
 ## Is It Worth the Short Journey?
 

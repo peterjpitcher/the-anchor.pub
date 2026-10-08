@@ -325,7 +325,7 @@ export default function BabyShowersPage() {
                     },
                     {
                         question: "Can we bring a cake?",
-                        answer: "Yes, you are welcome to bring your own cake. We'll keep it safe in the kitchen until you are ready, and provide plates, a knife, and napkins."
+                        answer: "Yes, you are welcome to bring your own cake. We'll keep it safe in the kitchen until you are ready, and provide plates, a knife, and napkins. We'll ask whoever brings it to sign our outside-food waiver."
                     },
                     {
                         question: "Is the venue suitable for a gender reveal during the shower?",

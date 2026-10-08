@@ -70,7 +70,7 @@ The [menu](/food-menu) covers proper British pub food without trying to be somet
 
 **Burgers:** Classic beef, chicken, spicy chicken, or garden veg, plus bigger stacks. Build your own with extras
 
-**Comfort food:** Lasagne, mac and cheese (V), chicken katsu curry, spinach and ricotta cannelloni (V)
+**Comfort food:** Lasagne, chicken katsu curry, spinach and ricotta cannelloni (V)
 
 **Pizzas:** Full pizza menu available, good for sharing or a lighter option
 
@@ -262,7 +262,7 @@ Terminal 5 is the best-served terminal for nearby pubs. The Anchor in Stanwell M
 
 ### Is there good vegetarian pub food near Heathrow?
 
-Yes. [The Anchor's menu](/food-menu) includes a garden veg burger, mac and cheese, spinach and ricotta cannelloni, and a butternut squash, mixed bean and mature cheddar pie. Most pubs on this list have at least 2-3 vegetarian options. Vegan options are more limited, call ahead if you need strictly vegan.
+Yes. [The Anchor's menu](/food-menu) includes a garden veg burger, spinach and ricotta cannelloni, and a butternut squash, mixed bean and mature cheddar pie. Most pubs on this list have at least 2-3 vegetarian options. Vegan options are more limited, call ahead if you need strictly vegan.
 
 ---
 

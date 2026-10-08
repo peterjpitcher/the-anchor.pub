@@ -441,7 +441,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         title: 'Equipped for working sessions',
-                        content: 'The private dining room has TVs and a sound system for presentations, plus a relaxed atmosphere for the social side. There is no projector, but the screens handle slides and video well.',
+                        content: 'The private dining room has a TV and a sound system for presentations, plus a relaxed atmosphere for the social side. There is no projector, but the TV handles slides and video well.',
                     },
                 ],
                 narrative: {
@@ -461,7 +461,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is there free WiFi and somewhere to present?',
-                        answer: 'Yes. There is free WiFi throughout the venue, and the private dining room has TVs and a sound system for presentations and video. We do not have a projector, but the screens handle slides well.',
+                        answer: 'Yes. There is free WiFi throughout the venue, and the private dining room has a TV and a sound system for presentations and video. We do not have a projector, but the TV handles slides well.',
                     },
                     {
                         question: 'What kinds of corporate events do you host?',
@@ -506,7 +506,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         title: 'Set up for a club night',
-                        content: 'The private dining room has TVs and a sound system for presentations and trophy nights, with a relaxed bar and garden for the social side. Live sport is shown on terrestrial channels.',
+                        content: 'The private dining room has a TV and a sound system for presentations and trophy nights, with a relaxed bar and garden for the social side. Live sport is shown on terrestrial channels.',
                     },
                 ],
                 narrative: {
@@ -526,7 +526,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Can we hold a presentation or awards night?',
-                        answer: 'Yes. The private dining room has TVs and a sound system for presentations and trophy nights. We do not have a projector, but the screens handle slides and video well.',
+                        answer: 'Yes. The private dining room has a TV and a sound system for presentations and trophy nights. We do not have a projector, but the TV handles slides and video well.',
                     },
                     {
                         question: 'What kinds of club events do you host?',

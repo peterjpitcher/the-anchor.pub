@@ -187,7 +187,7 @@ export default function EngagementPartiesPage() {
                                 Hotel function rooms are expensive. Home parties mean you&apos;re cleaning up at midnight. A pub engagement party gives you the atmosphere, the catering, and the bar, without the aftermath.
                             </p>
                             <p>
-                                At The Anchor, your engagement party feels like a celebration, not a corporate event. Your guests can spread between the dining room and the beer garden, order from the bar at their own pace, and stay as late as the evening takes them. There&apos;s no ticking clock and no room turnover pressure.
+                                At The Anchor, your engagement party feels like a celebration, not a corporate event. Your guests can spread between the dining room and the beer garden and order from the bar at their own pace. A finish after 10pm is by arrangement, so tell us the times you have in mind.
                             </p>
                             <p>
                                 We&apos;re a proper village pub in Stanwell Moor, not a chain venue. Our events coordinator works with you to get the details right, from the welcome prosecco to the food service timing, so you can focus on enjoying the night.
@@ -283,7 +283,7 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "Can we bring a cake?",
-                        answer: "Please do! We'll store it in our kitchen until you're ready. We can provide plates, napkins, and a knife for cutting. Let us know when you want it brought out and we'll time it perfectly."
+                        answer: "Please do! We'll store it in our kitchen until you're ready. We can provide plates, napkins, and a knife for cutting. Let us know when you want it brought out and we'll time it perfectly. We'll ask whoever brings it to sign our outside-food waiver."
                     },
                     {
                         question: "Is there parking for engagement party guests?",

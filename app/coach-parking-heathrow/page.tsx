@@ -48,7 +48,7 @@ export default function CoachParkingPage() {
                             The Perfect Stop for Tour Groups
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Need a pub near Heathrow for a coach group? The Anchor has a large, accessible car park, space for groups of up to 20 to sit together, and menus that can be planned around your schedule. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early. Our private dining room can fit up to 26 people. Larger groups of around 50 can be hosted across the pub, but they would be spread between areas rather than seated all together.
+                            Need a pub near Heathrow for a coach group? A small coach fits in our car park. A full-size coach needs to park on the main road, where it&apos;s safe to. We have space for groups of up to 20 to sit together, and menus that can be planned around your schedule. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early. Our private dining room can fit up to 26 people. Larger groups of around 50 can be hosted across the pub, but they would be spread between areas rather than seated all together.
                         </p>
                     </div>
                 </Container>
@@ -82,8 +82,8 @@ export default function CoachParkingPage() {
                             <div className="flex flex-col gap-4">
                                 <Card accent>
                                     <CardBody className="p-5">
-                                        <h3 className="text-lg font-semibold text-ink-strong">Large Car Park</h3>
-                                        <p className="mt-2 text-sm text-ink-muted">Parking is dependent on availability, and we cannot reserve spaces. Please arrive early, especially at busy times.</p>
+                                        <h3 className="text-lg font-semibold text-ink-strong">Coach Parking</h3>
+                                        <p className="mt-2 text-sm text-ink-muted">A small coach fits in our car park. A full-size coach needs to park on the main road, where it&apos;s safe to. Parking is dependent on availability, and we cannot reserve spaces. Please arrive early, especially at busy times.</p>
                                     </CardBody>
                                 </Card>
                                 <Card accent>
@@ -134,7 +134,7 @@ export default function CoachParkingPage() {
                 faqs={[
                     {
                         question: "Do we need to book in advance?",
-                        answer: "For coaches, yes, absolutely. We need advance notice so we can prepare staff and tables for your group. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early."
+                        answer: "For coaches, yes, absolutely. We need advance notice so we can prepare staff and tables for your group. A small coach fits in our car park. A full-size coach needs to park on the main road, where it's safe to. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early."
                     },
                     {
                         question: "Is there a maximum group size?",

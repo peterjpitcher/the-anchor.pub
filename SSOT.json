@@ -81,11 +81,13 @@
     "access": {
       "near_m25": "2 minutes from M25 Junction 14",
       "bus_routes": [
-        "441",
-        "442",
-        "555"
+        "442"
       ],
-      "bus_station": "Heathrow Central Bus Station",
+      "bus_boards_at": "Heathrow Terminal 5",
+      "bus_stop": "Horton Road, by the pub",
+      "bus_note": "Corrected 2026-10-08 against Surrey County Council's timetables (read 2026-10-07). The 441 and the 555 do not come to Stanwell Moor, so never name them. Never state a fare, a frequency, a journey time or a last bus time.",
+      "taxis": "The bar team will give a taxi number; customers make their own arrangements (owner-confirmed 2026-10-07).",
+      "taxis_note": "Never say we book, call, arrange or keep a taxi for anyone.",
       "outside_ulez": true,
       "ulez_saving": "Never quote a figure. Whether a driver pays depends on their vehicle and route (owner decision, 10 September 2026, SSOT §14)."
     }
@@ -239,8 +241,20 @@
       "free_spaces": 20,
       "RESOLVED": "Confirmed 2026-03-22: 20 is correct. Verified 2026-08-15: lib/schema.ts ParkingFacility numberOfSpaces already reads 20 and every page states 20. No outstanding action.",
       "description": "Free on-site parking for pub guests. No fees, no time limit while visiting. Level surface, close to entrance. CCTV and floodlit.",
-      "extended": "Additional parking available nearby"
+      "extended": "Additional parking available nearby",
+      "marked_disabled_bay": false,
+      "marked_disabled_bay_note": "There is no marked disabled parking bay (owner-confirmed 2026-10-07). Never write disabled parking, a disabled bay or Blue Badge bays.",
+      "coaches": "A small coach fits in the car park. A full-size coach must park on the main road where safe (owner-confirmed 2026-10-07)."
     },
+    "pool_and_darts": {
+      "pool_ball_colours": "Yellow and red, not spots and stripes",
+      "pool_cost": "£1 per game",
+      "pool_team": false,
+      "darts_setup": "Standard dartboard. No electronic scorer. No specialist lighting.",
+      "darts_team": false,
+      "_status": "As at May 2026. Restored 2026-10-08 after an unrelated edit removed them on 2026-05-14 without a decision. Re-confirm at the 2026-12-10 review. Do not promise a darts upgrade or give a year for one, and do not claim cues provided, free darts or leagues: none is on record."
+    },
+    "tv_locations": "At least one of the four TVs is in the dining room (owner-confirmed 2026-10-07). Write a TV in the dining room, never TVs.",
     "amenities": [
       "Free parking (20 spaces)",
       "Free WiFi (throughout pub and beer garden)",
@@ -265,6 +279,7 @@
       "Delivery service",
       "Guest ales",
       "Accessible toilet",
+      "Marked disabled parking bay",
       "EV charging",
       "Open fire, fireplace or log burner",
       "Heated beer garden",
@@ -484,11 +499,6 @@
           {
             "name": "Lasagne",
             "price": "LIVE_FROM_DB"
-          },
-          {
-            "name": "Mac & Cheese",
-            "price": "LIVE_FROM_DB",
-            "vegetarian": true
           },
           {
             "name": "Spinach & Ricotta Cannelloni",
@@ -776,6 +786,15 @@
       "max_online_party_size": 20,
       "larger_groups": "Must call",
       "kitchen_dependency": "Blocked if kitchen is closed for that date"
+    },
+    "special_sundays": {
+      "days": [
+        "Mother's Day",
+        "Easter Sunday",
+        "Father's Day"
+      ],
+      "rule": "These are special days, not normal Sundays. The roast may be the same, but a set menu or something different may run, confirmed for each nearer the time.",
+      "_confirmed": "Owner-confirmed 2026-10-07. Do not state the menu, or how the day works, for any of the three until it has been confirmed for that day."
     }
   },
   "drinks": {
@@ -791,7 +810,7 @@
     },
     "promotions": {
       "optics_double_up": "Running on the optics (the house spirits): a double for £2 more than a single (owner-confirmed 2026-09-10; optics scope mirrored from the management app's drinks prices 2026-09-11). Any other offer only when current POS/promotion data confirms it.",
-      "managers_special": "Monthly discounted featured premium spirit; use current Manager's Special source."
+      "managers_special_retired": "RETIRED (owner decision 2026-10-07): the page and the function are retired completely, with redirects. Never promote a monthly Manager's Special, a featured spirit or a discount on one. For the record, the discount had applied to singles only."
     },
     "bar_tab_policy": "Regular customers only, 7 days, maximum £50.",
     "discontinued_do_not_promote": [
@@ -872,7 +891,8 @@
       "seating": "Team tables: each team has its own table, so book one table per team. Never describe quiz seating as communal, or say a team may share its table with another team. Owner-confirmed 2026-09-11.",
       "rounds": "Five rounds: 4 rounds x 10 questions, plus an interactive quick-fire round in the middle, played on your phone, and a comfort break",
       "_rounds_confirmed": "Owner-confirmed 2026-09-11: five rounds, with one interactive, phone-based round in the middle.",
-      "capacity": 60,
+      "capacity": 49,
+      "_capacity_mirrored": "49 seats, mirrored from the booking system 2026-10-07. Since 2026-09-21 the management app works capacity out from the room: a table-seated night is the seats booked plus the free seats in the room, so the figure moves as tables are booked. The older 60 (mirrored 2026-09-06) is retired. Mirror only: page code reads capacity from the API.",
       "prizes": {
         "first": "£25 bar voucher",
         "second_from_last": "Bottle of house wine",
@@ -903,6 +923,7 @@
       "age_policy": "18+ to play. Supervised under-18s are welcome to attend but may not play. Always publish both halves together.",
       "games": 10,
       "capacity": 60,
+      "_capacity_mirrored": "60, made up of 49 seated plus 11 standing, mirrored from the booking system 2026-10-07. Mirror only: page code reads capacity from the API.",
       "host": "Peter Pitcher, the owner. Owner-confirmed 2026-09-11.",
       "prizes": "Not every game is played for cash: some are played for a free drink and some for a £10 food voucher. Drinks, chocolate, vouchers and cash boosts may vary by event. Snowball increases by £20 and 2 calls at the next cash bingo night when unclaimed. Current jackpot values belong in event records only.",
       "_prizes_confirmed": "Owner-confirmed 2026-09-12: some games are played for a free drink and some for a £10 food voucher. Which games those are varies by event, so name the prize type without promising a game number. The £10 book, the jackpot_rule and the snowball_rule are unchanged.",
@@ -983,6 +1004,7 @@
         "Beer"
       ],
       "format": "Expert-led sessions",
+      "age_policy": "Over 18s only (owner-confirmed 2026-10-07)",
       "entry_fee_gbp": 45,
       "advance_discount_gbp": 5,
       "payment_mode": "prepaid",
@@ -1203,6 +1225,21 @@
     },
     "av_equipment": "TVs and sound system. No projector.",
     "av_slideshows": "The TVs can be used for photo slideshows and presentations at a private hire, and connection cables are provided (owner-confirmed 2026-10-07). Say TVs or screens, never large, big or HD.",
+    "times": {
+      "start": "A private booking can start before 12pm, by arrangement (owner-confirmed 2026-10-07).",
+      "finish": "An evening private hire can run later than 10pm, by arrangement (owner-confirmed 2026-10-07).",
+      "christmas_parties_finish": "Christmas parties finish by midnight (owner-confirmed 2026-08-15; recorded 2026-10-08).",
+      "times_note": "By arrangement is the whole rule. Never write until late, no time limit or a licence time."
+    },
+    "decorating_rules": [
+      "No confetti cannons at all",
+      "No confetti balloons",
+      "Smoke cannons outside only, and nowhere near buildings or fencing",
+      "No push pins, Blu Tack, sticky tape or anything that could damage paintwork"
+    ],
+    "_decorating_rules_confirmed": "Owner-confirmed 2026-10-07.",
+    "dietary": "We never promise nut-free, dairy-free or halal for a private booking, but we do our best (owner-confirmed 2026-10-07).",
+    "celebration_cake": "For parties, someone bringing a celebration cake signs the outside-food waiver (owner-confirmed 2026-10-07).",
     "dedicated_events_coordinator": true,
     "free_wifi": true,
     "free_parking": "For all attendees",
@@ -1478,11 +1515,8 @@
   },
   "heathrow_parking": {
     "route": "/heathrow-parking",
-    "rates": {
-      "daily_from_gbp": 15,
-      "weekly_from_gbp": 75,
-      "monthly_approx_gbp": 265
-    },
+    "prices_note": "No price is held here. Parking prices are owned by the management app and read live on the page. The daily, weekly and monthly figures were removed on 2026-10-08 (docs/SSOT.md sections 8 and 15).",
+    "collection": "Parking customers can collect their car at any hour (owner-confirmed 2026-10-07).",
     "features": [
       "CCTV",
       "Floodlit",
@@ -1567,7 +1601,7 @@
       "Windsor",
       "Colnbrook"
     ],
-    "note": "Area landing pages exist for all secondary areas (/ashford-pub, /feltham-pub, etc.) but have been deprioritised and are NOT in the sitemap. Owner has confirmed some should be reviewed."
+    "note": "Area landing pages exist for all six secondary areas and are in the sitemap (checked 2026-10-08). Pages also exist, and are in the sitemap, for Horton, Wraysbury and Longford, which are not listed here: left as they are for now and on the list for the 2026-12-10 review."
   },
   "community_context": {
     "only_pub_in_stanwell_moor": true,
@@ -1581,7 +1615,7 @@
     "nearby_nature": [
       {
         "name": "Staines Moor Nature Reserve",
-        "distance": "5-minute walk",
+        "distance": "About a 30-minute walk, one way",
         "description": "Ancient SSSI grassland, never ploughed in 1,000+ years, with over 200 bird species."
       },
       {
@@ -1591,7 +1625,7 @@
       },
       {
         "name": "King George VI Reservoir Path",
-        "distance": "15-minute walk",
+        "distance": "About a 30-minute walk, one way",
         "description": "Fenced embankment causeway between two vast reservoirs; outstanding winter wildfowl."
       },
       {

@@ -94,7 +94,7 @@ export default function Terminal3Page() {
 
       <CtaBand
         title="Turn Your Terminal 3 Layover into a Meal"
-        copy="Follow our Heathrow layover dining plan for 90-minute and 3-hour stopovers with taxis booked both ways."
+        copy="Follow our Heathrow layover dining plan for 90-minute and 3-hour stopovers."
         primary={
           <Button asChild variant="primary" size="lg">
             <Link href="/heathrow-layover-dining">View Layover Dining Guide</Link>

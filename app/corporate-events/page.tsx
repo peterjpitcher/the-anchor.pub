@@ -147,7 +147,7 @@ export default function CorporateEventsPage() {
                 <li><strong className="text-ink-strong">Dedicated events coordinator</strong> for seamless planning</li>
                 <li><strong className="text-ink-strong">Professional catering</strong> from coffee mornings to formal dinners</li>
                 <li><strong className="text-ink-strong">TVs and a sound system</strong> for presentations, with free WiFi throughout</li>
-                <li><strong className="text-ink-strong">Flexible timings</strong> - early starts and late finishes available</li>
+                <li><strong className="text-ink-strong">Flexible timings</strong> - a start before 12pm or a finish after 10pm, by arrangement</li>
                 <li><strong className="text-ink-strong">VAT invoices</strong> for corporate bookings, so expenses are straightforward</li>
               </ul>
             </CardBody></Card>

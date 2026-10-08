@@ -93,7 +93,7 @@ export default function Terminal4Page() {
 
       <CtaBand
         title="Overnight at Terminal 4?"
-        copy="Our layover dining guide covers late arrivals, overnight stays, and morning transfers back to T4 with taxis booked."
+        copy="Our layover dining guide covers late arrivals, overnight stays, and morning transfers back to T4."
         primary={
           <Button asChild variant="primary" size="lg">
             <Link href="/heathrow-layover-dining">Open Layover Guide</Link>

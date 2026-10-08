@@ -68,6 +68,7 @@ The facts most copy needs. Each is detailed, with its source, further down.
 - **Naming rule:** Use **"The Anchor"** as the default customer-facing name. Use "The Anchor Pub" only where SEO value warrants it (page titles, alt text, schema name fields). Never use "The Anchor Pub" as the conversational default.
 - **Type:** Independent British village pub and restaurant.
 - **Pub group:** Greene King Tenants network.
+- **Personal data:** Orange Jelly Limited is the business responsible for customers' personal data. (Owner-confirmed, 7 October 2026.) Name it wherever a page or a form has to say who is responsible for the data.
 - **Motto:** Eat, Drink, Enjoy.
 - **Tagline:** Where Everyone's Welcome.
 - **Founded:** 1751 (the pub's established date). Evidence from British History Online and Spelthorne's local list suggests an Anchor Inn on the site by at least 1730, though the present building is mid-Victorian.
@@ -235,7 +236,8 @@ The checkable half of this section and of §14 is enforced in the management app
 - **Coordinates:** 51.462509, -0.502067.
 - **Google Maps:** https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ.
 - **M25:** 2 minutes from Junction 14.
-- **Bus:** Routes 441, 442, 555 from Heathrow Central Bus Station.
+- **Bus:** Route 442. It stops on Horton Road by the pub and runs from Heathrow Terminal 5. **The 441 and the 555 do not come to Stanwell Moor, so never name them.** (Corrected 8 October 2026 against Surrey County Council's timetables, read 7 October 2026. This line used to read "Routes 441, 442, 555 from Heathrow Central Bus Station", which was wrong on the routes and on the boarding point.) Never state a fare, a frequency, a journey time or a last bus time: none is recorded here, and all of them change.
+- **Taxis:** The bar team will give a taxi number; customers make their own arrangements. (Owner-confirmed, 7 October 2026.) Never say we book, call, arrange or keep a taxi for anyone. Approved wording is in §16.
 - **ULEZ:** Outside the ULEZ zone. Never quote a saving figure: whether a driver pays the charge depends on their vehicle and their route, so no figure is true for everyone (owner decision, 10 September 2026; §14).
 - **Location framing:** Stanwell Moor, near Heathrow Airport, the closest proper pub to Terminal 5, ~7 minutes by car.
 
@@ -250,6 +252,10 @@ The checkable half of this section and of §14 is enforced in the management app
 | Staines | 8 minutes | n/a |
 
 General range to use in copy: **7–12 minutes** from any Heathrow terminal.
+
+### Jobs
+
+Both jobs, bar staff and kitchen team, are open at £12.71 an hour, for now. (Owner-confirmed, 7 October 2026.) "For now" is the owner's wording: the rate and which jobs are open can change, so re-confirm both at each review. `/join-our-team` and its two role pages carry the rate.
 
 ## 3. Opening Hours (regular)
 
@@ -326,6 +332,10 @@ Older content marked beef as "not on the current menu", that guidance is **rever
 
 The regular weekday menu (burgers, pizzas, fish & chips, pies) is also available on Sundays without pre-order.
 
+### Mother's Day, Easter Sunday and Father's Day
+
+Mother's Day, Easter Sunday and Father's Day are special days, not normal Sundays. The roast may be the same, but a set menu or something different may run, and that is confirmed for each one nearer the time. (Owner-confirmed, 7 October 2026.) So nothing above in this section may be assumed for any of the three: do not state the menu, or how the day works, until it has been confirmed for that day.
+
 ## 5. Food (weekday)
 
 ### Cuisines
@@ -346,7 +356,6 @@ British, Pizza, Pub Food, Sunday Roast.
 | Classic Beef Burger | (live, DB) (chips included) |
 | Burger Stack (Beef / Chicken / Spicy Chicken / Garden) | (live, DB) |
 | Lasagne | (live, DB) |
-| Mac and Cheese | (live, DB) (vegetarian) |
 | Stone-baked pizzas | (live, DB) (12-inch, hand-stretched, NGCI bases available) |
 | Kids menu | from (live, DB) |
 | Wraps | from (live, DB) |
@@ -392,9 +401,11 @@ When allergen data is missing for a dish, **never render "no allergens"** or any
 
 This applies to every surface: menu pages, the Christmas menu, JSON-LD, PDFs and printed copy.
 
+**Allergens come from the management app, where they should be complete.** (Owner-confirmed, 7 October 2026.) Any gap is a record to fix there, not copy to write here: never type an allergen, or the absence of one, into a page to cover a missing record.
+
 ### Kids menu (regular)
 
-Chicken goujons and chips · Fish fingers and chips · Sausage, mash and gravy · Cheeseburger and chips · Chicken burger and chips · Veg burger and chips · Fish finger wrap and chips · Chicken goujon wrap and chips · On Sundays, a kids roast of beef, pork or turkey. (Mirrored from the management app on 11 September 2026. Kids mac and cheese was dropped on the owner's instruction, 7 October 2026; the adult Mac and Cheese stays.)
+Chicken goujons and chips · Fish fingers and chips · Sausage, mash and gravy · Cheeseburger and chips · Chicken burger and chips · Veg burger and chips · Fish finger wrap and chips · Chicken goujon wrap and chips · On Sundays, a kids roast of beef, pork or turkey. (Mirrored from the management app on 11 September 2026. Kids mac and cheese was dropped on the owner's instruction, 7 October 2026; the adult Mac and Cheese was dropped too, 8 October 2026.)
 
 ## 6. Drinks
 
@@ -404,7 +415,8 @@ The full drinks inventory must come from POS/API before publishing. The website 
 - **No Sky Sports / TNT Sports.** Live sport on terrestrial channels (BBC, ITV, Channel 4) only since January 2025. Nothing here says what the pub had before then, so copy must not either: not "never has", and no account of an earlier subscription (owner instruction, 7 October 2026). Say "terrestrial channels only since January 2025", or just that we don't have them.
 - **No guest ales.** Bottled ales only.
 - **Discontinued (do not list):** Stanwell Moor Brew (DISCONTINUED 2026-03-22). Pravha (DISCONTINUED, no longer stocked).
-- **Promotions:** The £2 double-up is running on our optics, the house spirits: a double is £2 more than a single (owner-confirmed, 10 September 2026; the optics scope mirrored from the management app's drinks prices on 11 September 2026). Promote any other offer only when current POS or promotion data confirms it. Monthly Manager's Special uses the current live Manager's Special source.
+- **Promotions:** The £2 double-up is running on our optics, the house spirits: a double is £2 more than a single (owner-confirmed, 10 September 2026; the optics scope mirrored from the management app's drinks prices on 11 September 2026). Promote any other offer only when current POS or promotion data confirms it.
+- **The Manager's Special is retired.** (Owner decision, 7 October 2026: retire the page and the function completely, with redirects.) Never promote a monthly Manager's Special, a featured spirit or a discount on one, and do not link to `/drinks/managers-special`. For the record, the owner confirmed the same day that the discount had applied to singles only; the retirement supersedes that.
 - **Shandies:** Available for all draught lagers.
 - **Drink pricing:** Never show drink pricing unless it comes from an approved live source. Cocktail pricing may be shown only from the current approved cocktail menu/API.
 - **No food deals:** Remove stale food-deal claims unless the live management system confirms a current offer.
@@ -494,10 +506,12 @@ This is the paid airport parking product on `/heathrow-parking`, not guest parki
 - **Included, children:** a Fruit Shoot or a small soft drink (Coca-Cola, Diet Coke or lemonade) with the 1 course.
 - **Trimmings:** pigs in blankets, stuffing, brussels sprouts, **Yorkshire pudding, roast potatoes, mashed potato and peas**. (Yorkshire pudding, roast potatoes, mash and peas owner-confirmed, 13 August 2026.)
 - **The Vegetable Wellington is the exception.** It is **vegan**, so it takes **no Yorkshire pudding and no pigs in blankets**, matching the Sunday roast rule where the Wellington and the pies carry no Yorkshire. Describe it as vegan Christmas trimmings and vegan gravy. Never apply the full trimmings list to it.
+- **The vegan Wellington is on the 1 course Christmas menu and has a price.** (Owner-confirmed, 7 October 2026.) Like every Christmas price, it is read live from the menu API and never typed in.
 - **Menu dishes ARE published.** (Owner-confirmed, 13 August 2026.) The dish list lives on the Christmas booking period in the management database and reaches the website through `/table-bookings/periods`, which is the same source the booking form builds a pre-order from. Publish the dishes the API returns and nothing else: the old "menu released closer to the time" wording is retired, and inventing or padding the list is still forbidden. If the API returns no menu, say nothing rather than guessing.
 - **Prices:** live from the management database via the menu API. **Never hardcode a Christmas price in website page code.** Christmas set-menu tier prices quoted in prose may carry the £ symbol; per-item menu prices stay symbol-free per the price display policy at the top of this document.
 - **Weekday / weekend definition:** weekday means Tuesday to Thursday. Weekend means Friday to Sunday. **A Sunday sitting is charged at the weekend price.** (Owner decision, 7 October 2026. Until then this line stopped at Saturday, so nothing said what a Sunday cost.) The management app's Christmas menu holds a weekday and a weekend price but no rule tying a price to a day of the week, so the day rule lives here until one is set there.
 - **A Christmas party of more than 20 pays the private hire deposit, not £10 per person.** (Owner decision, 7 October 2026.) More than 20 guests is a private booking, and a private hire pays the £250 booking and damage deposit, held separately from the bill and refunded after the event (§11). So "£10 per person on every Christmas booking" above is the rule for table bookings, 4 to 20 guests. Approved wording is in §16.
+- **Christmas parties finish by midnight.** (Owner-confirmed, 15 August 2026; recorded here on 8 October 2026.) The answer went onto `/christmas-parties` on 15 August but was never written into this document, so the 7 October 2026 site review could not find a source for it. It stands beside two other rules and replaces neither: hosted events finish by 10pm (§10), and any other evening private hire can run later than 10pm by arrangement (§11).
 - **Festive buffets stay:** Festive Sandwich & Salad, Festive Hot Finger, Festive Premium Grazing. **Minimum 30 guests, everywhere, no exceptions.** That minimum is for the festive buffets only: the year-round buffets carry their own minimums, several below 30 (§11).
 - **The old Festive Menu catering packages are switched off.** The two rows (a weekday and a weekend price, minimum 6) are inactive in the management app, and no private-hire catering package holds the 1, 2 and 3 course Christmas menu. The tiers and their prices live on the Christmas menu and the Christmas booking period. (Mirrored from the management app on 11 September 2026.) Switching the old rows back on as they stand would bring back the retired two-price split (§14) and a minimum of 6, where the minimum is 4. **For the sit-down Christmas meal, `/christmas-parties` refers only to the latest offer, the 1, 2 and 3 course Christmas menu, and never to the old packages.** (Owner-confirmed, 11 September 2026.) The festive buffets above are separate and stay.
 
@@ -551,6 +565,19 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 - **Leaving a car for longer** (for example while flying) is the separate **paid** airport parking product, not guest parking. Keep the two clearly distinct in copy.
 - Level surface, close to entrance. CCTV and floodlit.
 - Additional parking available nearby.
+- **There is no marked disabled parking bay.** (Owner-confirmed, 7 October 2026.) Never write "disabled parking", "a disabled bay", "Blue Badge bays" or "accessible parking bays". The car park is level and close to the entrance, which is true and fine to say.
+- **Coaches:** a small coach fits in the car park. A full-size coach must park on the main road where safe. (Owner-confirmed, 7 October 2026.) Never promise coach parking without saying which.
+
+### Airport parking (the paid product)
+
+The paid airport parking on `/heathrow-parking` is a separate product from guest parking, above. This is what is on record about it.
+
+- **Prices are owned by the management app** and are read live on the page. This document and `SSOT.json` hold no parking price: the daily, weekly and monthly figures that `SSOT.json` used to mirror were removed on 8 October 2026.
+- **Collecting the car:** parking customers can collect their car at any hour. (Owner-confirmed, 7 October 2026.)
+- **Changes, cancellations and refunds:** see §7. A booking cancelled up to 24 hours before the booked arrival time is refunded less the payment fee.
+- **Paying:** PayPal or card. A website booking has a 30-minute payment window. (Mirrored from `SSOT.json`; neither has an owner confirmation date on record.)
+- **The car park:** CCTV, floodlit, level surface, as for guest parking above.
+- **Getting to the terminal:** customers arrange their own transfer. We give a taxi number and do not book one (§2).
 
 ### Amenities
 
@@ -560,9 +587,21 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 
 **Table service:** food is brought to tables. Owner-confirmed 8 August 2026.
 
-**TVs:** the pub has 4 TVs, and live sport is shown on them. Owner-confirmed 7 October 2026. Say "4 TVs" or "4 screens". Never "big screens", "large screens", "HD" or any other count: nobody has confirmed those. The commentary is on for big games and tournaments (§10). At a private hire the TVs can be used for slideshows, and connection cables are provided (§11).
+**TVs:** the pub has 4 TVs, and live sport is shown on them. Owner-confirmed 7 October 2026. At least one of the four TVs is in the dining room (owner-confirmed 7 October 2026); how many is not on record, so write "a TV in the dining room", never "TVs in the dining room". Say "4 TVs" or "4 screens". Never "big screens", "large screens", "HD" or any other count: nobody has confirmed those. The commentary is on for big games and tournaments (§10). At a private hire the TVs can be used for slideshows, and connection cables are provided (§11).
 
 **Fruit machine and dancing:** the pub has a fruit machine, and there is space for guests to dance. Owner-confirmed 8 August 2026. Both are recorded here because the matching Google Business Profile attributes ("Has arcade games", "Has dancing") are set to Yes and were previously flagged as unsupported.
+
+### Pool table and darts
+
+As at May 2026. These lines were owner facts in this document from 14 May 2026 until an unrelated edit about opening hours removed them the same day without a decision. They were restored on 8 October 2026 and are to be re-confirmed at the 10 December 2026 review.
+
+- **Pool, ball colours:** yellow and red, not spots and stripes. Do not describe them as "spots and stripes" or "solids and stripes".
+- **Pool, cost:** £1 per game.
+- **Pool, no team.** We do not currently have a pool team but are always looking for a great captain to pull a team together.
+- **Darts, current setup:** a standard dartboard. No electronic scorer. No specialist lighting. Do not describe the setup as "professional grade".
+- **Darts, no team.** We do not currently have a darts team but are always looking for a great captain to lead one.
+- **No upgrade promise.** The May entry also recorded a planned 2026 upgrade to the darts setup (a professional-grade board, an electronic scorer and better lighting). Nobody has confirmed it since, so do not promise an upgrade or give a year for one.
+- **Never on record, so not to be claimed:** cues provided, free darts, darts provided, leagues, how the table is kept, a queuing system and any rule about children playing.
 
 ### Things The Anchor does NOT have
 
@@ -572,6 +611,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Delivery service
 - Guest ales
 - Accessible toilet *(verified NO)*
+- A marked disabled parking bay *(verified NO, owner-confirmed 7 October 2026)*
 - EV charging *(no "coming soon" claims)*
 - An open fire, fireplace or log burner *(verified NO, owner-confirmed 12 September 2026)*
 - Baby changing facilities *(verified NO)*
@@ -590,6 +630,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
   5 September 2026. Never describe the pub as having "ramp access" as though a
   ramp is always in place, and never imply there is more than one.
 - Accessible toilet: **NO**.
+- Marked disabled parking bay: **NO**. (Owner-confirmed, 7 October 2026.)
 - Assistance dogs: always welcome.
 - Encourage guests to call ahead to plan their visit.
 
@@ -666,7 +707,7 @@ step from the bar, ramp on request.
 - Solo players and pairs are found a team to join on the night. (Owner-confirmed 11 September 2026.)
 - **Seating: team tables.** Each team has its own table, so book one table per team. Never describe quiz seating as communal, or say a team may share its table with another team. (Owner-confirmed 11 September 2026.)
 - **Format: five rounds.** Four rounds of 10 questions, plus an interactive quick-fire round in the middle, played on your phone, and a comfort break. (Owner-confirmed 11 September 2026: five rounds, with one interactive, phone-based round in the middle.)
-- Capacity 60, mirrored from the management app on 6 September 2026 (owner-confirmed the same day, corrected from 80). Every scheduled quiz record carries 60. Anything still saying 80 is wrong. **This is a mirror, not a source: page code must read capacity from the API, never from this line.**
+- Capacity: **49 seats**, mirrored from the booking system on 7 October 2026. Since 21 September 2026 the management app works a night's capacity out from the room, not from one fixed figure: a table-seated night such as the quiz is the seats booked plus the free seats in the room, so the figure moves as tables are booked (the 7 October quiz showed 47). The older 60 (mirrored 6 September 2026) is retired, and so is 80. **This is a mirror, not a source: page code must read capacity from the API, never from this line.**
 - **Prizes for first place and second from last only:** the winning team gets a **£25 bar voucher**, not a bar tab, and second from last gets a bottle of house wine. There are no league tables, quiz food deals, rollover jackpot, spot prizes or free-drink questions, and no prize for the best team name. (Owner-confirmed 11 September 2026: "prizes for first and second from last only, no league tables or quiz food deals".) This retires the closest-answer free drink in every round and the spot prizes mirrored from the management app earlier the same day; the upcoming quiz records there were corrected the same evening (checked 11 September 2026). Do not repeat either in copy.
 - **Phones away during the quiz, except in the interactive round in the middle, which is played on your phone.** (Owner-confirmed 11 September 2026.) **That interactive round is one phone per player.** (Owner-confirmed 12 September 2026.) Using a phone at any other time costs 5 points. (The penalty is mirrored from the management app on 11 September 2026, where three records also say one phone per player. The 25 September charity quiz record says one phone per team, which is that night's exception.)
 - Host: Peter Pitcher, the owner, hosts quiz night himself. (Owner-confirmed 11 September 2026.) The older Question One Quiz Masters line is retired: anything still naming them is wrong.
@@ -678,11 +719,11 @@ step from the bar, ramp on request.
 - **The pub itself is open from 12pm.** Say so rather than implying the venue opens at the arrival time. See the banned-"Doors" note above.
 - £10 per book (**cash only**). £1 daubers cash only.
 - **18+ to play. Supervised under-18s are welcome to attend but may not play.** Publish both halves together, never one without the other.
-- 10 games. Capacity 60, mirrored from the management app on 6 September 2026. Every scheduled cash bingo record carries 60. **Mirror only: page code reads capacity from the API.**
+- 10 games. Capacity 60, made up of 49 seated plus 11 standing, mirrored from the booking system on 7 October 2026 (a communal night is the seated capacity plus standing; the booking page offered 49 seats). **Mirror only: page code reads capacity from the API.**
 - Host: Peter Pitcher, the owner, runs cash bingo himself. (Owner-confirmed 11 September 2026.)
 - **Jackpot:** half of all book sales go into the final cash jackpot, so the prize grows with the room. (Owner-confirmed 11 September 2026.) It is the last game, and it takes £5 from every £10 book. (Mirrored from the management app on 11 September 2026.) Other prizes vary by event.
 - **Not every game is played for cash.** Some games are played for a free drink, and some for a £10 food voucher. (Owner-confirmed 12 September 2026.) Which games those are varies by event, so name the prize type without promising a game number. The £10 book, the half of book sales that builds the final jackpot and the Snowball rules are unchanged.
-- **Snowball (game 9):** a full house within a set number of calls. If nobody wins it, it grows by £20 and two calls at the next cash bingo night. To win it you must have played at one of the previous three cash bingo nights. Current values belong in event records only. (Mirrored from the management app on 11 September 2026.)
+- **Snowball (game 9):** a full house within a set number of calls. If nobody wins it, it grows by £20 and two calls at the next cash bingo night. To win it you must have played at one of the previous three cash bingo nights. Current values belong in event records only. (Mirrored from the management app on 11 September 2026.) **For the record, as of 30 September 2026 it stands at £180:** nobody won it on 2 September or on 30 September. (Owner-confirmed, 7 October 2026.) It changes at every cash bingo night, so this figure is dated, not current: never copy it into a page, and take the live value from the event record.
 
 ### Music Bingo
 
@@ -745,6 +786,7 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 - Occasional (no fixed frequency).
 - Expert-led sessions across whisky, gin, rum, wine and beer.
+- **Over 18s only.** (Owner-confirmed, 7 October 2026.)
 - **Ticketed and paid.** £45 a person unless the event record says otherwise, with £5 off tickets bought in advance. (Owner-confirmed, 9 September 2026.) The record is `prepaid`, which is what makes the advance discount apply.
 - Capacity 25, mirrored from the management app on 6 September 2026 (owner-confirmed the same day). **Mirror only: page code reads capacity from the API.**
 
@@ -752,9 +794,9 @@ Discontinued unless reintroduced in event listings. Do not promote Nikki hosted/
 
 - Standalone party nights such as the Halloween party. Not a recurring format, and only promoted when an event record lists one.
 - Halloween, Saturday 31 October 2026: the pub is open 12pm to midnight. Full menu 12pm to 6pm, no food 6pm to 9pm, then pizza only 9pm to midnight, to eat in or take away. The party runs 8pm to midnight, free entry, with DJ Jermaine. (Mirrored from the management app on 11 September 2026.)
-- Capacity 150, mirrored from the management app on 6 September 2026 (owner-confirmed the same day). **Mirror only: page code reads capacity from the API.** This is the party-night figure. Do not apply it to quiz, bingo, music bingo or karaoke, which are all 60, and do not confuse it with the retired live-music capacity of 150 in the discontinued-formats note below.
+- Capacity 150, mirrored from the management app on 6 September 2026 (owner-confirmed the same day). **Mirror only: page code reads capacity from the API.** This is the party-night figure. Do not apply it to quiz, bingo, music bingo or karaoke, which have their own figures above, and do not confuse it with the retired live-music capacity of 150 in the discontinued-formats note below.
 
-> **Capacities always come from the management app, never from this document and never from page code.** (Owner instruction, 6 September 2026.) The figures recorded per format below are mirrors with a pull date, kept so a human can spot a contradiction. They are consistent within each category as at 6 September 2026: quiz night, cash bingo, music bingo and karaoke all 60, party nights 150, tasting nights 25. If records within one category ever disagree, that is a data fault: raise it with the owner rather than picking one.
+> **Capacities always come from the management app, never from this document and never from page code.** (Owner instruction, 6 September 2026.) The figures recorded per format below are mirrors with a pull date, kept so a human can spot a contradiction. As at 7 October 2026 the quiz offers 49 seats and cash bingo 60 (49 seated plus 11 standing): since 21 September 2026 the management app works capacity out from the room for each night. Music bingo and karaoke were last mirrored at 60 on 6 September 2026 and have not been pulled again since that change; party nights 150 and tasting nights 25 likewise. If records within one category ever disagree, that is a data fault: raise it with the owner rather than picking one. The 7 October 2026 site review found past event pages publishing capacities from 34 to 118, which is that fault, on the management side.
 
 > **Payment method comes from the event record's `payment_mode`, not from this document.** (Recorded 7 September 2026 after a page audit flagged cash-only claims on quiz and music bingo as unsourced. They are sourced, just not from here.) Verified across the upcoming events on 7 September 2026: quiz night, cash bingo and music bingo records all carry `payment_mode: cash_only`; karaoke and party nights carry `free`. The 20 November 2026 tasting night moved from `free` to `prepaid` on 9 September 2026, when it was priced. The cash-only line under §Cash Bingo below is about the £10 books and the £1 daubers specifically, which is why it reads as a Cash Bingo rule; it was never meant to imply the other formats take cards. Read the record.
 
@@ -793,6 +835,28 @@ Offer standing tickets only once all seated places are sold out, with clear noti
 - **Room hire charge:** Charged by the hour, per space, from the management DB `venue_spaces.rate_per_hour`. Rates are published (see the table below). No setup fees. Do not publish minimum-spend wording. **Wakes are charged for like any other booking** (owner-confirmed 17 August 2026); the older "no room hire charge for wakes" line is retired.
 - **Deposit:** £250, a refundable booking and damage deposit. It **replaces** the £10 per person group deposit in §7: a private hire never pays both (owner-confirmed, 10 September 2026). It is held separately from the bill, never taken off it, and refunded after the event less any documented deductions. The signed contract says exactly this, so copy must never call it "deducted from the final bill" (§14). Approved wording is in §16.
 - **Pricing rule:** Do not mention food pricing unless it comes through the live API, management database, or latest approved private-hire PDF.
+
+### Start and finish times
+
+- **A private booking can start before 12pm, by arrangement.** (Owner-confirmed, 7 October 2026.)
+- **An evening private hire can run later than 10pm, by arrangement.** (Owner-confirmed, 7 October 2026.)
+- **Christmas parties finish by midnight** (owner-confirmed 15 August 2026; §7).
+- "By arrangement" is the whole rule. No other start or finishing time is on record, so never write "until late", "as late as you like", "no time limit", "early starts and late finishes available" or a licence time. Say it is by arrangement and ask people to tell us the times they have in mind.
+
+### Decorating rules
+
+Owner-confirmed, 7 October 2026.
+
+- **No confetti cannons at all.**
+- **No confetti balloons.**
+- **Smoke cannons outside only, and nowhere near buildings or fencing.**
+- **No push pins, Blu Tack, sticky tape or anything that could damage paintwork** when decorating.
+
+These apply to every private booking, the gender reveal included. Never offer a confetti cannon, a confetti-filled balloon or an indoor smoke cannon as an idea.
+
+### Allergies and dietary needs at a private booking
+
+**We never promise nut-free, dairy-free or halal for a private booking, but we do our best.** (Owner-confirmed, 7 October 2026.) Ask people to tell us what they need when they book, and never write "all dietary requirements catered for" or name a diet as guaranteed. Approved wording is in §16.
 
 ### Venue hire rates (live, DB `venue_spaces`)
 
@@ -860,6 +924,8 @@ Nine PDFs, one per occasion, in `public/downloads/`. Registry: `lib/brochures.ts
 
 **Welcome Orange Juice** is the non-alcoholic partner to the **Welcome Prosecco**, with the same 20-guest minimum. The older combined package was renamed Welcome Prosecco and now covers prosecco only. (Mirrored from the management app on 11 September 2026.)
 
+**Celebration cakes:** for parties, someone bringing a celebration cake signs the outside-food waiver. (Owner-confirmed, 7 October 2026.) It is the same waiver as Bring Your Own Food in the table above. A cake is welcome; say the waiver comes with it.
+
 ### Kids Catering
 
 Minimum 20 children on each.
@@ -910,6 +976,8 @@ The evidence behind each rating, and how often to recheck it, is in §17.
 **Primary areas:** Stanwell Moor, Stanwell, Staines-upon-Thames.
 **Secondary:** Ashford, Feltham, Sunbury, Egham, Windsor, Colnbrook.
 
+**Pages that go further than this list.** Area pages also exist, and are in the sitemap, for Horton, Wraysbury and Longford (`/horton-pub`, `/wraysbury-pub`, `/longford-pub`). None of the three is an area listed above. They are left as they are for now, and the gap is on the list for the 10 December 2026 review. (Recorded 8 October 2026 from the 7 October site review.)
+
 **Nearby hotels (commonly referenced):** Sofitel, Travelodge, Hilton, Marriott, Renaissance, Crowne Plaza, Premier Inn, ibis.
 
 ## 14. Things We Don't Say, Banned Claims
@@ -952,6 +1020,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 
 ### Allergens
 - **"No allergens"** when allergen data is missing, never render this. Use "See menu or contact us for allergen information".
+- **A nut-free, dairy-free or halal promise for a private booking**, never made (owner-confirmed 7 October 2026, §11). We do our best and say so; "all dietary requirements catered for" is the same promise in other words.
 - **"Gluten-free"** as a claim about any dish, base, gravy or menu. It is a regulated term meaning below 20 ppm, which a single shared kitchen cannot guarantee. Use **NGCI (No Gluten Containing Ingredients)** with the cross-contamination caveat. The `/food-menu/gluten-free` URL and meta description keep the search phrase; the visible label does not. See §5.
 
 ### Drinks & sport
@@ -959,6 +1028,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **BOGOF pizza**, discontinued.
 - **Stanwell Moor Brew**, discontinued.
 - **Pravha beer**, no longer stocked.
+- **The Manager's Special**, retired (owner decision, 7 October 2026, §6). Never promote a monthly special, a featured spirit or a discount on one.
 - **Champions League viewing**, we cannot show it (no Sky/TNT). Fix any old pizza-Tuesday content that implies otherwise.
 
 ### Events
@@ -974,6 +1044,11 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **Special doggy Sunday dinners**, unverified, do not claim.
 - **Baby changing facilities**, verified **NO**, we do not have them.
 - **Accessible toilet**, verified **NO**, we do not have one.
+- **A marked disabled parking bay**, verified **NO** (owner-confirmed 7 October 2026, §8). Never write "disabled parking", "a disabled bay" or "Blue Badge bays".
+- **Booking or arranging a taxi**, we do not (owner-confirmed 7 October 2026, §2). The bar team gives a number and the customer makes their own arrangements. Never "we'll call you a cab", "we can arrange your return taxi" or "a taxi on standby".
+- **Confetti cannons, confetti balloons and indoor smoke cannons**, not allowed (owner-confirmed 7 October 2026, §11). Never suggest one.
+- **Bus routes 441 and 555**, they do not come to Stanwell Moor (§2). Only the 442 stops by the pub. Never a bus fare, frequency, journey time or last bus time.
+- **"Until late", "no time limit" or a licence time for a private hire**, not on record. A start before 12pm or a finish after 10pm is by arrangement (§11).
 - **Air conditioning / climate control**, verified **NO**, we do not have it. Never describe any space as "climate controlled", "air conditioned", or offering "year-round comfort". We have **heating** only, so describe warmth in the cooler months, not cooling. (Beer-cellar cooling/refrigeration is a separate back-of-house system and is fine to mention in sustainability contexts.)
 - **Heated beer garden**, verified **NO** (owner-confirmed 10 September 2026). The garden is not heated. Never write "heated areas", "heated spots", patio heaters or "heated in winter" about the garden or any seating in it. The heating is indoors, and saying so is fine. The smoking area's heater is not to be mentioned yet (§9).
 - **Covered beer garden seating**, verified **NO** (owner-confirmed 10 September 2026). No part of the garden is covered. Never write "covered seating", "a covered section", "sheltered areas" or "covered patio areas" about it. The smoking area is covered, and saying there is a sheltered smoking area is fine (§9).
@@ -991,6 +1066,8 @@ Every fact has one owner. Update the owner first; everything else follows it. **
 | Prices: food, drink, catering, Christmas | The management database, through the menu API | Never holds a live price (pricing policy above) |
 | Capacities | The management app (`venue_spaces`, each event record) | Mirrors them with a pull date (§8, §10, §11) |
 | Menu dishes and their descriptions | The management database: `menu_dishes` feeds the website, `sunday_lunch_menu_items` feeds the booking system | Holds the rules about dishes (vegan, Yorkshire, gravy, potatoes), not the list |
+| Allergens | The management database, where they should be complete | Holds the wording rules (§5, §16). A gap is a record to fix there, never copy to write here |
+| Airport parking prices | The management app | Never holds one (§8) |
 | Event dates, times, prices and payment mode | The event record in the management app | Holds the standing rules for each format (§10) |
 | Voice, naming, banned claims, approved wording | This document | Canonical |
 | Facilities, access and amenities | This document, owner-confirmed | Canonical; `SSOT.json` mirrors it |
@@ -1041,6 +1118,16 @@ Short form, for a feature list or a garden page:
 
 > We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register.
 
+For a coach:
+
+> A small coach fits in our car park. A full-size coach needs to park on the main road, where it's safe to.
+
+### Taxis
+
+> Ask at the bar and we'll give you a taxi number. You'll need to make your own arrangements.
+
+Never "we'll book", "we'll call" or "we can arrange" (§2).
+
 ### Dogs
 
 > Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting.
@@ -1064,6 +1151,12 @@ Short form, for a feature list or a garden page:
 ### Allergens, when the data is missing
 
 > See menu or contact us for allergen information
+
+### Allergies and dietary needs at a private booking
+
+> Tell us about any allergies or dietary needs when you book and we'll do our best. Everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
+
+It names no diet and makes no promise (§11). Never "nut-free", "dairy-free" or "halal" as something we guarantee.
 
 ### NGCI
 
@@ -1094,6 +1187,20 @@ Never pair it with the group deposit: a private hire pays the £250 only.
 > Room hire is charged by the hour for the space you book.
 
 Wakes included (§11). Never "room hire is included", "the room costs nothing", "no hidden charges" or "no deposit for a wake".
+
+### Private hire times
+
+> A start before 12pm or a finish after 10pm is by arrangement, so tell us the times you have in mind.
+
+Christmas parties finish by midnight (§7). Never "until late" or "no time limit" (§11).
+
+### Decorating at a private hire
+
+> No confetti cannons or confetti balloons, please. Smoke cannons are for outside only, well away from buildings and fencing. Please don't use push pins, Blu Tack, sticky tape or anything else that could damage the paintwork.
+
+### Bringing a celebration cake
+
+> You're welcome to bring a celebration cake. We'll ask whoever brings it to sign our outside-food waiver.
 
 ### Airport parking refund
 
@@ -1158,6 +1265,7 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 | Established 1751 | British History Online; Spelthorne local list, reference LL/072 | "A village pub since 1751", or the heritage safe wording in §1 | Stable |
 | Closest traditional pub to Heathrow, to Terminal 5 | None recorded in this document | In use in §1 and §2. Journey times (§2) carry the same message and can be checked | Each quarter |
 | Journey times to the terminals | §2 table, by terminal | Use the terminal-specific figure, or the 7 to 12 minute range. Never apply the Terminal 5 time to every terminal | Each quarter |
+| Bus route 442 stops by the pub and runs from Terminal 5 | Surrey County Council's airport services page and 442 timetable, read 7 October 2026 | As §2 has it. Never a fare, frequency, journey time or last bus | Each quarter |
 | Google rating 4.6 | Google Business Profile, figure not dated here | Show the rating while it is current. Never a review count (§12) | Monthly |
 | Highly rated near Heathrow | The ratings in §12 | As written. A "highest-rated" claim needs current evidence | Each quarter |
 | 5-star food hygiene, since 2019 | Food Standards Agency rating (§12) | "5-star food hygiene rating" | Each quarter |
@@ -1169,7 +1277,11 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **8 October 2026, corrections to this document and the owner's facts of 7 October.** Two jobs in one change, both from the 7 October 2026 site review. **Corrections.** The bus line named the 441, 442 and 555 from Heathrow Central Bus Station; Surrey County Council's timetables show only the 442 stops by the pub, and it runs from Terminal 5 (§2, §14, §17). "Christmas parties finish by midnight" was confirmed by the owner on 15 August 2026 and put on `/christmas-parties`, but never written in here; it now is (§7, §11). The pool and darts facts, removed without a decision on 14 May 2026, are back, marked as at May 2026 and without the darts upgrade promise (§8). The quiz capacity mirror moved from 60 to the 49 seats the booking system now offers, and cash bingo's 60 is recorded as 49 seated plus 11 standing (§10). `SSOT.json` gave Staines Moor as a 5-minute walk and the King George VI Reservoir as 15, against the 30 minutes confirmed on 10 September; it said the area pages were not in the sitemap when they are; and it mirrored three airport parking prices this document says it never holds. All three are corrected, the paid parking product has its own entry (§8), and the area pages for Horton, Wraysbury and Longford are noted for the 10 December review (§13). `tests/ssot-drift-guard.test.ts` now fails on a walk time that disagrees, on a parking price in `SSOT.json` and on the 441 or 555 coming back into either file's bus line. **Owner facts, all confirmed 7 October 2026.** Allergens come from the management app, where they should be complete, and a gap is a record to fix there (§5, §15). We never promise nut-free, dairy-free or halal for a private booking, but we do our best (§11, §14, §16). There is no marked disabled parking bay (§8, §14). The tasting night is for over 18s only (§10). For parties, someone bringing a celebration cake signs the outside-food waiver (§11, §16). Orange Jelly Limited is the business responsible for customers' personal data (§1). The vegan Wellington is on the 1 course Christmas menu and has a price (§7). The Manager's Special is retired completely, with redirects; the discount had applied to singles only (§6, §14). Nobody won the Snowball on 2 or 30 September, so it stands at £180 as of 30 September 2026 (§10). No confetti cannons at all, no confetti balloons, smoke cannons outside only and nowhere near buildings or fencing, and no push pins, Blu Tack, sticky tape or anything that could damage paintwork (§11, §14, §16). Both jobs, bar staff and kitchen team, are open at £12.71 an hour, for now (§2). Parking customers can collect their car at any hour (§8). A private booking can start before 12pm and an evening private hire can run later than 10pm, both by arrangement (§11, §16). Mother's Day, Easter Sunday and Father's Day are special days, not normal Sundays: the roast may be the same, but a set menu or something different may run, confirmed for each nearer the time (§4). At least one of the four TVs is in the dining room (§8). A small coach fits in the car park and a full-size coach must park on the main road where safe (§8, §16). The bar team will give a taxi number and customers make their own arrangements (§2, §14, §16). Kids mac and cheese, confirmed the same day, was already recorded below. **On the site**, small wording changes brought pages into line on taxis, confetti and smoke cannons, celebration cakes, private hire finishing times, coach parking and the TV in the dining room. The list of pages, and what was left for a later batch, is in `tasks/changes/2026-10-08-ssot-facts.md`.
+
 - **7 October 2026, money wording: five owner decisions.** (1) A parking booking cancelled more than 24 hours ahead is refunded less the payment fee, "so we don't get left with charges" (§7, §16). The parking FAQ, the four terminal parking pages and `SSOT.json` had promised a full refund while the terms on the same page said "minus any card processing fees"; all four now carry one sentence. No fee amount or percentage is recorded or published. (2) The refund bands for a group deposit and for event tickets are shown where the money is taken: beside both payment buttons, in the booking review step and in the deposit answer on `/book-table`, where "Free to cancel" became "No deposit for tables of 14 or fewer" (§7, §16). (3) A Christmas party of more than 20 pays the £250 private hire deposit, not £10 per person (§7, §16). (4) A Sunday Christmas sitting is charged at the weekend price, so weekend now means Friday to Sunday (§7). (5) Typed taxi fares, Heathrow's own parking prices and other car parks' prices came off the main pages; the blog guides are a later batch. In the same change the wakes page and five posts stopped saying room hire is included, free or without hidden charges, and the wake guide stopped saying a wake takes no deposit: room hire is charged by the hour and the £250 deposit is held separately (§11, §16). §16 gained five blocks: the two refund sentences, room hire, the airport parking refund and the Christmas party of more than 20. Private hire prices are still shown before VAT: showing them with VAT included needs the management app to send a VAT-inclusive figure first.
+
+- **8 October 2026, adult Mac and Cheese dropped.** The owner confirmed on 8 October 2026 that the adult Mac and Cheese is off the menu as well (§5). The dish was switched off in the management app the same day, and it is out of the table here, out of `SSOT.json`, out of the stored menu copy and out of one blog post.
 
 - **7 October 2026, kids mac and cheese dropped.** The owner confirmed that Kids Mac & Cheese is off the kids menu (§5). It was removed from the kids list here, from `SSOT.json`, from `/family-friendly-pub-heathrow` and from one blog post. The management app's kids menu still returned the dish on that date, so the record there is still to be switched off; until it is, the live menu pages keep showing it. The adult Mac and Cheese is unaffected.
 
