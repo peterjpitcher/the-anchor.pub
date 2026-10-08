@@ -501,7 +501,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                 />
 
                 {fieldError ? (
-                  <p className="text-sm text-anchor-danger">{fieldError}</p>
+                  <p className="text-sm text-anchor-danger" role="alert">{fieldError}</p>
                 ) : null}
                 {error ? (
                   // A booking that could not be made always comes with another way
@@ -641,7 +641,7 @@ function ChipRow({
             value={state.date}
             min={dateChoices[0]?.value}
             onChange={(event) => onChange({ date: event.target.value })}
-            className="rounded-full border border-line px-3 py-2 text-sm text-ink"
+            className="rounded-full border border-line bg-surface px-3 py-2 text-sm text-ink"
           />
         </div>
       </fieldset>

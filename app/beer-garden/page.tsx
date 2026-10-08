@@ -146,7 +146,7 @@ export default async function BeerGardenPage() {
           <div className="mx-auto grid gap-6 md:grid-cols-3">
             <Card accent hover>
               <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast (Sundays 1–6pm)</h3>
+                <h2 className="font-display text-h4 text-ink-strong mb-2">Sunday Roast (Sundays 1–6pm)</h2>
                 <p className="text-sm text-ink-muted mb-4">
                   Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and proper gravy after your plane-spotting session.
                 </p>
@@ -158,7 +158,7 @@ export default async function BeerGardenPage() {
             </Card>
             <Card accent hover>
               <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Stone-Baked Pizzas</h3>
+                <h2 className="font-display text-h4 text-ink-strong mb-2">Stone-Baked Pizzas</h2>
                 <p className="text-sm text-ink-muted mb-4">
                   Hand-stretched pizzas with bold toppings, ideal for aviation meet-ups or crew nights.
                 </p>
@@ -170,7 +170,7 @@ export default async function BeerGardenPage() {
             </Card>
             <Card accent hover>
               <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Food & Drinks in the Garden</h3>
+                <h2 className="font-display text-h4 text-ink-strong mb-2">Food & Drinks in the Garden</h2>
                 <p className="text-sm text-ink-muted mb-4">
                   Burgers, fish & chips, sharers and a full drinks list served directly to the beer garden during kitchen hours.
                 </p>

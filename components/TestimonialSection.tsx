@@ -121,7 +121,7 @@ export function TestimonialSection({
   // Compact variant — horizontal scroll strip
   if (variant === 'compact') {
     return (
-      <div className={cn('flex gap-4 overflow-x-auto pb-4', className)}>
+      <div className={cn('flex gap-4 overflow-x-auto pb-4', className)} role="region" tabIndex={0} aria-label="Guest reviews">
         {reviews.map((review, index) => (
           <div key={index} className="min-w-[280px] max-w-[320px] flex-shrink-0">
             <TestimonialCard review={review} compact />

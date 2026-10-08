@@ -149,6 +149,14 @@ const defaultFeatures = [
 
 const headingClass = 'font-sans text-xs uppercase tracking-[0.18em] text-anchor-gold-bright mb-4'
 const linkClass = 'text-sm text-anchor-cream-text/[0.82] hover:text-anchor-gold-bright transition-colors'
+// Below 768px every footer link is a 44px tap target (redesign spec: 'Touch
+// targets >= 44px'; they were 18 to 20px, the height of their line of text).
+// Padding, not line height, so the text itself does not move within its row,
+// and the lists drop their own gaps at that width so rows sit 44px apart.
+// `tapBlock` is for a link that is only text; `tapInline` for one that is a
+// row with an icon, which becomes a full-width row of its list.
+const tapBlock = 'max-md:inline-block max-md:py-3'
+const tapInline = 'max-md:flex max-md:min-h-[44px] max-md:items-center'
 
 export function Footer({
   businessInfo = defaultBusinessInfo,
@@ -170,7 +178,7 @@ export function Footer({
         <li key={item.href}>
           <a
             href={item.href}
-            className={linkClass}
+            className={cn(linkClass, tapBlock)}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackNavigationClick({
@@ -192,7 +200,7 @@ export function Footer({
       <li key={item.href}>
         <Link
           href={item.href}
-          className={linkClass}
+          className={cn(linkClass, tapBlock)}
           onClick={() => trackNavigationClick({
             label: item.label,
             url: item.href,
@@ -230,14 +238,14 @@ export function Footer({
   )
 
   const contactList = (deviceType: 'mobile' | 'desktop') => (
-    <ul className="space-y-2">
+    <ul className="md:space-y-2">
       {contact?.phone && (
         <>
           <li>
-            <PhoneLink phone={contact.phone} source="footer" className={linkClass} />
+            <PhoneLink phone={contact.phone} source="footer" className={cn(linkClass, tapInline)} />
           </li>
           <li>
-            <WhatsAppLink phone={contact.phone} source="footer" className={linkClass}>
+            <WhatsAppLink phone={contact.phone} source="footer" className={cn(linkClass, tapInline)}>
               WhatsApp Us
             </WhatsAppLink>
           </li>
@@ -245,7 +253,7 @@ export function Footer({
       )}
       {contact?.email && (
         <li>
-          <EmailLink email={contact.email} source="footer" className={linkClass} showIcon={true} />
+          <EmailLink email={contact.email} source="footer" className={cn(linkClass, tapInline)} showIcon={true} />
         </li>
       )}
       {contact?.address && (
@@ -253,7 +261,7 @@ export function Footer({
           <DirectionsLink
             href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
             source="footer_address"
-            className={linkClass}
+            className={cn(linkClass, tapBlock)}
           >
             <span itemProp="streetAddress">Horton Road</span>,{' '}
             <span itemProp="addressLocality">Stanwell Moor</span>,{' '}
@@ -272,7 +280,7 @@ export function Footer({
                 platform={social.platform as any}
                 href={social.href}
                 source="footer"
-                className={linkClass}
+                className={cn(linkClass, tapInline)}
                 ariaLabel={`Visit our ${social.label || social.platform} page`}
               >
                 {social.label || social.platform}
@@ -296,7 +304,7 @@ export function Footer({
     <Link
       href="/join-our-team"
       className={cn(
-        'rounded-md border border-line-gold bg-anchor-gold-bright/10 px-5 py-2.5 text-sm font-semibold text-anchor-gold-bright hover:bg-anchor-gold-bright/20 transition-colors',
+        'rounded-md border border-line-gold bg-anchor-gold-bright/10 px-5 py-2.5 max-md:py-3 text-sm font-semibold text-anchor-gold-bright hover:bg-anchor-gold-bright/20 transition-colors',
         block ? 'block w-full text-center' : 'inline-flex items-center gap-2'
       )}
       onClick={() => trackNavigationClick({
@@ -333,7 +341,7 @@ export function Footer({
                 <summary className={cn('cursor-pointer px-4 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-anchor-gold-bright')}>
                   {section.title}
                 </summary>
-                <ul className="space-y-2 px-4 pb-4">
+                <ul className="px-4 pb-4">
                   {section.items.map((item) => renderLink(item, 'mobile'))}
                 </ul>
               </details>
@@ -367,7 +375,7 @@ export function Footer({
 
           {sections.map((section) => (
             <div key={section.title}>
-              <h4 className={headingClass}>{section.title}</h4>
+              <h2 className={headingClass}>{section.title}</h2>
               <ul className="space-y-2">
                 {section.items.map((item) => renderLink(item))}
               </ul>
@@ -382,13 +390,13 @@ export function Footer({
         >
           {contact && (
             <div>
-              <h4 className={headingClass}>Get in Touch</h4>
+              <h2 className={headingClass}>Get in Touch</h2>
               {contactList('desktop')}
             </div>
           )}
           {features.length > 0 && (
             <div>
-              <h4 className={headingClass}>For Everyone</h4>
+              <h2 className={headingClass}>For Everyone</h2>
               {featureList}
             </div>
           )}
@@ -410,7 +418,7 @@ export function Footer({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our Facebook page"
-                className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-full border border-line-gold text-anchor-cream-text/[0.82] hover:text-anchor-gold-bright hover:border-anchor-gold-bright transition-colors"
+                className="inline-flex h-[38px] w-[38px] max-md:h-11 max-md:w-11 items-center justify-center rounded-full border border-line-gold text-anchor-cream-text/[0.82] hover:text-anchor-gold-bright hover:border-anchor-gold-bright transition-colors"
                 onClick={() => trackSocialClick({ platform: 'facebook', source: 'footer_base', url: 'https://www.facebook.com/theanchorpubsm/' })}
               >
                 <Facebook size={18} aria-hidden="true" />
@@ -420,7 +428,7 @@ export function Footer({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our Instagram page"
-                className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-full border border-line-gold text-anchor-cream-text/[0.82] hover:text-anchor-gold-bright hover:border-anchor-gold-bright transition-colors"
+                className="inline-flex h-[38px] w-[38px] max-md:h-11 max-md:w-11 items-center justify-center rounded-full border border-line-gold text-anchor-cream-text/[0.82] hover:text-anchor-gold-bright hover:border-anchor-gold-bright transition-colors"
                 onClick={() => trackSocialClick({ platform: 'instagram', source: 'footer_base', url: 'https://www.instagram.com/theanchor.pub/' })}
               >
                 <Instagram size={18} aria-hidden="true" />
@@ -429,7 +437,7 @@ export function Footer({
                 <a
                   href={`tel:${contact.phone.replace(/\s/g, '').replace(/^01753/, '+441753')}`}
                   aria-label="Call The Anchor"
-                  className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-full border border-line-gold text-anchor-cream-text/[0.82] hover:text-anchor-gold-bright hover:border-anchor-gold-bright transition-colors"
+                  className="inline-flex h-[38px] w-[38px] max-md:h-11 max-md:w-11 items-center justify-center rounded-full border border-line-gold text-anchor-cream-text/[0.82] hover:text-anchor-gold-bright hover:border-anchor-gold-bright transition-colors"
                   onClick={() => trackPhoneCallClick({ phone: contact.phone, source: 'footer_base' })}
                 >
                   <Phone size={18} aria-hidden="true" />
@@ -439,13 +447,13 @@ export function Footer({
           </div>
 
           {/* Legal / trust links (sixth group, moved out of the grid) */}
-          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 max-md:gap-y-0">
             {legalSection.items.map((item) => renderLink(item))}
             {/* Always here, on every page, so a cookie choice can be changed or withdrawn
                 as easily as it was made. A button, not a link: it reopens the banner's
                 preferences panel on this page and goes nowhere. */}
             <li>
-              <button type="button" onClick={openCookieSettings} className={linkClass}>
+              <button type="button" onClick={openCookieSettings} className={cn(linkClass, tapBlock)}>
                 Cookie settings
               </button>
             </li>

@@ -44,7 +44,11 @@ export function EventBookingFactsStrip({
 
   return (
     <div className="border-y border-line bg-surface">
-      <div className="flex gap-px overflow-x-auto bg-line sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4">
+      {/* Below 640px this is a strip that scrolls sideways. A box like that with
+          nothing focusable in it cannot be scrolled by keyboard in every
+          browser, so it takes focus itself (WCAG 2.1.1). The cost is one extra
+          tab stop from 640px up, where it is a grid and does not scroll. */}
+      <div className="flex gap-px overflow-x-auto bg-line sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4" role="region" tabIndex={0} aria-label="Event details">
         {facts.map(({ label, value, Icon }) => (
           <div key={label} className="flex min-h-[64px] min-w-[126px] items-start gap-2.5 bg-surface p-3 sm:min-h-[78px] sm:min-w-0 md:gap-3 md:p-4">
             <Icon className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent-text md:h-5 md:w-5" aria-hidden />

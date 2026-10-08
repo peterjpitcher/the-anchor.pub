@@ -228,7 +228,7 @@ export function InteractiveVenueFloorPlan({
           </div>
 
           <div className="p-5 sm:p-6">
-            <div className="mb-5 flex flex-wrap gap-2" aria-label="Choose a private hire space">
+            <div className="mb-5 flex flex-wrap gap-2" role="group" aria-label="Choose a private hire space">
               {VENUE_TOUR_SPACES.map((space) => {
                 const isSelected = selectedSpace.id === space.id
 
