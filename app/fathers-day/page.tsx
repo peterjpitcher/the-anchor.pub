@@ -11,11 +11,12 @@ import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDet
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
-import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { DOGS_WORDING } from '@/lib/approved-wording'
 
 // The date is worked out, never typed (UK Father's Day is the third Sunday in
 // June). Father's Day is a special day, not a normal Sunday: the menu, and how
@@ -70,7 +71,7 @@ export default function FathersDayPage() {
     {
       question: "Where to take Dad on Father's Day near Heathrow?",
       answer:
-        "The Anchor in Stanwell Moor, 7 minutes from Heathrow Terminal 5 by car, with 20 free parking spaces, a dog-friendly beer garden and planes passing overhead every 90 seconds. " +
+        `The Anchor in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car, with ${PARKING.capacity} free parking spaces, a dog-friendly beer garden and planes passing overhead every 90 seconds. ` +
         "It's a proper local pub, not a chain."
     },
     {
@@ -80,7 +81,7 @@ export default function FathersDayPage() {
     {
       question: 'Is there parking?',
       answer:
-        `Yes, we have 20 free parking spaces on site. No meters, no charges. ` +
+        `Yes, we have ${PARKING.capacity} free parking spaces on site. No meters, no charges. ` +
         `We're about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car.`
     }
   ]
@@ -130,7 +131,7 @@ export default function FathersDayPage() {
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               The short answer: a proper Father&apos;s Day pub near me, not a chain restaurant, not a hotel buffet.
-              The Anchor in Stanwell Moor is 7 minutes from Heathrow Terminal 5, with 20 free parking spaces, a dog-friendly
+              The Anchor in Stanwell Moor is {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, with {PARKING.capacity} free parking spaces, a dog-friendly
               beer garden, and a plane every 90 seconds that gives Dad a perfectly valid reason to sit outside as long as he likes.
             </p>
             <p className="text-ink-muted leading-relaxed">
@@ -160,7 +161,7 @@ export default function FathersDayPage() {
               is Dad&apos;s idea of a perfect Father&apos;s Day, even if he won&apos;t admit it.
             </p>
             <p className="text-ink-muted leading-relaxed">
-              Dogs are welcome inside and out. The garden has plenty of space for families,
+              {DOGS_WORDING} The garden has plenty of space for families,
               and there&apos;s always something to watch in the sky. It&apos;s the kind of afternoon
               where nobody checks the time.
             </p>

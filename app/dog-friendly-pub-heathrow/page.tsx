@@ -5,8 +5,9 @@ import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { DOGS_WORDING } from '@/lib/approved-wording'
 
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
     description: `A dog friendly pub near Heathrow with a 64-seat beer garden, water bowls, and food served to your table outdoors. Free parking.`,
     openGraph: {
         title: 'Dog Friendly Pub Near Heathrow, Beer Garden & Free Parking',
-        description: '64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. 7 mins from Heathrow T5.',
+        description: `64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. ${HEATHROW_TIMES.terminal5} mins from Heathrow T5.`,
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Dog Friendly Pub Near Heathrow, Beer Garden & Free Parking',
-        description: '64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. 7 mins from Heathrow T5.',
+        description: `64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. ${HEATHROW_TIMES.terminal5} mins from Heathrow T5.`,
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -46,7 +47,7 @@ export default async function DogFriendlyPage() {
             <section className="py-section-y bg-canvas">
                 <Container>
                     <p className="text-center text-lg md:text-xl text-ink mx-auto leading-relaxed">
-                        The Anchor is a dog-friendly pub near Heathrow Airport in Stanwell Moor, welcoming dogs in both our bar area and beer garden. We provide water bowls and dog treats for four-legged visitors.
+                        The Anchor is a dog-friendly pub near Heathrow Airport in Stanwell Moor. {DOGS_WORDING}
                     </p>
                 </Container>
             </section>
@@ -56,7 +57,7 @@ export default async function DogFriendlyPage() {
                     <div className="mx-auto">
                         <SectionHeading
                             title="Dog-Friendly Pub Near Heathrow, Paws Welcome"
-                            lead="A pub isn't a proper pub without a dog asleep under the table. We welcome well-behaved dogs throughout the entire venue, bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are."
+                            lead="A pub isn't a proper pub without a dog asleep under the table. We welcome well-behaved dogs on a lead throughout the entire venue, bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, bring your dog in with you, on a lead."
                         />
                     </div>
                 </Container>
@@ -99,7 +100,7 @@ export default async function DogFriendlyPage() {
                 faqs={[
                     {
                         question: "Are dogs allowed in the restaurant?",
-                        answer: "Dogs are welcome throughout the entire venue, bar, dining area, and beer garden. Your dog can stay with you wherever you choose to sit."
+                        answer: `${DOGS_WORDING} Your dog can stay with you wherever you choose to sit.`
                     },
                     {
                         question: "Is there a limit on dog size?",
@@ -107,7 +108,7 @@ export default async function DogFriendlyPage() {
                     },
                     {
                         question: "Is there somewhere to walk nearby?",
-                        answer: "Yes, there are some nice walking routes around Stanwell Moor and the reservoirs nearby."
+                        answer: "Yes. Staines Moor and the King George VI Reservoir are each about a 30-minute walk, one way."
                     }
                 ]}
                 className="bg-surface"

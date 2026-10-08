@@ -18,7 +18,6 @@ project: the-anchor-pub
 | Route | Methods | Purpose |
 |-------|---------|---------|
 | `/api/table-bookings` | POST | Create a table booking |
-| `/api/table-bookings/[reference]` | GET, DELETE | Retrieve or cancel booking by reference |
 | `/api/table-bookings/availability` | GET | Get available time slots for a date/type |
 | `/api/table-bookings/paypal/create-order` | POST | Initiate PayPal payment for booking |
 | `/api/table-bookings/paypal/capture-order` | POST | Capture PayPal payment |
@@ -28,8 +27,6 @@ project: the-anchor-pub
 | Route | Methods | Purpose |
 |-------|---------|---------|
 | `/api/parking/availability` | GET | Get parking availability for a date |
-| `/api/parking/bookings` | POST | Create a parking booking |
-| `/api/parking/bookings/[id]` | GET | Retrieve parking booking details |
 | `/api/parking/rates` | GET | Get parking rates |
 | `/api/parking/payment/create-order` | POST | Initiate PayPal payment for parking |
 | `/api/parking/payment/capture` | POST | Capture PayPal payment for parking |
@@ -64,7 +61,7 @@ project: the-anchor-pub
 |-------|---------|---------|
 | `/api/calendar/upcoming` | GET | Get upcoming events for calendar |
 | `/api/calendar/event/[id]` | GET | Get event details for calendar |
-| `/api/customers/lookup` | GET | Look up customer by email/phone |
+| `/api/customers/lookup` | GET | Tells the booking form whether a mobile number already belongs to a customer (phone only, yes or no) |
 
 ### Enquiry Routes (3)
 
@@ -82,7 +79,6 @@ project: the-anchor-pub
 | `/api/analytics` | GET, POST | Generic analytics endpoint |
 | `/api/web-vitals` | POST | Send Core Web Vitals metrics |
 | `/api/booking/agent` | GET, POST | **RETIRED 2026-07-28.** Returns 410 Gone. Was a public, unauthenticated endpoint that created real table bookings, with no known caller |
-| `/api/booking/payment-return` | GET | Handle payment provider return URLs |
 
 ### Other Routes (8)
 
@@ -93,7 +89,7 @@ project: the-anchor-pub
 | `/api/event-categories` | GET | Get event category list |
 | `/api/event-waitlist` | POST | Join event waitlist |
 | `/api/public/private-booking/config` | GET | Get private booking form config |
-| `/api/bookings/initiate` | POST | Initiate booking flow |
+| `/api/bookings/initiate` | POST | Retired. Always answers 410 |
 | `/content/blog/[...path]` | GET | Dynamic blog content proxy |
 
 ## Auth Summary
@@ -110,7 +106,7 @@ These endpoints do not require authentication:
 
 These routes require `ANCHOR_API_KEY` header (server-side only, never exposed to client):
 
-- All booking mutations: `/api/table-bookings*`, `/api/parking/bookings*`
+- All booking mutations: `/api/table-bookings*`
 - All payments: `/api/*/paypal/*`, `/api/parking/payment/*`
 - Enquiries: `/api/enquiry/*`, `/api/public/private-booking`
 - Analytics: `/api/tracking/*`, `/api/analytics`, `/api/web-vitals`
@@ -145,7 +141,6 @@ These are **page.tsx** routes, not API routes, but important for understanding t
 | `/book-table` | Table booking wizard (multi-step form) |
 | `/booking-confirmation` | Post-booking confirmation page |
 | `/events/[id]` | Event detail + booking form |
-| `/parking/bookings/[id]` | Parking booking confirmation |
 | `/heathrow-parking` | Parking info landing page |
 | `/private-hire` | Private hire overview |
 | `/function-room-hire` | Function room booking landing |

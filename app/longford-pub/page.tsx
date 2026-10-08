@@ -6,9 +6,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { PARKING_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -16,7 +16,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Pubs in Longford | Your Nearest Village Local',
-    description: `Staying in Longford or Bath Road hotels? Escape to ${BRAND.name} for authentic British food and better prices. Just a short walk or taxi ride away.`,
+    description: `Staying in Longford or Bath Road hotels? Escape to ${BRAND.name} for authentic British food and better prices. Just a short taxi ride away.`,
     openGraph: {
         title: 'Pubs in Longford, The Anchor, Stanwell Moor',
         description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',
@@ -38,7 +38,7 @@ export default function LongfordPubPage() {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "BarOrPub"],
         "@id": "https://www.the-anchor.pub/longford-pub#business",
-        "name": `${BRAND.name} - Near Longford`,
+        "name": BRAND.name,
         "image": `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
         "address": {
             "@type": "PostalAddress",
@@ -63,28 +63,17 @@ export default function LongfordPubPage() {
                 "name": "Heathrow Bath Road"
             }
         ],
-        "priceRange": "££",
+        "priceRange": PRICE_RANGE,
         "servesCuisine": ["British", "Traditional English", "Fish and Chips", "Burger"],
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/longford-pub"
     }
 
-    const directionsSchema = generateHowToDirectionsSchema(
-        'Longford',
-        'The Anchor - Heathrow Pub & Dining',
-        [
-            'From Longford village, head towards the A3044',
-            'Follow signs for Stanwell Moor',
-            'Enter the village on Horton Road',
-            'The Anchor is on your right'
-        ]
-    )
-
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
             />
 
             <InteriorHero
@@ -155,9 +144,9 @@ export default function LongfordPubPage() {
                         <div className="grid md:grid-cols-2 gap-5 mb-8">
                             <Card accent>
                                 <CardBody className="p-6">
-                                    <h3 className="font-display text-h4 text-ink-strong mb-4">Walking</h3>
+                                    <h3 className="font-display text-h4 text-ink-strong mb-4">By Car</h3>
                                     <p className="text-ink-muted">
-                                        For energetic travellers, it's a walk from some parts of Longford. However, we recommend a taxi if you are unsure of the route or it's dark.
+                                        We're a short drive from Longford. {PARKING_WORDING}
                                     </p>
                                 </CardBody>
                             </Card>
@@ -165,7 +154,7 @@ export default function LongfordPubPage() {
                                 <CardBody className="p-6">
                                     <h3 className="font-display text-h4 text-ink-strong mb-4">Taxi / Uber</h3>
                                     <p className="text-ink-muted">
-                                        A very short and cheap ride. Ask your hotel reception to book one for "The Anchor in Stanwell Moor" (Postcode TW19 6AQ).
+                                        A short ride. Ask your hotel reception to book one for {BRAND.name}, {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}.
                                     </p>
                                 </CardBody>
                             </Card>
@@ -173,14 +162,14 @@ export default function LongfordPubPage() {
 
                         <div className="text-center">
                             <DirectionsButton
-                                href="https://maps.google.com/maps?saddr=Longford+Heathrow&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                                href={DIRECTIONS_URL}
                                 source="longford_directions"
                                 variant="primary"
                                 size="lg"
                                 fromLocation="Longford"
                                 wrap
                             >
-                                Get Directions from Longford
+                                Get Directions
                             </DirectionsButton>
                         </div>
                     </div>
@@ -199,7 +188,7 @@ export default function LongfordPubPage() {
                                 If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you, it&rsquo;s the soundtrack to your life. We&rsquo;re on the same flight path over here in Stanwell Moor, so we understand completely. The difference is, we&rsquo;ve turned it into a feature. Our beer garden sits right under the flight path, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
                             </p>
                             <p>
-                                Getting here from Longford takes about five minutes. The simplest route is along the Colnbrook bypass, pick up the A3044 heading south and turn onto Horton Road into Stanwell Moor. If you&rsquo;re coming from the Bath Road end near the hotels, it&rsquo;s barely any further. You can also walk along the Longford River path if you fancy stretching your legs, it&rsquo;s a pleasant stroll through proper countryside, and you end up practically on our doorstep.
+                                Getting here from Longford is a short drive or taxi ride, whether you&rsquo;re in the village or at the Bath Road end near the hotels.
                             </p>
                             <p>
                                 Longford&rsquo;s lost a lot of its village character over the years with all the hotel development along Bath Road, and Colnbrook High Street isn&rsquo;t what it was either. That&rsquo;s why a few Longford and Colnbrook residents have adopted The Anchor as their regular. We&rsquo;re a proper village pub with real character, not a hotel bar, not a chain, just an honest local where you can get a decent meal, a well-kept pint, and a genuine welcome.
@@ -230,7 +219,7 @@ export default function LongfordPubPage() {
                 faqs={[
                     {
                         question: "How far is The Anchor from Longford hotels?",
-                        answer: "We are very close, typically a 5-minute drive. We are the neighbouring village to Longford."
+                        answer: "We are very close, a short drive or taxi ride. We are the neighbouring village to Longford."
                     },
                     {
                         question: "Is the food better than the hotel?",

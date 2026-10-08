@@ -1,0 +1,61 @@
+name: Dated content
+
+# Once a week, read the register of typed dates (config/date-register.json) and
+# open an issue for anything inside its warning period: a job advert about to
+# expire, a brochure year about to turn, a claim due a re-check. The same check
+# runs in CI as part of `npm run lint`, but only when somebody opens a pull
+# request, and a date passes whether or not anyone is working on the site.
+#
+# 07:00 UTC on Mondays is 7am in winter and 8am in summer in London. The check
+# works in whole London dates, so the hour does not change its answer.
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: dated-content
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Weekly check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Read the register
+        # Needs no dependencies: the script uses Node's own modules only. It
+        # exits 1 if the register no longer matches the code, which fails this
+        # run as well as writing the report.
+        id: audit
+        run: node scripts/audit-freshness.js --report dated-content-report.md
+
+      - name: Open or update the issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: Dated content needs a look
+        run: |
+          if [ ! -s dated-content-report.md ]; then
+            echo "Nothing is inside its warning period."
+            exit 0
+          fi
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "in:title \"$TITLE\"" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body-file dated-content-report.md
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file dated-content-report.md
+          fi

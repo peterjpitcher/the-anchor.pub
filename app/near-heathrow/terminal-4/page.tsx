@@ -10,7 +10,7 @@ import { DirectionsButton } from '@/components/DirectionsButton'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { HeroBadge } from '@/components/HeroBadge'
-import { PARKING, CONTACT } from '@/lib/constants'
+import { PARKING, CONTACT, HEATHROW_TIMES, BRAND, DIRECTIONS_URL, PRICE_RANGE } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -19,14 +19,14 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 4 | Food & Free Parking',
-  description: 'Pub near Heathrow Terminal 4, 12 minutes by taxi. British pub food, free customer parking, Sunday roasts, pizza and table booking.',
+  description: `Pub near Heathrow Terminal 4, ${HEATHROW_TIMES.terminal4} minutes by taxi. British pub food, free customer parking, Sunday roasts, pizza and table booking.`,
   openGraph: {
-    title: 'Pubs Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
-    description: '12 minutes from T4. Free parking for 20 cars. British pub food, Sunday roasts & draught beers. Dog-friendly beer garden.',
+    title: `Pubs Near Heathrow Terminal 4 | ${HEATHROW_TIMES.terminal4} Mins Away | Free Parking`,
+    description: `${HEATHROW_TIMES.terminal4} minutes from T4. Free parking for ${PARKING.capacity} cars. British pub food, Sunday roasts & draught beers. Dog-friendly beer garden.`,
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Pubs Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
+    title: `Pubs Near Heathrow Terminal 4 | ${HEATHROW_TIMES.terminal4} Mins Away | Free Parking`,
     description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and draught beers.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
@@ -66,12 +66,12 @@ export default function Terminal4Page() {
           <div className="mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
             <h2 className="font-display text-h3 text-ink-strong mb-3">Snapshot For Terminal 4 Guests</h2>
             <p className="text-ink-muted mb-4">
-              Searching for pubs near Heathrow Terminal 4? The Anchor brings warm Surrey village hospitality within a 12 minute taxi ride.
+              Searching for pubs near Heathrow Terminal 4? The Anchor brings warm Surrey village hospitality within a {HEATHROW_TIMES.terminal4} minute taxi ride.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
 	              <div className="flex items-start gap-2">
 	                <span className="font-semibold text-accent-text"></span>
-	                <span>12 minute taxi or Uber from Terminal 4 departures</span>
+	                <span>{HEATHROW_TIMES.terminal4} minute taxi or Uber from Terminal 4 departures</span>
 	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
@@ -129,7 +129,7 @@ export default function Terminal4Page() {
                     Book Roast Table
                   </BookTableButton>
                   <Link href="/sunday-roast" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                    Sunday roast 12 minutes from Terminal 4 →
+                    Sunday roast {HEATHROW_TIMES.terminal4} minutes from Terminal 4 →
                   </Link>
                 </div>
               </div>
@@ -198,7 +198,7 @@ export default function Terminal4Page() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
             {[
-              { title: '10 mins', description: 'by car' },
+              { title: `${HEATHROW_TIMES.terminal4} mins`, description: 'by car' },
               { title: 'Free', description: 'parking' },
               { title: 'Value', description: 'prices' },
               { title: 'SkyTeam', description: 'Terminal 4' }
@@ -223,33 +223,11 @@ export default function Terminal4Page() {
               align="center"
             />
 
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
               {/* By Car */}
               <div className="bg-surface border border-line rounded-md shadow-sm p-8">
-                <h3 className="font-display text-h3 text-ink-strong mb-4">By Car (12 minutes)</h3>
-                <ol className="space-y-3 text-ink-muted">
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">1.</span>
-                    Exit Terminal 4 following signs for M25/A30
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">2.</span>
-                    Take Southern Perimeter Road west
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">3.</span>
-                    At Hatton Cross, follow A30 towards Staines
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">4.</span>
-                    After 2.5 miles, turn right onto A3044
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">5.</span>
-                    After 1 mile, turn right onto Horton Road
-                  </li>
-                </ol>
-                <div className="mt-6 p-4 bg-surface-sunk rounded-sm border border-line">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">By Car ({HEATHROW_TIMES.terminal4} minutes)</h3>
+                <div className="p-4 bg-surface-sunk rounded-sm border border-line">
                   <p className="font-semibold text-accent-text">Sat Nav:</p>
                   <p className="text-lg">TW19 6AQ</p>
                 </div>
@@ -260,8 +238,7 @@ export default function Terminal4Page() {
                 <h3 className="font-display text-h3 text-ink-strong mb-4">By Taxi</h3>
                 <div className="space-y-4 text-ink-muted">
 	                  <div>
-	                    <p className="text-sm mb-2">Journey time: 12 minutes</p>
-	                    <p className="text-sm mb-2">Distance: 3.5 miles</p>
+	                    <p className="text-sm mb-2">Journey time: {HEATHROW_TIMES.terminal4} minutes</p>
 	                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
 	                  </div>
                   <div>
@@ -278,31 +255,6 @@ export default function Terminal4Page() {
                   </div>
                 </div>
               </div>
-
-              {/* By Bus */}
-              <div className="bg-surface border border-line rounded-md shadow-sm p-8">
-                <h3 className="font-display text-h3 text-ink-strong mb-4">By Bus</h3>
-                <div className="space-y-4 text-ink-muted">
-                  <div>
-                    <p className="font-semibold mb-2">Route 442</p>
-                    <p className="text-sm mb-2">Journey time: 15-20 minutes</p>
-                    <p className="text-sm mb-2">Runs every 30 minutes</p>
-                    <p>Cost: About what a pint should cost</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold mb-2">From Terminal 4:</p>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      <li>Bus stop outside arrivals</li>
-                      <li>Near the taxi rank</li>
-                      <li>Look for route 442 signs</li>
-                    </ul>
-                  </div>
-                  <div className="p-4 bg-surface-sunk rounded-sm border border-line">
-                    <p className="font-semibold text-accent-text mb-2">Your Stop:</p>
-                    <p className="text-sm text-ink-muted">Get off at Horton Road - The Anchor is right there!</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Map Section */}
@@ -312,7 +264,7 @@ export default function Terminal4Page() {
                 Click below for turn-by-turn directions from Terminal 4
               </p>
               <DirectionsButton
-                href="https://maps.google.com/maps?saddr=Heathrow+Terminal+4&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                href={DIRECTIONS_URL}
                 source="terminal_4_directions"
                 variant="primary"
                 size="lg"
@@ -338,7 +290,7 @@ export default function Terminal4Page() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 { title: "SkyTeam Alliance Hub", content: "Terminal 4 hosts Air France, KLM, and other SkyTeam partners, plus many Middle Eastern and Asian carriers. Experience British culture before your journey." },
-                { title: "Budget-Friendly Option", content: "T4 also serves many budget airlines. Enjoy proper British pub food with generous portions in a relaxed atmosphere, just 12 minutes from T4." },
+                { title: "Budget-Friendly Option", content: `T4 also serves many budget airlines. Enjoy proper British pub food with generous portions in a relaxed atmosphere, just ${HEATHROW_TIMES.terminal4} minutes from T4.` },
                 { title: "Transit Alternative", content: "T4 is furthest from central terminals. If you have a long connection, escape to The Anchor instead of waiting in crowded lounges." },
                 { title: "24-Hour Terminal Benefits", content: "T4 handles many overnight flights. Join us for a late afternoon meal or evening drink - much more comfortable than terminal seating!" }
               ].map(box => (
@@ -397,7 +349,6 @@ export default function Terminal4Page() {
                   <li>T4 to T5 connections need 90+ minutes - consider a quick meal with us instead!</li>
                   <li>Air France morning flights are busy - T4 security peaks 5:30-7:30am</li>
                   <li>Many Gulf carrier flights depart late evening - perfect for an early dinner</li>
-                  <li>T4 parking is cheapest at Heathrow - but free is better at The Anchor!</li>
                 </ul>
               </CardBody>
             </Card>
@@ -478,21 +429,16 @@ export default function Terminal4Page() {
               <h3 className="font-display text-h3 text-ink-strong mb-4 text-center">
                 Getting Here from Terminal 4 Hotels
               </h3>
-	              <div className="grid md:grid-cols-3 gap-6 text-center">
+	              <div className="grid md:grid-cols-2 gap-6 text-center">
 	                <div>
 	                  <p className="font-semibold mb-2">By Taxi</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">12 minutes</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">{HEATHROW_TIMES.terminal4} minutes</p>
 	                  <p className="text-sm text-ink-muted">Ask for The Anchor, Stanwell Moor</p>
 	                </div>
 	                <div>
 	                  <p className="font-semibold mb-2">By Uber</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">12 minutes</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">{HEATHROW_TIMES.terminal4} minutes</p>
 	                  <p className="text-sm text-ink-muted">Postcode TW19 6AQ</p>
-	                </div>
-	                <div>
-	                  <p className="font-semibold mb-2">By Bus</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">442</p>
-	                  <p className="text-sm text-ink-muted">The 442 bus stops near us</p>
 	                </div>
 	              </div>
               <p className="text-center text-sm text-ink-muted mt-4">
@@ -523,7 +469,7 @@ export default function Terminal4Page() {
       <InternalLinkingSection
         title="More Ways To Enjoy Your Stopover"
         links={[
-          { href: '/find-us', title: 'Directions & Parking', description: 'Step-by-step travel guide from every terminal' },
+          { href: '/find-us', title: 'Directions & Parking', description: 'Directions and free parking' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Order sunshine-ready cocktails in the beer garden' },
           { href: '/private-hire', title: 'Private Hire Venue', description: 'Book celebrations for SkyTeam crew or family events' },
           { href: '/near-heathrow/terminal-2', title: 'Terminal 2 Guide', description: 'See our tips for other Heathrow terminals' }
@@ -543,7 +489,7 @@ export default function Terminal4Page() {
         faqs={[
           {
             question: "How far is The Anchor from Heathrow Terminal 4?",
-            answer: "The Anchor is just 12 minutes drive from Heathrow Terminal 4. We're the perfect spot for a pre-flight meal or drinks after landing."
+            answer: `The Anchor is just ${HEATHROW_TIMES.terminal4} minutes drive from Heathrow Terminal 4. We're the perfect spot for a pre-flight meal or drinks after landing.`
           },
           {
             question: "Do you have parking for Terminal 4 travellers?",
@@ -551,7 +497,7 @@ export default function Terminal4Page() {
           },
           {
             question: "What time should I leave for Terminal 4?",
-            answer: "Allow 12 minutes to reach Terminal 4 from our pub, plus time for parking and security. We recommend leaving at least 2 hours before your flight for European destinations, 3 hours for Middle Eastern and Asian flights."
+            answer: `Allow ${HEATHROW_TIMES.terminal4} minutes to reach Terminal 4 from our pub, plus time for parking and security. We recommend leaving at least 2 hours before your flight for European destinations, 3 hours for Middle Eastern and Asian flights.`
           },
           {
             question: "Is The Anchor good for Terminal 4 hotel guests?",
@@ -559,16 +505,12 @@ export default function Terminal4Page() {
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 4 hotel?",
-	            answer: "It's about 12 minutes by taxi or Uber. The 442 bus also stops near us. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
+	            answer: `It's about ${HEATHROW_TIMES.terminal4} minutes by taxi or Uber. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ.`
 	          },
 	          {
 	            question: "Can I get a taxi from Terminal 4 to The Anchor?",
-	            answer: "Yes, taxis are readily available from Terminal 4. The journey takes about 12 minutes (3.5 miles). Taxi ranks are located at Terminal 4 Arrivals (Level 0), Terminal 4 Departures (Level 1), and the short stay car park entrance. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
+	            answer: `Yes, taxis are readily available from Terminal 4. The journey takes about ${HEATHROW_TIMES.terminal4} minutes. Taxi ranks are located at Terminal 4 Arrivals (Level 0), Terminal 4 Departures (Level 1), and the short stay car park entrance. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'.`
 	          },
-          {
-            question: "Is there a bus from Terminal 4 to The Anchor?",
-            answer: "Yes! The 442 bus runs from Terminal 4 to Stanwell Moor, stopping right outside The Anchor. It takes 15-20 minutes and runs every 30 minutes. The bus stop is outside arrivals near the taxi rank - look for route 442 signs. Cost is about what a pint should cost."
-          },
           {
             question: "Is Terminal 4 far from other terminals?",
             answer: "Yes, Terminal 4 is separate from the Central Terminal Area (T2/T3). If you have connections, consider having a meal with us instead of rushing between terminals. We're centrally located for all terminals."
@@ -580,7 +522,7 @@ export default function Terminal4Page() {
       {/* CTA Section */}
       <CtaBand
         title="See You Soon at The Anchor!"
-        copy="Just 12 minutes from Terminal 4 • Free Parking • Sunday roast & stone-baked pizzas"
+        copy={`Just ${HEATHROW_TIMES.terminal4} minutes from Terminal 4 • Free Parking • Sunday roast & stone-baked pizzas`}
       >
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap gap-3 justify-center">
@@ -606,25 +548,25 @@ export default function Terminal4Page() {
             {
               "@context": "https://schema.org",
               "@type": "Restaurant",
-              "name": "The Anchor - Pub Near Heathrow Terminal 4",
-              "description": "Traditional British pub just 12 minutes from Heathrow Terminal 4 with free parking.",
+              "name": BRAND.name,
+              "description": `Traditional British pub just ${HEATHROW_TIMES.terminal4} minutes from Heathrow Terminal 4 with free parking.`,
               "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/heathrow-airport-view.jpg",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Horton Road",
-                "addressLocality": "Stanwell Moor",
+                "streetAddress": CONTACT.address.street,
+                "addressLocality": CONTACT.address.town,
                 "addressRegion": "Surrey",
                 "postalCode": "TW19 6AQ",
                 "addressCountry": "GB"
               },
               "geo": {
                 "@type": "GeoCoordinates",
-                "latitude": 51.462509,
-                "longitude": -0.502067
+                "latitude": CONTACT.coordinates.lat,
+                "longitude": CONTACT.coordinates.lng
               },
               "url": "https://www.the-anchor.pub/near-heathrow/terminal-4",
               "telephone": "+441753682707",
-	              "priceRange": "££",
+	              "priceRange": PRICE_RANGE,
               "servesCuisine": ["British", "Pub Food"],
               "nearbyLocation": {
                 "@type": "Airport",

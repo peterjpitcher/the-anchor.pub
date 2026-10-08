@@ -34,8 +34,12 @@ import { londonIsoDate } from '@/lib/table-booking-service-windows'
  */
 export const metadata: Metadata = {
   title: 'Themed Quiz Nights Near Heathrow',
+  // No night is named here. The description used to advertise two named
+  // nights, and went on doing so after both had happened (site review finding
+  // C2-022). The head carries only what stays true whichever nights are in the
+  // diary.
   description:
-    'Show-themed quiz nights in Stanwell Moor, £3 a player. Gavin & Stacey and an Only Fools and Horses charity night, plus the monthly pub quiz.',
+    'Show-themed quiz nights in Stanwell Moor, £3 a player: every round from one show. See the themes we have run and the next date.',
   openGraph: {
     title: 'Themed Quiz Nights at The Anchor, Stanwell Moor',
     description:
@@ -116,9 +120,9 @@ const FAQS = [
       'We announce each themed night on our What’s On page once the date and the theme are confirmed. Anything already booked in is listed above, with the detail on its own event page.'
   },
   {
-    question: 'Are the Halloween and Christmas quizzes themed?',
+    question: 'Are the seasonal quizzes themed?',
     answer:
-      'Not fully, and we would rather say so. Nights like A Hint of Halloween and Tinsel & Trivia are our normal varied quiz with a few seasonal questions mixed in. You do not need specialist knowledge for those, unlike a show-themed night.'
+      'Not fully, and we would rather say so. A quiz with a seasonal name is our normal varied quiz with a few seasonal questions mixed in. You do not need specialist knowledge for those, unlike a show-themed night.'
   },
   {
     question: 'Can you run a themed quiz for our group?',
@@ -201,8 +205,8 @@ export default function ThemedQuizNightsPage() {
             <p className="leading-relaxed text-ink-muted">
               The format stays the same: £3 a player paid in cash, teams of up to six, 7pm start, and a
               comfort break in the middle. Phones stay in pockets, apart from the interactive round,
-              which you play on your phone. Food is served
-              before and during, and parking is free.
+              which you play on your phone. Kitchen times vary by date, so
+              check before you come or call {CONTACT.phone}. Parking is free.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Badge variant="green">£3 a player</Badge>
@@ -223,7 +227,7 @@ export default function ThemedQuizNightsPage() {
             <div>
               <h2 className="mb-4 text-h3 text-ink-strong">Nothing themed booked in just yet</h2>
               <p className="text-lg leading-relaxed text-ink-muted">
-                We run these a few times a year, whenever we land on a show worth
+                We run these now and then, whenever we land on a show worth
                 a whole night. Our{' '}
                 <Link
                   href="/quiz-night"
@@ -286,14 +290,15 @@ export default function ThemedQuizNightsPage() {
                     href={night.href}
                     className="inline-block font-semibold text-accent-text underline decoration-dotted hover:text-anchor-gold"
                   >
-                    How that night went
+                    {/* Not "How that night went": the event page holds what
+                        was written before the night, not an account of it. */}
+                    See that night&rsquo;s page
                   </Link>
                 </CardBody>
               </Card>
             ))}
             <p className="mt-6 leading-relaxed text-ink-muted">
-              Got a show you would turn out for? Tell us on the night, or call {CONTACT.phone}. Most of
-              our themes started as somebody at the bar suggesting one.
+              Got a show you would turn out for? Tell us on the night, or call {CONTACT.phone}.
             </p>
           </div>
         </Container>
@@ -304,9 +309,8 @@ export default function ThemedQuizNightsPage() {
           <div className="space-y-4">
             <h2 className="text-h3 text-ink-strong">Seasonal nights are a different thing</h2>
             <p className="leading-relaxed text-ink-muted">
-              Worth being straight about this, because the names suggest otherwise. Nights like{' '}
-              <em>A Hint of Halloween</em>, <em>Sparks &amp; Sparklers</em> and{' '}
-              <em>Tinsel &amp; Trivia</em> are our normal varied quiz with a few seasonal questions
+              Worth being straight about this, because the names suggest otherwise. A quiz with a
+              seasonal name is our normal varied quiz with a few seasonal questions
               folded in. There is no specialist knowledge required and no costume needed. If you want a
               night where every round is one subject, that is a themed quiz, and they are listed above.
             </p>

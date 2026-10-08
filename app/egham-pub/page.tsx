@@ -5,24 +5,26 @@ import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { CONTACT, BRAND, PARKING, DIRECTIONS_URL } from '@/lib/constants'
+import { PARKING_WORDING, TAXI_WORDING, DOGS_WORDING } from '@/lib/approved-wording'
+import { DirectionsButton } from '@/components/DirectionsButton'
 
 export const metadata: Metadata = {
   title: 'Pubs in Egham | Free Parking Alternative',
-  description: 'Searching for pubs in Egham? Twelve minutes away, with free parking, Sunday roasts, stone-baked pizzas and a warm welcome.',
+  description: 'Searching for pubs in Egham? A short drive away, with free parking, Sunday roasts, stone-baked pizzas and a warm welcome.',
   openGraph: {
     title: 'Pubs in Egham, The Anchor, Stanwell Moor',
-    description: 'A highly rated pub near Egham, 12 minutes away with free parking, Sunday roast and stone-baked pizzas.',
+    description: 'A highly rated pub near Egham, a short drive away with free parking, Sunday roast and stone-baked pizzas.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Pubs in Egham, The Anchor, Stanwell Moor',
-    description: 'A highly rated pub near Egham, 12 minutes away with free parking, Sunday roast and stone-baked pizzas.',
+    description: 'A highly rated pub near Egham, a short drive away with free parking, Sunday roast and stone-baked pizzas.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -31,30 +33,17 @@ export const metadata: Metadata = {
 }
 
 export default function EghamPubPage() {
-  const directionsSchema = generateHowToDirectionsSchema(
-    "Egham Town Centre",
-    "The Anchor",
-    [
-      "From Egham High Street, take the A30 towards Staines",
-      "After 2 miles, turn left onto A308 Staines bypass",
-      "At the roundabout, take the 3rd exit onto A3044",
-      "Continue for 1.5 miles",
-      "Turn right onto Horton Road",
-      "The Anchor is 200 yards on your right with free parking"
-    ]
-  )
-
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "BarOrPub",
-    "name": "The Anchor - Egham's Local Pub",
+    "name": BRAND.name,
     "description": "Traditional British pub serving Egham residents and Royal Holloway students with great food, drinks, and entertainment.",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Horton Road",
-      "addressLocality": "Stanwell Moor",
+      "streetAddress": CONTACT.address.street,
+      "addressLocality": CONTACT.address.town,
       "addressRegion": "Surrey",
-      "postalCode": "TW19 6AQ",
+      "postalCode": CONTACT.address.postcode,
       "addressCountry": "GB"
     },
     "areaServed": [
@@ -76,7 +65,7 @@ export default function EghamPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
       />
 
       {/* Hero Section */}
@@ -84,7 +73,7 @@ export default function EghamPubPage() {
         image="/images/page-headers/egham-pub/find-us.jpg"
         crumb="Egham"
         title="Your Local Pub Near Egham"
-        lead="Just 12 minutes away with free parking"
+        lead="A short drive away with free parking"
         actions={
           <BookTableButton source="egham_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -107,7 +96,7 @@ export default function EghamPubPage() {
               Pubs in Egham, Traditional British Pub Near Egham
             </PageTitle>
             <p className="text-lg text-ink-muted">
-              Searching for pubs in Egham? Your local traditional pub is just 12 minutes away with free parking
+              Searching for pubs in Egham? Your local traditional pub is a short drive away with free parking
             </p>
           </div>
         </Container>
@@ -126,7 +115,7 @@ export default function EghamPubPage() {
             {/* Key Benefits Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
               {[
-                { title: "Quick Journey", description: "Just 12 minutes from Egham via A30" },
+                { title: "Quick Journey", description: "A short drive from Egham" },
                 { title: "Student Friendly", description: "Popular with Royal Holloway students & staff" },
                 { title: "Great Value", description: "Competitive prices compared to Egham venues" },
               ].map((item) => (
@@ -173,58 +162,13 @@ export default function EghamPubPage() {
               title="How to Find Us from Egham"
             />
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">From Egham Town Centre</h3>
-                <ol className="space-y-3 text-ink">
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">1.</span>
-                    Take the A30 towards Staines
-                  </li>
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">2.</span>
-                    After 2 miles, turn left onto A308 Staines bypass
-                  </li>
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">3.</span>
-                    At the roundabout, take 3rd exit onto A3044
-                  </li>
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">4.</span>
-                    Continue for 1.5 miles
-                  </li>
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">5.</span>
-                    Turn right onto Horton Road
-                  </li>
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">6.</span>
-                    The Anchor is on your right with free parking
-                  </li>
-                </ol>
-              </div>
-
-              <div>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">From Royal Holloway</h3>
-                <ol className="space-y-3 text-ink">
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">1.</span>
-                    Exit campus and join A30 towards Staines
-                  </li>
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">2.</span>
-                    Follow A30 for 3 miles
-                  </li>
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">3.</span>
-                    Turn left onto A308 (Staines bypass)
-                  </li>
-                  <li className="flex">
-                    <span className="text-accent-text font-bold mr-3">4.</span>
-                    Follow directions above from step 3
-                  </li>
-                </ol>
-              </div>
+            <div className="text-center">
+              <p className="text-lg text-ink-muted mb-6">
+                We&apos;re on {CONTACT.address.street}, {CONTACT.address.town}. Set your sat nav to {CONTACT.address.postcode}.
+              </p>
+              <DirectionsButton href={DIRECTIONS_URL} source="egham_pub_directions" variant="outline" size="md">
+                Get directions
+              </DirectionsButton>
             </div>
 
             <Card accent className="mt-8">
@@ -279,7 +223,7 @@ export default function EghamPubPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Transport Options</h3>
                 <div className="text-center">
                   <p className="font-semibold text-ink mb-2">Taxi Services</p>
-                  <p className="text-ink-muted">Ask at the bar and we&apos;ll give you a taxi number. You&apos;ll need to make your own arrangements.</p>
+                  <p className="text-ink-muted">{TAXI_WORDING}</p>
                 </div>
               </CardBody>
             </Card>
@@ -296,16 +240,16 @@ export default function EghamPubPage() {
             />
             <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
-                When you search for pubs in Egham, you&rsquo;ll find a few decent options on the High Street, but anyone who&rsquo;s lived there long enough knows they can get a bit samey. The Anchor offers something different: a genuine village pub with character, about 15 minutes down the A30 through Staines. Take the A30 east from Egham, follow it through the Causeway past the Two Rivers retail park, then pick up the A308 Staines bypass. From there it&rsquo;s a quick turn onto the A3044 and then Horton Road, straight to our car park. If you prefer the motorway, the M25 from Junction 13 works just as well.
+                When you search for pubs in Egham, you&rsquo;ll find a few decent options on the High Street, but anyone who&rsquo;s lived there long enough knows they can get a bit samey. The Anchor offers something different: a genuine village pub with character, a short drive away.
               </p>
               <p>
                 Royal Holloway students have been finding their way to us for years. When you&rsquo;ve had enough of the campus bar or the Egham high street circuit, a short taxi ride gets you to a proper pub with real character. We&rsquo;re popular for society socials, end-of-term celebrations, and those post-graduation family lunches where you actually want somewhere that isn&rsquo;t rammed. Parents seem to love the free parking and the beer garden, especially if graduation falls on a sunny day.
               </p>
               <p>
-                Then there&rsquo;s the Runnymede crowd. If you&rsquo;ve spent the afternoon at the JFK Memorial or walking the meadows, you&rsquo;re barely ten minutes from us. The Air Forces Memorial on Cooper&rsquo;s Hill is another popular starting point, visitors often tell us they stumbled across The Anchor while looking for somewhere to eat afterwards, and now it&rsquo;s become part of the routine. A reflective walk followed by a quiet pint in the garden feels about right.
+                Then there&rsquo;s the Runnymede crowd. If you&rsquo;ve spent the afternoon at the JFK Memorial or walking the meadows, you&rsquo;re a short drive from us. The Air Forces Memorial on Cooper&rsquo;s Hill is another popular starting point, visitors often tell us they stumbled across The Anchor while looking for somewhere to eat afterwards, and now it&rsquo;s become part of the routine. A reflective walk followed by a quiet pint in the garden feels about right.
               </p>
               <p>
-                We&rsquo;re dog-friendly throughout, we&rsquo;ve got 20 free parking spaces, and the stone-baked pizzas are a genuine draw. It&rsquo;s no wonder so many people searching for pubs near Egham end up making The Anchor their regular.
+                {DOGS_WORDING} We&rsquo;ve got {PARKING.capacity} free spaces, and the stone-baked pizzas are a genuine draw. It&rsquo;s no wonder so many people searching for pubs near Egham end up making The Anchor their regular.
               </p>
             </div>
           </div>
@@ -329,11 +273,11 @@ export default function EghamPubPage() {
         faqs={[
           {
             question: "How far is The Anchor from Egham?",
-            answer: "The Anchor is just 12 minutes (4.5 miles) from Egham town centre via the A30 and A3044. We offer free parking, making us a great alternative to paid parking in Egham high street."
+            answer: `The Anchor is a short drive from Egham town centre. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}. ${PARKING_WORDING}`
           },
           {
             question: "Is The Anchor popular with Royal Holloway students?",
-            answer: "Yes! Many Royal Holloway students and staff visit The Anchor for our relaxed atmosphere, great food, and regular events. We're just 15 minutes from the university campus."
+            answer: "Yes! Many Royal Holloway students and staff visit The Anchor for our relaxed atmosphere, great food, and regular events. We're a short drive from the university campus."
           },
           {
             question: "Can you host Royal Holloway society events?",

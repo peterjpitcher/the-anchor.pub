@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import { Button, Container, SectionHeading } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { InteriorHero } from '@/components/hero'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { pageOpenGraph } from '@/lib/page-open-graph'
+import { CHILDREN_WELCOME_WORDING, DOGS_WORDING, FAMILIES_WORDING } from '@/lib/approved-wording'
 const PAGE_TITLE = 'Safety and Respect'
 const PAGE_DESCRIPTION =
   'A pub where everyone is genuinely welcome. Our commitment to a safe, respectful environment at The Anchor, Stanwell Moor.'
@@ -124,11 +125,11 @@ export default function SafetyAndRespectPage() {
         faqs={[
           {
             question: 'Is The Anchor dog-friendly?',
-            answer: "Yes. Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting."
+            answer: `Yes. ${DOGS_WORDING}`
           },
           {
             question: 'Is The Anchor family-friendly?',
-            answer: 'Yes, families are welcome. Children are always welcome, we\'re completely family friendly.'
+            answer: `Yes. ${CHILDREN_WELCOME_WORDING} ${FAMILIES_WORDING}`
           },
           {
             question: 'What should I do if I feel uncomfortable?',
@@ -136,7 +137,7 @@ export default function SafetyAndRespectPage() {
           },
           {
             question: 'Are your events suitable for everyone?',
-            answer: "Our events, quiz nights, music bingo, cash bingo and listed one-off nights, are aimed at adults and designed to be fun for everyone. We check the room, not who's in it."
+            answer: "Our events, quiz nights, music bingo, cash bingo and listed one-off nights, are aimed at adults and designed to be fun for everyone. Cash bingo is 18+ to play, and supervised under 18s are welcome to come along. We check the room, not who's in it."
           },
           {
             question: 'Do you have a harassment policy?',
@@ -163,7 +164,7 @@ export default function SafetyAndRespectPage() {
             </Button>
           </div>
           <p className="text-sm text-anchor-cream-text/70">
-            <Link href="/near-heathrow" className="underline hover:text-anchor-cream-text transition">7 minutes from Heathrow</Link> · Free parking · Dogs welcome
+            <Link href="/near-heathrow" className="underline hover:text-anchor-cream-text transition">{HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5</Link> · Free parking · Dogs welcome
           </p>
         </div>
       </CtaBand>

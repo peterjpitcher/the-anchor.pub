@@ -1,6 +1,7 @@
 import { BusinessHours, KitchenStatus } from './api'
 import { isKitchenOpen } from './api'
 import { getKitchenWindows } from './hours-utils'
+import { CONTACT } from './constants'
 import type { AllergenType } from '@/hooks/useAllergenFilter'
 
 const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
@@ -275,8 +276,8 @@ export function generateServiceArea() {
     "@type": "GeoCircle",
     "geoMidpoint": {
       "@type": "GeoCoordinates",
-      "latitude": 51.462509,
-      "longitude": -0.502067
+      "latitude": CONTACT.coordinates.lat,
+      "longitude": CONTACT.coordinates.lng
     },
     "geoRadius": "16000" // 16km ~ 10 miles
   }

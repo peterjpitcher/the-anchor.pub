@@ -11,7 +11,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { HeroBadge } from '@/components/HeroBadge'
-import { CONTACT } from '@/lib/constants'
+import { BRAND, BUS_WORDING, CONTACT, DIRECTIONS_URL, HEATHROW_DISTANCES, HEATHROW_TIMES, PARKING, PRICE_RANGE } from '@/lib/constants'
+import { PARKING_WORDING } from '@/lib/approved-wording'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -20,15 +21,15 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 5 | Food & Free Parking',
-  description: 'Pub near Heathrow Terminal 5, 7 minutes by taxi or car. British pub food, free customer parking, dog-friendly beer garden and table booking.',
+  description: `Pub near Heathrow Terminal 5, ${HEATHROW_TIMES.terminal5} minutes by taxi or car. British pub food, free customer parking, dog-friendly beer garden and table booking.`,
   openGraph: {
-    title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
-    description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & draught beers.',
+    title: `Pubs Near Heathrow Terminal 5 | ${HEATHROW_TIMES.terminal5} Mins Away | Free Parking`,
+    description: `Looking for pubs near Heathrow Terminal 5? Just ${HEATHROW_TIMES.terminal5} minutes by taxi. Free parking for ${PARKING.capacity} cars. British pub food, dog-friendly beer garden & draught beers.`,
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
-    description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & draught beers.',
+    title: `Pubs Near Heathrow Terminal 5 | ${HEATHROW_TIMES.terminal5} Mins Away | Free Parking`,
+    description: `Looking for pubs near Heathrow Terminal 5? Just ${HEATHROW_TIMES.terminal5} minutes by taxi. Free parking for ${PARKING.capacity} cars. British pub food, dog-friendly beer garden & draught beers.`,
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -67,20 +68,20 @@ export default function Terminal5Page() {
           <div className="mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
             <h2 className="font-display text-h3 text-ink-strong mb-3">Essential Details at a Glance</h2>
             <p className="text-ink-muted mb-4">
-              Searching for pubs near Heathrow Terminal 5? The Anchor is the closest independent pub to T5, just 7 minutes away. Swap hotel bars for real British hospitality, fair pint prices and free parking.
+              Searching for pubs near Heathrow Terminal 5? The Anchor is the closest independent pub to T5, just {HEATHROW_TIMES.terminal5} minutes away. Swap hotel bars for real British hospitality, fair pint prices and free parking.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
 	              <div className="flex items-start gap-2">
 	                <span className="font-semibold text-accent-text"></span>
-	                <span>7 minute taxi or Uber from BA arrivals</span>
+	                <span>{HEATHROW_TIMES.terminal5} minute taxi or Uber from BA arrivals</span>
 	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
-                <span>Free on-site parking for pick-ups, drop-offs and diners</span>
+                <span>{PARKING_WORDING}</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
-                <span>Kitchen open Tue-Sun with pizza, burgers and Sunday roasts</span>
+                <span>Pizza, burgers and Sunday roasts from our kitchen</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
@@ -128,7 +129,7 @@ export default function Terminal5Page() {
                   Book Roast Table
                 </BookTableButton>
                 <Link href="/sunday-roast" className="text-sm text-accent-text font-semibold hover:text-anchor-green transition">
-                  Sunday roast 7 minutes from Terminal 5 →
+                  Sunday roast {HEATHROW_TIMES.terminal5} minutes from Terminal 5 →
                 </Link>
               </div>
             </div>
@@ -194,7 +195,7 @@ export default function Terminal5Page() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
             {[
-              { title: '7 mins', description: 'by car' },
+              { title: `${HEATHROW_TIMES.terminal5} mins`, description: 'by car' },
               { title: 'Free', description: 'parking' },
               { title: 'Real', description: 'British pub' },
               { title: 'BA Hub', description: 'Terminal 5' }
@@ -229,30 +230,8 @@ export default function Terminal5Page() {
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {/* By Car */}
               <div className="bg-surface border border-line rounded-md shadow-sm p-8">
-                <h3 className="font-display text-h3 text-ink-strong mb-4">By Car (7 minutes)</h3>
-                <ol className="space-y-3 text-ink-muted">
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">1.</span>
-                    Exit Terminal 5 following signs for M25/A30
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">2.</span>
-                    At roundabout, take A3044 towards Staines
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">3.</span>
-                    Continue straight for 1.5 miles
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">4.</span>
-                    Turn right onto Horton Road (at the church)
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-accent-text">5.</span>
-                    The Anchor is 200m on your right
-                  </li>
-                </ol>
-                <div className="mt-6 p-4 bg-surface-sunk rounded-sm border border-line">
+                <h3 className="font-display text-h3 text-ink-strong mb-4">By Car ({HEATHROW_TIMES.terminal5} minutes)</h3>
+                <div className="p-4 bg-surface-sunk rounded-sm border border-line">
                   <p className="font-semibold text-accent-text">Sat Nav:</p>
                   <p className="text-lg">TW19 6AQ</p>
                 </div>
@@ -263,8 +242,8 @@ export default function Terminal5Page() {
                 <h3 className="font-display text-h3 text-ink-strong mb-4">By Taxi/Uber</h3>
                 <div className="space-y-4 text-ink-muted">
 	                  <div className="bg-surface-sunk p-4 rounded-sm border border-line">
-	                    <p className="font-semibold text-lg text-anchor-success mb-1">7 minutes</p>
-	                    <p className="text-sm text-ink-muted">2.8 miles</p>
+	                    <p className="font-semibold text-lg text-anchor-success mb-1">{HEATHROW_TIMES.terminal5} minutes</p>
+	                    <p className="text-sm text-ink-muted">{HEATHROW_DISTANCES.terminal5}</p>
 	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Tell your driver:</p>
@@ -273,7 +252,7 @@ export default function Terminal5Page() {
                   <div>
                     <p className="font-semibold mb-2">Pick-up Points:</p>
                     <ul className="space-y-1 text-sm">
-                      <li>• <strong>Arrivals:</strong> Exit, turn left, taxi rank outside</li>
+                      <li>• <strong>Arrivals:</strong> Taxi rank outside</li>
                       <li>• <strong>Departures:</strong> Level 1, follow taxi signs</li>
                       <li>• <strong>Uber:</strong> Short Stay Car Park Level 4</li>
                     </ul>
@@ -287,33 +266,8 @@ export default function Terminal5Page() {
 
               {/* By Bus */}
               <div className="bg-surface border border-line rounded-md shadow-sm p-8">
-                <h3 className="font-display text-h3 text-ink-strong mb-4">By Bus (Budget Option)</h3>
-                <div className="space-y-4 text-ink-muted">
-	                  <div className="bg-surface-sunk p-4 rounded-sm border border-line">
-	                    <p className="font-semibold text-lg text-anchor-success mb-1">15-20 minutes journey</p>
-	                  </div>
-                  <div>
-                    <p className="font-semibold mb-2">Routes to The Anchor:</p>
-                    <ul className="space-y-2 text-sm">
-                      <li className="bg-surface-sunk p-2 rounded-sm border border-line">
-                        <strong>442:</strong> T5 → Stanwell Moor (every 20 mins)
-                      </li>
-                      <li className="bg-surface-sunk p-2 rounded-sm border border-line">
-                        <strong>441:</strong> T5 → Staines via Stanwell (hourly)
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-semibold mb-2">Where to Catch Bus:</p>
-                    <p className="text-sm">Central Bus Station (Ground Floor)</p>
-                    <p className="text-sm">Follow signs from Arrivals</p>
-                  </div>
-                  <div className="p-4 bg-anchor-gold/10 rounded-sm border border-anchor-gold/30">
-                    <p className="font-semibold text-accent-text mb-1">Important</p>
-                    <p className="text-sm text-ink-muted">Tell driver: &quot;The Anchor pub stop&quot;</p>
-                    <p className="text-sm text-ink-muted">Last bus: 11:30pm Mon-Sat, 10:30pm Sun</p>
-                  </div>
-                </div>
+                <h3 className="font-display text-h3 text-ink-strong mb-4">By Bus</h3>
+                <p className="text-ink-muted">{BUS_WORDING}</p>
               </div>
             </div>
 
@@ -324,7 +278,7 @@ export default function Terminal5Page() {
                 Click below for turn-by-turn directions from Terminal 5
               </p>
               <DirectionsButton
-                href="https://maps.google.com/maps?saddr=Heathrow+Terminal+5&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                href={DIRECTIONS_URL}
                 source="terminal_5_directions"
                 variant="primary"
                 size="lg"
@@ -352,7 +306,7 @@ export default function Terminal5Page() {
               {[
                 { title: 'Perfect for BA Travellers', content: "Terminal 5 is British Airways' exclusive hub. Whether you're flying Club World or Euro Traveller, enjoy a proper British welcome just minutes away." },
                 { title: 'Great Value Pub Food', content: 'Proper British pub meals, stone-baked pizzas, burgers, fish & chips, and Sunday roasts. Real food, generous portions, in a relaxed village pub setting.' },
-                { title: 'Free Parking for Patrons', content: "We have 20 free parking spaces for customers. Perfect for meeting arriving passengers or enjoying a meal before your flight, no parking fees while you're with us." },
+                { title: 'Free Parking for Patrons', content: PARKING_WORDING },
                 { title: 'Pre-Flight Dining', content: 'Start your holiday right. Relax in our beer garden, enjoy a proper meal, then head to T5 refreshed and ready - not rushed and hungry.' }
               ].map(box => (
                 <Card key={box.title} accent>
@@ -384,7 +338,7 @@ export default function Terminal5Page() {
                   <ul className="space-y-1 text-ink-muted text-sm">
                     <li>• Short-haul: 2 hours before</li>
                     <li>• Long-haul: 3 hours before</li>
-                    <li>• Allow 15 mins to reach T5 from here</li>
+                    <li>• Allow {HEATHROW_TIMES.terminal5} mins to reach T5 from here</li>
                   </ul>
                 </div>
                 <div>
@@ -438,7 +392,7 @@ export default function Terminal5Page() {
                   Sofitel Terminal 5 Guests
                 </h3>
                 <p className="text-ink-muted mb-4">
-                  Just 8 minutes from your luxury hotel, The Anchor offers a genuine
+                  A short taxi ride from your hotel, The Anchor offers a genuine
                   alternative to hotel dining with traditional British pub fare.
                 </p>
                 <ul className="space-y-2 text-ink-muted mb-6">
@@ -466,8 +420,8 @@ export default function Terminal5Page() {
                   Hilton T5 Guests
                 </h3>
                 <p className="text-ink-muted mb-4">
-                  Why settle for another chain restaurant meal? Your Hilton is just
-                  7 minutes from genuine British hospitality.
+                  Why settle for another chain restaurant meal? Your Hilton is a
+                  short taxi ride from genuine British hospitality.
                 </p>
                 <ul className="space-y-2 text-ink-muted mb-6">
                   <li className="flex gap-2">
@@ -497,23 +451,17 @@ export default function Terminal5Page() {
               <h3 className="font-display text-h3 text-ink-strong mb-4 text-center">
                 Getting Here from Your Hotel
               </h3>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 gap-6">
 	                <div className="text-center">
 	                  <p className="font-semibold mb-2">By Taxi</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">5-8 minutes</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">A short drive</p>
 	                  <p className="text-sm text-ink-muted mt-2">Ask for "The Anchor, Stanwell Moor"</p>
 	                </div>
 	                <div className="text-center">
 	                  <p className="font-semibold mb-2">By Uber</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">5-8 minutes</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">A short drive</p>
 	                  <p className="text-sm text-ink-muted mt-2">Postcode: TW19 6AQ</p>
 	                </div>
-                <div className="text-center">
-                  <p className="font-semibold mb-2">Walking</p>
-                  <p className="font-display text-h3 text-accent-text mb-2">25-30 min</p>
-                  <p className="text-sm text-ink-muted">Pleasant route</p>
-                  <p className="text-sm text-ink-muted mt-2">Via Stanwell Moor Road</p>
-                </div>
               </div>
             </div>
 
@@ -571,19 +519,19 @@ export default function Terminal5Page() {
         faqs={[
           {
             question: "How far is The Anchor from Heathrow Terminal 5?",
-            answer: "The Anchor is just 7 minutes (2.8 miles) from Terminal 5, making it the closest traditional British pub to T5. It's a straight drive via the A3044."
+            answer: `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes (${HEATHROW_DISTANCES.terminal5}) from Terminal 5, making it the closest traditional British pub to T5.`
           },
           {
             question: "Is there parking at The Anchor near Terminal 5?",
-            answer: "Yes! We offer free parking for all customers with space for 20 cars. No fees, no time limits, free while you're visiting us. Perfect for meeting arriving passengers or enjoying a meal before your flight."
+            answer: `Yes. ${PARKING_WORDING}`
           },
 	          {
 	            question: "Can I get a taxi from Terminal 5 to The Anchor?",
-	            answer: "Yes, taxis are readily available from Terminal 5. The journey takes about 7 minutes. Tell your driver 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'. Alternatively, take bus route 442 which stops directly outside the pub - it runs every 20 minutes and costs about what a pint should cost."
+	            answer: `Yes, taxis are readily available from Terminal 5. The journey takes about ${HEATHROW_TIMES.terminal5} minutes. Tell your driver 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'. ${BUS_WORDING}`
 	          },
           {
             question: "What time should I leave The Anchor to catch my flight from T5?",
-            answer: "Allow 7 minutes to drive from The Anchor to Terminal 5, plus parking time if needed. For short-haul flights, leave 2.5 hours before departure. For long-haul, leave 3.5 hours before."
+            answer: `Allow ${HEATHROW_TIMES.terminal5} minutes to drive from The Anchor to Terminal 5, plus parking time if needed. For short-haul flights, leave 2.5 hours before departure. For long-haul, leave 3.5 hours before.`
           },
           {
             question: "Do BA cabin crew visit The Anchor?",
@@ -599,7 +547,7 @@ export default function Terminal5Page() {
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 5 hotel?",
-	            answer: "From Sofitel or Hilton T5, it's just 5-8 minutes by taxi or Uber. Tell the driver 'The Anchor, Stanwell Moor'. For the adventurous, it's a pleasant 25-30 minute walk via Stanwell Moor Road."
+	            answer: "From Sofitel or Hilton T5, it's a short drive by taxi or Uber. Tell the driver 'The Anchor, Stanwell Moor'."
 	          },
           {
             question: "Why should I leave my hotel to eat at The Anchor?",
@@ -612,7 +560,7 @@ export default function Terminal5Page() {
       {/* CTA Section */}
       <CtaBand
         title="See You Soon at The Anchor!"
-        copy="Just 7 minutes from Terminal 5 • Free Parking • Great British Food"
+        copy={`Just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 • Free Parking • Great British Food`}
       >
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap gap-3 justify-center">
@@ -638,75 +586,31 @@ export default function Terminal5Page() {
             {
               "@context": "https://schema.org",
               "@type": "Restaurant",
-              "name": "The Anchor - Pub Near Heathrow Terminal 5",
-              "description": "The closest pub to Heathrow Terminal 5 - just 7 minutes drive with free parking.",
+              "name": BRAND.name,
+              "description": `The closest pub to Heathrow Terminal 5 - just ${HEATHROW_TIMES.terminal5} minutes drive with free parking.`,
               "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/heathrow-airport-view.jpg",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Horton Road",
-                "addressLocality": "Stanwell Moor",
+                "streetAddress": CONTACT.address.street,
+                "addressLocality": CONTACT.address.town,
                 "addressRegion": "Surrey",
                 "postalCode": "TW19 6AQ",
                 "addressCountry": "GB"
               },
               "geo": {
                 "@type": "GeoCoordinates",
-                "latitude": 51.462509,
-                "longitude": -0.502067
+                "latitude": CONTACT.coordinates.lat,
+                "longitude": CONTACT.coordinates.lng
               },
               "url": "https://www.the-anchor.pub/near-heathrow/terminal-5",
               "telephone": "+441753682707",
-	              "priceRange": "££",
+	              "priceRange": PRICE_RANGE,
               "servesCuisine": ["British", "Pub Food"],
               "nearbyLocation": {
                 "@type": "Airport",
                 "name": "Heathrow Terminal 5",
                 "iataCode": "LHR"
               }
-            },
-            {
-              "@context": "https://schema.org",
-              "@type": "HowTo",
-              "name": "How to get to The Anchor from Heathrow Terminal 5",
-              "description": "Easy directions from Terminal 5 to The Anchor - just 7 minutes by car",
-              "totalTime": "PT7M",
-              "supply": {
-                "@type": "HowToSupply",
-                "name": "Transportation",
-                "requiredQuantity": 1
-              },
-              "step": [
-                {
-                  "@type": "HowToStep",
-                  "name": "Exit Terminal 5",
-                  "text": "Exit Terminal 5 following signs for M25/A30",
-                  "position": 1
-                },
-                {
-                  "@type": "HowToStep",
-                  "name": "Take A3044",
-                  "text": "At roundabout, take A3044 towards Staines",
-                  "position": 2
-                },
-                {
-                  "@type": "HowToStep",
-                  "name": "Continue straight",
-                  "text": "Continue straight for 1.5 miles",
-                  "position": 3
-                },
-                {
-                  "@type": "HowToStep",
-                  "name": "Turn onto Horton Road",
-                  "text": "Turn right onto Horton Road (at the church)",
-                  "position": 4
-                },
-                {
-                  "@type": "HowToStep",
-                  "name": "Arrive at The Anchor",
-                  "text": "The Anchor is 200m on your right with free parking",
-                  "position": 5
-                }
-              ]
             },
             {
               "@context": "https://schema.org",
@@ -726,22 +630,22 @@ export default function Terminal5Page() {
                 "name": "The Anchor",
                 "address": "Horton Road, Stanwell Moor, TW19 6AQ"
               },
-              "distance": "2.8 miles",
+              "distance": HEATHROW_DISTANCES.terminal5,
               "instrument": [
                 {
                   "@type": "Vehicle",
                   "name": "Car",
-                  "description": "7 minutes drive, FREE parking available"
+                  "description": `${HEATHROW_TIMES.terminal5} minutes drive, free parking`
                 },
 	                {
 	                  "@type": "Vehicle",
 	                  "name": "Taxi",
-	                  "description": "7 minutes"
+	                  "description": `${HEATHROW_TIMES.terminal5} minutes`
 	                },
 	                {
 	                  "@type": "Vehicle",
 	                  "name": "Bus",
-	                  "description": "Route 442/441, 15-20 minutes"
+	                  "description": BUS_WORDING
 	                }
               ]
             }

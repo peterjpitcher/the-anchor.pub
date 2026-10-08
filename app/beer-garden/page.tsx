@@ -17,7 +17,7 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, GEO_COORDINATES_SCHEMA } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
 import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
 import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
@@ -27,6 +27,8 @@ import {
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { DOGS_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
@@ -73,11 +75,7 @@ export default async function BeerGardenPage() {
       "addressRegion": "Surrey",
       "postalCode": "TW19 6AQ"
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 51.462509,
-      "longitude": -0.502067
-    },
+    "geo": GEO_COORDINATES_SCHEMA,
     ...(openingHoursSpecification.length ? { "openingHoursSpecification": openingHoursSpecification } : {}),
     "amenityFeature": [
       {
@@ -373,7 +371,7 @@ export default async function BeerGardenPage() {
           },
           {
             question: "Is the beer garden dog friendly?",
-            answer: "Yes! Dogs are very welcome in our beer garden. We provide water bowls and it's a great spot for your furry friend to relax while you enjoy plane spotting."
+            answer: `Yes. ${DOGS_WORDING}`
           },
           {
             question: "Can I take photos of planes from the beer garden?",
@@ -392,9 +390,9 @@ export default async function BeerGardenPage() {
       <InternalLinkingSection
         title="Eat, drink and celebrate near Heathrow"
         links={[
-          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
+          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: `Proper pub food ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, with free parking` },
           { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
-          { href: '/private-hire', title: 'Function Room Hire', description: 'Private hire for 10+ to 150 guests, free parking' },
+          { href: '/private-hire', title: 'Function Room Hire', description: `Private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, free parking` },
           ...(showChristmasLink
             ? [{
                 href: '/christmas-parties',
@@ -424,7 +422,7 @@ export default async function BeerGardenPage() {
             </DirectionsButton>
           </div>
           <p className="text-ink-muted text-sm">
-            Just 7 minutes from Heathrow Terminal 5 • Free parking • Dogs welcome
+            Just {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 • Free parking • Dogs welcome
           </p>
         </div>
       </CtaBand>

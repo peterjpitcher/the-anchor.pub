@@ -166,11 +166,6 @@
     "permanent": true
   },
   {
-    "source": "/favicon.ico",
-    "destination": "/favicon.png",
-    "permanent": true
-  },
-  {
     "source": "/blog/hashtags/:tag",
     "destination": "/blog/tags",
     "permanent": true
@@ -321,11 +316,6 @@
     "permanent": true
   },
   {
-    "source": "/whats-new/",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
     "source": "/who-are-we",
     "destination": "/",
     "permanent": true
@@ -398,11 +388,6 @@
   {
     "source": "/copy-4-of-drinks1/:path*",
     "destination": "/drinks",
-    "permanent": true
-  },
-  {
-    "source": "/cdn-cgi/:path*",
-    "destination": "/",
     "permanent": true
   },
   {
@@ -829,6 +814,51 @@
   {
     "source": "/private-hire/near/windsor-register-office",
     "destination": "/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/events/halloween-party-2026-10-31",
+    "destination": "/events/halloween-events-near-me-monster-mash-the-anchor-halloween-party-2026-10-31",
+    "permanent": true
+  },
+  {
+    "source": "/events/tasting-night-2026-11-20",
+    "destination": "/events/christmas-night-out-tasting-night-2026-11-20",
+    "permanent": true
+  },
+  {
+    "source": "/events/music-bingo-2026-11-11",
+    "destination": "/events/sequins-showstoppers-strictly-season-music-bingo-2026-11-13",
+    "permanent": true
+  },
+  {
+    "source": "/events/music-bingo-2026-12-09",
+    "destination": "/events/christmas-music-bingo-sleigh-my-name-festive-music-bingo-2026-12-11",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-2026-09-16",
+    "destination": "/events/autumn-kick-off-quiz-night-2026-09-16",
+    "permanent": true
+  },
+  {
+    "source": "/events/only-fools-and-horses-quiz-night-2026-09-25",
+    "destination": "/events/pub-quiz-lovely-jubbly-only-fools-and-horses-quiz-night-2026-09-25",
+    "permanent": true
+  },
+  {
+    "source": "/events/karaoke-night-2026-09-19",
+    "destination": "/events/big-sing-friday-karaoke-night-2026-09-18",
+    "permanent": true
+  },
+  {
+    "source": "/events/music-bingo-2026-08-14",
+    "destination": "/events/cowboys-queens-country-music-bingo-2026-08-14",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-2026-05-06",
+    "destination": "/events/pub-quiz-night-2026-05-06",
     "permanent": true
   }
 ]

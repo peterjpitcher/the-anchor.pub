@@ -998,7 +998,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       fireEvent.click(screen.getByRole('radio', { name: '2 high chairs' }))
 
       const flagged = await screen.findByRole('button', {
-        name: /Wednesday, July 8, 2026, 6pm, 1 high chair free/
+        name: /Wednesday 8 July 2026, 6pm, 1 high chair free/
       })
       expect(flagged).toHaveTextContent('1 high chair free')
       expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
@@ -1206,7 +1206,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       await reachDetails()
 
       expect(screen.getByText('Your table')).toBeInTheDocument()
-      expect(screen.getByText(/Tuesday, July 7, 2026 at 1pm/)).toBeInTheDocument()
+      expect(screen.getByText(/Tuesday 7 July 2026 at 1pm/)).toBeInTheDocument()
       expect(screen.getByText('2 guests')).toBeInTheDocument()
       expect(screen.getByText('Table for food')).toBeInTheDocument()
       expect(screen.queryByRole('button', { name: /continue to review/i })).not.toBeInTheDocument()

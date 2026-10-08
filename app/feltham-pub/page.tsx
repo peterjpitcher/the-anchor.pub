@@ -5,8 +5,10 @@ import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
+import { CONTACT, BRAND, DIRECTIONS_URL } from '@/lib/constants'
+import { PARKING_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -16,6 +18,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { DirectionsButton } from '@/components/DirectionsButton'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -25,15 +28,15 @@ export function generateMetadata(): Metadata {
 
   return {
     title: 'Pub Near Feltham | Free Parking & Sunday Roasts',
-    description: `Looking for pubs near Feltham? A relaxed village pub 10 minutes away, with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
+    description: `Looking for pubs near Feltham? A relaxed village pub a short drive away, with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
     openGraph: {
       title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
-      description: `Pubs near Feltham, just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
+      description: `Pubs near Feltham, a short drive away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     },
     twitter: getTwitterMetadata({
       title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
-      description: `Pubs near Feltham, just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
+      description: `Pubs near Feltham, a short drive away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -44,30 +47,17 @@ export function generateMetadata(): Metadata {
 
 export default function FelthamPubPage() {
   const sunday = getSundayRoastContent()
-  const directionsSchema = generateHowToDirectionsSchema(
-    "Feltham Town Centre",
-    "The Anchor",
-    [
-      "From Feltham High Street, head south on Bedfont Lane",
-      "Continue for 1.5 miles through Bedfont",
-      "At the roundabout, take the 2nd exit onto Staines Road",
-      "After 0.8 miles, turn right onto Horton Road",
-      "Continue for 0.5 miles",
-      "The Anchor is on your left with free parking"
-    ]
-  )
-
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "BarOrPub",
-    "name": "The Anchor - Feltham's Local Pub",
+    "name": BRAND.name,
     "description": "Traditional British pub serving Feltham residents with great food, drinks, and entertainment.",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Horton Road",
-      "addressLocality": "Stanwell Moor",
+      "streetAddress": CONTACT.address.street,
+      "addressLocality": CONTACT.address.town,
       "addressRegion": "Surrey",
-      "postalCode": "TW19 6AQ",
+      "postalCode": CONTACT.address.postcode,
       "addressCountry": "GB"
     },
     "areaServed": {
@@ -87,7 +77,7 @@ export default function FelthamPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[
@@ -101,7 +91,7 @@ export default function FelthamPubPage() {
         image="/images/page-headers/feltham-pub/find-us.jpg"
         crumb="Feltham"
         title="Your Local Pub Near Feltham"
-        lead="Just 10 minutes away with free parking"
+        lead="A short drive away with free parking"
         actions={
           <BookTableButton source="feltham_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -130,7 +120,7 @@ export default function FelthamPubPage() {
               Pub Near Feltham, Traditional British Pub with Free Parking
             </PageTitle>
             <p className="text-lg text-ink-muted">
-              Your local traditional pub just 10 minutes from Feltham with free parking
+              Your local traditional pub, a short drive from Feltham with free parking
             </p>
           </div>
         </Container>
@@ -149,7 +139,7 @@ export default function FelthamPubPage() {
             {/* Key Benefits Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
               {[
-                { title: "Quick Drive", description: "Just 10 minutes from Feltham via Bedfont Lane" },
+                { title: "Quick Drive", description: "A short drive from Feltham" },
                 { title: "Peaceful Setting", description: "Village atmosphere away from busy Feltham traffic" },
                 { title: "Plane Spotting", description: "Unique beer garden under the Heathrow flight path" },
               ].map((item) => (
@@ -171,7 +161,7 @@ export default function FelthamPubPage() {
                 <ul className="space-y-4 text-ink">
                   <li className="flex items-start">
                     <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                    <span>Free parking - no time limits or charges</span>
+                    <span>{PARKING_WORDING}</span>
                   </li>
                   <li className="flex items-start">
                     <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -204,36 +194,13 @@ export default function FelthamPubPage() {
               title="How to Find Us from Feltham"
             />
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">Driving Directions</h3>
-                <ol className="space-y-3 text-ink">
-                  <li className="flex"><span className="text-accent-text font-bold mr-3">1.</span>From Feltham High Street, head south on Bedfont Lane</li>
-                  <li className="flex"><span className="text-accent-text font-bold mr-3">2.</span>Continue for 1.5 miles through Bedfont</li>
-                  <li className="flex"><span className="text-accent-text font-bold mr-3">3.</span>At the roundabout, take the 2nd exit onto Staines Road</li>
-                  <li className="flex"><span className="text-accent-text font-bold mr-3">4.</span>After 0.8 miles, turn right onto Horton Road</li>
-                  <li className="flex"><span className="text-accent-text font-bold mr-3">5.</span>Continue for 0.5 miles</li>
-                  <li className="flex"><span className="text-accent-text font-bold mr-3">6.</span>The Anchor is on your left - ample free parking available</li>
-                </ol>
-              </div>
-
-              <div>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">Local Landmarks</h3>
-                <div className="space-y-4 text-ink-muted">
-                  <div>
-                    <p className="font-semibold text-ink">From Feltham Station:</p>
-                    <p>10-minute drive via Bedfont Lane, or take the 117 bus towards Staines.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-ink">Near Bedfont Lakes:</p>
-                    <p>We're just 5 minutes from Bedfont Lakes Business Park - perfect for after-work drinks.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-ink">From The Centre Feltham:</p>
-                    <p>Head south on Bedfont Lane, follow signs for Staines/Stanwell.</p>
-                  </div>
-                </div>
-              </div>
+            <div className="text-center">
+              <p className="text-lg text-ink-muted mb-6">
+                We&apos;re on {CONTACT.address.street}, {CONTACT.address.town}. Set your sat nav to {CONTACT.address.postcode}.
+              </p>
+              <DirectionsButton href={DIRECTIONS_URL} source="feltham_pub_directions" variant="outline" size="md">
+                Get directions
+              </DirectionsButton>
             </div>
           </div>
         </Container>
@@ -280,7 +247,7 @@ export default function FelthamPubPage() {
           <div className="mx-auto">
             <SectionHeading
               title="Private Events for Feltham Residents"
-              lead="The perfect venue just 10 minutes from Feltham"
+              lead="The perfect venue, a short drive from Feltham"
             />
 
             <div className="grid md:grid-cols-2 gap-5 mb-8">
@@ -290,7 +257,7 @@ export default function FelthamPubPage() {
                   <ul className="space-y-3 text-ink">
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong>Quick 10-minute drive</strong> - Closer than central London venues</span>
+                      <span><strong>A short drive</strong> - Closer than central London venues</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -337,7 +304,7 @@ export default function FelthamPubPage() {
               <CardBody className="p-6">
                 <p className="text-lg text-ink mb-4">
                   <strong>Feltham groups love our flexibility!</strong>
-                  Competitive rates - let's discuss your needs. Private hire for 10+ to 150 guests, with larger events by enquiry.
+                  Competitive rates - let's discuss your needs. {PRIVATE_HIRE_CAPACITY.summary}
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button asChild variant="primary" size="md">
@@ -377,16 +344,15 @@ export default function FelthamPubPage() {
               <p>
                 Feltham's commercial corridor stretches from Bedfont Lakes Business Park through to the trading estates
                 along Feltham Hill Road, thousands of people finishing shifts every evening with limited options for a
-                proper sit-down meal nearby. Most end up in chain restaurants or grabbing a takeaway. The Anchor is just
-                ten minutes down Feltham Hill Road and the A30, with free parking and a kitchen serving hearty pub food
-                at lunch and dinner from Tuesday to Friday. It is the kind of place where you can unwind with a pint of draught beer and a
+                proper sit-down meal nearby. Most end up in chain restaurants or grabbing a takeaway. The Anchor is a
+                short drive away, with free parking and hearty pub food. Kitchen times vary by date, so check
+                before you come or call {CONTACT.phone}. It is the kind of place where you can unwind with a pint of draught beer and a
                 stone-baked pizza without fighting for a table.
               </p>
               <p>
-                Coming from Feltham station? A taxi takes about fifteen minutes. For those
-                heading home after an England match at Twickenham, skip the crush around the rugby ground pubs, The
-                Anchor is roughly twenty minutes via the A316 and M3, even on a busy match day, with guaranteed free
-                parking at the other end. It is a much more relaxed way to keep the evening going.
+                Coming from Feltham station? It is a short drive by taxi. For those
+                heading home after an England match at Twickenham, skip the crush around the rugby ground pubs. The
+                Anchor has free parking, and it is a much more relaxed way to keep the evening going.
               </p>
               <p>
                 If you have been searching for pubs in Feltham, you will know the options are fairly thin on the ground
@@ -425,11 +391,7 @@ export default function FelthamPubPage() {
         faqs={[
           {
             question: "How far is The Anchor from Feltham?",
-            answer: "The Anchor is just 10 minutes (3.2 miles) from Feltham town centre. An easy drive via Bedfont Lane and Staines Road, with free parking available on arrival."
-          },
-          {
-            question: "Is there a bus from Feltham to The Anchor?",
-            answer: "Yes, the 117 bus route connects Feltham to nearby Stanwell Moor. From the bus stop, it's a short 5-minute walk to The Anchor. Alternatively, it's a quick 10-minute drive with free parking."
+            answer: `The Anchor is a short drive from Feltham town centre. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}. ${PARKING_WORDING}`
           },
           {
             question: "Do you deliver to Feltham?",

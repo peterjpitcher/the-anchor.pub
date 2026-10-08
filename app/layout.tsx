@@ -13,7 +13,6 @@ import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
 import { GTMProvider } from '@/components/tracking/GTMProvider'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
 import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
 import { DeferredRender } from '@/components/DeferredRender'
@@ -28,6 +27,7 @@ import {
   PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
 } from '@/lib/promos/privateHire2026'
 import { Suspense } from 'react'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 
 const EventCountdownBanner = dynamic(() => import('@/components/EventCountdownBanner').then(mod => mod.EventCountdownBanner), {
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     default: 'The Anchor Pub | Stanwell Moor | Near Heathrow',
     template: '%s | The Anchor'
   },
-  description: 'The Anchor, Stanwell Moor. Traditional pub around 7 mins from Heathrow T5, traffic dependent. Sunday roasts, quiz nights, listed karaoke nights, beer garden & free parking.',
+  description: `The Anchor, Stanwell Moor. Traditional pub around ${HEATHROW_TIMES.terminal5} mins from Heathrow T5, traffic dependent. Sunday roasts, quiz nights, listed karaoke nights, beer garden & free parking.`,
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',
@@ -149,10 +149,10 @@ export default async function RootLayout({
       style={getSeasonalSkinStyle(skin)}
     >
       <head>
-        {/* Resource hints for performance */}
-        <link rel="preconnect" href="https://management.orangejelly.co.uk" />
-        {/* No hint for Google's hosts here: nothing of Google's is contacted
-            until the visitor accepts analytics cookies (GTMProvider). */}
+        {/* No preconnect hints. Nothing of Google's is contacted until the
+            visitor accepts analytics cookies (GTMProvider), and the browser
+            never talks to the management app: every call to it is made on the
+            server, so a hint for it opened a connection nothing used. */}
 
         {/* Meta tags */}
         <meta name="theme-color" content="#005131" />
@@ -250,7 +250,6 @@ function gtag(){dataLayer.push(arguments);}
                     one here put a footer landmark inside a footer landmark on
                     every page (site review AX-019, 7 October 2026). */}
                 <div>
-                  <LaunchAnnouncement variant="slim" />
                   {/* The credit reads its feed on the server, so it is rendered
                       here and handed to the client footer as a slot. Same size
                       and colour as the copyright line above it. */}

@@ -6,9 +6,10 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { PARKING_WORDING, DOGS_WORDING } from '@/lib/approved-wording'
+import { bookingConfig } from '@/lib/booking-config'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -17,7 +18,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Pubs in Colnbrook & Poyle | Food, Drinks & Free Parking',
-    description: `${BRAND.name} is the perfect spot for Poyle Industrial Estate workers and Colnbrook residents. Great food, cold pints, and free parking just 2 miles away.`,
+    description: `${BRAND.name} is the perfect spot for Poyle Industrial Estate workers and Colnbrook residents. Great food, cold pints, and free parking a short drive away.`,
     openGraph: {
         title: 'Pubs in Colnbrook & Poyle | Food, Drinks & Free Parking | The Anchor',
         description: 'Perfect for after-work drinks or a team lunch. Just minutes from Poyle Industrial Estate and Colnbrook.',
@@ -64,27 +65,17 @@ export default function ColnbrookPubPage() {
                 "name": "Poyle"
             }
         ],
-        "priceRange": "££",
+        "priceRange": PRICE_RANGE,
         "servesCuisine": ["British", "Traditional English", "Sunday Roast", "Pizza", "Lunch"],
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/colnbrook-pub"
     }
 
-    const directionsSchema = generateHowToDirectionsSchema(
-        'Colnbrook',
-        'The Anchor - Heathrow Pub & Dining',
-        [
-            'From Colnbrook/Poyle, create the Horthon Road bridge',
-            'Head towards Stanwell Moor',
-            'The Anchor is in the centre of the village on your left'
-        ]
-    )
-
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
             />
 
             <InteriorHero
@@ -131,7 +122,7 @@ export default function ColnbrookPubPage() {
                             {[
                                 { title: "After Work", description: "Cold beers, draught lagers, and a great wine list for the end of the day" },
                                 { title: "Great Food", description: "Hearty meals, burgers, and stone-baked pizzas to fuel your team" },
-                                { title: "Easy Parking", description: "Large free car park for vans and cars - no hassle" },
+                                { title: "Easy Parking", description: `${PARKING.capacity} free spaces right outside` },
                             ].map((item) => (
                                 <Card key={item.title} accent>
                                     <CardBody className="p-6 text-center">
@@ -168,15 +159,17 @@ export default function ColnbrookPubPage() {
                         </Card>
 
                         <div className="text-center">
+                            <p className="text-lg text-ink-muted mb-6">
+                                We&apos;re on {CONTACT.address.street}, {CONTACT.address.town}. Set your sat nav to {CONTACT.address.postcode}.
+                            </p>
                             <DirectionsButton
-                                href="https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                                href={DIRECTIONS_URL}
                                 source="colnbrook_directions"
                                 variant="primary"
                                 size="lg"
-                                fromLocation="Colnbrook"
                                 wrap
                             >
-                                 Get Directions from Colnbrook (5 mins)
+                                 Get directions
                             </DirectionsButton>
                         </div>
                     </div>
@@ -197,9 +190,7 @@ export default function ColnbrookPubPage() {
                                 cargo, and aviation services, from DHL and FedEx warehouses to smaller freight
                                 forwarders lining the Colnbrook bypass. When the shift ends, options are slim. A few
                                 takeaways on Colnbrook High Street, the odd cafe that closes at four, and not much else.
-                                The Anchor is straight down the bypass and along Horton Road, five to seven minutes,
-                                no motorway required, and it is the closest proper pub with a full kitchen and real
-                                ales on tap.
+                                The Anchor is a short drive away, and it is the closest proper pub with a full kitchen.
                             </p>
                             <p>
                                 Colnbrook itself has a proud history. The Ostrich Inn on the High Street claims to be
@@ -211,7 +202,7 @@ export default function ColnbrookPubPage() {
                             </p>
                             <p>
                                 We also welcome families visiting the Colnbrook area who need somewhere warm and
-                                friendly to sit down for a proper meal. Our pub is dog-friendly, child-friendly, and
+                                friendly to sit down for a proper meal. {DOGS_WORDING} Children are welcome too, and the pub
                                 has the kind of relaxed atmosphere where people linger over a second coffee or an extra
                                 round. Whether you are a warehouse supervisor winding down after a twelve-hour shift or
                                 a family looking for a Sunday roast spot away from the airport chaos, you will find a
@@ -237,15 +228,15 @@ export default function ColnbrookPubPage() {
                 faqs={[
                     {
                         question: "How far is The Anchor from Poyle Industrial Estate?",
-                        answer: "We are less than 2 miles away, a very quick drive down Horton Road. Many workers join us for lunch or after their shift."
+                        answer: "We're a short drive away. Many workers join us for lunch or after their shift."
                     },
                     {
                         question: "Can you accommodate large work groups?",
-                        answer: "Yes, we have plenty of space including a private function room. For large groups (8+), we recommend booking in advance so we can prepare tables for you."
+                        answer: `Yes, we have plenty of space including a private function room. Groups of more than ${bookingConfig.maxOnlinePartySize}, give us a call on ${CONTACT.phone} so we can prepare tables for you.`
                     },
                     {
-                        question: "Is there parking for vans?",
-                        answer: "Yes, our car park is spacious and can accommodate work vans easily (though unfortunately not HGVs)."
+                        question: "Is there parking?",
+                        answer: `Yes. ${PARKING_WORDING}`
                     },
                     {
                         question: "Do you offer takeaway?",
@@ -266,11 +257,10 @@ export default function ColnbrookPubPage() {
                     <Link href="/private-hire#enquiry">Book an Event</Link>
                 </Button>
                 <DirectionsButton
-                    href="https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                    href={DIRECTIONS_URL}
                     source="colnbrook_cta_band_directions"
                     variant="outline"
                     size="lg"
-                    fromLocation="Colnbrook"
                 >
                     Get Directions
                 </DirectionsButton>

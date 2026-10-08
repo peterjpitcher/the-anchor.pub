@@ -5,6 +5,7 @@ import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
+import { DOGS_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -148,7 +149,7 @@ export default async function SummerGardenPartiesPage() {
                     },
                     {
                         question: "Is it dog friendly?",
-                        answer: "Yes! Our garden is completely dog friendly. We have water bowls and treats available."
+                        answer: DOGS_WORDING
                     }
                 ]}
             />

@@ -1,4 +1,4 @@
-import { ACCESS_SHORT_WORDING, ACCESS_WORDING, NGCI_WORDING, ONE_KITCHEN_WORDING } from '@/lib/approved-wording'
+import { ACCESS_SHORT_WORDING, ACCESS_WORDING, NGCI_WORDING, ONE_KITCHEN_WORDING, ULEZ_WORDING, DOGS_WORDING } from '@/lib/approved-wording'
 import { resolveFixtureBookingContext } from '@/lib/nations-championship/booking-context'
 import type { FixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
 import type { Metadata } from 'next'
@@ -6,11 +6,10 @@ import Link from 'next/link'
 import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, BUS_WORDING, HEATHROW_TIMES, PARKING, DRIVE_TIMES } from '@/lib/constants'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
 import { StaticHoursSummary } from '@/components/StaticHoursSummary'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { Section, Button, Grid, Card, CardBody, SectionHeading, Badge } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
@@ -31,12 +30,10 @@ import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
-// Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
-// so the LaunchAnnouncement banner flips reliably at the cutover even on
-// cached pages. See spec §8.5.
-// TODO(post-launch): revert to 60 * 60 * 24 (24 hours) after 22 May 2026, or
-// drop the export entirely if the original was using Next.js' default.
-export const revalidate = 60 * 60 // 1 hour during launch fortnight
+// Set to one hour for the walk-in launch in May 2026 and left as it was when the
+// launch banner was removed (8 October 2026). The page reads its search
+// parameters, so it is rendered on every request and this value has no effect.
+export const revalidate = 60 * 60
 
 // The approved access block, split around the phone number so the number can be
 // a tappable link. The words are untouched.
@@ -49,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const sundayPhrase = sundayMenu.menuData
     ? ' Sunday roast menu details are loaded live.'
     : ' Sunday roast details are available on request.'
-  const description = `Reserve a table at The Anchor, Stanwell Moor.${sundayPhrase} Dog-friendly, free parking, 7 mins from Terminal 5.`
+  const description = `Reserve a table at The Anchor, Stanwell Moor.${sundayPhrase} Dog-friendly, free parking, ${HEATHROW_TIMES.terminal5} mins from Terminal 5.`
 
   return {
     title: 'Book a Table Near Heathrow T5',
@@ -126,7 +123,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               '@context': 'https://schema.org',
               '@type': 'WebPage',
               'name': 'Book a Table at The Anchor',
-              'description': 'Reserve your table at The Anchor, Stanwell Moor. Quick confirmation. Free parking, 7 mins from Heathrow T5.',
+              'description': `Reserve your table at The Anchor, Stanwell Moor. Quick confirmation. Free parking, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5.`,
               'url': 'https://www.the-anchor.pub/book-table',
               'potentialAction': {
                 '@type': 'ReserveAction',
@@ -209,7 +206,6 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4 space-y-3">
-              <LaunchAnnouncement variant="banner" />
               <RegretReduction variant="table" />
             </div>
             <ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} fixtureContext={fixtureContext} fixtureMessage={fixtureMessage} />
@@ -287,7 +283,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             <Card className="hidden p-6 lg:block">
               <h3 className="text-xl font-semibold text-accent-text">Useful to know</h3>
               <ul className="mt-3 space-y-2 text-left text-sm text-ink-muted">
-                <li>• 20 free parking spaces on site.</li>
+                <li>• {PARKING.capacity} free parking spaces on site.</li>
                 <li>• Dog friendly inside and out.</li>
                 <li>• {ACCESS_SHORT_WORDING}</li>
               </ul>
@@ -346,7 +342,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             <CardBody>
               <h3 className="text-lg font-semibold text-accent-text mb-2">Free Parking &amp; Easy Access</h3>
               <p className="text-ink-muted text-sm mb-4">
-                We have 20 free on-site parking spaces and are just 7 minutes from Heathrow Terminal 5. {ACCESS_SHORT_WORDING} Dogs welcome inside and out.
+                We have {PARKING.capacity} free on-site parking spaces and are just {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. {ACCESS_SHORT_WORDING} Dogs welcome inside and out.
               </p>
               <Link href="/find-us" className="text-accent-text font-semibold text-sm hover:underline">
                 Get directions &rarr;
@@ -427,19 +423,19 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       <Section background="white" spacing="md" container className="border-b border-line">
         <SectionHeading
           title="Getting Here"
-          subtitle="Easy to find, plenty of parking, and closer than you think."
+          subtitle="Easy to find, free parking, and closer than you think."
           align="center"
         />
         <div className="mx-auto">
           <div className="prose max-w-none text-ink-muted space-y-4">
             <p>
-              The Anchor is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ, just 2 minutes from M25 Junction 14 and 7 minutes from Heathrow Terminal 5. Whether you&apos;re booking a pub table near Heathrow for a pre-flight meal, a layover lunch, or a restaurant reservation near Heathrow for a special evening, we&apos;re easy to reach from all directions.
+              The Anchor is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ, just {DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14 and {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Whether you&apos;re booking a pub table near Heathrow for a pre-flight meal, a layover lunch, or a restaurant reservation near Heathrow for a special evening, we&apos;re easy to reach from all directions.
             </p>
             <p>
-              We have 20 free on-site parking spaces with CCTV and floodlighting. No meters, no time limits while you&apos;re dining. The car park has a level surface with step-free access to the bar and dining area.
+              We have {PARKING.capacity} free on-site parking spaces with CCTV and floodlighting. No meters, no time limits while you&apos;re dining. The car park has a level surface with step-free access to the bar and dining area.
             </p>
             <p>
-              By bus, we&apos;re served by the 441, 442, and 555 routes from Heathrow Central Bus Station. We&apos;re also outside the ULEZ zone, avoiding the daily charge if you&apos;re driving from London.
+              {BUS_WORDING} {ULEZ_WORDING}
             </p>
           </div>
           <p className="mt-6 text-center">
@@ -472,7 +468,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'How far are you from Heathrow Airport?',
-            answer: 'The Anchor is in Stanwell Moor, just 7 minutes from Heathrow Terminal 5 by car. We\'re a popular choice for pre-flight meals, layover dining, and airport hotel guests looking for a proper pub nearby.'
+            answer: `The Anchor is in Stanwell Moor, just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car. We're a popular choice for pre-flight meals, layover dining, and airport hotel guests looking for a proper pub nearby.`
           },
           {
             question: 'What are your kitchen hours?',
@@ -480,11 +476,11 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'Is The Anchor dog-friendly?',
-            answer: 'Yes, dogs are welcome both inside the pub and in the beer garden. We have water bowls available and our team love a visit from a four-legged friend. Just mention it when you book if you\'re bringing a dog.'
+            answer: `Yes. ${DOGS_WORDING} Just mention it when you book if you're bringing a dog.`
           },
           {
             question: 'Can I book for a Heathrow layover meal?',
-            answer: 'Absolutely. Many of our guests book a table during a long Heathrow layover. We\'re 7 minutes from T5, offer free parking, and our kitchen can turn around a full meal in good time. Call us if you have a tight window and we\'ll do our best.'
+            answer: `Absolutely. Many of our guests book a table during a long Heathrow layover. We're ${HEATHROW_TIMES.terminal5} minutes from T5, offer free parking, and our kitchen can turn around a full meal in good time. Call us if you have a tight window and we'll do our best.`
           }
         ]}
       />

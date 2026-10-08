@@ -363,10 +363,21 @@ export function getEventSeatsRemaining(event: EventBookingAvailabilitySource): n
   return null
 }
 
-/** "55 seats available", or "Only 4 seats left" once ten or fewer remain. */
-function formatSeatCount(seats: number): string {
-  if (seats <= 10) return `Only ${seats} seat${seats === 1 ? '' : 's'} left`
-  return `${seats} seats available`
+/**
+ * "55 seats available", or "Only 4 seats left" once ten or fewer remain.
+ *
+ * The noun is "places" on a general-admission night. The Halloween party page
+ * read "140 seats available" for a standing party of 150 in a room that seats
+ * 29 (site review finding C2-024): the count was real and the noun promised a
+ * seat nobody was selling.
+ */
+function formatSeatCount(seats: number, noun: 'seat' | 'place' = 'seat'): string {
+  if (seats <= 10) return `Only ${seats} ${noun}${seats === 1 ? '' : 's'} left`
+  return `${seats} ${noun}s available`
+}
+
+function isGeneralAdmission(mode: string | null | undefined): boolean {
+  return typeof mode === 'string' && mode.trim().toLowerCase() === 'general'
 }
 
 export function getEventSeatAvailabilityLabel(event: EventBookingAvailabilitySource): string | null {
@@ -402,7 +413,7 @@ export function getEventSeatAvailabilityLabel(event: EventBookingAvailabilitySou
   const soldOut = event.is_full === true || seatsRemaining === 0 || schemaSoldOut
   if (soldOut) return 'Sold out'
   if (seatsRemaining === null) return null
-  return formatSeatCount(seatsRemaining)
+  return formatSeatCount(seatsRemaining, isGeneralAdmission(event.booking_mode) ? 'place' : 'seat')
 }
 
 export function getEventFoodArrivalLabel(
