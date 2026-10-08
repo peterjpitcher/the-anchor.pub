@@ -25,6 +25,11 @@
     "permanent": true
   },
   {
+    "source": "/blog/buy-one-get-one-free-on-all-pizza-every-tuesday",
+    "destination": "/food-menu#pizza",
+    "permanent": true
+  },
+  {
     "source": "/blog/cash-bingo-at-the-anchor-win-50-at-our-monthly-bin",
     "destination": "/blog/monthly-cash-bingo",
     "permanent": true
@@ -56,7 +61,7 @@
   },
   {
     "source": "/blog/celebrating-national-burger-day-a-half-price-burge",
-    "destination": "/blog/national-burger-day",
+    "destination": "/food-menu#burgers",
     "permanent": true
   },
   {
@@ -95,8 +100,38 @@
     "permanent": true
   },
   {
+    "source": "/blog/company-celebrations",
+    "destination": "/corporate-events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/free-pint-offer-this-november",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/blog/national-burger-day",
+    "destination": "/food-menu#burgers",
+    "permanent": true
+  },
+  {
     "source": "/blog/piano-christmas-performance",
     "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
+    "source": "/blog/pizza-deals-stanwell-heathrow-tuesdays",
+    "destination": "/food-menu#pizza",
+    "permanent": true
+  },
+  {
+    "source": "/blog/pravha-beer",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/blog/stanwell-moor-brew",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -136,7 +171,7 @@
   },
   {
     "source": "/blog/enjoy-pravha-at-the-anchor-the-light-and-refreshin",
-    "destination": "/blog/pravha-beer",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -171,7 +206,7 @@
   },
   {
     "source": "/blog/host-your-company-celebrations-at-the-anchor-pub-i",
-    "destination": "/blog/company-celebrations",
+    "destination": "/corporate-events",
     "permanent": true
   },
   {
@@ -191,7 +226,7 @@
   },
   {
     "source": "/blog/introducing-stanwell-moor-brew-at-the-anchor-thean",
-    "destination": "/blog/stanwell-moor-brew",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -446,7 +481,7 @@
   },
   {
     "source": "/post/buy-one-get-one-free-on-all-pizza-every-tuesday",
-    "destination": "/blog/buy-one-get-one-free-on-all-pizza-every-tuesday",
+    "destination": "/food-menu#pizza",
     "permanent": true
   },
   {
@@ -486,7 +521,7 @@
   },
   {
     "source": "/post/celebrating-national-burger-day-a-half-price-burge",
-    "destination": "/blog/national-burger-day",
+    "destination": "/food-menu#burgers",
     "permanent": true
   },
   {
@@ -551,7 +586,7 @@
   },
   {
     "source": "/post/enjoy-pravha-at-the-anchor-the-light-and-refreshin",
-    "destination": "/blog/pravha-beer",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -591,7 +626,7 @@
   },
   {
     "source": "/post/free-pint-offer-this-november",
-    "destination": "/blog/free-pint-offer-this-november",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -606,7 +641,7 @@
   },
   {
     "source": "/post/host-your-company-celebrations-at-the-anchor-pub-i",
-    "destination": "/blog/company-celebrations",
+    "destination": "/corporate-events",
     "permanent": true
   },
   {
@@ -631,7 +666,7 @@
   },
   {
     "source": "/post/introducing-stanwell-moor-brew-at-the-anchor-thean",
-    "destination": "/blog/stanwell-moor-brew",
+    "destination": "/drinks",
     "permanent": true
   },
   {

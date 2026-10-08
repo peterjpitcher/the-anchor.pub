@@ -201,7 +201,7 @@
   },
   {
     "source": "/post/enjoy-pravha-at-the-anchor",
-    "destination": "/blog/pravha-beer",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -241,7 +241,7 @@
   },
   {
     "source": "/post/stanwell-moor-brew-craft-beer",
-    "destination": "/blog/stanwell-moor-brew",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -401,7 +401,7 @@
   },
   {
     "source": "/post/celebrating-national-burger-day-a-half-price-burger-feast",
-    "destination": "/blog/national-burger-day",
+    "destination": "/food-menu#burgers",
     "permanent": true
   },
   {
@@ -451,7 +451,7 @@
   },
   {
     "source": "/post/free-pint-stanwell-moor",
-    "destination": "/blog/free-pint-offer-this-november",
+    "destination": "/drinks",
     "permanent": true
   },
   {
