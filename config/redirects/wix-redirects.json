@@ -371,12 +371,12 @@
   },
   {
     "source": "/post/opihr-gin-the-anchor",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
     "source": "/post/bombay-sapphire-the-anchor-pub",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -421,7 +421,7 @@
   },
   {
     "source": "/post/managers-special-the-anchor-pub",
-    "destination": "/blog/monthly-managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -506,7 +506,7 @@
   },
   {
     "source": "/post/have-you-tried-kraken-rum",
-    "destination": "/blog/25-off-kraken-rum-this-june-manager-s-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -586,7 +586,7 @@
   },
   {
     "source": "/post/the-botanist-gin-july-2025-managers-special-stanwell-moor",
-    "destination": "/drinks/managers-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -616,7 +616,7 @@
   },
   {
     "source": "/post/kraken-rum-offer-stanwell-moor",
-    "destination": "/blog/25-off-kraken-rum-this-june-manager-s-special",
+    "destination": "/drinks",
     "permanent": true
   },
   {

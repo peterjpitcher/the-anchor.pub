@@ -44,7 +44,6 @@ describe('middleware: /api reads are not stored by default', () => {
     '/api/public/private-booking/config',
     '/api/health',
     '/api/analytics',
-    '/api/managers-special-image',
     // A route nobody has written yet starts out not stored.
     '/api/something-new',
   ])('%s is no-store', (path) => {

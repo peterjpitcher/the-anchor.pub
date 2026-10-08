@@ -83,15 +83,7 @@ export const landmarks: Landmark[] = [
         description: 'A short drive from Egham, offering a relaxed and welcoming atmosphere for church events and family celebrations.'
     },
 
-    // Registry Offices
-    {
-        slug: 'staines-registration-office',
-        name: 'Staines Registration Office',
-        type: 'registry_office',
-        address: 'The Library, Friends Walk, Staines TW18 4PG',
-        distance: '9 mins drive',
-        description: 'Avoid the town centre parking hassle. Come to The Anchor after your ceremony for a relaxed family meal with free parking for all guests.'
-    },
+    // Ceremony venues
     {
         slug: 'great-fosters-egham',
         name: 'Great Fosters',
@@ -129,33 +121,12 @@ export const landmarks: Landmark[] = [
         description: 'Accessible via the M25 and local roads, we provide a great off-site location for Stockley Park businesses.'
     },
 
-    // Additional Crematoriums
-    {
-        slug: 'kempton-park-crematorium',
-        name: 'Kempton Park Crematorium',
-        type: 'crematorium',
-        address: 'Feltham Road, Hanworth TW13 4LY',
-        distance: '12 mins drive',
-        description: 'The Anchor offers a private, peaceful setting for families gathering after services at Kempton Park Crematorium, a straightforward 12-minute drive via the A316.'
-    },
-
-    // Additional Registry Offices
-    {
-        slug: 'windsor-register-office',
-        name: 'Windsor Register Office',
-        type: 'registry_office',
-        address: 'King Edward Court, Windsor SL4 1DT',
-        distance: '20 mins drive',
-        description: 'After your ceremony at Windsor Register Office, The Anchor provides a relaxed venue for a celebratory meal or drinks reception, with free parking for all guests.'
-    },
-    {
-        slug: 'spelthorne-registration-office',
-        name: 'Spelthorne Registration Office',
-        type: 'registry_office',
-        address: 'Knowle Green, Staines TW18 1XB',
-        distance: '9 mins drive',
-        description: 'Just 9 minutes from Spelthorne Registration Office, The Anchor is perfectly placed for naming ceremonies, family meals, and post-registration celebrations.'
-    },
+    // Removed on 8 October 2026 (owner decision 15, site review finding C1-006):
+    // kempton-park-crematorium and spelthorne-registration-office (neither place
+    // exists), staines-registration-office (births and deaths only, no
+    // ceremonies) and windsor-register-office (the office is in Maidenhead).
+    // Each address redirects: see config/redirects/additional-redirects.json.
+    // Do not add them back without the council's own page as a source.
 
     // Airports
     {

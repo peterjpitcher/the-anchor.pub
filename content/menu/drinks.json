@@ -313,20 +313,6 @@
  "description": "A broad back bar for simple mixers, proper G&Ts, whisky over ice, rum and cola, tequila serves, liqueurs and after-dinner drinks.",
  "sections": [
  {
- "title": "Manager's Special",
- "style": "grid",
- "highlight": true,
- "description": "Every month we pick one bottle, explain why it is worth trying and take 25% off the featured serve while stocks last.",
- "items": [
- {
- "name": "Monthly Feature",
- "price": "",
- "description": "Ask at the bar for this month's Manager's Special pricing and tasting notes.",
- "special": true
- }
- ]
- },
- {
  "title": "Gin Collection",
  "style": "grid",
  "description": "Classic London Dry, citrus-led bottles, berry gins and floral serves. If you are not sure where to start, tell us whether you prefer dry, fruity or fresh.",

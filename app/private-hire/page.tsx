@@ -47,7 +47,7 @@ const landmarkGroups: LandmarkGroup[] = [
     },
     {
         title: 'Christenings and ceremonies',
-        description: 'Churches, registry offices and ceremony venues within a practical drive of The Anchor.',
+        description: 'Churches and ceremony venues within a practical drive of The Anchor.',
         types: ['church', 'registry_office'],
     },
     {
