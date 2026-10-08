@@ -302,7 +302,7 @@ export const FlightDelayWidget = memo(function FlightDelayWidget({ terminal }: {
               {delayPercentage}% of flights delayed • Average delay: {delayInfo.avgDelay} minutes
             </p>
           ) : (
-            <p className="text-sm text-green-700 mt-1">
+            <p className="text-sm text-anchor-success mt-1">
               All flights running on schedule
             </p>
           )}

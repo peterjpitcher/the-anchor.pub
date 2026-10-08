@@ -13,13 +13,16 @@ import type { BaseComponentProps } from '../types'
  *
  * - Control: surface bg, 1.5px strong border, 6px radius, 12px/16px padding,
  *   min-height 48px, base font.
- * - Focus: gold-dark border + 4px soft-gold ring, no default outline.
+ * - Focus: accent border + 4px soft-gold glow, plus the theme's focus ring.
+ *   The ring comes from app/globals.css, which gives every control that
+ *   switches its outline off an outline in --focus-ring. The border and glow
+ *   alone were 1.15:1 on the dark skin (site review AX-008, 7 October 2026).
  * - Invalid: danger border.
  */
 export const fieldControlClass =
   'block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink min-h-[48px] ' +
   'placeholder:text-ink-muted transition-colors ' +
-  'focus:outline-none focus:border-anchor-gold-dark focus:shadow-[0_0_0_4px_rgba(139,105,20,0.12)] ' +
+  'focus:outline-none focus:border-accent-text focus:shadow-[0_0_0_4px_rgba(139,105,20,0.12)] ' +
   'disabled:opacity-50 disabled:cursor-not-allowed'
 
 /** Applied to the control when the field is in an invalid state. */

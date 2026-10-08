@@ -54,7 +54,8 @@ describe('DirectionsButton', () => {
     link.focus()
     expect(link).toHaveFocus()
     expect(link.className).toContain('focus:ring-2')
-    expect(link.className).toContain('focus:ring-anchor-gold-dark')
+    // The theme's accent, not a fixed dark gold: bright gold on the dark skin.
+    expect(link.className).toContain('focus:ring-accent-text')
   })
 
   it('still looks like a button and merges the caller className onto the anchor', () => {

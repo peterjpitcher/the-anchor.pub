@@ -49,6 +49,12 @@ export interface AlertProps
     Omit<HTMLAttributes<HTMLDivElement>, 'className'>,
     VariantProps<typeof alertVariants> {
   title?: string
+  /**
+   * The element the title is written as. A heading by default. 'p' where the
+   * alert sits above the page's h1, so the page's first heading is still its
+   * h1 (site review AX-019, 7 October 2026).
+   */
+  titleAs?: 'h3' | 'p'
   onClose?: () => void
   icon?: React.ReactNode | false
 }
@@ -58,6 +64,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
     className,
     variant = 'info',
     title,
+    titleAs: TitleTag = 'h3',
     children,
     onClose,
     icon,
@@ -82,9 +89,9 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
         
         <div className="flex-1">
           {title && (
-            <h3 className="text-sm font-medium mb-1">
+            <TitleTag className="text-sm font-medium mb-1">
               {title}
-            </h3>
+            </TitleTag>
           )}
           {children && (
             <div className="text-sm">

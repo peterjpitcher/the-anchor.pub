@@ -99,7 +99,7 @@ export function DirectionsLink({
   href, 
   source, 
   children, 
-  className = 'text-anchor-gold-dark hover:text-anchor-gold',
+  className = 'text-accent-text hover:text-anchor-gold',
   destination = 'The Anchor Stanwell Moor',
   mapPlatform,
   fromLocation,

@@ -640,7 +640,7 @@ export default async function EventPage({ params }: Props) {
         <section className="bg-canvas py-4 sm:py-6">
           <Container>
             <div className="mx-auto">
-              <Alert variant={statusNotice.variant} title={statusNotice.title}>
+              <Alert variant={statusNotice.variant} title={statusNotice.title} titleAs="p">
                 <p>{statusNotice.message}</p>
                 {nextEventHref && (
                   <p className="mt-2">

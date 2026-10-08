@@ -22,25 +22,25 @@ export default function NotFound() {
         </Link>
         <Link
           href="/food-menu"
-          className="inline-flex items-center px-6 py-3 border border-anchor-gold-dark text-anchor-gold-dark rounded-lg hover:bg-anchor-gold-dark/10 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-accent-text text-accent-text rounded-lg hover:bg-accent-text/10 transition-colors"
         >
           Food Menu
         </Link>
         <Link
           href="/book-table"
-          className="inline-flex items-center px-6 py-3 border border-anchor-gold-dark text-anchor-gold-dark rounded-lg hover:bg-anchor-gold-dark/10 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-accent-text text-accent-text rounded-lg hover:bg-accent-text/10 transition-colors"
         >
           Book a Table
         </Link>
         <Link
           href="/whats-on"
-          className="inline-flex items-center px-6 py-3 border border-anchor-gold-dark text-anchor-gold-dark rounded-lg hover:bg-anchor-gold-dark/10 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-accent-text text-accent-text rounded-lg hover:bg-accent-text/10 transition-colors"
         >
           What's On
         </Link>
         <Link
           href="/find-us"
-          className="inline-flex items-center px-6 py-3 border border-anchor-gold-dark text-anchor-gold-dark rounded-lg hover:bg-anchor-gold-dark/10 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-accent-text text-accent-text rounded-lg hover:bg-accent-text/10 transition-colors"
         >
           Find Us
         </Link>

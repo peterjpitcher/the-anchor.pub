@@ -156,7 +156,7 @@ const tabTriggerVariants = cva(
       variant: {
         line: 'border-b-2 border-transparent pb-2 px-1 text-ink-muted hover:text-accent-text data-[state=active]:border-accent-text data-[state=active]:text-accent-text',
         enclosed: 'rounded-md px-3 py-1.5 text-ink-muted hover:bg-surface data-[state=active]:bg-surface data-[state=active]:text-ink-strong data-[state=active]:shadow-sm',
-        pills: 'rounded-full px-4 py-2 text-ink-muted hover:bg-surface-sunk data-[state=active]:bg-anchor-gold data-[state=active]:text-ink-on-gold'
+        pills: 'rounded-full px-4 py-2 text-ink-muted hover:bg-surface-sunk data-[state=active]:bg-anchor-gold-dark data-[state=active]:text-white'
       },
       size: {
         sm: 'text-sm',

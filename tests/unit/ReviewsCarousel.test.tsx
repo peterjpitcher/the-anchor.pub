@@ -30,7 +30,7 @@ const getDots = () => screen.getAllByRole('button', { name: /^Go to review \d+$/
 const getMark = (dot: HTMLElement) => dot.firstElementChild as HTMLElement
 const activeLabels = () =>
   getDots()
-    .filter((dot) => getMark(dot).classList.contains('bg-anchor-gold-dark'))
+    .filter((dot) => getMark(dot).classList.contains('bg-accent-text'))
     .map((dot) => dot.getAttribute('aria-label'))
 
 describe('ReviewsCarousel pagination dots', () => {
@@ -128,7 +128,7 @@ describe('ReviewsCarousel inactive dots', () => {
     renderCarousel()
     const [current, ...others] = getDots().map(getMark)
 
-    expect(current).toHaveClass('bg-anchor-gold-dark')
+    expect(current).toHaveClass('bg-accent-text')
     expect(current.className).not.toMatch(/\bborder/)
     for (const mark of others) {
       expect(mark).toHaveClass('border-2', 'border-ink-muted')

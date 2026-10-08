@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { X } from 'lucide-react'
 import { Button } from '@/components/ui/primitives/Button'
+import { Modal, ModalTitle } from '@/components/ui/overlays/Modal'
 import { trackFormStart, trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReason } from '@/lib/gtm-events'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -190,17 +191,6 @@ export function ChristmasLightbox() {
 	        closeReasonRef.current = null
 	    }, [hasINTERACTED, isOpen, modalId])
 
-	    useEffect(() => {
-	        if (!isOpen) return
-	        const handleKeyDown = (event: KeyboardEvent) => {
-	            if (event.key === 'Escape') {
-	                requestClose('escape_key')
-	            }
-	        }
-	        document.addEventListener('keydown', handleKeyDown)
-	        return () => document.removeEventListener('keydown', handleKeyDown)
-	    }, [isOpen, requestClose])
-
     useEffect(() => {
         // 1. Time delay trigger (Mobile friendly)
         const timer = setTimeout(() => {
@@ -224,26 +214,34 @@ export function ChristmasLightbox() {
 
     if (!isOpen) return null
 
+    // Built on the shared Modal since 8 October 2026 (site review AX-002). As a
+    // hand-made fixed layer it had no dialog role and no name, took no focus and
+    // left Tab walking the page behind it. Modal gives it all of that, traps Tab,
+    // closes on Escape and hands focus back. Its own open, engage and close
+    // events are kept (analytics={false} stops Modal sending a second set),
+    // because they carry what opened it.
     return (
-        <div className={cn(
-            "fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 transition-opacity duration-300",
-            isVisible ? "opacity-100" : "opacity-0"
-        )}>
-            {/* Backdrop */}
-            <div
-                onClick={() => requestClose('backdrop_click')}
-                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            />
-
-            {/* Modal */}
-            <div
-                className={cn(
-                    "relative w-full max-w-lg bg-surface border border-line rounded-md shadow-2xl overflow-hidden transform transition-all duration-300",
-                    isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
-                )}
-            >
+        <Modal
+            open={isOpen}
+            onClose={(reason) => requestClose(reason ?? 'programmatic')}
+            id={modalId}
+            title="Christmas 2026"
+            size="md"
+            backdrop="none"
+            showCloseButton={false}
+            analytics={false}
+            overlayClassName={cn(
+                "sm:p-6 bg-black/80 backdrop-blur-sm transition-opacity duration-300",
+                isVisible ? "opacity-100" : "opacity-0"
+            )}
+            className={cn(
+                "shadow-2xl overflow-hidden transform transition-all duration-300",
+                isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
+            )}
+        >
                 {/* Close Button */}
                 <button
+                    type="button"
                     onClick={() => requestClose('close_button')}
                     aria-label="Close modal"
                     className="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
@@ -259,10 +257,12 @@ export function ChristmasLightbox() {
                         fill
                         className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/40" />
+                    {/* 60% black, up from 40%: white text on it is at least
+                        5.74:1 even where the photo underneath is pure white. */}
+                    <div className="absolute inset-0 bg-black/60" />
                     <div className="relative z-10 text-center px-6">
-                        <h2 className="text-3xl sm:text-4xl font-display font-bold mb-2 text-white">Christmas 2026</h2>
-                        <p className="text-red-100 font-medium uppercase tracking-widest text-sm">Bookings Now Open</p>
+                        <ModalTitle className="text-3xl sm:text-4xl font-display font-bold mb-2 text-white">Christmas 2026</ModalTitle>
+                        <p className="text-white font-medium uppercase tracking-widest text-sm">Bookings Now Open</p>
                     </div>
                 </div>
 
@@ -292,12 +292,11 @@ export function ChristmasLightbox() {
                             </Link>
                         </Button>
 
-                        <button onClick={() => requestClose('close_button')} className="text-sm text-ink-muted hover:text-ink underline">
+                        <button type="button" onClick={() => requestClose('close_button')} className="text-sm text-ink-muted hover:text-ink underline">
                             No thanks, I&apos;ll book later
                         </button>
                     </div>
                 </div>
-            </div>
-        </div>
+        </Modal>
     )
 }

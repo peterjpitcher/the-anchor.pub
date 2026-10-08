@@ -30,7 +30,7 @@ export function PricingCard({
       ${className}
     `}>
       {featured && (
-        <div className="absolute top-0 right-0 bg-anchor-gold text-white text-xs font-bold px-3 py-1 rounded-bl-md">
+        <div className="absolute top-0 right-0 bg-anchor-gold-dark text-white text-xs font-bold px-3 py-1 rounded-bl-md">
           BEST VALUE
         </div>
       )}

@@ -31,7 +31,7 @@ export function CateringPackagesTable({
           {subtitle && <p className="text-sm text-ink-muted mt-1">{subtitle}</p>}
         </div>
       )}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto" role="region" tabIndex={0} aria-label={title ? `Table: ${title}` : 'Table: Catering packages'}>
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="border-b border-line-strong">

@@ -231,7 +231,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               {/* Skip Navigation Links for Accessibility */}
               <a
                 href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold-dark focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold-dark"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[70] focus:px-4 focus:py-2 focus:bg-anchor-gold-dark focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-text"
               >
                 Skip to main content
               </a>
@@ -264,7 +264,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 </ErrorBoundary>
               </main>
               <ErrorBoundary>
-                <footer role="contentinfo">
+                {/* A plain wrapper. Footer renders the page's one footer element; a second
+                    one here put a footer landmark inside a footer landmark on
+                    every page (site review AX-019, 7 October 2026). */}
+                <div>
                   <LaunchAnnouncement variant="slim" />
                   {/* The credit reads its feed on the server, so it is rendered
                       here and handed to the client footer as a slot. Same size
@@ -278,7 +281,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                       />
                     }
                   />
-                </footer>
+                </div>
               </ErrorBoundary>
               <StickyCtas />
               <CookieBanner />

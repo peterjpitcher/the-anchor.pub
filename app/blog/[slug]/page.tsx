@@ -422,7 +422,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       {/* Breadcrumb */}
       <section className="py-3 bg-surface-sunk border-b border-line">
         <Container>
-          <nav className="flex flex-wrap items-center gap-2 text-sm text-ink-muted">
+          <nav aria-label="Blog breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-ink-muted">
             <Link href="/" className="hover:text-accent-text">Home</Link>
             <span>/</span>
             <Link href="/blog" className="hover:text-accent-text">Blog</Link>

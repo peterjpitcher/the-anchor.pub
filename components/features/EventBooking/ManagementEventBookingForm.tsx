@@ -961,7 +961,7 @@ export function ManagementEventBookingForm({
                       className={cn(
                         'min-h-[44px] min-w-[44px] rounded-md border px-3 text-base font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50',
                         selected
-                          ? 'border-accent bg-accent text-white'
+                          ? 'border-accent bg-accent text-canvas'
                           : 'border-line bg-surface text-ink hover:border-accent'
                       )}
                     >

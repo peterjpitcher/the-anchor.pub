@@ -289,8 +289,10 @@ export function StickyDrawerTrigger({
       onClick={onClick}
       className={cn(
         'fixed z-40 shadow-gold transition-all duration-300 text-sm',
-        'bg-anchor-gold text-ink-on-gold font-semibold',
-        'hover:bg-anchor-gold-dark hover:text-white',
+        // Dark gold with white, as the primary button: 5.59:1. The mid gold
+        // it had took charcoal at 4.33:1 (site review AX-007, 7 October 2026).
+        'bg-anchor-gold-dark text-white font-semibold',
+        'hover:bg-anchor-green',
         'focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2 focus:ring-offset-canvas',
         position === 'bottom-right' && 'bottom-5 right-5 rounded-full px-4 py-2.5',
         position === 'bottom-center' && 'bottom-5 left-1/2 -translate-x-1/2 rounded-full px-5 py-2.5',

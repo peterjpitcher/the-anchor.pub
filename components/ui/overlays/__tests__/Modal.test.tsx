@@ -1,6 +1,6 @@
 import { act, render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MODAL_FOCUS_DELAY_MS, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '../Modal'
+import { MODAL_FOCUS_DELAY_MS, Modal, ModalDescription, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '../Modal'
 
 describe('Modal', () => {
   it('renders when open', () => {
@@ -9,7 +9,7 @@ describe('Modal', () => {
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     expect(screen.getByText('Modal content')).toBeInTheDocument()
   })
 
@@ -19,7 +19,7 @@ describe('Modal', () => {
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     expect(screen.queryByText('Modal content')).not.toBeInTheDocument()
   })
 
@@ -30,10 +30,10 @@ describe('Modal', () => {
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     const closeButton = screen.getByLabelText('Close modal')
     fireEvent.click(closeButton)
-    
+
     expect(onClose).toHaveBeenCalledTimes(1)
   })
 
@@ -44,9 +44,9 @@ describe('Modal', () => {
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     fireEvent.keyDown(document, { key: 'Escape' })
-    
+
     expect(onClose).toHaveBeenCalledTimes(1)
   })
 
@@ -57,9 +57,9 @@ describe('Modal', () => {
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     fireEvent.keyDown(document, { key: 'Escape' })
-    
+
     expect(onClose).not.toHaveBeenCalled()
   })
 
@@ -85,9 +85,9 @@ describe('Modal', () => {
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     fireEvent.click(screen.getByText('Modal content'))
-    
+
     expect(onClose).not.toHaveBeenCalled()
   })
 
@@ -97,23 +97,23 @@ describe('Modal', () => {
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     expect(document.body.style.overflow).toBe('')
-    
+
     rerender(
       <Modal open={true} onClose={() => {}}>
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     expect(document.body.style.overflow).toBe('hidden')
-    
+
     rerender(
       <Modal open={false} onClose={() => {}}>
         <ModalBody>Modal content</ModalBody>
       </Modal>
     )
-    
+
     expect(document.body.style.overflow).toBe('')
   })
 
@@ -123,15 +123,15 @@ describe('Modal', () => {
         <ModalBody>Small modal</ModalBody>
       </Modal>
     )
-    
+
     expect(screen.getByRole('dialog')).toHaveClass('max-w-md')
-    
+
     rerender(
       <Modal open={true} onClose={() => {}} size="lg">
         <ModalBody>Large modal</ModalBody>
       </Modal>
     )
-    
+
     expect(screen.getByRole('dialog')).toHaveClass('max-w-2xl')
   })
 
@@ -181,17 +181,17 @@ describe('Modal', () => {
         </ModalBody>
       </Modal>
     )
-    
+
     const firstButton = screen.getByText('First button')
     const lastButton = screen.getByText('Last button')
-    
+
     // Focus last button
     lastButton.focus()
     expect(lastButton).toHaveFocus()
-    
+
     // Tab should cycle to close button (first focusable)
     await user.tab()
-    
+
     // Shift+Tab from first button should cycle to last
     firstButton.focus()
     await user.tab({ shift: true })
@@ -213,11 +213,82 @@ describe('Modal', () => {
         </ModalBody>
       </Modal>
     )
-    
+
     const modal = screen.getByRole('dialog')
     expect(modal).toHaveAttribute('aria-modal', 'true')
     expect(modal).toHaveAttribute('aria-labelledby')
-    expect(modal).toHaveAttribute('aria-describedby')
+  })
+
+  // Site review AX-015, 7 October 2026: two dialogs pointed aria-labelledby at
+  // an id that was not in the page, because Modal built the id from its own
+  // `id` and each caller gave its title a fixed one.
+  it('is named by its title whatever id the caller gave the title', () => {
+    render(
+      <Modal open={true} onClose={() => {}} title="Before you go" id="exit_intent_modal">
+        <ModalHeader>
+          <ModalTitle id="modal-title">Before you go</ModalTitle>
+        </ModalHeader>
+      </Modal>
+    )
+
+    const modal = screen.getByRole('dialog', { name: 'Before you go' })
+    const labelledBy = modal.getAttribute('aria-labelledby')
+    expect(labelledBy).toBe('exit_intent_modal-title')
+    expect(document.getElementById(labelledBy as string)).toHaveTextContent('Before you go')
+    expect(modal).not.toHaveAttribute('aria-label')
+  })
+
+  it('is named by its title prop when no ModalTitle is rendered, and points at nothing that is missing', () => {
+    render(
+      <Modal open={true} onClose={() => {}} title="Private hire offer" description="Not rendered">
+        <p>Body</p>
+      </Modal>
+    )
+
+    const modal = screen.getByRole('dialog', { name: 'Private hire offer' })
+    expect(modal).not.toHaveAttribute('aria-labelledby')
+    expect(modal).not.toHaveAttribute('aria-describedby')
+  })
+
+  it('is described by its ModalDescription', () => {
+    render(
+      <Modal open={true} onClose={() => {}} id="tour">
+        <ModalTitle>The beer garden</ModalTitle>
+        <ModalDescription>Seats sixty outside.</ModalDescription>
+      </Modal>
+    )
+
+    const modal = screen.getByRole('dialog', { name: 'The beer garden' })
+    expect(modal).toHaveAccessibleDescription('Seats sixty outside.')
+  })
+
+  it('tells onClose why it is closing', () => {
+    const onClose = jest.fn()
+    render(
+      <Modal open={true} onClose={onClose}>
+        <p>Body</p>
+      </Modal>
+    )
+
+    fireEvent.keyDown(document, { key: 'Escape' })
+    expect(onClose).toHaveBeenLastCalledWith('escape_key')
+    fireEvent.click(screen.getByRole('button', { name: 'Close modal' }))
+    expect(onClose).toHaveBeenLastCalledWith('close_button')
+  })
+
+  it('brings focus in when Tab is pressed with focus behind the dialog', () => {
+    render(
+      <>
+        <button>Behind</button>
+        <Modal open={true} onClose={() => {}}>
+          <button>Inside</button>
+        </Modal>
+      </>
+    )
+
+    screen.getByRole('button', { name: 'Behind' }).focus()
+    fireEvent.keyDown(document, { key: 'Tab' })
+    expect(screen.getByRole('button', { name: 'Close modal' })).toHaveFocus()
   })
 })
 
@@ -230,7 +301,7 @@ describe('Modal Sub-components', () => {
         </ModalHeader>
       </Modal>
     )
-    
+
     expect(screen.getByText('Header Title')).toBeInTheDocument()
     expect(screen.getByText('Header Title').parentElement).toHaveClass('px-6', 'pt-6', 'pb-4')
   })
@@ -244,7 +315,7 @@ describe('Modal Sub-components', () => {
         </ModalFooter>
       </Modal>
     )
-    
+
     const footer = screen.getByText('Cancel').parentElement
     expect(footer).toHaveClass('flex', 'items-center', 'justify-end', 'gap-2')
   })

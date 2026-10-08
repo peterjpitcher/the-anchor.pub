@@ -14,7 +14,7 @@ const tooltipVariants = cva(
         default: 'bg-surface text-ink border border-line',
         light: 'bg-surface text-ink border border-line',
         error: 'bg-anchor-danger text-white',
-        warning: 'bg-anchor-gold text-ink-on-gold',
+        warning: 'bg-anchor-gold-dark text-white',
         success: 'bg-anchor-success text-white'
       }
     },

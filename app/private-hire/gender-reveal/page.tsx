@@ -176,7 +176,7 @@ export default function GenderRevealPage() {
                         </p>
                         <div className="grid md:grid-cols-2 gap-6">
                             <Card><CardBody>
-                                <h4 className="font-display text-h4 text-ink-strong mb-3">What we provide</h4>
+                                <h3 className="font-display text-h4 text-ink-strong mb-3">What we provide</h3>
                                 <ul className="text-sm text-ink-muted space-y-2">
                                     <li>A reserved and cleared reveal space</li>
                                     <li>Help positioning guests for the best angle</li>
@@ -185,7 +185,7 @@ export default function GenderRevealPage() {
                                 </ul>
                             </CardBody></Card>
                             <Card><CardBody>
-                                <h4 className="font-display text-h4 text-ink-strong mb-3">What to bring</h4>
+                                <h3 className="font-display text-h4 text-ink-strong mb-3">What to bring</h3>
                                 <ul className="text-sm text-ink-muted space-y-2">
                                     <li>Your smoke cannons (for the garden) or other reveal prop</li>
                                     <li>A photographer or nominated family member with a phone</li>
