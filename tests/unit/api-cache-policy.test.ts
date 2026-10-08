@@ -199,6 +199,15 @@ describe('routes that say private, no-store themselves', () => {
     })
     expect(noEmail.status).toBe(400)
     expect(noEmail.headers.get('cache-control')).toBe('private, no-store')
+
+    // An email address in the query string is not read: an address is what
+    // request logs record, so the route takes it from the header or not at all.
+    const emailInAddress = await GET(
+      new Request('https://www.the-anchor.pub/api/table-bookings/ABC123?customer_email=guest%40example.com'),
+      { params: { reference: 'ABC123' } }
+    )
+    expect(emailInAddress.status).toBe(400)
+    expect(getTableBooking).toHaveBeenCalledTimes(2)
   })
 
   it('the phone lookup: known, degraded and refused', async () => {

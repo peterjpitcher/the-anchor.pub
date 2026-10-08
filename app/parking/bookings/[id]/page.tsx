@@ -53,11 +53,11 @@ function getStatusBadge(booking: ParkingBookingDetails) {
   )
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  return {
-    title: `Parking Booking ${params.id}`,
-    robots: 'noindex, nofollow'
-  }
+// No booking id in the title. A page title is sent with every analytics event
+// and kept in browser history, and the id is the only key to this booking.
+export const metadata: Metadata = {
+  title: 'Your parking booking',
+  robots: 'noindex, nofollow'
 }
 
 export default async function ParkingBookingStatusPage({ params, searchParams }: PageProps) {
@@ -112,11 +112,11 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
                     </ul>
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-ink-strong">Contact</h2>
+                    {/* No name, mobile or email. This page opens for whoever
+                        holds the booking id, and the details on a booking can
+                        be ones already on file for the number that was typed. */}
+                    <h2 className="text-lg font-semibold text-ink-strong">Payment</h2>
                     <ul className="mt-3 space-y-2 text-sm text-ink-muted">
-                      <li><strong>Name:</strong> {booking.customer_first_name} {booking.customer_last_name}</li>
-                      <li><strong>Mobile:</strong> {booking.customer_mobile}</li>
-                      {booking.customer_email && <li><strong>Email:</strong> {booking.customer_email}</li>}
                       <li><strong>Amount due:</strong> {formatPrice(booking.calculated_price)} {booking.payment_status === 'paid' ? '(paid)' : '(pending)'}</li>
                       <li><strong>Payment deadline:</strong> {formatter.format(new Date(booking.payment_due_at))}</li>
                     </ul>
