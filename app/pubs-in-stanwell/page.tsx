@@ -122,7 +122,7 @@ export default async function PubsInStanwellPage() {
                     <p className="text-ink-muted">
                       Located on Horton Road in the heart of Stanwell Moor, we've been
                       the village's gathering place since 1751, standing here long before
-                      Heathrow existed. Unlike chain pubs, we're independently run with
+                      Heathrow existed. We're independently run, with
                       genuine local character.
                     </p>
                     <ul className="space-y-2 text-ink-muted">
@@ -216,20 +216,16 @@ export default async function PubsInStanwellPage() {
         </Container>
       </section>
 
-      {/* Compare to Other Pubs */}
+      {/* What The Anchor has. No other pub is named or compared. */}
       <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="How We Compare to Other Local Pubs"
-              lead="Why locals choose The Anchor"
+              title="What You'll Find at The Anchor"
             />
 
             <Card accent>
               <CardBody className="p-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="font-display text-h4 text-ink-strong mb-4">The Anchor Advantages</h3>
                     <ul className="space-y-3 text-ink">
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -245,39 +241,13 @@ export default async function PubsInStanwellPage() {
                       </li>
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                        <div><strong>Value:</strong> Proper pub prices, not tourist rates</div>
+                        <div><strong>Prices:</strong> Fair village prices, on the <Link href="/food-menu" className="underline">live menu</Link></div>
                       </li>
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                        <div><strong>Entertainment:</strong> Regular quiz nights and hosted events</div>
+                        <div><strong>Events:</strong> Quiz nights and Music Bingo</div>
                       </li>
                     </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-display text-h4 text-ink-strong mb-4">Nearby Alternatives</h3>
-                    <div className="space-y-4 text-ink-muted">
-                      <div>
-                        <p className="font-semibold text-ink">The George (Stanwell)</p>
-                        <p className="text-sm">Good pub but limited parking</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-ink">The Bells (Staines)</p>
-                        <p className="text-sm">Town centre location, paid parking</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-ink">Airport Pubs</p>
-                        <p className="text-sm">Convenient but 3x the price</p>
-                      </div>
-                      <div className="pt-3 border-t border-line">
-                        <p className="font-bold text-ink">
-                          The Anchor brings together location,
-                          parking, food, and atmosphere
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </CardBody>
             </Card>
           </div>
@@ -346,7 +316,7 @@ export default async function PubsInStanwellPage() {
                 The area around Stanwell Moor is surprisingly green for somewhere so close to Heathrow. The reservoir walks are a local favourite, the path around the King George VI and Staines reservoirs gives you miles of flat, easy walking with big skies and good birdwatching. St Mary&rsquo;s Church in nearby Stanwell village dates back to the 12th century and is worth a look if you&rsquo;re interested in local history.
               </p>
               <p>
-                What makes Stanwell Moor different from Stanwell village is the feel. Stanwell proper is bigger and more suburban, with its own high street and shops. Stanwell Moor has kept its village character, smaller, quieter, and with a stronger sense of community. Everyone knows everyone, and The Anchor is where those connections happen. Whether it&rsquo;s the midweek pizza crowd, the quiz night regulars, or the Sunday roast families, the pub is where the village comes together.
+                Stanwell Moor has kept its village character. Everyone knows everyone, and The Anchor is where those connections happen. Whether it&rsquo;s the midweek pizza crowd, the quiz night regulars, or the Sunday roast families, the pub is where the village comes together.
               </p>
               <p>
                 We&rsquo;re proud to be the heart of this community. From charity fundraisers to Christmas parties, from welcoming new residents to hosting retirement dos for people who&rsquo;ve been coming here for years, this is what a village pub is supposed to be. If you&rsquo;re in Stanwell or Stanwell Moor and haven&rsquo;t been in yet, you&rsquo;re missing out on your own local.
@@ -376,7 +346,7 @@ export default async function PubsInStanwellPage() {
         faqs={[
           {
             question: "What makes The Anchor worth a visit in Stanwell Moor?",
-            answer: "We're the only traditional pub in Stanwell Moor village, serving our community since 1751. We offer free parking, a large beer garden, home-cooked food, regular quiz nights and hosted events, and a genuine local atmosphere."
+            answer: "We're Stanwell Moor's village pub, here since 1751. We offer free parking, a large beer garden, home-cooked food, regular quiz nights and hosted events, and a genuine local atmosphere."
           },
           {
             question: "Do you have parking at the pub?",

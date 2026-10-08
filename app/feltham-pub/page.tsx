@@ -132,7 +132,7 @@ export default function FelthamPubPage() {
           <div className="mx-auto">
             <SectionHeading
               title="Feltham's Favourite Village Escape"
-              lead="Escape the hustle of Feltham High Street for a proper traditional pub experience"
+              lead="A proper traditional village pub, a short drive from Feltham"
               className="text-center mb-12"
             />
 
@@ -165,7 +165,7 @@ export default function FelthamPubPage() {
                   </li>
                   <li className="flex items-start">
                     <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                    <span>Traditional pub atmosphere you won't find in chain venues</span>
+                    <span>A traditional village pub atmosphere</span>
                   </li>
                   <li className="flex items-start">
                     <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mr-3 mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -264,7 +264,7 @@ export default function FelthamPubPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong>Affordable pricing</strong> - Better value than Feltham High Street</span>
+                      <span><strong>Fair village prices</strong> - Our prices are on the live menu</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -341,24 +341,19 @@ export default function FelthamPubPage() {
             <div className="prose max-w-none text-ink-muted space-y-4">
               <p>
                 Feltham's commercial corridor stretches from Bedfont Lakes Business Park through to the trading estates
-                along Feltham Hill Road, thousands of people finishing shifts every evening with limited options for a
-                proper sit-down meal nearby. Most end up in chain restaurants or grabbing a takeaway. The Anchor is a
+                along Feltham Hill Road. If you are finishing a shift and fancy a proper sit-down meal, The Anchor is a
                 short drive away, with free parking and hearty pub food. Kitchen times vary by date, so check
                 before you come or call {CONTACT.phone}. It is the kind of place where you can unwind with a pint of draught beer and a
-                stone-baked pizza without fighting for a table.
+                stone-baked pizza.
               </p>
               <p>
-                Coming from Feltham station? It is a short drive by taxi. For those
-                heading home after an England match at Twickenham, skip the crush around the rugby ground pubs. The
-                Anchor has free parking, and it is a much more relaxed way to keep the evening going.
+                Coming from Feltham station? It is a short drive by taxi. Heading home after an England match at
+                Twickenham? The Anchor has free parking, and it is a relaxed way to keep the evening going.
               </p>
               <p>
-                If you have been searching for pubs in Feltham, you will know the options are fairly thin on the ground
-                these days, mostly chains, a handful of takeaways, and the odd sports bar. For those after pubs near Feltham
+                For those after pubs near Feltham
                 with real character, a proper beer garden under the Heathrow flight path, and events like Music Bingo and
-                monthly Wednesday quiz nights, The Anchor is well worth the short drive. Plenty of Feltham regulars have made us their
-                go-to midweek escape, and once you have tried a lazy Sunday roast here you will wonder why you ever queued
-                on Feltham High Street.
+                monthly Wednesday quiz nights, The Anchor is well worth the short drive. Come for a lazy Sunday roast and see.
               </p>
             </div>
           </div>

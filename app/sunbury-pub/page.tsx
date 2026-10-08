@@ -82,7 +82,7 @@ export default function SunburyPubPage() {
         image="/images/page-headers/sunbury-pub/find-us.jpg"
         crumb="Sunbury"
         title="Destination Dining Near Sunbury"
-        lead="Escape the town centre for a traditional village experience"
+        lead="A traditional village pub, a short drive from Sunbury"
         actions={
           <BookTableButton source="sunbury_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -104,7 +104,7 @@ export default function SunburyPubPage() {
                             Pubs in Sunbury, a Sunday Roast Worth the Drive
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Many Sunbury residents make the short drive to The Anchor for our famous Sunday roasts. If you&rsquo;re looking for pubs near Sunbury with quality food, better value, and easy parking, we tick every box.
+                            Many Sunbury residents make the short drive to The Anchor for our famous Sunday roasts. If you&rsquo;re looking for pubs near Sunbury with quality food, fair village prices and free parking, come and see us.
                         </p>
                     </div>
                 </Container>
@@ -185,13 +185,13 @@ export default function SunburyPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                Sunbury&rsquo;s got a decent high street, but if you&rsquo;re after a proper independent pub rather than another chain, the options thin out quickly. That&rsquo;s why a growing number of Sunbury residents have made The Anchor their regular. It&rsquo;s a short drive.
+                                After a proper independent village pub? The Anchor is a short drive from Sunbury.
                             </p>
                             <p>
-                                If you&rsquo;re a Thames Path walker or you spend your weekends around Sunbury Lock, you&rsquo;ll know that the riverside pub options can be heaving in summer. We offer the same relaxed, outdoor-drinking atmosphere in our beer garden, minus the crowds, with the added entertainment of watching 747s float overhead on their way into Heathrow. It&rsquo;s quite the backdrop for a Sunday roast.
+                                If you&rsquo;re a Thames Path walker or you spend your weekends around Sunbury Lock, our beer garden makes a good stop afterwards. You can sit out with a drink and watch the planes come over on their way into Heathrow. It&rsquo;s quite the backdrop for a Sunday roast.
                             </p>
                             <p>
-                                {ULEZ_WORDING} Free parking and proper pub prices that don&rsquo;t make you wince when you get to the bar. That&rsquo;s the deal.
+                                {ULEZ_WORDING} Parking&rsquo;s free, and our prices are on the <Link href="/food-menu" className="underline">live menu</Link>.
                             </p>
                         </div>
                     </div>
@@ -216,8 +216,8 @@ export default function SunburyPubPage() {
                         answer: `It's a short drive. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}.`
                     },
                     {
-                        question: "Why should I drive to The Anchor instead of staying in Sunbury?",
-                        answer: "We offer better value for money, free parking, and a more relaxed village atmosphere. Plus, many say our Sunday Roast is superior!"
+                        question: "Why drive to The Anchor from Sunbury?",
+                        answer: `For Sunday roasts carved fresh, a relaxed village pub and a beer garden under the Heathrow flight path. ${PARKING_WORDING}`
                     },
                     {
                         question: "Do I need to book for Sunday Roast?",

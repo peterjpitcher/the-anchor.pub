@@ -23,13 +23,13 @@ export const metadata: Metadata = {
   description: `Traditional Surrey pub minutes from Heathrow hotels. Free parking, British pub food, draught beer, WiFi and an easy taxi from Terminal 5 hotels.`,
   openGraph: {
     title: 'The Anchor - Traditional Pub Near Heathrow Hotels',
-    description: 'Escape expensive hotel restaurants! Authentic British pub with free parking, just minutes from all Heathrow hotels.',
+    description: 'Swap the hotel restaurant for an authentic British pub with free parking, just minutes from Heathrow hotels.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'The Anchor - Traditional Pub Near Heathrow Hotels',
-    description: 'Escape expensive hotel restaurants! Authentic British pub with free parking, just minutes from all Heathrow hotels.',
+    description: 'Swap the hotel restaurant for an authentic British pub with free parking, just minutes from Heathrow hotels.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -103,7 +103,7 @@ export default async function HeathrowHotelsPubPage() {
       <InteriorHero
         image="/images/page-headers/hotel-near-heathrow/find-us.jpg"
         crumb="Hotels"
-        title="Escape Heathrow Hotel Prices"
+        title="A Proper Pub Near Your Heathrow Hotel"
         lead="Traditional British pub just minutes from your hotel"
         actions={
           <BookTableButton source="heathrow_hotels_pub_hero"
@@ -123,7 +123,7 @@ export default async function HeathrowHotelsPubPage() {
               Heathrow Hotels Pub - Traditional Pub Near Heathrow Hotels
             </h2>
             <p className="text-lg text-ink-muted">
-              Escape hotel prices and enjoy authentic British pub dining just minutes away
+              Swap the hotel restaurant for authentic British pub dining just minutes away
             </p>
           </div>
         </Container>
@@ -135,13 +135,13 @@ export default async function HeathrowHotelsPubPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="The Perfect Escape from Hotel Dining"
-              subtitle="Tired of overpriced hotel restaurants and room service? The Anchor offers authentic British pub atmosphere, honest prices, and proper portions - just a short taxi or drive from any Heathrow hotel."
+              subtitle="Had enough of hotel restaurants and room service? The Anchor offers authentic British pub atmosphere, fair village prices and proper portions - just a short taxi or drive from any Heathrow hotel."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {[
-                { title: 'Great Value', description: 'Honest pub pricing' },
-                { title: 'Free Parking', description: `${PARKING.capacity} spaces - no hourly charges like hotel car parks` },
+                { title: 'Fair Village Prices', description: 'Every price is on our live menu' },
+                { title: 'Free Parking', description: `${PARKING.capacity} free spaces right outside` },
                 { title: 'Real Experience', description: 'Authentic British pub, not a chain hotel restaurant' }
               ].map(feature => (
                 <Card key={feature.title} accent hover>
@@ -211,7 +211,7 @@ export default async function HeathrowHotelsPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl"></span>
                     <div>
-                      <strong>Proper portions</strong> - Not tiny hotel plates at huge prices
+                      <strong>Proper portions</strong> - Cooked to order at fair village prices
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -230,7 +230,7 @@ export default async function HeathrowHotelsPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl"></span>
                     <div>
-                      <strong>Layover dining</strong> - Better than airport or hotel food
+                      <strong>Layover dining</strong> - A proper pub meal between flights
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -276,7 +276,7 @@ export default async function HeathrowHotelsPubPage() {
               <Card accent hover>
                 <CardBody>
                   <h3 className="font-display text-h4 text-ink-strong mb-2">Draught Beers</h3>
-                  <p className="text-ink-muted">Try proper British beer - not just hotel lagers. From the drinks menu</p>
+                  <p className="text-ink-muted">Draught lagers, with bottled ales behind the bar. See the drinks menu</p>
                 </CardBody>
               </Card>
               <Card accent hover>
@@ -355,8 +355,7 @@ export default async function HeathrowHotelsPubPage() {
 
             <div className="mt-8 text-center">
               <p className="text-lg text-ink-muted mb-4">
-                Most hotel guests say the short journey is absolutely worth it for the authentic
-                experience and massive savings compared to hotel dining!
+                It&apos;s a short journey for a proper pub meal. Our prices are on the live menu, and parking is free.
               </p>
               <DirectionsButton href={DIRECTIONS_URL} source="heathrow_hotels_directions" variant="outline" size="lg">
                 Get directions
@@ -509,7 +508,7 @@ export default async function HeathrowHotelsPubPage() {
 	          },
           {
             question: "Is it worth leaving my hotel to eat at The Anchor?",
-            answer: "Absolutely! Hotel guests consistently tell us they love the genuine British pub experience. The short journey is worth it for better food and an authentic atmosphere you won't find in a hotel restaurant."
+            answer: "Absolutely! Hotel guests consistently tell us they love the genuine British pub experience. It's a short journey for home-cooked pub food and a village pub atmosphere."
           },
           {
             question: "Do you accommodate flight crews and business travellers?",
@@ -533,8 +532,8 @@ export default async function HeathrowHotelsPubPage() {
 
       {/* CTA Section */}
       <CtaBand
-        title="Escape hotel prices"
-        copy="Real food, real prices, real British pub - just minutes from your hotel"
+        title="Escape the hotel for the evening"
+        copy="Real food, fair village prices, real British pub - just minutes from your hotel"
       >
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap gap-3 justify-center">

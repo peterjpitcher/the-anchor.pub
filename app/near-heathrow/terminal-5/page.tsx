@@ -69,7 +69,7 @@ export default function Terminal5Page() {
           <div className="mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
             <h2 className="font-display text-h3 text-ink-strong mb-3">Essential Details at a Glance</h2>
             <p className="text-ink-muted mb-4">
-              Searching for pubs near Heathrow Terminal 5? The Anchor is the closest independent pub to T5, just {HEATHROW_TIMES.terminal5} minutes away. Swap hotel bars for real British hospitality, fair pint prices and free parking.
+              Searching for pubs near Heathrow Terminal 5? The Anchor is the closest proper pub to Terminal 5, just {HEATHROW_TIMES.terminal5} minutes away by car. Swap hotel bars for real British hospitality, fair pint prices and free parking.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
 	              <div className="flex items-start gap-2">
@@ -392,7 +392,7 @@ export default function Terminal5Page() {
                 <ul className="space-y-2 text-ink-muted mb-6">
                   <li className="flex gap-2">
                     <span className="text-accent-text"></span>
-                    <span>Half the price of hotel dining</span>
+                    <span>Fair village prices, shown on our live menu</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text"></span>
@@ -404,7 +404,7 @@ export default function Terminal5Page() {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text"></span>
-                    <span>Traditional ales & home-cooked food</span>
+                    <span>Draught lagers, bottled ales & home-cooked food</span>
                   </li>
                 </ul>
               </div>
@@ -466,7 +466,7 @@ export default function Terminal5Page() {
               <p className="text-lg text-ink mb-6 mx-auto">
                 The Anchor has been serving locals and travellers for over 250 years.
                 Step away from the international hotel scene and discover authentic
-                British hospitality, traditional ales, and home-cooked food in a
+                British hospitality, draught lagers, bottled ales and home-cooked food in a
                 genuine village pub atmosphere.
               </p>
             </div>
@@ -533,7 +533,7 @@ export default function Terminal5Page() {
           },
           {
             question: "Do you welcome guests from nearby hotels?",
-            answer: "Absolutely! We're popular with guests from the Sofitel, Hilton, and other Terminal 5 hotels. Many hotel guests visit us to experience authentic British pub culture and enjoy traditional food at more reasonable prices than hotel restaurants."
+            answer: "Absolutely! We're popular with guests from the Sofitel, Hilton, and other Terminal 5 hotels. Many hotel guests visit us to experience authentic British pub culture and enjoy traditional food at fair village prices."
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 5 hotel?",
@@ -541,7 +541,7 @@ export default function Terminal5Page() {
 	          },
           {
             question: "Why should I leave my hotel to eat at The Anchor?",
-            answer: "Hotel restaurants serve the same international menu worldwide. At The Anchor, you'll experience genuine British hospitality, meet locals, enjoy traditional ales, and pay half what you'd spend at your hotel. This is the authentic Britain you came to see!"
+            answer: "Hotel restaurants serve the same international menu worldwide. At The Anchor, you'll experience genuine British hospitality, meet locals, and eat home-cooked food at fair village prices. This is the authentic Britain you came to see!"
           }
         ]}
         className="bg-canvas"
@@ -577,7 +577,7 @@ export default function Terminal5Page() {
               "@context": "https://schema.org",
               "@type": "Restaurant",
               "name": BRAND.name,
-              "description": `The closest pub to Heathrow Terminal 5 - just ${HEATHROW_TIMES.terminal5} minutes drive with free parking.`,
+              "description": `The closest traditional pub to Heathrow Terminal 5 - just ${HEATHROW_TIMES.terminal5} minutes drive with free parking.`,
               "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/heathrow-airport-view.jpg",
               "address": {
                 "@type": "PostalAddress",

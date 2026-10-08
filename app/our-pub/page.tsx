@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import ssot from '@/SSOT.json'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Container } from '@/components/ui'
@@ -173,7 +174,7 @@ export default function OurPubPage() {
               </p>
               <p className="text-ink leading-relaxed">
                 We accept all major credit cards (yes, including American Express)
-                and cash.
+                and cash. We can give you a VAT invoice for a business booking.
               </p>
             </div>
           </div>
@@ -301,7 +302,7 @@ export default function OurPubPage() {
                   pub garden near Heathrow
                 </Link>{' '}
                 is one of our favourite places to be, and we&apos;re rated
-                4.6&nbsp;stars on Google.
+                {ssot.ratings.google.rating}&nbsp;stars on Google.
               </p>
             </div>
           </div>

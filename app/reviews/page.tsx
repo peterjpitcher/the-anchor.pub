@@ -16,6 +16,10 @@ import { InteriorHero } from '@/components/hero'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getAllReviews } from '@/lib/google-reviews'
 import { GOOGLE_REVIEWS_URL, REVIEW_REQUEST_URL } from '@/lib/constants'
+import ssot from '@/SSOT.json'
+
+// One home for the rating: the SSOT's data file, as components/HeroBadge.tsx reads it.
+const GOOGLE_RATING = ssot.ratings.google.rating
 
 export const metadata: Metadata = {
   title: 'Reviews | What Our Guests Say',
@@ -107,9 +111,9 @@ export default function ReviewsPage() {
           <div className="mx-auto text-center">
             <Card accent className="inline-flex flex-col items-center gap-3 p-6">
               <div className="text-h3 text-ink-strong">
-                4.6 stars on Google
+                {GOOGLE_RATING} stars on Google
               </div>
-              {/* SSOT section 12: show the 4.6 rating, never a review count. The count
+              {/* SSOT section 12: show the rating, never a review count. The count
                   changes constantly, so it comes from Google itself, not from here. */}
               <p className="text-ink-muted text-lg">
                 Read the latest live reviews on Google.
@@ -191,7 +195,7 @@ export default function ReviewsPage() {
         faqs={[
           {
             question: "Where can I read The Anchor's Google reviews?",
-            answer: 'You can read the latest live Google reviews on our Google Business page. We show our 4.6 rating here and leave the review count to Google, because it changes all the time.',
+            answer: `You can read the latest live Google reviews on our Google Business page. We show our ${GOOGLE_RATING} rating here and leave the review count to Google, because it changes all the time.`,
           },
           {
             question: 'Can I leave a review for The Anchor?',

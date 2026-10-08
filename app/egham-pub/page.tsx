@@ -113,7 +113,7 @@ export default function EghamPubPage() {
               {[
                 { title: "Quick Journey", description: "A short drive from Egham" },
                 { title: "Free Parking", description: `${PARKING.capacity} free spaces right outside` },
-                { title: "Great Value", description: "Competitive prices compared to Egham venues" },
+                { title: "Fair Village Prices", description: "Our prices are on the live menu" },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -132,8 +132,8 @@ export default function EghamPubPage() {
                 </h3>
                 <ul className="space-y-4 text-ink">
                   {[
-                    'Free parking - no expensive Egham parking charges',
-                    'Traditional pub atmosphere away from chain venues',
+                    'Free parking right outside',
+                    'A traditional village pub atmosphere',
                     'Monthly quiz nights - bring a team of up to 6',
                     'Our celebrated Sunday roasts worth the journey',
                   ].map((item) => (
@@ -235,7 +235,7 @@ export default function EghamPubPage() {
             />
             <div className="prose max-w-none space-y-4 text-ink-muted">
               <p>
-                When you search for pubs in Egham, you&rsquo;ll find a few decent options on the High Street, but anyone who&rsquo;s lived there long enough knows they can get a bit samey. The Anchor offers something different: a genuine village pub with character, a short drive away.
+                Searching for pubs in Egham? The Anchor is a genuine village pub with character, a short drive away.
               </p>
               <p>
                 Then there&rsquo;s the Runnymede crowd. If you&rsquo;ve spent the afternoon at the JFK Memorial or walking the meadows, you&rsquo;re a short drive from us. The Air Forces Memorial on Cooper&rsquo;s Hill is another popular starting point, visitors often tell us they stumbled across The Anchor while looking for somewhere to eat afterwards, and now it&rsquo;s become part of the routine. A reflective walk followed by a quiet pint in the garden feels about right.

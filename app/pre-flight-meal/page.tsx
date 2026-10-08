@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Draught Beer - we're just ${HEATHROW_TIMES.terminal5} mins from T5.`,
     openGraph: {
         title: 'The Last Proper Meal Before You Fly',
-        description: 'Don\'t settle for an expensive airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
+        description: 'Skip the airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'The Last Proper Meal Before You Fly',
-        description: 'Don\'t settle for an expensive airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
+        description: 'Skip the airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -50,7 +50,7 @@ export default function PreFlightDiningPage() {
                     <div className="mx-auto">
                         <SectionHeading
                             title="Plane Food Can Wait"
-                            lead="You're about to spend hours on a plane. Why start that journey hungry or disappointed by an overpriced terminal sandwich? Stop at The Anchor for a hearty, cooked-to-order meal that will keep you satisfied halfway across the Atlantic."
+                            lead="You're about to spend hours on a plane. Why start that journey hungry or with a terminal sandwich? Stop at The Anchor for a hearty, cooked-to-order meal that will keep you satisfied halfway across the Atlantic."
                         />
                     </div>
                 </Container>

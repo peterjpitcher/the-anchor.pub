@@ -7,8 +7,8 @@ import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
-import { CONTACT, BRAND, PARKING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
-import { DOGS_WORDING } from '@/lib/approved-wording'
+import { CONTACT, BRAND, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { DOGS_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -121,7 +121,7 @@ export default function WraysburyPubPage() {
                     <div className="mx-auto text-center">
                         <SectionHeading
                             title="Why Wraysbury Residents Visit The Anchor"
-                            lead="We're a popular choice for Wraysbury locals looking for great value and something different."
+                            lead="A proper village pub, a short drive from Wraysbury."
                         />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -203,7 +203,7 @@ export default function WraysburyPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                Wraysbury is a lovely village, but let&rsquo;s be honest, pubs in Wraysbury are limited. When you fancy a change of scene without a major expedition, The Anchor is a short drive away.
+                                Wraysbury is a lovely village. When you fancy a change of scene without a major expedition, The Anchor is a short drive away.
                             </p>
                             <p>
                                 We think of ourselves as Wraysbury&rsquo;s second local. Plenty of your neighbours are already regulars here. If you&rsquo;re into the Wraysbury reservoir walks or you&rsquo;ve been birdwatching around the gravel pits, we&rsquo;re the natural finishing point: a cold pint, a stone-baked pizza, and a seat in the garden watching the planes come in low overhead.
@@ -245,7 +245,7 @@ export default function WraysburyPubPage() {
                     },
                     {
                         question: "Do you have parking?",
-                        answer: `Yes, we have ${PARKING.capacity} free parking spaces on-site. It's stress-free parking, unlike some village centres.`
+                        answer: `Yes. ${PARKING_WORDING}`
                     },
                     {
                         question: "Is the pub family friendly?",

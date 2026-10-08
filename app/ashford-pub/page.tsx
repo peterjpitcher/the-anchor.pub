@@ -129,13 +129,13 @@ export default function AshfordPubPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="Ashford's Favourite Traditional Pub Experience"
-              lead="A short drive from Ashford, The Anchor offers the perfect escape from busy town life. Enjoy traditional British hospitality, fantastic food, and a warm welcome in our historic Stanwell Moor location."
+              lead="A short drive from Ashford, The Anchor is a proper village pub. Enjoy traditional British hospitality, fantastic food, and a warm welcome in our historic Stanwell Moor location."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
                 { title: "Easy Access", description: `A short drive, with ${PARKING.capacity} free spaces` },
-                { title: "Real Pub Feel", description: "Traditional atmosphere Ashford chain pubs can't match" },
+                { title: "Real Pub Feel", description: "A traditional village pub since 1751" },
                 { title: "Outside the ULEZ", description: ULEZ_WORDING },
               ].map((item) => (
                 <Card key={item.title} accent>
@@ -164,11 +164,11 @@ export default function AshfordPubPage() {
                 <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Escape Ashford's busy high street</strong> - Peaceful village setting with countryside views</div>
+                    <div><strong>A change of scene</strong> - A peaceful village setting</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Better value than Ashford pubs</strong> - Proper portions at village pub prices</div>
+                    <div><strong>Fair village prices</strong> - See the <Link href="/food-menu" className="underline">live menu</Link></div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -190,7 +190,7 @@ export default function AshfordPubPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 15+ pay a £10 per person deposit. Ashford folks fill tables fast!</div>
+                    <div><strong>Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 15+ pay a £10 per person deposit.</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -282,7 +282,7 @@ export default function AshfordPubPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong>Better value</strong> - No inflated town centre prices</span>
+                      <span><strong>Fair village prices</strong> - Our prices are on the live menu</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -429,8 +429,8 @@ export default function AshfordPubPage() {
               <p>
                 Ashford Middlesex is closer to The Anchor than most people realise. It is a short drive, and
                 suddenly you are in a proper village setting with
-                fields and a pub that has been pouring pints since 1751. If you are searching for pubs in Ashford
-                that offer something beyond the usual high-street chains, the short drive is well worth it.
+                fields and a pub that has been pouring pints since 1751. If you are searching for pubs in Ashford,
+                the short drive is well worth it.
               </p>
               <p>
                 Kitchen times vary by date, so check before you come or call {CONTACT.phone}. Parking&apos;s free,
@@ -472,12 +472,12 @@ export default function AshfordPubPage() {
             answer: `Yes. ${PARKING_WORDING}`
           },
           {
-            question: "What makes The Anchor different from pubs in Ashford?",
-            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone."
+            question: "Why come to The Anchor from Ashford?",
+            answer: "The Anchor is a traditional village pub with free parking, a large beer garden and planes coming over low. We're outside the ULEZ zone."
           },
           {
             question: "Do you get many customers from Ashford?",
-            answer: "Absolutely! Many Ashford residents are regulars here, especially for our Sunday roasts, stone-baked pizzas, and quiz nights. The short journey is worth it for the authentic pub atmosphere and better prices."
+            answer: "Absolutely! Many Ashford residents are regulars here, especially for our Sunday roasts, stone-baked pizzas, and quiz nights. It's a short drive."
           },
           {
             question: "How do I find The Anchor from Ashford?",

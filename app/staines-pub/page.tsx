@@ -176,8 +176,8 @@ export default function StainesPubPage() {
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="Why Locals Choose Us Over Other Pubs in Staines"
-              lead="Just a short drive from Staines-upon-Thames, The Anchor offers a proper British pub experience away from the busy high street"
+              title="Why Come to The Anchor from Staines"
+              lead="Just a short drive from Staines-upon-Thames, The Anchor is a proper British village pub"
               className="text-center mb-12"
             />
 
@@ -344,11 +344,11 @@ export default function StainesPubPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong className="text-ink">Free parking</strong> - No expensive town centre rates</span>
+                      <span><strong className="text-ink">Free parking</strong> - Right outside</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong className="text-ink">Competitive prices</strong> - Better value than Staines venues</span>
+                      <span><strong className="text-ink">Fair village prices</strong> - Our prices are on the live menu</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -427,34 +427,26 @@ export default function StainesPubPage() {
         </Container>
       </section>
 
-      {/* Why Staines Residents Choose The Anchor Over the High Street */}
+      {/* A village pub near Staines. No other pub is named or compared. */}
       <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="A Different Night Out from the Pubs in Staines"
+              title="A Village Pub Near Staines"
               className="text-center mb-8"
             />
             <div className="prose max-w-none text-ink-muted space-y-4">
               <p>
-                If you&apos;re searching for pubs in Staines, the high street has no shortage, The Swan, The Bells, the Wetherspoons on the corner, but
-                anyone who has tried to get a table on a Friday night knows the drill. Packed bars, queues at the door,
-                and nowhere to park without feeding a meter. The Anchor offers something genuinely different: a proper
-                village pub with free parking, a spacious beer garden, and none of the weekend crush.
+                If you&apos;re searching for pubs in Staines, The Anchor is a proper
+                village pub with free parking and a spacious beer garden.
               </p>
               <p>
-                The drive is {DRIVE_TIMES.staines} minutes, and you park right outside, no circling
-                side streets, no pay-and-display. On a Saturday afternoon, when Staines High Street is heaving with
-                shoppers and the Two Rivers car parks are rammed, The Anchor is a quieter alternative where you can
-                actually hear yourself talk.
+                The drive is {DRIVE_TIMES.staines} minutes, and you park right outside.
               </p>
               <p>
-                Most locals still call it Staines rather than Staines-upon-Thames, whatever the council decided back
-                in 2012. Either way, we&apos;re one of the friendliest pubs Staines-upon-Thames has nearby, just outside the town boundary but close enough for an easy weeknight meal
-                or a lazy Sunday roast without battling for a space on the one-way system. Many of our regulars
-                discovered us exactly that way, looking for somewhere with decent food, draught beers, and room to breathe.
-                Once they tried the stone-baked pizzas and caught a sunset in the beer garden with the planes coming
-                over, they stopped bothering with the High Street altogether.
+                Most locals still call it Staines rather than Staines-upon-Thames. Either way, we&apos;re just outside
+                the town, close enough for an easy weeknight meal or a lazy Sunday roast. Come for the stone-baked
+                pizzas, and catch a sunset in the beer garden with the planes coming over.
               </p>
             </div>
           </div>
@@ -489,8 +481,8 @@ export default function StainesPubPage() {
             answer: `The Anchor is just ${DRIVE_TIMES.staines} minutes drive from Staines town centre. We're at ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}, with free parking available.`
           },
           {
-            question: "What makes The Anchor different from other pubs in Staines?",
-            answer: "We've Music Bingo with Nikki Manfadge, quiz nights, famous Sunday roasts, stone-baked pizzas, plus a dog-friendly beer garden with plane spotting views of Heathrow. Unlike most pubs in Staines-upon-Thames, we have free parking and a spacious outdoor garden. Our What's On page has the latest events."
+            question: "Why come to The Anchor from Staines?",
+            answer: "We've Music Bingo with Nikki Manfadge, quiz nights, famous Sunday roasts, stone-baked pizzas, plus a dog-friendly beer garden with plane spotting views of Heathrow. We have free parking and a spacious garden. Our What's On page has the latest events."
           },
           {
             question: "Do you have parking at your Staines area pub?",

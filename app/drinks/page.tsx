@@ -289,7 +289,7 @@ export default async function DrinksMenuPage() {
                 },
                 {
                   title: 'Meeting Point',
-                  body: 'Picking someone up? Skip expensive airport parking. Meet here for a relaxed drink while they clear customs.'
+                  body: 'Picking someone up? Meet here for a relaxed drink while they clear customs.'
                 },
                 {
                   title: "Traveller's Rest",
@@ -361,7 +361,7 @@ export default async function DrinksMenuPage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 { title: 'Summer', body: "Pimm's jugs, ice-cold lagers and cocktails in the beer garden" },
-                { title: 'Autumn', body: 'Warming ales, harvest ciders, and our famous hot toddy as the evenings draw in' },
+                { title: 'Autumn', body: 'Warming ales, harvest ciders, and a hot toddy as the evenings draw in' },
                 { title: 'Winter', body: "Bailey's hot chocolate, hearty stouts and warming spirits in the warm" },
                 { title: 'Spring', body: 'Fresh G&Ts, crisp rosé, and the return of beer garden season' }
               ].map((item) => (
@@ -435,7 +435,7 @@ export default async function DrinksMenuPage() {
           },
           {
             question: "Where can I find well-kept draught beer near Heathrow?",
-            answer: `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and ${HEATHROW_TIMES.rangeWords} from the other terminals, with a proper choice of draught beers and premium lagers. We're much better value than airport bars and have a proper pub atmosphere with our beer garden.`
+            answer: `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and ${HEATHROW_TIMES.rangeWords} from the other terminals, with a proper choice of draught beers and premium lagers, a proper pub atmosphere and a beer garden.`
           },
           {
             question: "Do you have non-alcoholic drink options?",

@@ -453,3 +453,96 @@ describe('main site copy: claims removed by the October 2026 site review stay re
     expect(ssot).not.toMatch(/Use it for quiz night, both bingos/)
   })
 })
+
+// ---------------------------------------------------------------------------
+// P12: comparisons, superlatives and customer quotes. A superlative or a
+// comparison stays only where SSOT section 1 or 12 carries it in those words
+// ("the closest traditional pub to Heathrow", "highly rated"). Page titles keep
+// the search phrase ("cheap", "best") by the owner's ruling of 10 September
+// 2026, which is why no rule here bans those two words outright.
+// ---------------------------------------------------------------------------
+
+const REMOVED_BY_P12: ReadonlyArray<RemovedClaim> = [
+  {
+    claim: 'a rival pub named or compared (C4-017)',
+    pattern: /\bThe Swan\b|\bThe Bells\b|\bThe George \(|\bWetherspoons?\b|\bOstrich Inn\b|\bnearby alternatives\b|\bhow we compare\b|\bunlike (?:most|chain|other) pubs\b|\bbetter than tourist pubs\b|\bover other pubs in\b/i,
+  },
+  {
+    claim: 'a price multiple with nothing on file: "half the price", "twice as much" (C4-018, C3-018)',
+    pattern: /\bhalf the price\b|\bpay half\b|\btwice as much\b|\b3x the price\b|\bmassive savings\b|\bsignificantly (?:cheaper|lower)\b|\bmore reasonable prices than\b|\bcompetitive prices compared\b/i,
+  },
+  {
+    claim: 'a value comparison with the airport, hotels or another town (C4-018, C3-018)',
+    pattern: /\bbetter[- ]value (?:than|choice)\b|\bbetter prices\b|\bairport markup\b|\b(?:overpriced|expensive) (?:hotel|airport|terminal)\b|\btourist (?:prices|rates)\b|\bis superior\b|\badvantage over\b|\blower-cost alternative\b|\bcheaper (?:than|off-airport|local)\b/i,
+    // An internal note on who a group of links is for; it is never rendered.
+    except: /^lib\/seo\/organic-search-map\.ts$/,
+  },
+  {
+    claim: 'parking that is the cheapest, the closest or cheaper than Heathrow (C4-008)',
+    pattern: /\bcheapest\b|\bundercuts?\b|\bclosest (?:independent|parking)\b|\bbeat official\b|\bfaster than most\b|\bgetting pricier\b|\bprice promise\b|\bbefore prices rise\b/i,
+    // Pages and components only: lib/ uses "cheapest" as a variable name for a menu's lowest price.
+    only: /^(?:app|components)\//,
+  },
+  {
+    claim: 'parking safety beyond floodlit, CCTV, level and keep your keys (C4-012)',
+    pattern: /\b24\/7 access\b|\bstaff presence\b|\bresidents overlooking\b|\btrusted heathrow\b|\boverseen by the pub team\b|\babsolutely safe\b|\bsecure (?:long stay|parking|heathrow|car park)\b/i,
+  },
+  {
+    claim: 'real, guest, traditional or well-kept ales; the pub has bottled ales only (C4-016)',
+    pattern: /\b(?:traditional|authentic|real|guest|cask) ales?\b|\b(?:properly|well)[- ]kept (?:ales?|pint)\b|\bales on tap\b|\bproper British beer\b/i,
+  },
+  {
+    claim: 'the closest or nearest pub to anywhere but Heathrow, or the "only" pub (C4-019)',
+    pattern: /\b(?:closest|nearest) (?:village |independent |proper |traditional )?(?:British )?(?:pub|local)\b(?! to (?:Heathrow|Terminal 5|T5))|\bonly (?:traditional )?pub (?:left )?in\b/i,
+  },
+  {
+    claim: 'queues and full tables nobody confirmed (C4-020)',
+    pattern: /\bfill tables fast\b|\bqueues? at the door\b|\bfills up nicely\b|\bfighting for a table\b/i,
+  },
+  {
+    claim: 'a neighbouring town or its pubs run down (C4-044)',
+    pattern: /\ba bit samey\b|\bthin on the ground\b|\bisn't what it was\b|\blost a lot of its\b|\boptions thin out\b/i,
+  },
+  {
+    claim: '"best" as a claim about us in a question or answer (C3-020, SSOT section 14)',
+    pattern: /\bbest Sunday roast near\b|\bwhere's the best\b|\bbest (?:pub|restaurant) (?:in|near)\b/i,
+    // Titles keep the search phrase; the link map holds those phrases.
+    except: /^lib\/seo\/organic-search-map\.ts$/,
+  },
+  {
+    claim: "what other pubs' roasts do, or a roast that is cooked, not carved, to order (C3-045)",
+    pattern: /\bmost places near the airport\b|\bmost Sunday roasts near Heathrow\b|\broasts?\b[^.<]{0,40}\bcooked to order\b|\bmade-to-order roasts\b|\bunder a lamp\b/i,
+  },
+  {
+    claim: 'the Google rating typed into a page; it is read from SSOT.json (C3-053)',
+    pattern: /\b4\.6(?:&nbsp;| )?(?:stars?|rating)\b|\brated 4\.6\b|\b4\.6\/5\b|\b4\.6 out of\b/i,
+    only: /^(?:app|components)\//,
+  },
+  { claim: 'a drink sold as the "most Instagrammable" or "famous" (C3-051)', pattern: /\bmost Instagram|\bfamous hot toddy\b/i },
+]
+
+describe('comparisons, superlatives and customer quotes removed by the October 2026 site review stay removed (P12)', () => {
+  const copy = mainSiteCopy()
+
+  it.each(REMOVED_BY_P12.map(rule => [rule.claim, rule] as const))('never brings back %s', (_claim, rule) => {
+    expect(offendersOf(rule, copy)).toEqual([])
+  })
+
+  it('keeps alcohol strengths, brand superlatives and effect claims off the drinks list (C3-050, C3-051)', () => {
+    const drinks = readFileSync(join(ROOT, 'content/menu/drinks.json'), 'utf8')
+    // Strengths were typed in and never checked against the pump clips. "Peroni 0%" is a product name.
+    expect(drinks.match(/\d(?:\.\d)?% ABV|kick at \d+%/gi) ?? []).toEqual([])
+    expect(
+      drinks.match(/world's (?:number one|best|most)|best-selling|'s finest|number one premium|most awarded|king of beers|since 1[0-9]{3}|legendary blend|Instagrammable/gi) ?? []
+    ).toEqual([])
+    // The advertising code: a drink is never sold on stamina, a boost or daring.
+    expect(drinks.match(/stamina|extra boost|get you buzzing|dangerously|get the party started|live on the edge|cheeky/gi) ?? []).toEqual([])
+  })
+
+  it('credits a review with a comma, never a long dash (C1-043)', () => {
+    const source = readFileSync(join(ROOT, 'components/TestimonialSection.tsx'), 'utf8')
+    const rendered = source.replace(/\/\*[\s\S]*?\*\//g, ' ').split('\n').filter(line => !/^\s*\/\//.test(line)).join('\n')
+    expect(rendered).not.toContain('&mdash;')
+    expect(rendered).not.toContain(String.fromCharCode(8212))
+  })
+})

@@ -153,7 +153,7 @@ export default async function RestaurantsNearHeathrowPage() {
               The Anchor is a traditional British pub and restaurant in Stanwell Moor, near Heathrow Airport. We are {HEATHROW_TIMES.terminal5} minutes from Terminal 5 and {HEATHROW_TIMES.terminal2} to {HEATHROW_TIMES.terminal4} minutes from the other terminals, so if you are searching for restaurants near Heathrow before a flight, after landing or during a layover, you can be sitting down to a home-cooked meal in minutes. There is free parking on site, a beer garden under the flight path, and a calmer setting than anything you will find inside the terminal.
             </p>
             <p className="text-lg leading-relaxed text-ink-muted">
-              We cook proper British pub food: Sunday roasts, fish and chips, stone-baked pizzas, burgers and pies, all made fresh to order rather than reheated. We are not a chain or a fast-food counter, just a village pub where you can take your time, bring the dog, and eat well without airport prices.
+              We cook proper British pub food: Sunday roasts, fish and chips, stone-baked pizzas, burgers and pies, all made fresh to order rather than reheated. We are not a chain or a fast-food counter, just a village pub where you can take your time, bring the dog, and eat well at fair village prices.
             </p>
           </div>
         </Container>
@@ -355,7 +355,7 @@ export default async function RestaurantsNearHeathrowPage() {
                 <CardBody className="p-8">
                   <h3 className="font-display text-h4 text-ink-strong mb-3">A Proper Meal, Honest Prices</h3>
                   <p className="text-ink-muted mb-3">
-                    Airport food courts charge a premium for a rushed meal. We are an independent village pub, so you get home-cooked British food at sensible pub prices, cooked fresh to order rather than kept under a heat lamp.
+                    We are an independent village pub, so you get home-cooked British food at fair village prices, cooked fresh to order.
                   </p>
                   <p className="text-ink-muted">
                     Every food and drink price is live on our <Link href="/food-menu" className="underline hover:text-accent-text">food menu</Link>, so there are no surprises when the bill arrives.
@@ -567,8 +567,8 @@ export default async function RestaurantsNearHeathrowPage() {
       <FAQAccordionWithSchema
         faqs={[
           {
-            question: "What is the best restaurant near Heathrow Airport?",
-            answer: `The Anchor is a traditional British pub and restaurant in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 and ${HEATHROW_TIMES.terminal2} to ${HEATHROW_TIMES.terminal4} minutes from the other terminals. We cook home-made British food, including Sunday roasts, fish and chips, pizzas and pies, with free parking on site and a beer garden under the flight path. It is a calmer, better-value choice than eating inside the airport.`
+            question: "Where can I eat near Heathrow Airport?",
+            answer: `The Anchor is a traditional British pub and restaurant in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 and ${HEATHROW_TIMES.terminal2} to ${HEATHROW_TIMES.terminal4} minutes from the other terminals. We cook home-made British food, including Sunday roasts, fish and chips, pizzas and pies, with free parking on site and a beer garden under the flight path. Our prices are on the live menu.`
           },
           {
             question: "How far is The Anchor from Heathrow Airport?",
@@ -580,7 +580,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
           {
             question: "Is it worth leaving the airport to eat?",
-            answer: `Usually, yes. Airport and hotel dining tends to cost more, and hotel car parks often charge non-guests. A local pub meal ${HEATHROW_TIMES.rangeWords} from the terminals, with free parking and room to relax, is better value and a calmer way to spend the time.`
+            answer: `If you have the time, yes. We're ${HEATHROW_TIMES.rangeWords} from the terminals by car, with free parking, food cooked to order and room to relax. Our prices are on the live menu, so you can compare before you set off.`
           },
           {
             question: "Are you a good alternative to restaurants near Heathrow Terminal 5?",

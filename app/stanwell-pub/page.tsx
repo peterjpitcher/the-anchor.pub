@@ -180,7 +180,7 @@ export default async function StanwellPubPage() {
 
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="font-display text-h3 text-ink-strong mb-4">Your Nearest Traditional Pub</h3>
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Your Traditional Village Pub</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -447,8 +447,8 @@ export default async function StanwellPubPage() {
             answer: `The Anchor is a short drive from Stanwell Village centre. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}.`
           },
           {
-            question: "Is The Anchor the closest pub to Stanwell?",
-            answer: "Yes! The Anchor is the nearest traditional British pub to Stanwell Village. We're just a short journey away in Stanwell Moor, with free parking and a warm welcome for all Stanwell residents."
+            question: "Is The Anchor near Stanwell?",
+            answer: "Yes. We're in Stanwell Moor, a short drive from Stanwell village, with free parking and a warm welcome."
           },
           {
             question: "Do you host events for Stanwell community groups?",

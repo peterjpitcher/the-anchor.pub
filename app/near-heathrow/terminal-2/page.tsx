@@ -329,9 +329,9 @@ export default function Terminal2Page() {
                 <div>
                   <h3 className="text-2xl font-bold text-accent-text mb-4">Before Your Flight</h3>
                   <p className="mb-4 text-ink-muted">
-                    Instead of paying premium prices for average food at the terminal, enjoy a proper meal
+                    Instead of eating at the terminal, enjoy a proper meal
                     at The Anchor. Our traditional British menu offers everything from classic pub favourites
-                    to fish and chips, all at local pub prices during kitchen hours. Relax in our
+                    to fish and chips, all at fair village prices during kitchen hours. Relax in our
                     beer garden or cosy interior, and check your airline&apos;s advice on when to be at the terminal.
                   </p>
                   <p className="text-ink-muted">
@@ -396,7 +396,7 @@ export default function Terminal2Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Authentic ales and home-cooked meals</span>
+                      <span>Draught lagers, bottled ales and home-cooked meals</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -405,11 +405,11 @@ export default function Terminal2Page() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3 text-ink-strong">Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3 text-ink-strong">Fair Village Prices</h4>
                   <ul className="space-y-2 text-ink-muted">
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Pub prices, not hotel prices</span>
+                      <span>Fair village prices, shown on our live menu</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -417,7 +417,7 @@ export default function Terminal2Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Free parking saves on hotel charges</span>
+                      <span>Free parking right outside</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -492,7 +492,7 @@ export default function Terminal2Page() {
           },
           {
             question: "Is The Anchor good for Terminal 2 hotel guests?",
-            answer: "Absolutely! Many guests from Terminal 2 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, traditional ales, and home-cooked food at pub prices."
+            answer: "Absolutely! Many guests from Terminal 2 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, draught lagers, bottled ales and home-cooked food at fair village prices."
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 2 hotel?",

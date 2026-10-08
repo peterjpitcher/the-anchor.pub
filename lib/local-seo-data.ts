@@ -125,7 +125,7 @@ export const landmarks: Landmark[] = [
         name: 'Bedfont Lakes Business Park',
         type: 'business_park',
         address: 'Bedfont Lakes, Feltham TW14 8HA',
-        description: 'Escape the office park canteen. We offer a professional yet relaxed environment for team meetings, client lunches, and corporate dinners.'
+        description: 'A relaxed village pub for team meetings, client lunches and work dinners.'
     },
     {
         slug: 'stockley-park',

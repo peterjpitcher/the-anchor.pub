@@ -15,7 +15,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Pubs in Horton | Your Closest Village Pub',
+    title: 'Pubs in Horton | A Village Pub Nearby',
     description: `Looking for pubs in Horton? ${BRAND.name} in Stanwell Moor is a short drive away. Free parking, Sunday roasts, draught beers, and a warm village welcome.`,
     openGraph: {
         title: 'Pubs in Horton | The Anchor Stanwell Moor',
@@ -102,7 +102,7 @@ export default function HortonPubPage() {
                             Pubs in Horton, Traditional British Pub a Short Drive Away
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            The Anchor in Stanwell Moor is practically in Horton! We are your closest traditional pub with food, offering a warm welcome to our neighbours.
+                            The Anchor in Stanwell Moor is just along Horton Road. We&apos;re a traditional pub with food, and a warm welcome for our neighbours.
                         </p>
                     </div>
                 </Container>
@@ -120,7 +120,7 @@ export default function HortonPubPage() {
                             {[
                                 { title: "Close By", description: "A short drive from Horton village" },
                                 { title: "Sunday Roasts", description: "Famous Sunday roasts, worth the short hop over the motorway" },
-                                { title: "Draught Beers", description: "Properly kept ales and a great wine selection" },
+                                { title: "Drinks", description: "Draught lagers, bottled ales and wine" },
                             ].map((item) => (
                                 <Card key={item.title} accent>
                                     <CardBody className="p-6 text-center">
@@ -198,10 +198,10 @@ export default function HortonPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                Horton and Stanwell Moor are connected by the same road, Horton Road. If you live in Horton, The Anchor is genuinely your closest pub, and it&rsquo;s a short drive.
+                                Horton and Stanwell Moor are connected by the same road, Horton Road. If you live in Horton, The Anchor is a short drive away.
                             </p>
                             <p>
-                                Horton is a quiet, beautiful village, but it doesn&rsquo;t have its own pub any more. That makes us your de facto local, and we take that seriously. We know a lot of Horton residents by name, they&rsquo;re some of our most loyal regulars. Whether it&rsquo;s a midweek pint after work, a family Sunday roast, or a big birthday celebration, Horton folk treat The Anchor like their own, and we love that.
+                                Horton is a quiet, beautiful village, and we&rsquo;d love to be your local. Whether it&rsquo;s a midweek pint after work, a family Sunday roast, or a big birthday celebration, Horton folk treat The Anchor like their own, and we love that.
                             </p>
                             <p>
                                 {DOGS_WORDING} Muddy boots are welcome too, we&rsquo;re a country pub, not a wine bar. And because we&rsquo;re so close, you can pop in for a quick one without it turning into a whole evening out (unless you want it to, of course).

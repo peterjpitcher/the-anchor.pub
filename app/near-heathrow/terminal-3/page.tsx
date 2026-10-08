@@ -386,7 +386,7 @@ export default function Terminal3Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Authentic ales and home-cooked meals</span>
+                      <span>Draught lagers, bottled ales and home-cooked meals</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -395,11 +395,11 @@ export default function Terminal3Page() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3 text-ink-strong">Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3 text-ink-strong">Fair Village Prices</h4>
                   <ul className="space-y-2 text-ink-muted">
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Pub prices, not hotel prices</span>
+                      <span>Fair village prices, shown on our live menu</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -407,7 +407,7 @@ export default function Terminal3Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Free parking saves on hotel charges</span>
+                      <span>Free parking right outside</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -494,7 +494,7 @@ export default function Terminal3Page() {
           },
           {
             question: "Is The Anchor good for Terminal 3 hotel guests?",
-            answer: "Absolutely! Many guests from Terminal 3 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, traditional ales, and home-cooked food at pub prices."
+            answer: "Absolutely! Many guests from Terminal 3 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, draught lagers, bottled ales and home-cooked food at fair village prices."
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 3 hotel?",

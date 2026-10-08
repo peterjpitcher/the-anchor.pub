@@ -141,7 +141,7 @@ export default function LuggageStoragePage() {
                                     <h3 className="font-display text-h4 text-anchor-danger mb-2">Waiting at the Airport</h3>
                                     <ul className="space-y-3 text-ink-muted">
                                         <li>Hard plastic chairs</li>
-                                        <li>Overpriced food & drink</li>
+                                        <li>Airport food courts</li>
                                         <li>Crowded and noisy</li>
                                         <li>Hours of boredom</li>
                                     </ul>

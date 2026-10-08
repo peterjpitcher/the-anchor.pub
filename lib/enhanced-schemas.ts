@@ -20,7 +20,7 @@ export const homepageFAQSchema = {
       "name": "Does The Anchor have parking?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! We have free parking for all our guests. This is a huge advantage over expensive airport parking - you can park with us for free while enjoying a meal before or after your flight."
+        "text": "Yes! We have free parking for all our guests. You can park with us for free while you enjoy a meal before or after your flight."
       }
     },
     {

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: `Pubs Near Heathrow Terminal 4 | ${HEATHROW_TIMES.terminal4} Mins Away | Free Parking`,
-    description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and draught beers.',
+    description: `The Anchor is a village pub ${HEATHROW_TIMES.terminal4} minutes from Heathrow Terminal 4 by car, with free parking, British dishes and draught beers.`,
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -158,7 +158,7 @@ export default function Terminal4Page() {
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="text-xl font-semibold text-accent-text mb-2">Pub Menu & Drinks</h3>
                 <p className="text-sm text-ink-muted mb-4">
-                  Burgers, fish & chips, cocktails and draught beers served fast with free parking, a better alternative to hotel bars.
+                  Burgers, fish & chips, cocktails and draught beers served fast with free parking, an alternative to hotel bars.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -384,7 +384,7 @@ export default function Terminal4Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Authentic ales and home-cooked meals</span>
+                      <span>Draught lagers, bottled ales and home-cooked meals</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -393,11 +393,11 @@ export default function Terminal4Page() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3">Fair Village Prices</h4>
                   <ul className="space-y-2 text-ink-muted">
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Pub prices, not hotel prices</span>
+                      <span>Fair village prices, shown on our live menu</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -405,7 +405,7 @@ export default function Terminal4Page() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
-                      <span>Free parking saves on hotel charges</span>
+                      <span>Free parking right outside</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-accent-text"></span>
@@ -492,7 +492,7 @@ export default function Terminal4Page() {
           },
           {
             question: "Is The Anchor good for Terminal 4 hotel guests?",
-            answer: "Absolutely! Many guests from Terminal 4 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, traditional ales, and home-cooked food at pub prices."
+            answer: "Absolutely! Many guests from Terminal 4 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, draught lagers, bottled ales and home-cooked food at fair village prices."
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 4 hotel?",

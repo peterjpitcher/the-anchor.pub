@@ -17,22 +17,22 @@
  {
  "name": "Birra Moretti",
  "price": "",
- "description": "4.6% ABV - Italy's premium lager since 1859. A perfectly balanced beer with a delicate hop aroma and smooth, refreshing finish. Pairs beautifully with our stone-baked pizzas."
+ "description": "Italian premium lager. A perfectly balanced beer with a delicate hop aroma and smooth, refreshing finish. Pairs beautifully with our stone-baked pizzas."
  },
  {
  "name": "Stella Artois",
  "price": "",
- "description": "4.6% ABV - Belgium's finest export lager. Reassuringly expensive taste with distinctive hoppy bitterness and citrus notes. Brewed to perfection since 1366."
+ "description": "Belgian lager with distinctive hoppy bitterness and citrus notes."
  },
  {
  "name": "Fosters",
  "price": "",
- "description": "3.7% ABV - Australia's gift to British pubs. Easy-drinking lager with a light malt character and subtle sweetness. Ideal for long summer afternoons in our beer garden."
+ "description": "Easy-drinking lager with a light malt character and subtle sweetness. Ideal for long summer afternoons in our beer garden."
  },
  {
  "name": "Carlsberg",
  "price": "",
- "description": "3.8% ABV - Probably the best beer in the world? Danish pilsner with a light, refreshing taste and smooth hoppy notes. A classic that never goes out of style."
+ "description": "Danish pilsner with a light, refreshing taste and smooth hoppy notes. A classic that never goes out of style."
  }
  ]
  },
@@ -44,17 +44,17 @@
  {
  "name": "Guinness",
  "price": "",
- "description": "4.1% ABV - Ireland's iconic stout. Rich, creamy head with deep roasted barley flavours, hints of coffee and chocolate. Good things come to those who wait for the perfect pour."
+ "description": "Irish stout. Rich, creamy head with deep roasted barley flavours, hints of coffee and chocolate. Good things come to those who wait for the perfect pour."
  },
  {
  "name": "Aspall",
  "price": "",
- "description": "5.5% ABV - Suffolk's finest cider since 1728. Medium dry with a crisp apple finish. Made from a secret blend of culinary and cider apples from their own orchards."
+ "description": "Suffolk cider. Medium dry with a crisp apple finish."
  },
  {
  "name": "Inch's Medium Apple Cider",
  "price": "",
- "description": "4.5% ABV - Traditional West Country cider with a perfect balance of sweetness and sharp apple flavours. Refreshingly smooth with a clean, fruity finish."
+ "description": "Traditional West Country cider with a perfect balance of sweetness and sharp apple flavours. Refreshingly smooth with a clean, fruity finish."
  }
  ]
  }
@@ -74,22 +74,22 @@
  {
  "name": "Abbot Ale",
  "price": "",
- "description": "5.0% ABV - Premium English ale from Greene King. Full-bodied with a distinctive fruity aroma and malty richness. Brewed in Bury St Edmunds since 1086."
+ "description": "English ale from Greene King. Full-bodied with a distinctive fruity aroma and malty richness."
  },
  {
  "name": "Greene King IPA",
  "price": "",
- "description": "3.6% ABV - A perfectly balanced India Pale Ale with fresh hop flavours and citrus notes. Light amber colour with a clean, refreshing bitter finish."
+ "description": "A balanced India Pale Ale with fresh hop flavours and citrus notes. Light amber colour with a clean, refreshing bitter finish."
  },
  {
  "name": "Old Speckled Hen",
  "price": "",
- "description": "5.0% ABV - Distinctive tawny coloured ale with a superb malty taste. Smooth, creamy and full-flavoured with a refreshing bitterness. A true British classic."
+ "description": "Distinctive tawny coloured ale with a superb malty taste. Smooth, creamy and full-flavoured with a refreshing bitterness. A true British classic."
  },
  {
  "name": "Newcastle Brown Ale",
  "price": "",
- "description": "4.7% ABV - The one and only Newkie Brown. Sweet caramel notes balanced with moderate bitterness. An icon of the North East since 1927."
+ "description": "Newkie Brown. Sweet caramel notes balanced with moderate bitterness."
  }
  ]
  },
@@ -101,27 +101,27 @@
  {
  "name": "Budweiser",
  "price": "",
- "description": "5.0% ABV - The King of Beers. American lager aged on beechwood chips for smoothness. Crisp, clean and refreshing with subtle hop aroma."
+ "description": "American lager aged on beechwood chips for smoothness. Crisp, clean and refreshing with subtle hop aroma."
  },
  {
  "name": "Corona Extra",
  "price": "",
- "description": "4.5% ABV - Mexico's favourite beer. Light, refreshing pilsner-style lager best served with a wedge of lime. Transport yourself to a beach in Cancun."
+ "description": "Mexican beer. Light, refreshing pilsner-style lager best served with a wedge of lime. Transport yourself to a beach in Cancun."
  },
  {
  "name": "Desperados",
  "price": "",
- "description": "5.9% ABV - Tequila-flavoured beer that breaks all the rules. A unique blend of lager with a hint of tequila for those who like to live on the edge."
+ "description": "Tequila-flavoured beer: lager with a hint of tequila."
  },
  {
  "name": "Peroni Nastro Azzurro",
  "price": "",
- "description": "5.1% ABV - Italy's number one premium lager. Crisp and refreshing with a delicate balance of bitterness and citrus aromatic notes. La dolce vita in a bottle."
+ "description": "Italian premium lager. Crisp and refreshing with a delicate balance of bitterness and citrus aromatic notes. La dolce vita in a bottle."
  },
  {
  "name": "Peroni 0%",
  "price": "",
- "description": "0.0% ABV - All the Italian style without the alcohol. Same crisp, refreshing taste of Peroni with citrus notes. A refreshing alcohol-free option."
+ "description": "All the Italian style without the alcohol. Same crisp, refreshing taste of Peroni with citrus notes. A refreshing alcohol-free option."
  }
  ]
  },
@@ -133,22 +133,22 @@
  {
  "name": "Magners Original",
  "price": "",
- "description": "4.5% ABV - Ireland's original premium cider. Made from 17 varieties of apples for a unique crisp taste. Best served over ice for ultimate refreshment."
+ "description": "Irish cider with a crisp apple taste. Good over ice."
  },
  {
  "name": "Old Mout Berries & Cherries",
  "price": "",
- "description": "4.0% ABV - New Zealand fruit cider bursting with strawberry and raspberry flavours, finished with sweet cherries. A fruity adventure in every bottle."
+ "description": "New Zealand fruit cider bursting with strawberry and raspberry flavours, finished with sweet cherries. A fruity adventure in every bottle."
  },
  {
  "name": "Old Mout Kiwi & Lime",
  "price": "",
- "description": "4.0% ABV - Tropical fusion of tangy kiwi and zesty lime. Light, refreshing and packed with exotic fruit flavours from the land of the long white cloud."
+ "description": "Tropical fusion of tangy kiwi and zesty lime. Light, refreshing and packed with exotic fruit flavours from the land of the long white cloud."
  },
  {
  "name": "Aspall",
  "price": "",
- "description": "5.5% ABV - Suffolk's finest cider since 1728. Crisp, dry and refreshingly tart. A proper English cider for those who like a bit of bite."
+ "description": "Suffolk cider. Crisp, dry and refreshingly tart. A proper English cider for those who like a bit of bite."
  }
  ]
  }
@@ -184,7 +184,7 @@
  {
  "name": "Apricot Fizz",
  "price": "6.75",
- "description": "Effervescent elegance with a fruity twist. Vodka mingles with apricot and grape notes, topped with sparkle. Light, bright and dangerously easy to drink."
+ "description": "Effervescent elegance with a fruity twist. Vodka mingles with apricot and grape notes, topped with sparkle. Light and bright."
  },
  {
  "name": "Moscow Mule",
@@ -216,12 +216,12 @@
  {
  "name": "Espresso Martini",
  "price": "",
- "description": "The ultimate pick-me-up. Rich coffee meets smooth spirits in this sophisticated cocktail that's perfect for starting or ending your night. Guaranteed to get you buzzing."
+ "description": "Rich coffee meets smooth spirits in a classic cocktail."
  },
  {
  "name": "Passion Fruit Martini",
  "price": "",
- "description": "Tropical paradise in a glass. Sweet, tangy and utterly irresistible, served with a shot of fizz on the side. Our most Instagrammable cocktail."
+ "description": "Tropical paradise in a glass. Sweet, tangy and utterly irresistible, served with a shot of fizz on the side."
  },
  {
  "name": "Classic Margarita",
@@ -258,7 +258,7 @@
  {
  "name": "Woo Woo",
  "price": "",
- "description": "A cousin of the Cosmo. Pretty in pink with a perfect balance of sweet and tart. Guaranteed to get the party started."
+ "description": "A cousin of the Cosmo. Pretty in pink with a perfect balance of sweet and tart."
  },
  {
  "name": "Pimm's",
@@ -278,7 +278,7 @@
  {
  "name": "Hot Toddy",
  "price": "",
- "description": "The ultimate winter warmer. Soothing blend of warming spices and citrus. Like a hug in a mug for cold evenings."
+ "description": "A winter warmer. Soothing blend of warming spices and citrus. Like a hug in a mug for cold evenings."
  }
  ]
  },
@@ -295,7 +295,7 @@
  {
  "name": "Kick Bomb",
  "price": "",
- "description": "Our secret weapon for late-night stamina. When you need that extra boost to keep the good times rolling."
+ "description": "A bomb shot. Ask at the bar for what goes in it."
  },
  {
  "name": "Skittle Bomb",
@@ -320,7 +320,7 @@
  {
  "name": "Bombay Sapphire",
  "price": "",
- "description": "The world's number one premium gin. Ten exotic botanicals create a perfectly balanced, bright and fresh taste."
+ "description": "Gin with a bright, fresh taste."
  },
  {
  "name": "Hendrick's",
@@ -335,7 +335,7 @@
  {
  "name": "Tanqueray London Dry",
  "price": "",
- "description": "Four botanicals perfected over 180 years. The bartender's choice for the perfect G&T."
+ "description": "A classic London Dry gin for a G&T."
  },
  {
  "name": "Tanqueray Flor de Sevilla",
@@ -355,12 +355,12 @@
  {
  "name": "Gordon's",
  "price": "",
- "description": "The world's best-selling London Dry Gin. Triple-distilled with juniper berries and secret botanicals."
+ "description": "London Dry gin with juniper and botanicals."
  },
  {
  "name": "Gordon's Pink",
  "price": "",
- "description": "The original pink gin. Sweet strawberry and raspberry notes balanced with Gordon's classic juniper."
+ "description": "Pink gin. Sweet strawberry and raspberry notes balanced with Gordon's classic juniper."
  },
  {
  "name": "Gordon's White Peach",
@@ -415,7 +415,7 @@
  {
  "name": "Monkey Sloe Gin 47",
  "price": "",
- "description": "Bold sloe gin with a proper kick at 47%. Rich berry sweetness balanced by Monkey 47's botanical complexity."
+ "description": "Bold sloe gin. Rich berry sweetness balanced by Monkey 47's botanical complexity."
  }
  ]
  },
@@ -427,17 +427,17 @@
  {
  "name": "Jameson",
  "price": "",
- "description": "Triple-distilled Irish smoothness. The world's best-selling Irish whiskey with notes of vanilla and toasted wood."
+ "description": "Smooth Irish whiskey with notes of vanilla and toasted wood."
  },
  {
  "name": "Jack Daniel's",
  "price": "",
- "description": "Tennessee's finest. Charcoal mellowed drop by drop for exceptional smoothness. Old No. 7 never goes out of style."
+ "description": "Tennessee whiskey, charcoal mellowed for smoothness."
  },
  {
  "name": "Jack Daniel's Honey",
  "price": "",
- "description": "Tennessee whiskey meets golden honey. Sweet, smooth and dangerously drinkable."
+ "description": "Tennessee whiskey meets golden honey. Sweet and smooth."
  },
  {
  "name": "Jack Daniel's Fire",
@@ -452,7 +452,7 @@
  {
  "name": "Glenfiddich 12",
  "price": "",
- "description": "The world's most awarded single malt. Fresh pear and subtle oak flavours from Scotland's valley of the deer."
+ "description": "Single malt Scotch. Fresh pear and subtle oak flavours from Scotland's valley of the deer."
  },
  {
  "name": "Glenmorangie",
@@ -482,22 +482,22 @@
  {
  "name": "Famous Grouse",
  "price": "",
- "description": "Scotland's favourite blended whisky. Smooth, balanced and perfect for mixing."
+ "description": "Blended Scotch whisky. Smooth, balanced and perfect for mixing."
  },
  {
  "name": "Bell's",
  "price": "",
- "description": "Classic blended Scotch since 1825. Smoky, nutty and distinctively smooth."
+ "description": "Classic blended Scotch. Smoky, nutty and distinctively smooth."
  },
  {
  "name": "Bushmills",
  "price": "",
- "description": "Ireland's oldest whiskey from 1608. Light, fruity and exceptionally smooth."
+ "description": "Irish whiskey. Light, fruity and exceptionally smooth."
  },
  {
  "name": "Shanky's Whip",
  "price": "",
- "description": "Irish whiskey meets vanilla liqueur. Smooth, creamy and dangerously moreish."
+ "description": "Irish whiskey meets vanilla liqueur. Smooth and creamy."
  },
  {
  "name": "Bowmore 12yr",
@@ -519,7 +519,7 @@
  {
  "name": "Grey Goose",
  "price": "",
- "description": "French luxury vodka. Exceptionally smooth with subtle notes of almond. The world's best tasting vodka."
+ "description": "French luxury vodka. Exceptionally smooth with subtle notes of almond."
  },
  {
  "name": "Ketel One",
@@ -529,7 +529,7 @@
  {
  "name": "Smirnoff Red",
  "price": "",
- "description": "Triple distilled and ten times filtered. The world's number one vodka. Pure, clean and versatile."
+ "description": "Pure, clean and versatile vodka."
  },
  {
  "name": "Smirnoff Raspberry Crush",
@@ -566,7 +566,7 @@
  {
  "name": "Captain Morgan Spiced",
  "price": "",
- "description": "The Captain's legendary blend. Caribbean rum with warming spices. Perfect with cola and a squeeze of lime."
+ "description": "Caribbean rum with warming spices. Perfect with cola and a squeeze of lime."
  },
  {
  "name": "Captain Morgan's Dark",
@@ -601,7 +601,7 @@
  {
  "name": "Bacardi",
  "price": "",
- "description": "The world's most awarded rum. Light, crisp and the essential cocktail base."
+ "description": "Light and crisp. A good cocktail base."
  },
  {
  "name": "Bacardi Carta Negra",
@@ -626,7 +626,7 @@
  {
  "name": "Bumbu Cream",
  "price": "",
- "description": "Velvety Caribbean cream rum with banana and toffee notes. Dangerously drinkable over ice."
+ "description": "Velvety Caribbean cream rum with banana and toffee notes. Good over ice."
  },
  {
  "name": "Redleg Spiced",
@@ -656,7 +656,7 @@
  {
  "name": "Jose Cuervo Gold",
  "price": "",
- "description": "The world's number one tequila. Smooth and sweet with notes of vanilla and caramel. Essential for margaritas."
+ "description": "Smooth and sweet with notes of vanilla and caramel. Essential for margaritas."
  },
  {
  "name": "Jose Cuervo Silver",
@@ -703,7 +703,7 @@
  {
  "name": "Disaronno",
  "price": "",
- "description": "Italian amaretto since 1525. Sweet almond flavours with a hint of cherry. Sophisticated and smooth."
+ "description": "Italian amaretto. Sweet almond flavours with a hint of cherry. Sophisticated and smooth."
  },
  {
  "name": "Cointreau",
@@ -728,7 +728,7 @@
  {
  "name": "Drambuie",
  "price": "",
- "description": "Scottish liqueur with whisky, honey and herbs. The Prince's dram since 1745."
+ "description": "Scottish liqueur with whisky, honey and herbs."
  },
  {
  "name": "Archers",
@@ -743,7 +743,7 @@
  {
  "name": "Aperol",
  "price": "",
- "description": "Italian aperitif since 1919. Bittersweet orange with herbs. Essential for spritzes."
+ "description": "Italian aperitif. Bittersweet orange with herbs. Essential for spritzes."
  },
  {
  "name": "Pernod",
@@ -753,17 +753,17 @@
  {
  "name": "Pimm's No. 1",
  "price": "",
- "description": "The original summer cup. Gin-based liqueur with herbs and citrus. Essential for British summers."
+ "description": "A summer cup. Gin-based liqueur with herbs and citrus. Essential for British summers."
  },
  {
  "name": "Southern Comfort",
  "price": "",
- "description": "New Orleans original since 1874. Fruit and spice liqueur with a whiskey heart. Sweet, smooth and warming."
+ "description": "Fruit and spice liqueur with a whiskey heart. Sweet, smooth and warming."
  },
  {
  "name": "Bailey's Irish Cream",
  "price": "",
- "description": "The original Irish cream liqueur. Luxuriously creamy with chocolate and vanilla notes. Perfect over ice or in coffee."
+ "description": "Irish cream liqueur. Luxuriously creamy with chocolate and vanilla notes. Perfect over ice or in coffee."
  }
  ]
  },
@@ -780,12 +780,12 @@
  {
  "name": "Hennessy VS",
  "price": "",
- "description": "The world's best-selling cognac. Rich, robust with notes of toasted almond and vine fruits. A proper after-dinner classic."
+ "description": "Cognac. Rich, robust with notes of toasted almond and vine fruits. A proper after-dinner classic."
  },
  {
  "name": "Martell VS",
  "price": "",
- "description": "The oldest of the great cognac houses. Smooth, round and fruity with a mellow warmth. Refined sipping."
+ "description": "Cognac. Smooth, round and fruity with a mellow warmth. Refined sipping."
  },
  {
  "name": "Taylor's Fine Ruby Port",
@@ -904,7 +904,7 @@
  {
  "name": "Gentlemen's Collection",
  "price": "Bottle",
- "description": "France - Premium blend showcasing the best of French winemaking. Complex, elegant and perfect for special occasions."
+ "description": "France - Premium blend. Complex, elegant and perfect for special occasions."
  }
  ]
  },
@@ -1079,17 +1079,17 @@
  { 
  "name": "Red Bull", 
  "price": "",
- "description": "The original energy drink. Perfect pick-me-up for long nights or early airport runs."
+ "description": "Energy drink. A pick-me-up for long nights or early airport runs."
  },
  { 
  "name": "Kick Energy", 
  "price": "",
- "description": "British-made energy boost with a refreshing citrus kick. Great value alternative."
+ "description": "British-made energy drink with a refreshing citrus kick."
  },
  { 
  "name": "Harrogate Spring Water", 
  "price": "",
- "description": "Still or Sparkling. Yorkshire's finest mineral water, naturally pure and refreshing."
+ "description": "Still or Sparkling. Yorkshire mineral water, naturally pure and refreshing."
  },
  { 
  "name": "Kids' Favourites", 

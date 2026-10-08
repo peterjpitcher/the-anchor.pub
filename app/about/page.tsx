@@ -23,7 +23,7 @@ import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 export const metadata: Metadata = {
   title: 'About Us | Our Story Since 1751',
   description:
-    "The Anchor in Stanwell Moor has been a village pub since 1751. 5-star food hygiene. Meet the team behind Heathrow\u2019s favourite local pub.",
+    "The Anchor in Stanwell Moor has been a village pub since 1751. 5-star food hygiene.",
   alternates: { canonical: '/about' },
   openGraph: {
     title: 'About The Anchor | Our Story Since 1751',
@@ -165,7 +165,7 @@ export default function AboutPage() {
               {
                 title: 'Under the Flight Path',
                 description:
-                  'Our beer garden sits directly beneath Heathrow\u2019s approach path. Aircraft pass overhead every 90 seconds at peak times, a view you won\u2019t find at any other pub.',
+                  'Our beer garden sits directly beneath Heathrow\u2019s approach path. Aircraft pass overhead every 90 seconds at peak times.',
               },
               {
                 title: `${PARKING.capacity} Free Parking Spaces`,

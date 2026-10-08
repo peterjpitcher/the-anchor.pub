@@ -92,8 +92,8 @@ function getSundayLunchFaqs() {
       answer: `Yes, the Beetroot and Butternut Squash Wellington. ${WELLINGTON_WORDING}`
     },
     {
-      question: "Where's the best Sunday roast near Heathrow Airport?",
-      answer: `The Anchor in Stanwell Moor is around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking, fresh made-to-order roasts and no booking needed.`
+      question: "Where can I get a Sunday roast near Heathrow Airport?",
+      answer: `The Anchor in Stanwell Moor is around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking, roasts carved when you order and no booking needed.`
     },
     {
       question: 'Is there parking, and is it free?',
@@ -210,7 +210,7 @@ export default async function SundayRoastPage() {
             Sunday Roast Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-ink-muted mx-auto">
-            The Anchor serves a proper Sunday roast {roastFrequency} from 1pm to 6pm, {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 in Stanwell Moor. Here is the part most places near the airport cannot say: you do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
+            The Anchor serves a proper Sunday roast {roastFrequency} from 1pm to 6pm, {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 in Stanwell Moor. You do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
           </p>
           <ul
             aria-label="At a glance"
@@ -238,7 +238,7 @@ export default async function SundayRoastPage() {
         <div className="container">
           <SectionHeading
             title="The Roast Line-Up"
-            lead={sundayMenu.menuData ? 'Everything is cooked to order, so you get a plate that was put together for you, not held under a lamp. Every roast comes with roast potatoes, seasonal veg and gravy.' : 'Call us for the current Sunday roast dish list.'}
+            lead={sundayMenu.menuData ? 'Every roast is carved when you order it, so you get a plate that was put together for you. Every roast comes with roast potatoes, seasonal veg and gravy.' : 'Call us for the current Sunday roast dish list.'}
           />
 
           {sundayMenu.menuData ? (
@@ -292,9 +292,6 @@ export default async function SundayRoastPage() {
             <h2 className="mb-4 text-h3 text-ink-strong">
               Choose Your Table, Order When You Arrive
             </h2>
-            <p className="mb-4 leading-relaxed text-ink-muted">
-              Most Sunday roasts near Heathrow want you to commit days ahead: choose your meat by Saturday lunchtime, pay up front, lock in a slot. We used to do that too. Not any more.
-            </p>
             <p className="mb-6 leading-relaxed text-ink-muted">
               Book a table for the time that suits your Sunday, especially for a group or a peak slot. There is no pre-order or Saturday cut-off: choose your roast when you arrive. Prefer to decide on the day? Walk-ins are welcome too. Check the booking calendar for available times.
             </p>
@@ -487,7 +484,7 @@ export default async function SundayRoastPage() {
         <div className="container">
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h3 text-ink-strong">
-              Fresh Roasts, Made to Order
+              Fresh Roasts, Carved to Order
             </h2>
             <p className="leading-relaxed text-ink-muted">
               We plate Sunday roasts fresh to order, with walk-ins welcome and no pre-order needed. Come and see why guests keep talking about our roasts.
