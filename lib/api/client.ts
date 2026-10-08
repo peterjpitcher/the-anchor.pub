@@ -1,6 +1,7 @@
 // AnchorAPI class and anchorAPI singleton
 
 import { logError } from '@/lib/error-handling'
+import { londonIsoDate } from '@/lib/time-london'
 import { toPublicParkingBooking } from './parking'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { computeLargeGroupDepositAmount } from '@/lib/constants'
@@ -404,24 +405,9 @@ export class AnchorAPI {
   }
 
   private getLondonIsoDate(): string {
-    try {
-      const formatter = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'Europe/London',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      })
-
-      const parts = formatter.formatToParts(new Date())
-      const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
-      if (map.year && map.month && map.day) {
-        return `${map.year}-${map.month}-${map.day}`
-      }
-    } catch {
-      // Fall through to UTC format
-    }
-
-    return new Date().toISOString().slice(0, 10)
+    // One helper for London's date. This used to fall back to the UTC date, which
+    // is yesterday in London between midnight and 1am all summer.
+    return londonIsoDate()
   }
 
   private mapSundayLunchMenuFromMenu(menu: MenuResponse, menuDate: string): SundayLunchMenuResponse | null {
@@ -764,9 +750,12 @@ export class AnchorAPI {
       requestHeaders: Record<string, string>,
       daysAgo: number
     ): Promise<Event[]> => {
-      const fromDate = new Date()
+      // London's date, stepped back at UTC noon so neither the server's zone nor
+      // a clock change can move it to another day. It was the UTC date, a day
+      // behind London between midnight and 1am in summer.
+      const fromDate = new Date(`${londonIsoDate()}T12:00:00Z`)
       if (daysAgo > 0) {
-        fromDate.setDate(fromDate.getDate() - daysAgo)
+        fromDate.setUTCDate(fromDate.getUTCDate() - daysAgo)
       }
 
       const query = new URLSearchParams({
