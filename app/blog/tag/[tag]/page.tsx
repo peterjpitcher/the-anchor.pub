@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getIndexableBlogPosts } from '@/lib/markdown'
+import { blogAuthorSchema } from '@/lib/blog/post-schema'
 import { Badge, Button, Card, Container } from '@/components/ui'
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
@@ -44,7 +45,12 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   const seoContent = getTagSEOContent(tag)
 
   return {
-    title: seoContent.metaTitle,
+    // The root layout adds " | The Anchor" to a plain title. Nearly every tag
+    // title already names the pub, so those are sent as written; twelve pages
+    // used to read "... | The Anchor | The Anchor".
+    title: seoContent.metaTitle.includes('The Anchor')
+      ? { absolute: seoContent.metaTitle }
+      : seoContent.metaTitle,
     description: seoContent.metaDescription,
     alternates: {
       canonical: `/blog/tag/${tag}`,
@@ -233,10 +239,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
                 "headline": post.title,
                 "description": post.description,
                 "datePublished": post.date,
-                "author": {
-                  "@type": "Person",
-                  "name": post.author
-                }
+                "author": blogAuthorSchema(post.author)
               }))
             },
             "publisher": {

@@ -142,8 +142,8 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.the-anchor.pub' },
-          { name: 'Join Our Team', url: 'https://www.the-anchor.pub/join-our-team' }
+          { name: 'Home', url: '/' },
+          { name: 'Join Our Team', url: '/join-our-team' }
         ]}
       />
 

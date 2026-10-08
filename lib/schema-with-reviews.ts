@@ -2,7 +2,7 @@ import { unstable_cache } from 'next/cache'
 import { organizationSchema, webSiteSchema } from './schema'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from './image-fallbacks'
 import { anchorAPI } from './api'
-import { buildOpeningHoursSchema } from './opening-hours-schema'
+import { buildOpeningHoursSchema, buildSpecialOpeningHoursSchema } from './opening-hours-schema'
 import { DEFAULT_REVIEW_STATS } from './google/review-utils'
 import { ACCESS_AMENITY_FEATURES } from './approved-wording'
 
@@ -10,11 +10,15 @@ const getBusinessStatsCached = unstable_cache(
   async () => {
     let rating = DEFAULT_REVIEW_STATS.rating
     let reviewCount = DEFAULT_REVIEW_STATS.totalReviews
-    let openingHours: ReturnType<typeof buildOpeningHoursSchema> = []
+    let openingHours: Array<Record<string, unknown>> = []
 
     try {
       const hours = await anchorAPI.getBusinessHours()
-      openingHours = buildOpeningHoursSchema(hours?.regularHours, hours?.upcomingVersions)
+      // The normal week, then a dated entry for each coming day that differs.
+      openingHours = [
+        ...buildOpeningHoursSchema(hours?.regularHours, hours?.upcomingVersions),
+        ...buildSpecialOpeningHoursSchema(hours),
+      ]
     } catch (error) {
       console.warn('Failed to fetch opening hours for schema, omitting hours:', error)
     }
@@ -67,7 +71,6 @@ const getEnhancedSchemasCached = unstable_cache(
         "https://www.instagram.com/theanchor.pub/",
         "https://www.google.com/maps?cid=17928230944823812473",
         "https://www.tripadvisor.co.uk/Restaurant_Review-g477981-d9717898-Reviews-The_Anchor-Staines_Surrey_England.html",
-        "https://www.opentable.co.uk/r/the-anchor-stanwell-moor",
         "https://ratings.food.gov.uk/business/1110171/the-anchor-stanwell-moor"
       ],
       "priceRange": "££",

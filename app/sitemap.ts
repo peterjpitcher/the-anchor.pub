@@ -9,6 +9,7 @@ import { isRetiredEvent, isFallbackEvent } from '@/lib/api/events'
 import { logError } from '@/lib/error-handling'
 import { PRIVACY_POLICY_LAST_UPDATED } from '@/lib/legal-pages'
 import { parseLondonDate } from '@/lib/time-london'
+import { getBlogLastModified, getRouteLastModified } from '@/lib/sitemap-lastmod'
 
 // This route renders dynamically whether we ask it to or not, so say so.
 //
@@ -37,12 +38,15 @@ const EVENT_SITEMAP_FROM_DATE = '2000-01-01'
 // sequential waits.
 const EVENT_PAGE_TIMEOUT_MS = 3_000
 
-function getSafeDate(value?: string): Date {
-  if (!value) {
-    return new Date()
-  }
+/**
+ * A date, or nothing. This used to answer with today's date when the value was
+ * missing or unreadable, which would have published "changed today" for a page
+ * nobody had touched.
+ */
+function getSafeDate(value?: string): Date | undefined {
+  if (!value) return undefined
   const parsed = new Date(value)
-  return Number.isNaN(parsed.getTime()) ? new Date() : parsed
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed
 }
 
 function isDraftEvent(event: Event): boolean {
@@ -219,177 +223,176 @@ export async function getSitemapEvents(): Promise<Event[]> {
   return Array.from(uniqueEvents.values())
 }
 
-// Group dates by when pages were added/updated for more meaningful lastModified
-const DATES = {
-  launch: new Date('2025-06-01'),       // Original site launch pages
-  seoOverhaul: new Date('2026-03-22'),  // SEO overhaul batch
-  apr2026: new Date('2026-04-21'),      // April 2026 additions
-  may2026: new Date('2026-05-12'),      // Recruitment pages
-  may2026Late: new Date('2026-05-21'), // History page
-  jul2026: new Date('2026-07-10'),      // Christmas page and booking journey refresh
-  jul2026Early: new Date('2026-07-07'), // Anniversary parties content remediation
-  jul2026Late: new Date('2026-07-19'),  // Dining and roast cluster consolidation
-  aug2026Christmas: new Date('2026-08-15'), // Christmas menu published, new photography, conversion pass
-  aug2026Brochures: new Date('2026-08-17'), // 2026 event brochures published across private hire
-  aug2026Growth: new Date('2026-08-26'),    // Site growth programme: titles, descriptions, retargets, retirements
-  oct2026SixNations: new Date('2026-10-07'), // Six Nations page made year-neutral
-  oct2026WorldCup: new Date('2026-10-07'),   // World Cup page made year-neutral
-} as const
+// No date is typed in this file. Each page's lastmod comes from
+// config/sitemap-lastmod.json, which scripts/generate-sitemap-lastmod.js works
+// out from git (the last commit to the page's own files). The dates used to be
+// typed here in a dozen named batches, and by October 2026 they were older
+// than the real last change for 150 of the 157 pages that had one. Google only
+// uses lastmod when it is consistently accurate, so a page with no trustworthy
+// date gets no lastmod at all, never today's date and never a guess.
+type DatedEntry = MetadataRoute.Sitemap[number]
 
-type StaticRoute = { path: string; lastModified: Date }
+function datedEntry(url: string, lastModified: Date | undefined): DatedEntry {
+  return lastModified ? { url, lastModified } : { url }
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.the-anchor.pub'
 
-  // Define all static routes with meaningful lastModified dates
-  const staticRoutes: StaticRoute[] = [
+  // Every fixed page. Order is for the reader only.
+  const staticRoutes: string[] = [
     // Core pages, original launch
-    { path: '', lastModified: DATES.apr2026 },
-    { path: '/about', lastModified: DATES.launch },
-    { path: '/about/the-anchor-facts', lastModified: DATES.may2026Late },
-    { path: '/history', lastModified: DATES.aug2026Growth },
-    { path: '/blog', lastModified: DATES.apr2026 },
-    { path: '/blog/tags', lastModified: DATES.seoOverhaul },
-    { path: '/join-our-team', lastModified: DATES.aug2026Growth },
-    { path: '/join-our-team/bar-staff', lastModified: DATES.aug2026Growth },
-    { path: '/join-our-team/kitchen-team', lastModified: DATES.may2026 },
-    { path: '/food-menu', lastModified: DATES.aug2026Growth },
-    { path: '/food-menu/vegetarian', lastModified: DATES.seoOverhaul },
-    { path: '/food-menu/vegan', lastModified: DATES.seoOverhaul },
-    { path: '/food-menu/gluten-free', lastModified: DATES.seoOverhaul },
-    { path: '/mothers-day', lastModified: DATES.aug2026Growth },
-    { path: '/valentines-day', lastModified: DATES.aug2026Growth },
-    { path: '/new-years-eve', lastModified: DATES.aug2026Growth },
-    { path: '/easter-sunday', lastModified: DATES.aug2026Growth },
-    { path: '/fathers-day', lastModified: DATES.seoOverhaul },
-    { path: '/halloween', lastModified: DATES.aug2026Growth },
+    '',
+    '/about',
+    '/about/the-anchor-facts',
+    '/history',
+    '/blog',
+    '/blog/tags',
+    '/join-our-team',
+    '/join-our-team/bar-staff',
+    '/join-our-team/kitchen-team',
+    '/food-menu',
+    '/food-menu/vegetarian',
+    '/food-menu/vegan',
+    '/food-menu/gluten-free',
+    '/mothers-day',
+    '/valentines-day',
+    '/new-years-eve',
+    '/easter-sunday',
+    '/fathers-day',
+    '/halloween',
     // /st-patricks-day, /boxing-day, /bonfire-night and /bank-holiday-weekends
     // are now 301-redirected (see config/redirects/additional-redirects.json)
     // and their route dirs deleted, so they are intentionally omitted here.
-    { path: '/sunday-roast', lastModified: DATES.aug2026Growth },
-    { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
-    { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/drinks', lastModified: DATES.apr2026 },
-    { path: '/drinks/baby-guinness', lastModified: DATES.seoOverhaul },
+    '/sunday-roast',
+    '/pizza-menu',
+    '/fish-and-chips-heathrow',
+    '/drinks',
+    '/drinks/baby-guinness',
 
     // Events & entertainment
     // /whats-on is listed below without a date: it changes with the diary.
-    { path: '/quiz-night', lastModified: DATES.aug2026Growth },
-    { path: '/quiz-night/themed', lastModified: DATES.aug2026Growth },
-    { path: '/cash-bingo', lastModified: DATES.aug2026Growth },
-    { path: '/music-bingo', lastModified: DATES.aug2026Growth },
-    { path: '/karaoke', lastModified: DATES.aug2026Growth },
-    { path: '/live-sport', lastModified: DATES.apr2026 },
-    { path: '/live-sport/six-nations', lastModified: DATES.oct2026SixNations },
-    { path: '/live-sport/world-cup', lastModified: DATES.oct2026WorldCup },
-    { path: '/pool-darts-pub', lastModified: DATES.seoOverhaul },
-    { path: '/summer-garden-parties', lastModified: DATES.seoOverhaul },
+    '/quiz-night',
+    '/quiz-night/themed',
+    '/cash-bingo',
+    '/music-bingo',
+    '/karaoke',
+    '/live-sport',
+    '/live-sport/six-nations',
+    '/live-sport/world-cup',
+    '/pool-darts-pub',
+    '/summer-garden-parties',
 
     // Booking & private hire
-    { path: '/book-table', lastModified: DATES.aug2026Growth },
-    { path: '/private-hire', lastModified: DATES.jul2026 },
-    { path: '/corporate-events', lastModified: DATES.seoOverhaul },
-    { path: '/christmas-parties', lastModified: DATES.aug2026Christmas },
-    { path: '/private-hire/wakes', lastModified: DATES.aug2026Growth },
-    { path: '/private-hire/christenings', lastModified: DATES.aug2026Growth },
-    { path: '/private-hire/baby-showers', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/anniversary-parties', lastModified: DATES.aug2026Growth },
-    { path: '/private-hire/engagement-parties', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/gender-reveal', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/milestone-birthdays', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/retirement-parties', lastModified: DATES.seoOverhaul },
-    { path: '/private-hire/brochures', lastModified: DATES.aug2026Growth },
+    '/book-table',
+    '/private-hire',
+    '/corporate-events',
+    '/christmas-parties',
+    '/private-hire/wakes',
+    '/private-hire/christenings',
+    '/private-hire/baby-showers',
+    '/private-hire/anniversary-parties',
+    '/private-hire/engagement-parties',
+    '/private-hire/gender-reveal',
+    '/private-hire/milestone-birthdays',
+    '/private-hire/retirement-parties',
+    '/private-hire/brochures',
     // Made indexable 26 Aug 2026, owner decision 4.
-    { path: '/private-hire/venue-tour', lastModified: DATES.aug2026Brochures },
+    '/private-hire/venue-tour',
 
     // Heathrow & location pages
-    { path: '/near-heathrow', lastModified: DATES.aug2026Growth },
-    { path: '/near-heathrow/terminal-2', lastModified: DATES.launch },
-    { path: '/near-heathrow/terminal-3', lastModified: DATES.launch },
-    { path: '/near-heathrow/terminal-4', lastModified: DATES.launch },
-    { path: '/near-heathrow/terminal-5', lastModified: DATES.launch },
-    { path: '/find-us', lastModified: DATES.launch },
-    { path: '/heathrow-layover-dining', lastModified: DATES.seoOverhaul },
-    { path: '/pre-flight-meal', lastModified: DATES.seoOverhaul },
-    { path: '/heathrow-family-dining', lastModified: DATES.apr2026 },
-    { path: '/luggage-storage-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/heathrow-parking', lastModified: DATES.aug2026Growth },
-    { path: '/heathrow-parking/terminal-2', lastModified: DATES.launch },
-    { path: '/heathrow-parking/terminal-3', lastModified: DATES.launch },
-    { path: '/heathrow-parking/terminal-4', lastModified: DATES.launch },
-    { path: '/heathrow-parking/terminal-5', lastModified: DATES.launch },
-    { path: '/coach-parking-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/restaurants-near-heathrow', lastModified: DATES.aug2026Growth },
+    '/near-heathrow',
+    '/near-heathrow/terminal-2',
+    '/near-heathrow/terminal-3',
+    '/near-heathrow/terminal-4',
+    '/near-heathrow/terminal-5',
+    '/find-us',
+    '/heathrow-layover-dining',
+    '/pre-flight-meal',
+    '/heathrow-family-dining',
+    '/luggage-storage-heathrow',
+    '/heathrow-parking',
+    '/heathrow-parking/terminal-2',
+    '/heathrow-parking/terminal-3',
+    '/heathrow-parking/terminal-4',
+    '/heathrow-parking/terminal-5',
+    '/coach-parking-heathrow',
+    '/restaurants-near-heathrow',
 
     // Hotel hub. The 11 individual /pub-near-* pages were retired on
     // 21 Aug 2026 (83% duplicates of each other, 29 clicks in 16 months,
     // ranking only for generic pub terms other pages own). See
     // tasks/site-growth-implementation-spec-2026-08-17.md C6.
-    { path: '/heathrow-hotels-pub', lastModified: DATES.aug2026Growth },
+    '/heathrow-hotels-pub',
 
     // Venue & facilities
-    { path: '/beer-garden', lastModified: DATES.launch },
-    { path: '/our-pub', lastModified: DATES.aug2026Growth },
-    { path: '/plane-spotting-heathrow', lastModified: DATES.seoOverhaul },
-    { path: '/dog-friendly-pub-heathrow', lastModified: DATES.aug2026Growth },
-    { path: '/family-friendly-pub-heathrow', lastModified: DATES.seoOverhaul },
+    '/beer-garden',
+    '/our-pub',
+    '/plane-spotting-heathrow',
+    '/dog-friendly-pub-heathrow',
+    '/family-friendly-pub-heathrow',
 
     // Local area pages
-    { path: '/ashford-pub', lastModified: DATES.apr2026 },
-    { path: '/colnbrook-pub', lastModified: DATES.apr2026 },
-    { path: '/egham-pub', lastModified: DATES.aug2026Growth },
-    { path: '/feltham-pub', lastModified: DATES.aug2026Growth },
-    { path: '/horton-pub', lastModified: DATES.apr2026 },
-    { path: '/longford-pub', lastModified: DATES.apr2026 },
-    { path: '/staines-pub', lastModified: DATES.apr2026 },
-    { path: '/stanwell-pub', lastModified: DATES.aug2026Growth },
-    { path: '/sunbury-pub', lastModified: DATES.aug2026Growth },
-    { path: '/windsor-pub', lastModified: DATES.apr2026 },
-    { path: '/wraysbury-pub', lastModified: DATES.apr2026 },
-    { path: '/pubs-in-stanwell', lastModified: DATES.aug2026Growth },
+    '/ashford-pub',
+    '/colnbrook-pub',
+    '/egham-pub',
+    '/feltham-pub',
+    '/horton-pub',
+    '/longford-pub',
+    '/staines-pub',
+    '/stanwell-pub',
+    '/sunbury-pub',
+    '/windsor-pub',
+    '/wraysbury-pub',
+    '/pubs-in-stanwell',
 
     // Footer / legal
-    { path: '/sitemap-page', lastModified: DATES.launch },
-    // The same constant the notice prints as "Last updated", so the page and
-    // its lastmod cannot disagree. Move the date in lib/legal-pages.ts, not here.
-    { path: '/privacy-policy', lastModified: parseLondonDate(PRIVACY_POLICY_LAST_UPDATED) },
-    { path: '/accessibility', lastModified: DATES.launch },
-    { path: '/safety-and-respect', lastModified: DATES.launch },
-    { path: '/sustainability', lastModified: DATES.launch },
-    { path: '/reviews', lastModified: DATES.aug2026Growth },
+    '/sitemap-page',
+    // /privacy-policy is added below with the date the notice itself prints.
+    '/accessibility',
+    '/safety-and-respect',
+    '/sustainability',
+    '/reviews',
   ]
 
   // Get all blog posts
-  const blogPosts = await getAllBlogPosts()
   // A retired post has no folder in content/blog (its redirect lives in
-  // config/redirects), so there is no separate list of slugs to keep out here:
-  // tests/seo-indexing.test.ts fails if a post folder is also a redirect source.
+  // config/redirects), and getAllBlogPosts leaves out any post whose address
+  // redirects, so there is no separate list of slugs to keep in step here.
+  // tests/unit/search-data.test.ts fails if a post folder is also a redirect
+  // source.
+  const blogPosts = await getAllBlogPosts()
   const indexableBlogPosts = blogPosts.filter((post) => !post.noindex)
 
   // Map static routes
-  const staticSitemap = staticRoutes.map((route) => ({
-    url: `${baseUrl}${route.path}`,
-    lastModified: route.lastModified,
-  }))
+  const staticSitemap = staticRoutes.map((route) =>
+    datedEntry(`${baseUrl}${route}`, getRouteLastModified(route)),
+  )
+
+  // The same constant the notice prints as "Last updated", so the page and
+  // its lastmod cannot disagree. Move the date in lib/legal-pages.ts, not here.
+  const privacyEntry: DatedEntry = {
+    url: `${baseUrl}/privacy-policy`,
+    lastModified: parseLondonDate(PRIVACY_POLICY_LAST_UPDATED),
+  }
 
   // Map blog post routes
-  const blogSitemap = indexableBlogPosts.map((post) => {
-    const lastModified = getSafeDate(post.date)
-    return {
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified,
-    }
-  })
+  const blogSitemap = indexableBlogPosts.map((post) =>
+    datedEntry(`${baseUrl}/blog/${post.slug}`, getBlogLastModified(post)),
+  )
 
   // Blog tag archive pages are now uniformly noindex (see
   // app/blog/tag/[tag]/page.tsx) because they are low-value crawl noise that
   // surfaced in the crawled-not-indexed / 404 / redirect-error GSC buckets.
   // A noindex page must never appear in the sitemap, so none are emitted.
 
-  const landmarkSitemap = landmarks.map((landmark) => ({
-    url: `${baseUrl}/private-hire/near/${landmark.slug}`,
-    lastModified: DATES.seoOverhaul,
-  }))
+  // One template and one data file serve every landmark page, so they share a date.
+  const landmarkSitemap = landmarks.map((landmark) =>
+    datedEntry(
+      `${baseUrl}/private-hire/near/${landmark.slug}`,
+      getRouteLastModified(`/private-hire/near/${landmark.slug}`),
+    ),
+  )
 
   const nowMs = Date.now()
   const sitemapEvents = await getSitemapEvents()
@@ -439,5 +442,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (feed.meta.contentUpdatedAt) nationsEntry.lastModified = new Date(feed.meta.contentUpdatedAt)
     } catch { /* Keep the stable hub URL; do not invent its modification date. */ }
   }
-  return [...staticSitemap, whatsOnEntry, nationsEntry, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]
+  return [...staticSitemap, privacyEntry, whatsOnEntry, nationsEntry, ...blogSitemap, ...landmarkSitemap, ...eventSitemap]
 }

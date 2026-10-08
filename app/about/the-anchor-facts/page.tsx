@@ -4,6 +4,8 @@ import { Container, Button } from '@/components/ui'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { JsonLd } from '@/components/JsonLd'
 import { InteriorHero } from '@/components/hero'
+import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
+import { getRouteLastModified } from '@/lib/sitemap-lastmod'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING } from '@/lib/approved-wording'
@@ -14,6 +16,7 @@ import {
 } from '@/lib/business-hours-fallback'
 
 const PAGE_URL = 'https://www.the-anchor.pub/about/the-anchor-facts'
+const PAGE_LAST_MODIFIED = getRouteLastModified('/about/the-anchor-facts')?.toISOString()
 const LAST_REVIEWED = '21 May 2026'
 
 export const metadata: Metadata = {
@@ -29,6 +32,8 @@ export const metadata: Metadata = {
       'Current facts for The Anchor in Stanwell Moor, including booking links, food, hours, private hire, events and Heathrow distance.',
     url: PAGE_URL,
     type: 'website',
+    // Named here because this block replaces the root layout's, picture and all.
+    images: [{ url: DEFAULT_OG_IMAGE, alt: 'The Anchor in Stanwell Moor' }],
   },
 }
 
@@ -78,7 +83,9 @@ const factsSchema = {
       name: 'The Anchor Facts',
       description:
         'Factual source page for The Anchor in Stanwell Moor, including food, hours, private hire, events, parking and Heathrow distance.',
-      dateModified: '2026-05-21',
+      // From git, like the sitemap date for this page. It was typed as
+      // 2026-05-21 and stayed there through months of changes.
+      ...(PAGE_LAST_MODIFIED ? { dateModified: PAGE_LAST_MODIFIED } : {}),
       about: { '@id': 'https://www.the-anchor.pub/#business' },
     },
     {
@@ -102,7 +109,7 @@ const factsSchema = {
         longitude: CONTACT.coordinates.lng,
       },
       servesCuisine: ['British', 'Pub Food', 'Pizza', 'Sunday Roast'],
-      priceRange: 'GBP',
+      priceRange: '££',
       hasMenu: 'https://www.the-anchor.pub/food-menu',
       acceptsReservations: true,
       sameAs: socialLinks.map(([, href]) => href),

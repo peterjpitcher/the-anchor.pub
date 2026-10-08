@@ -14,6 +14,7 @@ import { SocialLink as SocialLinkComponent } from '@/components/SocialLink'
 import { trackNavigationClick, trackSocialClick, trackPhoneCallClick } from '@/lib/gtm-events'
 import { trustLinks } from '@/lib/internal-linking-data'
 import { openCookieSettings } from '@/lib/cookies'
+import { REVIEW_REQUEST_URL } from '@/lib/constants'
 
 interface FooterSection {
   title: string
@@ -135,7 +136,8 @@ const defaultContact: ContactInfo & { social?: SocialLink[] } = {
   social: [
     { platform: 'facebook', href: 'https://www.facebook.com/theanchorpubsm/', label: 'Facebook' },
     { platform: 'instagram', href: 'https://www.instagram.com/theanchor.pub/', label: 'Instagram' },
-    { platform: 'google', href: '/leave-review', label: 'Leave a Review' }
+    // Straight to the feedback page, not by way of the /leave-review redirect.
+    { platform: 'google', href: REVIEW_REQUEST_URL, label: 'Leave a Review' }
   ]
 }
 

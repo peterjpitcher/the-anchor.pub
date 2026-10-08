@@ -5,6 +5,7 @@ import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import html from 'remark-html'
 import { getExistingBlogImageNames } from './blog-image'
+import { lookupRedirect } from './middleware-redirects'
 
 const contentDirectory = path.join(process.cwd(), 'content')
 
@@ -128,7 +129,13 @@ export function getAllBlogPosts(): BlogPost[] {
     return []
   }
 
-  const folders = fs.readdirSync(blogDir)
+  // A post whose address redirects is not a post any more: the redirect wins
+  // before the page is reached. Dropped here, once, so listings, related
+  // reading, previous and next links, tag pages and the sitemap all agree.
+  // Before this each of them had to remember its own list, and four did not.
+  const folders = fs
+    .readdirSync(blogDir)
+    .filter((folder) => !lookupRedirect(`/blog/${folder}`))
 
   const posts = folders
     .map((folder) => getBlogPostMeta(folder))

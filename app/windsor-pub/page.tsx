@@ -492,7 +492,7 @@ export default function WindsorPubPage() {
           <Link href="/private-hire#enquiry">Book an Event</Link>
         </Button>
         <Button asChild variant="outline" size="lg">
-          <Link href="/special-offers">View Offers</Link>
+          <Link href="/drinks">See the Drinks Menu</Link>
         </Button>
       </CtaBand>
     </>

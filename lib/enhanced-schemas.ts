@@ -48,6 +48,22 @@ export const homepageFAQSchema = {
   ]
 }
 
+const SITE_ORIGIN = 'https://www.the-anchor.pub'
+
+/**
+ * Turn a breadcrumb `url` into the one absolute address Google should read.
+ *
+ * The convention is a path ('/private-hire'). Six pages passed a full address
+ * instead and the origin was glued on a second time, publishing
+ * "https://www.the-anchor.pubhttps://www.the-anchor.pub/private-hire". A full
+ * address is now left alone rather than trusted to be a path, so the same
+ * mistake cannot publish a broken link again.
+ */
+export function toAbsoluteSiteUrl(url: string): string {
+  if (/^https?:\/\//i.test(url)) return url
+  return `${SITE_ORIGIN}${url.startsWith('/') ? '' : '/'}${url}`
+}
+
 // Breadcrumb Schema Generator
 export function generateBreadcrumbSchema(items: Array<{ name: string, url: string }>) {
   return {
@@ -57,7 +73,7 @@ export function generateBreadcrumbSchema(items: Array<{ name: string, url: strin
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,
-      "item": `https://www.the-anchor.pub${item.url}`
+      "item": toAbsoluteSiteUrl(item.url)
     }))
   }
 }

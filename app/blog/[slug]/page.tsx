@@ -21,6 +21,7 @@ import { shouldShowVisitPlannerPanel } from '@/components/conversion/visit-plann
 import type { OrganicSearchClusterKey } from '@/lib/seo/organic-search-map'
 import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 import { getRelatedPosts } from '@/lib/blog/related-posts'
+import { blogAuthorSchema, blogDateModified } from '@/lib/blog/post-schema'
 import { getPostDateLine } from '@/lib/blog/post-dates'
 
 export const revalidate = 3600
@@ -181,8 +182,6 @@ function getBlogClosingCta(cluster: OrganicSearchClusterKey | null): BlogClosing
 }
 
 /** Authors that are the pub itself, not a named person. */
-const ORGANISATION_AUTHORS = new Set(['the anchor team', 'the anchor'])
-
 function countWords(html: string): number {
   const text = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
   return text ? text.split(' ').length : 0
@@ -219,6 +218,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       ],
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: blogDateModified(post),
       authors: [post.author],
       tags: post.tags
     },
@@ -283,7 +283,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   // A wake card does not belong under a birthday, christening or gender reveal guide.
   const clusterLinkExclusions =
     organicSearchCluster === 'privateRooms' && !post.slug.includes('wake') ? ['/private-hire/wakes'] : []
-  const authorIsOrganisation = ORGANISATION_AUTHORS.has(post.author.trim().toLowerCase())
   const noticeLinkClass = 'font-semibold text-accent-text underline hover:text-link-hover'
   const bodyText = post.htmlContent?.replace(/<[^>]*>/g, '') || ''
   // WP5: additive inline "plan your visit" conversion panel for high-intent
@@ -303,26 +302,18 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     "headline": post.title,
     "alternativeHeadline": post.description,
     "description": post.description,
-    "author": authorIsOrganisation
-      ? {
-          "@type": "Organization",
-          "name": "The Anchor",
-          "@id": "https://www.the-anchor.pub/#organization"
-        }
-      : {
-          "@type": "Person",
-          "name": post.author
-        },
+    "author": blogAuthorSchema(post.author),
     "datePublished": post.date,
-    "dateModified": dateLine.updated?.iso || post.date,
+    "dateModified": blogDateModified(post),
     "publisher": {
       "@type": "Organization",
       "name": "The Anchor",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.the-anchor.pub/images/branding/the-anchor-pub-logo-white-transparent.png",
-        "width": 320,
-        "height": 320
+        // The black logo: the white one cannot be seen on a white background.
+        "url": "https://www.the-anchor.pub/images/branding/the-anchor-pub-logo-black-transparent.png",
+        "width": 400,
+        "height": 200
       },
       "address": {
         "@type": "PostalAddress",

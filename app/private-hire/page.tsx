@@ -286,8 +286,8 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
             />
             <BreadcrumbJsonLd
                 items={[
-                    { name: 'Home', url: 'https://www.the-anchor.pub' },
-                    { name: 'Private Hire', url: 'https://www.the-anchor.pub/private-hire' }
+                    { name: 'Home', url: '/' },
+                    { name: 'Private Hire', url: '/private-hire' }
                 ]}
             />
 

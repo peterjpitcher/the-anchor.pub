@@ -10,6 +10,7 @@
 import fs from 'fs'
 import path from 'path'
 import { getPostDateLine, getPostDateParts } from '@/lib/blog/post-dates'
+import { blogAuthorSchema, blogDateModified } from '@/lib/blog/post-schema'
 import matter from 'gray-matter'
 import { organicSearchClusters } from '@/lib/seo/organic-search-map'
 
@@ -102,7 +103,11 @@ describe('blog post template', () => {
   })
 
   it('uses the updated date for dateModified when a post has one', () => {
-    expect(template).toContain('"dateModified": dateLine.updated?.iso || post.date')
+    // One helper answers for the page, the share tags and the sitemap. It reads
+    // `updated` by the same rule as the printed "Updated" line.
+    expect(template).toContain('"dateModified": blogDateModified(post)')
+    expect(blogDateModified({ slug: 'no-such-post', date: '2023-03-28', updated: '2026-10-08' })).toBe('2026-10-08')
+    expect(blogDateModified({ slug: 'no-such-post', date: '2023-03-28' })).toBe('2023-03-28')
   })
 
   it('shows the plane spotting block only on plane spotting and beer garden posts', () => {
@@ -122,8 +127,12 @@ describe('blog post template', () => {
   })
 
   it('does not describe the pub team as a person in structured data', () => {
-    expect(template).toContain('"@type": "Organization"')
-    expect(template).toContain('authorIsOrganisation')
+    expect(template).toContain('"author": blogAuthorSchema(post.author)')
+    expect(blogAuthorSchema('The Anchor Team')).toMatchObject({
+      '@type': 'Organization',
+      '@id': 'https://www.the-anchor.pub/#organization',
+    })
+    expect(blogAuthorSchema('Billy')['@type']).toBe('Person')
     // The Blog node points at this identifier, so the BlogPosting must carry it.
     expect(template.match(/#blogposting/g)?.length).toBe(2)
   })

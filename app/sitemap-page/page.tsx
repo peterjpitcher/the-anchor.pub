@@ -9,6 +9,8 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { seasonalOccasionLinks, trustLinks } from '@/lib/internal-linking-data'
 import { landmarks } from '@/lib/local-seo-data'
 import { formatEventDate, getPastEvents, type Event } from '@/lib/api'
+import { pageOpenGraph } from '@/lib/page-open-graph'
+import { REVIEW_REQUEST_URL } from '@/lib/constants'
 
 type SitemapLink = {
   label: string
@@ -23,9 +25,16 @@ type SitemapSection = {
 
 export const dynamic = 'force-dynamic'
 
+const PAGE_TITLE = 'Sitemap'
+const PAGE_DESCRIPTION =
+  'Complete sitemap of The Anchor website. Find all our pages including menus, events, location information and special offers.'
+
 export const metadata: Metadata = {
-  title: 'Sitemap',
-  description: 'Complete sitemap of The Anchor website. Find all our pages including menus, events, location information and special offers.',
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  // Its own share block. Without one the page inherits the root layout's,
+  // which describes the homepage.
+  openGraph: pageOpenGraph({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
   robots: {
     index: true,
     follow: true,
@@ -179,7 +188,7 @@ const sitemapSections: SitemapSection[] = [
         label: link.label,
         href: link.href,
       })),
-      { label: 'Leave a Review', href: '/leave-review' },
+      { label: 'Leave a Review', href: REVIEW_REQUEST_URL },
       { label: 'Accessibility', href: '/accessibility' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
     ]

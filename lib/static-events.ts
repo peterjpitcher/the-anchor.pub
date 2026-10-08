@@ -179,7 +179,7 @@ export const staticEvents = {
     longDescription: 'Join us for our monthly quiz night featuring questions on general knowledge, sports, music, and more. Entry is £3 per person, teams up to 6 people. Prizes include a £25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine.',
     shortDescription: '3 entry quiz with cash prizes',
     image: [
-      '/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg'
+      '/images/events/quiz-night/quiz-night-hero-tables-full.jpg'
     ],
     price: '3',
     duration: 'PT3H',

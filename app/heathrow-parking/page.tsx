@@ -228,8 +228,8 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 51.4592,
-      longitude: -0.5147
+      latitude: 51.462509,
+      longitude: -0.502067
     },
 	    amenityFeature: [
 	      { '@type': 'LocationFeatureSpecification', name: 'CCTV', value: true },
