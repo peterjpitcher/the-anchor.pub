@@ -25,6 +25,15 @@
  *
  * One page is then opened again and left until a pop-up opens over it on its
  * timer, and axe checks the pop-up (see auditTimedPopup below).
+ *
+ * Since 8 October 2026 it also does what the site review of 7 October found it
+ * could not (finding AX-021): every page again at phone width, the not-found
+ * page, the things that only exist once they are opened (the phone menu, the
+ * quick booking sheet, the cost estimator), where focus goes when the pop-up
+ * opens, and whether the skip link can be seen. See the second half of main.
+ *
+ * It loads pages and opens things. It never sends a form: a local server talks
+ * to the live booking system.
  */
 
 const arg = (name, fallback) => {
@@ -347,7 +356,11 @@ async function settle(page, requests, ready = []) {
  *
  * Not found: an overlay that is always on the page and only fades in. Both
  * campaign lightboxes mount when they open, and a unit test holds them to it.
- * Not checked on the pop-up: where focus goes, and whether Escape closes it.
+ *
+ * Once axe has looked, the keyboard is tried on it (checkPopupKeyboard): focus
+ * must have moved into the pop-up, ten presses of Tab must stay in it, Escape
+ * must close it, and focus must go back to where it was. The Christmas pop-up
+ * did none of the first two until 8 October 2026 (site review AX-002).
  */
 const POPUP_PAGE = '/heathrow-parking'
 // Counted from hydration: ten seconds on the lightbox's own timer and up to
@@ -356,6 +369,8 @@ const POPUP_PAGE = '/heathrow-parking'
 const POPUP_WAIT_MS = 14000
 const POPUP_POLL_MS = 250
 const POPUP_MARK = 'data-a11y-audit-popup'
+const POPUP_TAB_PRESSES = 10
+const FOCUS_HOME_MARK = 'data-a11y-audit-focus-home'
 
 /** Runs in the page. React stamps `__react*` keys onto DOM nodes as it hydrates. */
 const hasHydrated = () => {
@@ -428,7 +443,9 @@ async function waitForPopup(page) {
  * Open POPUP_PAGE, wait for a pop-up and point axe at it. What axe finds goes
  * into the same lists as every page; the return value is a line for the report.
  */
-async function auditTimedPopup(browser, AxeBuilder, { violations, incomplete }) {
+async function auditTimedPopup(browser, AxeBuilder, { violations, incomplete, keyboardProblems }) {
+  // The keyboard is tried only for a caller that gave a list to file it under.
+  const tryKeyboard = Array.isArray(keyboardProblems)
   // A context of its own, not the one the pages shared: a campaign pop-up
   // shows once per visitor and remembers that in localStorage.
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } })
@@ -447,6 +464,10 @@ async function auditTimedPopup(browser, AxeBuilder, { violations, incomplete }) 
       return 'not checked, the page never hydrated'
     }
 
+    // Somewhere for focus to be, so the keyboard check can tell whether it is
+    // handed back when the pop-up closes.
+    if (tryKeyboard) await page.evaluate(giveFocusAHome, FOCUS_HOME_MARK)
+
     const popup = await waitForPopup(page)
     if (!popup) {
       return `none opened within ${POPUP_WAIT_MS / 1000}s of the page hydrating, so none was checked. ` +
@@ -461,11 +482,297 @@ async function auditTimedPopup(browser, AxeBuilder, { violations, incomplete }) 
     for (const v of results.incomplete) {
       incomplete.push({ pathname, id: v.id, help: v.help, nodes: v.nodes.length })
     }
+    if (tryKeyboard) {
+      for (const issue of await checkPopupKeyboard(page)) keyboardProblems.push({ pathname, issue })
+    }
+
     const name = popup.heading ? ` ("${popup.heading}")` : ''
     return `checked${name}${popup.shown ? '' : ', though it never finished fading in'}`
   } finally {
     await context.close()
   }
+}
+
+/** Runs in the page. Where keyboard focus is, and whether that is inside the pop-up. */
+const whereIsFocus = (mark) => {
+  const el = document.activeElement
+  const name = el ? (el.getAttribute('aria-label') || el.textContent || el.tagName).trim().slice(0, 40) : 'nothing'
+  return { inside: Boolean(el && el.closest(`[${mark}]`)), name }
+}
+
+/** Runs in the page. Why a screen reader would not announce the pop-up, or '' when it would. */
+const popupDialogProblem = (mark) => {
+  const dialog = document.querySelector(`[${mark}] [role="dialog"], [${mark}][role="dialog"]`)
+  if (!dialog) return 'no element with role="dialog"'
+  if (dialog.getAttribute('aria-modal') !== 'true') return 'the dialog has no aria-modal="true"'
+  const label = dialog.getAttribute('aria-label') ||
+    (dialog.getAttribute('aria-labelledby') || '').split(/\s+/).map((id) => (document.getElementById(id) || {}).textContent || '').join(' ')
+  return label.trim() ? '' : 'the dialog has no name'
+}
+
+/** Runs in the page. Focus one ordinary link and mark it, so "focus went back" can be judged. */
+const giveFocusAHome = (mark) => {
+  const link = document.querySelector('a[href]:not(.sr-only)')
+  if (!link) return
+  link.setAttribute(mark, '')
+  link.focus()
+}
+
+/** Runs in the page. True when focus is back on the link giveFocusAHome marked (or none was marked). */
+const focusIsHome = (mark) => {
+  const home = document.querySelector(`[${mark}]`)
+  return !home || home === document.activeElement
+}
+
+/** Runs in the page. True once nothing carries `mark`: the pop-up has gone. */
+const nothingMarked = (mark) => !document.querySelector(`[${mark}]`)
+
+/**
+ * The keyboard on an open pop-up. Returns a list of what is wrong, in words.
+ *
+ * `[POPUP_MARK]` is on every fixed layer that arrived with the pop-up, which is
+ * how "inside it" is judged.
+ */
+async function checkPopupKeyboard(page) {
+  const problems = []
+
+  // The shared Modal moves focus in 100ms after it opens.
+  await page.waitForTimeout(400)
+  const first = await page.evaluate(whereIsFocus, POPUP_MARK)
+  if (!first.inside) problems.push(`focus did not move into the pop-up when it opened (it is on "${first.name}")`)
+
+  const strays = []
+  for (let press = 0; press < POPUP_TAB_PRESSES; press += 1) {
+    await page.keyboard.press('Tab')
+    const at = await page.evaluate(whereIsFocus, POPUP_MARK)
+    if (!at.inside) strays.push(at.name)
+  }
+  if (strays.length) problems.push(`Tab left the pop-up ${strays.length} time(s) in ${POPUP_TAB_PRESSES} presses (reached "${strays[0]}")`)
+
+  const unannounced = await page.evaluate(popupDialogProblem, POPUP_MARK)
+  if (unannounced) problems.push(`the pop-up is not announced: ${unannounced}`)
+
+  await page.keyboard.press('Escape')
+  try {
+    await page.waitForFunction(nothingMarked, POPUP_MARK, { timeout: 3000 })
+  } catch {
+    problems.push('Escape did not close the pop-up')
+    return problems
+  }
+  if (!(await page.evaluate(focusIsHome, FOCUS_HOME_MARK))) {
+    problems.push('focus did not go back to where it was when the pop-up closed')
+  }
+  return problems
+}
+
+/**
+ * Things that only exist once they are opened, and the phone width.
+ *
+ * The page loop above looks at each page once, at 1280px, as it loads. The
+ * site review of 7 October 2026 found nine faults that state can never show:
+ * the phone menu's Tab key, the white date box in the quick booking sheet,
+ * the estimator's unlabelled fields, strips that only scroll sideways on a
+ * phone, a skip link hidden behind the header. Each has a check here.
+ *
+ * Nothing here sends a form. Opening the booking sheet and the estimator reads
+ * availability and prices, which is all a page load does too.
+ */
+const PHONE = { width: 390, height: 844 }
+const NOT_FOUND_PAGE = '/a11y-audit-no-such-page'
+const SKIP_LINK_PAGE = '/sunday-roast'
+const MENU_PAGE = '/'
+const QUICK_BOOK_PAGE = '/sunday-roast'
+const ESTIMATOR_PAGE = '/private-hire'
+const OPEN_DIALOG = '[role="dialog"][aria-modal="true"]:not([data-state="closed"])'
+
+/**
+ * Open a page and wait for it as the page loop does. Returns the page, or
+ * null with the reason pushed onto `settleProblems`.
+ */
+async function openSettled(context, pathname, { ready, expectStatus = 200, settleProblems }) {
+  const page = await context.newPage()
+  const requests = trackContentRequests(page)
+  const res = await page.goto(BASE + pathname, { waitUntil: 'domcontentloaded' })
+  if (!res || res.status() !== expectStatus) {
+    settleProblems.push({ pathname, issue: `answered ${res ? res.status() : 'nothing'}, expected ${expectStatus}` })
+    await page.close()
+    return null
+  }
+  try {
+    await page.waitForFunction(hasHydrated, null, { timeout: 15000 })
+  } catch {
+    settleProblems.push({ pathname, issue: 'never hydrated' })
+    await page.close()
+    return null
+  }
+  const unsettled = await settle(page, requests, [COOKIE_BANNER, ready].filter(Boolean))
+  if (unsettled) settleProblems.push({ pathname, issue: unsettled })
+  return page
+}
+
+/** Run axe and file what it finds under `pathname`. `include` narrows it to one selector. */
+async function axeInto(AxeBuilder, page, pathname, label, { violations, incomplete }, include) {
+  let builder = new AxeBuilder({ page }).withTags(WCAG)
+  if (include) builder = builder.include(include)
+  const results = await builder.analyze()
+  for (const v of results.violations) {
+    violations.push({ pathname, label, id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.length })
+  }
+  for (const v of results.incomplete) {
+    incomplete.push({ pathname, id: v.id, help: v.help, nodes: v.nodes.length })
+  }
+}
+
+/**
+ * Runs in the page. Is the focused control painted where it says it is? Five
+ * points on it are asked what is there; each must be the control or part of
+ * it. A skip link behind the sticky header fails all five.
+ */
+const focusedControlIsOnTop = () => {
+  const el = document.activeElement
+  if (!el || el === document.body) return { name: 'nothing', hits: 0, of: 5 }
+  const box = el.getBoundingClientRect()
+  // Well inside the corners: a rounded corner is not part of the control, and
+  // a point 3px in from a 12px radius lands on whatever is behind it.
+  const inset = Math.min(box.width, box.height) / 3
+  const points = [
+    [box.left + box.width / 2, box.top + box.height / 2],
+    [box.left + inset, box.top + inset],
+    [box.right - inset, box.top + inset],
+    [box.left + inset, box.bottom - inset],
+    [box.right - inset, box.bottom - inset],
+  ]
+  const hits = points.filter(([x, y]) => {
+    const top = document.elementFromPoint(x, y)
+    return Boolean(top && (top === el || el.contains(top)))
+  }).length
+  return { name: (el.textContent || '').trim().slice(0, 40), href: el.getAttribute('href'), hits, of: points.length }
+}
+
+/** The first press of Tab must show the skip link, all of it, above the header. */
+async function checkSkipLink(browser, viewport, lists) {
+  const context = await browser.newContext({ viewport })
+  try {
+    const page = await openSettled(context, SKIP_LINK_PAGE, lists)
+    if (!page) return
+    const pathname = `${SKIP_LINK_PAGE} at ${viewport.width}px`
+    await page.keyboard.press('Tab')
+    await page.waitForTimeout(150)
+    const link = await page.evaluate(focusedControlIsOnTop)
+    if (link.href !== '#main-content') {
+      lists.keyboardProblems.push({ pathname, issue: `the first press of Tab lands on "${link.name}", not the skip link` })
+    } else if (link.hits < link.of) {
+      lists.keyboardProblems.push({ pathname, issue: `the focused skip link is covered: ${link.hits} of ${link.of} points on it are the link` })
+    }
+  } finally {
+    await context.close()
+  }
+}
+
+/**
+ * The phone menu. Open it from the keyboard and press Tab ten times: focus
+ * must move, and must stay in the menu. With its sections closed the menu has
+ * eight controls a keyboard can reach, so fewer than five different stops in
+ * ten presses means Tab is stuck (it was one: site review AX-001).
+ */
+async function checkPhoneMenu(browser, lists) {
+  const context = await browser.newContext({ viewport: PHONE })
+  try {
+    const page = await openSettled(context, MENU_PAGE, lists)
+    if (!page) return
+    const pathname = `${MENU_PAGE} phone menu`
+    const burger = page.locator('button[aria-controls="mobile-nav-drawer"]')
+    await burger.focus()
+    await burger.press('Enter')
+    try {
+      await page.waitForSelector('#mobile-nav-drawer', { state: 'visible', timeout: 3000 })
+    } catch {
+      lists.keyboardProblems.push({ pathname, issue: 'Enter on the burger did not open the menu' })
+      return
+    }
+    await page.waitForTimeout(150)
+
+    const stops = new Set()
+    let strays = 0
+    for (let press = 0; press < 10; press += 1) {
+      await page.keyboard.press('Tab')
+      const at = await page.evaluate(() => {
+        const el = document.activeElement
+        return { inside: Boolean(el && el.closest('#mobile-nav-drawer')), name: el ? (el.textContent || '').trim().slice(0, 40) : '' }
+      })
+      if (at.inside) stops.add(at.name)
+      else strays += 1
+    }
+    if (strays) lists.keyboardProblems.push({ pathname, issue: `Tab left the open menu ${strays} time(s) in 10 presses` })
+    if (stops.size < 5) {
+      lists.keyboardProblems.push({ pathname, issue: `Tab reached ${stops.size} control(s) in 10 presses (${[...stops].join(', ')}); it is stuck` })
+    }
+
+    await axeInto(lists.AxeBuilder, page, pathname, 'open phone menu', lists, '#mobile-nav-drawer')
+
+    await page.keyboard.press('Escape')
+    await page.waitForTimeout(200)
+    if (!(await burger.evaluate((el) => el === document.activeElement))) {
+      lists.keyboardProblems.push({ pathname, issue: 'focus did not go back to the burger when Escape closed the menu' })
+    }
+  } finally {
+    await context.close()
+  }
+}
+
+/**
+ * Open something from a button and point axe at the dialog that opens.
+ * `press` finds and presses the button; it returns false when it cannot.
+ */
+async function checkOpened(browser, { pathname, what, viewport, press }, lists) {
+  const context = await browser.newContext({ viewport })
+  await alwaysShowEventBanner(context)
+  try {
+    const page = await openSettled(context, pathname, lists)
+    if (!page) return
+    const label = `${pathname} ${what}`
+    const requests = trackContentRequests(page)
+    requests.startOver()
+    if (!(await press(page))) {
+      lists.settleProblems.push({ pathname: label, issue: 'the button that opens it was not found, so it was not checked' })
+      return
+    }
+    try {
+      await page.waitForSelector(OPEN_DIALOG, { state: 'visible', timeout: 5000 })
+    } catch {
+      lists.settleProblems.push({ pathname: label, issue: 'it did not open, so it was not checked' })
+      return
+    }
+    // Let it slide in and load what it shows (times, prices) before axe looks.
+    await page.waitForTimeout(600)
+    const unsettled = await settle(page, requests, [])
+    if (unsettled) lists.settleProblems.push({ pathname: label, issue: unsettled })
+    await axeInto(lists.AxeBuilder, page, label, what, lists, OPEN_DIALOG)
+  } finally {
+    await context.close()
+  }
+}
+
+/** The sticky bar's own "Book a table". The bar only arrives once the page has been scrolled. */
+const pressStickyBookATable = async (page) => {
+  await page.mouse.wheel(0, 1200)
+  await page.waitForTimeout(600)
+  const button = page.locator('div.fixed[class*="sticky-cta"] button', { hasText: /book a table/i }).first()
+  if (!(await button.count())) return false
+  await button.focus()
+  await button.press('Enter')
+  return true
+}
+
+/** The floating "Get Instant Quote" button on the private hire pages. */
+const pressInstantQuote = async (page) => {
+  await page.mouse.wheel(0, 1200)
+  await page.waitForTimeout(600)
+  const button = page.getByRole('button', { name: /instant quote/i }).first()
+  if (!(await button.count())) return false
+  await button.focus()
+  await button.press('Enter')
+  return true
 }
 
 /**
@@ -760,14 +1067,50 @@ async function main() {
       await page.close()
     }
 
-    popupNote = await auditTimedPopup(browser, AxeBuilder, { violations, incomplete })
+    popupNote = await auditTimedPopup(browser, AxeBuilder, { violations, incomplete, keyboardProblems })
+
+    // ---- Second half: the phone width, and things that have to be opened ----
+    const lists = { AxeBuilder, violations, incomplete, keyboardProblems, settleProblems }
+
+    // Every page again as a phone sees it. A strip that scrolls sideways, a
+    // stacked layout and the burger only exist here. Loaded at this width, not
+    // narrowed, so anything that sizes itself on load does so for a phone.
+    const phone = await browser.newContext({ viewport: PHONE })
+    await alwaysShowEventBanner(phone)
+    try {
+      for (const [pathname, label, ready] of PAGES) {
+        const page = await openSettled(phone, pathname, { ready, settleProblems })
+        if (!page) continue
+        await axeInto(AxeBuilder, page, `${pathname} at ${PHONE.width}px`, label, lists)
+        await page.close()
+      }
+    } finally {
+      await phone.close()
+    }
+
+    // The not-found page is a template like any other, and no list of real
+    // pages will ever include it.
+    const lost = await browser.newContext({ viewport: { width: 1280, height: 900 } })
+    try {
+      const page = await openSettled(lost, NOT_FOUND_PAGE, { expectStatus: 404, settleProblems })
+      if (page) await axeInto(AxeBuilder, page, 'the not-found page', 'not-found template', lists)
+    } finally {
+      await lost.close()
+    }
+
+    await checkSkipLink(browser, PHONE, lists)
+    await checkSkipLink(browser, { width: 1280, height: 900 }, lists)
+    await checkPhoneMenu(browser, lists)
+    await checkOpened(browser, { pathname: QUICK_BOOK_PAGE, what: 'quick booking sheet', viewport: PHONE, press: pressStickyBookATable }, lists)
+    await checkOpened(browser, { pathname: ESTIMATOR_PAGE, what: 'cost estimator', viewport: { width: 1280, height: 900 }, press: pressInstantQuote }, lists)
   } finally {
     await context.close()
     await browser.close()
   }
 
-  console.log(`checked ${PAGES.length} templates at ${BASE}, WCAG 2.2 AA`)
-  console.log(`timed pop-up on ${POPUP_PAGE}: ${popupNote}\n`)
+  console.log(`checked ${PAGES.length} templates at ${BASE}, at 1280px and at ${PHONE.width}px, WCAG 2.2 AA`)
+  console.log(`timed pop-up on ${POPUP_PAGE}: ${popupNote}`)
+  console.log('also: the not-found page, the skip link at both widths, the phone menu, the quick booking sheet, the cost estimator\n')
 
   const report = (title, list, keyFn, limit = 12) => {
     if (!list.length) return
@@ -831,6 +1174,16 @@ module.exports = {
   lookForPopup,
   waitForPopup,
   auditTimedPopup,
+  checkPopupKeyboard,
+  whereIsFocus,
+  popupDialogProblem,
+  giveFocusAHome,
+  focusIsHome,
+  nothingMarked,
+  POPUP_TAB_PRESSES,
+  focusedControlIsOnTop,
+  PHONE,
+  NOT_FOUND_PAGE,
   REFLOW_WIDTH,
   lookForCutOff,
   checkReflow,
