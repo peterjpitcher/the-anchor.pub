@@ -31,7 +31,7 @@ import { getBusinessHours, readRecentEvents, readUpcomingEvents, formatEventDate
 import { logError } from '@/lib/error-handling'
 import { PhoneLink } from '@/components/PhoneLink'
 import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
-import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
+import { buildOpeningHoursSchema, buildSpecialOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -70,7 +70,10 @@ async function getOpeningHoursSpecification() {
       new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
     ])
 
-    return buildOpeningHoursSchema(hours?.regularHours, hours?.upcomingVersions)
+    return [
+      ...buildOpeningHoursSchema(hours?.regularHours, hours?.upcomingVersions),
+      ...buildSpecialOpeningHoursSchema(hours),
+    ]
   } catch (error) {
     console.warn('Failed to load opening hours for /whats-on schema, omitting hours', error)
     return []
