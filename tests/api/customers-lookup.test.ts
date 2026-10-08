@@ -166,6 +166,67 @@ describe('POST /api/customers/lookup: response never identifies anyone', () => {
     expect(global.fetch).not.toHaveBeenCalled()
   })
 
+  // The management app takes the number in a POST body (its PR #197), so the
+  // number is in no web address on the onward hop either.
+  it('asks the management app with a POST, and the number is in the body, never the address', async () => {
+    mockUpstream({ success: true, data: { known: true } })
+
+    await getLookup(makeRequest('07700 900123', '203.0.113.40'))
+
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+    const [url, init] = (global.fetch as jest.Mock).mock.calls[0]
+    expect(String(url)).toMatch(/\/customers\/lookup$/)
+    expect(String(url)).not.toContain('?')
+    expect(String(url)).not.toMatch(/07700|900123|phone/)
+    expect(init.method).toBe('POST')
+    expect(init.headers['Content-Type']).toBe('application/json')
+    expect(init.headers['X-API-Key']).toBe('test-api-key')
+    expect(init.cache).toBe('no-store')
+    expect(JSON.parse(init.body)).toEqual({ phone: '07700 900123', default_country_code: '44' })
+  })
+
+  it('answers "could not check" for every way the onward call can fail', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    const error = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const degraded = { success: true, data: { known: false, lookup_degraded: true } }
+
+    // The management app is unreachable.
+    global.fetch = jest.fn().mockRejectedValue(new Error('connect ECONNREFUSED')) as any
+    const unreachable = await getLookup(makeRequest('07700900123', '203.0.113.41'))
+    expect(unreachable.status).toBe(200)
+    expect(await unreachable.json()).toEqual(degraded)
+
+    // It answers, but refuses, has no such route, or is not taking a POST yet.
+    for (const [index, status] of [401, 403, 404, 405, 429, 500, 502, 503].entries()) {
+      mockUpstream({ success: false, error: { code: 'SOMETHING', message: 'Not for guests' } }, status)
+      const response = await getLookup(makeRequest('07700900123', `203.0.113.${50 + index}`))
+      expect(response.status).toBe(200)
+      const body = await response.json()
+      expect(body).toEqual(degraded)
+      expect(JSON.stringify(body)).not.toMatch(/SOMETHING|Not for guests/)
+    }
+
+    // A 200 that is not JSON (a gateway page).
+    global.fetch = jest.fn().mockResolvedValue(new Response('<html>Bad gateway</html>', { status: 200 })) as any
+    const gateway = await getLookup(makeRequest('07700900123', '203.0.113.70'))
+    expect(await gateway.json()).toEqual(degraded)
+
+    // The number is in none of our own log lines.
+    expect(JSON.stringify([...warn.mock.calls, ...error.mock.calls])).not.toContain('07700900123')
+    warn.mockRestore()
+    error.mockRestore()
+  })
+
+  it('a mistyped number gets one plain sentence with the phone number, not the management answer', async () => {
+    mockUpstream({ success: false, error: { code: 'VALIDATION_ERROR', message: 'Please enter a valid phone number' } }, 400)
+
+    const response = await getLookup(makeRequest('07700900123', '203.0.113.71'))
+    expect(response.status).toBe(400)
+    const body = await response.json()
+    expect(body.success).toBe(false)
+    expect(body.error.message).toBe('Please enter a valid phone number. Call 01753 682707 if you need help.')
+  })
+
   it('a GET from a page left open across the deploy is told "could not check", and the number goes nowhere', async () => {
     const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
     mockUpstream({ success: true, data: { known: true } })
