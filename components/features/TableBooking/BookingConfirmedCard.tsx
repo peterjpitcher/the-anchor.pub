@@ -17,6 +17,10 @@ import {
  * real number rather than a cheerful "reserved". An older API build that reports
  * no granted count at all is read as "reserved" rather than as a failure, since
  * a silent field is not evidence that nothing was held.
+ *
+ * A confirmation message is the opposite case. The card says one was sent only
+ * when the server says so (`notification_sent: true`); a silent field there
+ * reads as "not sent", and the guest is given the phone number instead.
  */
 export function BookingConfirmedCard({
   result,
@@ -48,7 +52,7 @@ export function BookingConfirmedCard({
             <div>
               <h3 className="font-display text-h3 text-ink-strong">You&apos;re all booked in, see you soon!</h3>
               <p className="mt-2 text-sm text-ink-muted">
-                Reference: <strong className="text-ink-strong">{result.booking_reference || 'Provided shortly'}</strong>. {confirmationDeliveryCopy(result.notification_channel)}
+                Reference: <strong className="text-ink-strong">{result.booking_reference || 'Provided shortly'}</strong>. {confirmationDeliveryCopy(result)}
               </p>
             </div>
           </div>

@@ -33,6 +33,7 @@ import {
   type ManagementTableBookingResult,
 } from '@/lib/table-booking/submission'
 import { toGuestMessage } from '@/lib/guest-error-messages'
+import { wasConfirmationSent, type ConfirmationNotice } from '@/lib/confirmation-notice'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import {
   trackTableBookingClick,
@@ -105,9 +106,10 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   const [fieldError, setFieldError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [reference, setReference] = useState<string | null>(null)
-  // The management app confirms by email first when the guest has a usable
-  // address on file, so the done screen names the channel the API reports.
-  const [deliveryChannel, setDeliveryChannel] = useState<ManagementTableBookingResult['notification_channel']>(null)
+  // Whether a confirmation went, and how, as the management app reports it. The
+  // done screen says a message was sent only for `notification_sent: true`; a
+  // missing field reads as not sent (lib/confirmation-notice.ts).
+  const [confirmationNotice, setConfirmationNotice] = useState<ConfirmationNotice | null>(null)
   // /api/table-bookings runs the shared spam guard, which requires BOTH a
   // Turnstile token and `_t`. This sheet sent neither, so every submission was
   // rejected at the timing check and answered with a fake success: the guest
@@ -151,7 +153,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
     setPaymentUrl(null)
     setFieldError(null)
     setReference(null)
-    setDeliveryChannel(null)
+    setConfirmationNotice(null)
     startedRef.current = false
     // A closed sheet has no submit intent left to retry, so the next one starts on a
     // fresh key rather than risking a replay of whatever the last guest submitted.
@@ -333,7 +335,10 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
         // identical payload mints a new one rather than replaying the booking just made.
         submitIntentKeyRef.current = null
         setReference(result.booking_reference || null)
-        setDeliveryChannel(result.notification_channel ?? null)
+        setConfirmationNotice({
+          notification_sent: result.notification_sent,
+          notification_channel: result.notification_channel,
+        })
         setPhase('done')
         // The completion events belong to a confirmed booking and to nothing else.
         trackFormComplete({ formName: 'quick_book_sheet', formLocation: source })
@@ -402,11 +407,14 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
               </p>
             ) : null}
             <p className="text-xs text-ink-muted">
-              {/* The neutral line talks about a reference, so it is only used when
-                  there is one on screen to keep. */}
-              {deliveryChannel || reference
-                ? confirmationDeliveryCopy(deliveryChannel)
-                : 'Your table is booked.'}
+              {/* Says a message was sent only when the booking system says one
+                  went. Otherwise: the table is booked, and the number for
+                  anyone who wants that confirmed by a person. */}
+              {wasConfirmationSent(confirmationNotice) ? (
+                confirmationDeliveryCopy(confirmationNotice)
+              ) : (
+                <WithPhoneLink message={confirmationDeliveryCopy(confirmationNotice)} />
+              )}
             </p>
             <Button variant="primary" size="lg" className="w-full" onClick={onClose}>
               Done

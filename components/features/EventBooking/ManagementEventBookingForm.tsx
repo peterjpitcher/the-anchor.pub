@@ -34,6 +34,7 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { cn } from '@/lib/utils'
 import { BRAND, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
+import { confirmationNoticeCopy } from '@/lib/confirmation-notice'
 import { canUseCookieCategory } from '@/lib/cookies'
 import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
@@ -84,6 +85,10 @@ type EventBookingResult = {
   event_seating_type?: EventSeatingPreference | null
   next_step_url: string | null
   manage_booking_url: string | null
+  // Whether a message went to the guest about this answer, and how. Read only
+  // through lib/confirmation-notice.ts, where a missing field is "not sent".
+  notification_sent?: boolean | null
+  notification_channel?: 'email' | 'sms' | null
 }
 
 type WaitlistResult = {
@@ -751,7 +756,12 @@ export function ManagementEventBookingForm({
     setResult({
       ...result,
       state: 'confirmed',
-      next_step_url: null
+      next_step_url: null,
+      // What the booking system said about a message described the held
+      // booking, before payment. The payment answer does not say whether a
+      // confirmation went, so the confirmed screen must not claim one.
+      notification_sent: null,
+      notification_channel: null
     })
     setPaymentConversionPayload(null)
   }
@@ -1218,6 +1228,9 @@ export function ManagementEventBookingForm({
         {result?.state === 'confirmed' && (
           <Alert variant="success" title="Event booking confirmed">
             <p>Your {submittedTicketLabel} are confirmed for {event.name}.</p>
+            {/* A message is mentioned only when the booking system says one
+                went. Otherwise the guest gets the number, and no promise. */}
+            <p className="mt-2">{confirmationNoticeCopy(result)}</p>
             {submittedBreakdownBlock}
             {fellBackToStanding ? (
               <p className="mt-2">There were not enough seats for your group, so we have booked standing tickets. No table seat is included.</p>
