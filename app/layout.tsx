@@ -13,7 +13,6 @@ import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
 import { GTMProvider } from '@/components/tracking/GTMProvider'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
 import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
 import { DeferredRender } from '@/components/DeferredRender'
@@ -250,7 +249,6 @@ function gtag(){dataLayer.push(arguments);}
                     one here put a footer landmark inside a footer landmark on
                     every page (site review AX-019, 7 October 2026). */}
                 <div>
-                  <LaunchAnnouncement variant="slim" />
                   {/* The credit reads its feed on the server, so it is rendered
                       here and handed to the client footer as a slot. Same size
                       and colour as the copyright line above it. */}
