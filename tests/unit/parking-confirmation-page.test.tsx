@@ -74,6 +74,17 @@ describe('parking confirmation page', () => {
     expect(screen.queryByText(/can't find a paid booking/i)).not.toBeInTheDocument()
   })
 
+  it('never says a confirmation text was sent, because the site cannot tell', async () => {
+    // Owner decision, 7 October 2026. The text is sent by the management app,
+    // and this page has no way to know whether it went.
+    mockGetParkingBooking.mockResolvedValue(PAID_BOOKING)
+
+    await renderPage()
+
+    expect(screen.getByRole('heading', { level: 1, name: 'Parking confirmed' })).toBeInTheDocument()
+    expect(screen.queryByText(/text sent|sent to your mobile|we(?:'ve| have) texted/i)).not.toBeInTheDocument()
+  })
+
   it('a completed stay that was paid for still reads as confirmed', async () => {
     mockGetParkingBooking.mockResolvedValue({ ...PAID_BOOKING, status: 'completed' })
 

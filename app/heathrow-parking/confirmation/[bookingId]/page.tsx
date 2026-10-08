@@ -105,10 +105,6 @@ export default async function ParkingConfirmationPage({ params }: Props) {
             <p className="text-ink-muted text-sm">
               Booking reference: <span className="text-accent-text font-bold">{booking.reference}</span>
             </p>
-            <p className="inline-flex items-center gap-2 text-accent-text text-sm font-medium">
-              <Icon name="message" className="w-4 h-4" />
-              Confirmation text sent to your mobile
-            </p>
           </div>
 
           {/* Booking details */}
