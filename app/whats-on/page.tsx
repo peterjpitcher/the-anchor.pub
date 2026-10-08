@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Quiz, Music Bingo & Cash Bingo Near Heathrow | The Anchor",
     description: "Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
-    images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
+    images: ["/images/events/quiz-night/quiz-night-hero-tables-full.jpg"],
     // Stated rather than left to the default. This hub is a standing page, not
     // an article or a single event.
     type: 'website',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   twitter: getTwitterMetadata({
     title: "Quiz, Music Bingo & Cash Bingo Near Heathrow | The Anchor",
     description: "Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
-    images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
+    images: ["/images/events/quiz-night/quiz-night-hero-tables-full.jpg"]
   }),
   alternates: {
     // Relative, per the project convention. It resolved to the same URL when it

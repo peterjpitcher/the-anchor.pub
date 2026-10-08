@@ -8,13 +8,20 @@ import { getPastEvents, type Event } from '@/lib/api'
 import { formatEventLocalDate } from '@/lib/event-calendar'
 import { getEventWebsitePath } from '@/lib/event-url'
 import { getCategoryPageUrl } from '@/lib/event-seo-strategy'
+import { pageOpenGraph } from '@/lib/page-open-graph'
 
 export const revalidate = 60 * 60 // 1 hour
 
+const PAGE_TITLE = 'Past Events'
+const PAGE_DESCRIPTION =
+  'Every quiz night, music bingo and cash bingo we have hosted at The Anchor in Stanwell Moor. Browse past nights to see what one is like before booking the next.'
+
 export const metadata: Metadata = {
-  title: 'Past Events',
-  description:
-    'Every quiz night, music bingo and cash bingo we have hosted at The Anchor in Stanwell Moor. Browse past nights to see what one is like before booking the next.',
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  // Its own share block. Without one the page inherits the root layout's,
+  // which describes the homepage.
+  openGraph: pageOpenGraph({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
   alternates: { canonical: './' },
   // A navigation surface, not a search landing page, so it follows the same
   // rule as the blog tag archives in tasks/gsc-indexing-fix/url-lifecycle-policy.md
@@ -62,7 +69,7 @@ export default async function EventArchivePage() {
       />
 
       <InteriorHero
-        image="/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"
+        image="/images/events/quiz-night/quiz-night-hero-tables-full.jpg"
         focal="center"
         crumb="What's On"
         title="Past events at The Anchor"
