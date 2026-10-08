@@ -259,4 +259,70 @@ describe('Meta Pixel booking tracking', () => {
       clientUserAgent: null
     })
   })
+
+  // A guest who refused marketing cookies but booked on a tagged link. The page
+  // address in beforeEach carries utm_source, utm_medium, utm_campaign and
+  // fbclid; this adds the rest. The forward used to read them off the address
+  // bar when the consent-gated record was empty, which is exactly this case.
+  it('sends no advert click reference or campaign tag from the address bar without marketing consent', () => {
+    window.history.pushState(
+      {},
+      '',
+      '/book-table?utm_source=facebook&utm_medium=paid_social&utm_campaign=quiz-night&utm_content=recipient-row-id&utm_term=pub&fbclid=fb-123&gclid=g-456&short_code=abc'
+    )
+    mockedCanUseCookieCategory.mockReturnValue(false)
+
+    trackMetaBookingPurchase({
+      eventId: 'BK-REFUSED',
+      value: 20,
+      bookingType: 'table',
+      bookingSource: 'booking_widget'
+    })
+
+    expect(conversionCalls()).toHaveLength(1)
+    const body = String(conversionCalls()[0]?.[1]?.body)
+    const forwardedPayload = JSON.parse(body)
+    expect(forwardedPayload).toMatchObject({
+      bookingId: 'BK-REFUSED',
+      metaConsentGranted: false,
+      // The page, and nothing after the question mark.
+      sourceUrl: `${window.location.origin}/book-table`,
+      landingPath: '/book-table',
+      utmSource: null,
+      utmMedium: null,
+      utmCampaign: null,
+      utmContent: null,
+      utmTerm: null,
+      fbclid: null,
+      gclid: null,
+      shortCode: null,
+      fbp: null,
+      fbc: null,
+      clientUserAgent: null
+    })
+    for (const leaked of ['fb-123', 'g-456', 'facebook', 'paid_social', 'quiz-night', 'recipient-row-id', 'abc']) {
+      expect(body).not.toContain(leaked)
+    }
+  })
+
+  it('still fills gaps from the address bar when marketing cookies are accepted', () => {
+    window.history.pushState({}, '', '/book-table?utm_source=facebook&fbclid=fb-123&gclid=g-456&short_code=abc')
+
+    trackMetaBookingPurchase({
+      eventId: 'BK-ACCEPTED',
+      value: 20,
+      bookingType: 'table',
+      bookingSource: 'booking_widget'
+    })
+
+    const forwardedPayload = JSON.parse(String(conversionCalls()[0]?.[1]?.body))
+    expect(forwardedPayload).toMatchObject({
+      bookingId: 'BK-ACCEPTED',
+      metaConsentGranted: true,
+      utmSource: 'facebook',
+      fbclid: 'fb-123',
+      gclid: 'g-456',
+      shortCode: 'abc'
+    })
+  })
 })

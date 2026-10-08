@@ -655,7 +655,7 @@ export default async function HeathrowParkingPage() {
 
               <div>
                 <h3 className="font-semibold text-ink-strong">6. CCTV &amp; data protection</h3>
-                <p className="mt-1">The car park is monitored by closed-circuit television (CCTV) for security purposes. CCTV footage is stored securely and is not routinely monitored or shared. In accordance with the UK GDPR, footage will only be made available to the police upon receipt of a formal written request as part of a lawful investigation. We do not provide footage to individuals or private parties.</p>
+                <p className="mt-1">The car park is monitored by closed-circuit television (CCTV) for security purposes. CCTV footage is stored securely and is not routinely monitored or shared. Our <a href="/privacy-policy" className="underline">privacy policy</a> explains how we look after personal data. To ask about footage, contact <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a>.</p>
               </div>
 
               <div>

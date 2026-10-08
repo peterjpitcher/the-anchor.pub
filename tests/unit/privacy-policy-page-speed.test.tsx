@@ -46,8 +46,8 @@ describe('the privacy notice on page speed measurement', () => {
     const paragraph = screen.getByText(/^We measure how fast our pages load/)
     expect(paragraph.textContent?.replace(/\s+/g, ' ').trim()).toBe(PARAGRAPH)
 
-    const analytics = screen.getByRole('heading', { level: 4, name: 'Analytics Cookies' })
-    const marketing = screen.getByRole('heading', { level: 4, name: 'Marketing Cookies' })
+    const analytics = screen.getByRole('heading', { level: 4, name: 'Analytics cookies' })
+    const marketing = screen.getByRole('heading', { level: 4, name: 'Marketing cookies' })
     expect(follows(analytics, paragraph)).toBe(true)
     expect(follows(paragraph, marketing)).toBe(true)
   })

@@ -22,9 +22,19 @@ import { POST } from './route'
 const originalEnv = { ...process.env }
 let fetchMock: jest.Mock
 
+// The route forwards nothing unless the visitor has accepted analytics cookies
+// (tests/api/tracking-consent-on-server.test.ts), so every request here carries
+// that choice unless the test supplies a consent cookie of its own. Marketing is
+// left refused, which is what the ads-consent test below starts from.
+const ANALYTICS_ACCEPTED = `anchor-cookie-consent=${encodeURIComponent(
+  JSON.stringify({ necessary: true, analytics: true, marketing: false })
+)}`
+
 function makeRequest(body: object, cookie?: string) {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' }
-  if (cookie) headers.cookie = cookie
+  headers.cookie = cookie?.includes('anchor-cookie-consent=')
+    ? cookie
+    : [ANALYTICS_ACCEPTED, cookie].filter(Boolean).join('; ')
 
   return new Request('http://localhost/api/analytics', {
     method: 'POST',

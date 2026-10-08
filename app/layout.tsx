@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
-import Script from 'next/script'
 import './globals.css'
 import { fontVariables } from './fonts'
 import { WebVitals } from './web-vitals'
@@ -152,8 +151,8 @@ export default async function RootLayout({
       <head>
         {/* Resource hints for performance */}
         <link rel="preconnect" href="https://management.orangejelly.co.uk" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        {/* No hint for Google's hosts here: nothing of Google's is contacted
+            until the visitor accepts analytics cookies (GTMProvider). */}
 
         {/* Meta tags */}
         <meta name="theme-color" content="#005131" />
@@ -161,7 +160,10 @@ export default async function RootLayout({
 
         {/* Next.js handles font and image prioritisation automatically */}
 
-        {/* Google Consent Mode defaults, MUST fire before GTM script loads */}
+        {/* Google Consent Mode defaults. Tag Manager itself is not loaded here:
+            GTMProvider adds it only once the visitor has accepted analytics
+            cookies, and these defaults are already in the dataLayer when it
+            does, so they are the first thing it reads. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -177,7 +179,7 @@ function gtag(){dataLayer.push(arguments);}
         'ad_storage':p.marketing?'granted':'denied',
         'ad_user_data':p.marketing?'granted':'denied',
         'ad_personalization':p.marketing?'granted':'denied',
-        'personalization_storage':p.preferences?'granted':'denied',
+        'personalization_storage':'denied',
         'functionality_storage':'granted',
         'security_storage':'granted'
       });
@@ -201,29 +203,9 @@ function gtag(){dataLayer.push(arguments);}
       <body className="font-sans antialiased">
         {/* Global structured data (JSON-LD), placed in body to avoid Next.js head deduplication */}
         <DynamicSchema />
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
-        {/* Google Tag Manager */}
-        <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${gtmId}');`,
-          }}
-        />
-        {/* End Google Tag Manager */}
+        {/* Tag Manager is loaded by GTMProvider, after Accept and not before.
+            There is no noscript frame any more: it loaded the container for
+            anyone without JavaScript, who can never be asked for a choice. */}
         <GTMProvider gtmId={gtmId}>
           <AnalyticsProvider>
             <BusinessHoursProvider>

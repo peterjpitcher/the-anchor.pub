@@ -6,6 +6,8 @@ import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
 
 const ROUTE = 'api/event-bookings/paypal/capture-order'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { gateBookingConversionByConsent } from '@/lib/booking-conversion-consent'
+import { requestAllowsCookieCategory } from '@/lib/cookie-consent-server'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
 
 // The guest has already paid by the time this route runs. A capture we cannot
@@ -89,7 +91,7 @@ async function forwardCapturedEventConversion(
 ) {
   const sourceUrl = buildSourceUrl(payload.source_url, request)
 
-  await forwardBookingConversionToCheersAI({
+  await forwardBookingConversionToCheersAI(gateBookingConversionByConsent({
     sourceSite: 'www.the-anchor.pub',
     bookingId: payload.bookingId,
     metaEventId: payload.bookingId,
@@ -132,7 +134,7 @@ async function forwardCapturedEventConversion(
       ? getClientIpAddress(request)
       : null,
     occurredAt: new Date().toISOString(),
-  }).catch(() => undefined)
+  }, requestAllowsCookieCategory(request, 'marketing'))).catch(() => undefined)
 }
 
 export async function POST(request: NextRequest): Promise<Response> {

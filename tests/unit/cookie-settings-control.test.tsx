@@ -45,7 +45,7 @@ standInForPageReload()
 const LANDING =
   '/lunch-and-dinner?utm_source=facebook&utm_medium=paid_social&utm_campaign=weekday_lunch_a&fbclid=fb-ad-click'
 
-type Choice = Pick<CookieConsent, 'analytics' | 'marketing' | 'preferences'>
+type Choice = Pick<CookieConsent, 'analytics' | 'marketing'>
 
 const storedOnDevice = () => ({
   localStorage: window.localStorage.getItem('anchor-booking-attribution'),
@@ -55,7 +55,7 @@ const storedOnDevice = () => ({
 function storedChoice(): Choice | null {
   const consent = getConsentStatus()
   if (!consent) return null
-  return { analytics: consent.analytics, marketing: consent.marketing, preferences: consent.preferences }
+  return { analytics: consent.analytics, marketing: consent.marketing }
 }
 
 /** The footer and banner inside the providers `app/layout.tsx` wraps them in. */
@@ -79,15 +79,14 @@ function panel(): HTMLElement {
   return screen.getByRole('dialog', { name: 'Cookie Preferences' })
 }
 
-function switchFor(name: 'Analytics Cookies' | 'Marketing Cookies' | 'Preference Cookies'): HTMLElement {
+function switchFor(name: 'Analytics Cookies' | 'Marketing Cookies'): HTMLElement {
   return within(panel()).getByRole('checkbox', { name })
 }
 
 function shownChoice(): Choice {
   return {
     analytics: (switchFor('Analytics Cookies') as HTMLInputElement).checked,
-    marketing: (switchFor('Marketing Cookies') as HTMLInputElement).checked,
-    preferences: (switchFor('Preference Cookies') as HTMLInputElement).checked
+    marketing: (switchFor('Marketing Cookies') as HTMLInputElement).checked
   }
 }
 
@@ -103,7 +102,7 @@ describe('the footer Cookie settings control', () => {
     document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
     window.history.pushState({}, '', '/')
     // GTMProvider wires its listener once per window; each test gets a fresh one.
-    delete window.__gtmInitialized
+    delete window.__gtmLoaded
     window.gtag = jest.fn()
     consentUpdates = []
     window.addEventListener('cookieConsentUpdate', recordConsentUpdate)
@@ -120,7 +119,7 @@ describe('the footer Cookie settings control', () => {
 
   it('is on the page after a choice has been made, when the banner no longer is', () => {
     jest.useFakeTimers()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
 
     renderSite()
     // The banner waits a second before showing. Go well past it.
@@ -128,7 +127,7 @@ describe('the footer Cookie settings control', () => {
       jest.advanceTimersByTime(5000)
     })
 
-    expect(screen.queryByText('We value your privacy')).not.toBeInTheDocument()
+    expect(screen.queryByText("Cookies: it's your choice")).not.toBeInTheDocument()
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(cookieSettingsControl()).toBeVisible()
     // A button, because it opens something on this page and goes nowhere.
@@ -136,10 +135,10 @@ describe('the footer Cookie settings control', () => {
   })
 
   it.each<Choice>([
-    { analytics: true, marketing: true, preferences: false },
-    { analytics: false, marketing: true, preferences: true },
-    { analytics: true, marketing: false, preferences: false },
-    { analytics: false, marketing: false, preferences: false }
+    { analytics: true, marketing: true },
+    { analytics: false, marketing: true },
+    { analytics: true, marketing: false },
+    { analytics: false, marketing: false }
   ])('reopens the panel showing the choice in force: %j', async (choice) => {
     const user = userEvent.setup()
     setConsentStatus(choice)
@@ -152,7 +151,7 @@ describe('the footer Cookie settings control', () => {
 
   it('switching marketing off updates the cookie, tells the page and deletes the advert record', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     // Arrive from an advert with marketing cookies accepted, so there is a
     // record on the device to delete. AnalyticsProvider captures it on mount.
     window.history.pushState({}, '', LANDING)
@@ -165,11 +164,11 @@ describe('the footer Cookie settings control', () => {
     await user.click(within(panel()).getByRole('button', { name: 'Save Preferences' }))
 
     // The cookie, read back from the one store every tracker reads.
-    expect(storedChoice()).toEqual({ analytics: true, marketing: false, preferences: true })
+    expect(storedChoice()).toEqual({ analytics: true, marketing: false })
 
     // The event the trackers listen for, once, carrying the new choice.
     expect(consentUpdates).toHaveLength(1)
-    expect(consentUpdates[0]).toMatchObject({ analytics: true, marketing: false, preferences: true })
+    expect(consentUpdates[0]).toMatchObject({ analytics: true, marketing: false })
 
     // Google's consent mode: advertising denied, analytics left as it was.
     expect(window.gtag).toHaveBeenCalledTimes(1)
@@ -177,8 +176,7 @@ describe('the footer Cookie settings control', () => {
       analytics_storage: 'granted',
       ad_storage: 'denied',
       ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      personalization_storage: 'granted'
+      ad_personalization: 'denied'
     })
 
     // The advert record, gone from both places it is kept, and from a booking.
@@ -192,7 +190,7 @@ describe('the footer Cookie settings control', () => {
 
   it('lets a visitor switch a category back on', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: false, marketing: false, preferences: false })
+    setConsentStatus({ analytics: false, marketing: false })
     renderSite()
     consentUpdates = []
 
@@ -200,7 +198,7 @@ describe('the footer Cookie settings control', () => {
     await user.click(switchFor('Analytics Cookies'))
     await user.click(within(panel()).getByRole('button', { name: 'Save Preferences' }))
 
-    expect(storedChoice()).toEqual({ analytics: true, marketing: false, preferences: false })
+    expect(storedChoice()).toEqual({ analytics: true, marketing: false })
     expect(consentUpdates).toHaveLength(1)
     expect(window.gtag).toHaveBeenCalledWith(
       'consent',
@@ -215,7 +213,7 @@ describe('the footer Cookie settings control', () => {
     ['Escape', async (user: ReturnType<typeof userEvent.setup>) => user.keyboard('{Escape}')]
   ])('changes nothing when the panel is left with %s', async (_label, leave) => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     window.history.pushState({}, '', LANDING)
     renderSite()
     consentUpdates = []
@@ -226,19 +224,19 @@ describe('the footer Cookie settings control', () => {
     await leave(user)
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-    expect(storedChoice()).toEqual({ analytics: true, marketing: true, preferences: true })
+    expect(storedChoice()).toEqual({ analytics: true, marketing: true })
     expect(consentUpdates).toHaveLength(0)
     expect(window.gtag).not.toHaveBeenCalled()
     expect(storedOnDevice().localStorage).not.toBeNull()
 
     // Opened again, it shows what is stored, not the switch that was abandoned.
     await user.click(cookieSettingsControl())
-    expect(shownChoice()).toEqual({ analytics: true, marketing: true, preferences: true })
+    expect(shownChoice()).toEqual({ analytics: true, marketing: true })
   })
 
   it('works from the keyboard: focus goes into the panel, stays there and comes back', async () => {
     const user = userEvent.setup()
-    setConsentStatus({ analytics: true, marketing: true, preferences: true })
+    setConsentStatus({ analytics: true, marketing: true })
     renderSite()
 
     cookieSettingsControl().focus()
@@ -266,12 +264,12 @@ describe('the footer Cookie settings control', () => {
     expect(storedChoice()).toBeNull()
 
     await user.click(cookieSettingsControl())
-    expect(shownChoice()).toEqual({ analytics: false, marketing: false, preferences: false })
+    expect(shownChoice()).toEqual({ analytics: false, marketing: false })
 
     await user.click(switchFor('Analytics Cookies'))
     await user.click(within(panel()).getByRole('button', { name: 'Save Preferences' }))
 
-    expect(storedChoice()).toEqual({ analytics: true, marketing: false, preferences: false })
+    expect(storedChoice()).toEqual({ analytics: true, marketing: false })
     expect(consentUpdates).toHaveLength(1)
   })
 })

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sanitizeTrackingUrlContext } from '@/lib/tracking/url-context'
 import { stripBookingIdentifiers } from '@/lib/tracking/booking-identifiers'
 import { RATE_LIMITS, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
+import { cookieHeaderAllows } from '@/lib/cookie-consent-server'
 
 const GA4_COLLECT_URL = 'https://www.google-analytics.com/mp/collect'
 
@@ -109,25 +110,6 @@ function resolveSessionId(
   return null
 }
 
-/**
- * Reads the visitor's marketing choice from the site's own consent cookie so we
- * do not assert consent the visitor never gave. Defaults to the
- * privacy-preserving answer when the cookie is absent or unparseable.
- */
-function resolveMarketingConsent(cookieHeader: string | null): boolean {
-  if (!cookieHeader) return false
-
-  const match = cookieHeader.match(/anchor-cookie-consent=([^;]+)/)
-  if (!match?.[1]) return false
-
-  try {
-    const parsed = JSON.parse(decodeURIComponent(match[1]))
-    return parsed?.marketing === true
-  } catch {
-    return false
-  }
-}
-
 function resolveTimestampMicros(event: Record<string, unknown>): number | undefined {
   const raw = event.event_timestamp ?? event.timestamp
   if (typeof raw !== 'string') return undefined
@@ -154,7 +136,8 @@ async function forwardToGa4(
   if (!clientId) return
 
   const sessionId = resolveSessionId(trimmed, cookieHeader)
-  const marketingConsent = resolveMarketingConsent(cookieHeader)
+  // Never assert advertising consent the visitor did not give.
+  const marketingConsent = cookieHeaderAllows(cookieHeader, 'marketing')
 
   const body = {
     client_id: clientId,
@@ -235,11 +218,21 @@ export async function POST(request: NextRequest) {
     const measurementId = process.env.GA4_MEASUREMENT_ID
     const apiSecret = process.env.GA4_API_SECRET
 
+    // Nothing goes to Google Analytics unless this visitor has accepted
+    // analytics cookies, read here from the consent cookie on the request. The
+    // browser already holds events back until then (lib/tracking/dispatcher.ts);
+    // this is the same rule checked where the data actually leaves, so an old
+    // bundle or a hand-made request cannot get round it.
+    const cookieHeader = request.headers.get('cookie')
+    if (!cookieHeaderAllows(cookieHeader, 'analytics')) {
+      return NextResponse.json({ success: true, count: 0 })
+    }
+
     // Forward to GA4 Measurement Protocol when configured. If either secret is
     // missing we no-op gracefully: analytics must never crash the request.
     if (measurementId && apiSecret && events.length > 0) {
       try {
-        await forwardToGa4(events, measurementId, apiSecret, request.headers.get('cookie'))
+        await forwardToGa4(events, measurementId, apiSecret, cookieHeader)
       } catch (forwardError) {
         // Swallow GA4 forwarding errors, do not surface them to the client and
         // do not log payloads (avoid PII). A bare flag is enough for debugging.

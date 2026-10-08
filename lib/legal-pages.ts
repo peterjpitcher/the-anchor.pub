@@ -29,7 +29,15 @@
 // speed record (app/api/web-vitals/route.ts), which sets no cookie and runs
 // until analytics is switched off. A draft the owner had not approved when it
 // was written. If it goes live on a later day, move the date to that day.
-export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-07'
+//
+// 8 October 2026: the notice was rewritten from what the code does and from the
+// owner's decisions of 7 October (site review package P07). It now names who is
+// responsible for the data and every company that handles it, says what happens
+// to a job application, lists every cookie and storage key, and gives only the
+// retention periods a job enforces or the owner has decided. Written on a
+// branch that had not shipped: if it goes live on a later day, move the date to
+// that day.
+export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-08'
 
 /**
  * SHA-256 of the notice's words as they stood on the date above, with the
@@ -45,4 +53,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-07'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  'a0e542dc0c257ef6c61676e7ff44d1810b1e111b46463d1694891cda6c6002e6'
+  'd8d433669d0dba7251efd79742eae21b1efd458b992d0c3fef0cece36d6956a5'

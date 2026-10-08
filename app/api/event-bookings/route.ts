@@ -9,6 +9,8 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { safeJsonParse } from '@/lib/upstream-json'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { gateBookingConversionByConsent } from '@/lib/booking-conversion-consent'
+import { requestAllowsCookieCategory } from '@/lib/cookie-consent-server'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
 import {
   sanitizeCommunicationConsent,
@@ -387,7 +389,18 @@ function pickResponseData(responseBody: unknown): Record<string, unknown> | null
 function buildSourceUrl(payload: EventBookingPayload, request: NextRequest): string | null {
   if (payload.source_url) return payload.source_url
   const referer = request.headers.get('referer')?.trim()
-  return referer || null
+  if (!referer) return null
+
+  // Path only, as the table route does. The Referer of a same-site request is
+  // the full page address, query string included, and that is where an advert
+  // click reference travels. The form sends source_url itself when the guest
+  // has accepted marketing cookies; this fallback is for everyone else.
+  try {
+    const url = new URL(referer)
+    return `${url.origin}${url.pathname}`
+  } catch {
+    return null
+  }
 }
 
 /**
@@ -526,7 +539,7 @@ async function forwardConfirmedBookingConversion(
     }
   })()
 
-  await forwardBookingConversionToCheersAI({
+  await forwardBookingConversionToCheersAI(gateBookingConversionByConsent({
     sourceSite: 'www.the-anchor.pub',
     bookingId,
     metaEventId: bookingId,
@@ -569,7 +582,7 @@ async function forwardConfirmedBookingConversion(
       ? getClientIpAddress(request)
       : null,
     occurredAt: new Date().toISOString()
-  }).catch(() => undefined)
+  }, requestAllowsCookieCategory(request, 'marketing'))).catch(() => undefined)
 }
 
 export async function POST(request: NextRequest) {

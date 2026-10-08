@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
+import { gateBookingConversionByConsent } from '@/lib/booking-conversion-consent'
+import { requestAllowsCookieCategory } from '@/lib/cookie-consent-server'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
 import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
@@ -91,7 +93,7 @@ async function forwardCapturedDepositConversion(
   const bookingId = payload.bookingReference || payload.bookingId
   const sourceUrl = buildSourceUrl(payload.source_url, request)
 
-  await forwardBookingConversionToCheersAI({
+  await forwardBookingConversionToCheersAI(gateBookingConversionByConsent({
     sourceSite: 'www.the-anchor.pub',
     bookingId,
     metaEventId: bookingId,
@@ -132,7 +134,7 @@ async function forwardCapturedDepositConversion(
       ? getClientIpAddress(request)
       : null,
     occurredAt: new Date().toISOString(),
-  }).catch(() => undefined)
+  }, requestAllowsCookieCategory(request, 'marketing'))).catch(() => undefined)
 }
 
 export async function POST(request: NextRequest): Promise<Response> {

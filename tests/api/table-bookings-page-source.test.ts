@@ -266,7 +266,12 @@ describe('POST /api/table-bookings: page_source', () => {
   it('with cookies accepted, CheersAI gets the stored tags and Meta signals, as today, not the page labels', async () => {
     await post(
       { ...BOOKING, ...CONSENTED_ATTRIBUTION, page_source: PAGE_SOURCE },
-      { 'x-forwarded-for': '203.0.113.9' }
+      {
+        'x-forwarded-for': '203.0.113.9',
+        // The consent cookie travels with the request, and the route reads it:
+        // the body's word alone is not enough (lib/booking-conversion-consent.ts).
+        cookie: 'anchor-cookie-consent=' + encodeURIComponent(JSON.stringify({ necessary: true, analytics: true, marketing: true }))
+      }
     )
 
     expect(cheersAiBody()).toEqual({

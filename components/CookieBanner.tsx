@@ -104,28 +104,26 @@ export default function CookieBanner() {
   const handleAcceptAll = () => {
     acceptAllCookies();
     setShowBanner(false);
-    trackCookieConsent({ action: 'accept_all', analytics: true, marketing: true, preferences: true });
+    trackCookieConsent({ action: 'accept_all', analytics: true, marketing: true });
   };
 
   const handleRejectAll = () => {
     rejectAllCookies();
     setShowBanner(false);
-    trackCookieConsent({ action: 'reject_all', analytics: false, marketing: false, preferences: false });
+    trackCookieConsent({ action: 'reject_all', analytics: false, marketing: false });
   };
 
   const handleSavePreferences = () => {
     setConsentStatus({
       analytics: consent?.analytics || false,
-      marketing: consent?.marketing || false,
-      preferences: consent?.preferences || false
+      marketing: consent?.marketing || false
     });
     setShowBanner(false);
     setShowPreferences(false);
     trackCookieConsent({
       action: 'save_preferences',
       analytics: consent?.analytics || false,
-      marketing: consent?.marketing || false,
-      preferences: consent?.preferences || false
+      marketing: consent?.marketing || false
     });
   };
 
@@ -133,7 +131,9 @@ export default function CookieBanner() {
 
   return (
     <>
-      {/* Main Banner - Mobile-optimized with collapsible design */}
+      {/* The bar. One layout at every width, so the words and the buttons cannot drift apart
+          between phone and desktop: they once did, and the phone version said only
+          "We use cookies." */}
       {/* z-[90] keeps the banner above the sticky CTA bar (z-[80]), which now sits directly
           on top of it rather than waiting for it to be dismissed. */}
       {showBanner && (
@@ -142,89 +142,55 @@ export default function CookieBanner() {
           className="fixed bottom-0 left-0 right-0 bg-surface border-t border-line shadow-lg z-[90] animate-slide-up safe-area-inset-bottom"
         >
           <div className="mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
-            {/* Mobile: Compact single-line design */}
-            <div className="sm:hidden">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-xs text-ink flex-1">
-                  We use cookies.{' '}
-                  <Link href="/privacy-policy" className="underline">
-                    Read our privacy policy
-                  </Link>
-                </p>
-                <div className="flex gap-1">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              {/* Every sentence here is a fact about the code. Nothing is switched on by
+                  carrying on browsing: the old line said it was, and it never was true.
+                  "They stay off unless you accept" is lib/cookies.ts (the default is off)
+                  and GTMProvider (Tag Manager is not loaded until Accept). */}
+              <div className="flex-1 text-xs sm:text-sm text-ink">
+                <p className="font-medium text-ink-strong">Cookies: it&apos;s your choice</p>
+                <p className="mt-0.5 sm:mt-1 text-ink-muted">
+                  We&apos;d like to use cookies to see how our website is used and which of our adverts work. They stay off unless you accept. You can{' '}
+                  {/* In the sentence, not a third button beside the other two: three
+                      buttons did not fit a 320px phone (the last one ran off the
+                      edge, measured 8 October 2026), and the only two things in the
+                      button row are now the two answers, side by side and alike. */}
                   <button
+                    type="button"
                     onClick={openPreferences}
-                    className="p-2.5 min-h-[48px] min-w-[48px] flex items-center justify-center text-ink-muted hover:text-ink-strong"
-                    aria-label="Cookie settings"
+                    className="underline hover:text-accent-text"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </button>
-                  <Button
-                    onClick={handleRejectAll}
-                    variant="ghost"
-                    size="sm"
-                    className="min-h-[48px] text-xs"
-                    aria-label="Reject all cookies"
-                  >
-                    Reject
-                  </Button>
-                  <Button
-                    onClick={handleAcceptAll}
-                    variant="primary"
-                    size="sm"
-                    className="min-h-[48px] text-xs"
-                    aria-label="Accept all cookies"
-                  >
-                    Accept
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Desktop: Full design */}
-            <div className="hidden sm:flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex-1 text-sm text-ink">
-                <p className="font-medium">We value your privacy</p>
-                <p className="text-xs mt-1 text-ink-muted">
-                  We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.{' '}
+                    choose which cookies
+                  </button>{' '}
+                  or{' '}
                   <Link href="/privacy-policy" className="underline hover:text-accent-text">
-                    Read our privacy policy
+                    read our privacy policy
                   </Link>
+                  .
                 </p>
               </div>
 
+              {/* Reject and Accept are the same button: same variant, same size, same width
+                  on a phone. Neither is made to look like the one you are meant to press.
+                  tests/unit/cookie-banner-wording.test.tsx holds that. */}
               <div className="flex items-center gap-2 flex-shrink-0">
-                {/* Reject button - Equal prominence as per ICO guidelines */}
                 <Button
                   onClick={handleRejectAll}
-                  variant="outline"
+                  variant="primary"
                   size="sm"
+                  className="min-h-[48px] flex-1 sm:flex-none"
                   aria-label="Reject all cookies"
                 >
-                  Reject All
+                  Reject all
                 </Button>
-
-                {/* Preferences button */}
-                <Button
-                  onClick={openPreferences}
-                  variant="outline"
-                  size="sm"
-                  aria-label="Cookie preferences"
-                >
-                  Preferences
-                </Button>
-
-                {/* Accept button - Equal prominence */}
                 <Button
                   onClick={handleAcceptAll}
                   variant="primary"
                   size="sm"
+                  className="min-h-[48px] flex-1 sm:flex-none"
                   aria-label="Accept all cookies"
                 >
-                  Accept All
+                  Accept all
                 </Button>
               </div>
             </div>
@@ -268,8 +234,10 @@ export default function CookieBanner() {
                     <h3 className="font-semibold text-accent-text">Necessary Cookies</h3>
                     <span className="text-sm text-ink-muted">Always Enabled</span>
                   </div>
+                  {/* The one cookie set without a choice is anchor-cookie-consent
+                      (lib/cookies.ts). There is no login and no "secure area". */}
                   <p className="text-sm text-ink">
-                    These cookies are essential for the website to function properly. They enable basic functions like page navigation and access to secure areas.
+                    One cookie of our own remembers the choice you make here, so we don&apos;t ask you again on every page. It can&apos;t be switched off.
                   </p>
                 </div>
 
@@ -289,12 +257,12 @@ export default function CookieBanner() {
                     </label>
                   </div>
                   <p className="text-sm text-ink">
-                    These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.
+                    Google Analytics and Microsoft Clarity show us which pages people visit and how they use them, so we can make the website better. Both give your browser an identifier, and Clarity records how you scroll and click. Neither runs unless this is switched on.
                   </p>
                 </div>
 
                 {/* Marketing Cookies */}
-                <div className="border-b border-line pb-4">
+                <div className="pb-4">
                   <div className="flex items-center justify-between mb-2">
                     <h3 id="cookie-category-marketing" className="font-semibold text-accent-text">Marketing Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -309,29 +277,10 @@ export default function CookieBanner() {
                     </label>
                   </div>
                   <p className="text-sm text-ink">
-                    These cookies are used to deliver advertisements more relevant to you and your interests. They remember that you have visited a website and this information is shared with advertisers.
+                    These let us tell which of our adverts lead to bookings. We remember the advert that brought you here, and we tell Meta (Facebook and Instagram) about any booking you make. Meta&apos;s and LinkedIn&apos;s own tags, which tell them you visited, load only if analytics cookies are on too.
                   </p>
                 </div>
 
-                {/* Preference Cookies */}
-                <div className="pb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 id="cookie-category-preferences" className="font-semibold text-accent-text">Preference Cookies</h3>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={consent?.preferences || false}
-                        aria-labelledby="cookie-category-preferences"
-                        onChange={(e) => setConsent(prev => ({ ...prev!, preferences: e.target.checked }))}
-                        className="sr-only peer"
-                      />
-                      <div className="w-11 h-6 bg-surface-sunk border border-line peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold-dark rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-green peer-checked:border-anchor-green"></div>
-                    </label>
-                  </div>
-                  <p className="text-sm text-ink">
-                    These cookies enable the website to remember choices you make (such as your language preference) and provide enhanced, more personal features.
-                  </p>
-                </div>
               </div>
 
               {/* Action Buttons */}

@@ -233,9 +233,16 @@ describe('Event Bookings API - policy violation handling', () => {
         short_code: 'ma83ed9d',
         attribution_captured_at: '2026-05-08T18:30:00.000Z',
         attribution_updated_at: '2026-05-08T18:45:00.000Z',
+        // A browser that has accepted marketing cookies says so in the body,
+        // and its consent cookie travels with the request. The route needs
+        // both before it passes advert tags on (lib/booking-conversion-consent.ts).
+        meta_consent_granted: true,
         _t: 4
       }),
-      headers: new Headers({ referer: 'https://www.the-anchor.pub/events/music-bingo-2026-05-08' })
+      headers: new Headers({
+        referer: 'https://www.the-anchor.pub/events/music-bingo-2026-05-08',
+        cookie: 'anchor-cookie-consent=' + encodeURIComponent(JSON.stringify({ necessary: true, analytics: true, marketing: true }))
+      })
     } as any
 
     const response = await createEventBooking(request)
@@ -278,5 +285,62 @@ describe('Event Bookings API - policy violation handling', () => {
         attributionUpdatedAt: '2026-05-08T18:45:00.000Z'
       })
     )
+  })
+
+  // A guest who has not accepted marketing cookies. The form sends no page
+  // address for them, so the route falls back to the Referer header, which on a
+  // same-site request is the full address with its query string. That used to
+  // be passed on whole, click reference included.
+  it('passes on the page without its query string, and no advert tags, for a guest who has not accepted marketing cookies', async () => {
+    process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'cheers-secret'
+    process.env.CHEERSAI_BASE_URL = 'https://cheers.example.com'
+
+    ;(global.fetch as jest.Mock)
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({ success: true, data: { state: 'confirmed', booking_id: 'booking-789', seats_remaining: 40 } }),
+          { status: 201, headers: { 'Content-Type': 'application/json' } }
+        )
+      )
+      .mockResolvedValueOnce(new Response(JSON.stringify({ accepted: true }), { status: 202 }))
+
+    const request = {
+      json: async () => ({
+        event_id: '550e8400-e29b-41d4-a716-446655440000',
+        phone: '07700900000',
+        seats: 2,
+        first_name: 'Jane',
+        last_name: 'Guest',
+        attendee_names: ['Jane Guest', 'Alex Guest'],
+        event_slug: 'music-bingo-2026-05-08',
+        event_name: 'Music Bingo',
+        event_price: 3,
+        event_value: 6,
+        landing_path: '/events/music-bingo-2026-05-08',
+        _t: 4
+      }),
+      headers: new Headers({
+        referer:
+          'https://www.the-anchor.pub/events/music-bingo-2026-05-08?utm_source=facebook&utm_content=recipient-row-id&fbclid=fb-123&gclid=g-456'
+      })
+    } as any
+
+    const response = await createEventBooking(request)
+
+    expect(response.status).toBe(201)
+    const forwarded = String((global.fetch as jest.Mock).mock.calls[1][1].body)
+    expect(JSON.parse(forwarded)).toMatchObject({
+      bookingId: 'booking-789',
+      sourceUrl: 'https://www.the-anchor.pub/events/music-bingo-2026-05-08',
+      landingPath: '/events/music-bingo-2026-05-08',
+      metaConsentGranted: false,
+      utmSource: null,
+      utmContent: null,
+      fbclid: null,
+      gclid: null
+    })
+    for (const leaked of ['fb-123', 'g-456', 'facebook', 'recipient-row-id', '?']) {
+      expect(forwarded).not.toContain(leaked)
+    }
   })
 })

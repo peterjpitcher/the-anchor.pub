@@ -16,7 +16,13 @@ const originalEnv = { ...process.env }
 function makeRequest(body: object) {
   return new Request('http://localhost/api/tracking/booking-conversion', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      // A guest who has accepted marketing cookies. The route reads the choice
+      // from this cookie as well as from the body, and passes the advert tags
+      // on only when both agree (tests/api/tracking-consent-on-server.test.ts).
+      cookie: 'anchor-cookie-consent=' + encodeURIComponent(JSON.stringify({ necessary: true, analytics: true, marketing: true }))
+    },
     body: JSON.stringify(body)
   })
 }

@@ -81,8 +81,14 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
         short_code: 'ma-party',
         attribution_captured_at: '2026-05-23T18:00:00.000Z',
         attribution_updated_at: '2026-05-23T18:20:00.000Z',
+        // A guest who accepted marketing cookies: the body says so and the
+        // consent cookie agrees. The route needs both to pass the tags on.
+        meta_consent_granted: true,
       }),
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        cookie: 'anchor-cookie-consent=' + encodeURIComponent(JSON.stringify({ necessary: true, analytics: true, marketing: true })),
+      },
     })
 
     const res = await POST(req)
@@ -204,7 +210,13 @@ describe('POST /api/table-bookings/paypal/capture-order', () => {
           partySize: 4,
           ...extra,
         }),
-        headers: { 'content-type': 'application/json' },
+        // The consent cookie says yes throughout, so each case below turns on
+        // the body flag alone. That the cookie is needed too is covered in
+        // tests/lib/booking-conversion-consent.test.ts.
+        headers: {
+          'content-type': 'application/json',
+          cookie: 'anchor-cookie-consent=' + encodeURIComponent(JSON.stringify({ necessary: true, analytics: true, marketing: true })),
+        },
       })
     }
 

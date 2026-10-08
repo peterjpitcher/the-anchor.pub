@@ -62,10 +62,10 @@ const ALWAYS_OPEN_HOURS = {
   specialHours: []
 } as any
 
-function buildRequest(body: unknown): Request {
+function buildRequest(body: unknown, headers: Record<string, string> = {}): Request {
   return new Request('http://localhost/api/table-bookings', {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: { 'content-type': 'application/json', ...headers },
     body: JSON.stringify(body)
   })
 }
@@ -271,8 +271,12 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
         gclid: 'g-123',
         short_code: 'ma-food',
         attribution_captured_at: '2026-05-22T18:30:00.000Z',
-        attribution_updated_at: '2026-05-22T18:45:00.000Z'
-      }) as any
+        attribution_updated_at: '2026-05-22T18:45:00.000Z',
+        // Stored attribution only exists for a guest who accepted marketing
+        // cookies. Their browser says so, and their consent cookie agrees; the
+        // route needs both before it passes the tags on.
+        meta_consent_granted: true
+      }, { cookie: 'anchor-cookie-consent=' + encodeURIComponent(JSON.stringify({ necessary: true, analytics: true, marketing: true })) }) as any
     )
 
     expect(res.status).toBe(201)

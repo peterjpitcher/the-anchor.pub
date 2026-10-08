@@ -42,7 +42,8 @@ export function trackMetaBookingPurchase(data: MetaBookingPurchase) {
     window.__anchorMetaPixelPurchaseEvents.add(eventId)
   }
 
-  // Server-side Conversions API — independent of the client pixel; always attempt.
+  // Tell our marketing system about the booking whatever the cookie choice: it
+  // counts bookings. What is sent with it depends on that choice, see below.
   forwardBookingConversion({ ...data, eventId })
 
   if (typeof window === 'undefined') return true
@@ -102,8 +103,16 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
 
   try {
     const url = new URL(window.location.href)
+    // Everything that ties this booking to an advert click needs marketing
+    // consent. With it, the stored record is used, and the address bar fills
+    // any gap. Without it the record is empty (getBookingAttributionPayload
+    // returns {}) and the address bar must not be read either: it used to be,
+    // so a guest who refused marketing cookies but booked on a tagged link had
+    // the click reference and campaign tags sent on with their booking.
+    const marketingAllowed = canUseCookieCategory('marketing')
     const attribution = getBookingAttributionPayload()
-    const fbclid = attribution.fbclid ?? url.searchParams.get('fbclid')
+    const fromAddressBar = (name: string) => (marketingAllowed ? url.searchParams.get(name) : null)
+    const fbclid = attribution.fbclid ?? fromAddressBar('fbclid')
     const marketingSignal = getMarketingConsentSignalPayload(fbclid)
     const payload = {
       sourceSite: window.location.hostname,
@@ -122,14 +131,14 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
       foodIntent: data.foodIntent ?? null,
       sourceUrl: attribution.source_url ?? `${url.origin}${url.pathname}`,
       landingPath: attribution.landing_path ?? url.pathname,
-      utmSource: attribution.utm_source ?? url.searchParams.get('utm_source'),
-      utmMedium: attribution.utm_medium ?? url.searchParams.get('utm_medium'),
-      utmCampaign: attribution.utm_campaign ?? url.searchParams.get('utm_campaign'),
-      utmContent: attribution.utm_content ?? url.searchParams.get('utm_content'),
-      utmTerm: attribution.utm_term ?? url.searchParams.get('utm_term'),
+      utmSource: attribution.utm_source ?? fromAddressBar('utm_source'),
+      utmMedium: attribution.utm_medium ?? fromAddressBar('utm_medium'),
+      utmCampaign: attribution.utm_campaign ?? fromAddressBar('utm_campaign'),
+      utmContent: attribution.utm_content ?? fromAddressBar('utm_content'),
+      utmTerm: attribution.utm_term ?? fromAddressBar('utm_term'),
       fbclid,
-      gclid: attribution.gclid ?? url.searchParams.get('gclid'),
-      shortCode: attribution.short_code ?? url.searchParams.get('short_code'),
+      gclid: attribution.gclid ?? fromAddressBar('gclid'),
+      shortCode: attribution.short_code ?? fromAddressBar('short_code'),
       attributionCapturedAt: attribution.attribution_captured_at ?? null,
       attributionUpdatedAt: attribution.attribution_updated_at ?? null,
       metaConsentGranted: marketingSignal.meta_consent_granted === true,

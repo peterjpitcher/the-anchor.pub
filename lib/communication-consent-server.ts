@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import {
+  GUEST_COMMS_CONSENT_ACCEPTED_VERSIONS,
   GUEST_COMMS_CONSENT_TEXT_VERSION,
   type CommunicationConsentPayload,
 } from '@/lib/communication-consent'
@@ -10,7 +11,9 @@ export const CommunicationConsentPayloadSchema = z.object({
   marketing_sms_opt_in: z.boolean().optional(),
   whatsapp_opt_in: z.boolean().optional(),
   marketing_whatsapp_opt_in: z.boolean().optional(),
-  consent_text_version: z.literal(GUEST_COMMS_CONSENT_TEXT_VERSION).optional(),
+  // The current version and the one before it. The version says which words the guest was
+  // shown, so the one they sent is passed on as it is, never rewritten to the newest.
+  consent_text_version: z.enum(GUEST_COMMS_CONSENT_ACCEPTED_VERSIONS).optional(),
 }).strict()
 
 export function sanitizeCommunicationConsent(input: unknown): CommunicationConsentPayload | undefined {

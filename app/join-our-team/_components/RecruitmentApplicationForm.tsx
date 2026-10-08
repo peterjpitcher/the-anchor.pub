@@ -413,6 +413,22 @@ export function RecruitmentApplicationForm({
           </div>
         </div>
 
+        {/* What happens to an application, said before the applicant sends it.
+            Every line is a fact about the code: the application and CV are
+            saved in the management app, which sends the CV text and answers to
+            an AI service for a summary and a score, and only a person decides
+            (the privacy policy's job applications section has the detail).
+            Change these words and JOIN_OUR_TEAM_PRIVACY_NOTICE_VERSION in
+            app/api/enquiry/recruitment/route.ts moves with them: it records
+            which notice the applicant was shown. */}
+        <p className="rounded-md border border-line bg-surface-sunk px-4 py-4 text-sm text-ink">
+          We keep your application and CV in our management system. An AI service (OpenAI) reads them to summarise and
+          score your application, and a person makes every decision.{' '}
+          <a href="/privacy-policy#job-applications" className="underline text-accent-text">
+            How we handle job applications
+          </a>
+        </p>
+
         <label className="flex items-start gap-3 rounded-md border border-line bg-surface px-4 py-4 text-sm text-ink">
           <input
             type="checkbox"

@@ -1,13 +1,16 @@
 // Cookie consent management utilities
 import { getCookie, setCookie } from 'cookies-next';
 
-export type CookieCategory = 'necessary' | 'analytics' | 'marketing' | 'preferences';
+// There used to be a fourth category, "preferences". Its switch controlled nothing: no
+// code read it and no tag acted on the signal it sent to Google, so it was removed on
+// 8 October 2026 rather than left asking for a choice that changed nothing. A cookie saved
+// before then may still carry the field; it is ignored and dropped on the next save.
+export type CookieCategory = 'necessary' | 'analytics' | 'marketing';
 
 export interface CookieConsent {
   necessary: boolean; // Always true
   analytics: boolean;
   marketing: boolean;
-  preferences: boolean;
   timestamp: string;
 }
 
@@ -19,7 +22,6 @@ const DEFAULT_CONSENT: CookieConsent = {
   necessary: true,
   analytics: false,
   marketing: false,
-  preferences: false,
   timestamp: new Date().toISOString()
 };
 
@@ -29,9 +31,14 @@ export function getConsentStatus(): CookieConsent | null {
     if (!consent) return null;
     
     const parsed = JSON.parse(consent as string);
-    // Ensure necessary is always true
-    parsed.necessary = true;
-    return parsed;
+    // Rebuilt field by field: necessary is always true, a category is on only when the
+    // cookie says exactly true, and anything else in an older cookie is left behind.
+    return {
+      necessary: true,
+      analytics: parsed?.analytics === true,
+      marketing: parsed?.marketing === true,
+      timestamp: typeof parsed?.timestamp === 'string' ? parsed.timestamp : new Date().toISOString()
+    };
   } catch (error) {
     console.error('Error parsing consent cookie:', error);
     return null;
@@ -64,7 +71,10 @@ export function setConsentStatus(consent: Partial<CookieConsent>) {
   // when a switch goes from on to off, so Reject All also clears what an earlier visit left
   // behind. After the event, so the tags are told to stop before their cookies go.
   TRACKED_CATEGORIES.forEach(category => {
-    if (!newConsent[category]) removeTrackerCookies(category);
+    if (!newConsent[category]) {
+      removeTrackerCookies(category);
+      removeTrackerStorage(category);
+    }
   });
 
   // The event above stops a tag from starting. It cannot stop one already running in the
@@ -86,16 +96,14 @@ export function setConsentStatus(consent: Partial<CookieConsent>) {
 export function acceptAllCookies() {
   setConsentStatus({
     analytics: true,
-    marketing: true,
-    preferences: true
+    marketing: true
   });
 }
 
 export function rejectAllCookies() {
   setConsentStatus({
     analytics: false,
-    marketing: false,
-    preferences: false
+    marketing: false
   });
 }
 
@@ -203,3 +211,40 @@ function removeTrackerCookies(category: TrackedCategory) {
   });
 }
 
+// The same tags also keep a copy of their identifier in the browser's storage, which
+// deleting cookies does not touch. Seen on a production build on 7 October 2026 after
+// Accept: Google's advert click reference under local storage "_gcl_ls", and Clarity's
+// session token under session storage "_cltk". The notice says a category switched off is
+// deleted from the browser, so these go with the cookies.
+//
+// Prefixes for the same reason as the cookies. Our own advert record
+// ("anchor-booking-attribution") is removed by syncBookingAttributionWithConsent in
+// lib/booking-attribution.ts, which also clears the copy held in memory.
+const TRACKER_STORAGE: Record<TrackedCategory, { local: string[]; session: string[] }> = {
+  analytics: { local: [], session: ['_cltk'] },
+  marketing: { local: ['_gcl_'], session: [] }
+};
+
+function removeKeysStartingWith(storage: Storage, prefixes: string[]) {
+  if (prefixes.length === 0) return;
+  const keys: string[] = [];
+  for (let index = 0; index < storage.length; index += 1) {
+    const key = storage.key(index);
+    if (key && prefixes.some(prefix => key.startsWith(prefix))) keys.push(key);
+  }
+  keys.forEach(key => storage.removeItem(key));
+}
+
+function removeTrackerStorage(category: TrackedCategory) {
+  if (typeof window === 'undefined') return;
+
+  const { local, session } = TRACKER_STORAGE[category];
+  // Storage can be blocked outright (private modes, strict settings), and reading it then
+  // throws. Nothing is stored in that case, so there is nothing to remove.
+  try {
+    removeKeysStartingWith(window.localStorage, local);
+  } catch {}
+  try {
+    removeKeysStartingWith(window.sessionStorage, session);
+  } catch {}
+}
