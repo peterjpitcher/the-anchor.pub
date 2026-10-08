@@ -4,6 +4,7 @@ import { Container, Button } from '@/components/ui'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { JsonLd } from '@/components/JsonLd'
 import { InteriorHero } from '@/components/hero'
+import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING } from '@/lib/approved-wording'
@@ -29,6 +30,8 @@ export const metadata: Metadata = {
       'Current facts for The Anchor in Stanwell Moor, including booking links, food, hours, private hire, events and Heathrow distance.',
     url: PAGE_URL,
     type: 'website',
+    // Named here because this block replaces the root layout's, picture and all.
+    images: [{ url: DEFAULT_OG_IMAGE, alt: 'The Anchor in Stanwell Moor' }],
   },
 }
 
@@ -102,7 +105,7 @@ const factsSchema = {
         longitude: CONTACT.coordinates.lng,
       },
       servesCuisine: ['British', 'Pub Food', 'Pizza', 'Sunday Roast'],
-      priceRange: 'GBP',
+      priceRange: '££',
       hasMenu: 'https://www.the-anchor.pub/food-menu',
       acceptsReservations: true,
       sameAs: socialLinks.map(([, href]) => href),
