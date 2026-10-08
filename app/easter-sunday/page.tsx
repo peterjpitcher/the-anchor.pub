@@ -6,24 +6,24 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDetails'
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
-import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_SUNDAY_LUNCH_IMAGE, DEFAULT_FOOD_IMAGE, DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
+import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
-// Evergreen Easter Sunday roast page (owner brief §1). Built on the A11 dynamic
-// system: the body reads completely with no annual fields set. To refresh a
-// year's specifics (confirmed date, a special menu, a one-off offer), populate
-// EASTER_SUNDAY_DYNAMIC below, nothing else needs to change.
+// Evergreen Easter Sunday page. Easter Sunday is a special day, not a normal
+// Sunday: the menu, and how the day works, are confirmed nearer the time
+// (docs/SSOT.md sections 4 and 10, owner ruling 7 and 8 October 2026). So the
+// page names no dish, no serving times and no walk-in promise. When the owner
+// confirms a year's details, populate EASTER_SUNDAY_DYNAMIC below.
 //
 // Easter Sunday 2027 falls on Sunday 28 March 2027. Easter is set by the
 // ecclesiastical calendar, not by us, so this date is fixed, not a choice.
@@ -31,33 +31,31 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 // year's date by itself (lib/recurring-dates.ts).
 const EASTER_SUNDAY_DATE = nextOccurrence(getEasterSunday)
 const EASTER_SUNDAY_LABEL = formatOccasionLabel(EASTER_SUNDAY_DATE)
-const EASTER_SUNDAY_SERVICE_WINDOW = '1pm to 6pm'
-const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
 const EASTER_BOOKING_URL = '/book-table'
 
 // A11 dynamic fields. Empty by design, the page is evergreen. Fill in only
 // what the owner or the management API confirms for a given year. Never invent.
 const EASTER_SUNDAY_DYNAMIC: SeasonalDynamicFields = {}
 
+const EASTER_SUNDAY_DESCRIPTION =
+  'A family-friendly Easter Sunday at The Anchor in Stanwell Moor, near Heathrow Terminal 5. The menu is confirmed nearer the time. Book a table, free parking.'
+
 export const metadata: Metadata = {
-  title: 'Easter Sunday Roast in Stanwell Moor',
-  description:
-    'A family-friendly Easter Sunday roast near Heathrow Terminal 5, cooked from scratch and served 1pm to 6pm. Walk in or book ahead, free parking.',
+  title: 'Easter Sunday in Stanwell Moor',
+  description: EASTER_SUNDAY_DESCRIPTION,
   keywords:
-    'easter sunday roast stanwell moor, easter sunday pub near heathrow, easter sunday lunch near heathrow, family-friendly easter sunday roast, easter roast near terminal 5',
+    'easter sunday stanwell moor, easter sunday pub near heathrow, family-friendly easter sunday pub, easter sunday near terminal 5',
   alternates: { canonical: './' },
   openGraph: {
-    title: 'Easter Sunday Roast in Stanwell Moor | The Anchor',
-    description:
-      'Family-friendly Easter Sunday roast at The Anchor in Stanwell Moor, near Heathrow Terminal 5. Served 1pm to 6pm, cooked from scratch. Walk in or book ahead.',
-    images: [DEFAULT_SUNDAY_LUNCH_IMAGE],
+    title: 'Easter Sunday in Stanwell Moor | The Anchor',
+    description: EASTER_SUNDAY_DESCRIPTION,
+    images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: 'Easter Sunday Roast in Stanwell Moor | The Anchor',
-    description:
-      'Family-friendly Easter Sunday roast at The Anchor in Stanwell Moor, near Heathrow Terminal 5. Served 1pm to 6pm, cooked from scratch. Walk in or book ahead.',
-    images: [DEFAULT_SUNDAY_LUNCH_IMAGE]
+    title: 'Easter Sunday in Stanwell Moor | The Anchor',
+    description: EASTER_SUNDAY_DESCRIPTION,
+    images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
 
@@ -67,31 +65,23 @@ export default function EasterSundayPage() {
 
   const faqs = [
     {
-      question: 'Where can I find an Easter Sunday roast near me?',
-      answer: `The Anchor in Stanwell Moor (TW19), about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car. We serve a family-friendly Easter Sunday roast cooked from scratch, with roast beef, pork, turkey or a vegan wellington. Walk in or book ahead, free parking on site.`
-    },
-    {
-      question: 'What time is the Easter Sunday roast served?',
-      answer: `We serve the Easter Sunday roast from 1pm to 6pm, with the last table booking at ${EASTER_SUNDAY_LAST_BOOKING}. There are no set sittings, so book a time that suits you, or simply walk in.`
-    },
-    {
-      question: 'Do I need to book for Easter Sunday?',
-      answer:
-        'Walk-ins are welcome the whole way through, from 1pm to 6pm, with no pre-order needed. Booking is recommended for groups, as Easter Sunday is a busy one. Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.'
-    },
-    {
-      question: 'Is The Anchor family-friendly at Easter?',
-      answer:
-        'Yes. Children are very welcome, and the dog-friendly beer garden gives little ones room to run around while you finish your roast. It is a relaxed, family Easter Sunday, not a fussy one.'
-    },
-    {
       question: 'What is on the Easter Sunday menu?',
       answer: occasionMenuLine('Easter Sunday')
     },
     {
+      question: 'Do I need to book for Easter Sunday?',
+      answer:
+        'Booking is recommended, as Easter Sunday is a busy one. Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.'
+    },
+    {
+      question: 'Is The Anchor family-friendly at Easter?',
+      answer:
+        'Yes. Children are very welcome, and the dog-friendly beer garden gives little ones room to run around. It is a relaxed, family Easter Sunday, not a fussy one.'
+    },
+    {
       question: 'Are you open over the Easter weekend and on Easter Monday?',
       answer:
-        'Yes. We are open as normal right across the Easter bank holiday weekend. Good Friday through Easter Sunday we are open with full kitchen service, including the Sunday roast on Easter Sunday. On Easter Monday we are open for drinks only, as our kitchen is closed every Monday, including bank holidays.'
+        'Yes. We are open right across the Easter bank holiday weekend. The menu for Easter Sunday is confirmed nearer the time. On Easter Monday we are open for drinks only, as our kitchen is closed every Monday, including bank holidays.'
     },
     {
       question: 'Is there parking?',
@@ -105,53 +95,31 @@ export default function EasterSundayPage() {
           time (owner, 7 October 2026), so there is no event to describe yet. */}
 
       <InteriorHero
-        image={DEFAULT_SUNDAY_LUNCH_IMAGE}
+        image={DEFAULT_PAGE_HEADER_IMAGE}
         crumb="Easter Sunday"
         kicker="Easter Sunday"
-        title="Easter Sunday Roast at The Anchor"
-        lead={`Gather the family for a proper Easter Sunday roast in the heart of Stanwell Moor. Cooked from scratch, served ${EASTER_SUNDAY_SERVICE_WINDOW}, near Heathrow Terminal 5. Walk in or book ahead, with free parking and a dog-friendly beer garden.`}
+        title="Easter Sunday at The Anchor"
+        lead="Gather the family for Easter Sunday in the heart of Stanwell Moor, near Heathrow Terminal 5. Book ahead, with free parking and a dog-friendly beer garden."
       />
 
       <OccasionMenuNotice occasion="Easter Sunday" />
 
-      {/* Easter Sunday roast */}
+      {/* Easter Sunday */}
       <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto space-y-6">
-            <LaunchAnnouncement variant="banner" />
             <h2 className="text-h3 text-ink-strong">
-              A proper Easter Sunday roast
+              A proper table for Easter Sunday
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               Easter Sunday is one of those days that deserves a proper table and someone else doing the cooking.
-              Bring the family to The Anchor in Stanwell Moor for a traditional Sunday roast, the kind of relaxed
-              lunch that marks the start of spring and gets everyone in one place.
-            </p>
-            <p className="text-ink-muted leading-relaxed">
-              Choose from roast beef, roast pork, roast turkey
-              or a vegan wellington, all cooked from scratch and served with triple-cooked roast potatoes and seasonal
-              vegetables. The sliced roasts come with Yorkshire puddings and our signature gravy; the vegan wellington
-              is served with our regular vegan gravy. Current dishes and
-              prices are live on our{' '}
-              <Link href="/sunday-roast" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
-                Sunday roast menu
-              </Link>
-              .
-            </p>
-            <p className="text-ink-muted leading-relaxed">
-              We serve from <span className="font-semibold text-ink">1pm</span> to <span className="font-semibold text-ink">6pm</span>,
-              with the last table booking at <span className="font-semibold text-ink">{EASTER_SUNDAY_LAST_BOOKING}</span>.
-              There are no set sittings, so book a time that suits you and enjoy your meal at a comfortable pace.
+              Bring the family to The Anchor in Stanwell Moor and get everyone in one place.
             </p>
 
             <Card accent>
               <CardBody>
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-text">How Easter Sunday works</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-text">Booking for Easter Sunday</h3>
                 <ul className="mt-3 space-y-2 text-sm text-ink-muted">
-                  <li className="flex gap-2">
-                    <span className="text-accent-text">&bull;</span>
-                    <span>Walk-ins are welcome between <span className="font-semibold text-ink">1pm and 6pm</span>, no pre-order needed.</span>
-                  </li>
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
                     <span>Booking is recommended for groups, especially parties of six or more.</span>
@@ -159,10 +127,6 @@ export default function EasterSundayPage() {
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
                     <span>Groups of 15 or more take a &pound;10 per person deposit on booking, fully deducted from the bill on the day.</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="text-accent-text">&bull;</span>
-                    <span>The vegan wellington comes with our regular vegan gravy, which we can serve with any dish, just add a note when you book.</span>
                   </li>
                 </ul>
               </CardBody>
@@ -183,16 +147,11 @@ export default function EasterSundayPage() {
                 fullWidth
                 className="w-full sm:w-auto sm:min-w-[240px]"
                 trackingLabel="Book your Easter Sunday table"
-                eventName="Easter Sunday Roast"
+                eventName="Easter Sunday"
                 customHref={EASTER_BOOKING_URL}
               >
                 Book your Easter Sunday table
               </BookTableButton>
-              <Button asChild variant="outline" size="lg" fullWidth className="w-full sm:w-auto">
-                <Link href="/sunday-roast" className="w-full sm:w-auto">
-                  View Sunday roast menu
-                </Link>
-              </Button>
             </div>
           </div>
         </Container>
@@ -217,7 +176,6 @@ export default function EasterSundayPage() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge variant="success">Family-friendly</Badge>
-              <Badge variant="green">Walk-ins welcome</Badge>
               <Badge variant="green">Dog-friendly beer garden</Badge>
               <Badge variant="green">Free parking &bull; {PARKING.capacity} spaces</Badge>
               <Badge variant="green">Near Heathrow Terminal 5</Badge>
@@ -229,7 +187,7 @@ export default function EasterSundayPage() {
       {/* Booking CTA */}
       <CtaBand
         title="Book your Easter Sunday table"
-        copy={`A family Easter Sunday roast at The Anchor in Stanwell Moor, served ${EASTER_SUNDAY_SERVICE_WINDOW} (last table booking ${EASTER_SUNDAY_LAST_BOOKING}). Walk in or book ahead, booking is recommended as Easter Sunday gets busy.`}
+        copy="A family Easter Sunday at The Anchor in Stanwell Moor. Booking is recommended, as Easter Sunday gets busy."
         primary={
           <BookTableButton
             source="easter_sunday_cta"
@@ -238,7 +196,7 @@ export default function EasterSundayPage() {
             size="lg"
             wrap
             trackingLabel="Book your Easter Sunday table"
-            eventName="Easter Sunday Roast"
+            eventName="Easter Sunday"
             customHref={EASTER_BOOKING_URL}
           >
             Book your Easter Sunday table
@@ -273,12 +231,11 @@ export default function EasterSundayPage() {
                 <CardBody className="space-y-2">
                   <h3 className="text-lg font-semibold text-ink-strong">Good Friday &ndash; Easter Sunday</h3>
                   <p className="text-sm text-ink-muted">
-                    Open as normal with full kitchen service. Our regular evening menu is available Friday and Saturday,
-                    and our Sunday roast menu on Easter Sunday.
+                    Open as normal. Our regular evening menu is available Friday and Saturday.
+                    The menu for Easter Sunday is confirmed nearer the time.
                   </p>
                   <div className="flex flex-wrap gap-2 pt-1">
-                    <Badge variant="success">Kitchen open</Badge>
-                    <Badge variant="green">Full menu</Badge>
+                    <Badge variant="success">Open as normal</Badge>
                   </div>
                 </CardBody>
               </Card>
@@ -345,7 +302,6 @@ export default function EasterSundayPage() {
         title="More to explore at The Anchor"
         links={[
           { href: EASTER_BOOKING_URL, title: 'Book your Easter Sunday table', description: 'Reserve online in minutes' },
-          { href: '/sunday-roast', title: 'Sunday roast near Heathrow', description: 'Full menu, prices and walk-in info' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

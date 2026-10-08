@@ -12,57 +12,62 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
-const RESULT_SHEET_IMAGE = '/images/events/world-cup/world-cup-sweep-draw-results.png'
-const RESULT_SHEET_PDF = '/downloads/the-anchor-world-cup-sweep-draw-results.pdf'
-
-const MAIN_WINNERS = [
-  { prize: 'World champions', amount: '£100', customer: 'Tom', team: 'Spain' },
-  { prize: 'Runners-up', amount: '£50', customer: 'Yuliana', team: 'Argentina' },
-  { prize: 'Third-place play-off', amount: '£25', customer: 'Lance M', team: 'England' },
+// Nobody who took part is named on this page, in its data or in anything it
+// sends to Google or to a share card (owner decision, 8 October 2026). The
+// prizes are listed by the team each one went with. The result sheet image and
+// PDF that listed every entrant by name were deleted with the names. Do not
+// add a name, an initial or a sheet back.
+const MAIN_PRIZES = [
+  { prize: 'World champions', amount: '£100', team: 'Spain' },
+  { prize: 'Runners-up', amount: '£50', team: 'Argentina' },
+  { prize: 'Third-place play-off', amount: '£25', team: 'England' },
   {
     prize: 'Quickest goal scored',
     amount: '£15',
-    customer: 'Jacob H',
     team: 'Paraguay',
     detail: 'Galarza, 64 seconds',
   },
-  { prize: 'First red card', amount: '£10', customer: 'Suzie Biss', team: 'South Africa' },
+  { prize: 'First red card', amount: '£10', team: 'South Africa' },
 ]
 
-const EARLY_ELIMINATION_WINNERS = [
-  { customer: 'Jess', team: 'Curaçao' },
-  { customer: 'Jacob W', team: 'Czech Republic' },
-  { customer: 'Rupi', team: 'Haiti' },
-  { customer: 'Mandy', team: 'Jordan' },
-  { customer: 'Gerald', team: 'Panama' },
-  { customer: 'Vinnie', team: 'Qatar' },
-  { customer: 'Lorraine Biss', team: 'Tunisia' },
-  { customer: 'Tom Hudson', team: 'Türkiye' },
+const FIRST_EIGHT_ELIMINATED = [
+  'Curaçao',
+  'Czech Republic',
+  'Haiti',
+  'Jordan',
+  'Panama',
+  'Qatar',
+  'Tunisia',
+  'Türkiye',
 ]
 
-const WINNER_COUNT = MAIN_WINNERS.length + EARLY_ELIMINATION_WINNERS.length
+const PRIZE_COUNT = MAIN_PRIZES.length + FIRST_EIGHT_ELIMINATED.length
+
+const PAGE_TITLE = 'World Cup 2026 Sweepstake Results | The Anchor'
+const SHARE_DESCRIPTION = `The ${PRIZE_COUNT} prizes in The Anchor World Cup 2026 sweepstake, and the team each one went with.`
 
 export const metadata: Metadata = {
-  // The root layout adds " | The Anchor". Written out here as well, it rendered twice.
-  title: 'World Cup 2026 Sweepstake Winners',
-  description: `See every World Cup 2026 sweepstake winner at ${BRAND.name}, including the £100 champion and all bonus prize winners.`,
+  // The root layout adds " | The Anchor" to this one. The share titles below
+  // are not templated, so they carry it themselves.
+  title: 'World Cup 2026 Sweepstake Results',
+  description: `The World Cup 2026 sweepstake at ${BRAND.name}: a £240 prize pot, ${PRIZE_COUNT} prizes, and the team each one went with.`,
   openGraph: {
-    title: 'World Cup 2026 Sweepstake Winners | The Anchor',
-    description: 'See all 13 prize winners from The Anchor World Cup 2026 sweepstake.',
-    images: [{ url: RESULT_SHEET_IMAGE, width: 1240, height: 1754, alt: 'The Anchor World Cup 2026 sweepstake final results' }],
+    title: PAGE_TITLE,
+    description: SHARE_DESCRIPTION,
+    images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'World Cup 2026 Sweepstake Winners | The Anchor',
-    description: 'See all 13 prize winners from The Anchor World Cup 2026 sweepstake.',
-    images: [RESULT_SHEET_IMAGE],
+    title: PAGE_TITLE,
+    description: SHARE_DESCRIPTION,
+    images: [DEFAULT_PAGE_HEADER_IMAGE],
   }),
   alternates: {
     canonical: '/live-sport/world-cup/sweepstake',
   },
   // Kept out of search and out of app/sitemap.ts. This is a finished results
-  // page that names the winners; people who took part can still reach it from
-  // the live sport pages, and its links are still followed.
+  // page; people who took part can still reach it from the live sport pages,
+  // and its links are still followed.
   robots: { index: false, follow: true },
 }
 
@@ -70,10 +75,10 @@ export default function WorldCupSweepstakePage() {
   const webpageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'World Cup 2026 Sweepstake Winners',
-    description: `The final World Cup 2026 sweepstake winners and prize results for ${BRAND.name}.`,
+    name: 'World Cup 2026 Sweepstake Results',
+    description: `The final World Cup 2026 sweepstake prize results for ${BRAND.name}.`,
     url: 'https://www.the-anchor.pub/live-sport/world-cup/sweepstake',
-    image: `https://www.the-anchor.pub${RESULT_SHEET_IMAGE}`,
+    image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
     isPartOf: {
       '@type': 'WebSite',
       name: BRAND.name,
@@ -100,21 +105,14 @@ export default function WorldCupSweepstakePage() {
       <InteriorHero
         image={DEFAULT_PAGE_HEADER_IMAGE}
         crumb="World Cup Sweepstake"
-        title="World Cup 2026 Sweep Winners"
-        lead="Full time. Spain are world champions and every sweep prize winner is confirmed. See the full £240 prize list below."
+        title="World Cup 2026 Sweep Results"
+        lead="Full time. Spain are world champions and every sweep prize is decided. See the full £240 prize list below."
         actions={
-          <>
-            <Button asChild variant="primary" size="lg" fullWidth>
-              <Link href="#winners">
-                See All Winners
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" fullWidth>
-              <Link href={RESULT_SHEET_PDF}>
-                View Final Results
-              </Link>
-            </Button>
-          </>
+          <Button asChild variant="primary" size="lg" fullWidth>
+            <Link href="#prizes">
+              See All Prizes
+            </Link>
+          </Button>
         }
       />
 
@@ -123,7 +121,7 @@ export default function WorldCupSweepstakePage() {
           <div className="mx-auto grid gap-6 md:grid-cols-3">
             {[
               { label: 'World champions', value: 'Spain' },
-              { label: 'Prize winners', value: WINNER_COUNT.toString() },
+              { label: 'Prizes', value: PRIZE_COUNT.toString() },
               { label: 'Total prize pot', value: '£240' },
             ].map((item) => (
               <div key={item.label} className="rounded-xl border border-line bg-surface p-6 text-center shadow-sm">
@@ -137,32 +135,31 @@ export default function WorldCupSweepstakePage() {
         </Container>
       </section>
 
-      <section className="py-section-y bg-surface" id="winners">
+      <section className="py-section-y bg-surface" id="prizes">
         <Container>
           <SectionHeading
             eyebrow="Final Results"
-            title="All Sweep Winners"
-            subtitle="The tournament is over and every prize in the £240 pot has been decided."
+            title="All Sweep Prizes"
+            subtitle="The tournament is over and every prize in the £240 pot has been decided. Each prize went with a team. We don't publish winners' names."
           />
 
           <div className="mx-auto space-y-8">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {MAIN_WINNERS.map((winner) => (
+              {MAIN_PRIZES.map((item) => (
                 <article
-                  key={winner.prize}
+                  key={item.prize}
                   className="rounded-xl border border-line bg-surface p-6 shadow-sm"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <p className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-muted">
-                      {winner.prize}
+                      {item.prize}
                     </p>
                     <span className="shrink-0 rounded-full bg-anchor-green px-3 py-1 text-sm font-semibold text-anchor-cream-text">
-                      {winner.amount}
+                      {item.amount}
                     </span>
                   </div>
-                  <h2 className="mt-5 text-h3 text-accent-text">{winner.customer}</h2>
-                  <p className="mt-1 font-semibold text-ink-strong">{winner.team}</p>
-                  {winner.detail && <p className="mt-3 text-sm text-ink-muted">{winner.detail}</p>}
+                  <h2 className="mt-5 text-h3 text-accent-text">{item.team}</h2>
+                  {item.detail && <p className="mt-3 text-sm text-ink-muted">{item.detail}</p>}
                 </article>
               ))}
             </div>
@@ -171,20 +168,19 @@ export default function WorldCupSweepstakePage() {
               <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <h2 className="text-xl text-accent-text">First Eight Teams Eliminated</h2>
-                  <p className="mt-1 text-sm text-ink-muted">Each winner receives £5.</p>
+                  <p className="mt-1 text-sm text-ink-muted">Each of these teams carried a £5 prize.</p>
                 </div>
                 <span className="text-sm font-semibold uppercase tracking-[0.16em] text-accent-text">
-                  8 winners, £40 total
+                  8 prizes, £40 total
                 </span>
               </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {EARLY_ELIMINATION_WINNERS.map((winner) => (
+                {FIRST_EIGHT_ELIMINATED.map((team) => (
                   <div
-                    key={winner.team}
+                    key={team}
                     className="rounded-lg border border-line bg-surface px-4 py-4 shadow-sm"
                   >
-                    <p className="font-semibold text-accent-text">{winner.customer}</p>
-                    <p className="mt-1 text-sm text-ink-muted">{winner.team}</p>
+                    <p className="font-semibold text-accent-text">{team}</p>
                   </div>
                 ))}
               </div>
@@ -203,47 +199,22 @@ export default function WorldCupSweepstakePage() {
         </Container>
       </section>
 
-      <section className="py-section-y bg-canvas">
-        <Container>
-          <div className="mx-auto rounded-xl border border-line bg-surface p-6 text-center shadow-sm sm:p-8">
-            <SectionHeading
-              eyebrow="Final Result Sheet"
-              title="Keep a Copy"
-              subtitle="Download the official final update from Monday 20 July 2026."
-              className="mb-6"
-            />
-            <div className="flex flex-col justify-center gap-3 sm:flex-row">
-              <Button asChild variant="primary" size="lg" className="w-full sm:w-auto">
-                <Link href={RESULT_SHEET_PDF} download>
-                  Download Final Results
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                <Link href="/live-sport/world-cup">
-                  World Cup Page
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
-
       <FAQAccordionWithSchema
         title="World Cup Sweep Questions"
         faqs={[
           {
-            question: 'Who won the World Cup 2026 sweepstake?',
-            answer: 'Tom won the £100 top prize with world champions Spain.',
+            question: 'Which team won the top prize in the World Cup 2026 sweepstake?',
+            answer: 'The £100 top prize went with world champions Spain.',
           },
           {
-            question: 'Who won the other main prizes?',
+            question: 'Which teams won the other main prizes?',
             answer:
-              'Yuliana won £50 with Argentina, Lance M won £25 with England, Jacob H won £15 for the quickest goal with Paraguay, and Suzie Biss won £10 for the first red card with South Africa.',
+              'Argentina carried the £50 runners-up prize and England the £25 third-place prize. Paraguay took £15 for the quickest goal, and South Africa took £10 for the first red card.',
           },
           {
-            question: 'Who won the first eight eliminated prizes?',
+            question: 'Which teams won the first eight eliminated prizes?',
             answer:
-              'The eight £5 winners are Jess, Jacob W, Rupi, Mandy, Gerald, Vinnie, Lorraine Biss, and Tom Hudson.',
+              'The eight £5 prizes went with Curaçao, Czech Republic, Haiti, Jordan, Panama, Qatar, Tunisia and Türkiye.',
           },
           {
             question: 'How do I claim a prize?',
