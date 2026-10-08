@@ -209,9 +209,9 @@ describe('/live-sport/world-cup after the tournament', () => {
     expect(text).not.toMatch(/\bguests?\b|\bcheeky\b/i)
   })
 
-  it('keeps the way to the sweepstake winners and to the rest of live sport', async () => {
+  it('keeps the way to the sweepstake results and to the rest of live sport', async () => {
     await pageText()
-    expect(screen.getByRole('link', { name: 'World Cup sweepstake winners' })).toHaveAttribute('href', '/live-sport/world-cup/sweepstake')
+    expect(screen.getByRole('link', { name: 'World Cup sweepstake results' })).toHaveAttribute('href', '/live-sport/world-cup/sweepstake')
     expect(screen.getByRole('link', { name: 'See all live sport' })).toHaveAttribute('href', '/live-sport')
   })
 })
