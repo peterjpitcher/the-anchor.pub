@@ -106,13 +106,12 @@ function getBarStatus(hours: any): string {
     return 'Bar: Open'
   }
 
+  // London minutes against London minutes, the same rule the kitchen line below
+  // follows. This used to build the opening time with Date.setHours, which reads
+  // the visitor's own clock: a phone on Sydney or Los Angeles time was told
+  // "Opens tomorrow at 12pm" on a Monday morning when the bar opens at 4pm today.
   if (todayHours?.opens && !todayHours.is_closed) {
-    const now = new Date()
-    const [openHour, openMin] = todayHours.opens.split(':').map(Number)
-    const openingTime = new Date()
-    openingTime.setHours(openHour, openMin, 0, 0)
-
-    if (openingTime > now) {
+    if (minutesOfDay(todayHours.opens) > londonMinutesNow()) {
       return `Bar: Opens at ${formatTime12Hour(todayHours.opens)}`
     }
   }

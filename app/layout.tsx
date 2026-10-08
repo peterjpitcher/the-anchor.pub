@@ -27,6 +27,7 @@ import {
   PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
 } from '@/lib/promos/privateHire2026'
 import { Suspense } from 'react'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 
 const EventCountdownBanner = dynamic(() => import('@/components/EventCountdownBanner').then(mod => mod.EventCountdownBanner), {
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     default: 'The Anchor Pub | Stanwell Moor | Near Heathrow',
     template: '%s | The Anchor'
   },
-  description: 'The Anchor, Stanwell Moor. Traditional pub around 7 mins from Heathrow T5, traffic dependent. Sunday roasts, quiz nights, listed karaoke nights, beer garden & free parking.',
+  description: `The Anchor, Stanwell Moor. Traditional pub around ${HEATHROW_TIMES.terminal5} mins from Heathrow T5, traffic dependent. Sunday roasts, quiz nights, listed karaoke nights, beer garden & free parking.`,
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',

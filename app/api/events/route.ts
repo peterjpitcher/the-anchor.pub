@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
+import { londonIsoDate } from '@/lib/time-london'
 
 export const dynamic = 'force-dynamic'
 
@@ -8,7 +9,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const today = searchParams.get('today') === 'true'
   const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 10
-  const fromDate = searchParams.get('from_date') || new Date().toISOString().split('T')[0]
+  const fromDate = searchParams.get('from_date') || londonIsoDate()
   const categoryId = searchParams.get('category_id') || undefined
   const availableOnly = searchParams.get('available_only') === 'true'
   

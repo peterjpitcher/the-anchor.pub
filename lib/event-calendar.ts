@@ -263,6 +263,39 @@ export function getEventDateRangeUtc(event: Pick<Event, 'startDate' | 'endDate' 
   }
 }
 
+/** How long a night with no recorded finish is treated as still running. */
+const EVENT_UNDERWAY_FALLBACK_MINUTES = 180
+
+/**
+ * True once the event has FINISHED, not merely started.
+ *
+ * `isEventInPast` (lib/event-lifecycle.ts) answers "can this still be booked?"
+ * and is rightly keyed to the start. The event page used the same answer for
+ * "is it over?", so it said "This event has ended" and "It took place on ..."
+ * from the minute the doors opened: five past seven on quiz night, and from 8pm
+ * at a party that runs until midnight.
+ *
+ * The finish is the record's end date, or its start plus its duration. A record
+ * with neither is treated as running for three hours, the rule the fixture
+ * lists already use for a game. An end that is not after the start is bad data
+ * and gets the same three hours.
+ */
+export function isEventOver(
+  event: Pick<Event, 'startDate'> & { endDate?: string | null; duration?: string | null },
+  now: number = Date.now()
+): boolean {
+  const { start, end } = getEventCalendarRangeUtc(event)
+  const startMs = start.getTime()
+  if (!Number.isFinite(startMs)) return false
+
+  const endMs =
+    end && Number.isFinite(end.getTime()) && end.getTime() > startMs
+      ? end.getTime()
+      : startMs + EVENT_UNDERWAY_FALLBACK_MINUTES * 60 * 1000
+
+  return endMs < now
+}
+
 export function getEventLocationText(event: Pick<Event, 'location'>): string {
   const address = event.location?.address
   const parts = [

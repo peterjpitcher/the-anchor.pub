@@ -44,6 +44,7 @@ import {
 } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
+import { isEventOver } from '@/lib/event-calendar'
 import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead, getEventCategoryModifier } from '@/lib/event-copy'
 import { getEventSocialCopy } from '@/lib/event-social-copy'
 import { getEventAgeRule } from '@/lib/event-age-rule'
@@ -153,6 +154,15 @@ function getStatusNotice(
 const SALES_CLOSED_COPY = {
   title: 'Online ticket sales have closed',
   message: 'Online ticket sales for this event have closed. Please contact us if you need help.'
+} as const
+
+/**
+ * Shown from the start time until the finish. Booking closes when the night
+ * starts, but "This event has already taken place" is not true while it is on.
+ */
+const EVENT_UNDER_WAY_COPY = {
+  title: 'Booking unavailable',
+  message: 'This event has started, so online booking has closed.'
 } as const
 
 /**
@@ -450,7 +460,10 @@ export default async function EventPage({ params }: Props) {
   // Past events are never redirected. The page stays live and indexed so its
   // content keeps accumulating; the route into the next date is the on-page
   // link built below, not a 301.
-  const isPastEvent = isEventInPast(event)
+  // "Past" here means FINISHED. A night that has started but not finished still
+  // blocks booking (getEventBookingBlockReason below), but it has not "taken place".
+  const isPastEvent = isEventOver(event)
+  const hasStarted = isEventInPast(event)
   const seoStrategy = getEventSeoStrategy(event)
 
   // The next date in this category, used to point visitors (and link equity)
@@ -484,14 +497,24 @@ export default async function EventPage({ params }: Props) {
    * reason that module exists.
    */
   const seatAvailabilityLabel =
-    presentation.phase === 'upcoming' ? getEventSeatAvailabilityLabel(event) : null
+    presentation.phase === 'upcoming' && !presentation.hasStarted
+      ? getEventSeatAvailabilityLabel(event)
+      : null
 
   const bookingBlockReason = getEventBookingBlockReason(event)
   // Online ticket sales cutoff: distinct, friendly "sales closed" panel. Only
   // surfaced when nothing more specific (cancelled / sold out / past) applies.
   const bookingClosedByCutoff = !bookingBlockReason && isEventBookingClosed(event)
+  // 'past' means the start time has gone. Until the night has FINISHED it is
+  // under way, and "has already taken place" would be false. A night that never
+  // took bookings keeps "just turn up", which is still true while it is on.
+  const eventUnderWay = bookingBlockReason === 'past' && !presentation.hasEnded
   const bookingDisabledCopy = bookingBlockReason
-    ? getBookingDisabledCopy(bookingBlockReason)
+    ? eventUnderWay
+      ? event.bookings_enabled === false
+        ? getBookingDisabledCopy('bookings_disabled')
+        : EVENT_UNDER_WAY_COPY
+      : getBookingDisabledCopy(bookingBlockReason)
     : bookingClosedByCutoff
       ? SALES_CLOSED_COPY
       : null
@@ -554,7 +577,7 @@ export default async function EventPage({ params }: Props) {
   const mothersDayBookingFlow =
     isMothersDayEvent(event) &&
     status !== 'cancelled' &&
-    !isPastEvent
+    !hasStarted
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
     'Reserve your Mother’s Day table online. Booking ahead is recommended because this Sunday fills quickly.'

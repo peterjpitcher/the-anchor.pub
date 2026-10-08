@@ -36,6 +36,7 @@ import {
 } from '@/lib/christmas-season'
 import { FoodMenuSection } from './_components/FoodMenuSection'
 import { SundayRoastFeature } from './_components/SundayRoastFeature'
+import { HEATHROW_TIMES, GEO_COORDINATES_SCHEMA, POSTAL_ADDRESS_SCHEMA } from '@/lib/constants'
 
 // Beer battered cod and chips, a dish on today's menu. The previous hero showed
 // a lamb shank, which is not served anywhere now. New filenames only: Cloudflare
@@ -203,7 +204,7 @@ export default async function FoodMenuPage() {
         crumb="Food"
         kicker="Eat, Drink, Enjoy"
         title="Proper pub food, minutes from Heathrow"
-        lead="Pub classics, stone-baked pizzas, fish and chips, a dedicated kids menu and a proper Sunday roast in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free parking."
+        lead={`Pub classics, stone-baked pizzas, fish and chips, a dedicated kids menu and a proper Sunday roast in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking.`}
         badges={
           <>
             <Badge variant="sand">{mainsPriceRange ? `Mains ${mainsPriceRange}` : 'Live menu prices'}</Badge>
@@ -368,19 +369,8 @@ export default async function FoodMenuPage() {
               hasMenu: {
                 '@id': 'https://www.the-anchor.pub/food-menu#menu'
               },
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Horton Road',
-                addressLocality: 'Stanwell Moor',
-                addressRegion: 'Surrey',
-                postalCode: 'TW19 6AQ',
-                addressCountry: 'GB'
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: 51.462509,
-                longitude: -0.502067
-              },
+              address: POSTAL_ADDRESS_SCHEMA,
+              geo: GEO_COORDINATES_SCHEMA,
               openingHoursSpecification: kitchenHoursSpecification,
               telephone: '+441753682707',
               url: 'https://www.the-anchor.pub',

@@ -7,7 +7,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, DRIVE_TIMES, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { CtaBand } from '@/components/CtaBand'
 import { getRouteLastModified } from '@/lib/sitemap-lastmod'
@@ -567,7 +567,7 @@ export default function HistoryPage(): React.JSX.Element {
                 Today, The Anchor has a new identity as a traditional village pub beside
                 Heathrow. It is just{' '}
                 <Link href="/near-heathrow/terminal-5" className="text-accent-text hover:text-accent underline underline-offset-4">
-                  seven minutes from Terminal 5
+                  {HEATHROW_TIMES.terminal5} minutes from Terminal 5
                 </Link>
                 , with a{' '}
                 <Link href="/beer-garden" className="text-accent-text hover:text-accent underline underline-offset-4">
@@ -691,7 +691,7 @@ export default function HistoryPage(): React.JSX.Element {
           {
             question: 'Where is The Anchor in Stanwell Moor?',
             answer:
-              'The Anchor is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ. It is 7 minutes by car from Heathrow Terminal 5, 2 minutes from M25 Junction 14, and has 20 free parking spaces.',
+              `The Anchor is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ. It is ${HEATHROW_TIMES.terminal5} minutes by car from Heathrow Terminal 5, ${DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14, and has ${PARKING.capacity} free parking spaces.`,
           },
         ]}
       />
@@ -730,7 +730,7 @@ export default function HistoryPage(): React.JSX.Element {
             </PhoneButton>
           </div>
           <p className="text-sm text-ink-muted">
-            Horton Road, Stanwell Moor, Surrey TW19 6AQ · 7 mins from Heathrow T5 · Free parking
+            Horton Road, Stanwell Moor, Surrey TW19 6AQ · {HEATHROW_TIMES.terminal5} mins from Heathrow T5 · Free parking
           </p>
         </div>
       </CtaBand>

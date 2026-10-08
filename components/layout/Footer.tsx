@@ -14,7 +14,7 @@ import { SocialLink as SocialLinkComponent } from '@/components/SocialLink'
 import { trackNavigationClick, trackSocialClick, trackPhoneCallClick } from '@/lib/gtm-events'
 import { trustLinks } from '@/lib/internal-linking-data'
 import { openCookieSettings } from '@/lib/cookies'
-import { REVIEW_REQUEST_URL } from '@/lib/constants'
+import { REVIEW_REQUEST_URL, HEATHROW_TIMES } from '@/lib/constants'
 
 interface FooterSection {
   title: string
@@ -51,7 +51,7 @@ const defaultBusinessInfo: BusinessInfo = {
   name: 'The Anchor',
   // O1: "under the flight path" is permitted per the canonical SSOT (§1/§8/§9).
   description:
-    'A village pub in Stanwell Moor since 1751. Proper pub food, a beer garden under the Heathrow flight path and free customer parking, 7 minutes from Heathrow Terminal 5.',
+    `A village pub in Stanwell Moor since 1751. Proper pub food, a beer garden under the Heathrow flight path and free customer parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
   logo: '/images/branding/the-anchor-pub-logo-white-transparent.png'
 }
 

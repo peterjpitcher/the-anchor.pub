@@ -17,11 +17,14 @@ import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPac
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
-import { ACCESS_AMENITY_FEATURES, ACCESS_SHORT_WORDING, ACCESS_WORDING, NO_ACCESSIBLE_TOILET_WORDING } from '@/lib/approved-wording'
+import { ACCESS_AMENITY_FEATURES, ACCESS_SHORT_WORDING, ACCESS_WORDING, FAMILIES_WORDING, NO_ACCESSIBLE_TOILET_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
+
+const { diningRoom, gardenTerrace } = PRIVATE_HIRE_CAPACITY.spaces
 
 export const metadata: Metadata = {
     title: 'Christening Venue Near Heathrow & Staines',
-    description: 'A private room for christenings and naming days in Stanwell Moor. Up to 50 guests, buffet catering, family-friendly and free parking.',
+    description: `A private room for christenings and naming days in Stanwell Moor. Up to ${diningRoom.standing} standing, buffet catering, family-friendly and free parking.`,
     openGraph: {
         title: 'Christening Party Venue | The Anchor Stanwell Moor',
         description: 'Celebrate your little one\'s special day. Family-friendly venue with private rooms.',
@@ -58,7 +61,7 @@ export default function ChristeningsPage() {
         "url": "https://www.the-anchor.pub/private-hire/christenings",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
         "description": "Family-friendly venue for christening parties and baptism receptions near local churches in Stanwell Moor.",
-        "maximumAttendeeCapacity": 50,
+        "maximumAttendeeCapacity": diningRoom.standing,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
             ...ACCESS_AMENITY_FEATURES,
@@ -139,7 +142,7 @@ export default function ChristeningsPage() {
                                     {nearbyChurches.map(l => (
                                         <li key={l.slug} className="flex items-center gap-2">
                                             <Link href={`/private-hire/near/${l.slug}`} className="font-medium text-ink-muted hover:underline">
-                                                {l.name} ({l.distance})
+                                                {l.name}{l.distance ? ` (${l.distance})` : ''}
                                             </Link>
                                         </li>
                                     ))}
@@ -180,9 +183,9 @@ export default function ChristeningsPage() {
                     />
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {[
-                            { title: "High Chairs", description: "High chairs are available for babies and toddlers, just let us know when you book how many you need." },
+                            { title: "For Babies and Toddlers", description: FAMILIES_WORDING },
                             { title: "Children's Menu", description: "A dedicated kids' menu with all their favourites, including smaller portions of our Sunday Roast." },
-                            { title: "Beer Garden", description: "Seating for 64, right under the Heathrow flight path. It adjoins the car park, so please keep little ones supervised." },
+                            { title: "Beer Garden", description: `Seating for ${gardenTerrace.seated}, right under the Heathrow flight path. It adjoins the car park, so please keep little ones supervised.` },
                             { title: "Getting In and Around", description: `${ACCESS_SHORT_WORDING} ${NO_ACCESSIBLE_TOILET_WORDING}` },
                         ].map(feature => (
                             <Card key={feature.title} accent className="h-full text-center">
@@ -203,7 +206,7 @@ export default function ChristeningsPage() {
                     />
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {[
-                            { title: "Child Friendly", description: "We welcome children of all ages. High chairs available." },
+                            { title: "Child Friendly", description: `We welcome children of all ages. ${FAMILIES_WORDING}` },
                             { title: "Bring Your Cake", description: "You are welcome to bring a celebration cake. We'll provide the knife and napkins." },
                             { title: "Photo Opportunities", description: "Our garden area and traditional pub backdrop provide a lovely setting for family photos (weather permitting)." },
                         ].map(feature => (
@@ -292,13 +295,13 @@ export default function ChristeningsPage() {
                     />
                     <div className="mx-auto space-y-4 text-ink-muted">
                         <p>
-                            One of the biggest advantages of choosing The Anchor as your christening venue is our proximity to local churches. Whether your ceremony is at St Mary the Virgin in Stanwell, St Mary&apos;s in Staines, or any of the churches across the Spelthorne area, we are just a short drive away. Most families arrive at The Anchor within 10 to 15 minutes of the service finishing.
+                            One of the biggest advantages of choosing The Anchor as your christening venue is our proximity to local churches. Whether your ceremony is at St Mary the Virgin in Stanwell, St Mary&apos;s in Staines, or any of the churches across the Spelthorne area, we are just a short drive away.
                         </p>
                         <p>
-                            We recommend allowing about 30 minutes of buffer time between the end of the service and your reception start. This gives everyone time to take photos outside the church, say hello to fellow guests, and travel over without feeling rushed. We will have the room set up and drinks ready to serve the moment you arrive.
+                            We recommend leaving a gap between the end of the service and your reception start. This gives everyone time to take photos outside the church, say hello to fellow guests, and travel over without feeling rushed. We will have the room set up and drinks ready to serve the moment you arrive.
                         </p>
                         <p>
-                            If some guests are heading directly to The Anchor while others stay behind at the church, that is no problem at all. We will welcome early arrivals with drinks in the bar area and direct them to your reserved space once everyone has gathered. Our team is experienced at managing the staggered arrival that christening parties often involve.
+                            If some guests are heading directly to The Anchor while others stay behind after the service, that is no problem at all. We will welcome early arrivals with drinks in the bar area and direct them to your reserved space once everyone has gathered. Our team is experienced at managing the staggered arrival that christening parties often involve.
                         </p>
                         <p>
                             For naming ceremonies and non-religious celebrations, the same applies. Whatever the format of your ceremony, we are ready to host the party that follows. Our christening venue in Surrey is designed to make the transition from service to celebration as smooth and relaxed as possible.
@@ -353,11 +356,11 @@ export default function ChristeningsPage() {
                     },
                     {
                         question: "How long after the church service should we book the reception to start?",
-                        answer: "Most ceremonies run between 30 and 60 minutes. We recommend allowing at least 30 minutes of buffer time between the service and your reception start, so guests aren't waiting around. We'll have the space ready from your agreed arrival time."
+                        answer: "Most ceremonies run between 30 and 60 minutes. We recommend leaving a gap between the service and your reception start, so nobody feels rushed. We'll have the space ready from your agreed arrival time."
                     },
                     {
                         question: "Do you have high chairs?",
-                        answer: "Yes, we have high chairs available. Please let us know how many you need when you make your booking so we can have them ready."
+                        answer: `${FAMILIES_WORDING} Please let us know how many high chairs you need when you make your booking so we can have them ready.`
                     },
                     {
                         question: "Do you have a children's menu?",
@@ -373,7 +376,7 @@ export default function ChristeningsPage() {
                     },
                     {
                         question: "Is there parking for guests?",
-                        answer: "Yes, we have free on-site parking for approximately 20 vehicles. For larger parties, there is also roadside parking nearby. Please mention parking requirements when you enquire and we can advise."
+                        answer: PARKING_WORDING
                     },
                     {
                         question: "Is there a room hire fee?",

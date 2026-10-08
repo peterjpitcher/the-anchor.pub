@@ -7,13 +7,15 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { COACH_PARKING_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Pub With Coach Parking Near Heathrow | Group Bookings',
-    description: `${BRAND.name} welcomes coach groups of up to 20 near Heathrow. Large car park, group menus, and a free driver meal for groups over 15.`,
+    description: `${BRAND.name} welcomes coach groups of up to 20 near Heathrow. Group menus and a free driver meal for groups over 15.`,
     openGraph: {
         title: 'Coach Parties Welcome at The Anchor',
         description: 'Looking for a tour stop? We welcome coach groups of up to 20, offer group menus, and give the driver a free meal for groups over 15.',
@@ -48,7 +50,7 @@ export default function CoachParkingPage() {
                             The Perfect Stop for Tour Groups
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Need a pub near Heathrow for a coach group? A small coach fits in our car park. A full-size coach needs to park on the main road, where it&apos;s safe to. We have space for groups of up to 20 to sit together, and menus that can be planned around your schedule. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early. Our private dining room can fit up to 26 people. Larger groups of around 50 can be hosted across the pub, but they would be spread between areas rather than seated all together.
+                            Need a pub near Heathrow for a coach group? {COACH_PARKING_WORDING} We have space for groups of up to 20 to sit together, and menus that can be planned around your schedule. Parking depends on what&apos;s free when you arrive, so we recommend arriving early. Our private dining room seats {PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}. Larger groups of around 50 can be hosted across the pub, but they would be spread between areas rather than seated all together.
                         </p>
                     </div>
                 </Container>
@@ -83,7 +85,7 @@ export default function CoachParkingPage() {
                                 <Card accent>
                                     <CardBody className="p-5">
                                         <h3 className="text-lg font-semibold text-ink-strong">Coach Parking</h3>
-                                        <p className="mt-2 text-sm text-ink-muted">A small coach fits in our car park. A full-size coach needs to park on the main road, where it&apos;s safe to. Parking is dependent on availability, and we cannot reserve spaces. Please arrive early, especially at busy times.</p>
+                                        <p className="mt-2 text-sm text-ink-muted">{COACH_PARKING_WORDING} Parking depends on what&apos;s free when you arrive. Please arrive early, especially at busy times.</p>
                                     </CardBody>
                                 </Card>
                                 <Card accent>
@@ -134,11 +136,11 @@ export default function CoachParkingPage() {
                 faqs={[
                     {
                         question: "Do we need to book in advance?",
-                        answer: "For coaches, yes, absolutely. We need advance notice so we can prepare staff and tables for your group. A small coach fits in our car park. A full-size coach needs to park on the main road, where it's safe to. Parking is dependent on availability, and we cannot reserve spaces, so we recommend arriving early."
+                        answer: `For coaches, yes, absolutely. We need advance notice so we can prepare staff and tables for your group. ${COACH_PARKING_WORDING} Parking depends on what's free when you arrive, so we recommend arriving early.`
                     },
                     {
                         question: "Is there a maximum group size?",
-                        answer: "Coach groups of up to 20 can sit together. Our private dining room can fit up to 26 people. Groups of around 50 can be hosted, but they would be spread across the pub rather than seated all together."
+                        answer: `Coach groups of up to 20 can sit together. Our private dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}. Groups of around 50 can be hosted, but they would be spread across the pub rather than seated all together.`
                     },
                     {
                         question: "How do we pre-order?",

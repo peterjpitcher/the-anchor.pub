@@ -82,13 +82,20 @@ export function formatDateForDisplay(isoDate: string): string {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate
   const [year, month, day] = isoDate.split('-').map((part) => Number.parseInt(part, 10))
   const date = new Date(Date.UTC(year, month - 1, day))
-  return date.toLocaleDateString('en-US', {
+  // British order, "Sunday 25 October 2026". It was 'en-US', which printed
+  // "Sunday, October 25, 2026" in a British pub's booking summary. Built from
+  // parts because the comma the en-GB long format puts after the weekday varies
+  // between browsers.
+  const parts = new Intl.DateTimeFormat('en-GB', {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
     year: 'numeric',
     timeZone: 'UTC'
-  })
+  }).formatToParts(date)
+  const part = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((entry) => entry.type === type)?.value ?? ''
+  return `${part('weekday')} ${part('day')} ${part('month')} ${part('year')}`
 }
 
 export function formatTimeForDisplay(time: string): string {

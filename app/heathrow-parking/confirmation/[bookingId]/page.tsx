@@ -5,7 +5,7 @@ import type { ParkingBookingDetails } from '@/lib/api/parking'
 import { Button, Card, CardBody, Container } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, BUS_WORDING } from '@/lib/constants'
 
 // params is typed as a Promise and awaited, the form Next.js 15 requires. The
 // project runs Next.js 14, where awaiting it is harmless.
@@ -88,8 +88,8 @@ export default async function ParkingConfirmationPage({ params }: Props) {
 
   const gettingHere = [
     { icon: 'mapPin' as const, text: 'Horton Road, Stanwell Moor, TW19 6AQ' },
-    { icon: 'car' as const, text: '7 minutes to Terminal 5 by taxi or rideshare' },
-    { icon: 'parking' as const, text: 'Bus 442 from outside, direct to T2, T3, T4 & T5' },
+    { icon: 'car' as const, text: `${HEATHROW_TIMES.terminal5} minutes to Terminal 5 by taxi or rideshare` },
+    { icon: 'parking' as const, text: BUS_WORDING },
     { icon: 'lock' as const, text: 'Keep your keys with you at all times' },
   ]
 

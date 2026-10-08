@@ -5,6 +5,7 @@ import { anchorAPI } from './api'
 import { buildOpeningHoursSchema, buildSpecialOpeningHoursSchema } from './opening-hours-schema'
 import { DEFAULT_REVIEW_STATS } from './google/review-utils'
 import { ACCESS_AMENITY_FEATURES } from './approved-wording'
+import { CONTACT, PRICE_RANGE } from './constants'
 
 const getBusinessStatsCached = unstable_cache(
   async () => {
@@ -61,8 +62,8 @@ const getEnhancedSchemasCached = unstable_cache(
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 51.462509,
-        "longitude": -0.502067
+        "latitude": CONTACT.coordinates.lat,
+        "longitude": CONTACT.coordinates.lng
       },
       "url": "https://www.the-anchor.pub",
       "telephone": "+441753682707",
@@ -73,7 +74,7 @@ const getEnhancedSchemasCached = unstable_cache(
         "https://www.tripadvisor.co.uk/Restaurant_Review-g477981-d9717898-Reviews-The_Anchor-Staines_Surrey_England.html",
         "https://ratings.food.gov.uk/business/1110171/the-anchor-stanwell-moor"
       ],
-      "priceRange": "££",
+      "priceRange": PRICE_RANGE,
       "servesCuisine": ["British", "Pizza", "Pub Food", "Sunday Roast"],
       ...(openingHours.length ? { "openingHoursSpecification": openingHours } : {}),
       "hasMenu": "https://www.the-anchor.pub/food-menu",

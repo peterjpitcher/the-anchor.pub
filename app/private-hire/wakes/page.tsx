@@ -1,4 +1,5 @@
-import { PRIVATE_HIRE_DEPOSIT_WORDING, PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
+import { PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { InteriorHero } from '@/components/hero'
@@ -13,7 +14,7 @@ import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CtaBand } from '@/components/CtaBand'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, WAKE_VENUE_DRIVE_MINUTES } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
@@ -25,6 +26,8 @@ import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING } from '@/lib/approved-wording'
 
 const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']
 
+const { diningRoom } = PRIVATE_HIRE_CAPACITY.spaces
+
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
     const wakePackages = foodPackages.filter((p) => WAKE_PACKAGE_NAMES.includes(p.name))
@@ -33,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return {
         title: 'Wake Venue Near Staines & Heathrow | Private Room',
-        description: `A private room for wakes and funeral teas near Staines and Heathrow. Seats 26, or 50 standing, ${buffetPhrase}, free parking.`,
+        description: `A private room for wakes and funeral teas near Staines and Heathrow. Seats ${diningRoom.seated}, or ${diningRoom.standing} standing, ${buffetPhrase}, free parking.`,
         openGraph: {
             title: 'Wake Venue Near Staines & Heathrow | The Anchor Stanwell Moor',
             description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. ${buffetPhrase}. Minutes from local crematoriums.`,
@@ -74,7 +77,7 @@ export default async function WakesPage() {
         "url": "https://www.the-anchor.pub/private-hire/wakes",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
         "description": "A peaceful, private venue for wakes, funeral receptions and celebrations of life near South West Middlesex Crematorium.",
-        "maximumAttendeeCapacity": 50,
+        "maximumAttendeeCapacity": diningRoom.standing,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
             ...ACCESS_AMENITY_FEATURES,
@@ -157,7 +160,7 @@ export default async function WakesPage() {
                                 {nearbyCrematoriums.map(l => (
                                     <li key={l.slug} className="flex items-center gap-2">
                                         <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-accent-text font-medium">
-                                            {l.name} ({l.distance})
+                                            {l.name}{l.distance ? ` (${l.distance})` : ''}
                                         </Link>
                                     </li>
                                 ))}
@@ -180,7 +183,7 @@ export default async function WakesPage() {
                     <Card accent className="mx-auto text-center">
                         <CardBody>
                             <h3 className="font-display text-h4 text-ink-strong mb-2">The Dining Room</h3>
-                            <p className="text-ink-muted">A private, enclosed space seating up to 26 guests, or up to 50 standing. Quiet and self-contained with direct access to facilities, and a private entrance area is available.</p>
+                            <p className="text-ink-muted">A private, enclosed space seating up to {diningRoom.seated} guests, or up to {diningRoom.standing} standing. Quiet and self-contained with direct access to facilities, and a private entrance area is available.</p>
                         </CardBody>
                     </Card>
                 </Container>
@@ -208,12 +211,12 @@ export default async function WakesPage() {
                     />
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         {[
-                            { title: "Private Dining Room", description: "Our self-contained private dining room seats up to 26 guests, or up to 50 standing. For larger gatherings the venue can be arranged to suit a wider group. The room is quiet, enclosed, and separate from the main bar area." },
+                            { title: "Private Dining Room", description: `Our self-contained private dining room seats up to ${diningRoom.seated} guests, or up to ${diningRoom.standing} standing. For larger gatherings the venue can be arranged to suit a wider group. The room is quiet, enclosed, and separate from the main bar area.` },
                             { title: "Getting In and Around", description: ACCESS_WORDING },
                             { title: "Flexible Timing", description: "We are available any day of the week, including at short notice for same-week bookings. We work around funeral service times. A start before 12pm or a finish after 10pm is by arrangement, so call us and tell us the times you have in mind." },
                             { title: "What It Costs", description: `Our packages cover the food, dedicated staff, setup, and cleardown. ${ROOM_HIRE_WORDING} ${PRIVATE_HIRE_DEPOSIT_WORDING}` },
                             { title: "Allergies and Dietary Needs", description: PRIVATE_HIRE_DIETARY_WORDING },
-                            { title: "Free Parking", description: "Our car park provides 20 free spaces with room for funeral cars and larger vehicles. There is also ample unrestricted street parking nearby. We are just ten minutes from South West Middlesex Crematorium and easily reached from the surrounding area." },
+                            { title: "Free Parking", description: `${PARKING_WORDING} We're ${WAKE_VENUE_DRIVE_MINUTES['south-west-middlesex-crematorium']} minutes' drive from South West Middlesex Crematorium.` },
                         ].map(feature => (
                             <Card key={feature.title} className="h-full">
                                 <CardBody className="flex h-full flex-col gap-2">
@@ -364,13 +367,13 @@ export default async function WakesPage() {
                     <div className="mx-auto">
                         <h2 className="font-display text-h2 text-ink-strong mb-4">Near Slough Crematorium</h2>
                         <p className="text-ink-muted mb-4">
-                            Slough Cemetery and Crematorium on Stoke Road is around 15 minutes&rsquo; drive from The Anchor. Many families use the A412 or B470 for a straightforward journey between the two, and our free car park means guests can arrive without worrying about parking charges after an already difficult day.
+                            Slough Cemetery and Crematorium on Stoke Road is around {WAKE_VENUE_DRIVE_MINUTES['slough-crematorium']} minutes&rsquo; drive from The Anchor. {PARKING_WORDING}
                         </p>
                         <p className="text-ink-muted mb-4">
-                            We can have the private dining room set and ready before you arrive from the service. Whether you need space for a small, intimate gathering or up to 50 guests, we will prepare the room accordingly. Our staff understand that timings after a cremation can be unpredictable, and we will always accommodate a slightly later start without fuss.
+                            We can have the private dining room set and ready before you arrive from the service. Whether you need space for a small, intimate gathering or up to {diningRoom.standing} standing, we will prepare the room accordingly. Our staff understand that timings after a cremation can be unpredictable, and we will always accommodate a slightly later start without fuss.
                         </p>
                         <p className="text-ink-muted">
-                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic, the approach from the north is straightforward and signposted. Call us on <PhoneLink phone={CONTACT.phone} source="wakes_slough" className="text-accent-text hover:underline" showIcon={false} /> to discuss arrangements, and we will take care of the rest.
+                            Call us on <PhoneLink phone={CONTACT.phone} source="wakes_slough" className="text-accent-text hover:underline" showIcon={false} /> to discuss arrangements, and we will take care of the rest.
                         </p>
                     </div>
                 </Container>
@@ -381,10 +384,10 @@ export default async function WakesPage() {
                     <div className="mx-auto">
                         <h2 className="font-display text-h2 text-ink-strong mb-4">Near Staines Cemetery</h2>
                         <p className="text-ink-muted mb-4">
-                            Staines Cemetery on London Road is approximately 8 minutes from The Anchor, making it one of the most convenient wake venues for families gathering after a burial or committal service in Staines-upon-Thames. The route along the B378 is direct and avoids the busiest parts of the town centre.
+                            Staines Cemetery on London Road is {WAKE_VENUE_DRIVE_MINUTES['staines-cemetery']} minutes&rsquo; drive from The Anchor, which makes us a convenient wake venue for families gathering after a burial or committal service in Staines-upon-Thames.
                         </p>
                         <p className="text-ink-muted mb-4">
-                            Families travelling from Staines will find our location in Stanwell Moor easy to reach by car or taxi. For guests using public transport, there are bus services connecting Staines town centre to Stanwell Moor. Our 20-space car park is free for all guests, and there is additional unrestricted street parking nearby for larger gatherings.
+                            Families travelling from Staines will find our location in Stanwell Moor easy to reach by car or taxi. {PARKING_WORDING}
                         </p>
                         <p className="text-ink-muted">
                             We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <PhoneLink phone={CONTACT.phone} source="wakes_staines" className="text-accent-text hover:underline" showIcon={false} />, there is always someone here to help.
@@ -419,16 +422,12 @@ export default async function WakesPage() {
                         answer: "Absolutely. Many families bring order of service cards, photos, and flower arrangements. We'll set up a display table and ensure everything is arranged respectfully before your guests arrive."
                     },
                     {
-                        question: "Is there parking for funeral cars?",
-                        answer: "Yes, we have 20 free parking spaces including space for funeral cars and larger vehicles. We're around 10 minutes from South West Middlesex Crematorium."
-                    },
-                    {
                         question: "Do you cater for large groups?",
-                        answer: "Our private dining room seats up to 26, or holds up to 50 standing. For larger gatherings we can arrange more space across the venue, and we will tailor the setup to your group."
+                        answer: `Our private dining room seats up to ${diningRoom.seated}, or holds up to ${diningRoom.standing} standing. For larger gatherings we can arrange more space across the venue, and we will tailor the setup to your group.`
                     },
                     {
                         question: "Is there parking for guests?",
-                        answer: "Yes, we have a large, free car park with 20 spaces. There is also ample street parking nearby with no restrictions."
+                        answer: `${PARKING_WORDING} We're ${WAKE_VENUE_DRIVE_MINUTES['south-west-middlesex-crematorium']} minutes' drive from South West Middlesex Crematorium.`
                     },
                     {
                         question: "Can we play our own music?",

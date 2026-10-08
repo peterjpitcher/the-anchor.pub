@@ -6,7 +6,7 @@ import { AmenityStrip } from '@/components/AmenityStrip'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, HEATHROW_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 import { PhoneButton } from '@/components/PhoneButton'
@@ -14,7 +14,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Dining Near Heathrow T5 | Pre-Flight Meals',
-    description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Draught Beer - we're just 7 mins from T5.`,
+    description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Draught Beer - we're just ${HEATHROW_TIMES.terminal5} mins from T5.`,
     openGraph: {
         title: 'The Last Proper Meal Before You Fly',
         description: 'Don\'t settle for an expensive airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
@@ -39,7 +39,7 @@ export default function PreFlightDiningPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Pre-Flight Meal"
         title="Your Last Proper Meal Before Flying"
-        lead="Authentic British food. Draught Beer. 5 Minutes from Terminal 5."
+        lead={`Authentic British food. Draught Beer. ${HEATHROW_TIMES.terminal5} Minutes from Terminal 5.`}
       />
 
             <AmenityStrip/>
@@ -94,9 +94,9 @@ export default function PreFlightDiningPage() {
                                 <CardBody className="p-4">
                                     <p className="font-semibold text-ink-strong">Estimated Taxi Times:</p>
                                     <ul className="mt-2 space-y-1 text-sm text-ink-muted">
-                                        <li>Terminal 5: 5-7 mins</li>
-                                        <li>Terminal 4: 10-12 mins</li>
-                                        <li>Terminal 2 & 3: 10-12 mins</li>
+                                        <li>Terminal 5: {HEATHROW_TIMES.terminal5} mins</li>
+                                        <li>Terminal 4: {HEATHROW_TIMES.terminal4} mins</li>
+                                        <li>Terminal 2 & 3: {HEATHROW_TIMES.terminal2} mins</li>
                                     </ul>
                                 </CardBody>
                             </Card>

@@ -27,6 +27,7 @@
     "audit:menu-pages": "node scripts/audit-menu-pages.js",
     "test": "TZ=Europe/London jest",
     "test:utc": "TZ=UTC jest",
+    "test:zones": "TZ=Australia/Sydney jest --testPathPattern \"(StatusBar|WeekHours|BusinessHours|event-countdown|event-over|parking-wizard|time-london|booking-date-and-hours-note|hours-versions|kitchen-schedule)\" && TZ=America/Los_Angeles jest --testPathPattern \"(StatusBar|WeekHours|BusinessHours|event-countdown|event-over|parking-wizard|time-london|booking-date-and-hours-note|hours-versions|kitchen-schedule)\"",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "optimize:images": "node scripts/optimize-images.js"

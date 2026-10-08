@@ -1,22 +1,20 @@
-// ParkingFacility Schema for The Anchor
+import { PARKING_WORDING } from '../approved-wording'
+import { CONTACT, PARKING, POSTAL_ADDRESS_SCHEMA } from '../constants'
+
+// ParkingFacility Schema for The Anchor. This is the free parking for guests
+// while they are with us: the paid airport parking is a separate product
+// (docs/SSOT.md section 8), so nothing here compares the two.
 export const parkingFacilitySchema = {
   "@context": "https://schema.org",
   "@type": "ParkingFacility",
   "@id": "https://www.the-anchor.pub/#parking",
   "name": "The Anchor Free Customer Parking",
-  "description": "Free on-site parking for all guests at The Anchor pub. No time limits, no charges - a huge advantage over expensive airport parking.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Horton Road",
-    "addressLocality": "Stanwell Moor",
-    "addressRegion": "Surrey",
-    "postalCode": "TW19 6AQ",
-    "addressCountry": "GB"
-  },
+  "description": PARKING_WORDING,
+  "address": POSTAL_ADDRESS_SCHEMA,
   "priceCurrency": "GBP",
   "price": "0",
   "freeOfCharge": true,
-  "numberOfParkingSpaces": "30",
+  "numberOfParkingSpaces": String(PARKING.capacity),
   "amenityFeature": [
     {
       "@type": "LocationFeatureSpecification",
@@ -37,7 +35,7 @@ export const parkingFacilitySchema = {
   "owner": {
     "@type": "Restaurant",
     "name": "The Anchor",
-    "telephone": "+441753682707"
+    "telephone": CONTACT.phoneIntl
   }
 }
 

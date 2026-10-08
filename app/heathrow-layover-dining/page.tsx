@@ -1,4 +1,4 @@
-import { ONE_KITCHEN_WORDING } from '@/lib/approved-wording'
+import { ONE_KITCHEN_WORDING, PARKING_WORDING, TAXI_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { InteriorHero } from '@/components/hero'
@@ -12,13 +12,14 @@ import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
+import { HEATHROW_TIMES, BUS_WORDING } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Heathrow Layover Dining (Near T5) | Eat in 90 Minutes',
   description: 'Make the most of a Heathrow layover with The Anchor’s fast pub dining, free parking, and book-ahead tips. Perfect for 2–3 hour stopovers near Terminal 5.',
   openGraph: {
     title: 'Heathrow Layover Dining in 90 Minutes (Near T5) | The Anchor',
-    description: 'Swap airport queues for proper pub food 7 minutes from Heathrow. Booking tips, itineraries, and travel times for stress-free layovers.',
+    description: `Swap airport queues for proper pub food ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Booking tips, itineraries, and travel times for stress-free layovers.`,
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   alternates: {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: 'Heathrow Layover Dining in 90 Minutes | The Anchor Stanwell Moor',
-    description: 'Free parking, fast service, and hearty pub food 7 minutes from T5. Book a table for your Heathrow layover.',
+    description: `Free parking, fast service, and hearty pub food ${HEATHROW_TIMES.terminal5} minutes from T5. Book a table for your Heathrow layover.`,
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   })
 }
@@ -34,15 +35,15 @@ export const metadata: Metadata = {
 const faqItems = [
   {
     question: 'How long do I need for a layover meal at The Anchor?',
-    answer: 'Allow 90 minutes door-to-door from Terminal 5 (longer if using Terminals 2–4). That gives you 15 minutes travel each way and 60 minutes to dine. Let us know your timing on booking so the kitchen can pace your service.'
+    answer: 'Allow 90 minutes door-to-door from Terminal 5 (longer if using Terminals 2–4). That covers the trip each way and about an hour to dine. Let us know your timing on booking so the kitchen can pace your service.'
   },
   {
     question: 'Can I leave the airport for food at Heathrow Terminal 5?',
-    answer: 'Yes. If you are searching for food at Terminal 5 Heathrow, we are 7 minutes away by taxi. Pre-book to keep the layover tight and we will time your meal around boarding.'
+    answer: `Yes. If you are searching for food at Terminal 5 Heathrow, we are ${HEATHROW_TIMES.terminal5} minutes away by taxi. Pre-book to keep the layover tight and we will time your meal around boarding.`
   },
   {
     question: 'Is there an alternative to food in Terminal 3 Heathrow?',
-    answer: 'The Anchor is around 11 minutes from Terminal 3. We offer a calmer setting, quick service, and easy taxi transfers back to departures.'
+    answer: `The Anchor is around ${HEATHROW_TIMES.terminal3} minutes from Terminal 3. We offer a calmer setting, quick service, and easy taxi transfers back to departures.`
   },
   {
     question: 'Can I store luggage while I dine?',
@@ -50,7 +51,7 @@ const faqItems = [
   },
   {
     question: 'Is there free parking for layover guests?',
-    answer: 'Yes. Parking is free for as long as you are using the pub, with nothing to register and no time limit. If you want to leave the car for longer and fly out, that is our separate paid airport parking, so just ask the team and we will sort it.'
+    answer: `Yes. ${PARKING_WORDING} If you want to leave the car for longer and fly out, that is our separate paid airport parking, so just ask the team and we will sort it.`
   },
   {
     question: 'Do you cater for dietary requirements and quick service?',
@@ -58,7 +59,7 @@ const faqItems = [
   },
   {
     question: 'How do I reach The Anchor from Heathrow terminals?',
-    answer: 'Taxi or rideshare is the fastest: 7 minutes from T5, 11 minutes from T2/3, and 12 minutes from T4. You can also take the 442 bus towards Staines and hop off in Stanwell Moor, then walk three minutes to the pub.'
+    answer: `Taxi or rideshare is the fastest: ${HEATHROW_TIMES.terminal5} minutes from T5, ${HEATHROW_TIMES.terminal2} minutes from T2/3, and ${HEATHROW_TIMES.terminal4} minutes from T4. ${BUS_WORDING}`
   }
 ]
 
@@ -71,7 +72,7 @@ export default function HeathrowLayoverDiningPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Near Heathrow"
         title="Heathrow Layover Dining in 90 Minutes"
-        lead="Swap airport queues for proper British pub food with free parking just 7 minutes from Terminal 5."
+        lead={`Swap airport queues for proper British pub food with free parking just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`}
       />
 
       <AmenityStrip/>
@@ -106,9 +107,9 @@ export default function HeathrowLayoverDiningPage() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[
-              { title: 'Food at Terminal 5 Heathrow - a calmer option', body: 'We are 7 minutes from Terminal 5 with quick table service and pre-booked meals. Skip terminal queues and enjoy proper dining before you return to security.' },
-              { title: 'Food in Terminal 3 Heathrow - leave the airport', body: 'Terminal 3 guests reach us in around 11 minutes. Let us know your flight time and we will pace your meal for a smooth return to departures.' },
-              { title: 'Terminal 2 & 4 layovers', body: 'Allow 12-14 minutes from Terminals 2 and 4. Ask at the bar for a taxi number, and book your own ride back in good time for boarding.' },
+              { title: 'Food at Terminal 5 Heathrow - a calmer option', body: `We are ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 with quick table service and pre-booked meals. Skip terminal queues and enjoy proper dining before you return to security.` },
+              { title: 'Food in Terminal 3 Heathrow - leave the airport', body: `Terminal 3 guests reach us in around ${HEATHROW_TIMES.terminal3} minutes. Let us know your flight time and we will pace your meal for a smooth return to departures.` },
+              { title: 'Terminal 2 & 4 layovers', body: `Allow ${HEATHROW_TIMES.terminal2} minutes from Terminal 2 and ${HEATHROW_TIMES.terminal4} minutes from Terminal 4. Ask at the bar for a taxi number, and book your own ride back in good time for boarding.` },
               { title: 'Book ahead for express service', body: 'Share your terminal and boarding time when you book. We will have a table ready and time mains to land within minutes of your arrival.' }
             ].map(box => (
               <Card key={box.title} accent>
@@ -133,7 +134,7 @@ export default function HeathrowLayoverDiningPage() {
             {[
               { title: 'In & Out in 90 Minutes', description: 'Let us know your flight time when you book and we’ll pace courses so you can dine without clock-watching.' },
               { title: 'The Full Menu', description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.' },
-              { title: 'Free Parking & Easy Transfers', description: 'Park free for as long as you are with us, no registering and no time limit. Need a cab back? Ask at the bar and we’ll give you a taxi number. You’ll need to make your own arrangements.' },
+              { title: 'Free Parking & Easy Transfers', description: `${PARKING_WORDING} Need a cab back? ${TAXI_WORDING}` },
               { title: 'Luggage-Friendly Seating', description: 'Plenty of space at tables for hand luggage and suitcases, we’ll help you keep everything nearby and secure.' },
               { title: 'Work-Friendly Amenities', description: 'Free WiFi, plug sockets, and quiet corners when you need to catch up on email or plan the onward journey.' },
               { title: 'Perfect for Crew & Families', description: 'Airline staff, business travellers, and families rate us for group menus, kids’ portions, and celebratory welcome-back drinks.' }
@@ -160,7 +161,7 @@ export default function HeathrowLayoverDiningPage() {
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-3">90-Minute Express</h3>
                 <ul className="space-y-2 text-ink-muted">
-                  <li>Taxi from Terminal 5 – 7 minutes</li>
+                  <li>Taxi from Terminal 5 – {HEATHROW_TIMES.terminal5} minutes</li>
                   <li>Let the team know your timing so mains land within minutes of sitting down</li>
                   <li>Coffee &amp; dessert to-go for airport return</li>
                   <li>Book your own taxi back for 30 minutes before the boarding gate closes</li>
@@ -173,7 +174,6 @@ export default function HeathrowLayoverDiningPage() {
                 <ul className="space-y-2 text-ink-muted">
                   <li>Welcome drinks and sharers on arrival</li>
                   <li>Main course + dessert paced over 90 minutes</li>
-                  <li>Short walk on Stanwell Moor village green</li>
                   <li>Use free WiFi to check-in before departure</li>
                 </ul>
               </CardBody>
@@ -184,7 +184,6 @@ export default function HeathrowLayoverDiningPage() {
                 <ul className="space-y-2 text-ink-muted">
                   <li>Dinner at The Anchor followed by nightcap in the bar</li>
                   <li>Ask for nearby hotel recommendations that suit your schedule</li>
-                  <li>Overnight parking arrangements available</li>
                   <li>Meal recommendations before you fly</li>
                 </ul>
               </CardBody>
@@ -196,36 +195,32 @@ export default function HeathrowLayoverDiningPage() {
       <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading
-            title="Travel Times & Costs"
-            lead="Budget your layover with realistic timings and typical fares."
+            title="Travel Times"
+            lead="Plan your layover with taxi times from each terminal."
           />
-          <div className="overflow-x-auto rounded-md border border-line bg-surface shadow-sm" role="region" tabIndex={0} aria-label="Table: Travel times and costs">
+          <div className="overflow-x-auto rounded-md border border-line bg-surface shadow-sm" role="region" tabIndex={0} aria-label="Table: Travel times">
             <table className="min-w-full divide-y divide-line">
               <thead className="bg-anchor-green text-white">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Terminal</th>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Taxi / Uber</th>
-                  <th scope="col" className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Public Transport</th>
                   <th scope="col" className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Best For</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-line text-sm text-ink-muted">
                 <tr>
                   <th scope="row" className="px-6 py-4 text-left font-semibold text-ink-strong">Terminal 5</th>
-                  <td className="px-6 py-4">7 minutes</td>
-                  <td className="px-6 py-4">Bus 442 • 20 minutes + 3 minute walk</td>
+                  <td className="px-6 py-4">{HEATHROW_TIMES.terminal5} minutes</td>
                   <td className="px-6 py-4">Fast crew dinners & short layovers</td>
                 </tr>
                 <tr>
                   <th scope="row" className="px-6 py-4 text-left font-semibold text-ink-strong">Terminals 2 & 3</th>
-                  <td className="px-6 py-4">11 minutes</td>
-                  <td className="px-6 py-4">Elizabeth Line + bus transfer • 30 minutes</td>
+                  <td className="px-6 py-4">{HEATHROW_TIMES.terminal2} minutes</td>
                   <td className="px-6 py-4">Families meeting arrivals</td>
                 </tr>
                 <tr>
                   <th scope="row" className="px-6 py-4 text-left font-semibold text-ink-strong">Terminal 4</th>
-                  <td className="px-6 py-4">14 minutes</td>
-                  <td className="px-6 py-4">Shuttle to T5 + bus • 35 minutes</td>
+                  <td className="px-6 py-4">{HEATHROW_TIMES.terminal4} minutes</td>
                   <td className="px-6 py-4">Overnight guests staying nearby</td>
                 </tr>
               </tbody>
@@ -244,7 +239,6 @@ export default function HeathrowLayoverDiningPage() {
             {[
               { title: 'Plane-Spotting Patio', body: 'Watch final approaches with a pint in hand. Great for aviation fans and families.' },
               { title: 'Charging & WiFi', body: 'Power up devices and download shows before you board. Ask staff for quiet seating.' },
-              { title: 'Local Walks', body: 'Take a 15-minute stroll along the River Colne or Stanwell Moor village green between courses.' },
               { title: 'Group-Friendly Menus', body: 'Pre-set menus available for crew briefings or incentive trips. Email manager@the-anchor.pub for options.' },
               { title: 'Takeaway Ready', body: 'Our menu travels well. Take leftovers with you, or order takeaway pizzas for the onward journey.' }
             ].map(box => (
@@ -267,7 +261,7 @@ export default function HeathrowLayoverDiningPage() {
 
       <CtaBand
         title="Ready to Book Your Layover Meal?"
-        copy="Tell us your flight number, party size, and arrival time. We’ll confirm the best itinerary and reserve parking, and give you a taxi number so you can book your own ride back to Heathrow."
+        copy={`Tell us your flight number, party size, and arrival time, and we’ll confirm the best itinerary. ${TAXI_WORDING}`}
       >
         <BookTableButton
           source="layover_footer"

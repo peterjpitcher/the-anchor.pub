@@ -23,6 +23,7 @@ import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 import { getRelatedPosts } from '@/lib/blog/related-posts'
 import { blogAuthorSchema, blogDateModified } from '@/lib/blog/post-schema'
 import { getPostDateLine } from '@/lib/blog/post-dates'
+import { HEATHROW_TIMES, PARKING } from '@/lib/constants'
 
 export const revalidate = 3600
 
@@ -491,7 +492,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <div className="flex-1">
                 <h2 className="font-display text-h4 text-ink-strong mb-2">
-                  Visiting Heathrow? The Anchor is 7 minutes from Terminal 5
+                  Visiting Heathrow? The Anchor is {HEATHROW_TIMES.terminal5} minutes from Terminal 5
                 </h2>
                 <p className="text-ink-muted">
                   Book a table for lunch in our beer garden: food, cold drinks and a base for a day of spotting.
@@ -604,7 +605,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               Come and see for yourself
             </h2>
             <p className="text-xl mb-8 mx-auto text-anchor-cream-text/85">
-              You&apos;ll find us on Horton Road in Stanwell Moor, with 20 free parking spaces right outside.
+              You&apos;ll find us on Horton Road in Stanwell Moor, with {PARKING.capacity} free parking spaces right outside.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {closingCta === 'table' && (

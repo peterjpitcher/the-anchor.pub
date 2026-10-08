@@ -12,6 +12,7 @@ import type { MenuData, MenuItem } from '@/lib/menu-parser'
 import { sortFoodMenuSections } from '@/lib/food-menu-section-order'
 import ssot from '@/SSOT.json'
 import { ALLERGEN_UNKNOWN_WORDING } from '@/lib/approved-wording'
+import { nowInLondonComponents } from '@/lib/time-london'
 
 type SsotData = {
   food?: {
@@ -27,7 +28,7 @@ type SsotData = {
 
 const SSOT = ssot as SsotData
 
-const CURRENT_YEAR = new Date().getFullYear()
+const CURRENT_YEAR = nowInLondonComponents().year
 const MENU_UNAVAILABLE_MESSAGE = 'Menu temporarily unavailable. Please call us on 01753 682707.'
 const GLUTEN_FREE_FISH_AND_CHIPS_NOTICE =
   SSOT.food?.copy_corrections?.gluten_free_fish_and_chips

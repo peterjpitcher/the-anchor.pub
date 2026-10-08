@@ -7,7 +7,7 @@ import { Metadata } from 'next'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, PARKING, HEATHROW_TIMES } from '@/lib/constants'
 import { ACCESS_SHORT_WORDING, ACCESS_WORDING } from '@/lib/approved-wording'
 import { pageOpenGraph } from '@/lib/page-open-graph'
 
@@ -108,7 +108,7 @@ export default function AccessibilityPage() {
                 <ul className="space-y-3 text-ink-muted">
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
-                    <span>20 free parking spaces on site, level surface</span>
+                    <span>{PARKING.capacity} free parking spaces on site, level surface</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
@@ -120,7 +120,7 @@ export default function AccessibilityPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
-                    <span>7 minutes from Heathrow Terminal 5 / 11 minutes from Terminals 2 &amp; 3</span>
+                    <span>{HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 / {HEATHROW_TIMES.terminal2} minutes from Terminals 2 &amp; 3</span>
                   </li>
                 </ul>
                 </CardBody>
@@ -167,7 +167,7 @@ export default function AccessibilityPage() {
           },
           {
             question: 'Where should I park?',
-            answer: 'We have 20 free parking spaces on site. The surface is level and the entrance is close by.'
+            answer: `We have ${PARKING.capacity} free parking spaces on site. The surface is level and the entrance is close by.`
           },
           {
             question: 'Can I bring a wheelchair or mobility aid?',
@@ -183,7 +183,7 @@ export default function AccessibilityPage() {
       {/* Internal Links / CTA */}
       <CtaBand
         title="Plan Your Visit"
-        copy={`We're 7 minutes from Heathrow with free parking and a warm welcome waiting for you. ${ACCESS_SHORT_WORDING}`}
+        copy={`We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking and a warm welcome waiting for you. ${ACCESS_SHORT_WORDING}`}
       >
         <BookTableButton source="accessibility_cta" size="lg" variant="primary" />
         <Button asChild size="lg" variant="outline">

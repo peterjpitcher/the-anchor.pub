@@ -1,4 +1,6 @@
 import { cn } from '@/lib/utils'
+import { PARKING, HEATHROW_TIMES } from '@/lib/constants'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 type TrustBarVariant = 'food' | 'events' | 'private-hire'
 
@@ -10,8 +12,8 @@ interface TrustBarProps {
 const SIGNALS: Record<TrustBarVariant, Array<{ icon: string; text: string }>> = {
   food: [
     { icon: '', text: 'BII Sustainability Champion' },
-    { icon: '', text: 'Free parking for 20 cars' },
-    { icon: '', text: '7 min from Heathrow T5' },
+    { icon: '', text: `Free parking for ${PARKING.capacity} cars` },
+    { icon: '', text: `${HEATHROW_TIMES.terminal5} min from Heathrow T5` },
   ],
   events: [
     { icon: '', text: 'Hosted by Nikki Manfadge' },
@@ -19,7 +21,7 @@ const SIGNALS: Record<TrustBarVariant, Array<{ icon: string; text: string }>> = 
     { icon: '', text: 'Bar open all night' },
   ],
   'private-hire': [
-    { icon: '', text: 'Space for 10+ to 150 guests' },
+    { icon: '', text: `Space for ${PRIVATE_HIRE_CAPACITY.recommendedRange}` },
     { icon: '', text: 'BII Sustainability Champion' },
     { icon: '', text: 'Free parking for all guests' },
   ],

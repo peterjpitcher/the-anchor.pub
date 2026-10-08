@@ -1,4 +1,5 @@
 import type { GameNightConfig } from './types'
+import { PARKING } from '@/lib/constants'
 
 /**
  * Music bingo. Facts from docs/SSOT.md §10: dates vary, arrive from 6:30pm, start
@@ -60,7 +61,7 @@ export const musicBingo: GameNightConfig = {
     { label: 'Host', value: 'Nikki Manfadge' },
     // "Free, right outside" read as a guarantee on a night that fills up. There
     // are 20 spaces (docs/SSOT.md §8), so say so.
-    { label: 'Parking', value: 'Free, 20 spaces' }
+    { label: 'Parking', value: `Free, ${PARKING.capacity} spaces` }
   ],
 
   bookingCtaPrefix: 'Book your places for',
