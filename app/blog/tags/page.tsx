@@ -10,7 +10,7 @@ import tagRedirects from '@/config/redirects/tag-redirects.json'
 
 export const metadata: Metadata = {
   title: 'All Blog Topics',
-  description: 'Browse all blog topics from The Anchor near Heathrow. Find posts about pub food, Sunday roasts, beer garden events, quiz nights and local community stories.',
+  description: 'Browse all blog topics from The Anchor near Heathrow. Find posts about pub food, Sunday roasts, the beer garden, quiz nights and village news.',
   openGraph: {
     title: 'All Blog Topics - The Anchor',
     description: 'Explore all blog categories and topics',
@@ -95,7 +95,7 @@ export default async function AllTagsPage() {
             Stay Updated
           </h2>
           <p className="text-xl mb-8 mx-auto text-anchor-cream-text/85">
-            Don&apos;t miss our latest stories, events, and special offers
+            Don&apos;t miss our latest stories and events
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="primary" size="lg">

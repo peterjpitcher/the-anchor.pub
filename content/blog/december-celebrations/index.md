@@ -1,13 +1,12 @@
 ---
-title: Christmas Community Pub Near Heathrow | December Events Stanwell Moor
+title: December 2024 at The Anchor | A Look Back
 slug: december-celebrations
 description: >-
-  Experience festive magic at The Anchor pub near Heathrow Airport. Our December
-  celebrations feature Christmas Eve parties, themed events, and community
-  gatherings just 7 minutes from Terminal 5. The perfect Christmas pub for
-  airport staff, locals, and travelers. Traditional festive food, warm
-  atmosphere, and unforgettable celebrations in Stanwell Moor.
+  A look back at December 2024 at The Anchor in Stanwell Moor: our Christmas
+  quiz, a Winter Warmers tasting night and a gameshow party, with photos from
+  the month.
 date: '2025-01-15'
+hideDate: true
 oldUrl: >-
   https://www.the-anchor.pub/post/december-at-the-anchor-celebrating-community-chris
 author: Billy
@@ -35,17 +34,17 @@ images: []
 noindex: true
 ---
 
-December was nothing short of magical at The Anchor, your **community pub near Heathrow Airport**. As Christmas approached, we became the backdrop to countless moments of joy, connection, and celebration in **Stanwell Moor**. Whether it was the packed house on Christmas Eve and Christmas Day or the laughter-filled evenings at our themed events, December reminded us why we love being your **Christmas pub near Heathrow Terminal 5**.
+December 2024 was nothing short of magical at The Anchor, your **community pub near Heathrow Airport**. As Christmas approached, we became the backdrop to countless moments of joy, connection, and celebration in **Stanwell Moor**. Whether it was the packed house on Christmas Eve and Christmas Day or the laughter-filled evenings at our themed events, December reminded us why we love being your **Christmas pub near Heathrow Terminal 5**.
 
   
 
-We've always prided ourselves on being more than just a pub, we're a cornerstone of the **Stanwell Moor** and **Staines** community, welcoming airport staff, travelers, and locals alike. Just **7 minutes from Heathrow**, The Anchor has become the go-to **festive venue near the airport** for memorable Christmas celebrations.
+We've always prided ourselves on being more than just a pub, we're a cornerstone of the **Stanwell Moor** and **Staines** community, welcoming airport staff, travelers, and locals alike.
 
   
 
-## A Traditional Christmas Experience Near Heathrow Airport
+## Christmas 2024 at The Anchor
 
-Christmas is always a highlight at our **festive pub near Heathrow**, where tradition meets warm hospitality. Every Christmas Eve and Christmas Day, The Anchor transforms into the heart of **Stanwell Moor's** celebrations, with every seat filled by families, airport workers enjoying time off, and travelers seeking authentic British Christmas cheer.
+Christmas was a highlight of the month. On Christmas Eve and Christmas Day 2024 the pub was full of families, airport workers enjoying time off, and travellers.
 
   
 
@@ -283,7 +282,7 @@ We closed out our festive events with a bang at the Gameshow House Party: Sleigh
 
   
 
-From Speedy Bingo to the hilarious Sleigh That Tune game, the evening was packed with excitement. Watching everyone try to guess festive tunes from some hilariously vague clues was a real highlight. Nikki’s cheeky humour and fabulous outfits kept the energy high, and her Drag Bingo segment was a huge hit.
+From Speedy Bingo to the hilarious Sleigh That Tune game, the evening was packed with excitement. Watching everyone try to guess festive tunes from some hilariously vague clues was a real highlight. Nikki’s humour and fabulous outfits kept the energy high, and her Drag Bingo segment was a huge hit.
 
   
 
@@ -301,16 +300,6 @@ Our seasonal drinks menu was just as popular, with mulled wine and cider flying 
 
   
 
-## **Looking Ahead to 2025**
-
-As we say goodbye to an amazing December, we’re already looking ahead to what promises to be an exciting year. We’re hard at work planning a calendar full of new promotions, events, and deals for 2025. While we can’t reveal everything just yet, we’re confident that next year will be our biggest and best yet.
-
-  
-
-Stay tuned for updates at the end of January, and get ready for more unforgettable experiences at The Anchor. We can’t wait to share what’s coming next and to continue making memories with all of you.
-
-  
-
 December was a month to remember for us at The Anchor. From the laughter of our Christmas quiz night to the glamour of our Gameshow House Party and the warmth of our Winter Warmers Tasting Night, we were reminded of the joy that comes from bringing people together.
 
   
@@ -319,10 +308,14 @@ Thank you for making The Anchor your **Christmas pub of choice near Heathrow Air
 
   
 
+## Over Christmas and New Year 2026
+
+On Christmas Day we're open for drinks only, 12pm to 3pm, with no food. We're closed on Boxing Day and on New Year's Day. Our kitchen's last day of the year is Sunday 20 December, and it's back on Tuesday 12 January. The bar stays open throughout, apart from those two days.
+
+For Christmas meals this year, see [Christmas at The Anchor](/christmas-parties). For what's on, see [What's On](/whats-on).
+
 ## Visit The Anchor - Your Community Pub Near Heathrow
 
 **Location**: Horton Road, Stanwell Moor (**7 minutes from Heathrow Terminal 5**)
 **Call**: 01753 682707
-**Features**: Free parking • Dog-friendly • Traditional pub food • Festive events
-
-**The Anchor** - where every visit feels like coming home. Your **community pub near Heathrow Airport**, bringing festive cheer to **Stanwell Moor** all year round!
+**Features**: Free parking • Dog-friendly • Traditional pub food

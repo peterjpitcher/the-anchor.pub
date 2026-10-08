@@ -1,5 +1,5 @@
 import { MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
-import { OccasionMenuNotice } from '@/components/seasonal/OccasionMenuNotice'
+import { OccasionMenuNotice, occasionMenuLine } from '@/components/seasonal/OccasionMenuNotice'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,75 +7,38 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDetails'
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
-import {
-  DEFAULT_DRINKS_IMAGE,
-  DEFAULT_EVENT_IMAGE,
-  DEFAULT_FOOD_IMAGE,
-  DEFAULT_PAGE_HEADER_IMAGE,
-  DEFAULT_SUNDAY_LUNCH_IMAGE
-} from '@/lib/image-fallbacks'
+import { DEFAULT_EVENT_IMAGE, DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
-// A11 dynamic fields. Mother's Day is an evergreen Sunday-roast page; the body
-// reads completely with nothing set. Use this only to surface an owner-confirmed
-// extra for a given year (a special menu, a one-off offer). Empty by default.
-// Never invent a "Mum gets..." offer, free fizz, gift or set menu, the brief
-// rules those out unless confirmed.
+// A11 dynamic fields. Use this only to surface an owner-confirmed detail for a
+// given year (the menu, a one-off offer). Empty by default. Never invent a
+// "Mum gets..." offer, free fizz, gift or set menu, the brief rules those out
+// unless confirmed.
 const MOTHERS_DAY_DYNAMIC: SeasonalDynamicFields = {}
 
-// Mother's Day 2026 (15 March) is past at time of authoring. The page persists
-// for rolling SEO and Mother's Day 2027 (Sunday 7 March 2027). Copy describes
-// the post-launch walk-in model unconditionally, no date-aware switch needed
-// because no claim references a date before 17 May 2026. Keyword cluster
-// layered (per spec §8.6 + keyword plan): mothers day lunch near me,
-// mothers day sunday roast near me, mothers day sunday roast, mothers day pub
-// lunch, mothers day sunday roast.
+// Mother's Day is a special day, not a normal Sunday: the menu, and how the
+// day works, are confirmed nearer the time (docs/SSOT.md sections 4 and 10,
+// owner ruling 7 and 8 October 2026). So the page names no dish, no serving
+// times and no walk-in promise. It gives the date, the booking button and the
+// "confirmed nearer the time" line.
 const MOTHERS_DAY_DATE = MOTHERS_DAY_SERVICE_DATE // one source: lib/mothers-day-booking.ts
-const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
-const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
-const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm to 6pm'
-const MOTHERS_DAY_LAST_BOOKING_LABEL = '5:30pm'
+// Midday UTC, only so the date formats as the same calendar day in London.
+const MOTHERS_DAY_MIDDAY_ISO = `${MOTHERS_DAY_DATE}T12:00:00Z`
 
 const MOTHERS_DAY_BOOKING_URL = '/book-table'
 const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Lunch'
 
-const MOTHERS_DAY_PHOTOS = [
-  {
-    src: DEFAULT_SUNDAY_LUNCH_IMAGE,
-    alt: "Sunday roast at The Anchor near Staines",
-    caption: 'Roasts cooked fresh to order'
-  },
-  {
-    src: '/images/food/sunday-roast/sunday-roast-the-anchor.jpeg',
-    alt: "Cooked-from-scratch food at The Anchor near Staines",
-    caption: 'Cooked-from-scratch favourites'
-  },
-  {
-    src: '/images/mothers-day/drinks.jpg',
-    alt: "Refreshing Mother's Day drinks in the sunshine at The Anchor",
-    caption: 'Drinks for the whole table'
-  }
-] as const
-
-function toAbsoluteUrl(value: string): string {
-  if (!value) return value
-  if (value.startsWith('http://') || value.startsWith('https://')) return value
-  if (value.startsWith('/')) return `${WEBSITE_ORIGIN}${value}`
-  return `${WEBSITE_ORIGIN}/${value}`
-}
-
-const eventDateLabelStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDateString('en-GB', {
+const eventDateLabelStatic = new Date(MOTHERS_DAY_MIDDAY_ISO).toLocaleDateString('en-GB', {
   weekday: 'long',
   day: 'numeric',
   month: 'long',
@@ -83,20 +46,19 @@ const eventDateLabelStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDat
   timeZone: 'Europe/London'
 })
 
-const eventDateShortStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDateString('en-GB', {
+const eventDateShortStatic = new Date(MOTHERS_DAY_MIDDAY_ISO).toLocaleDateString('en-GB', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
   timeZone: 'Europe/London'
 })
 
-const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines`
+const titleStatic = `Mother’s Day Near Staines | Book a Table`
 const descriptionStatic =
-  `Mother's Day Sunday roast near Staines, served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} ` +
-  `with last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}. ` +
-  `Walk-ins welcome, booking recommended.`
+  `Mother's Day at The Anchor in Stanwell Moor, near Staines. ` +
+  `The menu is confirmed nearer the time. Booking ahead is recommended.`
 const keywordsStatic =
-  "mothers day lunch near me, mothers day sunday roast near me, mothers day sunday roast, mothers day pub lunch, mothers day sunday roast, mother's day lunch near staines, stanwell moor TW19"
+  "mothers day lunch near me, mothers day pub lunch, mother's day lunch near staines, stanwell moor TW19"
 
 export const metadata: Metadata = {
   title: titleStatic,
@@ -126,45 +88,23 @@ export default function MothersDayPage() {
   const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
   const heroDescription =
-    `Make Mother’s Day easy with a relaxed, cooked-from-scratch Sunday roast at The Anchor in Stanwell Moor (TW19), ` +
-    `near Staines-upon-Thames and Heathrow Terminal 5. Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} ` +
-    `(last table ${MOTHERS_DAY_LAST_BOOKING_LABEL}). Walk in or book ahead. No set sittings.`
-
-  const heroLeadText =
-    'Current Sunday roast menu • Walk in or book ahead'
+    `Make Mother’s Day easy at The Anchor in Stanwell Moor (TW19), ` +
+    `near Staines-upon-Thames and Heathrow Terminal 5. Book ahead and let Mum switch off.`
 
   const faqs = [
     {
-      question: 'When is Mother’s Day Lunch at The Anchor?',
-      answer: `Mother’s Day Lunch is on ${eventDateText}. We serve from 1pm to 6pm, with the last table booking at 5:30pm.`
+      question: 'When is Mother’s Day?',
+      answer: `Mother’s Day is on ${eventDateText}.`
     },
     {
-      question: 'Where can I find a Mother’s Day Sunday roast near me?',
-      answer:
-        `The Anchor in Stanwell Moor (TW19), close to Staines-upon-Thames and Heathrow Terminal 5. ` +
-        `Mother’s Day Sunday roast cooked from scratch, with roast turkey, roast pork, roast beef and a vegan wellington. ` +
-        `Walk-ins welcome 1pm to 6pm, booking recommended.`
+      question: 'What is on the Mother’s Day menu?',
+      answer: occasionMenuLine("Mother's Day")
     },
     {
       question: 'Do I need to book for Mother’s Day?',
       answer:
-        `Walk-ins are welcome on Mother’s Day Sunday between 1pm and 6pm, no pre-order needed. Booking is still recommended, especially for groups, since Mother’s Day always books up quickly. ` +
+        `Booking is recommended, especially for groups, since Mother’s Day always books up quickly. ` +
         `Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.`
-    },
-    {
-      question: 'Are there set sittings?',
-      answer:
-        `There are no set sittings. Book a time that suits you within the service window ` +
-        `(last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}) and enjoy your meal at a comfortable pace.`
-    },
-    {
-      question: 'How much is Mother’s Day pub lunch?',
-      answer: 'Current dishes and prices are listed on the Sunday roast menu.'
-    },
-    {
-      question: 'Do you have vegetarian or vegan options?',
-      answer:
-        'Yes, there is a dedicated vegan main, our vegan wellington, served with our regular vegan gravy. Vegan gravy is available with any dish on request, so please mention dietary requirements when booking.'
     },
     {
       question: 'Where is The Anchor and is there parking?',
@@ -183,8 +123,8 @@ export default function MothersDayPage() {
         image={DEFAULT_PAGE_HEADER_IMAGE}
         crumb="Mother's Day"
         kicker={eventDateLabelStatic}
-        title="Mother’s Day Sunday Roast Near Staines"
-        lead={`${heroDescription} ${heroLeadText}`}
+        title="Mother’s Day Near Staines"
+        lead={heroDescription}
       />
 
       <OccasionMenuNotice occasion="Mother's Day" />
@@ -209,24 +149,14 @@ export default function MothersDayPage() {
                   <p className="text-lg font-bold text-accent-text">{eventDateText}</p>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Serving times</p>
-                  <p className="text-lg font-bold text-accent-text">{MOTHERS_DAY_SERVICE_WINDOW_LABEL}</p>
-                  <p className="text-sm text-ink-muted">
-                    Last table booking: {MOTHERS_DAY_LAST_BOOKING_LABEL}. No set sittings, book the time that suits you, or just walk in.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Prices</p>
-                  <p className="text-sm text-ink-muted">
-                    Current dishes and prices are listed on the Sunday roast menu.
-                  </p>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Menu</p>
+                  <p className="text-sm text-ink-muted">{occasionMenuLine("Mother's Day")}</p>
                 </div>
 
                 <div className="space-y-2">
                   <p className="text-sm font-semibold uppercase tracking-wide text-ink-muted">Booking</p>
                   <p className="text-sm text-ink-muted">
-                    Mother’s Day always books up quickly, so booking ahead is recommended. Walk-ins are welcome, no pre-order needed.
+                    Mother’s Day always books up quickly, so booking ahead is recommended.
                   </p>
                 </div>
 
@@ -250,13 +180,12 @@ export default function MothersDayPage() {
             </Card>
 
             <div className="space-y-6">
-              <LaunchAnnouncement variant="banner" />
               <div>
                 <h2 className="text-h3 text-ink-strong">
-                  Mother&rsquo;s Day Pub Lunch, What to Expect
+                  Mother&rsquo;s Day at The Anchor
                 </h2>
                 <p className="mt-4 text-ink-muted text-lg leading-relaxed">
-                  Make Mother&apos;s Day easy. Join us at The Anchor in Stanwell Moor (TW19) for a relaxed, cooked-from-scratch Mother&apos;s Day Sunday roast
+                  Make Mother&apos;s Day easy. Join us at The Anchor in Stanwell Moor (TW19),
                   where Mum can properly switch off and enjoy being looked after, near{' '}
                   <Link
                     href="/staines-pub"
@@ -273,83 +202,15 @@ export default function MothersDayPage() {
                   </Link>
                   .
                 </p>
-                <p className="mt-4 text-ink-muted leading-relaxed">
-                  Expect a proper Mother&apos;s Day Sunday roast, cooked from scratch and served fresh to order, with everything you&apos;d want from a
-                  traditional Sunday roast: golden roast potatoes, seasonal vegetables, a generous Yorkshire pudding, and our signature gravy.
-                </p>
-                <p className="mt-3 text-ink-muted leading-relaxed">
-                  We also offer a dedicated vegan main, our vegan wellington, served with our regular vegan gravy, which is
-                  available with any dish on request.
-                </p>
-                <p className="mt-3 text-ink-muted leading-relaxed">
-                  We&apos;re serving from <span className="font-semibold text-ink">1pm</span> to <span className="font-semibold text-ink">6pm</span>, with the{' '}
-                  <span className="font-semibold text-ink">last table booking at {MOTHERS_DAY_LAST_BOOKING_LABEL}</span>. Current dishes and prices are listed on the Sunday roast menu.
-                </p>
-                <p className="mt-3 text-ink-muted leading-relaxed">
-                  There are no set sittings. Walk in or book a time that suits you within the service window, either way, enjoy your meal at a comfortable pace.
-                </p>
-
-                <Card accent className="mt-6">
-                  <CardBody>
-                    <h3 className="text-lg font-semibold text-ink-strong">Browse menus</h3>
-                    <p className="mt-3 text-sm text-ink-muted leading-relaxed">
-                      Planning your visit? Take a look at our{' '}
-                      <Link
-                        href="/sunday-roast"
-                        className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                      >
-                        Sunday roast menu
-                      </Link>
-                      ,{' '}
-                      <Link
-                        href="/pizza-menu"
-                        className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                      >
-                        pizza menu
-                      </Link>{' '}
-                      and{' '}
-                      <Link
-                        href="/drinks"
-                        className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                      >
-                        drinks menu
-                      </Link>
-                      .
-                    </p>
-                  </CardBody>
-                </Card>
               </div>
 
               <Card accent>
                 <CardBody>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Badge variant="success">
-                      Walk-ins welcome
-                    </Badge>
-                    <Badge variant="green">
-                      Cooked-from-scratch lunch
-                    </Badge>
-                    <Badge variant="green">
-                      Vegan & vegetarian options
-                    </Badge>
-                    <Badge variant="green">
-                      No set sittings
-                    </Badge>
-                  </div>
-
-                  <div className="mt-5 rounded-md bg-surface-sunk p-5 border border-line">
+                  <div className="rounded-md bg-surface-sunk p-5 border border-line">
                     <h3 className="text-sm font-semibold uppercase tracking-wide text-accent-text">
                       Booking notes
                     </h3>
                     <ul className="mt-3 space-y-2 text-sm text-ink-muted">
-                      <li className="flex gap-2">
-                        <span className="text-accent-text">•</span>
-                        <span>Serving {MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking {MOTHERS_DAY_LAST_BOOKING_LABEL}).</span>
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="text-accent-text">•</span>
-                        <span>Walk-ins welcome, no pre-order needed.</span>
-                      </li>
                       <li className="flex gap-2">
                         <span className="text-accent-text">•</span>
                         <span>Mother’s Day always books up quickly, so booking ahead is recommended.</span>
@@ -357,10 +218,6 @@ export default function MothersDayPage() {
                       <li className="flex gap-2">
                         <span className="text-accent-text">•</span>
                         <span>Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.</span>
-                      </li>
-                      <li className="flex gap-2">
-                        <span className="text-accent-text">•</span>
-                        <span>Our vegan main is served with regular vegan gravy, available with any dish on request. Add dietary notes when booking.</span>
                       </li>
                     </ul>
                   </div>
@@ -444,8 +301,8 @@ export default function MothersDayPage() {
       </section>
 
       <CtaBand
-        title="Book your Mother's Day lunch"
-        copy={`Mother's Day Lunch is on ${eventDateText} at The Anchor in Stanwell Moor (TW19), near Staines-upon-Thames. Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). Walk in or book ahead, Mother's Day always books up quickly, so booking is recommended.`}
+        title="Book your Mother's Day table"
+        copy={`Mother's Day is on ${eventDateText} at The Anchor in Stanwell Moor (TW19), near Staines-upon-Thames. Mother's Day always books up quickly, so booking ahead is recommended.`}
         primary={
           <BookTableButton
             source="mothers_day_cta"
@@ -471,35 +328,6 @@ export default function MothersDayPage() {
           </PhoneButton>
         }
       />
-
-      <section className="py-section-y bg-surface">
-        <Container>
-          <div className="mx-auto space-y-8">
-            <div className="text-center space-y-3">
-              <h2 className="text-h3 text-ink-strong">Photos</h2>
-              <p className="text-ink-muted">
-                A few highlights from the kitchen and bar at The Anchor.
-              </p>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {MOTHERS_DAY_PHOTOS.map((photo) => (
-                <figure key={photo.src} className="overflow-hidden rounded-md bg-surface border border-line shadow-sm">
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  </div>
-                  <figcaption className="p-4 text-sm text-ink-muted">{photo.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
 
       <section className="py-section-y bg-surface-sunk">
         <Container>
@@ -540,7 +368,7 @@ export default function MothersDayPage() {
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: MOTHERS_DAY_BOOKING_URL, title: 'Book Mother’s Day Sunday roast', description: 'Reserve online in minutes' },
+          { href: MOTHERS_DAY_BOOKING_URL, title: 'Book your Mother’s Day table', description: 'Reserve online in minutes' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

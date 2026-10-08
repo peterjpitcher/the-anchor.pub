@@ -11,6 +11,13 @@ type OrganicSearchClusterLinksProps = {
   intro?: string
   currentPath?: string
   className?: string
+  /**
+   * Which text heads each card. The search phrase is the default; blog posts
+   * use the sentence-case label, which reads as a heading, not a query.
+   */
+  headings?: 'anchor' | 'label'
+  /** Routes to leave out, for a card that does not suit the page it sits on. */
+  excludeHrefs?: string[]
 }
 
 export function OrganicSearchClusterLinks({
@@ -18,21 +25,24 @@ export function OrganicSearchClusterLinks({
   title,
   intro,
   currentPath,
-  className = ''
+  className = '',
+  headings = 'anchor',
+  excludeHrefs = []
 }: OrganicSearchClusterLinksProps) {
   const seoCluster = getOrganicSearchCluster(cluster)
   const links = [
     {
       href: seoCluster.primaryRoute,
-      label: seoCluster.primaryAnchor,
-      description: seoCluster.targetIntent
+      label: headings === 'label' ? seoCluster.primaryLabel : seoCluster.primaryAnchor,
+      // targetIntent is an internal targeting note, so it is never rendered.
+      description: seoCluster.primaryDescription
     },
     ...seoCluster.supportingRoutes.map((link) => ({
       href: link.href,
-      label: link.anchor,
+      label: headings === 'label' ? link.label : link.anchor,
       description: link.description
     }))
-  ].filter((link) => link.href !== currentPath)
+  ].filter((link) => link.href !== currentPath && !excludeHrefs.includes(link.href))
 
   if (links.length === 0) return null
 

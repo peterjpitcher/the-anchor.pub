@@ -1273,24 +1273,6 @@ export class AnchorAPI {
     }
   }
 
-  async getTableBooking(
-    reference: string,
-    customerEmail: string
-  ): Promise<TableBookingResponse> {
-    if (!customerEmail) {
-      throw new Error('Customer email is required to retrieve booking details')
-    }
-
-    throw {
-      code: 'NOT_SUPPORTED',
-      message: 'Booking lookup by reference is not available in the current management API.',
-      status: 501,
-      details: {
-        reference: reference || null
-      }
-    }
-  }
-
   async cancelTableBooking(
     reference: string,
     options?: { reason?: string; customerEmail?: string }

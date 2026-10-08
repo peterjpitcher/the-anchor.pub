@@ -1,11 +1,11 @@
 ---
-title: Inches Apple Cider Near Heathrow | British Draught at The Anchor
+title: "Inch's Apple Cider Near Heathrow | British Draught at The Anchor"
 slug: inches-apple-cider
 description: >-
-  Enjoy Inches Apple Cider on draught at The Anchor near Heathrow. 100% British
-  apples, free parking, and a sunny beer garden just seven minutes from Terminal
-  5.
+  Inch's Apple Cider on draught at The Anchor near Heathrow. Free parking and a
+  beer garden, seven minutes from Terminal 5.
 date: '2023-05-23'
+updated: '2026-10-08'
 oldUrl: >-
   https://www.the-anchor.pub/post/exciting-arrival-welcome-inches-apple-cider-to-our
 author: Billy
@@ -31,20 +31,17 @@ images: []
 
   
 
-## British Apple Cider Now Pouring Near Heathrow
+## British Apple Cider Pouring Near Heathrow
 
-Looking for authentic **British apple cider near Heathrow Airport**? The Anchor pub in **Stanwell Moor** now serves Inches Apple Cider on draught - a crisp, refreshing cider made from 100% British apples. Just **7 minutes from Terminal 5**, enjoy proper cider at local prices, not airport markup.
+Looking for **British apple cider near Heathrow Airport**? The Anchor in **Stanwell Moor** serves Inch's Apple Cider on draught, crisp and cold. We're **7 minutes from Terminal 5**, with fair village prices.
 
   
 
-### Why Inches Cider at The Anchor Near Terminal 5
+### Why Inch's Cider at The Anchor Near Terminal 5
 
-**What Makes Inches Special:**
-- **100% British apples** - Supporting UK orchards
-- **Traditional brewing methods** - Authentic taste
-- **Perfect strength** - Refreshing not overpowering
+**What Makes Inch's Special:**
 - **Draught freshness** - Always perfectly chilled
-- **Local pub prices** - Not inflated airport costs
+- **Fair village prices** - See the [drinks menu](/drinks)
 
 **Ideal for:**
 - Heathrow workers after shifts
@@ -59,7 +56,7 @@ Looking for authentic **British apple cider near Heathrow Airport**? The Anchor 
 
 ### Garden Drinking Near Heathrow
 
-**Enjoy Inches Cider:**
+**Enjoy Inch's Cider:**
 - **In our garden** - Sun trap on warm days
 - **After work** - Unwind from airport shifts
 - **With lunch** - Refreshing midday treat
@@ -72,28 +69,21 @@ Looking for authentic **British apple cider near Heathrow Airport**? The Anchor 
 
   
 
-![Top down photo of the bubbles on top of a pint of Inches apple cider](/content/blog/inches-apple-cider/image-1.jpg)
+![Top down photo of the bubbles on top of a pint of Inch's apple cider](/content/blog/inches-apple-cider/image-1.jpg)
 
 ## Tasting Notes - What to Expect
 
-**Inches Cider Profile:**
-- **Aroma**: Fresh British apples
+**Inch's Cider Profile:**
+- **Aroma**: Fresh apples
 - **First taste**: Crisp and clean
-- **Body**: Medium, perfectly balanced
+- **Body**: Medium
 - **Finish**: Refreshing with apple notes
-- **ABV**: 4.5% - sessionable strength
-
-**Compare to Airport Options:**
-- More authentic than mass-market brands
-- Fresher on draught vs bottles
-- Better value than terminal bars
-- Supporting British producers
 
   
 
 ## Food Pairings at The Anchor Near Heathrow
 
-### Inches Cider Goes Perfect With:
+### Inch's Cider Goes Perfectly With:
 
 **Main Dishes:**
 - **Fish & Chips** - Cuts through the batter beautifully
@@ -112,23 +102,22 @@ Looking for authentic **British apple cider near Heathrow Airport**? The Anchor 
 ### Essential Information
 
 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-**Cider**: Inches on draught, always fresh
+**Cider**: Inch's on draught, always fresh
 **Garden**: Perfect for cider drinking
-**Parking**: Free on-site
+**Parking**: 20 free spaces
 **From Heathrow**: 7 minutes from T5
 **Price**: Ask at the bar for today's price
 
 ### Why Choose The Anchor for Cider
 
-**Better than airport bars:**
 - Proper pub atmosphere
 - Garden seating available
 - Local community vibe
-- Fair pricing policy
+- Fair village prices
 - Quality draught products
 
 ### Perfect for Cider Season
 
-*Whether you're a Heathrow worker seeking refreshment after a shift, a cider enthusiast exploring British varieties, or just wanting a cool drink in a proper pub garden, Inches Apple Cider at The Anchor offers authentic taste without airport prices.*
+*Whether you're a Heathrow worker seeking refreshment after a shift, a cider enthusiast exploring British varieties, or just wanting a cool drink in a proper pub garden, Inch's Apple Cider at The Anchor is a proper pint at fair village prices.*
 
 **The Anchor - Where British cider tradition meets Heathrow convenience**

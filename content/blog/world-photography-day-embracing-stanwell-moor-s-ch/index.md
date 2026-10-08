@@ -1,21 +1,16 @@
 ---
 title: World Photography Day Near Heathrow | Capture Stanwell Moor's Beauty
-description: "Our World Photography Day competition: send us your best pictures of Stanwell Moor and we will display the winners in the pub."
+description: "World Photography Day falls on 19 August. Where it came from, and why Stanwell Moor is worth pointing a camera at, from the village pub."
 date: '2023-08-11'
+updated: '2026-10-08'
 oldUrl: >-
   https://www.the-anchor.pub/post/world-photography-day-embracing-stanwell-moor-s-ch
 author: Billy
 keywords:
   - world photography day near heathrow
-  - stanwell moor photography competition
-  - photo contest staines
-  - the anchor photography event
   - village photography terminal 5
   - heathrow area photo opportunities
-  - pub photo display surrey
-  - august events near heathrow
   - local photography stanwell moor
-  - community photo contest
 tags:
   - community
   - news
@@ -26,13 +21,13 @@ images: []
 
 Hello, cherished residents and wonderful visitors of **Stanwell Moor near Heathrow**!
 
-Looking for unique **photography events near Heathrow Airport**? Join The Anchor's annual World Photography Day celebration on August 19th! Our traditional village pub, just 7 minutes from Terminal 5, invites photographers of all levels to capture and share the beauty of Stanwell Moor through their lens.
+World Photography Day falls on August 19th each year. Back in 2023 we marked it with a competition for your pictures of Stanwell Moor. That competition has closed, but the village is as photogenic as ever, and our traditional village pub is just 7 minutes from Terminal 5.
 
 ## A Trip Down the Lane: The Genesis of World Photography Day
 
 Come August 19th, the world immerses itself in celebrating an art form that's as mesmerising as it is powerful, photography. World Photography Day isn't merely a nod to the past; it's a recognition of how far we've come since the first daguerreotype processes of the early 19th century. 
 
-The origin of this day traces back to the invention of the Daguerreotype, a photographic process developed by Frenchmen Louis Daguerre and Joseph Nicéphore Niépce in 1837. On August 19, 1839, the French Academy of Sciences announced the daguerreotype process. And thus, World Photography Day was born, perfect for our **photography competition near Heathrow**.
+The origin of this day traces back to the invention of the Daguerreotype, a photographic process developed by Frenchmen Louis Daguerre and Joseph Nicéphore Niépce in 1837. On August 19, 1839, the French Academy of Sciences announced the daguerreotype process. And thus, World Photography Day was born.
 
 ![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-1.jpg)
 
@@ -72,62 +67,30 @@ Considering the sheer beauty of our village, **Stanwell Moor** isn't just a plac
 
 ![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-4.jpg)
 
-## Your Chance to Feature in Our Pub Near Heathrow
+## Our 2023 Competition
 
-To all the spirited photographers of our village and visitors from the airport area, amateur or professional, young or old, here's your golden opportunity! We're looking to decorate our beloved **pub near Heathrow** with captivating glimpses of Stanwell Moor, and your perspective could be just what we need.
-
-**How to Participate in Our Photo Contest:**
-1. Immerse yourself in the beauty of Stanwell Moor
-2. Capture photos that resonate with village life
-3. Share them on social media
-4. Tag @TheAnchorStanwellMoor
-5. Use hashtag #MoorMoments
-6. Submit by August 31st
-
-If your photo stands out, we'll reach out for a high-resolution version to frame and proudly display on our walls. Imagine your creativity becoming a permanent feature in our traditional British pub!
+For World Photography Day 2023 we asked photographers of every level, villagers and visitors alike, to share their pictures of Stanwell Moor. That competition has closed and we're not taking entries. For what's on at the pub now, see [what's on](/whats-on).
 
 ![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-5.jpg)
 
-## Prizes and Recognition
+## Go and Take Some Pictures
 
-**What Winners Receive:**
-- Professional framing of your photograph
-- Permanent display in The Anchor
-- Recognition on our website and social media
-- Free meal for two at our pub
-- Certificate of achievement
-- Invitation to future photography events
-
-## Exhibition Details at The Anchor
-
-**Annual Photo Exhibition:**
-- Display period: September through November
-- Opening reception: First Friday of September
-- Public voting for People's Choice Award
-- All submissions displayed digitally
-- Top 10 printed and framed
-- Family-friendly viewing event
-
-## A Heartfelt Call to Action
-
-So, dear villagers and friends from the **Heathrow area**, as the clock ticks closer to August 19th, let's embrace the spirit of World Photography Day. Let us embark on a journey, camera in hand, and capture the very essence of Stanwell Moor. It's more than just a photography drive; it's a tribute to our village, its history, its beauty, and the art of photography itself.
+You don't need a competition to head out with a camera, and you don't need a fancy one either.
 
 **Equipment Welcome:**
 - Professional cameras
 - Smartphones
 - Tablets
 - Film cameras
-- Any device that captures images!
+- Any device that captures images
 
 ## Visit The Anchor - Your Photography Hub Near Terminal 5
 
 **Location & Details:**
 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 Just 7 minutes from Heathrow Terminal 5  
-Bus routes 441 & 442  
-Free parking for photographers  
+Bus route 442 stops on Horton Road by the pub  
+20 free parking spaces  
 Indoor and outdoor photo opportunities  
 
-Arm yourself with a camera or phone, let your creativity run wild, and let's make this World Photography Day a memorable chapter in the story of **Stanwell Moor near Heathrow**.
-
-*Join our World Photography Day celebration - where our community near Heathrow Airport captures and shares the timeless beauty of village life*
+Arm yourself with a camera or phone and go and see **Stanwell Moor near Heathrow** for yourself.

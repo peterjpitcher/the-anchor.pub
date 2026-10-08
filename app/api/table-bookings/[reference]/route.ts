@@ -4,64 +4,9 @@ import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 import { RATE_LIMITS, RATE_LIMIT_MESSAGE, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
-export async function GET(
-  request: Request,
-  { params }: { params: { reference: string } }
-) {
-  // Spends the management app's shared key, so one address gets 20 a minute.
-  // Per server (lib/rate-limit.ts).
-  const rateLimit = limitByAddress(request, 'table-booking-read', RATE_LIMITS.publicRead)
-  if (rateLimit.limited) {
-    return tooManyRequests(rateLimit, { success: false, error: RATE_LIMIT_MESSAGE, code: 'RATE_LIMITED' })
-  }
-
-  // From the header only. An email address in the query string would sit in
-  // every request log on the way here.
-  const customerEmail = request.headers.get('x-customer-email') || ''
-  
-  const { reference } = params
-  
-  if (!reference) {
-    return createApiErrorResponse('Booking reference is required', 400)
-  }
-
-  if (!customerEmail) {
-    return createApiErrorResponse('Customer email required to verify booking', 400)
-  }
-
-  try {
-    const bookingData = await anchorAPI.getTableBooking(reference, customerEmail)
-    
-    // Return with success wrapper format for consistency
-    return NextResponse.json({
-      success: true,
-      data: bookingData
-    }, { headers: PRIVATE_NO_STORE_HEADERS })
-  } catch (error: unknown) {
-    logError('api/table-bookings/[reference]', error, { reference })
-
-    const err = error as { status?: number; code?: string; message?: string }
-
-    if (err.status === 501 || err.code === 'NOT_SUPPORTED') {
-      return createApiErrorResponse(
-        'Online booking lookup is currently unavailable. Please call us at 01753 682707 and we will help you.',
-        501
-      )
-    }
-
-    if (err.status === 404 || err.code === 'NOT_FOUND') {
-         return createApiErrorResponse('Booking not found. Please check your reference number.', 404)
-    }
-    if (err.status === 401 || err.code === 'UNAUTHORIZED') {
-         return createApiErrorResponse('Service temporarily unavailable. Please try again later.', 503)
-    }
-
-    return createApiErrorResponse(
-      'We couldn\'t retrieve your booking details. Please try again or call us at 01753 682707.',
-      503
-    )
-  }
-}
+// There is no GET here. Reading a booking back by its reference was removed on
+// 8 October 2026 (site review PY-009): nothing on the site called it, and the
+// management app has no such read to pass it on to.
 
 export async function DELETE(
   request: Request,

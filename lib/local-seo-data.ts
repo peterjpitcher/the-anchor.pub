@@ -18,14 +18,20 @@
  * road-tested. The per-landmark times below are not in the SSOT table and have
  * no independent source.
  */
-export type LandmarkType = 'crematorium' | 'church' | 'registry_office' | 'hospital' | 'business_park' | 'sports_venue' | 'other';
+// There is no register office type. The last entry that used it was a hotel,
+// and the three real register office pages were retired on 8 October 2026.
+// Its page copy talked about "your ceremony" and "receptions", which reads as
+// weddings: a thing we take on enquiry but do not market (docs/SSOT.md §14).
+export type LandmarkType = 'crematorium' | 'church' | 'hospital' | 'business_park' | 'sports_venue' | 'other';
 
 export interface Landmark {
     slug: string;
     name: string;
     type: LandmarkType;
     address: string;
-    distance: string; // e.g., "7 mins drive"
+    // e.g., "7 mins drive". Left out when there is no figure we can stand
+    // behind; only an `other` entry may leave it out (the page copes).
+    distance?: string;
     googleMapsUrl?: string; // Optional direct link
     description: string; // Specific copy about the connection (e.g., "Easily accessible via A30")
 }
@@ -83,14 +89,17 @@ export const landmarks: Landmark[] = [
         description: 'A short drive from Egham, offering a relaxed and welcoming atmosphere for church events and family celebrations.'
     },
 
-    // Ceremony venues
+    // Hotels
+    // Great Fosters is a hotel, not a register office (owner, 8 October 2026).
+    // No drive time: "12 mins drive" was not in docs/SSOT.md and had no source.
+    // No "day-after brunch": it implied a wedding the day before, and brunch
+    // is not something the SSOT says we serve.
     {
         slug: 'great-fosters-egham',
         name: 'Great Fosters',
-        type: 'registry_office', // Using generic type for nearby ceremony venues
+        type: 'other',
         address: 'Stroude Road, Egham TW20 9UR',
-        distance: '12 mins drive',
-        description: 'Close to Great Fosters and ideal for a relaxed family meal or a day-after brunch with free parking for all guests.'
+        description: 'Great Fosters is a hotel in Egham. We are a relaxed village pub for a family meal or a get-together, with free parking for all guests.'
     },
 
     // Hospitals

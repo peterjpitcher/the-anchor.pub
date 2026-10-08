@@ -62,7 +62,6 @@ We've replaced the high fence with a charming white picket fence, creating:
 - Better views of our garden
 - Family-friendly outdoor space
 - Perfect for summer evenings
-- Dog-friendly zones
 
 ## What These Improvements Mean for You
 
@@ -75,7 +74,6 @@ We've replaced the high fence with a charming white picket fence, creating:
 
 **For Local Families:**
 - Safer parking area
-- Improved garden access
 - More attractive venue
 - Better outdoor seating
 - Enhanced kerb appeal
@@ -103,15 +101,6 @@ We've replaced the high fence with a charming white picket fence, creating:
 - Prioritised customer comfort
 - Improved energy efficiency
 - Enhanced overall experience
-
-## Smoking Shelter Upgrade
-
-Our covered smoking area received:
-- Fresh paint and repairs
-- Improved lighting
-- Comfortable seating
-- Weather protection
-- Maintained social space
 
 ## Future Plans
 
@@ -154,12 +143,10 @@ Come see the transformation yourself at our **newly renovated pub near Terminal 
 
 ## Celebrating Our New Look
 
-To mark our renovations, we're offering:
-- Special opening week deals
+To mark our renovations in 2019, we planned:
 - Garden party events
 - Photo opportunities
 - Community gatherings
-- Thank you promotions
 - Future event previews
 
 ## Your Feedback Matters
@@ -177,7 +164,7 @@ We'd love to hear what you think about our renovations:
 **Location & Details:**
 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 Just 7 minutes from Heathrow Terminal 5  
-Bus routes 441 & 442  
+The 442 bus stops on Horton Road by the pub  
 Newly renovated parking  
 Beautiful garden area  
 Fresh new look!

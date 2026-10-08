@@ -6,54 +6,48 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { SeasonalDynamicDetails } from '@/components/seasonal/SeasonalDynamicDetails'
 import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
-import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_SUNDAY_LUNCH_IMAGE, DEFAULT_FOOD_IMAGE, DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
+import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
-// Father's Day 2026 has passed, so the page now points at Father's Day 2027,
-// Sunday 20 June 2027 (UK Father's Day is the third Sunday in June). The page
-// ships in the post-launch walk-in state. Keyword cluster layered: 'fathers day
-// pub lunch', 'fathers day sunday roast', 'fathers day pub near me', 'where to
-// take dad for sunday roast'. (Spec §8.6, keyword plan delivered in conversation.)
+// The date is worked out, never typed (UK Father's Day is the third Sunday in
+// June). Father's Day is a special day, not a normal Sunday: the menu, and how
+// the day works, are confirmed nearer the time (docs/SSOT.md sections 4 and
+// 10, owner ruling 7 and 8 October 2026). So the page names no dish, no
+// serving times and no walk-in promise.
 const FATHERS_DAY_DATE = nextOccurrence(getFathersDay)
 const FATHERS_DAY_LABEL = formatOccasionLabel(FATHERS_DAY_DATE)
-const FATHERS_DAY_SERVICE_WINDOW = '1pm to 6pm'
-const FATHERS_DAY_LAST_BOOKING = '5:30pm'
 
 const FATHERS_DAY_BOOKING_URL = '/book-table'
 
-const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
-
-// A11 dynamic fields. Father's Day is an evergreen Sunday-roast page; the body
-// reads completely with nothing set. Use this only for an owner-confirmed extra
-// for a given year. Empty by default. Never invent a free pint, dad discount,
-// steak special or ticketed event, the brief rules those out unless confirmed.
+// A11 dynamic fields. Use this only for an owner-confirmed detail for a given
+// year. Empty by default. Never invent a free pint, dad discount, steak
+// special or ticketed event, the brief rules those out unless confirmed.
 const FATHERS_DAY_DYNAMIC: SeasonalDynamicFields = {}
 
+const FATHERS_DAY_DESCRIPTION =
+  "Father's Day at The Anchor near Heathrow. The menu is confirmed nearer the time. Beer garden, free parking, booking recommended."
+
 export const metadata: Metadata = {
-  title: "Father's Day Pub Lunch Near Heathrow | Sunday Roast",
-  description:
-    "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm to 6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
+  title: "Father's Day Pub Lunch Near Heathrow",
+  description: FATHERS_DAY_DESCRIPTION,
   alternates: { canonical: '/fathers-day' },
   openGraph: {
-    title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
-    description:
-      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm to 6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
+    title: "Father's Day Pub Lunch Near Heathrow | The Anchor",
+    description: FATHERS_DAY_DESCRIPTION,
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
-    description:
-      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm to 6pm, walk-ins welcome. Current Sunday roast menu, beer garden, free parking.",
+    title: "Father's Day Pub Lunch Near Heathrow | The Anchor",
+    description: FATHERS_DAY_DESCRIPTION,
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -70,24 +64,18 @@ export default function FathersDayPage() {
     {
       question: "Do I need to book for Father's Day?",
       answer:
-        "Walk-ins are welcome on Father's Day Sunday between 1pm and 6pm, no pre-order needed. Booking is still recommended, especially for groups, since it's one of our busiest Sundays. " +
+        "Booking is recommended, especially for groups, since it's one of our busiest Sundays. " +
         "Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day."
     },
     {
-      question: "Where to take dad for Sunday roast near Heathrow?",
+      question: "Where to take Dad on Father's Day near Heathrow?",
       answer:
         "The Anchor in Stanwell Moor, 7 minutes from Heathrow Terminal 5 by car, with 20 free parking spaces, a dog-friendly beer garden and planes passing overhead every 90 seconds. " +
-        "It's a proper local pub, not a chain, with Sunday roasts cooked from scratch."
+        "It's a proper local pub, not a chain."
     },
     {
       question: 'Is there a set menu or special pricing?',
       answer: occasionMenuLine("Father's Day")
-    },
-    {
-      question: "What time is Father's Day lunch served?",
-      answer:
-        "We serve Sunday roast from 1pm to 6pm, with the last table booking at 5:30pm. " +
-        "No set sittings, book a time that suits you, or just walk in."
     },
     {
       question: 'Is there parking?',
@@ -107,7 +95,7 @@ export default function FathersDayPage() {
         crumb="Father's Day"
         kicker={FATHERS_DAY_LABEL}
         title="Father’s Day at The Anchor"
-        lead={`A proper Sunday roast, a cold pint, planes coming in low overhead, and the family all in one place. That's Father's Day sorted. Sunday roast from the current menu • Walk in or book ahead • Served ${FATHERS_DAY_SERVICE_WINDOW}`}
+        lead="A cold pint, planes coming in low overhead, and the family all in one place. That's Father's Day sorted."
       />
 
       <OccasionMenuNotice occasion="Father's Day" />
@@ -116,51 +104,13 @@ export default function FathersDayPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <div className="mx-auto space-y-6">
-            <LaunchAnnouncement variant="banner" />
             <h2 className="text-h3 text-ink-strong">
               Treat Dad to a Proper Father&rsquo;s Day Pub Lunch
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
-              Father&apos;s Day pub lunch lands on a Sunday, which means the full Father&apos;s Day Sunday roast menu is on. Roast turkey,
-              roast pork, roast beef or a vegan wellington, all cooked from scratch, served with golden roast potatoes,
-              seasonal vegetables and proper gravy. Yorkshire puddings come with the sliced roasts.
+              Father&apos;s Day lands on a Sunday, so get the family together and book Dad a table.
+              Deposits only apply to groups of 15 or more.
             </p>
-            <p className="text-ink-muted leading-relaxed">
-              Current dishes and prices are listed on the Sunday roast menu.
-              We serve from <span className="font-semibold text-ink">1pm</span> to <span className="font-semibold text-ink">6pm</span>,
-              last table at <span className="font-semibold text-ink">{FATHERS_DAY_LAST_BOOKING}</span>.
-              Walk in or book ahead, deposits only apply to groups of 15 or more.
-            </p>
-
-            <Card accent>
-              <CardBody>
-                <h3 className="text-lg font-semibold text-ink-strong">Browse menus</h3>
-                <p className="mt-3 text-sm text-ink-muted leading-relaxed">
-                  Planning the day? Take a look at our{' '}
-                  <Link
-                    href="/sunday-roast"
-                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                  >
-                    Sunday roast menu
-                  </Link>
-                  ,{' '}
-                  <Link
-                    href="/drinks"
-                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                  >
-                    drinks menu
-                  </Link>{' '}
-                  and{' '}
-                  <Link
-                    href="/pizza-menu"
-                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                  >
-                    pizza menu
-                  </Link>
-                  .
-                </p>
-              </CardBody>
-            </Card>
 
             <SeasonalDynamicDetails
               fields={FATHERS_DAY_DYNAMIC}
@@ -171,12 +121,12 @@ export default function FathersDayPage() {
         </Container>
       </section>
 
-      {/* Where to take dad for Sunday roast */}
+      {/* Where to take Dad */}
       <section className="py-section-y bg-surface-sunk">
         <Container>
           <div className="mx-auto space-y-6">
             <h2 className="text-h3 text-ink-strong">
-              Where to Take Dad for Sunday Roast Near Heathrow
+              Where to Take Dad Near Heathrow
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               The short answer: a proper Father&apos;s Day pub near me, not a chain restaurant, not a hotel buffet.
@@ -184,13 +134,11 @@ export default function FathersDayPage() {
               beer garden, and a plane every 90 seconds that gives Dad a perfectly valid reason to sit outside as long as he likes.
             </p>
             <p className="text-ink-muted leading-relaxed">
-              Father&apos;s Day Sunday roast cooked from scratch, drinks from the bar, the family all in one place,
+              Drinks from the bar, the family all in one place,
               and nobody&apos;s rushing to feed a meter. With free parking on site and only {HEATHROW_TIMES.terminal5} minutes
               from Heathrow T5, it&apos;s easy to get to from anywhere nearby.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Badge variant="green">Father&apos;s Day Sunday roast</Badge>
-              <Badge variant="green">Walk-ins welcome</Badge>
               <Badge variant="green">Planes every 90 seconds</Badge>
               <Badge variant="success">Free parking</Badge>
               <Badge variant="green">Dog-friendly</Badge>
@@ -237,7 +185,7 @@ export default function FathersDayPage() {
               Book the table and tell Dad you&apos;re taking him to the pub. He&apos;ll love it.
             </p>
             <p className="text-ink-muted leading-relaxed">
-              A Sunday roast he doesn&apos;t have to cook, a beer he doesn&apos;t have to pour,
+              A lunch he doesn&apos;t have to cook, a beer he doesn&apos;t have to pour,
               and an afternoon with the family in a garden where planes skim the rooftops.
               It&apos;s not complicated. It&apos;s just good.
             </p>
@@ -272,7 +220,7 @@ export default function FathersDayPage() {
       {/* Booking CTA */}
       <CtaBand
         title="Book Dad's table"
-        copy={`Father's Day lunch is on ${FATHERS_DAY_LABEL}. Serving ${FATHERS_DAY_SERVICE_WINDOW} (last booking ${FATHERS_DAY_LAST_BOOKING}). Walk in or book ahead, deposits only apply to groups of 15 or more.`}
+        copy={`Father's Day is on ${FATHERS_DAY_LABEL}. Book ahead, deposits only apply to groups of 15 or more.`}
         primary={
           <BookTableButton
             source="fathers_day_cta"
@@ -343,7 +291,6 @@ export default function FathersDayPage() {
         title="More to explore at The Anchor"
         links={[
           { href: FATHERS_DAY_BOOKING_URL, title: "Book Father's Day lunch", description: 'Reserve online in minutes' },
-          { href: '/sunday-roast', title: 'Sunday roast menu', description: 'Full menu and prices' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

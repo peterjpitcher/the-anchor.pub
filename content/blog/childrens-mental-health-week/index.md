@@ -1,18 +1,17 @@
 ---
-title: Children's Mental Health Week Near Heathrow | Free Kids Meals
+title: Children's Mental Health Week 2025 | Supporting Young Minds
 slug: childrens-mental-health-week
-description: "Children’s Mental Health Week\_(3rd – 9th February 2025) is an opportunity to raise awareness, encourage open conversations, and promote positive mental well-being for young minds.At The Anchor, we understand how important it is for families to spend quality time together. That’s why, for one week only, we’re offering free meals for children\_when dining with an adult who orders from our mains, burgers, or 12” pizza menus. Offer valid from Tuesday 4th to Sunday 9th February 2025 Available for"
+description: >-
+  Written for Children's Mental Health Week 2025: how to spot the signs of poor
+  mental health in children, practical ways to help, and where to find support.
 date: '2025-01-27'
 oldUrl: >-
   https://www.the-anchor.pub/post/children-s-mental-health-week-supporting-young-min
 author: Billy
 keywords:
   - childrens mental health week near heathrow
-  - free kids meals stanwell moor
   - family pub near terminal 5
   - mental health support staines
-  - kids eat free heathrow
-  - the anchor family offers
   - childrens wellbeing near airport
   - family restaurant stanwell moor
   - mental health awareness heathrow
@@ -30,21 +29,15 @@ noindex: true
 
   
 
-**Children’s Mental Health Week** (3rd – 9th February 2025) is an opportunity to **raise awareness, encourage open conversations, and promote positive mental well-being for young minds**.
+**Children’s Mental Health Week** (3rd – 9th February 2025) was an opportunity to **raise awareness, encourage open conversations, and promote positive mental well-being for young minds**.
 
   
 
-At **The Anchor**, we understand how important it is for families to spend quality time together. That’s why, for one week only, **we’re offering free meals for children** when dining with an adult who orders from our **mains, burgers, or 12” pizza menus**.
+At **The Anchor**, we understand how important it is for families to spend quality time together. For that week in February 2025 we ran a kids' meal offer. It has ended.
 
   
 
-**Offer valid from Tuesday 4th to Sunday 9th February 2025**
-
-**Available for dine-in and takeaway**
-
-  
-
-This is more than just a meal, it’s a chance to **pause, connect, and check in on the children in our lives**.
+The week is a chance to **pause, connect, and check in on the children in our lives**.
 
   
 
@@ -188,31 +181,9 @@ These services can help you navigate **difficult conversations and provide extra
 
   
 
-## **The Anchor’s Commitment to Families This Children’s Mental Health Week**
+## **The Anchor and Children’s Mental Health Week 2025**
 
-At **The Anchor**, we know that **quality time together is essential for a child’s emotional well-being**. That’s why we’re offering a special **free kids’ meal promotion** to encourage families to **spend time together, relax, and talk**.
-
-  
-
-### ** Free Kids' Meals Offer **
-
-**Date:** Tuesday 4th – Sunday 9th February 2025
-
-**Offer:** Free meal for children with any **adult meal purchase** from our mains, burgers, or 12” pizza menus.
-
-**Where:** The Anchor, Stanwell Moor
-
-  
-
-**Available for dine-in and takeaway**.
-
-**Children can choose from our Snack Pot options**.
-
-**Terms and conditions apply** (see below).
-
-  
-
-**For full terms & conditions, see the bottom of this page.**
+At **The Anchor**, we know that **quality time together is essential for a child’s emotional well-being**. For the week in February 2025 we ran a kids' meal offer to encourage families to **spend time together, relax, and talk**. That offer has ended. For current dishes and prices, see the [food menu](/food-menu).
 
   
 
@@ -226,48 +197,4 @@ At **The Anchor**, we believe that **small moments, like sharing a meal together
 
   
 
-**Book your table now and make the most of this special week!**
-
-[www.the-anchor.pub](https://www.the-anchor.pub/book-table)
-
-  
-
 [#ChildrensMentalHealthWeek](https://www.the-anchor.pub/blog/tag/news) [#TheAnchorCommunity](https://www.the-anchor.pub/blog/tag/community) [#FamilyFirst](https://www.the-anchor.pub/blog/tag/community)
-
-  
-
-## **Terms & Conditions**
-
-**Valid from Tuesday, 4th February to Sunday, 9th February 2025**
-
-1.  **Eligibility:** This offer is available to **children under 16 years old** when accompanied by a paying adult.
-    
-2.  **Redemption:** A **maximum of one free child’s meal per paying adult** is permitted.
-    
-3.  **Qualifying Meals:** The child’s meal must be chosen from **our Snack Pot options**, and the accompanying adult must order from our **mains, burgers, or 12” pizza menus**.
-    
-4.  **Exclusions:** The offer applies only to **food items** and does not include **drinks, sides, or desserts**.
-    
-5.  **Availability:**
-    
-    *   The offer is valid **from 4th February to 9th February 2025** during our food service hours:
-        
-        *   **Tuesday – Friday:** 6:00 pm – 9:00 pm
-            
-        *   **Saturday:** 1:00 pm – 7:00 pm
-            
-        *   **Sunday:** 12:00 pm – 5:00 pm
-            
-    *   **Not available on Monday, 3rd February 2025.**
-        
-6.  **Booking:** **No advance booking is required**. Customers can simply mention the offer when placing their order.
-    
-7.  **Dine-In & Takeaway:** The offer applies to **both dine-in and takeaway orders**.
-    
-8.  **Non-Transferable:** The offer has **no cash value and cannot be exchanged for cash, credit, or any other menu items**. No substitutions or modifications apply.
-    
-9.  **Not in Conjunction with Other Offers:** This promotion **cannot be used alongside any other discounts, meal deals, or promotions**.
-    
-10.  **Right to Withdraw:** The Anchor **reserves the right to amend or withdraw this offer at any time without prior notice**.
-    
-11.  **Compliance with UK Law:** This promotion complies with all **applicable UK laws and regulations**, ensuring fair consumer practices.

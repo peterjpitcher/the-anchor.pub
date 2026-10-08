@@ -1,22 +1,16 @@
 ---
-title: International Women's Day Near Heathrow | How We Celebrate
+title: International Women's Day | What It Is and Why It Matters
 slug: womens-day-celebration
-description: "How we mark International Women's Day in Stanwell Moor, and why a female-led team matters to a village pub seven minutes from Heathrow."
+description: "What International Women's Day is, why it's marked on 8 March, and a word from The Anchor, the village pub in Stanwell Moor where everyone's welcome."
 date: '2023-02-10'
+updated: '2026-10-08'
 oldUrl: >-
   https://www.the-anchor.pub/post/international-women-s-day-celebrating-the-achievem
 author: Billy
 keywords:
   - international womens day pub near heathrow
-  - womens day events stanwell moor
   - female friendly pub terminal 5
-  - iwd celebration near airport
-  - womens events staines
   - inclusive pub heathrow
-  - the anchor womens day
-  - march 8 events near heathrow
-  - female staff pub stanwell moor
-  - womens day drinks heathrow
 tags:
   - events
   - news
@@ -27,18 +21,9 @@ images: []
 
   
 
-## Celebrating International Women's Day at The Anchor Near Heathrow
+## International Women's Day, from The Anchor in Stanwell Moor
 
-Join us at The Anchor pub in **Stanwell Moor**, just **7 minutes from Heathrow Airport**, as we celebrate International Women's Day with pride. Our female-led team exemplifies excellence in hospitality, making us a welcoming space for all women - from **Heathrow workers** to local residents and travelers.
-
-### Why The Anchor Champions Women Near Heathrow
-
-**Our Female-Led Excellence:**
-- Talented women in key leadership roles
-- Safe, inclusive environment for all guests
-- Supporting women in hospitality careers
-- Community hub for local women's groups
-- Regular events celebrating female achievements
+International Women's Day falls on 8 March every year. We wrote this for the 2023 day, to say what it is and why it matters to us. Our tagline is "Where Everyone's Welcome", and we mean it.
 
   
 
@@ -52,65 +37,26 @@ March 8th is a special day for women around the world. It's a day when we celebr
 
 International Women's Day is a time to reflect on the achievements of women and to raise awareness about the ongoing struggles for gender equality. Women have made significant contributions to society in all fields of life, from science and technology to arts and politics. They have fought for their rights and paved the way for future generations to live in a more equal world. However, there is still a long way to go before gender equality is achieved.
 
-This year’s theme for International Women's Day is “Choose to Challenge”. It calls for everyone to challenge gender bias and inequality in all its forms. By challenging the status quo, we can help create a more inclusive world where women and girls have equal opportunities and can reach their full potential.
-
   
 
 ![international women s day celebrating the achievem image](/content/blog/womens-day-celebration/image-1.jpg)
 
-## Celebrate International Women's Day at Our Pub Near Heathrow
+## Is Anything On at The Anchor?
 
-### Annual IWD Events at The Anchor
+There's no Women's Day event in our diary at the moment. For what's coming up at the pub, see [what's on](/whats-on).
 
-**March 8th Celebrations:**
-- Special cocktails created by our female staff
-- Women-led quiz night with empowerment themes
-- Fundraising for local women's charities
-- Safe, supportive atmosphere for all
-- Group bookings welcome for women's organisations
+You're welcome any day we're open, whether you're on your own, with friends or coming off a shift at the airport. You don't have to drink to sit with us, either: soft drinks, food and just a seat all count.
 
-**Year-Round Support:**
-- Regular women's networking events
-- Safe meeting space for women's groups
-- Female-friendly facilities and atmosphere
-- Support for women-owned local businesses
-- Inclusive hiring practices
-
-### Perfect for Different Groups
-
-**Heathrow Women Workers:**
-- Post-shift celebrations and decompress
-- Safe space near the airport
-- Understanding of shift patterns
-- Group bookings for airport teams
-
-**Local Women's Groups:**
-- Regular meeting venue available
-- Private area bookings possible
-- Supportive of community initiatives
-- Fundraising opportunities
-
-**All Women Welcome:**
-- Solo female diners always comfortable
-- Female-friendly bar service
-- Well-lit parking areas
-- Respectful atmosphere enforced
-
-## Visit The Anchor This International Women's Day
-
-**Join our celebration near Heathrow Airport:**
+## Visit The Anchor
 
 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-**Date**: March 8th annually (special events)
-**Near**: 7 minutes from Heathrow Terminal 5
-**Parking**: Free, well-lit parking
-**Bookings**: 01753 682707
 
-**Why Choose The Anchor:**
-- Female-led hospitality excellence
-- Safe, inclusive environment
-- Community-focused values
-- Supporting women year-round
-- Convenient location near Heathrow
+**Near**: 7 minutes from Heathrow Terminal 5
+
+**Parking**: We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register. The car park is floodlit and has CCTV.
+
+**Opening hours**: always up to date on our [find us page](/find-us)
+
+**Bookings**: 01753 682707 or [book a table](/book-table)
 
 *Raising a glass to amazing women everywhere - The Anchor Team*

@@ -82,7 +82,6 @@ API key server-side:
 |-------|---------|
 | `GET /api/table-bookings/availability` | Time slots for a date |
 | `POST /api/table-bookings` | Create a booking. `/api/table-bookings/create` re-exports the same handler |
-| `GET /api/table-bookings/[reference]` | Look up a booking. Requires the customer's email |
 | `POST /api/table-bookings/paypal/*` | Deposit payment |
 
 `app/api/booking/agent/route.ts` is a **separate booking channel** used by the AI agent. It creates real

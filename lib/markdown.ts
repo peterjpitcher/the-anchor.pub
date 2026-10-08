@@ -35,6 +35,10 @@ export interface BlogPost {
   description: string
   date: string
   publishDate?: string
+  /** Optional YYYY-MM-DD: the day the post was last brought up to date. */
+  updated?: string
+  /** True when the front matter date is a placeholder and must not be printed. */
+  hideDate?: boolean
   author: string
   keywords: string[]
   tags: string[]
@@ -84,7 +88,9 @@ export function getBlogPostMeta(slug: string): BlogPost | null {
     )
     const imageAlts = existingImages.map((imageName) => {
       const alt = imageAltLookup.get(imageName) || ''
-      return alt || `Photo from The Anchor in Stanwell Moor`
+      // No alt text on file means we cannot describe the picture, so it is
+      // marked as decoration rather than given a made-up description.
+      return alt
     })
 
     return {
@@ -93,6 +99,8 @@ export function getBlogPostMeta(slug: string): BlogPost | null {
       description: data.description || '',
       date: data.date || '',
       publishDate: toOptionalTrimmedString(data.publishDate),
+      updated: toOptionalTrimmedString(data.updated),
+      hideDate: data.hideDate === true,
       author: data.author || '',
       keywords: toStringArray(data.keywords),
       tags: toStringArray(data.tags),
@@ -168,7 +176,9 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     )
     const imageAlts = existingImages.map((imageName) => {
       const alt = imageAltLookup.get(imageName) || ''
-      return alt || `Photo from The Anchor in Stanwell Moor`
+      // No alt text on file means we cannot describe the picture, so it is
+      // marked as decoration rather than given a made-up description.
+      return alt
     })
 
     return {
@@ -177,6 +187,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       description: data.description || '',
       date: data.date || '',
       publishDate: toOptionalTrimmedString(data.publishDate),
+      updated: toOptionalTrimmedString(data.updated),
+      hideDate: data.hideDate === true,
       author: data.author || '',
       keywords: toStringArray(data.keywords),
       tags: toStringArray(data.tags),
@@ -260,7 +272,7 @@ export function distributeImages(
         index < paragraphs.length - 1) {
       const imagePath = `/content/blog/${blogSlug}/${images[imageIndex]}`
       const imageAlt = escapeHtmlAttribute(
-        imageAlts[imageIndex] || 'Photo from The Anchor in Stanwell Moor'
+        imageAlts[imageIndex] || ''
       )
       result += `
         <figure class="not-prose my-8 mx-auto w-full max-w-full sm:max-w-xl lg:max-w-[420px] xl:max-w-[460px]">

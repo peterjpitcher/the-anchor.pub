@@ -2,6 +2,7 @@
 title: "Christmas Party Checklist for Organisers Near Heathrow"
 description: "A practical, ordered checklist for booking a group Christmas meal near Heathrow. Headcount first, then date, deposit, pre-orders and the day itself."
 date: "2026-08-10"
+updated: '2026-10-08'
 author: "The Anchor Team"
 keywords:
   - christmas booking in heathrow
@@ -34,14 +35,14 @@ Headcount comes first because it is the only decision that changes *what* you ar
 
 That last one catches people out constantly. Organisers picture a buffet and mingling, build the whole idea around it, then discover their 22 people cannot have one. Find that out in week one, not week four. If you clear 30 and now have a genuine choice to make, [buffet or sit-down for large groups](/blog/festive-buffet-ideas-for-large-groups-near-heathrow) works through it.
 
-So get a rough number first. Not a perfect one, nobody has that in October. A confident band will do.
+So get a rough number first. Not a perfect one, nobody has that this early. A confident band will do.
 
 ## The running order
 
 | # | Decision | Why it comes first | What it locks in |
 |---|---|---|---|
 | 1 | Rough headcount | Decides table booking, private hire, or nothing at all | Format, contact route, whether a buffet is even possible |
-| 2 | Date and day of week | Not every day is available, and weekday and weekend are priced differently | Your budget per head |
+| 2 | Date and day of week | Not every day is available, and two and three courses cost less Tuesday to Thursday | Your budget per head |
 | 3 | Format and course count | Chosen per person, so it is not one decision, it is everyone's | Whether you need pre-orders |
 | 4 | Deposit collection | Nothing is held until it is paid | The booking itself |
 | 5 | Pre-orders, 7 days before the booking | The kitchen works to your numbers | What actually arrives on the day |
@@ -55,7 +56,7 @@ Our Christmas service runs from 10 November to 20 December 2026, and the 20th is
 
 **Check the day of the week before you send the poll round.** Christmas sittings run Tuesday to Saturday, plus Sunday from 1pm to 6pm. **Mondays are not available**, because the kitchen is closed. Half the reason a date poll has to be run twice is that the winning date turns out to be a Monday.
 
-**Weekday and weekend are priced differently.** For us, weekday means Tuesday to Thursday and weekend means Friday to Saturday. If your group is price sensitive, that single choice moves your budget more than anything else. Prices sit on the [Christmas bookings page](/christmas-parties), pulled from our live system, so what you see is what you pay.
+**Two and three courses cost less Tuesday to Thursday.** For us, weekday means Tuesday to Thursday and weekend means Friday to Sunday, so a Sunday sitting is charged at the weekend price. The 1 course is the same price every day. If your group is price sensitive, check that before you fix the date. Prices sit on the [Christmas bookings page](/christmas-parties), pulled from our live system, so what you see is what you pay.
 
 **There is a hard minimum of 24 hours' notice.** No same-day Christmas bookings. That is not us being awkward, it is a kitchen ordering and prepping against a set menu. If someone suggests sorting it on the night, the answer is no, here and at most places running set menus in December.
 
@@ -75,11 +76,13 @@ If anyone is on two or three courses, you are collecting their choices in advanc
 
 On children: there is no kids two-course or three-course option, and no child price for those tiers. Children can order the adult two or three course tier, at the adult price. There is a kids version of the one-course option. Better you know now than budget for child prices that do not exist.
 
-Adults on the two and three course tiers get a glass of prosecco, swappable for orange juice. Children get a Fruit Shoot or a small soft drink with the one-course option. Trimmings are pigs in blankets, stuffing and brussels sprouts. The dishes are published on our [Christmas page](/christmas-parties), so your group can choose from the real menu.
+Adults on the two and three course tiers get a glass of prosecco, swappable for orange juice. Children get a Fruit Shoot or a small soft drink with the one-course option. Trimmings are pigs in blankets, stuffing and brussels sprouts. The Vegetable Wellington is vegan, so it comes with vegan trimmings and vegan gravy. The dishes are published on our [Christmas page](/christmas-parties), so your group can choose from the real menu.
 
 ## Collect the deposit before you book, not after
 
-Every Christmas booking with us carries a £10 per person deposit, whatever the party size. Taken at booking, deducted from your bill on the day, and refunded in full if you cancel more than seven days ahead. Not an extra charge, just your money arriving early.
+Every Christmas table booking with us, 4 to 20 guests, carries a £10 per person deposit. Taken at booking, deducted from your bill on the day, and refunded in full if you cancel up to and including seven days before your booking date. Not an extra charge, just your money arriving early.
+
+A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 
 The classic mistake is booking first and collecting afterwards. Do that and you have personally underwritten fourteen colleagues, then spend three weeks sending increasingly cheerful reminders.
 
@@ -90,23 +93,23 @@ What works instead:
 3. Book the number who paid, not the number who reacted with a thumbs up.
 4. If stragglers want in later, ask the venue. Adding is a far easier conversation than shrinking.
 
-The deposit is refunded in full if you cancel more than seven days ahead, but not inside that week, which is exactly when headcounts wobble. Book the number you are confident about, not the optimistic one.
+The £10 per person deposit is refunded in full if you cancel up to and including seven days before your booking date, but not after that, which is exactly when headcounts wobble. Book the number you are confident about, not the optimistic one.
 
 ## Ask the allergen and access questions early, and ask them properly
 
 Collect any allergen or dietary questions in the same message as the deposit. One message, both questions. Chasing this separately in December is miserable, and it is the item most likely to still be open the week of the booking.
 
-Then put them to the venue in writing, with names attached, rather than mentioning them on the phone and hoping. Our position is deliberately plain: **see menu or contact us for allergen information**. The Christmas menu is not finalised, so we are not going to tell you in August what it does and does not contain. Once it is out, ring 01753 682707 with the specifics and you will get a straight answer rather than a reassuring one.
+Then put them to the venue in writing, with names attached, rather than mentioning them on the phone and hoping. Our position is deliberately plain: **see menu or contact us for allergen information**. The dishes are on our [Christmas page](/christmas-parties). Ring 01753 682707 with anything specific and you will get a straight answer rather than a reassuring one.
 
-Put access needs in that same message. It is the same job and the same awkwardness, so do it once and do it early. Here is our honest position: the car park, the bar and the dining area are step-free, and assistance dogs are always welcome. The beer garden is step free from the car park, and there's one step between it and the bar, which we'll put a ramp out for if you tell us in advance. We do not have an accessible toilet. That last one is the reason to ask your group in September rather than assume, because it is a genuine reason to book somewhere else and nobody should discover it on the night.
+Put access needs in that same message. It is the same job and the same awkwardness, so do it once and do it early. Here is our honest position: the car park, the bar and the dining area are step-free, and assistance dogs are always welcome. The beer garden is step free from the car park, and there's one step between it and the bar, which we'll put a ramp out for if you tell us in advance. We do not have an accessible toilet. That last one is the reason to ask your group early rather than assume, because it is a genuine reason to book somewhere else and nobody should discover it on the night.
 
 ## The day itself
 
-**Parking and directions.** We have 20 free spaces on site, level, floodlit and CCTV covered, no fees and no time limit, plus more parking nearby. Send the postcode, TW19 6AQ, with the invite rather than the pub name, and point people at [how to find us](/find-us). We are 2 minutes from Junction 14 of the M25, about 7 minutes from Terminal 5 and 11 to 12 from the other terminals, 8 minutes from Staines, and outside the ULEZ zone. Buses 441, 442 and 555 run from Heathrow Central Bus Station.
+**Parking and directions.** We have 20 free spaces on site, level, floodlit and CCTV covered, no fees and no time limit, plus more parking nearby. Send the postcode, TW19 6AQ, with the invite rather than the pub name, and point people at [how to find us](/find-us). We are 2 minutes from Junction 14 of the M25, about 7 minutes from Terminal 5 and 11 to 12 from the other terminals, 8 minutes from Staines, and outside the ULEZ zone. The 442 bus stops on Horton Road by the pub and runs from Heathrow Terminal 5.
 
 **One point of contact.** Nominate one person to talk to the venue and take the calls. Not a committee. It stops the kitchen ringing three people and getting three answers.
 
-**Who settles the bill.** Decide before you arrive, not while everyone is putting coats on. The deposit comes off the total, so make sure whoever pays knows that.
+**Who settles the bill.** Decide before you arrive, not while everyone is putting coats on. On a table booking the £10 per person deposit comes off the total, so make sure whoever pays knows that.
 
 ## The step everyone skips: check you are booking the right product
 
@@ -124,7 +127,7 @@ As soon as you have a confident headcount. The hard floor with us is 24 hours' n
 
 ### How many people do I need for a Christmas booking?
 
-Four. Every Christmas dinner booking with us needs at least 4 guests. Above 20 it becomes a private hire enquiry rather than a table booking, so email manager@the-anchor.pub or ring 01753 682707.
+Four. Every Christmas dinner booking with us needs at least 4 guests. Above 20 it becomes a private hire enquiry rather than a table booking, so email manager@the-anchor.pub or ring 01753 682707. A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person.
 
 ### Does everyone have to have the same number of courses?
 
@@ -136,4 +139,4 @@ They can order the adult two or three course tier, charged at the adult price. T
 
 ### Is this a Christmas party night with entertainment?
 
-No. We do not run shared party nights. It is a sit-down festive meal at your own table, for your own group. If you want a DJ and a dancefloor, an airport hotel will serve you better, and we would rather say so than sell you the wrong evening. The one thing worth asking us about is our Christmas quiz, which runs in the December diary. It is not part of a Christmas booking, but a group can pick a date around it.
+No. We do not run shared party nights. It is a sit-down festive meal at your own table, for your own group. If you want a dance floor and a big organised night, an airport hotel will serve you better, and we would rather say so than sell you the wrong evening. A DJ can be arranged on request, but it is never included. There are four festive nights in the diary too: Tinsel & Tipples Christmas Tasting Night on Friday 20 November, Tinsel & Trivia Quiz Night on Wednesday 2 December, Sleigh My Name: Festive Music Bingo on Friday 11 December and Christmas Jackpot Cash Bingo on Wednesday 16 December. They are not part of a Christmas booking, but a group can pick a date around one. The details are on [what's on](/whats-on).
