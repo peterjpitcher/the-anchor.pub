@@ -5,7 +5,7 @@ description: >-
   history of April 1st pranks while enjoying drinks in Stanwell Moor, 7 minutes
   from Terminal 5. Perfect spot for Heathrow workers and Staines residents
   planning harmless jokes. Family-friendly atmosphere, free parking. Share your
-  best pranks over a pint!
+  best pranks over a pint.
 date: '2023-03-04'
 oldUrl: 'https://www.the-anchor.pub/post/what-is-the-history-of-april-fools-day'
 author: Billy
@@ -60,7 +60,7 @@ Whether you're looking to celebrate April Fools' Day with a playful prank or a d
 - **Travellers** to experience British humour traditions
 - **Staines residents** to gather for laughs
 
-Don't forget to bring your family and furry friends too! We are a family-friendly and dog-friendly pub with **free parking**, making it easy to visit from anywhere in the Heathrow area.
+Don't forget to bring your family and furry friends too. We are a family-friendly and dog-friendly pub with **free parking**, making it easy to visit from anywhere in the Heathrow area.
 
   
 
@@ -68,13 +68,13 @@ Don't forget to bring your family and furry friends too! We are a family-friendl
 
 Here are some harmless prank ideas you can use to celebrate April Fools' Day:
 
-1.  **Fake spider**: Place a fake spider or insect in a place where it's sure to be noticed, like in a desk drawer or on a chair. Be prepared for some screams!
+1.  **Fake spider**: Place a fake spider or insect in a place where it's sure to be noticed, like in a desk drawer or on a chair. Be prepared for some screams.
     
 2.  **Food swap**: Switch the labels on food containers in the fridge, so your family or co-workers will be in for a surprise when they open their lunch.
     
 3.  **Sticky notes**: Cover someone's desk or car with sticky notes, creating a colourful mosaic that they'll have to peel off one by one.
     
-4.  **Fake news**: Send a fake news article to your friends or family members that's so outrageous, they'll know it's a joke. For example, "World's First Flying Car Takes Off!" or "Scientists Discover Time Travel Is Possible!"
+4.  **Fake news**: Send a fake news article to your friends or family members that's so outrageous, they'll know it's a joke. For example, "World's First Flying Car Takes Off" or "Scientists Discover Time Travel Is Possible"
     
 5.  **Secret switch**: Swap out someone's computer mouse with a similar-looking one that doesn't work, or switch the keys on their keyboard so they type in the wrong letters.
     
@@ -83,7 +83,7 @@ Here are some harmless prank ideas you can use to celebrate April Fools' Day:
 7.  **Surprise phone call**: Call a friend or family member and pretend to be someone else, using a fake accent or voice. See how long you can keep up the charade before they figure it out.
     
 
-Remember to keep your pranks harmless and good-natured, and be prepared to laugh along with your victims. After pulling your pranks, meet at The Anchor to share the stories!
+Remember to keep your pranks harmless and good-natured, and be prepared to laugh along with your victims. After pulling your pranks, meet at The Anchor to share the stories.
 
 ![what is the history of april fools day image](/content/blog/what-is-the-history-of-april-fools-day/image-2.jpg)
 
@@ -111,7 +111,7 @@ Different countries have their own April Fools' traditions:
 ## Visit The Anchor This April Fools' Day
 
 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-**From Heathrow**: Just 7 minutes from all terminals
+**From Heathrow**: 7 minutes from Terminal 5
 **Parking**: Free on-site parking
 **April 1st**: Share your pranks over a pint
 **Family-Friendly**: All ages welcome
@@ -127,6 +127,6 @@ Different countries have their own April Fools' traditions:
 - **Free parking** - No hassle getting here
 - **Community spirit** - Where stories are shared
 
-April Fools' Day has a rich history that spans centuries and continents. From ancient Roman festivals to modern-day pranks at The Anchor pub, this holiday continues to bring joy and laughter to people all over the world. Join us this April 1st to share your best pranks and enjoy the fun!
+April Fools' Day has a rich history that spans centuries and continents. From ancient Roman festivals to modern-day pranks at The Anchor pub, this holiday continues to bring joy and laughter to people all over the world. Join us this April 1st to share your best pranks and enjoy the fun.
 
 *The Anchor - Where laughter and good times meet near Heathrow Airport*

@@ -361,17 +361,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Get all blog posts
   const blogPosts = await getAllBlogPosts()
-  const excludedBlogSlugs = new Set([
-    'euro-2024-viewing',
-    'autumn-internationals-2024-full-fixtures-highlight',
-    'plane-spotting-heathrow-guide',
-    'best-places-to-eat-near-heathrow',
-    'best-pub-food-near-heathrow',
-    // Cannibalises /sunday-roast, 301 redirected via additional-redirects.json.
-    'sunday-lunch-at-the-anchor-is-back-pre-order-now',
-    'pub-jobs-heathrow',
-  ])
-  const indexableBlogPosts = blogPosts.filter((post) => !excludedBlogSlugs.has(post.slug) && !post.noindex)
+  // A retired post has no folder in content/blog (its redirect lives in
+  // config/redirects), so there is no separate list of slugs to keep out here:
+  // tests/seo-indexing.test.ts fails if a post folder is also a redirect source.
+  const indexableBlogPosts = blogPosts.filter((post) => !post.noindex)
 
   // Map static routes
   const staticSitemap = staticRoutes.map((route) => ({

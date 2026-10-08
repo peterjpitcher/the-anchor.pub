@@ -24,6 +24,10 @@ export type OrganicSearchCluster = {
   targetIntent: string
   primaryRoute: string
   primaryAnchor: string
+  /** Sentence-case heading for readers, where the search phrase would read oddly. */
+  primaryLabel: string
+  /** What a reader finds on the primary page. targetIntent is an internal note and is never shown. */
+  primaryDescription: string
   successEvents: string[]
   supportingRoutes: OrganicSearchLink[]
 }
@@ -35,6 +39,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'People comparing Heathrow viewing areas and looking for a comfortable plane spotting base.',
     primaryRoute: '/blog/heathrow-plane-spotting-locations',
     primaryAnchor: 'best Heathrow plane spotting locations',
+    primaryLabel: "Heathrow plane spotting spots",
+    primaryDescription: "Where to watch the planes around Heathrow, and what each spot is like.",
     successEvents: ['table_booking_started', 'directions_clicked', 'menu_viewed'],
     supportingRoutes: [
       {
@@ -63,6 +69,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'Travellers and locals comparing where to eat near Heathrow before flights, after arrivals or during layovers.',
     primaryRoute: '/restaurants-near-heathrow',
     primaryAnchor: 'where to eat near Heathrow',
+    primaryLabel: "Where to eat near Heathrow",
+    primaryDescription: "Where to eat near the airport before a flight, after you land or on a layover.",
     successEvents: ['table_booking_started', 'menu_viewed', 'directions_clicked'],
     supportingRoutes: [
       {
@@ -91,6 +99,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'Drivers comparing cheaper off-airport parking with official Heathrow parking.',
     primaryRoute: '/heathrow-parking',
     primaryAnchor: 'cheap Heathrow parking from The Anchor',
+    primaryLabel: "Heathrow parking at The Anchor",
+    primaryDescription: "Leave your car with us while you fly. Prices and booking are on the page.",
     successEvents: ['parking_booking_started', 'parking_booking_completed', 'call_clicked'],
     supportingRoutes: [
       {
@@ -119,6 +129,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'People looking for a real pub close to Heathrow terminals and hotels.',
     primaryRoute: '/near-heathrow',
     primaryAnchor: 'pub near Heathrow Airport',
+    primaryLabel: "A pub near Heathrow",
+    primaryDescription: "How to reach us from each terminal, and what you'll find when you get here.",
     successEvents: ['table_booking_started', 'call_clicked', 'directions_clicked'],
     supportingRoutes: [
       {
@@ -147,6 +159,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'People looking for outdoor pub seating, dog-friendly garden space and aircraft views near Heathrow.',
     primaryRoute: '/beer-garden',
     primaryAnchor: 'beer garden near Heathrow',
+    primaryLabel: "Our beer garden",
+    primaryDescription: "Outdoor tables under the flight path, with dogs welcome on a lead.",
     successEvents: ['table_booking_started', 'directions_clicked', 'menu_viewed'],
     supportingRoutes: [
       {
@@ -175,6 +189,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'Nearby village and town searches for Staines, Stanwell, Ashford, Feltham and surrounding areas.',
     primaryRoute: '/staines-pub',
     primaryAnchor: 'pub near Staines',
+    primaryLabel: "A pub near Staines",
+    primaryDescription: "Eight minutes from Staines by car, with free parking.",
     successEvents: ['table_booking_started', 'directions_clicked', 'call_clicked'],
     supportingRoutes: [
       {
@@ -203,6 +219,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'People looking for pub events, quiz nights, bingo, karaoke and major sport near Heathrow.',
     primaryRoute: '/whats-on',
     primaryAnchor: "what's on near Heathrow",
+    primaryLabel: "What's on",
+    primaryDescription: "Quiz nights, bingo and the rest of the diary, with dates and prices.",
     successEvents: ['event_booking_started', 'table_booking_started', 'call_clicked'],
     supportingRoutes: [
       {
@@ -231,6 +249,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'People searching for private rooms, party venues and event spaces near Staines and Heathrow.',
     primaryRoute: '/private-hire',
     primaryAnchor: 'private rooms near Staines and Heathrow',
+    primaryLabel: "Private hire",
+    primaryDescription: "The spaces you can hire, the hourly rates and an instant estimate.",
     successEvents: ['private_hire_enquiry_started', 'call_clicked'],
     supportingRoutes: [
       {
@@ -259,6 +279,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'Organisers planning a work or family Christmas meal near Heathrow, Staines and Stanwell Moor.',
     primaryRoute: '/christmas-parties',
     primaryAnchor: 'Christmas party venue near Heathrow',
+    primaryLabel: "Christmas at The Anchor",
+    primaryDescription: "The Christmas menu, the dates and how to book your group.",
     successEvents: ['christmas_enquiry', 'table_booking_started', 'call_clicked'],
     supportingRoutes: [
       {
@@ -293,6 +315,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'Travellers and local visitors looking for useful activities near Heathrow during a layover or before a flight.',
     primaryRoute: '/blog/things-to-do-near-heathrow',
     primaryAnchor: 'things to do near Heathrow Airport',
+    primaryLabel: "Things to do near Heathrow",
+    primaryDescription: "Ideas for a layover or a spare few hours near the airport.",
     successEvents: ['table_booking_started', 'directions_clicked', 'menu_viewed'],
     supportingRoutes: [
       {
@@ -321,6 +345,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     targetIntent: 'Travellers, crews and remote workers searching for somewhere to work near Heathrow with WiFi and food.',
     primaryRoute: '/near-heathrow',
     primaryAnchor: 'workspace near Heathrow Airport',
+    primaryLabel: "Getting here from Heathrow",
+    primaryDescription: "How to reach us from each terminal.",
     successEvents: ['table_booking_started', 'directions_clicked', 'menu_viewed'],
     supportingRoutes: [
       {

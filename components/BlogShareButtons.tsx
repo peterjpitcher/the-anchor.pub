@@ -42,7 +42,7 @@ export function BlogShareButtons({ postTitle, postSlug }: BlogShareButtonsProps)
         size="sm"
         onClick={handleTwitterShare}
       >
-        Share on Twitter
+        Share on X
       </Button>
       <Button 
         variant="outline" 

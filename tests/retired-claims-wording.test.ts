@@ -107,7 +107,9 @@ describe('retired claims stay retired', () => {
     for (const file of customerFacingFiles()) {
       const text = flatten(file)
       for (const piece of pieces(text)) {
-        if (/\bpie roasts?\b|\btwo pies\b|roast (?:beef|pork|turkey), (?:and )?pies\b/i.test(piece)) {
+        // The last alternative catches a pie named in a list of roasts, such as
+        // "beef, pork, turkey, pies and a vegan option" (site review finding B1-041).
+        if (/\bpie roasts?\b|\btwo pies\b|roast (?:beef|pork|turkey), (?:and )?pies\b|\b(?:beef|pork|turkey),? (?:and )?pies\b/i.test(piece)) {
           offenders.push(`${file}: "${piece.trim().slice(0, 120)}"`)
         }
       }
@@ -131,7 +133,10 @@ describe('retired claims stay retired', () => {
     // 566 of them were swept out of 62 files on 12 September 2026, most of them line markers
     // in the blog archive ("📍 **Location**"). This is what stops them coming back.
     // The one exception is deliberate and named below: a share message is a social message.
-    const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{20E3}\u{E0020}-\u{E007F}]/u
+    // U+2300 to U+23FF holds the alarm clock, the hourglass and the media
+    // buttons. Eleven alarm clocks survived the September sweep because this
+    // range was missing (site review findings B1-040, B2-041 and B4-018).
+    const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2300}-\u{23FF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{20E3}\u{E0020}-\u{E007F}]/u
     const ALLOWED = new Set(['lib/event-social-copy.ts'])
 
     const offenders: string[] = []

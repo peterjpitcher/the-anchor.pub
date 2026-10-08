@@ -50,7 +50,7 @@ British pubs often operate on a counter-service system, where patrons order dire
 
 *   **Wait Your Turn Politely:** There may not be an obvious queue, but bartenders will serve customers in the order they arrive. Avoid calling out to the staff, simply stand at the bar and make eye contact when ready to order.
     
-*   **Know What You Want:** Browse the drinks menu in advance to avoid holding up the line. For a true local experience, try one of our bottled ales like Abbot Ale.
+*   **Know What You Want:** Browse the drinks menu in advance to avoid holding up the line. For a true local experience, try one of our bottled ales.
     
 *   **Step Aside After Ordering:** Once you’ve placed your order, move away from the bar area to allow others to do the same. This keeps the space flowing smoothly.
     
@@ -65,7 +65,7 @@ In British pubs, tipping is less formal than in other dining establishments, but
 
 *   **“Have One for Yourself”:** If your bartender provided excellent service, this classic phrase allows them to add the cost of a small drink (around £1–2) to your bill. It’s a simple yet effective way to show gratitude.
     
-*   **Table Service Tips:** When table service is provided (a feature occasionally available at The Anchor during busy periods), tipping 10–15% of your total bill is appropriate.
+*   **Table Service Tips:** When table service is provided (at The Anchor, food is brought to your table), tipping 10–15% of your total bill is appropriate.
     
       
     
@@ -112,7 +112,7 @@ Enjoying a great night out at a pub isn’t about how many pints you can drink, 
 
   
 
-*   **Pace Yourself:** Whether you’re sipping our signature brew or exploring our draught selection, take your time and enjoy the flavours.
+*   **Pace Yourself:** Whether you’re sipping a bottled ale or exploring our draught selection, take your time and enjoy the flavours.
     
 *   **Pair Drinks with Food:** Having a meal alongside your drink can enhance your experience and help maintain balance. At The Anchor, our classic fish and chips and other hearty pub favourites are crafted to satisfy.
     

@@ -1,7 +1,8 @@
 ---
-title: Where to Eat Near Heathrow Airport as a Business Traveller (2026 Guide)
-description: "Where to eat near Heathrow on business: VAT receipts, quick service and somewhere you can actually hear a client talk."
+title: Where to Eat Near Heathrow Airport as a Business Traveller
+description: "Where to eat near Heathrow on business: VAT receipts, free WiFi, a dining room and free parking, 7 minutes from Terminal 5."
 date: '2026-03-01'
+updated: '2026-10-08'
 author: The Anchor Team
 keywords:
   - where to eat near heathrow
@@ -19,94 +20,88 @@ hero: hero.jpg
 images: []
 ---
 
-If you travel regularly through Heathrow on business, you already know the routine: overpriced hotel restaurant, mediocre room service, or a disappointing terminal sandwich. None of it is good. This guide covers your actual options for **where to eat near Heathrow** as a business traveller, with honest notes on quality, value, and what works for expense accounts.
+If you travel regularly through Heathrow on business, you already know the routine: the hotel restaurant, room service, or a terminal sandwich. This guide covers your options for **where to eat near Heathrow** as a business traveller, and what works for expense accounts.
 
 ## The Problem with Heathrow Dining
 
 Business travellers at Heathrow face a straightforward dilemma. Your options are broadly:
 
-1. **Hotel restaurants**, convenient but expensive (£25–40 for a main course is typical at 4+ hotels) and sterile in atmosphere
-2. **Airport terminals**, fine for a quick bite, dreadful for a proper dinner or client meal
-3. **Delivery apps**, limited coverage near airport hotels, and eating alone in a hotel room is no one's highlight
+1. **Hotel restaurants**, convenient
+2. **Airport terminals**, fine for a quick bite
+3. **Delivery apps**, though eating alone in a hotel room is no one's highlight
 
 There is a fourth option most travellers don't know about.
 
-## The Anchor: Business Dining 7–15 Minutes from Any Heathrow Hotel
+## The Anchor: Business Dining 7 to 12 Minutes from Any Heathrow Terminal
 
-**The Anchor pub in Stanwell Moor** sits 7–15 minutes from every major Heathrow hotel by taxi. It's a traditional British pub that happens to tick every box business travellers actually care about:
+**The Anchor in Stanwell Moor** is 7 to 12 minutes by car from any Heathrow terminal. It's a traditional British village pub with the things business travellers care about:
 
-- **Full itemised VAT receipts**, essential for expense claims
-- **Quieter dining room** separated from the main bar, suitable for client dinners
+- **VAT receipts**, for expense claims
+- **A dining room** that seats 26
 - **Free WiFi**, useful if you need to review materials over dinner
-- **Group bookings**, easy to arrange for teams of 6 to 30+
-- **Pub prices, not hotel prices**, better for budgets and more defensible on expenses
-
-You'll find today's prices on our [food menu](/food-menu).
+- **Group bookings**, up to 20 online. Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.
+- **Fair village prices**, all on our [food menu](/food-menu)
 
 ## What to Order for a Business Dinner
 
-For client entertaining, The Anchor works best when you book the dining room rather than eating in the main bar area. Recommended dishes:
+A few ideas from the menu for client entertaining:
 
-- **Sunday Roast** (Sundays), impressive, traditional, and genuinely British. Excellent for international clients who want an authentic UK experience.
-- **Pies, burgers and pub classics**, reliable, freshly cooked, and crowd-pleasing
-- **Fish & chips**, the quintessentially British meal; always a talking point with overseas clients
+- **Sunday Roast** (Sundays), traditional and properly British. A good one for international clients. Roasts are carved fresh every Sunday from 1pm to 6pm. There's nothing to order in advance, so walk in whenever suits you. Last seating is 5:30pm.
+- **Pies, burgers and pub classics**
+- **Fish & chips**, always a talking point with overseas clients
 
-Call ahead on **01753 682707** and mention you want a quieter table for a business meal. The team will sort it.
+[Book a table online](/book-table) or call **01753 682707**.
 
-## Getting There from Major Heathrow Hotels
+## Getting There from Heathrow
 
-The journey times below are approximate by taxi or Uber. All hotels also have concierge desks that can arrange transport.
+These are the journey times by car from each terminal.
 
-| Hotel | Approx. Time | Taxi Cost |
-|-------|-------------|-----------|
-| Sofitel London Heathrow (T5) | 7 mins | ~£12–15 |
-| Premier Inn Heathrow (T5) | 8 mins | ~£12–15 |
-| Hilton London Heathrow (T4) | 10 mins | ~£12–15 |
-| Marriott London Heathrow | 12 mins | ~£15–18 |
-| Crowne Plaza Heathrow | 12 mins | ~£15–18 |
-| Radisson Blu Heathrow | 12 mins | ~£15–18 |
-| Novotel London Heathrow | 15 mins | ~£15–20 |
+| From | Time by car |
+|------|-------------|
+| Terminal 5 | 7 minutes |
+| Terminal 2 | 11 minutes |
+| Terminal 3 | 11 minutes |
+| Terminal 4 | 12 minutes |
 
-Free parking is available for those with rental cars (postcode **TW19 6AQ**).
+We've 20 free spaces right outside if you have a hire car (postcode **TW19 6AQ**).
 
 ## Practical Tips for Business Travellers
 
 ### Booking
-- Call ahead for groups of 6+
-- Weekday evenings (Tuesday–Thursday) are typically quieter than weekends
-- Monday: the pub is open but the kitchen is closed, plan accordingly
+- No need to book for lunch or dinner, Tuesday to Friday
+- Groups of 15 or more: call 01753 682707
+- Monday: the pub is open but the kitchen is closed, so check our [kitchen hours](/find-us) and plan accordingly
 
 ### Expenses
-- Request a VAT receipt when paying, staff are familiar with this request
+- Request a VAT receipt when paying
 - The pub's details for expense systems: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ, VAT registered
 
 ### Return Transport
-- Uber and local taxis are reliable from Stanwell Moor
-- Journey back to any Heathrow hotel takes 7–15 minutes
-- Ask at the bar for a taxi number, then make your own arrangements
+- The drive back to any Heathrow terminal takes 7 to 12 minutes
+- Ask at the bar and we'll give you a taxi number. You'll need to make your own arrangements.
 
 ## Is It Worth the Short Journey?
 
-For solo dining: yes, unequivocally. A proper meal in a pub atmosphere beats hotel room service in every measurable way.
+For solo dining: yes. A proper meal in a village pub makes a change from room service.
 
-For client dinners: yes, if you brief the client appropriately. Position it as "the authentic local, much better than another hotel restaurant" and most clients appreciate the thought. International visitors especially enjoy the genuine British pub experience.
+For client dinners: yes, if you tell the client what to expect. It's a traditional village pub, not a hotel restaurant, and international visitors often enjoy that.
 
-For large team events: definitely yes. The Anchor has private hire options, can accommodate 20–80+ people, and is often 60–70% cheaper than hotel event packages.
+For large team events: yes. The Anchor has private hire for 10+ to 150 guests, and room hire is charged by the hour for the space you book. [Get an instant estimate online](/private-hire), then ask us about your date.
 
 ## Other Options Near Heathrow for Business Dining
 
 For completeness, here are the realistic alternatives:
 
-- **Hotel restaurants**, convenient, expensive, forgettable
-- **Heathrow terminal restaurants**, fine if you're already airside, poor value otherwise
-- **Staines town centre**, broader restaurant choice, but 15–20 minutes from most airport hotels
-- **Windsor**, excellent restaurants (Windsor Grill, etc.) but 25–30 minutes away, impractical for one-night trips
+- **Hotel restaurants**, convenient if you'd rather not travel
+- **Heathrow terminal restaurants**, handy if you're already airside
+- **Staines town centre**, a wider choice of restaurants
+- **Windsor**, a wider choice again, if you have the time
 
-For most business travellers, The Anchor is a practical choice within the 15-minute radius of Heathrow.
+The Anchor is 7 to 12 minutes from any Heathrow terminal.
 
 ## Book Your Table
 
-[Book online](/book-table) or call **01753 682707**. Mention you need a quieter table for a business meal and we'll make sure you have the right space.
+[Book online](/book-table) or call **01753 682707**.
 
 ---
 
