@@ -10,7 +10,7 @@ import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { GoogleReviews } from '@/components/reviews'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, BUS_WORDING, HEATHROW_TIMES_WORDING, HEATHROW_TIMES, HEATHROW_DISTANCES, PARKING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessHours } from '@/lib/api'
 import { WeekHours } from '@/components/WeekHours'
@@ -19,10 +19,11 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { DirectionsLink } from '@/components/DirectionsButton'
 
 export const metadata: Metadata = {
-  title: 'Restaurants Near Heathrow Airport, 7 Min T5',
-  description: 'Restaurants near Heathrow Airport: The Anchor is a British pub 7 minutes from T5 with free parking, home-cooked food and Sunday roast. Walk in or book.',
+  title: `Restaurants Near Heathrow Airport, ${HEATHROW_TIMES.terminal5} Min T5`,
+  description: `Restaurants near Heathrow Airport: The Anchor is a British pub ${HEATHROW_TIMES.terminal5} minutes from T5 with free parking, home-cooked food and Sunday roast. Walk in or book.`,
   openGraph: {
     title: 'Restaurants Near Heathrow Airport | The Anchor',
     description: 'A proper sit-down British pub minutes from Heathrow. Free parking, home-cooked food, a beer garden, and Sunday roasts served 1pm to 6pm with no booking needed.',
@@ -47,7 +48,7 @@ export default async function RestaurantsNearHeathrowPage() {
     "@type": "Restaurant",
     "@id": "https://www.the-anchor.pub/restaurants-near-heathrow",
     "name": "The Anchor",
-    "description": "Restaurant near Heathrow Airport serving traditional British pub food with free parking, 7 minutes from Terminal 5",
+    "description": `Restaurant near Heathrow Airport serving traditional British pub food with free parking, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5`,
     "url": "https://www.the-anchor.pub/restaurants-near-heathrow",
     "telephone": "+441753682707",
     "address": {
@@ -60,12 +61,12 @@ export default async function RestaurantsNearHeathrowPage() {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 51.462509,
-      "longitude": -0.502067
+      "latitude": CONTACT.coordinates.lat,
+      "longitude": CONTACT.coordinates.lng
     },
     ...(kitchenHoursSpecification.length ? { "openingHoursSpecification": kitchenHoursSpecification } : {}),
     "servesCuisine": ["British", "Traditional British", "Pub Food"],
-    "priceRange": "££",
+    "priceRange": PRICE_RANGE,
     "acceptsReservations": true,
     "menu": "https://www.the-anchor.pub/food-menu",
     "hasMenu": {
@@ -149,7 +150,7 @@ export default async function RestaurantsNearHeathrowPage() {
         <Container>
           <div className="mx-auto space-y-4">
             <p className="text-lg leading-relaxed text-ink-muted">
-              The Anchor is a traditional British pub and restaurant in Stanwell Moor, near Heathrow Airport. We are 7 minutes from Terminal 5 and 11 to 12 minutes from the other terminals, so if you are searching for restaurants near Heathrow before a flight, after landing or during a layover, you can be sitting down to a home-cooked meal in minutes. There is free parking on site, a beer garden under the flight path, and a calmer setting than anything you will find inside the terminal.
+              The Anchor is a traditional British pub and restaurant in Stanwell Moor, near Heathrow Airport. We are {HEATHROW_TIMES.terminal5} minutes from Terminal 5 and {HEATHROW_TIMES.terminal2} to {HEATHROW_TIMES.terminal4} minutes from the other terminals, so if you are searching for restaurants near Heathrow before a flight, after landing or during a layover, you can be sitting down to a home-cooked meal in minutes. There is free parking on site, a beer garden under the flight path, and a calmer setting than anything you will find inside the terminal.
             </p>
             <p className="text-lg leading-relaxed text-ink-muted">
               We cook proper British pub food: Sunday roasts, fish and chips, stone-baked pizzas, burgers and pies, all made fresh to order rather than reheated. We are not a chain or a fast-food counter, just a village pub where you can take your time, bring the dog, and eat well without airport prices.
@@ -206,7 +207,7 @@ export default async function RestaurantsNearHeathrowPage() {
                     <th scope="row" className="py-3 px-4 text-left font-semibold text-accent-text">The Anchor</th>
                     <td className="py-3 px-4 font-semibold text-accent-text">Home-cooked pub food</td>
                     <td className="py-3 px-4 font-semibold text-anchor-success">Free, no time limit</td>
-                    <td className="py-3 px-4 font-semibold text-accent-text">7 minutes</td>
+                    <td className="py-3 px-4 font-semibold text-accent-text">{HEATHROW_TIMES.terminal5} minutes</td>
                     <td className="py-3 px-4 font-semibold text-accent-text">Relaxed village pub</td>
                   </tr>
                   <tr>
@@ -269,34 +270,35 @@ export default async function RestaurantsNearHeathrowPage() {
           <div className="mx-auto">
             <SectionHeading
               title="How to Get to The Anchor from Each Terminal"
-              subtitle="Quick directions by car, taxi or rideshare"
+              subtitle="Drive times by car, taxi or rideshare"
             />
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-bold text-lg text-accent-text mb-3">From Terminal 5</h3>
                 <ul className="space-y-2 text-ink-muted">
-                  <li><strong>Drive:</strong> 7 minutes, about 3.8 miles via the A3044</li>
-                  <li><strong>Route:</strong> Head south on the A3044 towards Stanwell Moor. We are on Horton Road, with free parking on site</li>
+                  <li><strong>Drive:</strong> {HEATHROW_TIMES.terminal5} minutes, {HEATHROW_DISTANCES.terminal5}</li>
                 </ul>
               </div>
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-bold text-lg text-accent-text mb-3">From Terminals 2 &amp; 3</h3>
                 <ul className="space-y-2 text-ink-muted">
-                  <li><strong>Drive:</strong> 11 minutes via the A30</li>
-                  <li><strong>Route:</strong> Take the A30 south, then follow signs for Stanwell Moor village</li>
+                  <li><strong>Drive:</strong> {HEATHROW_TIMES.terminal2} minutes</li>
                 </ul>
               </div>
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-bold text-lg text-accent-text mb-3">From Terminal 4</h3>
                 <ul className="space-y-2 text-ink-muted">
-                  <li><strong>Drive:</strong> 12 minutes via the A30</li>
-                  <li><strong>Route:</strong> Head west on the A30 towards Staines, then turn off at Stanwell Moor</li>
+                  <li><strong>Drive:</strong> {HEATHROW_TIMES.terminal4} minutes</li>
                 </ul>
               </div>
             </div>
             <div className="text-center mt-6">
               <p className="text-sm text-ink-muted">
-                Taxis, Uber and Bolt all run from every terminal, and the 441, 442 and 555 buses serve Stanwell Moor from Heathrow Central.
+                We are on {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}, with free parking on site.{' '}
+                <DirectionsLink href={DIRECTIONS_URL} source="restaurants_near_heathrow_directions" className="underline hover:text-accent-text">Get directions</DirectionsLink>
+              </p>
+              <p className="mt-2 text-sm text-ink-muted">
+                Taxis, Uber and Bolt all run from every terminal. {BUS_WORDING}
               </p>
             </div>
           </div>
@@ -313,25 +315,25 @@ export default async function RestaurantsNearHeathrowPage() {
             <Card accent>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Restaurants near Heathrow Terminal 5</h3>
-                <p className="text-ink-muted">If you are looking for restaurants near Heathrow Terminal 5, we are only 7 minutes away. Book a table or simply walk in, then return to the airport in plenty of time.</p>
+                <p className="text-ink-muted">If you are looking for restaurants near Heathrow Terminal 5, we are only {HEATHROW_TIMES.terminal5} minutes away. Book a table or simply walk in, then return to the airport in plenty of time.</p>
               </CardBody>
             </Card>
             <Card accent>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Restaurants near Heathrow Terminal 3</h3>
-                <p className="text-ink-muted">Looking for food near Heathrow Terminal 3? We are about 11 minutes away, with home-cooked pub classics and a calmer place to sit than the terminal.</p>
+                <p className="text-ink-muted">Looking for food near Heathrow Terminal 3? We are about {HEATHROW_TIMES.terminal3} minutes away, with home-cooked pub classics and a calmer place to sit than the terminal.</p>
               </CardBody>
             </Card>
             <Card accent>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Restaurants near Heathrow Terminal 2</h3>
-                <p className="text-ink-muted">From Terminal 2, it is around 11 minutes to Stanwell Moor for British classics, Sunday roasts and free parking before you head back to the airport.</p>
+                <p className="text-ink-muted">From Terminal 2, it is around {HEATHROW_TIMES.terminal2} minutes to Stanwell Moor for British classics, Sunday roasts and free parking before you head back to the airport.</p>
               </CardBody>
             </Card>
             <Card accent>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Restaurants near Heathrow Terminal 4</h3>
-                <p className="text-ink-muted">Terminal 4 is about 12 minutes from us. Swap an airport food court for a proper meal, a full bar and somewhere to keep your luggage while you eat.</p>
+                <p className="text-ink-muted">Terminal 4 is about {HEATHROW_TIMES.terminal4} minutes from us. Swap an airport food court for a proper meal, a full bar and somewhere to keep your luggage while you eat.</p>
               </CardBody>
             </Card>
           </div>
@@ -364,10 +366,10 @@ export default async function RestaurantsNearHeathrowPage() {
                 <CardBody className="p-8">
                   <h3 className="font-display text-h4 text-ink-strong mb-3">Free Parking While You Eat</h3>
                   <p className="text-ink-muted mb-3">
-                    Parking at the airport adds up fast. We have 20 free spaces on site for our guests, with no time limit while you are dining and no parking ticket to think about.
+                    Parking at the airport adds up fast. We have {PARKING.capacity} free spaces on site for our guests, with no time limit while you are dining and no parking ticket to think about.
                   </p>
                   <div className="bg-surface-sunk rounded-sm p-4 border border-line">
-                    <p className="font-semibold text-anchor-success">The Anchor: parking is always free</p>
+                    <p className="font-semibold text-anchor-success">The Anchor: free parking while you&apos;re with us</p>
                     <p className="text-sm text-anchor-success mt-1">Level surface, close to the door, floodlit with CCTV</p>
                   </div>
                 </CardBody>
@@ -381,23 +383,21 @@ export default async function RestaurantsNearHeathrowPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center">
                     <p className="font-semibold text-lg text-ink-strong">Terminal 5</p>
-                    <p className="font-display text-h3 text-accent-text">7 mins</p>
-                    <p className="text-sm text-ink-muted">3.8 miles</p>
+                    <p className="font-display text-h3 text-accent-text">{HEATHROW_TIMES.terminal5} mins</p>
+                    <p className="text-sm text-ink-muted">{HEATHROW_DISTANCES.terminal5}</p>
                   </div>
                   <div className="text-center">
                     <p className="font-semibold text-lg text-ink-strong">Terminal 2</p>
-                    <p className="font-display text-h3 text-accent-text">11 mins</p>
-                    <p className="text-sm text-ink-muted">via the A30</p>
+                    <p className="font-display text-h3 text-accent-text">{HEATHROW_TIMES.terminal2} mins</p>
                   </div>
                   <div className="text-center">
                     <p className="font-semibold text-lg text-ink-strong">Terminal 3</p>
-                    <p className="font-display text-h3 text-accent-text">11 mins</p>
-                    <p className="text-sm text-ink-muted">5.3 miles</p>
+                    <p className="font-display text-h3 text-accent-text">{HEATHROW_TIMES.terminal3} mins</p>
+                    <p className="text-sm text-ink-muted">{HEATHROW_DISTANCES.terminal3}</p>
                   </div>
                   <div className="text-center">
                     <p className="font-semibold text-lg text-ink-strong">Terminal 4</p>
-                    <p className="font-display text-h3 text-accent-text">12 mins</p>
-                    <p className="text-sm text-ink-muted">via the A30</p>
+                    <p className="font-display text-h3 text-accent-text">{HEATHROW_TIMES.terminal4} mins</p>
                   </div>
                 </div>
               </CardBody>
@@ -481,7 +481,7 @@ export default async function RestaurantsNearHeathrowPage() {
                 <ul className="space-y-2 text-ink-muted">
                       <li>• Eat proper food before your flight</li>
                       <li>• Park free while you dine</li>
-                      <li>• Quick 7-minute drive to Terminal 5</li>
+                      <li>• Quick {HEATHROW_TIMES.terminal5}-minute drive to Terminal 5</li>
                       <li>• Skip the terminal queues</li>
                       <li>• Luggage storage available</li>
                     </ul>
@@ -568,11 +568,11 @@ export default async function RestaurantsNearHeathrowPage() {
         faqs={[
           {
             question: "What is the best restaurant near Heathrow Airport?",
-            answer: "The Anchor is a traditional British pub and restaurant in Stanwell Moor, 7 minutes from Terminal 5 and 11 to 12 minutes from the other terminals. We cook home-made British food, including Sunday roasts, fish and chips, pizzas and pies, with free parking on site and a beer garden under the flight path. It is a calmer, better-value choice than eating inside the airport."
+            answer: `The Anchor is a traditional British pub and restaurant in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 and ${HEATHROW_TIMES.terminal2} to ${HEATHROW_TIMES.terminal4} minutes from the other terminals. We cook home-made British food, including Sunday roasts, fish and chips, pizzas and pies, with free parking on site and a beer garden under the flight path. It is a calmer, better-value choice than eating inside the airport.`
           },
           {
             question: "How far is The Anchor from Heathrow Airport?",
-            answer: "We are 7 minutes from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4. Taxis, Uber, Bolt and the 441, 442 and 555 buses all run from the airport."
+            answer: `We are ${HEATHROW_TIMES_WORDING}. Taxis, Uber and Bolt all run from the airport. ${BUS_WORDING}`
           },
           {
             question: "Can I leave Heathrow during a layover to eat?",
@@ -580,15 +580,15 @@ export default async function RestaurantsNearHeathrowPage() {
           },
           {
             question: "Is it worth leaving the airport to eat?",
-            answer: "Usually, yes. Airport and hotel dining tends to cost more, and hotel car parks often charge non-guests. A local pub meal 7 minutes away, with free parking and room to relax, is better value and a calmer way to spend the time."
+            answer: `Usually, yes. Airport and hotel dining tends to cost more, and hotel car parks often charge non-guests. A local pub meal ${HEATHROW_TIMES.rangeWords} from the terminals, with free parking and room to relax, is better value and a calmer way to spend the time.`
           },
           {
             question: "Are you a good alternative to restaurants near Heathrow Terminal 5?",
-            answer: "Yes. If you are searching for restaurants near Heathrow Terminal 5, we are only 7 minutes away with free parking, a proper sit-down meal and room to relax. You can book a table or simply walk in."
+            answer: `Yes. If you are searching for restaurants near Heathrow Terminal 5, we are only ${HEATHROW_TIMES.terminal5} minutes away with free parking, a proper sit-down meal and room to relax. You can book a table or simply walk in.`
           },
           {
             question: "Is there food near Heathrow Terminal 3 if I want to leave the airport?",
-            answer: "The Anchor is about 11 minutes from Terminal 3. Guests looking for food near Heathrow Terminal 3 often come to us for a calmer, home-cooked meal, then head back by taxi or bus."
+            answer: `The Anchor is about ${HEATHROW_TIMES.terminal3} minutes from Terminal 3. Guests looking for food near Heathrow Terminal 3 often come to us for a calmer, home-cooked meal, then head back by taxi.`
           },
           {
             question: "Do you serve Sunday roast, and do I need to book?",
@@ -596,7 +596,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
           {
             question: "Is parking really free?",
-            answer: "Yes. We have 20 free parking spaces for our guests, with no time limit while you are dining with us. The car park is level, floodlit and covered by CCTV."
+            answer: `Yes. We have ${PARKING.capacity} free parking spaces for our guests, with no time limit while you are dining with us. The car park is level, floodlit and covered by CCTV.`
           },
           {
             question: "What type of food do you serve?",
@@ -631,7 +631,7 @@ export default async function RestaurantsNearHeathrowPage() {
             <BookTableButton source="restaurants_near_heathrow_cta" variant="primary" size="lg">Book a Table</BookTableButton>
             <PhoneButton phone={CONTACT.phone} source="restaurants_near_heathrow_cta" variant="outline" size="lg">Call: 01753 682707</PhoneButton>
           </div>
-          <p className="text-ink-muted text-sm">Walk in or book ahead • Sunday roast served 1pm to 6pm • Free parking always</p>
+          <p className="text-ink-muted text-sm">Walk in or book ahead • Sunday roast served 1pm to 6pm • Free parking</p>
         </div>
       </CtaBand>
     </>

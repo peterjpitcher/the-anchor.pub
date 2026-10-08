@@ -8,13 +8,13 @@ import { getBusinessHoursSnapshot } from '@/lib/api'
 import { InteriorHero } from '@/components/hero'
 import { Metadata } from 'next'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { findUsPlaceSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
+import { findUsPlaceSchema } from '@/lib/enhanced-schemas'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { DirectionsLink, DirectionsButton } from '@/components/DirectionsButton'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, HEATHROW_DISTANCES, DRIVE_TIMES, PARKING, BUS, BUS_WORDING, DIRECTIONS_URL } from '@/lib/constants'
 
 import { WhatsAppLink } from '@/components/WhatsAppLink'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
@@ -24,11 +24,11 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { ACCESS_SHORT_WORDING, ACCESS_WORDING } from '@/lib/approved-wording'
+import { ACCESS_SHORT_WORDING, ACCESS_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Find The Anchor | TW19 6AQ, 7 Mins from Heathrow T5' },
-  description: 'Directions to The Anchor, Horton Road, Stanwell Moor TW19 6AQ. 7 mins from Heathrow T5, 2 mins from M25 J14, 20 free parking spaces. Buses 441, 442, 555.',
+  title: { absolute: `Find The Anchor | TW19 6AQ, ${HEATHROW_TIMES.terminal5} Mins from Heathrow T5` },
+  description: `Directions to The Anchor, Horton Road, Stanwell Moor TW19 6AQ. ${HEATHROW_TIMES.terminal5} mins from Heathrow T5, ${DRIVE_TIMES.m25Junction14} mins from M25 J14, ${PARKING.capacity} free parking spaces. Bus ${BUS.route}.`,
   openGraph: {
     title: 'Directions to The Anchor (TW19 6AQ)',
     description: 'Driving and public transport directions from Heathrow terminals to The Anchor on Horton Road with free parking.',
@@ -49,20 +49,6 @@ export default async function FindUsPage() {
   // placeholder. Cached snapshot, so this page stays static.
   const businessHours = await getBusinessHoursSnapshot()
 
-  const howToFromHeathrowSchema = generateHowToDirectionsSchema(
-    "Heathrow Terminal 5",
-    "The Anchor",
-    [
-      "Exit Terminal 5 following signs for M25/A30",
-      "At roundabout, take A3044 towards Staines",
-      "Continue straight for 1.5 miles through Stanwell",
-      "Turn left onto Horton Road",
-      "The Anchor is 200 yards on your right",
-      "Free parking available on site"
-    ]
-  )
-
-
   return (
     <>
       <BreadcrumbJsonLd
@@ -74,11 +60,11 @@ export default async function FindUsPage() {
       <SpeakableSchema/>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([findUsPlaceSchema, howToFromHeathrowSchema, parkingFacilitySchema, {
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([findUsPlaceSchema, parkingFacilitySchema, {
           "@context": "https://schema.org",
           "@type": "ContactPage",
           "name": "Find The Anchor, Directions & Contact",
-          "description": "Get directions to The Anchor on Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow Terminal 5 with free parking.",
+          "description": `Get directions to The Anchor on Horton Road, Stanwell Moor TW19 6AQ. ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking.`,
           "url": "https://www.the-anchor.pub/find-us",
           "mainEntity": { "@id": "https://www.the-anchor.pub/#business" }
         }]) }}
@@ -102,7 +88,7 @@ export default async function FindUsPage() {
           <div className="mx-auto mt-8 grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 lg:grid-cols-5">
             {[
               { title: 'Stanwell Moor', sub: 'Surrey TW19 6AQ' },
-              { title: 'Bus Routes', sub: '441, 442, 555' },
+              { title: 'Bus', sub: BUS.route },
               { title: 'Pool & Darts', sub: 'Games available' },
               { title: 'Entertainment', sub: 'Jukebox & more' },
               { title: 'Payment', sub: 'Cash & all cards inc. Amex' }
@@ -172,7 +158,7 @@ export default async function FindUsPage() {
                       />
                     </p>
                     <DirectionsLink
-                      href={`https://www.google.com/maps/dir/?api=1&destination=${CONTACT.coordinates.lat},${CONTACT.coordinates.lng}`}
+                      href={DIRECTIONS_URL}
                       source="find_us_section"
                     >
                       Get directions on Google Maps
@@ -184,7 +170,7 @@ export default async function FindUsPage() {
                     <ul className="space-y-2 text-ink-muted">
                       <li>Centre of Stanwell Moor village</li>
                       <li>Under the Heathrow flight path</li>
-                      <li>Free parking for patrons (20 spaces)</li>
+                      <li>Free parking for patrons ({PARKING.capacity} spaces)</li>
                       <li>Traditional pub building with garden</li>
                     </ul>
                     <p className="mt-4 text-sm text-ink-muted italic">
@@ -222,35 +208,33 @@ export default async function FindUsPage() {
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="Heathrow Terminal to Pub in Under 12 Minutes"
-              lead="Plan your route from any Heathrow terminal with taxi times, parking tips and public transport options."
+              title={`Heathrow Terminal to Pub in ${HEATHROW_TIMES.range}`}
+              lead="Drive times from each Heathrow terminal. Follow your sat nav to TW19 6AQ."
             />
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <Card accent>
                 <CardBody>
-                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminal 5 to The Anchor (7 mins)</h3>
+                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminal 5 to The Anchor ({HEATHROW_TIMES.terminal5} mins)</h3>
                   <ul className="list-inside list-disc space-y-2 text-ink-muted">
-                    <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
-                    <li>Turn left onto Horton Road; pub is 200 yards on right</li>
+                    <li>{HEATHROW_DISTANCES.terminal5} by car</li>
+                    <li>Follow sat nav to TW19 6AQ</li>
                     <li>Free parking when you arrive</li>
                   </ul>
                 </CardBody>
               </Card>
               <Card accent>
                 <CardBody>
-                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminals 2 &amp; 3 (11 mins)</h3>
+                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminals 2 &amp; 3 ({HEATHROW_TIMES.terminal2} mins)</h3>
                   <ul className="list-inside list-disc space-y-2 text-ink-muted">
-                    <li>Head north on Tunnel Road W to M4 Spur to A4 to A3044</li>
-                    <li>Avoid multi-storey car parks; follow sat nav to TW19 6AQ</li>
+                    <li>Follow sat nav to TW19 6AQ</li>
                     <li>Ideal for pre-flight meals before security queues</li>
                   </ul>
                 </CardBody>
               </Card>
               <Card accent>
                 <CardBody>
-                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminal 4 (12 mins)</h3>
+                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Terminal 4 ({HEATHROW_TIMES.terminal4} mins)</h3>
                   <ul className="list-inside list-disc space-y-2 text-ink-muted">
-                    <li>Take Southern Perimeter Rd to Stanwell Moor Rd</li>
                     <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor, TW19 6AQ</li>
                     <li>Plenty of time for a meal before evening departures</li>
                   </ul>
@@ -258,10 +242,10 @@ export default async function FindUsPage() {
               </Card>
               <Card accent>
                 <CardBody>
-                  <h3 className="mb-3 font-display text-h4 text-ink-strong">442 Bus &amp; Hotel Shuttles</h3>
+                  <h3 className="mb-3 font-display text-h4 text-ink-strong">Bus &amp; Taxi</h3>
                   <ul className="list-inside list-disc space-y-2 text-ink-muted">
-                    <li>442 stops outside the pub connecting Staines to Heathrow</li>
-                    <li>Premier Inn T5 guests can walk in 15 minutes or take local taxi</li>
+                    <li>{BUS_WORDING}</li>
+                    <li>Staying at a Heathrow hotel? Take a taxi</li>
                     <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor</li>
                   </ul>
                 </CardBody>
@@ -275,63 +259,23 @@ export default async function FindUsPage() {
       <section className="bg-surface-sunk py-section-y">
         <Container>
           <SectionHeading
-            title="Directions from Popular Locations"
+            title="Driving from Nearby"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
             <Card accent>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">From M25</h3>
-                <ol className="space-y-2 text-ink-muted list-decimal list-inside">
-                  <li>Exit Junction 14</li>
-                  <li>Take A3113 towards Stanwell Moor</li>
-                  <li>At roundabout, continue straight</li>
-                  <li>Turn left at Horton Road</li>
-                  <li>The Anchor is on your right</li>
-                </ol>
-                <p className="mt-4 text-sm text-ink-muted">Journey time: 2 minutes from M25</p>
+                <p className="text-ink-muted">Leave at Junction 14 and follow your sat nav to TW19 6AQ.</p>
+                <p className="mt-4 text-sm text-ink-muted">Journey time: {DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14</p>
               </CardBody>
             </Card>
 
             <Card accent>
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">From Staines</h3>
-                <ol className="space-y-2 text-ink-muted list-decimal list-inside">
-                  <li>Head south on A30</li>
-                  <li>Turn right onto A3044</li>
-                  <li>Continue to Stanwell Moor</li>
-                  <li>Turn right onto Horton Road</li>
-                  <li>The Anchor is on your right</li>
-                </ol>
-                <p className="mt-4 text-sm text-ink-muted">Journey time: 10 minutes</p>
-              </CardBody>
-            </Card>
-
-            <Card accent>
-              <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">From Windsor</h3>
-                <ol className="space-y-2 text-ink-muted list-decimal list-inside">
-                  <li>Take A308 towards Staines</li>
-                  <li>Join M25 at Junction 13</li>
-                  <li>Exit at Junction 14</li>
-                  <li>Follow signs to Stanwell Moor</li>
-                  <li>Turn left at Horton Road</li>
-                </ol>
-                <p className="mt-4 text-sm text-ink-muted">Journey time: 20 minutes</p>
-              </CardBody>
-            </Card>
-
-            <Card accent>
-              <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">From Ashford</h3>
-                <ol className="space-y-2 text-ink-muted list-decimal list-inside">
-                  <li>Head north on A30</li>
-                  <li>Turn left onto A3044</li>
-                  <li>Continue through Stanwell</li>
-                  <li>Turn left onto Horton Road</li>
-                  <li>The Anchor is on your right</li>
-                </ol>
-                <p className="mt-4 text-sm text-ink-muted">Journey time: 10 minutes</p>
+                <p className="text-ink-muted">Follow your sat nav to TW19 6AQ.</p>
+                <p className="mt-4 text-sm text-ink-muted">Journey time: {DRIVE_TIMES.staines} minutes</p>
               </CardBody>
             </Card>
 
@@ -347,43 +291,27 @@ export default async function FindUsPage() {
                 </ul>
               </CardBody>
             </Card>
-
-            <Card accent>
-              <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-4">By Bus</h3>
-                <div className="space-y-3 text-ink-muted">
-                  <p><strong className="text-ink-strong">Route 442:</strong> Staines - Stanwell Moor - Heathrow</p>
-                  <p className="text-sm">Ask driver for The Anchor stop</p>
-                  <p className="text-sm text-accent-text font-semibold">ULEZ Free Route</p>
-                </div>
-                <p className="mt-4 text-sm text-ink-muted">Regular service throughout the day</p>
-              </CardBody>
-            </Card>
           </div>
         </Container>
       </section>
 
       {/* Parking Information */}
-      <section className="py-section-y bg-surface">
+      <section id="parking" className="scroll-mt-24 py-section-y bg-surface">
         <Container>
           <div className="mx-auto text-center">
             <SectionHeading
-              title="FREE Parking for Patrons - 20 Spaces Available!"
+              title={`FREE Parking for Patrons - ${PARKING.capacity} Spaces`}
               lead="Complimentary parking while you're enjoying our food and drinks"
             />
             <Card accent>
               <CardBody className="p-5 sm:p-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h3 className="font-display text-h4 text-ink-strong mb-2">ALWAYS FREE</h3>
                     <p className="text-ink-muted">No charge while you visit</p>
                   </div>
                   <div>
-                    <h3 className="font-display text-h4 text-ink-strong mb-2">NO TIME LIMITS</h3>
-                    <p className="text-ink-muted">Stay as long as you like!</p>
-                  </div>
-                  <div>
-                    <h3 className="font-display text-h4 text-ink-strong mb-2">20 SPACES</h3>
+                    <h3 className="font-display text-h4 text-ink-strong mb-2">{PARKING.capacity} SPACES</h3>
                     <p className="text-ink-muted">Well-lit with CCTV coverage</p>
                   </div>
                 </div>
@@ -392,7 +320,7 @@ export default async function FindUsPage() {
                     Parking at The Anchor is free while you visit.
                   </p>
                   <p className="text-sm text-ink-muted mt-2">
-                    Perfect for picking up/dropping off at Heathrow without the parking fees!
+                    {PARKING_WORDING}
                   </p>
                 </div>
               </CardBody>
@@ -541,11 +469,11 @@ export default async function FindUsPage() {
         faqs={[
           {
             question: "Is there parking at The Anchor?",
-            answer: "Yes, The Anchor offers free parking for patrons while they're visiting the pub. Our car park has 20 spaces available."
+            answer: `Yes, The Anchor offers free parking for patrons while they're visiting the pub. Our car park has ${PARKING.capacity} spaces available.`
           },
           {
             question: "How far is The Anchor from Heathrow Airport?",
-            answer: "The Anchor is just 7 minutes from Terminal 5, 11 minutes from Terminals 2 & 3, and 12 minutes from Terminal 4. We're the closest traditional British pub to Heathrow Airport."
+            answer: `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, ${HEATHROW_TIMES.terminal2} minutes from Terminals 2 & 3, and ${HEATHROW_TIMES.terminal4} minutes from Terminal 4. We're the closest traditional British pub to Heathrow Airport.`
           },
           {
             question: "What areas does The Anchor serve?",
@@ -553,15 +481,15 @@ export default async function FindUsPage() {
           },
           {
             question: "Is The Anchor accessible by public transport?",
-            answer: "Yes! The 442 bus runs between Staines, Stanwell Moor and Heathrow, stopping nearby. This is a ULEZ-free route, making it an environmentally friendly option."
+            answer: BUS_WORDING
           },
 	          {
 	            question: "Can I walk to The Anchor from nearby hotels?",
-	            answer: "If you're staying at the Premier Inn Heathrow Terminal 5, we're about a 15-minute walk. From other Heathrow hotels, we recommend a taxi or the 442 bus, which stops directly outside the pub."
+	            answer: `From Heathrow hotels, we recommend a taxi. ${BUS_WORDING}`
 	          },
           {
             question: "What's the best way to find The Anchor?",
-            answer: "If using sat nav, our postcode is TW19 6AQ. From the A3044, turn onto Horton Road and we're on your right with free parking available."
+            answer: "If using sat nav, our postcode is TW19 6AQ. We're on Horton Road in Stanwell Moor, with free parking."
           },
           {
             question: "Is The Anchor wheelchair accessible?",

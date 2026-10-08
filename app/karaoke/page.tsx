@@ -23,6 +23,7 @@ import { formatEventDate, formatEventTime, type Event } from '@/lib/api'
 import Link from 'next/link'
 import { BookTableButton } from '@/components/BookTableButton'
 import { ACCESS_WORDING } from '@/lib/approved-wording'
+import { BUS_WORDING, PARKING, CONTACT } from '@/lib/constants'
 
 /**
  * Karaoke is the largest organic opportunity across the four game pages: GKP puts
@@ -80,7 +81,7 @@ const FAQS = [
   {
     question: 'Where is your karaoke night?',
     answer:
-      'At The Anchor on Horton Road, Stanwell Moor, TW19 6AQ. It is a few minutes from Staines, Ashford, Bedfont and Egham, with 20 free parking spaces on site and the 441 and 555 buses stopping on Horton Road.'
+      `At The Anchor on Horton Road, Stanwell Moor, TW19 6AQ. It is a few minutes from Staines, Ashford, Bedfont and Egham, with ${PARKING.capacity} free parking spaces on site. ${BUS_WORDING}`
   },
   {
     question: 'How much does karaoke cost?',
@@ -296,7 +297,7 @@ export default async function KaraokePage() {
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">Eat before you sing</h2>
             <p className="mb-5 text-ink-muted">
-              The kitchen is open on karaoke nights, with times varying by date, so order at your seat
+              Kitchen times vary by date, so check before you come or call {CONTACT.phone}, and order at your seat
               before things get going. You do not need a separate table booking to eat: your karaoke
               booking is your seat for the evening.
             </p>
@@ -321,11 +322,11 @@ export default async function KaraokePage() {
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">
                 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
-                Bedfont and Egham, with 20 free parking spaces on site.
+                Bedfont and Egham, with {PARKING.capacity} free parking spaces on site.
               </p>
               <ul className="space-y-3 text-sm text-ink-muted">
-                <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
-                <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road.</li>
+                <li><strong>Driving:</strong> use postcode TW19 6AQ. {PARKING.capacity} free spaces, first come, first served.</li>
+                <li><strong>Public transport:</strong> {BUS_WORDING}</li>
                 <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">

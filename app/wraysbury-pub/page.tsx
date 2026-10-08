@@ -6,9 +6,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { DOGS_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -18,16 +18,16 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Pubs in Wraysbury | Dining & Free Parking',
-    description: `${BRAND.name} is a highly rated pub just 5 mins from Wraysbury. Famous Sunday Roasts, stone-baked pizzas, and live entertainment. Free parking & family friendly.`,
+    description: `${BRAND.name} is a highly rated pub a short drive from Wraysbury. Famous Sunday Roasts, stone-baked pizzas, and live entertainment. Free parking & family friendly.`,
     openGraph: {
         title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
-        description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
+        description: 'Looking for a change from the local? We are just a short drive from Wraysbury with great food and entertainment.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
-        description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
+        description: 'Looking for a change from the local? We are just a short drive from Wraysbury with great food and entertainment.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -40,7 +40,7 @@ export default function WraysburyPubPage() {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "BarOrPub"],
         "@id": "https://www.the-anchor.pub/wraysbury-pub#business",
-        "name": `${BRAND.name} - Near Wraysbury`,
+        "name": BRAND.name,
         "image": `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
         "address": {
             "@type": "PostalAddress",
@@ -65,28 +65,17 @@ export default function WraysburyPubPage() {
                 "name": "Horton"
             }
         ],
-        "priceRange": "££",
+        "priceRange": PRICE_RANGE,
         "servesCuisine": ["British", "Traditional English", "Sunday Roast", "Pizza"],
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/wraysbury-pub"
     }
 
-    const directionsSchema = generateHowToDirectionsSchema(
-        'Wraysbury',
-        'The Anchor - Heathrow Pub & Dining',
-        [
-            'From Wraysbury, head towards Horton',
-            'Continue on Horton Road past the village',
-            'Cross the M25 bridge into Stanwell Moor',
-            'The Anchor is on your left with a large free car park'
-        ]
-    )
-
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
             />
             <BreadcrumbJsonLd
                 items={[
@@ -99,7 +88,7 @@ export default function WraysburyPubPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Wraysbury"
         title="The Perfect Alternative to Your Wraysbury Local"
-        lead="Just a short 5-minute drive from Wraysbury Village"
+        lead="Just a short drive from Wraysbury Village"
         actions={
           <BookTableButton source="wraysbury_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -137,7 +126,7 @@ export default function WraysburyPubPage() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {[
-                                { title: "Stone-Baked Pizza", description: "Authentic stone-baked pizzas served Tuesday-Saturday from the live menu" },
+                                { title: "Stone-Baked Pizza", description: "Authentic stone-baked pizzas from the live menu" },
                                 { title: "Live Entertainment", description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)" },
                                 { title: "Sunday Roast", description: "A proper home-cooked roast with all the trimmings" },
                             ].map((item) => (
@@ -187,15 +176,18 @@ export default function WraysburyPubPage() {
                         </div>
 
                         <div className="text-center">
+                            <p className="text-ink-muted mb-6">
+                                Find us at {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}.
+                            </p>
                             <DirectionsButton
-                                href="https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                                href={DIRECTIONS_URL}
                                 source="wraysbury_directions"
                                 variant="primary"
                                 size="lg"
                                 fromLocation="Wraysbury"
                                 wrap
                             >
-                                Get Directions from Wraysbury (5 mins)
+                                Get Directions
                             </DirectionsButton>
                         </div>
                     </div>
@@ -211,13 +203,13 @@ export default function WraysburyPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                Wraysbury is a lovely village, but let&rsquo;s be honest, pubs in Wraysbury are limited. When you fancy a change of scene without a major expedition, The Anchor is right there. Head along the B376 through Hythe End, past the sailing club, and keep going on Horton Road. You&rsquo;ll cross the M25 bridge and we&rsquo;re immediately on your left. Five minutes, tops. If you&rsquo;re coming from the other end of the village near the station, you can also cut across via the M25 at Junction 13, it&rsquo;s just as quick.
+                                Wraysbury is a lovely village, but let&rsquo;s be honest, pubs in Wraysbury are limited. When you fancy a change of scene without a major expedition, The Anchor is a short drive away.
                             </p>
                             <p>
-                                We think of ourselves as Wraysbury&rsquo;s second local. Plenty of your neighbours are already regulars here, some walk over on sunny evenings along Horton Road, others drive across after a day at the reservoir. If you&rsquo;re into the Wraysbury reservoir walks or you&rsquo;ve been birdwatching around the gravel pits, we&rsquo;re the natural finishing point: a cold pint, a stone-baked pizza, and a seat in the garden watching the planes come in low overhead.
+                                We think of ourselves as Wraysbury&rsquo;s second local. Plenty of your neighbours are already regulars here. If you&rsquo;re into the Wraysbury reservoir walks or you&rsquo;ve been birdwatching around the gravel pits, we&rsquo;re the natural finishing point: a cold pint, a stone-baked pizza, and a seat in the garden watching the planes come in low overhead.
                             </p>
                             <p>
-                                The Wraysbury Dive Centre crowd know us well too. After a few hours in cold water, there&rsquo;s nothing better than warming up with a proper meal in a proper pub. We&rsquo;re dog-friendly throughout, so if the Labrador came along for the reservoir walk, bring them in, water bowls are always out.
+                                The Wraysbury Dive Centre crowd know us well too. After a few hours in cold water, there&rsquo;s nothing better than warming up with a proper meal in a proper pub. {DOGS_WORDING}
                             </p>
                             <p>
                                 Non-drivers aren&rsquo;t left out either. Wraysbury station is on the Windsor &amp; Eton line, and a taxi from there to us is a short ride. A few of our regulars do exactly that on quiz nights, taxi over, have a couple of drinks, taxi home. Easy.
@@ -249,11 +241,11 @@ export default function WraysburyPubPage() {
                 faqs={[
                     {
                         question: "How far is The Anchor from Wraysbury?",
-                        answer: "We are approximately 2 miles away, which is a quick 5-minute drive via Horton Road. It's an easy journey with no major traffic lights."
+                        answer: `We are a short drive from Wraysbury. Our address is ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}.`
                     },
                     {
                         question: "Do you have parking?",
-                        answer: "Yes, we have 20 free parking spaces on-site. It's stress-free parking, unlike some village centres."
+                        answer: `Yes, we have ${PARKING.capacity} free parking spaces on-site. It's stress-free parking, unlike some village centres.`
                     },
                     {
                         question: "Is the pub family friendly?",
@@ -268,7 +260,7 @@ export default function WraysburyPubPage() {
             />
 
             <CtaBand
-                title="Worth the 5 Minute Drive"
+                title="Worth the Short Drive"
                 copy="A proper village pub welcome at The Anchor."
             >
                 <Button asChild variant="primary" size="lg">
@@ -277,15 +269,6 @@ export default function WraysburyPubPage() {
                 <Button asChild variant="outline" size="lg">
                     <Link href="/private-hire#enquiry">Book an Event</Link>
                 </Button>
-                <DirectionsButton
-                    href="https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
-                    source="wraysbury_cta_band_directions"
-                    variant="outline"
-                    size="lg"
-                    fromLocation="Wraysbury"
-                >
-                    Get Directions
-                </DirectionsButton>
             </CtaBand>
         </>
     )

@@ -15,14 +15,15 @@ import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { pushToDataLayer, trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, trackFormStart, trackPhoneCallClick } from '@/lib/gtm-events'
+import { CHRISTMAS_PRIVATE_DEPOSIT_WORDING, PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBookingAttributionPayload } from '@/lib/booking-attribution'
 import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 import { StickyDrawer } from '@/components/ui'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
-import { CONTACT } from '@/lib/constants'
-import { CHRISTMAS_PRIVATE_DEPOSIT_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { CONTACT, DRIVE_TIMES, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { toGuestMessage } from '@/lib/guest-error-messages'
 import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
 
@@ -408,11 +409,11 @@ function buildFaqItems(
     },
     {
       question: 'Is there a Christmas party venue near Staines?',
-      answer: `Yes. The Anchor is in Stanwell Moor, around eight minutes from Staines-upon-Thames, traffic dependent, with around 20 free parking spaces on site. Christmas layouts here hold up to ${facts.maxSeated} seated or ${facts.maxStanding} standing, so it works for a small team dinner or a full-venue party.`
+      answer: `Yes. The Anchor is in Stanwell Moor, around ${DRIVE_TIMES.staines} minutes from Staines-upon-Thames, traffic dependent. ${PARKING_WORDING} Christmas layouts here hold up to ${facts.maxSeated} seated or ${facts.maxStanding} standing, so it works for a small team dinner or a full-venue party.`
     },
     {
       question: 'Can we hold a work Christmas do near Heathrow Airport?',
-      answer: 'Yes, and plenty do. We are around seven minutes from Terminal 5, around eleven from Terminal 2 and two minutes from M25 Junction 14, traffic dependent. That makes us a practical meeting point for airport teams, business parks and hotel staff who are coming from different directions.'
+      answer: `Yes, and plenty do. We are around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, around ${HEATHROW_TIMES.terminal2} from Terminal 2 and ${DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14, traffic dependent. That makes us a practical meeting point for airport teams, business parks and hotel staff who are coming from different directions.`
     },
     {
       question: 'What dates can we take a Christmas booking for?',
@@ -493,11 +494,11 @@ function buildFaqItems(
     },
     {
       question: 'How can we keep the cost of our Christmas party down?',
-      answer: 'Pick a Tuesday to Thursday date, keep it to one course each, agree a bar-tab limit up front and book early for the best choice of sittings. Because everyone chooses for themselves, guests who want more can add a starter or a dessert without the whole table paying for it. Free parking outside the ULEZ also saves your guests money compared with venues closer to London.'
+      answer: 'Pick a Tuesday to Thursday date, keep it to one course each, agree a bar-tab limit up front and book early for the best choice of sittings. Because everyone chooses for themselves, guests who want more can add a starter or a dessert without the whole table paying for it.'
     },
     {
       question: 'Are you close to Heathrow and Staines?',
-      answer: "Yes, seven minutes from Heathrow Terminal 5, around eleven from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
+      answer: `Yes, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, around ${HEATHROW_TIMES.terminal2} from Terminal 2 and ${DRIVE_TIMES.staines} minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages.`
     },
     {
       question: 'Can we have exclusive use of the whole pub?',
@@ -509,11 +510,11 @@ function buildFaqItems(
     },
     {
       question: 'Is parking available?',
-      answer: 'There are around 20 free spaces on site. Ask the team in advance if anyone needs to leave a vehicle overnight.'
+      answer: PARKING_WORDING
     },
     {
       question: 'Is The Anchor outside the ULEZ zone?',
-      answer: 'Yes, the pub is outside the ULEZ boundary and has around 20 free parking spaces on site. Guests should check their own route and current charging rules before travelling.'
+      answer: `Yes. ${ULEZ_WORDING}`
     },
     {
       question: 'Can we book a Christmas party for just drinks, no food?',
@@ -524,11 +525,11 @@ function buildFaqItems(
       // The sit-down offer is the 1, 2 and 3 course Christmas menu, never the
       // old Festive Menu packages (docs/SSOT.md §7, owner-confirmed 11 September
       // 2026), so the answer names it rather than agreeing to "packages".
-      answer: `Teams book our Christmas menu, with each guest choosing 1, 2 or 3 courses, for ${facts.minPartySize} guests or more. From ${facts.buffetMinimumGuests} guests a festive buffet is an option too. Tell us your headcount, your budget and your date, and we will set out the options and the pre-order process for your team. We're around seven minutes from Heathrow T5 and two minutes from M25 J14, traffic dependent.`
+      answer: `Teams book our Christmas menu, with each guest choosing 1, 2 or 3 courses, for ${facts.minPartySize} guests or more. From ${facts.buffetMinimumGuests} guests a festive buffet is an option too. Tell us your headcount, your budget and your date, and we will set out the options and the pre-order process for your team. We're around ${HEATHROW_TIMES.terminal5} minutes from Heathrow T5 and ${DRIVE_TIMES.m25Junction14} minutes from M25 J14, traffic dependent.`
     },
     {
       question: 'Where is The Anchor for Christmas party guests?',
-      answer: "We're on Horton Road in Stanwell Moor, Surrey, at TW19 6AQ. The pub is around seven minutes from Heathrow Terminal 5 and eight minutes from Staines-upon-Thames, traffic dependent, with around 20 free parking spaces on site."
+      answer: `We're on Horton Road in Stanwell Moor, Surrey, at TW19 6AQ. The pub is around ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and ${DRIVE_TIMES.staines} minutes from Staines-upon-Thames, traffic dependent. ${PARKING_WORDING}`
     }
   ].filter(item => item.answer !== '')
 }
@@ -537,17 +538,17 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'car' as const,
     title: 'Free On-Site Parking',
-    description: 'Around 20 free spaces on site, with no parking fee while you visit. Ask the team in advance if anyone needs to leave a vehicle overnight.'
+    description: PARKING_WORDING
   },
   {
     icon: 'mapPin' as const,
     title: 'Near Heathrow Terminal 5',
-    description: 'Around seven minutes from Heathrow Terminal 5 and two minutes from M25 Junction 14, traffic dependent. A practical meeting point for airport teams, business parks and hotels.'
+    description: `Around ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and ${DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14, traffic dependent. A practical meeting point for airport teams, business parks and hotels.`
   },
   {
     icon: 'shield' as const,
     title: 'Outside the ULEZ Zone',
-    description: 'The pub sits outside the ULEZ boundary, so a night here does not come with a daily charge on top. Guests should check their own route and the current rules.'
+    description: ULEZ_WORDING
   },
   {
     icon: 'home' as const,
@@ -717,8 +718,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               {season.bookingClosed
                 ? `We are serving the final Christmas sittings of the season, ${season.windowLabel}. Online enquiries have closed, so please call ${CONTACT_PHONE} to ask about a table.`
                 : season.state === 'active'
-                ? `Christmas dinner is being served now, ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`
-                : `Christmas dinner ${season.windowLabel}. Free parking, eight minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`}
+                ? `Christmas dinner is being served now, ${season.windowLabel}. Free parking, ${DRIVE_TIMES.staines} minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`
+                : `Christmas dinner ${season.windowLabel}. Free parking, ${DRIVE_TIMES.staines} minutes from Staines. ${facts.minPartySize}+ guests, £${facts.depositPerPerson} per person deposit off your bill.`}
             </p>
           </div>
         </Container>
@@ -731,7 +732,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="mx-auto space-y-5">
             <h2 className="text-3xl font-bold text-ink-strong">Christmas at The Anchor, in short</h2>
             <p className="text-base text-ink-muted">
-              We serve Christmas dinner {season.windowLabel} at The Anchor in Stanwell Moor, around seven minutes from
+              We serve Christmas dinner {season.windowLabel} at The Anchor in Stanwell Moor, around {HEATHROW_TIMES.terminal5} minutes from
               Heathrow Terminal 5. {DAYS_AVAILABLE_SUMMARY} Every Christmas dinner booking is for {facts.minPartySize} guests
               or more, booked at least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit
               that comes off your bill. Everyone chooses their own courses: a main for each guest, with a starter and a
@@ -1105,12 +1106,12 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="mx-auto space-y-4 text-center">
             <h2 className="text-2xl font-bold text-ink-strong">Christmas party venues near Heathrow, Staines &amp; Surrey</h2>
             <p className="text-base text-ink-muted">
-              The Anchor is around seven minutes from Heathrow Terminal 5, eleven minutes from Terminal 2 and eight minutes from
+              The Anchor is around {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, {HEATHROW_TIMES.terminal2} minutes from Terminal 2 and {DRIVE_TIMES.staines} minutes from
               Staines-upon-Thames, traffic dependent. Airport teams, local offices, families and friends can meet here without
               travelling into central London.
             </p>
             <p className="text-sm text-ink-muted">
-              The pub is outside the ULEZ zone and has around 20 free parking spaces on site.
+              {ULEZ_WORDING} {PARKING_WORDING}
             </p>
             <div className="flex flex-wrap justify-center gap-3 pt-2">
               {[
@@ -1186,7 +1187,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               </div>
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-ink-strong">The Dining Room</h3>
-                <p className="text-sm font-semibold text-accent-text">Seats 26, or 50 standing</p>
+                <p className="text-sm font-semibold text-accent-text">Seats {PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}, or {PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing</p>
                 <p className="text-sm text-ink-muted">
                   Warm and cosy, with direct table service and French doors onto the garden. Ideal for a Christmas lunch
                   with family, an intimate works do or a small staff party away from the main bar. In December we tend to
@@ -1213,14 +1214,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
             </Card>
           </Grid>
           <div className="mt-10 text-sm text-ink-muted text-center space-y-2">
-            <p>Free on-site parking for around 20 cars &middot; Seven minutes from Heathrow Terminal 5 &middot; Eight minutes to Staines-upon-Thames &middot; Outside the ULEZ &middot; Sheltered smoking area</p>
-            <p>
-              Driving from farther afield?{' '}
-              <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-accent-text transition-colors">Read our cheap Heathrow parking guide</Link>{' '}
-              or{' '}
-              <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-accent-text transition-colors">pre-book parking at The Anchor</Link>{' '}
-              so your guests arrive stress-free.
-            </p>
+            <p>{PARKING.capacity} free spaces &middot; {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 &middot; {DRIVE_TIMES.staines} minutes to Staines-upon-Thames &middot; Outside the ULEZ &middot; Sheltered smoking area</p>
           </div>
         </Container>
       </Section>
@@ -1275,7 +1269,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 <ul className="space-y-3 text-sm text-ink-muted">
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">Central for distributed teams</strong>, seven minutes from Heathrow T5, two minutes off M25 J14. Colleagues from different offices, terminals or countries meet in one easy spot.</span>
+                    <span><strong className="text-ink-strong">Central for distributed teams</strong>, {HEATHROW_TIMES.terminal5} minutes from Heathrow T5, {DRIVE_TIMES.m25Junction14} minutes off M25 J14. Colleagues from different offices, terminals or countries meet in one easy spot.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
@@ -1287,7 +1281,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
-                    <span><strong className="text-ink-strong">Free parking and ULEZ-free</strong>, around 20 free spaces plus we are outside the ULEZ zone. No parking charges, no congestion fees.</span>
+                    <span><strong className="text-ink-strong">Free parking, outside the ULEZ zone.</strong> {PARKING_WORDING}</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-accent-text flex-shrink-0" />
@@ -1686,7 +1680,7 @@ function ChristmasSeasonEndedView({
             </Alert>
             <h2 className="text-3xl font-bold text-ink-strong">What you can book right now</h2>
             <p className="text-base text-ink-muted">
-              The Anchor in Stanwell Moor is around seven minutes from Heathrow Terminal 5, with around 20 free parking spaces
+              The Anchor in Stanwell Moor is around {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, with {PARKING.capacity} free parking spaces
               and space for private parties all year round. Groups, celebrations and work gatherings are welcome outside the
               Christmas season.
             </p>

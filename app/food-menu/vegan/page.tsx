@@ -16,6 +16,7 @@ import {
   getVeganMenuPageData,
   type MenuPageItem
 } from '@/lib/menu-page-data'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 /** Sunday roast mains the kitchen flags as vegan (the Wellington, today). */
 async function getSundayVeganItems(): Promise<MenuPageItem[]> {
@@ -36,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const [data, sundayVegan] = await Promise.all([getVeganMenuPageData(), getSundayVeganItems()])
   const veganCount = (data ? data.veganItems.length + data.veganOptionItems.length : 0) + sundayVegan.length
   const description = data
-    ? `Vegan pub food near Heathrow from The Anchor's live menu. ${veganCount} current vegan or vegan-option dishes. Free parking, 7 minutes from Terminal 5.`
+    ? `Vegan pub food near Heathrow from The Anchor's live menu. ${veganCount} current vegan or vegan-option dishes. Free parking, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`
     : 'Vegan pub food near Heathrow at The Anchor. Current options from the latest kitchen menu.'
 
   return {
@@ -92,7 +93,7 @@ export default async function VeganMenuPage() {
     },
     {
       question: 'Is The Anchor good for vegan travellers near Heathrow?',
-      answer: 'We are 7 minutes from Heathrow Terminal 5 with free parking. Check the live menu on this page and ask at the bar for allergen guidance before ordering.',
+      answer: `We are ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking. Check the live menu on this page and ask at the bar for allergen guidance before ordering.`,
     },
   ]
 

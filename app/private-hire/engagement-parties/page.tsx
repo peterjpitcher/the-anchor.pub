@@ -3,7 +3,7 @@ import { Button, SectionHeading, Card, CardBody, Container } from '@/components/
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, HEATHROW_TIMES, DRIVE_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -13,10 +13,13 @@ import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDown
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
+
+const { diningRoom, mainArea, entirePub } = PRIVATE_HIRE_CAPACITY.spaces
 
 export const metadata: Metadata = {
     title: 'Engagement Party Venue Near Heathrow',
-    description: `Engagement party venue near Heathrow and Staines. buffets priced from the live approved source, prosecco packages, and free parking at ${BRAND.name}. 10+ to 150 guests.`,
+    description: `Engagement party venue near Heathrow and Staines. buffets priced from the live approved source, prosecco packages, and free parking at ${BRAND.name}. ${PRIVATE_HIRE_CAPACITY.recommendedRange}.`,
     openGraph: {
         title: 'Engagement Party Venue | The Anchor Stanwell Moor',
         description: 'She said yes! Now let\'s celebrate. Discover our engagement party packages with prosecco, buffets, and private areas.',
@@ -50,7 +53,7 @@ export default function EngagementPartiesPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/engagement-parties",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "Engagement party venue near Heathrow Airport with buffets priced from the live approved source, prosecco packages, and free parking. Private dining room for 10+ to 150 guests in Stanwell Moor, Surrey.",
+        "description": `Engagement party venue near Heathrow Airport with buffets priced from the live approved source, prosecco packages, and free parking. A private dining room (${diningRoom.seated} seated, ${diningRoom.standing} standing) and room for up to ${mainArea.standing} guests across the pub in Stanwell Moor, Surrey.`,
         "potentialAction": {
             "@type": "CommunicateAction",
             "target": {
@@ -75,7 +78,7 @@ export default function EngagementPartiesPage() {
                 image={DEFAULT_CORPORATE_IMAGE}
                 crumb="Engagement Parties"
                 title="Engagement Party Venue Near Heathrow, celebrate at The Anchor"
-                lead="buffets priced from the live approved source, prosecco packages, free parking, and space for up to 50 guests"
+                lead={`buffets priced from the live approved source, prosecco packages, free parking, and a private dining room for up to ${diningRoom.standing} standing`}
                 actions={
                     <>
                         <Button asChild variant="primary" size="lg" fullWidth>
@@ -97,7 +100,7 @@ export default function EngagementPartiesPage() {
                             Engagement Party Venue Near Heathrow & Staines
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor is an engagement party venue near Heathrow with free parking and space for 10+ to 150 guests. Seven minutes from Terminal 5 in Stanwell Moor, we handle the catering, the drinks, and the space, you just turn up and celebrate.
+                            Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor is an engagement party venue near Heathrow with free parking and space for {PRIVATE_HIRE_CAPACITY.recommendedRange}. We&apos;re in Stanwell Moor, {HEATHROW_TIMES.terminal5} minutes from Terminal 5, and we handle the catering, the drinks, and the space, you just turn up and celebrate.
                         </p>
                     </div>
                 </Container>
@@ -141,16 +144,16 @@ export default function EngagementPartiesPage() {
                                 <h3 className="font-display text-h4 text-ink-strong">The Venue</h3>
                                 <ul className="space-y-2 text-ink-muted">
                                     <li><strong className="text-ink-strong">Room hire:</strong> a simple hire fee covers your space (varies by day and party size). Pricing discussed on enquiry on top, you only pay for what you order.</li>
-                                    <li><strong className="text-ink-strong">Dining room:</strong> 26 seated, or up to 50 standing. French doors open straight onto the beer garden in summer.</li>
-                                    <li><strong className="text-ink-strong">Capacity:</strong> 10+ to 150 guests. Smaller groups get a reserved area; larger parties get the dining room to yourselves.</li>
+                                    <li><strong className="text-ink-strong">Dining room:</strong> {diningRoom.seated} seated, or up to {diningRoom.standing} standing. French doors open straight onto the beer garden in summer.</li>
+                                    <li><strong className="text-ink-strong">Capacity:</strong> {PRIVATE_HIRE_CAPACITY.recommendedRange} across the pub. Smaller groups get a reserved area, or you can have the dining room to yourselves.</li>
                                     <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table decorations, engagement signs, go for it. We just ask for no confetti or glitter.</li>
                                 </ul>
                             </CardBody></Card>
                             <Card><CardBody className="space-y-3">
                                 <h3 className="font-display text-h4 text-ink-strong">The Practical Bits</h3>
                                 <ul className="space-y-2 text-ink-muted">
-                                    <li><strong className="text-ink-strong">Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
-                                    <li><strong className="text-ink-strong">7 minutes from Heathrow T5</strong>, handy if guests are flying in for the celebration.</li>
+                                    <li><strong className="text-ink-strong">Free parking:</strong> {PARKING.capacity} spaces right outside the door. No meters, no time limits.</li>
+                                    <li><strong className="text-ink-strong">{HEATHROW_TIMES.terminal5} minutes from Heathrow T5</strong>, handy if guests are flying in for the celebration.</li>
                                     <li><strong className="text-ink-strong">AV equipment:</strong> TVs and sound system available for slideshows or speeches.</li>
                                     <li><strong className="text-ink-strong">Deposit:</strong> {PRIVATE_HIRE_DEPOSIT_WORDING}</li>
                                     <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
@@ -178,7 +181,7 @@ export default function EngagementPartiesPage() {
                                 <p className="text-sm text-ink-muted">Buffet catering options</p>
                             </div>
                             <div className="text-center space-y-2">
-                                <p className="font-display text-h3 text-accent-text">20 free</p>
+                                <p className="font-display text-h3 text-accent-text">{PARKING.capacity} free</p>
                                 <p className="text-sm text-ink-muted">Parking spaces</p>
                             </div>
                         </div>
@@ -219,10 +222,10 @@ export default function EngagementPartiesPage() {
                             <Card accent><CardBody className="space-y-4">
                                 <h3 className="font-display text-h4 text-ink-strong">Full Party Mode</h3>
                                 <p className="text-ink-muted">
-                                    Want to invite everyone? Our dining room holds up to 50 standing, and exclusive hire of the whole pub covers up to 300. We can arrange cleared space for dancing, buffet stations, and private access to the garden area in summer.
+                                    Want to invite everyone? Our dining room holds up to {diningRoom.standing} standing, and exclusive hire of the whole pub covers up to {entirePub.standing} standing. We can arrange cleared space for dancing, buffet stations, and private access to the garden area in summer.
                                 </p>
                                 <ul className="list-disc pl-5 text-ink-muted space-y-2">
-                                    <li>From a small group up to 300 standing with exclusive hire</li>
+                                    <li>From a small group up to {entirePub.standing} standing with exclusive hire</li>
                                     <li>Buffet packages to suit all budgets</li>
                                     <li>Space for entertainment</li>
                                 </ul>
@@ -271,7 +274,7 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "How many guests can you fit for an engagement party?",
-                        answer: "Our private dining room seats 26, or holds up to 50 standing. For larger engagement parties, we can accommodate up to 150 guests across the venue. Groups of 10+ to 150 are our sweet spot."
+                        answer: `Our private dining room seats ${diningRoom.seated}, or holds up to ${diningRoom.standing} standing. For larger engagement parties, there's room for up to ${mainArea.standing} across the pub. Groups of ${PRIVATE_HIRE_CAPACITY.recommendedRange} are our sweet spot.`
                     },
                     {
                         question: "Can we decorate the area?",
@@ -287,7 +290,7 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "Is there parking for engagement party guests?",
-                        answer: "Yes. We have 20 free parking spaces right outside the pub, no meters, no time limits. It's one of the biggest advantages of choosing a pub venue over a town-centre hotel."
+                        answer: `Yes. We have ${PARKING.capacity} free parking spaces right outside the pub, no meters, no time limits. It's one of the biggest advantages of choosing a pub venue over a town-centre hotel.`
                     },
                     {
                         question: "How far in advance should we book?",
@@ -303,7 +306,7 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "Where is The Anchor?",
-                        answer: "We're in Stanwell Moor, Surrey, 7 minutes from Heathrow Terminal 5 and about 8 minutes from Staines. Postcode for sat nav: TW19 6AQ. We're just off the M25 at Junction 14."
+                        answer: `We're in Stanwell Moor, Surrey, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and about ${DRIVE_TIMES.staines} minutes from Staines. Postcode for sat nav: TW19 6AQ. We're just off the M25 at Junction 14.`
                     }
                 ]}
                 className="bg-canvas"

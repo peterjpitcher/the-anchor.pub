@@ -6,9 +6,10 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { PARKING_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { bookingConfig } from '@/lib/booking-config'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -64,28 +65,17 @@ export default function SunburyPubPage() {
                 "name": "Upper Halliford"
             }
         ],
-        "priceRange": "££",
+        "priceRange": PRICE_RANGE,
         "servesCuisine": ["British", "Traditional English", "Sunday Roast", "Pizza"],
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/sunbury-pub"
     }
 
-    const directionsSchema = generateHowToDirectionsSchema(
-        'Sunbury-on-Thames',
-        'The Anchor - Heathrow Pub & Dining',
-        [
-            'From Sunbury, take the A308 towards Staines',
-            'Join the A30 towards Heathrow',
-            'Turn off at the Stanwell Moor junction',
-            'The Anchor is in the village centre with free parking'
-        ]
-    )
-
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
             />
 
             <InteriorHero
@@ -131,7 +121,7 @@ export default function SunburyPubPage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {[
                                 { title: "Famous Roasts", description: "Generous portions of high-quality meat and fresh veg, with walk-ins welcome from 1pm to 6pm" },
-                                { title: "Stress-Free Parking", description: "Park right outside for free - no fighting for spaces" },
+                                { title: "Stress-Free Parking", description: PARKING_WORDING },
                                 { title: "Family Friendly", description: "Relaxed atmosphere where kids are welcome" },
                             ].map((item) => (
                                 <Card key={item.title} accent>
@@ -157,7 +147,7 @@ export default function SunburyPubPage() {
                             <CardBody className="p-8 text-center">
                                 <h3 className="font-display text-h3 text-ink-strong mb-4">Milestone Birthdays & Events</h3>
                                 <p className="text-ink-muted mb-6">
-                                    Struggling to find a venue in Sunbury that ticks all the boxes? We offer private rooms, flexible catering, and plenty of parking for your guests coming from all over.
+                                    Struggling to find a venue in Sunbury that ticks all the boxes? We offer private rooms, flexible catering, and {PARKING.capacity} free spaces.
                                 </p>
                                 <div className="flex flex-wrap justify-center gap-4">
                                     <Button asChild variant="primary">
@@ -169,15 +159,17 @@ export default function SunburyPubPage() {
                         </Card>
 
                         <div className="text-center">
+                            <p className="text-lg text-ink-muted mb-6">
+                                We&apos;re on {CONTACT.address.street}, {CONTACT.address.town}. Set your sat nav to {CONTACT.address.postcode}.
+                            </p>
                             <DirectionsButton
-                                href="https://maps.google.com/maps?saddr=Sunbury-on-Thames&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                                href={DIRECTIONS_URL}
                                 source="sunbury_directions"
                                 variant="primary"
                                 size="lg"
-                                fromLocation="Sunbury"
                                 wrap
                             >
-                                Get Directions from Sunbury (15 mins)
+                                Get directions
                             </DirectionsButton>
                         </div>
                     </div>
@@ -193,16 +185,16 @@ export default function SunburyPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                Sunbury&rsquo;s got a decent high street, but if you&rsquo;re after a proper independent pub rather than another chain, the options thin out quickly. That&rsquo;s why a growing number of Sunbury residents have made The Anchor their regular. The drive is dead simple: head up the A308 past Sunbury Cross, through Ashford, and pick up the A30 towards Stanwell Moor. You&rsquo;ll be with us in about 15 minutes, even on a busy day.
+                                Sunbury&rsquo;s got a decent high street, but if you&rsquo;re after a proper independent pub rather than another chain, the options thin out quickly. That&rsquo;s why a growing number of Sunbury residents have made The Anchor their regular. It&rsquo;s a short drive.
                             </p>
                             <p>
-                                Kempton Park regulars are some of our biggest fans. After a day at the races, the last thing you want is to fight through Sunbury traffic for an overpriced drink. Nip across to The Anchor instead, we&rsquo;re just off the A308, there&rsquo;s always parking, and you can settle into a proper pub with a pint to dissect the day&rsquo;s results. Race day Saturdays have become a bit of a tradition for a few Sunbury groups.
+                                Kempton Park regulars are some of our biggest fans. After a day at the races, the last thing you want is to fight through Sunbury traffic for an overpriced drink. Nip across to The Anchor instead. Parking is free, and you can settle into a proper pub with a pint to dissect the day&rsquo;s results. Race day Saturdays have become a bit of a tradition for a few Sunbury groups.
                             </p>
                             <p>
                                 If you&rsquo;re a Thames Path walker or you spend your weekends around Sunbury Lock, you&rsquo;ll know that the riverside pub options can be heaving in summer. We offer the same relaxed, outdoor-drinking atmosphere in our beer garden, minus the crowds, with the added entertainment of watching 747s float overhead on their way into Heathrow. It&rsquo;s quite the backdrop for a Sunday roast.
                             </p>
                             <p>
-                                We&rsquo;re also outside the ULEZ zone, which saves Sunbury drivers a few quid if they&rsquo;re coming from the London side. Free parking, no congestion charge worries, and proper pub prices that don&rsquo;t make you wince when you get to the bar. That&rsquo;s the deal.
+                                {ULEZ_WORDING} Free parking and proper pub prices that don&rsquo;t make you wince when you get to the bar. That&rsquo;s the deal.
                             </p>
                         </div>
                     </div>
@@ -224,15 +216,15 @@ export default function SunburyPubPage() {
                 faqs={[
                     {
                         question: "How long is the drive from Sunbury?",
-                        answer: "It generally takes about 10-15 minutes depending on traffic. It's a straightforward drive down the A308/A30."
+                        answer: `It's a short drive. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}.`
                     },
                     {
                         question: "Why should I drive to The Anchor instead of staying in Sunbury?",
-                        answer: "We offer better value for money, guaranteed free parking, and a more relaxed village atmosphere. Plus, many say our Sunday Roast is superior!"
+                        answer: "We offer better value for money, free parking, and a more relaxed village atmosphere. Plus, many say our Sunday Roast is superior!"
                     },
                     {
                         question: "Do I need to book for Sunday Roast?",
-                        answer: "No. We serve roasts on Sundays from 1pm to 6pm and walk-ins are welcome, with no pre-order needed. Booking is still worth it at peak times or for a bigger group, and groups of more than 20 need to book by phone on 01753 682707."
+                        answer: `No. We serve roasts on Sundays from 1pm to 6pm and walk-ins are welcome, with no pre-order needed. Booking is still worth it at peak times or for a bigger group, and groups of more than ${bookingConfig.maxOnlinePartySize} need to book by phone on ${CONTACT.phone}.`
                     }
                 ]}
                 className="bg-surface"
@@ -249,11 +241,10 @@ export default function SunburyPubPage() {
                     <Link href="/private-hire#enquiry">Book an Event</Link>
                 </Button>
                 <DirectionsButton
-                    href="https://maps.google.com/maps?saddr=Sunbury-on-Thames&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                    href={DIRECTIONS_URL}
                     source="sunbury_cta_band_directions"
                     variant="outline"
                     size="lg"
-                    fromLocation="Sunbury"
                 >
                     Get Directions
                 </DirectionsButton>

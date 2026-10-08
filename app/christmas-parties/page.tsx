@@ -37,6 +37,7 @@ import {
   getLondonIsoDate,
   isChristmasDayNoticeVisible,
 } from '@/lib/christmas-season'
+import { DRIVE_TIMES, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 
 // Christmas dish data comes live from the management database, so the page is
 // regenerated hourly rather than frozen at build time.
@@ -274,7 +275,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     openGraph: {
       title: 'Christmas Dinner & Christmas Parties Near Heathrow | The Anchor',
-      description: `Book Christmas dinner at The Anchor, ${windowLabel}. Each guest picks 1, 2 or 3 courses, for groups of ${FACTS.minPartySize} or more. Free parking, seven minutes from Heathrow Terminal 5.`,
+      description: `Book Christmas dinner at The Anchor, ${windowLabel}. Each guest picks 1, 2 or 3 courses, for groups of ${FACTS.minPartySize} or more. Free parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
       images: [{ url: HERO_IMAGE, width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
     },
     twitter: getTwitterMetadata({
@@ -414,7 +415,7 @@ export default async function ChristmasPartiesPage() {
     .sort((a, b) => a - b)[0]
 
   const heroLead = seasonEnded
-    ? `Our Christmas service ran ${season.windowLabel} and has now finished. The Anchor is still here for private parties, group bookings and everyday food and drink, seven minutes from Heathrow Terminal 5 with around 20 free parking spaces.`
+    ? `Our Christmas service ran ${season.windowLabel} and has now finished. The Anchor is still here for private parties, group bookings and everyday food and drink, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with ${PARKING.capacity} free parking spaces.`
     : season.bookingClosed
     // Still serving, but too late to take a new booking with the notice the
     // kitchen needs. The offer is described in the present tense because it is
@@ -425,7 +426,7 @@ export default async function ChristmasPartiesPage() {
     // near Heathrow offers, and it was previously buried below the menu. The
     // window, group minimum, notice and deposit all sit in the banner and the
     // summary block immediately below, so nothing is lost by not repeating them.
-    : `Your own table and your own evening, in a village pub rather than a shared hotel function room.${heroPriceFrom ? ` Christmas dinners from £${heroPriceFrom} a head.` : ''} Seven minutes from Heathrow Terminal 5 and eight from Staines, with around 20 free parking spaces.`
+    : `Your own table and your own evening, in a village pub rather than a shared hotel function room.${heroPriceFrom ? ` Christmas dinners from £${heroPriceFrom} a head.` : ''} We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and ${DRIVE_TIMES.staines} from Staines, with ${PARKING.capacity} free parking spaces.`
 
   return (
     <>

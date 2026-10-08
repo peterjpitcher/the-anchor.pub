@@ -27,6 +27,7 @@ import { PsychBadge } from '@/components/psychology'
 import { JsonLd } from '@/components/JsonLd'
 import { bingoEventSeries } from '@/lib/schema'
 import { ACCESS_WORDING } from '@/lib/approved-wording'
+import { BUS_WORDING, PARKING } from '@/lib/constants'
 
 /**
  * The title stays pub-qualified on purpose. GKP measures "bingo night near me"
@@ -182,7 +183,7 @@ export default async function CashBingoPage() {
           </PageTitle>
           <p className="mx-auto text-center text-lg text-ink-muted">
             Traditional bingo in a village pub rather than a bingo hall: ten games, a friendly caller,
-            numbers on the pub screens, and hot food from the kitchen while you play. Everyone aged 18
+            numbers on the pub screens, and food from the kitchen when it&apos;s open. Everyone aged 18
             or over can play and win, and supervised under-18s are welcome to come along.{' '}
             {heroDescription}
           </p>
@@ -219,8 +220,8 @@ export default async function CashBingoPage() {
                     the final cash jackpot, so it grows with the size of the room.
                   </p>
                   <p className="text-ink-muted">
-                    Ten quick games with two planned pauses, so you can top up drinks and order from
-                    the kitchen without missing a call. Expect classic bingo banter, spot prizes and a
+                    Ten quick games with two planned pauses, so you can top up drinks, and order food
+                    if the kitchen&apos;s open, without missing a call. Expect classic bingo banter, spot prizes and a
                     snowball countdown that gets louder as the numbers close in.
                   </p>
                   <p className="text-sm text-ink-muted">
@@ -360,11 +361,11 @@ export default async function CashBingoPage() {
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">
                 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
-                Bedfont and Egham, with 20 free parking spaces on site.
+                Bedfont and Egham, with {PARKING.capacity} free parking spaces on site.
               </p>
               <ul className="space-y-3 text-sm text-ink-muted">
-                <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
-                <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
+                <li><strong>Driving:</strong> use postcode TW19 6AQ. {PARKING.capacity} free spaces, first come, first served.</li>
+                <li><strong>Public transport:</strong> {BUS_WORDING} Uber and Bolt know us well.</li>
                 <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">

@@ -15,6 +15,7 @@ import {
   getVegetarianMenuPageData,
   type MenuPageItem
 } from '@/lib/menu-page-data'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 export const revalidate = 3600
 
@@ -28,7 +29,7 @@ function joinPreview(items: MenuPageItem[]): string {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getVegetarianMenuPageData()
   const description = data
-    ? `Vegetarian pub food near Heathrow from The Anchor's live menu. ${data.items.length} current vegetarian and vegan dishes. Free parking, 7 minutes from Terminal 5.`
+    ? `Vegetarian pub food near Heathrow from The Anchor's live menu. ${data.items.length} current vegetarian and vegan dishes. Free parking, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`
     : 'Vegetarian pub food near Heathrow at The Anchor. Current options from the latest kitchen menu.'
 
   return {
@@ -83,7 +84,7 @@ export default async function VegetarianMenuPage() {
     },
     {
       question: 'Can I book a table for a vegetarian meal near Heathrow?',
-      answer: 'Yes. Reserve online or call 01753 682707. We are 7 minutes from Heathrow Terminal 5 with free parking.',
+      answer: `Yes. Reserve online or call 01753 682707. We are ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking.`,
     },
   ]
 
@@ -148,7 +149,7 @@ export default async function VegetarianMenuPage() {
             />
             <div className="space-y-4 text-ink-muted">
               <p>
-                The Anchor is 7 minutes from Heathrow Terminal 5, with free parking and a current menu that stays in sync with the kitchen.
+                The Anchor is {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, with free parking and a current menu that stays in sync with the kitchen.
               </p>
               <p>
                 If you have specific allergen needs, speak to the team at the bar and we will walk you through the current options.

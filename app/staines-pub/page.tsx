@@ -9,7 +9,8 @@ import { CtaBand } from '@/components/CtaBand'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND, PARKING, HEATHROW_TIMES } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, HEATHROW_TIMES, DRIVE_TIMES, BUS_WORDING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { FAMILIES_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -38,12 +39,12 @@ export function generateMetadata(): Metadata {
     description: `Pub near Staines with ${sundayPhrase}, stone-baked pizza, quiz nights, private rooms, dog-friendly beer garden and free customer parking.`,
     openGraph: {
       title: 'Pub Near Staines, Beer Garden, Sunday Roasts & Free Parking',
-      description: `${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, 8 mins from Staines-upon-Thames.`,
+      description: `${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, ${DRIVE_TIMES.staines} mins from Staines-upon-Thames.`,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     },
     twitter: getTwitterMetadata({
       title: 'Pub Near Staines, Beer Garden, Sunday Roasts & Free Parking',
-      description: `${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, 8 mins from Staines-upon-Thames.`,
+      description: `${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, ${DRIVE_TIMES.staines} mins from Staines-upon-Thames.`,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -88,7 +89,7 @@ export default function StainesPubPage() {
         "name": "Stanwell"
       }
     ],
-    "priceRange": "££",
+    "priceRange": PRICE_RANGE,
     "servesCuisine": ["British", "Pizza", "Sunday Roast"],
     "hasMenu": "https://www.the-anchor.pub/food-menu",
     "telephone": CONTACT.phoneIntl,
@@ -138,7 +139,7 @@ export default function StainesPubPage() {
               <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-accent-text">•</span>
-                  <span>8 minute drive from Staines High Street with free parking</span>
+                  <span>{DRIVE_TIMES.staines} minute drive from Staines High Street with free parking</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-accent-text">•</span>
@@ -150,7 +151,7 @@ export default function StainesPubPage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-accent-text">•</span>
-                  <span>Family-friendly seating with kids menu and space for buggies</span>
+                  <span>Kids menu available. {FAMILIES_WORDING}</span>
                 </div>
               </div>
             </CardBody>
@@ -182,7 +183,7 @@ export default function StainesPubPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { title: "Easy Access from Staines", description: `8 minutes via A30\nFree parking for ${PARKING.capacity} cars\nRegular bus service` },
+                { title: "Easy Access from Staines", description: `${DRIVE_TIMES.staines} minutes by car\n${PARKING.capacity} free spaces` },
                 { title: "Famous Sunday Roasts", description: "Our renowned roasts\nServed 1pm-6pm\nWalk in or book ahead, no pre-order needed\nRegular menu also available" },
                 { title: "Unique Entertainment", description: "Hosted nights like Music Bingo with Nikki Manfadge\nQuiz nights and bingo\nSee /whats-on for the latest" },
                 { title: "Stone-Baked Pizzas", description: "Hand-stretched bases\nRich tomato sauce\nGenerous toppings" },
@@ -248,24 +249,17 @@ export default function StainesPubPage() {
             <div className="grid md:grid-cols-2 gap-5">
               <Card accent>
                 <CardBody className="p-6">
-                  <h3 className="font-display text-h4 text-ink-strong mb-3">By Car (8 minutes)</h3>
-                  <ol className="space-y-2 list-decimal list-inside text-ink-muted">
-                    <li>Head west on the A30 from Staines town centre</li>
-                    <li>Continue through Stanwell village</li>
-                    <li>Turn left onto Horton Road</li>
-                    <li>The Anchor is on your right with free parking</li>
-                  </ol>
+                  <h3 className="font-display text-h4 text-ink-strong mb-3">By Car ({DRIVE_TIMES.staines} minutes)</h3>
+                  <p className="text-ink-muted">
+                    You'll find us at {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}.
+                  </p>
+                  <p className="mt-3 text-ink-muted">{PARKING_WORDING}</p>
                 </CardBody>
               </Card>
               <Card accent>
                 <CardBody className="p-6">
                   <h3 className="font-display text-h4 text-ink-strong mb-3">By Public Transport</h3>
-                  <ul className="space-y-2 text-ink-muted">
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Bus routes from Staines Bus Station</li>
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Regular services throughout the day</li>
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Stop: Horton Road/The Anchor</li>
-                    <li className="flex items-start"><span className="text-accent-text mr-2">•</span>Journey time: 15-20 minutes</li>
-                  </ul>
+                  <p className="text-ink-muted">{BUS_WORDING}</p>
                 </CardBody>
               </Card>
             </div>
@@ -275,9 +269,7 @@ export default function StainesPubPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-3">Also conveniently located near:</h3>
                 <div className="flex flex-wrap justify-center gap-4 text-ink-muted">
                   <span>• Heathrow T5: {HEATHROW_TIMES.terminal5} mins</span>
-                  <span>• Ashford: 10 mins</span>
-                  <span>• Sunbury: 15 mins</span>
-                  <span>• Feltham: 12 mins</span>
+                  <span>• M25 Junction 14: {DRIVE_TIMES.m25Junction14} mins</span>
                 </div>
               </CardBody>
             </Card>
@@ -338,7 +330,7 @@ export default function StainesPubPage() {
           <div className="mx-auto">
             <SectionHeading
               title="Popular Venue for Staines Events"
-              lead="Host your special occasion at The Anchor - just 8 minutes from Staines"
+              lead={`Host your special occasion at The Anchor - just ${DRIVE_TIMES.staines} minutes from Staines`}
             />
 
             <div className="grid md:grid-cols-2 gap-5 mb-8">
@@ -348,7 +340,7 @@ export default function StainesPubPage() {
                   <ul className="space-y-3 text-ink-muted">
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong className="text-ink">Quick journey</strong> - Just 8 minutes from Staines town centre</span>
+                      <span><strong className="text-ink">Quick journey</strong> - Just {DRIVE_TIMES.staines} minutes from Staines town centre</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -452,8 +444,7 @@ export default function StainesPubPage() {
                 village pub with free parking, a spacious beer garden, and none of the weekend crush.
               </p>
               <p>
-                The drive is straightforward. Cross Staines Bridge, pick up the A30 heading toward Heathrow, and take
-                a left onto Stanwell Moor Road. In ten to twelve minutes you are pulling into our car park, no circling
+                The drive is {DRIVE_TIMES.staines} minutes, and you park right outside, no circling
                 side streets, no pay-and-display. On a Saturday afternoon, when Staines High Street is heaving with
                 shoppers and the Two Rivers car parks are rammed, The Anchor is a quieter alternative where you can
                 actually hear yourself talk.
@@ -471,7 +462,7 @@ export default function StainesPubPage() {
         </Container>
       </section>
 
-      <ChristmasCrossLink hook="We are eight minutes from Staines with free parking, and Christmas bookings are open." />
+      <ChristmasCrossLink hook={`We are ${DRIVE_TIMES.staines} minutes from Staines with free parking, and Christmas bookings are open.`} />
 
       <InternalLinkingSection
         title="More To Explore Near Staines"
@@ -496,7 +487,7 @@ export default function StainesPubPage() {
         faqs={[
           {
             question: "How far is The Anchor from Staines?",
-            answer: "The Anchor is just 8 minutes drive from Staines town centre via the A30. We're located on Horton Road in Stanwell Moor, with free parking available."
+            answer: `The Anchor is just ${DRIVE_TIMES.staines} minutes drive from Staines town centre. We're at ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}, with free parking available.`
           },
           {
             question: "What makes The Anchor different from other pubs in Staines?",
@@ -504,7 +495,7 @@ export default function StainesPubPage() {
           },
           {
             question: "Do you have parking at your Staines area pub?",
-            answer: `Yes! We have ${PARKING.description} with space for ${PARKING.capacity} cars, plus extended parking nearby if needed.`
+            answer: PARKING_WORDING
           },
           {
             question: "Do you have private rooms near Staines?",
@@ -521,7 +512,7 @@ export default function StainesPubPage() {
       {/* CTA Section */}
       <CtaBand
         title="Visit Staines' Favourite Local Pub"
-        copy="Just 8 minutes from Staines town centre with free parking"
+        copy={`Just ${DRIVE_TIMES.staines} minutes from Staines town centre with free parking`}
       >
         <Button asChild variant="primary" size="lg">
           <Link href="/book-table">Book a Table</Link>
@@ -532,8 +523,8 @@ export default function StainesPubPage() {
         <Button asChild variant="outline" size="lg">
           <Link href="/private-hire#enquiry">Book an Event</Link>
         </Button>
-        <DirectionsButton href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" source="staines_directions" fromLocation="Staines" variant="outline" size="lg" wrap>
-          Get Directions from Staines
+        <DirectionsButton href={DIRECTIONS_URL} source="staines_directions" fromLocation="Staines" variant="outline" size="lg" wrap>
+          Get Directions
         </DirectionsButton>
       </CtaBand>
     </>

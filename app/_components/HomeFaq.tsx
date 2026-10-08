@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { trackFaqItemOpened } from '@/lib/gtm-events'
+import { BUS_WORDING, HEATHROW_TIMES } from '@/lib/constants'
+import { DOGS_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 
 // HomeFaq — homepage FAQ accordion (redesign spec §7.1 item 8). Light/cream
 // surface, max-width 920px, one item open at a time (first open by default),
@@ -11,7 +13,7 @@ import { trackFaqItemOpened } from '@/lib/gtm-events'
 //
 // Emits FAQPage JSON-LD matching the rendered Q&As exactly. Every answer is
 // verified against docs/SSOT.md: live kitchen hours (§3/§4), 20 free parking
-// spaces (§6), dog friendly (§3/§9), 7 mins from T5 + bus routes 441/442/555 (§2),
+// spaces (§6), dog friendly (§3/§9), the terminal times and the bus (§2, read from lib/constants),
 // booking + walk-ins (§7).
 
 interface FaqItem {
@@ -23,17 +25,17 @@ const FAQS: FaqItem[] = [
   {
     question: 'How far is The Anchor from Heathrow?',
     answer:
-      'We are 7 minutes from Heathrow Terminal 5 by car or taxi, and around 11 minutes from Terminals 2 and 3. Our address is Horton Road, Stanwell Moor, Surrey TW19 6AQ. Bus routes 441, 442 and 555 from Heathrow Central Bus Station stop nearby.'
+      `We are ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car or taxi, and around ${HEATHROW_TIMES.terminal2} minutes from Terminals 2 and 3. Our address is Horton Road, Stanwell Moor, Surrey TW19 6AQ. ${BUS_WORDING}`
   },
   {
     question: 'Is there parking at The Anchor?',
     answer:
-      'Yes. We have 20 free customer parking spaces on site with no time limit while you are eating or drinking with us, so you avoid the cost of airport parking.'
+      `Yes. ${PARKING_WORDING}`
   },
   {
     question: 'Are dogs welcome?',
     answer:
-      'Absolutely. Dogs are welcome throughout the pub and in the beer garden, and we keep water bowls on hand for them.'
+      `Yes. ${DOGS_WORDING}`
   },
   {
     question: 'When is the kitchen open?',

@@ -18,6 +18,9 @@ import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
 import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { HEATHROW_TIMES, CONTACT, BUS_WORDING } from '@/lib/constants'
+import { DOGS_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const metadata: Metadata = {
   title: 'Heathrow Plane Spotting Pub | Beer Garden Views',
@@ -50,16 +53,16 @@ export default async function PlaneSpottingHeathrowPage() {
     image: DEFAULT_NEAR_HEATHROW_IMAGE,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Horton Road',
-      addressLocality: 'Stanwell Moor',
+      streetAddress: CONTACT.address.street,
+      addressLocality: CONTACT.address.town,
       postalCode: 'TW19 6AQ',
       addressRegion: 'Surrey',
       addressCountry: 'GB'
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 51.462509,
-      longitude: -0.502067
+      latitude: CONTACT.coordinates.lat,
+      longitude: CONTACT.coordinates.lng
     },
     ...(openingHoursSpecification.length ? { openingHoursSpecification } : {}),
     amenityFeature: [
@@ -249,9 +252,9 @@ export default async function PlaneSpottingHeathrowPage() {
               <CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-3">Getting Here</h3>
                 <ul className="list-disc list-inside text-ink-muted space-y-2">
-                  <li>7 minutes from Heathrow Terminal 5 via A3044</li>
+                  <li>{HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car</li>
                   <li>Free on-site parking for patrons</li>
-                  <li>442 bus stops outside, perfect for spotters without a car</li>
+                  <li>{BUS_WORDING}</li>
                 </ul>
               </CardBody>
             </Card>
@@ -312,7 +315,7 @@ export default async function PlaneSpottingHeathrowPage() {
           },
           {
             question: 'Are families and dogs welcome?',
-            answer: 'Absolutely. The beer garden is dog friendly and we have children’s meals plus soft drinks, mocktails and hot drinks for family visits.'
+            answer: `Absolutely. ${DOGS_WORDING} We have children’s meals plus soft drinks, mocktails and hot drinks for family visits.`
           }
         ]}
       />
@@ -327,9 +330,9 @@ export default async function PlaneSpottingHeathrowPage() {
       <InternalLinkingSection
         title="Eat, drink and celebrate near Heathrow"
         links={[
-          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
+          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: `Proper pub food ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, with free parking` },
           { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
-          { href: '/private-hire', title: 'Function Room Hire', description: 'Private hire for 10+ to 150 guests, free parking' },
+          { href: '/private-hire', title: 'Function Room Hire', description: `Private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, free parking` },
         ]}
       />
 

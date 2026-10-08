@@ -7,6 +7,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { FAMILIES_WORDING } from '@/lib/approved-wording'
 
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -78,17 +79,7 @@ export default function FamilyFriendlyPage() {
                         <Card accent className="mx-auto mt-8">
                             <CardBody>
                                 <h3 className="font-display text-h4 text-ink-strong mb-4 text-center">Baby Facilities</h3>
-                                <ul className="grid sm:grid-cols-2 gap-4 text-ink">
-                                    <li className="flex items-center gap-2">
-                                        <span className="text-accent-text" aria-hidden>•</span> Bottle warming on request
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="text-accent-text" aria-hidden>•</span> Space for buggies
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <span className="text-accent-text" aria-hidden>•</span> Breastfeeding welcome
-                                    </li>
-                                </ul>
+                                <p className="text-center text-ink">{FAMILIES_WORDING}</p>
                             </CardBody>
                         </Card>
                     </div>
