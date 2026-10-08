@@ -65,7 +65,6 @@ describe('Table Booking API Routes', () => {
     it.each([
       'app/api/calendar/upcoming/route.ts',
       'app/api/reviews/status/route.ts',
-      'app/api/health/route.ts',
       'app/api/events/[id]/availability/route.ts'
     ])('%s is gone', (file) => {
       expect(fs.existsSync(path.join(process.cwd(), file))).toBe(false)
@@ -76,7 +75,9 @@ describe('Table Booking API Routes', () => {
         'app/api/calendar/event/[id]/route.ts',
         'app/api/reviews/route.ts',
         'app/api/events/[id]/route.ts',
-        'app/api/events/route.ts'
+        'app/api/events/route.ts',
+        // The uptime monitor watches this one from outside, so no code calls it.
+        'app/api/health/route.ts'
       ]) {
         expect(fs.existsSync(path.join(process.cwd(), file))).toBe(true)
       }

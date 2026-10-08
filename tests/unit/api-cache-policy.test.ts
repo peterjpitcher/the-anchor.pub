@@ -43,6 +43,7 @@ describe('middleware: /api reads are not stored by default', () => {
     '/api/analytics',
     // A route nobody has written yet starts out not stored.
     '/api/something-new',
+    '/api/health',
   ])('%s is no-store', (path) => {
     const cacheControl = headersFor(path).get('cache-control') ?? ''
     expect(cacheControl).toBe('no-store, max-age=0')

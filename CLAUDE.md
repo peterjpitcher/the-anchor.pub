@@ -43,7 +43,7 @@ Key files: `lib/api/client.ts` holds the `anchorAPI` client (`lib/api.ts` is onl
 - Voice: SSOT §1 is the only definition. It's about them, not us: write from the customer's side, "you" not "guests", short sentences, contractions, one exclamation mark at most, never "cheeky". Read §1 before writing any copy, not just the facts.
 - Monday kitchen: always closed unless a special-hours record explicitly opens it.
 - Sunday lunch: walk-ins welcome 1pm to 6pm. No pre-order, no Saturday cutoff, no per-roast prepayment (since the 17 May 2026 walk-in launch). Blocked only if the kitchen is closed that date.
-- Sunday roast menu: Beef Topside, Pork Leg, Turkey with Stuffing Ball, Beef and Ale Pie, Chicken and Wild Mushroom Pie, Vegan Wellington (vegan, never "vegetarian"), Kids Roast. Prices are always live from the management DB; never hardcode them. Menu prices are shown bare, with no currency symbol, by design.
+- Sunday roast menu: Beef Topside, Pork Leg, Turkey with Stuffing Ball, Vegan Wellington (vegan, never "vegetarian"), Kids Roast. Prices are always live from the management DB; never hardcode them. Menu prices are shown bare, with no currency symbol, by design.
 - Group deposit: 15 or more people, any day, any booking type: £10 per person, deducted from the bill.
 - Never claim: breakfast, delivery, Sky or TNT Sports (terrestrial channels only), guest ales or real ale, wedding receptions, accessible toilet, baby changing. No seasonal event content unless the SSOT confirms the event is running.
 - No em dashes in customer-facing text. Event posters are square (1:1); use square containers and never crop or stretch them.
@@ -52,7 +52,7 @@ Key files: `lib/api/client.ts` holds the `anchorAPI` client (`lib/api.ts` is onl
 
 - Canonical domain `https://www.the-anchor.pub`. Cloudflare TLS must be Full or Full (strict), never Flexible (redirect loops).
 - The root layout sets `metadataBase` only. Every page sets `alternates: { canonical: './' }`. Never hardcode `canonical` in the root layout: it once made every page claim to be the homepage.
-- New pages: `title: 'Page Title | The Anchor Stanwell Moor'`, a description, the relative canonical, and add the route to `app/sitemap.ts`.
+- New pages: `title: 'Page Title'` (the root layout appends ` | The Anchor`, so never put the pub's name in a page title), a description, the relative canonical, and add the route to `app/sitemap.ts`.
 - Google-documented SEO standards only: no sitemap priority tricks, no self-serving review schema.
 - Verify redirects end to end: assert the destination equals the rule's target and check which layer each rule runs in.
 
