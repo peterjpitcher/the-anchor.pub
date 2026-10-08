@@ -148,10 +148,10 @@ export default async function RootLayout({
       style={getSeasonalSkinStyle(skin)}
     >
       <head>
-        {/* Resource hints for performance */}
-        <link rel="preconnect" href="https://management.orangejelly.co.uk" />
-        {/* No hint for Google's hosts here: nothing of Google's is contacted
-            until the visitor accepts analytics cookies (GTMProvider). */}
+        {/* No preconnect hints. Nothing of Google's is contacted until the
+            visitor accepts analytics cookies (GTMProvider), and the browser
+            never talks to the management app: every call to it is made on the
+            server, so a hint for it opened a connection nothing used. */}
 
         {/* Meta tags */}
         <meta name="theme-color" content="#005131" />

@@ -233,7 +233,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'the-anchor.pub' },
       { protocol: 'https', hostname: 'www.the-anchor.pub' },
       { protocol: 'https', hostname: 'management.orangejelly.co.uk' },
-      { protocol: 'https', hostname: 'example.com' },
       { protocol: 'https', hostname: 'tfcasgxopxegwrabvwat.supabase.co' }
     ],
     formats: ['image/avif', 'image/webp'],
@@ -257,7 +256,7 @@ const nextConfig = {
   },
   experimental: {
     // Track web vitals
-    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
+    webVitalsAttribution: ['CLS', 'LCP', 'INP', 'FCP', 'TTFB'],
     // Optimize for edge runtime
     serverComponentsExternalPackages: ['sharp'],
     outputFileTracingIncludes: {

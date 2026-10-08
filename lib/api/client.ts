@@ -881,8 +881,6 @@ export class AnchorAPI {
       })
     }
 
-    console.log('Fetching event from events list for capacity data')
-
     for (const daysAgo of searchWindows) {
       try {
         const events = await fetchEventsFromWindow(daysAgo)
