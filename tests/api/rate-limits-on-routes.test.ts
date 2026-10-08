@@ -30,10 +30,8 @@ jest.mock('@/lib/turnstile', () => ({
 const mockApi = {
   createParkingPaymentOrder: jest.fn(),
   getParkingAvailability: jest.fn(),
-  getParkingBooking: jest.fn(),
   getEvent: jest.fn(),
   checkEventAvailability: jest.fn(),
-  getTableBooking: jest.fn(),
   cancelTableBooking: jest.fn(),
   getBookingPeriodSafe: jest.fn()
 }
@@ -278,14 +276,6 @@ describe('reads that spend the booking system key', () => {
       }
     },
     {
-      label: 'parking booking',
-      upstream: mockApi.getParkingBooking,
-      call: async (address = VISITOR) => {
-        const { GET } = await import('@/app/api/parking/bookings/[id]/route')
-        return GET(getRequest(`/api/parking/bookings/${BOOKING_ID}`, address), { params: { id: BOOKING_ID } })
-      }
-    },
-    {
       label: 'event availability',
       upstream: mockApi.checkEventAvailability,
       call: async (address = VISITOR) => {
@@ -299,17 +289,6 @@ describe('reads that spend the booking system key', () => {
       call: async (address = VISITOR) => {
         const { GET } = await import('@/app/api/table-bookings/periods/route')
         return GET(getRequest('/api/table-bookings/periods?date=2026-11-02&party_size=4', address))
-      }
-    },
-    {
-      label: 'table booking read',
-      upstream: mockApi.getTableBooking,
-      call: async (address = VISITOR) => {
-        const { GET } = await import('@/app/api/table-bookings/[reference]/route')
-        return GET(
-          getRequest('/api/table-bookings/TB-1', address, { 'x-customer-email': 'guest@example.com' }),
-          { params: { reference: 'TB-1' } }
-        )
       }
     },
     {
@@ -329,11 +308,9 @@ describe('reads that spend the booking system key', () => {
     '%s: the twenty-first in a minute from one address is refused and the booking system is not asked',
     async (_label, testCase) => {
       mockApi.getParkingAvailability.mockResolvedValue([{ remaining: 3 }])
-      mockApi.getParkingBooking.mockResolvedValue({ id: BOOKING_ID })
       mockApi.getEvent.mockResolvedValue({ bookings_enabled: true })
       mockApi.checkEventAvailability.mockResolvedValue({ available: true, remaining_capacity: 20 })
       mockApi.getBookingPeriodSafe.mockResolvedValue({ ok: true, data: null })
-      mockApi.getTableBooking.mockResolvedValue({ reference: 'TB-1' })
       mockApi.cancelTableBooking.mockResolvedValue({ success: true })
 
       for (let i = 0; i < 20; i += 1) {

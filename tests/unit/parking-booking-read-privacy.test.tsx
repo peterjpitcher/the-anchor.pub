@@ -1,19 +1,8 @@
-import { render } from '@testing-library/react'
+import fs from 'fs'
+import path from 'path'
 
-const mockGetParkingBooking = jest.fn()
-
-// The client is replaced for the route and the page, which are handed the
-// whole row as they were before this change, so their own handling is what is
-// under test. The client itself is tested against the real module.
-jest.mock('@/lib/api', () => ({
-  ...(jest.requireActual('@/lib/api') as object),
-  anchorAPI: { getParkingBooking: (...args: unknown[]) => mockGetParkingBooking(...args) },
-}))
-jest.mock('@/lib/gtm-events')
-
+import { anchorAPI } from '@/lib/api'
 import { PUBLIC_PARKING_BOOKING_FIELDS, toPublicParkingBooking } from '@/lib/api/parking'
-import { GET } from '@/app/api/parking/bookings/[id]/route'
-import ParkingBookingStatusPage, * as statusPage from '@/app/parking/bookings/[id]/page'
 
 /**
  * A parking booking read back from the management app never carries a name, a
@@ -24,8 +13,9 @@ import ParkingBookingStatusPage, * as statusPage from '@/app/parking/bookings/[i
  * the form, and the only key to the read is the booking id, so anyone holding
  * an id was one request from somebody else's details (site review, 7 October
  * 2026). The fix that closes it for good belongs to the management app. These
- * pin the website's half: the details are dropped at the client, again at the
- * read route, and no page prints them.
+ * pin the website's half: the details are dropped at the client, which is the
+ * only way a page gets a booking. The old read route and the old status page,
+ * which nothing on the site used, were deleted on 8 October 2026 (PY-009).
  */
 const FULL_ROW = {
   id: '11111111-1111-4111-8111-111111111111',
@@ -115,7 +105,6 @@ describe('anchorAPI.getParkingBooking', () => {
       text: async () => body,
     }))
 
-    const { anchorAPI } = jest.requireActual('@/lib/api') as typeof import('@/lib/api')
     const booking = await anchorAPI.getParkingBooking(FULL_ROW.id)
 
     expect(booking.reference).toBe('PK-TEST1')
@@ -124,52 +113,30 @@ describe('anchorAPI.getParkingBooking', () => {
   })
 })
 
-describe('GET /api/parking/bookings/[id]', () => {
-  beforeAll(() => {
-    if (typeof (Response as any).json !== 'function') {
-      ;(Response as any).json = (body: unknown, init?: ResponseInit) =>
-        new Response(JSON.stringify(body), {
-          ...init,
-          headers: { 'Content-Type': 'application/json', ...((init as any)?.headers || {}) },
-        })
+describe('the old read route and the old status page', () => {
+  // Deleted on 8 October 2026 (site review PY-009). Neither was linked, called
+  // or sent to a guest, and each was one more place a booking id alone opened
+  // a booking. The confirmation page is the only read left.
+  it.each(['app/api/parking/bookings/[id]', 'app/parking/bookings/[id]', 'app/parking'])(
+    '%s is gone',
+    folder => {
+      expect(fs.existsSync(path.join(process.cwd(), folder))).toBe(false)
     }
-  })
+  )
 
-  it('returns no customer field even if the client were to hand it the whole row', async () => {
-    mockGetParkingBooking.mockResolvedValue(FULL_ROW)
-
-    const response = await GET(new Request(`https://www.the-anchor.pub/api/parking/bookings/${FULL_ROW.id}`), {
-      params: { id: FULL_ROW.id },
-    })
-    const answer = await response.json()
-
-    expect(response.status).toBe(200)
-    expect(response.headers.get('cache-control')).toBe('private, no-store')
-    expect(answer.success).toBe(true)
-    expect(Object.keys(answer.data).sort()).toEqual([...PUBLIC_PARKING_BOOKING_FIELDS].sort())
-    expectNothingPersonal(JSON.stringify(answer))
-  })
-})
-
-describe('the old parking status page, /parking/bookings/[id]', () => {
-  it('prints no name, mobile or email, and keeps the booking id out of its title', async () => {
-    mockGetParkingBooking.mockResolvedValue(FULL_ROW)
-
-    const { container } = render(
-      await ParkingBookingStatusPage({ params: { id: FULL_ROW.id }, searchParams: {} })
-    )
-
-    const text = container.textContent ?? ''
-    expect(text).toContain('PK-TEST1')
-    expect(text).toContain('AB12 CDE')
-    for (const value of ['Fixturefirst', 'Fixturelast', '+447700900123', 'fixture.guest@example.invalid']) {
-      expect(container.innerHTML).not.toContain(value)
+  it('leaves one page reading a parking booking, the confirmation page', () => {
+    const readers: string[] = []
+    const walk = (dir: string) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name)
+        if (entry.isDirectory()) walk(full)
+        else if (/\.tsx?$/.test(entry.name) && fs.readFileSync(full, 'utf8').includes('getParkingBooking(')) {
+          readers.push(path.relative(process.cwd(), full))
+        }
+      }
     }
-    expect(text).not.toMatch(/Name:|Mobile:|Email:/)
+    for (const top of ['app', 'components']) walk(path.join(process.cwd(), top))
 
-    expect((statusPage as Record<string, unknown>).generateMetadata).toBeUndefined()
-    expect(statusPage.metadata.title).toBe('Your parking booking')
-    expect(JSON.stringify(statusPage.metadata)).not.toContain(FULL_ROW.id)
-    expect(statusPage.metadata.robots).toBe('noindex, nofollow')
+    expect(readers).toEqual(['app/heathrow-parking/confirmation/[bookingId]/page.tsx'])
   })
 })

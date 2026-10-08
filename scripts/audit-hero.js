@@ -15,7 +15,6 @@ const EXEMPT_PAGES = new Set([
   'app/free-parking/page.tsx',
   'app/leave-review/page.tsx',
   'app/heathrow-parking/confirmation/[bookingId]/page.tsx',
-  'app/parking/bookings/[id]/page.tsx',
   'app/sunday-roast/page.tsx',
 ])
 

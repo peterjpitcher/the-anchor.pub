@@ -1,13 +1,13 @@
 import type { Event } from '@/lib/api'
 import { getMotheringSunday, nextOccurrence } from '@/lib/recurring-dates'
 
-// Mothering Sunday 2027. Must stay in step with MOTHERS_DAY_DATE in
-// app/mothers-day/page.tsx, which drives the page copy and its Event schema.
-// Left on 2026-03-15 this silently stops matching the event and builds booking
-// links pointing at a date that has already passed.
+// The next Mothering Sunday, worked out. app/mothers-day/page.tsx takes its
+// date from here, so the page copy and the booking links cannot drift apart.
 export const MOTHERS_DAY_SERVICE_DATE = nextOccurrence(getMotheringSunday)
 export const MOTHERS_DAY_PAGE_PATH = '/mothers-day'
-export const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Sunday Roast'
+// No dish in the label: the day's menu is confirmed nearer the time
+// (docs/SSOT.md sections 4 and 10). Same wording as the page's own button.
+export const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Lunch'
 export const MOTHERS_DAY_DEFAULT_TIME = '12:30'
 
 const MOTHERS_DAY_MATCHER = /mother'?s day|mothering sunday/i

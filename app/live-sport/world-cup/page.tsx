@@ -182,7 +182,7 @@ export default async function WorldCupPage() {
               See all live sport
             </Link>
             <Link href="/live-sport/world-cup/sweepstake" className="font-semibold text-accent-text hover:underline">
-              World Cup sweepstake winners
+              World Cup sweepstake results
             </Link>
           </div>
         </Container>

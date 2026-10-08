@@ -537,6 +537,52 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     }
   })
 
+  it('sends a bookmarked old parking status address to the parking page (owner-approved 8 October 2026)', async () => {
+    // Site review PY-009: /parking/bookings/[id] was deleted. Nothing linked to
+    // it and no text or email sent a guest there, but an address somebody kept
+    // should land on the parking page, not a 404. The source holds a booking
+    // id, so this is a pattern rule: next.config.js serves it, before
+    // middleware, and middleware has no concrete rule for it.
+    const SOURCE = '/parking/bookings/:id'
+    const DESTINATION = '/heathrow-parking'
+    const samples = [
+      '/parking/bookings/11111111-1111-4111-8111-111111111111',
+      '/parking/bookings/PK-TEST1',
+    ]
+
+    expect(fs.existsSync(path.join(process.cwd(), 'app/parking'))).toBe(false)
+    expect(fs.existsSync(path.join(process.cwd(), 'app/heathrow-parking/page.tsx'))).toBe(true)
+    expect(ALL_REDIRECTS.filter((r) => r.source === SOURCE).map((r) => r.destination)).toEqual([DESTINATION])
+    // The destination is a live page, not another redirect.
+    expect(lookupRedirect(DESTINATION)).toBeUndefined()
+
+    // Matched the way Next matches it, with its own bundled path-to-regexp.
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { pathToRegexp } = require('next/dist/compiled/path-to-regexp')
+    const nextConfig = require('../next.config.js')
+    const frameworkRules = (await nextConfig.redirects()) as Array<RedirectRule & { statusCode?: number }>
+    const vercelSources: string[] = (
+      JSON.parse(fs.readFileSync(path.join(process.cwd(), 'vercel.json'), 'utf8')).redirects || []
+    ).map((rule: { source: string }) => rule.source)
+
+    for (const sample of samples) {
+      // Exactly one framework rule catches it, and it is this one.
+      const caught = frameworkRules.filter((rule) => pathToRegexp(rule.source).test(sample))
+      expect(caught.map((rule) => [rule.source, rule.destination, rule.statusCode])).toEqual([
+        [SOURCE, DESTINATION, 301],
+      ])
+      // Neither of the other two layers has a say.
+      expect(lookupRedirect(sample)).toBeUndefined()
+      expect(vercelSources.filter((source) => pathToRegexp(source).test(sample))).toEqual([])
+    }
+
+    // It takes one segment only: the parking page itself and the confirmation
+    // page are not caught.
+    for (const live of ['/heathrow-parking', '/heathrow-parking/confirmation/11111111-1111-4111-8111-111111111111']) {
+      expect(frameworkRules.filter((rule) => pathToRegexp(rule.source).test(live))).toEqual([])
+    }
+  })
+
   it("retires the Manager's Special and the four wrong landmark pages in one hop (owner decisions, 7 October 2026)", async () => {
     // Fact 32: the Manager's Special page and function are retired completely.
     // Decision 15 (site review finding C1-006): four "private hire near" pages
@@ -1173,10 +1219,12 @@ describe('blog tag index policy', () => {
 
 describe('the World Cup sweepstake winners page', () => {
   /**
-   * A finished results page that names the people who won. It was the one
-   * fixed page serving "index, follow" while missing from the sitemap (site
-   * review, 7 October 2026). It stays reachable from the live sport pages but
-   * is kept out of search, and so out of the sitemap as well.
+   * A finished results page. It was the one fixed page serving "index,
+   * follow" while missing from the sitemap (site review, 7 October 2026). It
+   * stays reachable from the live sport pages but is kept out of search, and
+   * so out of the sitemap as well. It named the people who won until
+   * 8 October 2026; tests/unit/owner-answers-8-october.test.ts keeps the
+   * names off it.
    */
   it('is noindex, still followed, and absent from the sitemap', async () => {
     const { metadata } = await import('@/app/live-sport/world-cup/sweepstake/page')
