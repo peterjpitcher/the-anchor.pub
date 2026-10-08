@@ -5,6 +5,7 @@ import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import html from 'remark-html'
 import { getExistingBlogImageNames } from './blog-image'
+import { lookupRedirect } from './middleware-redirects'
 
 const contentDirectory = path.join(process.cwd(), 'content')
 
@@ -21,6 +22,22 @@ function toOptionalTrimmedString(value: unknown): string | undefined {
   return trimmed || undefined
 }
 
+/**
+ * A frontmatter date as a YYYY-MM-DD string, or undefined when it is missing
+ * or is not a date. YAML hands an unquoted date over as a Date object and a
+ * quoted one as a string, so both are accepted.
+ */
+function toFrontmatterDate(value: unknown): string | undefined {
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime()) ? undefined : value.toISOString().slice(0, 10)
+  }
+  if (typeof value !== 'string') return undefined
+  const trimmed = value.trim()
+  return /^\d{4}-\d{2}-\d{2}/.test(trimmed) && !Number.isNaN(new Date(trimmed).getTime())
+    ? trimmed
+    : undefined
+}
+
 function escapeHtmlAttribute(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -35,6 +52,8 @@ export interface BlogPost {
   description: string
   date: string
   publishDate?: string
+  /** Set in frontmatter when a post is edited after it was published. */
+  lastUpdated?: string
   author: string
   keywords: string[]
   tags: string[]
@@ -93,6 +112,7 @@ export function getBlogPostMeta(slug: string): BlogPost | null {
       description: data.description || '',
       date: data.date || '',
       publishDate: toOptionalTrimmedString(data.publishDate),
+      lastUpdated: toFrontmatterDate(data.lastUpdated),
       author: data.author || '',
       keywords: toStringArray(data.keywords),
       tags: toStringArray(data.tags),
@@ -120,7 +140,13 @@ export function getAllBlogPosts(): BlogPost[] {
     return []
   }
 
-  const folders = fs.readdirSync(blogDir)
+  // A post whose address redirects is not a post any more: the redirect wins
+  // before the page is reached. Dropped here, once, so listings, related
+  // reading, previous and next links, tag pages and the sitemap all agree.
+  // Before this each of them had to remember its own list, and four did not.
+  const folders = fs
+    .readdirSync(blogDir)
+    .filter((folder) => !lookupRedirect(`/blog/${folder}`))
 
   const posts = folders
     .map((folder) => getBlogPostMeta(folder))
@@ -177,6 +203,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       description: data.description || '',
       date: data.date || '',
       publishDate: toOptionalTrimmedString(data.publishDate),
+      lastUpdated: toFrontmatterDate(data.lastUpdated),
       author: data.author || '',
       keywords: toStringArray(data.keywords),
       tags: toStringArray(data.tags),
