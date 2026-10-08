@@ -4,8 +4,8 @@ slug: community-feedback
 description: >-
   The Anchor pub near Heathrow Airport values community feedback. Historic
   village pub in Stanwell Moor, 7 minutes from Terminal 5, seeking local input.
-  Perfect meeting spot for Heathrow workers and Staines residents. Nearly 300
-  years serving the community. Share your ideas for events, menu, and
+  A meeting spot for Heathrow workers and Staines residents, and a village pub
+  since 1751. In 2023 we asked for your ideas on events, the menu and
   improvements. Free parking available.
 date: '2023-10-08'
 oldUrl: >-
@@ -17,7 +17,6 @@ keywords:
   - local feedback near terminal 5
   - historic pub near airport
   - community hub staines
-  - the anchor survey
   - pub improvements heathrow
   - local meeting place terminal 5
   - stanwell moor community
@@ -33,23 +32,15 @@ noindex: true
 
   
 
-[
-
-![the anchor s journey harnessing community feedback image](/content/blog/community-feedback/image-1.png)
-
-
-
-](https://bit.ly/3rJHP8K)
-
 ## The Anchor's Journey: Your Community Pub Near Heathrow Airport
 
-For nearly three centuries, The Anchor has stood as a testament to the rich heritage and vibrant community spirit of **Stanwell Moor Village**, just **7 minutes from Heathrow Terminal 5**. As we look to the future, we're reaching out to you, our cherished community, including **Heathrow workers**, **Staines residents**, and everyone near the **airport**, to help shape the next chapter of our story.
+A village pub since 1751, The Anchor has stood as a testament to the rich heritage and vibrant community spirit of **Stanwell Moor Village**, just **7 minutes from Heathrow Terminal 5**. In 2023 we reached out to our community, including **Heathrow workers**, **Staines residents**, and everyone near the **airport**, to help shape the next chapter of our story. The survey has now closed, but this is what we asked and why.
 
   
 
 ## The Anchor's Role in the Community Near Terminal 5
 
-From its inception in 1730, The Anchor has been more than just a pub. It's been the heart and soul of Stanwell Moor, a place where memories are made, and stories are shared. Over the past 4 years, we've embarked on a journey of transformation, introducing revamped food offerings, hosting memorable events, and giving our garden a fresh, inviting look.
+Since 1751, The Anchor has been more than just a pub. It's been the heart and soul of Stanwell Moor, a place where memories are made, and stories are shared. Over the past 4 years, we've embarked on a journey of transformation, introducing revamped food offerings, hosting memorable events, and giving our garden a fresh, inviting look.
 
   
 
@@ -60,7 +51,7 @@ As we envision the next five years, we see The Anchor as:
 - **A meeting point** for community groups and local organizations
 - **An event space** for celebrations and gatherings
 
-But to ensure our vision aligns with your desires, we need your feedback.
+To make sure that vision matched yours, we asked for your feedback.
 
   
 
@@ -69,11 +60,11 @@ But to ensure our vision aligns with your desires, we need your feedback.
 Our commitment to excellence has driven us to elevate our offerings:
 - **Revamped menu** with fresh, quality ingredients
 - **Regular events** including quiz nights and hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)
-- **Garden renovation** creating a peaceful outdoor space
-- **5-star hygiene rating** maintained consistently
+- **Garden renovation** giving the garden a fresh look
+- **5-star hygiene rating**, held since 2019
 - **Free parking** for easy access from Heathrow area
 
-Events like our annual Halloween and Christmas jumper parties have added a dash of festivity, while our rejuvenated garden offers a serene escape from the busy airport nearby.
+Events like our Halloween party have added a dash of festivity, and our refreshed garden sits right under the Heathrow flight path.
 
   
 
@@ -90,37 +81,27 @@ Your voice has always been our guiding star. From connecting us with event partn
 
   
 
-## Dive into Our Community Engagement Survey
+## Our Community Engagement Survey
 
-We've crafted a survey to delve deep into your thoughts. Whether it's:
+In 2023 we ran a survey to hear your thoughts. Whether it was:
 - A dish you'd love to see on our menu
 - An event you're eager to attend
 - Extended hours for shift workers
 - Meeting space requirements
 - Any other suggestion
 
-We're all ears! And for those keen to discuss their feedback in person, we're hosting a focus group discussion, complete with a delicious stone-baked pizza dinner on us! 
+We wanted to hear it. For those keen to talk it through in person, we also held a focus group discussion.
 
-Participate in our survey [here](https://bit.ly/3rJHP8K).
+The survey has now closed.
 
   
 
-## How You Can Get Involved
+## How You Can Still Get Involved
 
-Your feedback is the key to ensuring The Anchor remains a cherished spot for everyone in the Heathrow area:
-
-### Online Survey
-Dive into our [Community Engagement Survey](https://bit.ly/3rJHP8K) and share your insights. Takes just 5-10 minutes!
-
-### Focus Group
-Join us for our focus group discussion with:
-- **Free pizza dinner** on us
-- **Open discussion** about the pub's future
-- **Meet neighbours** from the community
-- **Direct input** to management
+The 2023 survey and focus group have finished, but your feedback is always welcome.
 
 ### Direct Contact
-Have more to share? Drop us an email at [manager@the-anchor.pub](mailto:manager@the-anchor.pub) or pop in for a chat.
+Have something to share? Drop us an email at [manager@the-anchor.pub](mailto:manager@the-anchor.pub) or pop in for a chat.
 
 ## Why Your Input Matters
 
@@ -145,15 +126,14 @@ Have more to share? Drop us an email at [manager@the-anchor.pub](mailto:manager@
 ## Visit The Anchor Near Heathrow
 
 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
-**From Heathrow**: Just 7 minutes from all terminals
-**Parking**: Free on-site parking
+**From Heathrow**: 7 minutes from Terminal 5
+**Parking**: 20 free spaces on site
 **Email**: manager@the-anchor.pub
 **Phone**: 01753 682707
-**Survey**: [bit.ly/3rJHP8K](https://bit.ly/3rJHP8K)
 
-### Your Community Pub Since 1730
+### Your Community Pub Since 1751
 
-- **Historic venue** - Nearly 300 years of service
+- **Historic venue** - A village pub since 1751
 - **Local ownership** - Invested in the community
 - **Regular improvements** - Based on your feedback
 - **Inclusive atmosphere** - Everyone welcome

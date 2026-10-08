@@ -6,6 +6,7 @@ description: >-
   clips replace the numbers. Entry is £5 cash on the night, and the winners'
   prize is a £25 voucher to spend with us.
 date: '2023-06-10'
+updated: '2026-09-12'
 oldUrl: >-
   https://www.the-anchor.pub/post/monthly-music-bingo-nights-great-food-prizes-and-f
 author: Billy
@@ -72,7 +73,7 @@ Private music bingo nights are available on request. Call 01753 682707 and we'll
 
 ## Getting here
 
-The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. Seven minutes by car from Heathrow Terminal 5, with 20 free spaces on site. The 441, 442 and 555 buses run from Heathrow Central Bus Station. Dogs are welcome throughout the pub, on a lead.
+The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. Seven minutes by car from Heathrow Terminal 5, with 20 free spaces on site. The 442 bus runs from Heathrow Terminal 5 and stops on Horton Road by the pub. Dogs are welcome throughout the pub, on a lead.
 
 ## Getting in
 

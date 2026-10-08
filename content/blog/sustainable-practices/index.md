@@ -18,7 +18,6 @@ keywords:
   - environmental pub heathrow
   - sustainable dining staines
   - eco restaurant near airport
-  - carbon neutral pub stanwell moor
   - the anchor sustainability
   - responsible hospitality heathrow
 tags:
@@ -36,7 +35,7 @@ noindex: true
 
 ## Introduction
 
-Nestled in the heart of Stanwell Moor Village, The Anchor has been a cornerstone of our community since 1751. For generations, we have served as a welcoming space where locals and travellers alike can enjoy good food, great company, and a warm atmosphere. But as much as we value our rich history, we are also committed to the future, especially when it comes to sustainability. Recognised as a [BII Sustainability Champion](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx), The Anchor is proud to lead the way in sustainable practices, blending tradition with innovation to create a lasting positive impact on both our community and the environment.
+Nestled in the heart of Stanwell Moor Village, The Anchor has been a cornerstone of our community since 1751. For generations, we have served as a welcoming space where locals and travellers alike can enjoy good food, great company, and a warm atmosphere. But as much as we value our rich history, we are also committed to the future, especially when it comes to sustainability. Recognised as a BII Sustainability Champion, The Anchor is proud to lead the way in sustainable practices, blending tradition with innovation to create a lasting positive impact on both our community and the environment.
 
   
 
@@ -82,7 +81,7 @@ In addition to the Honey Bee Mine campaign, The Anchor has also led community-dr
 
 ## The Impact of Our Efforts
 
-The impact of our sustainability initiatives has been profound. Through energy-saving technologies like SmartCellar and FlowMaster, we have not only reduced our carbon footprint but also improved the efficiency of our operations. Our community-focused initiatives, such as the Honey Bee Mine campaign and Earth Day event, have strengthened our bonds with local residents and businesses, fostering a sense of pride and shared responsibility for our environment. The positive feedback we have received from our community and the recognition from the BII as a [Sustainability Champion](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx) are testaments to the success of our efforts.
+The impact of our sustainability initiatives has been profound. Through energy-saving technologies like SmartCellar and FlowMaster, we have not only reduced our carbon footprint but also improved the efficiency of our operations. Our community-focused initiatives, such as the Honey Bee Mine campaign and Earth Day event, have strengthened our bonds with local residents and businesses, fostering a sense of pride and shared responsibility for our environment. The positive feedback we have received from our community and the recognition from the BII as a Sustainability Champion are testaments to the success of our efforts.
 
   
 
@@ -98,12 +97,6 @@ At The Anchor, sustainability is not just a practise, it’s a core value that s
 
   
 
-## Additional Resources
+## Get in Touch
 
-*   [FlowMaster Technology](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx)
-    
-*   [SmartCellar and SmartRemote Innovations](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx)
-    
-*   [Get Involved with The Anchor’s Sustainability Efforts](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx)
-    
-*   [Contact Us for Partnership Opportunities](mailto:manager@the-anchor.pub?subject=Partnership+Opportunities+with+The+Anchor&body=Dear+Anchor+Team%2C%0A%0AI+am+interested+in+exploring+partnership+opportunities+with+The+Anchor.+Please+let+me+know+how+we+can+collaborate.%0A%0AThank+you%2C%0A%5BYour+Name%5D)
+Got an idea for working together? Email us at [manager@the-anchor.pub](mailto:manager@the-anchor.pub).
