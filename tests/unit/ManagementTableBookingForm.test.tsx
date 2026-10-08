@@ -141,7 +141,7 @@ function setupFetchMock(options: {
       )
     }
 
-    if (url.startsWith('/api/customers/lookup?')) {
+    if (url.startsWith('/api/customers/lookup')) {
       return Promise.resolve(
         jsonResponse({
           success: true,
@@ -720,7 +720,7 @@ describe('ManagementTableBookingForm', () => {
         )
       }
 
-      if (url.startsWith('/api/customers/lookup?')) {
+      if (url.startsWith('/api/customers/lookup')) {
         return Promise.resolve(
           new Response(
             JSON.stringify({
@@ -904,7 +904,7 @@ describe('ManagementTableBookingForm', () => {
         )
       }
 
-      if (url.startsWith('/api/customers/lookup?')) {
+      if (url.startsWith('/api/customers/lookup')) {
         return Promise.resolve(
           new Response(
             JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }),
@@ -1789,7 +1789,7 @@ describe('ManagementTableBookingForm', () => {
             })
           )
         }
-        if (url.startsWith('/api/customers/lookup?')) {
+        if (url.startsWith('/api/customers/lookup')) {
           return Promise.resolve(
             new Response(JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }), {
               status: 200,
@@ -2165,7 +2165,7 @@ describe('ManagementTableBookingForm', () => {
         if (url.startsWith('/api/events?')) {
           return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
         }
-        if (url.startsWith('/api/customers/lookup?')) {
+        if (url.startsWith('/api/customers/lookup')) {
           return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
         }
         if (url.startsWith('/api/table-bookings/availability')) {
@@ -2250,7 +2250,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url.startsWith('/api/table-bookings/availability')) {
@@ -2417,7 +2417,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url.startsWith('/api/table-bookings/availability')) {
@@ -2490,7 +2490,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url.startsWith('/api/table-bookings/availability')) {
@@ -3068,7 +3068,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url.startsWith('/api/table-bookings/availability')) {
@@ -3203,7 +3203,7 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/table-bookings/availability')) {
             return Promise.resolve(jsonResponse({ success: true, data }))
           }
-          if (url.startsWith('/api/customers/lookup?')) {
+          if (url.startsWith('/api/customers/lookup')) {
             return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url === '/api/table-bookings') {
@@ -3338,7 +3338,7 @@ describe('ManagementTableBookingForm', () => {
             if (url.startsWith('/api/events?')) {
               return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
             }
-            if (url.startsWith('/api/customers/lookup?')) {
+            if (url.startsWith('/api/customers/lookup')) {
               return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
             }
             if (url.startsWith('/api/table-bookings/availability')) {
@@ -3776,6 +3776,16 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByText(/Welcome back/i)).toBeInTheDocument())
       expect(screen.queryByLabelText('First Name')).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/Last Name/i)).not.toBeInTheDocument()
+
+      // The number is asked about in the body of a POST. No address the form
+      // requests ever carries it, because addresses are what logs record.
+      const requests = (global.fetch as jest.Mock).mock.calls as Array<[RequestInfo | URL, RequestInit | undefined]>
+      const lookups = requests.filter(([input]) => String(input).includes('/api/customers/lookup'))
+      expect(lookups).toHaveLength(1)
+      expect(String(lookups[0][0])).toBe('/api/customers/lookup')
+      expect(lookups[0][1]?.method).toBe('POST')
+      expect(JSON.parse(String(lookups[0][1]?.body))).toEqual({ phone: '07700900000', default_country_code: '44' })
+      for (const [input] of requests) expect(String(input)).not.toContain('07700900000')
 
       fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
       await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())

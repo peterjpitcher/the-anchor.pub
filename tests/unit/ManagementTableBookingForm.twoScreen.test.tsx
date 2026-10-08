@@ -127,7 +127,7 @@ function setupFetchMock(options: {
       )
     }
 
-    if (url.startsWith('/api/customers/lookup?')) {
+    if (url.startsWith('/api/customers/lookup')) {
       return Promise.resolve(
         jsonResponse({
           success: true,

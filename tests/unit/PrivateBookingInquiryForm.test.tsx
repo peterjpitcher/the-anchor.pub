@@ -66,6 +66,13 @@ describe('PrivateBookingInquiryForm tracking', () => {
       expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
     )
 
+    // The number is asked about in the body of a POST, never in the address.
+    const lookupCalls = ((global as any).fetch as jest.Mock).mock.calls as Array<[RequestInfo | URL, RequestInit | undefined]>
+    expect(lookupCalls).toHaveLength(1)
+    expect(String(lookupCalls[0][0])).toBe('/api/customers/lookup')
+    expect(lookupCalls[0][1]?.method).toBe('POST')
+    expect(JSON.parse(String(lookupCalls[0][1]?.body))).toEqual({ phone: '07700900000', default_country_code: '44' })
+
     // Fill required name fields (unknown customer path).
     // Labels have no htmlFor/id so we use placeholder-independent text input order.
     const textInputs = document.querySelectorAll('input[type="text"]')

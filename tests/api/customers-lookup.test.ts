@@ -3,7 +3,7 @@ export {}
 // The public phone lookup is pre-verification: typing a number is not proof of
 // possession, so the response must never identify anyone (review F10). These
 // tests pin the response shape to { known } (+ lookup_degraded on fallback).
-describe('GET /api/customers/lookup: response never identifies anyone', () => {
+describe('POST /api/customers/lookup: response never identifies anyone', () => {
   const originalFetch = global.fetch
   const originalApiKey = process.env.ANCHOR_API_KEY
 
@@ -24,7 +24,7 @@ describe('GET /api/customers/lookup: response never identifies anyone', () => {
   beforeEach(async () => {
     process.env.ANCHOR_API_KEY = 'test-api-key'
     jest.resetModules()
-    ;({ GET: getLookup } = await import('@/app/api/customers/lookup/route'))
+    ;({ POST: getLookup } = await import('@/app/api/customers/lookup/route'))
   })
 
   afterEach(() => {
@@ -37,13 +37,12 @@ describe('GET /api/customers/lookup: response never identifies anyone', () => {
     jest.clearAllMocks()
   })
 
-  function makeRequest(phone: string, ip: string) {
-    const url = new URL(
-      `https://www.the-anchor.pub/api/customers/lookup?phone=${encodeURIComponent(phone)}&default_country_code=44`
-    )
+  // The number travels in the body. The address carries nothing personal.
+  function makeRequest(phone: unknown, ip: string, extra: Record<string, unknown> = {}) {
     return {
-      nextUrl: url,
-      headers: new Headers({ 'x-forwarded-for': ip })
+      nextUrl: new URL('https://www.the-anchor.pub/api/customers/lookup'),
+      headers: new Headers({ 'x-forwarded-for': ip }),
+      json: async () => ({ phone, default_country_code: '44', ...extra })
     } as any
   }
 
@@ -118,5 +117,57 @@ describe('GET /api/customers/lookup: response never identifies anyone', () => {
     const body = await response.json()
 
     expect(body.data).toEqual({ known: false, lookup_degraded: true })
+  })
+
+  it('sends no reason code or source label back to the caller', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    mockUpstream({ error: 'boom' }, 429)
+
+    const degraded = await getLookup(makeRequest('07700900123', '203.0.113.4'))
+    const degradedBody = await degraded.json()
+    expect(degradedBody).toEqual({ success: true, data: { known: false, lookup_degraded: true } })
+    expect(JSON.stringify(degradedBody)).not.toMatch(/meta|reason|upstream|429/)
+    // The reason still reaches our own logs, without the number.
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('upstream_429'))
+    expect(JSON.stringify(warn.mock.calls)).not.toContain('07700900123')
+
+    mockUpstream({ success: true, data: { known: true } })
+    const known = await getLookup(makeRequest('07700900123', '203.0.113.5'))
+    expect(await known.json()).toEqual({ success: true, data: { known: true } })
+    warn.mockRestore()
+  })
+
+  it('answers the seventh try in a minute from one address without asking the management app', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    // A fresh answer each time: a Response body can be read only once.
+    global.fetch = jest.fn().mockImplementation(async () =>
+      new Response(JSON.stringify({ success: true, data: { known: true } }), { status: 200 })
+    ) as any
+
+    for (let attempt = 0; attempt < 6; attempt += 1) {
+      const allowed = await getLookup(makeRequest('07700900123', '203.0.113.6'))
+      expect((await allowed.json()).data).toEqual({ known: true })
+    }
+    const limited = await getLookup(makeRequest('07700900123', '203.0.113.6'))
+    expect(await limited.json()).toEqual({ success: true, data: { known: false, lookup_degraded: true } })
+    expect(global.fetch).toHaveBeenCalledTimes(6)
+    warn.mockRestore()
+  })
+
+  it('refuses a body with no usable number before any upstream call', async () => {
+    mockUpstream({ success: true, data: { known: true } })
+
+    for (const [index, phone] of [undefined, '', '123', 42, { number: '07700900123' }, '0'.repeat(33)].entries()) {
+      const response = await getLookup(makeRequest(phone, `203.0.113.${20 + index}`))
+      expect(response.status).toBe(400)
+    }
+    const badCountry = await getLookup(makeRequest('07700900123', '203.0.113.30', { default_country_code: '44&x=1' }))
+    expect(badCountry.status).toBe(400)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('has no GET handler, so an address with a number in it is never served', async () => {
+    const route = await import('@/app/api/customers/lookup/route')
+    expect((route as Record<string, unknown>).GET).toBeUndefined()
   })
 })

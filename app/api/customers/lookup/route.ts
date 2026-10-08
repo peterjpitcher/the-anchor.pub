@@ -35,26 +35,38 @@ function isLookupRateLimited(ip: string): boolean {
   return false
 }
 
+// The reason is for our logs only. It used to be sent back in `meta.reason`,
+// which told anyone asking whether the key was missing, whether they had been
+// limited or what the management app had answered (site review, 7 October 2026).
 function createDegradedLookupResponse(reason: string, status = 200) {
+  console.warn(`[api/customers/lookup] answered without a lookup: ${reason}`)
+
   const data: CustomerLookupResponse = {
     known: false,
     lookup_degraded: true
   }
 
   return NextResponse.json(
-    {
-      success: true,
-      data,
-      meta: {
-        source: 'brand_lookup_fallback',
-        reason
-      }
-    },
+    { success: true, data },
     { status, headers: PRIVATE_NO_STORE_HEADERS }
   )
 }
 
-export async function GET(request: NextRequest) {
+const MAX_PHONE_LENGTH = 32
+
+function asTrimmedString(value: unknown): string {
+  return typeof value === 'string' ? value.trim() : ''
+}
+
+// POST, with the number in the body. As a GET the number sat in the web
+// address, which is the part of a request that hosting, proxy and browser
+// history all record. There is deliberately no GET handler: an address with a
+// phone number in it is answered 405 rather than served.
+//
+// The onward call to the management app is still a GET with the number in its
+// query string, because that is the only form its lookup accepts. That hop is
+// server to server; moving it needs a change in the management app.
+export async function POST(request: NextRequest) {
   if (!API_KEY) {
     return createDegradedLookupResponse('missing_api_key')
   }
@@ -64,11 +76,11 @@ export async function GET(request: NextRequest) {
     return createDegradedLookupResponse('rate_limited')
   }
 
-  const phone = request.nextUrl.searchParams.get('phone')?.trim() || ''
-  const defaultCountryCode =
-    request.nextUrl.searchParams.get('default_country_code')?.trim() || '44'
+  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null
+  const phone = asTrimmedString(body?.phone)
+  const defaultCountryCode = asTrimmedString(body?.default_country_code) || '44'
 
-  if (phone.length < 5) {
+  if (phone.length < 5 || phone.length > MAX_PHONE_LENGTH || !/^\d{1,4}$/.test(defaultCountryCode)) {
     return createApiErrorResponse('Phone number is required', 400)
   }
 
@@ -99,11 +111,7 @@ export async function GET(request: NextRequest) {
           known: upstreamData?.known === true || Boolean(upstreamData?.customer)
         }
         return NextResponse.json(
-          {
-            success: true,
-            data,
-            meta: { source: 'brand_lookup' }
-          },
+          { success: true, data },
           // Keyed by a phone number, so never stored anywhere shared.
           { status: 200, headers: PRIVATE_NO_STORE_HEADERS }
         )
