@@ -49,8 +49,15 @@ jest.mock('@/lib/markdown', () => {
     const blogDir = path.join(process.cwd(), 'content', 'blog')
     if (!fs.existsSync(blogDir)) return []
 
+    // The real reader drops a post whose address redirects, so this one must
+    // too, or the test would list posts the site no longer serves.
+    const { lookupRedirect } = jest.requireActual<typeof import('@/lib/middleware-redirects')>(
+      '@/lib/middleware-redirects',
+    )
+
     return fs
       .readdirSync(blogDir)
+      .filter((entry: string) => !lookupRedirect(`/blog/${entry}`))
       .map((entry: string) => {
         const indexPath = path.join(blogDir, entry, 'index.md')
         if (!fs.existsSync(indexPath)) return null
@@ -971,8 +978,14 @@ describe('blog tag inherited-member safety', () => {
     async (tag) => {
       const metadata = await generateBlogTagMetadata({ params: { tag } })
 
-      expect(typeof metadata.title).toBe('string')
-      expect(metadata.title).not.toHaveLength(0)
+      // A title that already names the pub is sent as { absolute }, so the
+      // root layout does not add " | The Anchor" to it a second time.
+      const title =
+        typeof metadata.title === 'string'
+          ? metadata.title
+          : (metadata.title as { absolute?: string } | null | undefined)?.absolute
+      expect(typeof title).toBe('string')
+      expect(title).not.toHaveLength(0)
       expect(typeof metadata.description).toBe('string')
       expect(metadata.description).not.toHaveLength(0)
       expect(metadata.alternates?.canonical).toBe(`/blog/tag/${tag.toLowerCase()}`)

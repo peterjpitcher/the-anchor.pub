@@ -184,9 +184,12 @@ describe('sport copy keeps to what the SSOT confirms', () => {
       expect(liveSport).toContain('We show World Cup games that are on BBC, ITV or Channel 4')
     })
 
-    it('gives the World Cup page a last-modified date of 7 October 2026 in the XML sitemap', () => {
-      expect(xmlSitemap).toContain("oct2026WorldCup: new Date('2026-10-07')")
-      expect(xmlSitemap).toContain("{ path: '/live-sport/world-cup', lastModified: DATES.oct2026WorldCup }")
+    it('lists the World Cup page in the XML sitemap with a date no older than the 7 October 2026 rewrite', () => {
+      // The date is no longer typed into app/sitemap.ts. It comes from git, by
+      // way of config/sitemap-lastmod.json, so it can only move forward.
+      expect(xmlSitemap).toContain("'/live-sport/world-cup',")
+      const lastmod = JSON.parse(fs.readFileSync(path.join(ROOT, 'config', 'sitemap-lastmod.json'), 'utf8'))
+      expect(Date.parse(lastmod.routes['/live-sport/world-cup'])).toBeGreaterThanOrEqual(Date.parse('2026-10-07T00:00:00Z'))
     })
   })
 })
