@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { type MutableRefObject } from 'react'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 
@@ -47,7 +47,7 @@ jest.mock('@marsidev/react-turnstile', () => {
   }
 })
 
-function renderTurnstileField() {
+function renderTurnstileField(props: { showInlineError?: boolean; phoneSource?: string } = {}) {
   const turnstileRef: MutableRefObject<TurnstileFieldRef> = { current: null }
   const onTokenChange = jest.fn()
 
@@ -56,6 +56,7 @@ function renderTurnstileField() {
       id="test-turnstile"
       turnstileRef={turnstileRef}
       onTokenChange={onTokenChange}
+      {...props}
     />
   )
 
@@ -208,8 +209,10 @@ describe('TurnstileField', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Mock Error' }))
 
     expect(onTokenChange).toHaveBeenCalledWith(null)
+    // "We will help": this widget is on the enquiry and job forms too, where
+    // nothing is being booked.
     expect(screen.getByRole('alert')).toHaveTextContent(
-      'Verification did not complete. Try again, or call 01753 682707 and we will book this for you.'
+      'Verification did not complete. Try again, or call 01753 682707 and we will help.'
     )
 
     fireEvent.click(screen.getByRole('button', { name: 'Try Again' }))
@@ -226,8 +229,10 @@ describe('TurnstileField', () => {
 
     expect(onTokenChange).toHaveBeenCalledWith(null)
     expect(screen.getByRole('alert')).toHaveTextContent(
-      'This browser cannot complete our security check. Please call 01753 682707 and we will book this for you.'
+      'This browser cannot complete our security check. Please call 01753 682707 and we will help.'
     )
+    // Nothing retries a browser that cannot run the challenge at all.
+    expect(screen.queryByRole('button', { name: /try/i })).not.toBeInTheDocument()
   })
 
   // Expiry and challenge-timeout self-heal via refreshExpired/refreshTimeout
@@ -251,5 +256,175 @@ describe('TurnstileField', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
     expect(onTokenChange).toHaveBeenLastCalledWith('token-123')
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+
+  // Every form disables its button until a token exists. When Cloudflare's
+  // script is blocked or never arrives it calls nothing back, so without the
+  // clock the guest is left with a dead button and no explanation.
+  describe('when the security check never finishes', () => {
+    beforeEach(() => {
+      jest.useFakeTimers()
+    })
+
+    afterEach(() => {
+      jest.useRealTimers()
+    })
+
+    function wait(ms: number) {
+      act(() => {
+        jest.advanceTimersByTime(ms)
+      })
+    }
+
+    function panel(): HTMLElement {
+      return screen.getByRole('status')
+    }
+
+    it('keeps an empty live region on the page from the start, so the message is announced when it comes', () => {
+      renderTurnstileField()
+
+      expect(panel()).toBeEmptyDOMElement()
+      expect(panel()).toHaveAttribute('aria-live', 'polite')
+    })
+
+    it('says nothing for the first ten seconds', () => {
+      renderTurnstileField()
+
+      wait(9_999)
+
+      expect(panel()).toBeEmptyDOMElement()
+    })
+
+    it('after ten seconds explains, gives the phone number as a link and offers another go', () => {
+      renderTurnstileField({ phoneSource: 'test_form_recovery' })
+
+      wait(10_000)
+
+      expect(panel()).toHaveTextContent('Security check not completed')
+      expect(panel()).toHaveTextContent('Everything you have typed is still here.')
+      expect(panel()).toHaveTextContent('Call 01753 682707 and we will help.')
+      expect(within(panel()).getByRole('link', { name: '01753 682707' })).toHaveAttribute('href', 'tel:+441753682707')
+      expect(within(panel()).getByRole('button', { name: 'Try the security check again' })).toBeInTheDocument()
+      // One message, not two.
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    })
+
+    it('does not use booking wording, because the same widget is on the enquiry and job forms', () => {
+      renderTurnstileField()
+
+      wait(10_000)
+
+      expect(panel().textContent).not.toMatch(/book/i)
+    })
+
+    it('says nothing when the token arrives in time', () => {
+      renderTurnstileField()
+
+      wait(4_000)
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
+      wait(60_000)
+
+      expect(panel()).toBeEmptyDOMElement()
+    })
+
+    it('clears the message as soon as a late token arrives', () => {
+      const { onTokenChange } = renderTurnstileField()
+
+      wait(10_000)
+      expect(panel()).not.toBeEmptyDOMElement()
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
+
+      expect(panel()).toBeEmptyDOMElement()
+      expect(onTokenChange).toHaveBeenLastCalledWith('token-123')
+    })
+
+    it('resets the widget and starts the wait again when the guest tries again', () => {
+      const { onTokenChange } = renderTurnstileField()
+
+      wait(10_000)
+      fireEvent.click(screen.getByRole('button', { name: 'Try the security check again' }))
+
+      expect(mockReset).toHaveBeenCalledTimes(1)
+      expect(onTokenChange).toHaveBeenLastCalledWith(null)
+      expect(panel()).toBeEmptyDOMElement()
+
+      wait(9_999)
+      expect(panel()).toBeEmptyDOMElement()
+      wait(1)
+      expect(panel()).toHaveTextContent('Security check not completed')
+    })
+
+    it('speaks up when an expired token is not replaced', () => {
+      renderTurnstileField()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
+      wait(300_000)
+      expect(panel()).toBeEmptyDOMElement()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Expire' }))
+      wait(9_999)
+      expect(panel()).toBeEmptyDOMElement()
+      wait(1)
+
+      expect(panel()).toHaveTextContent('Security check not completed')
+    })
+
+    it('stays quiet when an expired token is replaced, which is the ordinary case', () => {
+      renderTurnstileField()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Expire' }))
+      wait(800)
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Success' }))
+      wait(60_000)
+
+      expect(panel()).toBeEmptyDOMElement()
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    })
+
+    it.each([
+      ['a failed challenge', 'Mock Error'],
+      ['an unsupported browser', 'Mock Unsupported']
+    ])('shows %s at once and never a second message on top of it', (_label, buttonName) => {
+      renderTurnstileField()
+
+      fireEvent.click(screen.getByRole('button', { name: buttonName }))
+
+      expect(screen.getByRole('alert')).toHaveTextContent('01753 682707')
+      wait(60_000)
+      expect(panel()).toBeEmptyDOMElement()
+    })
+
+    it('renders neither message for a form that shows its own, and still reports the status', () => {
+      const turnstileRef: MutableRefObject<TurnstileFieldRef> = { current: null }
+      const onStatusChange = jest.fn()
+      render(
+        <TurnstileField
+          id="test-turnstile"
+          turnstileRef={turnstileRef}
+          onTokenChange={jest.fn()}
+          onStatusChange={onStatusChange}
+          showInlineError={false}
+        />
+      )
+
+      wait(10_000)
+      fireEvent.click(screen.getByRole('button', { name: 'Mock Error' }))
+
+      expect(screen.queryByRole('status')).not.toBeInTheDocument()
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+      expect(onStatusChange).toHaveBeenLastCalledWith('error')
+    })
+
+    it('leaves no timer running after the form is taken off the page', () => {
+      const turnstileRef: MutableRefObject<TurnstileFieldRef> = { current: null }
+      const { unmount } = render(
+        <TurnstileField id="test-turnstile" turnstileRef={turnstileRef} onTokenChange={jest.fn()} />
+      )
+
+      unmount()
+
+      expect(jest.getTimerCount()).toBe(0)
+    })
   })
 })

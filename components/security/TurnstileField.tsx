@@ -3,13 +3,34 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type MutableRefObject } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Button } from '@/components/ui/primitives/Button'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-const VERIFICATION_ERROR =
-  'Verification did not complete. Try again, or call 01753 682707 and we will book this for you.'
+// "We will help", not "we will book this for you": the same widget sits on the
+// enquiry forms and the job application, where nothing is being booked.
+const VERIFICATION_ERROR = `Verification did not complete. Try again, or call ${CONTACT.phone} and we will help.`
 
-const UNSUPPORTED_ERROR =
-  'This browser cannot complete our security check. Please call 01753 682707 and we will book this for you.'
+const UNSUPPORTED_ERROR = `This browser cannot complete our security check. Please call ${CONTACT.phone} and we will help.`
+
+/**
+ * How long we wait for Cloudflare to hand over a token before we say something.
+ *
+ * Every form disables its submit button until a token exists, so a widget that
+ * is blocked by an extension, killed by a corporate proxy or simply never
+ * loaded left the guest looking at a dead button with nothing on screen to
+ * explain it. Cloudflare calls nothing back in that case, so the only signal is
+ * the clock. Ten seconds is long enough for a slow phone on a weak signal to
+ * finish quietly, and short enough that nobody sits there wondering what they
+ * did. The event booking form had this first; it lives here now so every form
+ * that mounts the widget gets it.
+ */
+export const TURNSTILE_RECOVERY_DELAY_MS = 10_000
+
+export const TURNSTILE_RECOVERY_TITLE = 'Security check not completed'
+
+export const TURNSTILE_RECOVERY_MESSAGE =
+  'Our security check has not finished, so we cannot take this online yet. Everything you have typed is still here.'
 
 export type TurnstileFieldRef = TurnstileInstance | null
 
@@ -63,9 +84,12 @@ interface TurnstileFieldProps {
   /**
    * Set false when the caller renders its own failure panel, so the guest is not
    * told the same thing twice by two different components. Defaults to true, so
-   * every existing caller keeps the inline alert it has always had.
+   * every form gets the failure alert and the "not completed" panel without
+   * asking for them.
    */
   showInlineError?: boolean
+  /** Names this form in the phone click tracking. */
+  phoneSource?: string
 }
 
 export function TurnstileField({
@@ -74,9 +98,20 @@ export function TurnstileField({
   onTokenChange,
   className,
   onStatusChange,
-  showInlineError = true
+  showInlineError = true,
+  phoneSource = 'turnstile_recovery'
 }: TurnstileFieldProps) {
   const [error, setError] = useState<string | null>(null)
+  // Whether the guest can do anything about `error` by pressing a button.
+  const [retryable, setRetryable] = useState(true)
+  // What Cloudflare last told us, kept here as well as reported to the caller
+  // so the recovery clock below runs for every form, not only for a caller
+  // that listens.
+  const [status, setStatus] = useState<TurnstileFieldStatus>('pending')
+  const [timedOut, setTimedOut] = useState(false)
+  // Bumped by each retry, so the clock starts again even when the status it
+  // goes back to ('pending') is the one it already had.
+  const [attempt, setAttempt] = useState(0)
 
   // The widget's size, decided ONCE per mount from the room its slot has, in a
   // layout effect so the widget appears in the same frame as the form.
@@ -101,9 +136,26 @@ export function TurnstileField({
     onStatusChangeRef.current = onStatusChange
   }, [onStatusChange])
 
-  const reportStatus = useCallback((status: TurnstileFieldStatus) => {
-    onStatusChangeRef.current?.(status)
+  const reportStatus = useCallback((next: TurnstileFieldStatus) => {
+    setStatus(next)
+    onStatusChangeRef.current?.(next)
   }, [])
+
+  // The recovery clock. It runs while a token is awaited: from mount, after an
+  // expiry and after a retry. An expired token is routine and Cloudflare
+  // usually replaces it in well under a second, so the panel appears only if no
+  // replacement turns up. A hard error or an unsupported browser has its own
+  // message at once and needs no clock.
+  //
+  // This is a way out for the guest and nothing more. The form's button stays
+  // disabled without a token and the server verifies every token it is given.
+  useEffect(() => {
+    setTimedOut(false)
+    if (status !== 'pending' && status !== 'expired') return
+
+    const timer = window.setTimeout(() => setTimedOut(true), TURNSTILE_RECOVERY_DELAY_MS)
+    return () => window.clearTimeout(timer)
+  }, [status, attempt])
 
   // Expiry and challenge-timeout are ROUTINE, not failures.
   //
@@ -126,6 +178,7 @@ export function TurnstileField({
   const clearTokenWithError = useCallback(() => {
     onTokenChange(null)
     setError(VERIFICATION_ERROR)
+    setRetryable(true)
     reportStatus('error')
   }, [onTokenChange, reportStatus])
 
@@ -134,6 +187,7 @@ export function TurnstileField({
   const handleUnsupported = useCallback(() => {
     onTokenChange(null)
     setError(UNSUPPORTED_ERROR)
+    setRetryable(false)
     reportStatus('unsupported')
   }, [onTokenChange, reportStatus])
 
@@ -146,12 +200,16 @@ export function TurnstileField({
   const handleRetry = useCallback(() => {
     onTokenChange(null)
     setError(null)
+    setAttempt((count) => count + 1)
     reportStatus('pending')
     turnstileRef.current?.reset()
   }, [onTokenChange, reportStatus, turnstileRef])
 
   return (
-    <div className={cn('space-y-3', className)}>
+    // No space-y here: the live region below is an empty box most of the time,
+    // and a gap utility would give that empty box a margin of its own. The two
+    // panels carry their own top margin instead.
+    <div className={cn(className)}>
       {/*
         The slot is what gets measured, so it has no minimum width of its own.
         It holds the wide widget's 65px from the first paint, server render
@@ -187,12 +245,42 @@ export function TurnstileField({
       {error && showInlineError ? (
         <div
           role="alert"
-          className="space-y-3 rounded-sm border border-anchor-danger/30 bg-anchor-danger/10 p-3 text-sm text-anchor-danger"
+          className="mt-3 space-y-3 rounded-sm border border-anchor-danger/30 bg-anchor-danger/10 p-3 text-sm text-anchor-danger"
         >
           <p>{error}</p>
-          <Button type="button" size="sm" variant="outline" onClick={handleRetry}>
-            Try Again
-          </Button>
+          {/* Nothing retries a browser that cannot run the challenge at all. */}
+          {retryable ? (
+            <Button type="button" size="sm" variant="outline" onClick={handleRetry}>
+              Try Again
+            </Button>
+          ) : null}
+        </div>
+      ) : null}
+
+      {/*
+        Kept in the DOM at all times and left empty until there is something to
+        say. A live region added to the page at the same moment as its text is
+        routinely missed by screen readers, whereas one already sitting there
+        announces the change.
+      */}
+      {showInlineError ? (
+        <div role="status" aria-live="polite" aria-atomic="true">
+          {timedOut && !error ? (
+            <div className="mt-3 space-y-3 rounded-sm border border-anchor-danger/30 bg-anchor-danger/10 p-3 text-sm text-anchor-danger">
+              <p className="font-semibold">{TURNSTILE_RECOVERY_TITLE}</p>
+              <p>{TURNSTILE_RECOVERY_MESSAGE}</p>
+              <p>
+                Call{' '}
+                <PhoneLink phone={CONTACT.phone} source={phoneSource} showIcon={false} className="font-semibold underline">
+                  {CONTACT.phone}
+                </PhoneLink>{' '}
+                and we will help.
+              </p>
+              <Button type="button" size="sm" variant="outline" wrap onClick={handleRetry}>
+                Try the security check again
+              </Button>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>
