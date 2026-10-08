@@ -52,7 +52,6 @@ The website consumes data via API proxy routes. Key data entities:
 
 | Service | Data | Client |
 |---------|------|--------|
-| AviationStack | Heathrow flight data | `lib/flights.ts` |
 | Microsoft Graph | Email sending | `lib/microsoft-graph-mail.ts` |
 | PayPal | Payment orders | API proxy routes |
 

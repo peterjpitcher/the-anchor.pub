@@ -369,11 +369,6 @@ export default function PrivacyPolicyPage() {
             <li><strong>Meta (Facebook and Instagram)</strong> - Advert measurement, only if you accept marketing cookies</li>
             <li><strong>LinkedIn</strong> - Advertising tag, only if you accept marketing cookies</li>
             <li><strong>Upstash</strong> - Counts requests to our booking system so we can block abuse. It sees your IP address.</li>
-            {/* lib/flights.ts, called from the browser by components/FlightStatus.tsx
-                on the four terminal pages. The owner has decided to remove the
-                flight boxes (decision 14). Whoever removes them removes this line
-                and moves the date and fingerprint in lib/legal-pages.ts. */}
-            <li><strong>Aviationstack</strong> - Supplies the live flight times on our four Heathrow terminal pages. Your browser asks it for them directly, so it sees your IP address.</li>
           </ul>
           {/* The management app's own notice (src/app/privacy/page.tsx) already
               says data may be processed outside the UK, "e.g., Twilio in the US".
