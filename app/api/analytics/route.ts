@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sanitizeTrackingUrlContext } from '@/lib/tracking/url-context'
+import { stripBookingIdentifiers } from '@/lib/tracking/booking-identifiers'
 
 const GA4_COLLECT_URL = 'https://www.google-analytics.com/mp/collect'
 
@@ -210,9 +211,10 @@ export async function POST(request: NextRequest) {
       : Array.isArray(data?.events)
         ? data.events
         : [data]
-    // Older browser bundles can still send full URLs. Apply the same boundary
-    // before logging or forwarding them to GA4.
-    const events = incomingEvents.map(sanitizeTrackingUrlContext)
+    // Older browser bundles can still send full URLs, booking references and
+    // booking ids. Apply the same boundary before logging or forwarding them
+    // to GA4.
+    const events = incomingEvents.map(event => stripBookingIdentifiers(sanitizeTrackingUrlContext(event)))
 
     if (process.env.NODE_ENV === 'development' && verboseLogging) {
       console.log('[Analytics API]', {

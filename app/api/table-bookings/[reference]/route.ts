@@ -7,10 +7,9 @@ export async function GET(
   request: Request,
   { params }: { params: { reference: string } }
 ) {
-  const customerEmail =
-    request.headers.get('x-customer-email') ||
-    new URL(request.url).searchParams.get('customer_email') ||
-    ''
+  // From the header only. An email address in the query string would sit in
+  // every request log on the way here.
+  const customerEmail = request.headers.get('x-customer-email') || ''
   
   const { reference } = params
   
@@ -60,10 +59,9 @@ export async function DELETE(
   request: Request,
   { params }: { params: { reference: string } }
 ) {
-  const customerEmail =
-    request.headers.get('x-customer-email') ||
-    new URL(request.url).searchParams.get('customer_email') ||
-    ''
+  // From the header only. An email address in the query string would sit in
+  // every request log on the way here.
+  const customerEmail = request.headers.get('x-customer-email') || ''
 
   const { reference } = params
   

@@ -199,31 +199,38 @@ describe('routes that say private, no-store themselves', () => {
     })
     expect(noEmail.status).toBe(400)
     expect(noEmail.headers.get('cache-control')).toBe('private, no-store')
+
+    // An email address in the query string is not read: an address is what
+    // request logs record, so the route takes it from the header or not at all.
+    const emailInAddress = await GET(
+      new Request('https://www.the-anchor.pub/api/table-bookings/ABC123?customer_email=guest%40example.com'),
+      { params: { reference: 'ABC123' } }
+    )
+    expect(emailInAddress.status).toBe(400)
+    expect(getTableBooking).toHaveBeenCalledTimes(2)
   })
 
   it('the phone lookup: known, degraded and refused', async () => {
-    const { GET } = await import('@/app/api/customers/lookup/route')
-    const request = (phone: string) =>
-      new NextRequest(`https://www.the-anchor.pub/api/customers/lookup?phone=${phone}`, {
-        headers: { 'x-forwarded-for': `203.0.113.${Math.floor(Math.random() * 200) + 1}` },
+    const { POST } = await import('@/app/api/customers/lookup/route')
+    const request = (body: Record<string, unknown>, lastOctet = Math.floor(Math.random() * 200) + 1) =>
+      new NextRequest('https://www.the-anchor.pub/api/customers/lookup', {
+        method: 'POST',
+        headers: { 'x-forwarded-for': `203.0.113.${lastOctet}`, 'content-type': 'application/json' },
+        body: JSON.stringify(body),
       })
 
     global.fetch = jest.fn().mockResolvedValueOnce(
       new Response(JSON.stringify({ success: true, data: { known: true } }), { status: 200 })
     ) as any
-    const known = await GET(request('07700900000'))
+    const known = await POST(request({ phone: '07700900000' }))
     expect(known.status).toBe(200)
     expect(known.headers.get('cache-control')).toBe('private, no-store')
 
     global.fetch = jest.fn().mockRejectedValueOnce(new Error('network')) as any
-    const degraded = await GET(request('07700900001'))
+    const degraded = await POST(request({ phone: '07700900001' }))
     expect(degraded.headers.get('cache-control')).toBe('private, no-store')
 
-    const missing = await GET(
-      new NextRequest('https://www.the-anchor.pub/api/customers/lookup', {
-        headers: { 'x-forwarded-for': '203.0.113.250' },
-      })
-    )
+    const missing = await POST(request({}, 250))
     expect(missing.status).toBe(400)
     expect(missing.headers.get('cache-control')).toBe('private, no-store')
   })

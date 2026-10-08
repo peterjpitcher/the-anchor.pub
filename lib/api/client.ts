@@ -1,6 +1,7 @@
 // AnchorAPI class and anchorAPI singleton
 
 import { logError } from '@/lib/error-handling'
+import { toPublicParkingBooking } from './parking'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { computeLargeGroupDepositAmount } from '@/lib/constants'
 
@@ -1363,9 +1364,13 @@ export class AnchorAPI {
     // One customer's name, mobile, email and vehicle, which the management app
     // marks `private, no-store`, and a status that changes the moment they pay.
     // A kept copy could tell a guest who has just paid that they have not.
-    return this.request<ParkingBookingDetails>(`/parking/bookings/${id}`, {
+    const raw = await this.request<unknown>(`/parking/bookings/${id}`, {
       next: { revalidate: 0 }
     } as RequestInit)
+
+    // The name, mobile and email stop here. No page or route on this site is
+    // handed them, so none can show or return them. See lib/api/parking.ts.
+    return toPublicParkingBooking(raw) as ParkingBookingDetails
   }
 
   async createParkingPaymentOrder(

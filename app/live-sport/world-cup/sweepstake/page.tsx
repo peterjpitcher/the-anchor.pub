@@ -59,6 +59,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/live-sport/world-cup/sweepstake',
   },
+  // Kept out of search and out of app/sitemap.ts. This is a finished results
+  // page that names the winners; people who took part can still reach it from
+  // the live sport pages, and its links are still followed.
+  robots: { index: false, follow: true },
 }
 
 export default function WorldCupSweepstakePage() {

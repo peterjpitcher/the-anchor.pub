@@ -104,8 +104,14 @@ export function PrivateBookingInquiryForm({
         setLookupState('loading')
 
         try {
-            const params = new URLSearchParams({ phone: phone.trim(), default_country_code: '44' })
-            const response = await fetch(`/api/customers/lookup?${params.toString()}`, { cache: 'no-store' })
+            // In the body, never the address: a phone number in a web address is
+            // recorded by every log and history that sees the request.
+            const response = await fetch('/api/customers/lookup', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ phone: phone.trim(), default_country_code: '44' }),
+              cache: 'no-store'
+            })
             const payload = await response.json()
 
             if (!response.ok || payload?.success === false) {

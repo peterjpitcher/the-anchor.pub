@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
+import { toPublicParkingBooking } from '@/lib/api/parking'
 import { logError } from '@/lib/error-handling'
 import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
 
@@ -23,7 +24,10 @@ export async function GET(_request: Request, context: RouteContext) {
   }
 
   try {
-    const booking = await anchorAPI.getParkingBooking(bookingId)
+    // Reference, times, vehicle, amount and status only. The client already
+    // drops the name, mobile and email; this is the same cut made a second
+    // time, because this answer goes to whoever holds the booking id.
+    const booking = toPublicParkingBooking(await anchorAPI.getParkingBooking(bookingId))
 
     return NextResponse.json({
       success: true,

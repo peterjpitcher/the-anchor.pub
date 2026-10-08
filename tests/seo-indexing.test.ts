@@ -823,6 +823,22 @@ describe('blog tag index policy', () => {
   })
 })
 
+describe('the World Cup sweepstake winners page', () => {
+  /**
+   * A finished results page that names the people who won. It was the one
+   * fixed page serving "index, follow" while missing from the sitemap (site
+   * review, 7 October 2026). It stays reachable from the live sport pages but
+   * is kept out of search, and so out of the sitemap as well.
+   */
+  it('is noindex, still followed, and absent from the sitemap', async () => {
+    const { metadata } = await import('@/app/live-sport/world-cup/sweepstake/page')
+    expect(metadata.robots).toEqual({ index: false, follow: true })
+
+    const sitemapPaths = new Set((await sitemap()).map((entry) => toPath(entry.url)))
+    expect(sitemapPaths.has('/live-sport/world-cup/sweepstake')).toBe(false)
+  })
+})
+
 describe('blog tag inherited-member safety', () => {
   /**
    * `/blog/tag/constructor` and `/blog/tag/__proto__` returned HTTP 500 in
