@@ -15,12 +15,11 @@ tags:
   - food-and-drink
   - news
 featured: false
-hero: hero.jpg
 images: []
 noindex: true
 ---
 **Update:** Stanwell Moor Brew is no longer available at The Anchor.
 
-Our drinks range changes over time and should be checked against the current POS or live menu before publishing. Please ask the bar team or call 01753 682707 for what is currently on tap.
+Ask the bar team or call 01753 682707 for what's on tap now.
 
 [View the drinks page](/drinks) or [book a table](/book-table).

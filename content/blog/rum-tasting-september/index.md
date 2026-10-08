@@ -4,8 +4,9 @@ slug: rum-tasting-september
 description: >-
   Read about our rum tasting event at The Anchor pub near Heathrow Airport, in
   Stanwell Moor, just 7 minutes from Terminal 5. Limited to 25 guests with
-  Caribbean food pairings. Check back for future special events.
-date: '2024-06-15'
+  Caribbean food pairings. Tasting nights are occasional, so see what's on for
+  the next one.
+date: '2025-06-15'
 oldUrl: >-
   https://www.the-anchor.pub/post/rum-tasting-night-success-book-september-s-mystery
 author: Billy
@@ -15,18 +16,15 @@ keywords:
   - premium rum tasting terminal 5
   - tasting nights near airport
   - rum events staines
-  - quarterly tastings heathrow
   - the anchor tasting events
   - caribbean rum near heathrow
   - exclusive tastings stanwell moor
-  - spirits club near terminal 5
 tags:
   - community
   - food-and-drink
   - events
   - offers
 featured: false
-hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -64,7 +62,7 @@ Our rum tasting night's success wasn't accidental. The evening featured:
 
   
 
-According to [industry experts](https://www.diffordsguide.com/encyclopedia/198/bws/rum-the-worlds-most-diverse-spirit), rum's complexity and variety make it ideal for structured tastings, and our guests discovered this firsthand.
+Rum's variety makes it ideal for a structured tasting, and our guests discovered this firsthand.
 
   
 
@@ -80,7 +78,7 @@ This wasn't just another spirits event. From the moment guests arrived to find t
 
 ![Glass with toothpick beside Bacardi Coconut bottle on a table. Colourful bottles in the background create a lively party vibe.](/content/blog/rum-tasting-september/image-3.jpeg)
 
-The star of our rum tasting night was [Bacardi](https://www.bacardi.com/) Coconut: coconut on the nose, smooth to drink, and the closest thing in the line-up to a piña colada. That fits the [growing trend](https://www.thespiritsbusiness.com/2024/01/flavoured-rum-market-growth/) of premium flavoured rums.
+The star of our rum tasting night was [Bacardi](https://www.bacardi.com/) Coconut: coconut on the nose, smooth to drink, and the closest thing in the line-up to a piña colada.
 
   
 
@@ -116,7 +114,7 @@ Forget typical pub fare - our rum tasting night featured authentic Caribbean cui
 
   
 
-The food and the pairings did as much work as the rum. Food and rum pairings are [gaining recognition](https://www.bbcgoodfood.com/howto/guide/introduction-rum) as essential to appreciating spirits properly, and our pairings proved this brilliantly.
+The food and the pairings did as much work as the rum.
 
   
 
@@ -129,31 +127,6 @@ Professional tastings understand that palate cleansing and complementary flavour
   
 
 Premium mixers from [Fever-Tree](https://www.fever-tree.com/) and [Schweppes](https://www.schweppes.com/) elevated each rum, with guests discovering perfect combinations - from ginger ale transforming Bumbu to tropical sodas enhancing the fruity expressions. This attention to detail separates amateur events from our professional approach.
-
-  
-
-## **Next Special Event: November**
-
-![Bowl of lime wedges in the foreground with assorted rum bottles, including Bacardi, in the background. Bright, tropical vibe.](/content/blog/rum-tasting-september/image-6.jpeg)
-
-The overwhelming success of our rum tasting night has inspired us to plan another special event for November. While we're keeping the details under wraps for now, the enthusiasm from our June guests makes it clear there's appetite for more unique experiences.
-
-The [premium spirits market](https://drinksint.com/news/fullstory.php/aid/10234/) continues to evolve with exciting innovations, and we're always exploring new ways to bring exceptional experiences to Stanwell Moor.
-
-  
-
-### **Stay Connected for November's Event**
-
-Want to be first to know about our November special event?
-
-  
-
-*   Call 01753 682707 to express your interest
-    
-*   Follow us on social media for the announcement
-    
-*   Pop in regularly - we'll share details with our regulars first
-    
 
   
 
@@ -171,7 +144,7 @@ That is the power of bringing people together over something they would not have
 
 ![Group of people seated at a long table in a lively restaurant, writing on paper. Bright dresses, drinks on the table, leafy decor above.](/content/blog/rum-tasting-september/image-8.jpeg)
 
-This rum tasting night created genuine connections. Guests travelled from across the region for it. That mirrors the [global trend](https://www.forbes.com/sites/joemicallef/2023/09/15/the-rise-of-spirits-education/) of consumers seeking educational drinking experiences that go beyond the ordinary pub night.
+This rum tasting night created genuine connections. Guests travelled from across the region for it.
 
   
 
@@ -191,4 +164,4 @@ A friendly host, a good atmosphere and something new to try: that is what we aim
 
   
 
-**While this particular rum tasting has passed, mark your calendar for November when we'll host another special event. In the meantime, visit us to explore our extensive rum selection, enjoy our regular events like quiz nights and hosted nights like Music Bingo with Nikki Manfadge, or simply experience the warm welcome that made this tasting night so special. See /whats-on for the latest events.**
+**This rum tasting has passed. Tasting nights at The Anchor are occasional, ticketed and for over 18s only. See [what's on](/whats-on) for the latest events, and our [drinks menu](/drinks) for what we pour today.**

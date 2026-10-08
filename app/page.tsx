@@ -61,8 +61,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: DEFAULT_OG_IMAGE,
-        width: 1200,
-        height: 630,
+        width: 1920,
+        height: 1072,
         alt: 'The Anchor pub in Stanwell Moor near Heathrow'
       }
     ],

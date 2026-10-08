@@ -58,7 +58,7 @@ export const commonLinkGroups = {
   events: [
     { href: '/music-bingo', title: 'Music Bingo & Hosted Nights', description: 'See Music Bingo dates and details' },
     { href: '/blog', title: 'Latest News', description: 'Updates and announcements' },
-    { href: '/private-hire', title: 'Private Hire & Events', description: 'Get a quote and check availability' }
+    { href: '/private-hire', title: 'Private Hire & Events', description: 'Get a quote and send an enquiry' }
   ],
   location: [
     { href: '/near-heathrow', title: 'Near Heathrow', description: '7-12 minutes from Heathrow terminals' },

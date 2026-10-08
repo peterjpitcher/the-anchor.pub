@@ -3,6 +3,7 @@ title: "Support your local pub: keeping community pubs alive in Stanwell Moor"
 slug: support-your-local-pub-stanwell-moor
 description: "A quick message from The Anchor on why supporting your local pub in Stanwell Moor matters now, and how small, regular visits keep community spaces alive."
 date: "2026-02-22"
+updated: '2026-10-08'
 author: "The Anchor Team"
 keywords:
   - support your local pub stanwell moor
@@ -120,7 +121,7 @@ This is also why the “support your local” message matters right now. Not bec
 
 **If the community doesn’t use its community spaces, those spaces don’t survive.**
 
-And once a pub closes, there often isn’t a clean re-open. Sometimes it becomes a long-term empty building. Sometimes it becomes something else entirely. If you’ve seen that happen locally, like the **Golden Cross in Combrook**, once thriving and now boarded up, you already know how quickly a place can become… nothing.
+And once a pub closes, there often isn’t a clean re-open. Sometimes it becomes a long-term empty building. Sometimes it becomes something else entirely. If you’ve seen that happen locally, a pub once thriving and now boarded up, you already know how quickly a place can become… nothing.
 
 So yes, this is a trying time for hospitality. And no, this isn’t just about us.
 
@@ -198,11 +199,11 @@ Midweek meals matter. They’re not about splashing out, they’re about breakin
 
 ### Wednesday: games nights and togetherness
 
-Quiz nights, music bingo, cash bingo, the kind of stuff that gets people laughing with neighbours they might otherwise only wave at.
+Quiz night and cash bingo on set Wednesdays, the kind of stuff that gets people laughing with neighbours they might otherwise only wave at. Dates are on [what's on](/whats-on).
 
 ### Friday: after-work drinks and end-of-week exhale
 
-A chance to switch off, catch up, and start the weekend properly.
+A chance to switch off, catch up, and start the weekend properly. Music bingo is once a month on a Friday.
 
 ### Saturday: bring your people
 
@@ -265,19 +266,19 @@ At village level, the most powerful thing you can do is still the simplest:
 
 ### Is The Anchor family-friendly?
 
-Yes, we want families to feel comfortable here, especially at daytime and food-led moments like lunch and Sundays.
+Yes. Children are welcome at any time. High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities.
 
 ### Do you serve food every day?
 
-Our week includes food-led days and drink-led days. Kitchen times can vary, so the best thing is to check our latest info online or message us before you come down.
+Our week includes food-led days and drink-led days. Kitchen times can vary, so the best thing is to check our [find us page](/find-us) or message us before you come down.
 
 ### What events do you run?
 
-We host regular community events including quiz nights, music bingo and cash bingo. We aim to have something happening most weeks.
+We host regular community events including quiz nights, music bingo and cash bingo. Dates are on [what's on](/whats-on).
 
 ### Do I need to book?
 
-For busier times (especially Sunday roast and popular event nights), booking is a smart idea. For quieter moments, we often welcome walk-ins, just check what’s on that day.
+You don't have to. Walk-ins are welcome, and booking is wise for groups and for event nights.
 
 ### Can I book the pub for a party or gathering?
 

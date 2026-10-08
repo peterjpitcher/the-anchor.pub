@@ -10,12 +10,15 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { CtaBand } from '@/components/CtaBand'
+import { getRouteLastModified } from '@/lib/sitemap-lastmod'
 import {
   Badge,
   Button,
   Container,
   SectionHeading,
 } from '@/components/ui'
+
+const PAGE_LAST_MODIFIED = getRouteLastModified('/history')?.toISOString()
 
 export const metadata: Metadata = {
   title: { absolute: 'History of The Anchor, Stanwell Moor | Village Pub Since 1751' },
@@ -56,7 +59,8 @@ const historyPageSchema = {
     'The history of The Anchor in Stanwell Moor, a village pub since at least 1751 with roots reaching back to 1730. Locally listed Victorian building near Heathrow.',
   url: 'https://www.the-anchor.pub/history',
   datePublished: '2026-05-21',
-  dateModified: '2026-06-07',
+  // From git, like the sitemap date for this page, in place of a typed date.
+  ...(PAGE_LAST_MODIFIED ? { dateModified: PAGE_LAST_MODIFIED } : {}),
   publisher: {
     '@type': 'BarOrPub',
     name: 'The Anchor',

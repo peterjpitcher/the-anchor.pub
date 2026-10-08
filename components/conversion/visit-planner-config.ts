@@ -20,8 +20,6 @@
 export const VISIT_PLANNER_PANEL_SLUGS: ReadonlySet<string> = new Set([
   // Flagship #1 traffic asset
   'heathrow-plane-spotting-locations',
-  // Plane-spotting guide
-  'plane-spotting-heathrow-guide',
   // Layover / things-to-do travel intent
   'heathrow-layover-guide',
   'things-to-do-near-heathrow',

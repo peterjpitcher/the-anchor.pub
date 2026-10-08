@@ -2,6 +2,7 @@
 title: "Work Christmas Party Ideas Near Heathrow: Organiser's Guide"
 description: "Landed with organising the work Christmas do near Heathrow? A straight guide to formats, group sizes, deposits, parking and the bits that usually go wrong."
 date: "2026-08-10"
+updated: '2026-10-08'
 author: "The Anchor Team"
 keywords:
   - work xmas party in heathrow airport
@@ -27,7 +28,7 @@ We take Christmas bookings at The Anchor in Stanwell Moor, seven minutes from Te
 
 Search near the airport and a lot of what comes back is a hotel party night: a shared ballroom, a ticket price per head, entertainment laid on, and other companies in the room with you. That is a real format and plenty of teams love it.
 
-It is not what we do. We stopped running shared party nights, and we do not put on a DJ, a disco or a Christmas entertainment programme. We give you your own table in a village pub with a festive set menu, then leave you to your evening. The one exception worth knowing about is our Christmas quiz, which runs in the December diary. It is not bolted onto your booking, but if your team would rather have something to do than a dance floor, ask us when it falls and pick your date around it. If you are still weighing those two products against each other, we have compared them properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
+It is not what we do. We stopped running shared party nights, and no DJ, disco or entertainment comes with a Christmas booking. We give you your own table in a village pub with a festive set menu, then leave you to your evening. A DJ can be arranged if you ask, but it is never included. There are four festive nights in the diary too: Tinsel & Tipples Christmas Tasting Night on Friday 20 November, Tinsel & Trivia Quiz Night on Wednesday 2 December, Sleigh My Name: Festive Music Bingo on Friday 11 December and Christmas Jackpot Cash Bingo on Wednesday 16 December. They are not bolted onto your booking, but if your team would rather have something to do than a dance floor, pick your date around one. The details are on [what's on](/whats-on). If you are still weighing those two products against each other, we have compared them properly in [Christmas dinner or party night](/blog/christmas-dinner-or-party-night-which-suits-your-group).
 
 So the sorting question is this:
 
@@ -47,7 +48,7 @@ The number in your spreadsheet quietly changes which product you are buying.
 
 - **Fewer than 4 guests.** Not a Christmas booking. Our festive menu needs a minimum of 4.
 - **4 to 20 guests.** A normal table booking. You book it, you turn up, we look after you.
-- **More than 20 guests.** No longer a table booking. This is [private hire](/private-hire), and it goes through a person rather than a form: manager@the-anchor.pub, 01753 682707, or WhatsApp on the same number.
+- **More than 20 guests.** No longer a table booking. This is [private hire](/private-hire), and it goes through a person rather than a form: manager@the-anchor.pub, 01753 682707, or WhatsApp on the same number. A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person.
 
 Our Christmas capacity is 60 seated and 200 standing, so a large team is doable. It just needs a conversation, because at that size you are agreeing space and layout, not a table.
 
@@ -75,17 +76,19 @@ The practical detail:
 - **2 and 3 courses** need a pre-order, and choices are due **seven days before your booking date**. Count back from your date and give your team an internal deadline earlier than ours.
 - There is **no kids 2 or 3 course tier**, and no child price at those tiers. Children can order the adult 2 or 3 course at the adult price.
 - **Adults on the 2 and 3 course tiers get a glass of prosecco**, swappable for orange juice. **Children get a Fruit Shoot or a small soft drink** with the 1 course.
-- **Trimmings included:** pigs in blankets, stuffing and brussels sprouts.
+- **Trimmings included:** pigs in blankets, stuffing and brussels sprouts. The Vegetable Wellington is vegan, so it comes with vegan trimmings and vegan gravy.
 
 The menu is published on our [Christmas page](/christmas-parties), and prices come from our live system rather than a leaflet, so what you see there is what you pay. For allergen queries, see menu or contact us for allergen information.
 
 ## The deposit, and why per-person deposits help you
 
-Every Christmas booking carries a £10 per person deposit, whatever the size of the party. Taken at booking and deducted from your bill on the night. Cancel more than seven days before the booking and we refund it in full; inside seven days it is not refunded.
+Every Christmas table booking, 4 to 20 guests, carries a £10 per person deposit. Taken at booking and deducted from your bill on the night. Cancel up to and including seven days before your booking date and we refund it in full; after that it is not refunded.
+
+A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person. A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 
 Organisers flinch at that line. They should not, because the deposit is doing a job for you. Work Christmas headcounts drift: twenty-two say yes in October, nineteen turn up in December, and you are the one explaining the gap. A per-person deposit turns a casual "yeah, put me down" into a small commitment, so your final number is closer to the truth. It also gives you a clean reason to collect from colleagues while the do is still a nice idea, rather than chasing them in January.
 
-Because it comes off the bill, it is not an extra cost. Same money, paid sooner.
+Because the £10 per person deposit comes off the bill, it is not an extra cost. Same money, paid sooner.
 
 ## Logistics decide who turns up
 
@@ -93,11 +96,11 @@ Getting there is the bit organisers underestimate, and it is quietly what decide
 
 - **Parking:** 20 free spaces on site. No fee, no time limit while you are with us, level surface, close to the entrance, CCTV and floodlit. More parking nearby. Free parking is not a perk here, it is what lets the drivers come without resenting it.
 - **From the terminals:** Terminal 5 is 7 minutes, Terminals 2 and 3 are 11 minutes, Terminal 4 is 12 minutes. Staines is 8 minutes, M25 Junction 14 is 2 minutes.
-- **Buses:** routes 441, 442 and 555.
-- **ULEZ:** we are outside the zone, so nobody has to check their car against it before saying yes.
+- **Bus:** route 442 stops on Horton Road by the pub and runs from Heathrow Terminal 5.
+- **ULEZ:** We're outside the ULEZ zone.
 - **Access:** the car park, the bar and the dining area are all step-free, and assistance dogs are always welcome. The beer garden is step free from the car park, and there's one step between it and the bar, which we'll put a ramp out for if you ask ahead. We do not have an accessible toilet, and that is worth knowing before you book rather than on the night.
 
-Ask your team about access needs at the same time you ask about dietary ones. People will not always volunteer it, and it is a much easier conversation in September than in December. If you want to talk through what someone's visit would actually look like, ring 01753 682707.
+Ask your team about access needs at the same time you ask about dietary ones. People will not always volunteer it, and it is a much easier conversation early on than the week before. If you want to talk through what someone's visit would actually look like, ring 01753 682707.
 
 Put that in the calendar invite, not just the postcode. Our [directions page](/find-us) has the detail to paste in. We are on Horton Road, Stanwell Moor, Surrey TW19 6AQ.
 
@@ -121,11 +124,11 @@ At least 4. Up to 20 is a standard table booking. Above 20 becomes private hire,
 
 ### Do you run shared Christmas party nights with a DJ?
 
-No. We stopped running shared party nights, and we do not put on a DJ or a Christmas entertainment programme. You get your own table and a festive set menu in a village pub. We do run a Christmas quiz in December, which any group is welcome to book around, but it is a separate thing rather than part of a Christmas booking. If your team wants a dance floor, an airport hotel party night will suit them better than we will.
+No. We stopped running shared party nights, and no DJ or entertainment comes with a Christmas booking. You get your own table and a festive set menu in a village pub. A DJ can be arranged if you ask, but it is never included. We do run four festive nights, a tasting night, a quiz, a music bingo and a cash bingo, which any group is welcome to book around, but they are separate things rather than part of a Christmas booking. The dates are on [what's on](/whats-on). If your team wants a dance floor, an airport hotel party night will suit them better than we will.
 
 ### How does the deposit work?
 
-Every Christmas booking takes a £10 per person deposit at booking, regardless of party size. It is deducted from your final bill on the night, and refunded in full if you cancel more than seven days before your booking. Inside seven days it is not refunded.
+Every Christmas table booking, 4 to 20 guests, takes a £10 per person deposit at booking. It is deducted from your final bill on the night, and refunded in full if you cancel up to and including seven days before your booking date. After that it is not refunded. A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person.
 
 ### Do we all have to have the same number of courses?
 

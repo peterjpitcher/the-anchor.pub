@@ -42,6 +42,16 @@ export const metadata: Metadata = {
   }
 }
 
+/**
+ * The first price on a drinks menu line, as a number in a string, or null when
+ * the line holds no price. "£5.50 / £7.20" gives "5.50"; "", "Bottle" and
+ * "187ml/750ml" give null.
+ */
+function numericMenuPrice(price: string | undefined): string | null {
+  const first = (price ?? '').replace(/[£$]/g, '').split(' / ')[0].trim()
+  return /^\d+(\.\d{1,2})?$/.test(first) && Number(first) > 0 ? first : null
+}
+
 export default async function DrinksMenuPage() {
   const [menuData, businessHours] = await Promise.all([
     parseMenuMarkdown('drinks'),
@@ -71,12 +81,17 @@ export default async function DrinksMenuPage() {
           "@type": "MenuItem",
           "name": item.name,
           "description": item.description || item.name,
-          "offers": {
-            "@type": "Offer",
-            "price": item.price.replace(/[£$]/, '').split(' / ')[0],
-            "priceCurrency": "GBP",
-            "availability": "https://schema.org/InStock"
-          },
+          // An Offer only when the menu holds a real price. Most drinks carry
+          // none, or a word such as "Bottle", and 168 of them were published
+          // as an offer whose price was empty or was that word.
+          ...(numericMenuPrice(item.price) && {
+            "offers": {
+              "@type": "Offer",
+              "price": numericMenuPrice(item.price),
+              "priceCurrency": "GBP",
+              "availability": "https://schema.org/InStock"
+            }
+          }),
           ...(category.title.toLowerCase().includes('cocktail') && {
             "nutrition": generateNutritionInfo(item.name, 'cocktails')
           })

@@ -76,8 +76,8 @@ export default function ReviewsPage() {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.the-anchor.pub/' },
-          { name: 'Reviews', url: 'https://www.the-anchor.pub/reviews' },
+          { name: 'Home', url: '/' },
+          { name: 'Reviews', url: '/reviews' },
         ]}
       />
       <script

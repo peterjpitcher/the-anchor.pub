@@ -31,7 +31,7 @@ import { getBusinessHours, readRecentEvents, readUpcomingEvents, formatEventDate
 import { logError } from '@/lib/error-handling'
 import { PhoneLink } from '@/components/PhoneLink'
 import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
-import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
+import { buildOpeningHoursSchema, buildSpecialOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Quiz, Music Bingo & Cash Bingo Near Heathrow | The Anchor",
     description: "Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
-    images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
+    images: ["/images/events/quiz-night/quiz-night-hero-tables-full.jpg"],
     // Stated rather than left to the default. This hub is a standing page, not
     // an article or a single event.
     type: 'website',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   twitter: getTwitterMetadata({
     title: "Quiz, Music Bingo & Cash Bingo Near Heathrow | The Anchor",
     description: "Quiz nights, music bingo and cash bingo at The Anchor, Stanwell Moor. Quiz £3, free parking, 7 mins from Heathrow T5.",
-    images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
+    images: ["/images/events/quiz-night/quiz-night-hero-tables-full.jpg"]
   }),
   alternates: {
     // Relative, per the project convention. It resolved to the same URL when it
@@ -70,7 +70,10 @@ async function getOpeningHoursSpecification() {
       new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
     ])
 
-    return buildOpeningHoursSchema(hours?.regularHours, hours?.upcomingVersions)
+    return [
+      ...buildOpeningHoursSchema(hours?.regularHours, hours?.upcomingVersions),
+      ...buildSpecialOpeningHoursSchema(hours),
+    ]
   } catch (error) {
     console.warn('Failed to load opening hours for /whats-on schema, omitting hours', error)
     return []

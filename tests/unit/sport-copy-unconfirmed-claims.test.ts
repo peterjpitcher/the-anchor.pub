@@ -14,8 +14,8 @@
  *  - a tournament year, or a promise of fixtures and bookings, in the labels
  *    that link to the standing World Cup page.
  *
- * The 2023 Six Nations post is left alone by owner instruction and is not read
- * for the sport rules. The CheersAI feed code and its fixture data are not
+ * The 2023 Six Nations post, once left alone by owner instruction, was retired
+ * with a redirect on 8 October 2026. The CheersAI feed code and its fixture data are not
  * read either: they are data about a tournament, not our copy.
  */
 
@@ -24,14 +24,10 @@ import path from 'path'
 
 const ROOT = process.cwd()
 const BLOG = path.join(ROOT, 'content', 'blog')
-const LEFT_ALONE = 'six-nations-rugby-at-the-anchor-2023'
-const SPORT_POSTS = [
-  'live-sport-pubs-near-heathrow',
-  'sports-update',
-  'euro-2024-viewing',
-  'autumn-internationals-2024-full-fixtures-highlight',
-  'premier-league-2024-25'
-]
+// The four older sport posts (Euro 2024, Autumn Internationals 2024, Premier
+// League 2024-25 and the 2023 Six Nations) were retired with redirects on
+// 8 October 2026, so only the two posts that are still served are read.
+const SPORT_POSTS = ['live-sport-pubs-near-heathrow', 'sports-update']
 
 interface Source {
   file: string
@@ -119,15 +115,9 @@ describe('sport copy keeps to what the SSOT confirms', () => {
       expect("we're showing the games that are on BBC, ITV or Channel 4 on our 4 TVs.").not.toMatch(promise)
     })
 
-    it('is made nowhere on the pages, the tag copy or the five sport posts', () => {
+    it('is made nowhere on the pages, the tag copy or the two sport posts', () => {
       const found = offenders(promise, sportSources).filter((line) => !honest.test(line))
       expect(found).toEqual([])
-    })
-
-    it('says what we do show in its place, in the three older posts', () => {
-      SPORT_POSTS.slice(2).forEach((slug) => {
-        expect(fs.readFileSync(post(slug), 'utf8')).toContain('BBC, ITV or Channel 4')
-      })
     })
   })
 
@@ -184,9 +174,12 @@ describe('sport copy keeps to what the SSOT confirms', () => {
       expect(liveSport).toContain('We show World Cup games that are on BBC, ITV or Channel 4')
     })
 
-    it('gives the World Cup page a last-modified date of 7 October 2026 in the XML sitemap', () => {
-      expect(xmlSitemap).toContain("oct2026WorldCup: new Date('2026-10-07')")
-      expect(xmlSitemap).toContain("{ path: '/live-sport/world-cup', lastModified: DATES.oct2026WorldCup }")
+    it('lists the World Cup page in the XML sitemap with a date no older than the 7 October 2026 rewrite', () => {
+      // The date is no longer typed into app/sitemap.ts. It comes from git, by
+      // way of config/sitemap-lastmod.json, so it can only move forward.
+      expect(xmlSitemap).toContain("'/live-sport/world-cup',")
+      const lastmod = JSON.parse(fs.readFileSync(path.join(ROOT, 'config', 'sitemap-lastmod.json'), 'utf8'))
+      expect(Date.parse(lastmod.routes['/live-sport/world-cup'])).toBeGreaterThanOrEqual(Date.parse('2026-10-07T00:00:00Z'))
     })
   })
 })

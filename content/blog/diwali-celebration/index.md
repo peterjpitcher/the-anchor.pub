@@ -1,12 +1,10 @@
 ---
-title: Diwali Celebrations Near Heathrow | Festival of Lights at The Anchor
+title: Diwali 2023 in Stanwell Moor | Festival of Lights
 slug: diwali-celebration
 description: >-
-  Celebrate Diwali at The Anchor near Heathrow Airport in Stanwell Moor.
-  Join our Festival of Lights celebrations with traditional Indian festivities,
-  just 7 minutes from Terminal 5. Perfect for the Indian community near
-  Heathrow, airport workers, and Staines residents. Family-friendly Diwali
-  events with music, food, and cultural activities.
+  A look back at Diwali 2023 in Stanwell Moor: the Festival of Lights at the
+  village hall, supported by The Anchor and the Stanwell Moor Residents
+  Association, and what the festival means.
 date: '2023-10-29'
 oldUrl: >-
   https://www.the-anchor.pub/post/diwali-2023-a-grand-celebration-in-stanwell-moor
@@ -15,9 +13,7 @@ keywords:
   - diwali celebrations near heathrow
   - festival of lights stanwell moor
   - indian events near terminal 5
-  - diwali pub near airport
   - hindu festival staines
-  - the anchor diwali party
   - indian community heathrow
   - diwali activities near terminal 5
   - festival celebration stanwell moor
@@ -37,17 +33,17 @@ noindex: true
 
 **Happy Diwali!**
 
-****_ਦੀਵਾਲੀ ਦੀਆਂ ਲੱਖ ਲੱਖ ਵਧਾਈਆਂ!_
+****_ਦੀਵਾਲੀ ਦੀਆਂ ਲੱਖ ਲੱਖ ਵਧਾਈਆਂ_
 
-_दिवाली की हार्दिक शुभकामनाएँ!_
+_दिवाली की हार्दिक शुभकामनाएँ_
 
-_દિવાળીની હાર્દિક શુભકામનાઓ!_
+_દિવાળીની હાર્દિક શુભકામનાઓ_
 
   
 
-## Celebrate Diwali at The Anchor Near Heathrow Airport
+## Diwali 2023 in Stanwell Moor
 
-The Anchor in **Stanwell Moor** proudly hosts **Diwali celebrations near Heathrow Airport**, bringing the Festival of Lights to our diverse community. Just **7 minutes from Terminal 5**, we welcome the **Indian community**, **Heathrow workers**, and residents from **Staines** to join our vibrant Diwali festivities. Experience authentic cultural celebrations at your **local pub near the airport**.
+In 2023 Stanwell Moor marked Diwali, the Festival of Lights, with a celebration at the village hall. The Anchor and the Stanwell Moor Residents Association (SMRA) supported it. This post was written ahead of the day.
 
   
 
@@ -59,18 +55,15 @@ But as we step into 2023, Diwali's radiance has crossed borders and oceans. From
 
 ![Group of diverse children painting colourful clay lamps (diyas) in a festive setting, with lights strung up in the background and other children and adults engaging in similar activities around them.](/content/blog/diwali-celebration/image-1.jpg)
 
-## **Diwali Festival Events Near Heathrow Terminal 5**
+## **Diwali 2023 at the Village Hall**
 
-**Stanwell Moor Village Hall** hosts our annual **Diwali celebrations near Heathrow**, supported by The Anchor and the SMRA. This **family-friendly festival** features:
+**Stanwell Moor Village Hall** hosted the 2023 Diwali celebration, supported by The Anchor and the SMRA. The plan for the day was:
 
-- **Live performances** by local Indian artists
+- **Performances** by local Indian artists
 - **Traditional music** by Sonia Panesar
 - **Diya painting** activities for children
 - **Indian food** and festive treats
 - **Cultural activities** for all ages
-- **Community gathering** for Heathrow's diverse population
-
-Perfect for **Indian families near the airport**, **Hindu community members**, and anyone interested in experiencing authentic Diwali celebrations just minutes from **Terminal 5**.
 
   
 
@@ -84,50 +77,19 @@ The heart and soul of Stanwell Moor's community initiatives, the SMRA, stands as
 
 Behind every successful community event lies the support and dedication of local sponsors, and Diwali 2023 is no exception:
 
-*   **Tentist Marquees**: Stepping up to ensure the event's ambiance is top-notch, Tentist Marquees, a local enterprise, is providing essential furniture. Their commitment not only showcases their quality services but also their spirit of community involvement. For those interested, a glimpse of their offerings is available on their [Facebook profile](https://www.facebook.com/p/Tentist-Marquees-100072880734957/).
+*   **Tentist Marquees**: Stepping up to ensure the event's ambiance is top-notch, Tentist Marquees, a local enterprise, was set to provide essential furniture. Their commitment not only showcases their quality services but also their spirit of community involvement. For those interested, a glimpse of their offerings is available on their [Facebook profile](https://www.facebook.com/p/Tentist-Marquees-100072880734957/).
     
-*   **Sonia Panesar**: Enriching the festivities with her melodious voice, Sonia Panesar, a cherished local singer, is set to perform, promising an unforgettable musical experience for the attendees. Her dedication to her craft and her community can be explored further on her [Facebook fan page](https://www.facebook.com/soniapanesarfanpage/).
+*   **Sonia Panesar**: Enriching the festivities with her melodious voice, Sonia Panesar, a cherished local singer, was set to perform. Her dedication to her craft and her community can be explored further on her [Facebook fan page](https://www.facebook.com/soniapanesarfanpage/).
     
 *   **Impressions Gates & Grills**: With over a decade of mastery in metalwork and fabrication, Impressions Gates & Grills represents the epitome of craftsmanship. Their vast array of services, from security gates to Juliet balconies, speaks of their expertise and commitment to quality. Those keen on their work can visit their [official website](https://impressionsgatesngrills.com/) for a deeper dive.
     
 
-## **The Anchor: Your Multicultural Pub Near Heathrow**
+## **The Anchor: Where Everyone's Welcome**
 
-At The Anchor **near Heathrow Airport**, we celebrate our diverse community with events like Diwali. Our **inclusive pub in Stanwell Moor** welcomes:
-
-- **Indian families** from the local area
-- **Heathrow employees** of all backgrounds
-- **Hindu community** members from Staines
-- **International visitors** near Terminal 5
-- **Local residents** interested in cultural celebrations
-
-### Our Diwali Contributions:
-- **Prize hampers** for festival competitions
-- **Refreshments** including Indian beverages
-- **Diya painting** stations for children
-- **Free parking** for all attendees
-- **Traditional decorations** throughout the pub
+We were proud to support Diwali 2023 in our village. Everyone's welcome at The Anchor, whatever you're celebrating.
 
 ![Group of diverse children sitting in a circle around a vibrant rangoli design, each holding up a lit clay lamp (diya), all smiling and dressed in warm, festive colours against a light wooden backdrop.](/content/blog/diwali-celebration/image-3.jpg)
 
-## **Join Our Annual Diwali Celebrations Near Heathrow**
+## **What's On Now**
 
-### Event Details:
-**Venue**: Stanwell Moor Village Hall & The Anchor
-**When**: October/November annually (check for dates)
-**Location**: Horton Road, Stanwell Moor, TW19 6AQ
-**From Heathrow**: Just 7 minutes from all terminals
-**Features**: Entertainment, food, activities, cultural performances
-**For**: All ages and backgrounds welcome
-**Information**: 01753 682707
-
-### Why Celebrate Diwali at The Anchor Near Terminal 5
-
-- **Authentic atmosphere** with traditional decorations
-- **Convenient location** for Heathrow's Indian community
-- **Family-friendly** activities and entertainment
-- **Free parking** avoiding airport charges
-- **Inclusive environment** welcoming all cultures
-- **Local gathering** for Stanwell Moor and Staines residents
-
-*Experience the magic of Diwali at The Anchor - where Indian traditions meet British hospitality near Heathrow Airport!*
+This was the 2023 celebration. For the nights we have coming up at The Anchor, see [What's On](/whats-on).

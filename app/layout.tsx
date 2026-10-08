@@ -74,13 +74,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'The Anchor | Pub Near Heathrow Airport | Stanwell Moor',
     description: 'Traditional British venue near Heathrow with hosted events, live entertainment & great food. Dog-friendly beer garden.',
-    url: 'https://www.the-anchor.pub',
+    // No `url` here. Every page without its own share block inherits this
+    // one, and a url set here made each of them share as the homepage. Without
+    // it a share uses the address the visitor is on.
     siteName: 'The Anchor',
     images: [
       {
         url: DEFAULT_OG_IMAGE,
-        width: 1200,
-        height: 630,
+        // The file's real size. This said 1200 by 630, which it is not.
+        width: 1920,
+        height: 1072,
         alt: 'The Anchor in Stanwell Moor',
       },
     ],

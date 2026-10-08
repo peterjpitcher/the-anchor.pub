@@ -670,8 +670,8 @@ export default function Terminal5Page() {
               },
               "geo": {
                 "@type": "GeoCoordinates",
-                "latitude": 51.4745,
-                "longitude": -0.4713
+                "latitude": 51.462509,
+                "longitude": -0.502067
               },
               "url": "https://www.the-anchor.pub/near-heathrow/terminal-5",
               "telephone": "+441753682707",

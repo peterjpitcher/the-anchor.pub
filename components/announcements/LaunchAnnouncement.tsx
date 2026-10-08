@@ -27,7 +27,7 @@ const VARIANT_CLASSES: Record<LaunchAnnouncementVariant, string> = {
  * has ended at 18:00 BST on 17 May 2026.
  *
  * Server-render is intentionally idempotent: it does NOT call `Date.now()` so
- * the parent route (e.g. `/sunday-lunch` with `revalidate = 3600`) stays ISR
+ * the parent route (e.g. `/sunday-roast` with `revalidate = 3600`) stays ISR
  * cacheable. The client child computes the real state on mount and re-checks
  * every 60s, so cached pages still flip / hide without a hard reload.
  *

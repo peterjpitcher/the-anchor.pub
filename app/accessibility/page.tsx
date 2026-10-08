@@ -9,10 +9,18 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import { ACCESS_SHORT_WORDING, ACCESS_WORDING } from '@/lib/approved-wording'
+import { pageOpenGraph } from '@/lib/page-open-graph'
+
+const PAGE_TITLE = 'Accessibility | Stanwell Moor Pub'
+const PAGE_DESCRIPTION =
+  'Step free from the car park to the bar, dining area and garden. One step from bar to garden, with a ramp on request. Plan your visit to The Anchor.'
 
 export const metadata: Metadata = {
-  title: 'Accessibility | Stanwell Moor Pub',
-  description: 'Step free from the car park to the bar, dining area and garden. One step from bar to garden, with a ramp on request. Plan your visit to The Anchor.',
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  // Its own share block. Without one the page inherits the root layout's,
+  // which describes the homepage.
+  openGraph: pageOpenGraph({ title: 'Accessibility', description: PAGE_DESCRIPTION }),
   alternates: {
     canonical: '/accessibility'
   }
