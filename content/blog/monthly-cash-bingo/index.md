@@ -6,13 +6,13 @@ description: >-
   Ten games, £10 books (cash only), first game at 7pm. 18+ to play, supervised
   under-18s welcome.
 date: '2025-01-26'
+updated: '2026-09-10'
 oldUrl: >-
   https://www.the-anchor.pub/post/cash-bingo-at-the-anchor-win-50-at-our-monthly-bin
 author: Billy
 keywords:
   - bingo near heathrow
   - cash bingo stanwell moor
-  - monthly bingo nights
   - win money bingo
   - the anchor bingo
   - pub bingo staines
@@ -20,12 +20,9 @@ tags:
   - events
   - news
 featured: false
-hero: hero.jpg
 images: []
 noindex: true
 ---
-
-![Graphic reading "Monthly Cash Bingo", surrounded by colourful bingo balls, with The Anchor, Stanwell Moor Village logo on a dark green background.](/content/blog/monthly-cash-bingo/hero.jpg)
 
 For **bingo near Heathrow**, cash bingo runs on set Wednesdays at The Anchor in Stanwell Moor. It is not every month, so the [cash bingo page](/cash-bingo) always has the next date.
 
@@ -48,6 +45,6 @@ Book from the [cash bingo page](/cash-bingo), which shows the next date. Online 
 
 ## Getting here
 
-The Anchor is in Stanwell Moor, about seven minutes by car from Heathrow Terminal 5. We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register.
+The Anchor is in Stanwell Moor, seven minutes by car from Heathrow Terminal 5. We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register.
 
 Set yourself a budget before you come, and play for the fun of it.

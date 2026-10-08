@@ -14,12 +14,11 @@ tags:
   - news
   - food-and-drink
 featured: false
-hero: hero.jpg
 images: []
 noindex: true
 ---
 **Update:** This free pint offer has ended and Stanwell Moor Brew is no longer available at The Anchor.
 
-We do not currently promote this offer. Check the live website, our social channels, or ask the team for current drinks and events.
+For current drinks and events, check this website or ask the team.
 
 [See what is on](/whats-on) or [book a table](/book-table).

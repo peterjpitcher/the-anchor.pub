@@ -102,16 +102,14 @@ One of the key benefits of pet ownership near **Heathrow Airport** is increased 
 - Better muscle tone
 - Enhanced flexibility
 
-Our village offers excellent walking routes perfect for dogs and their owners, away from airport noise.
+The Stanwell Moor reservoirs are nearby for walks with your dog.
 
 ## Social Opportunities at Dog-Friendly Venues
 
 Taking pets to pet-friendly restaurants and pubs like [The Anchor](https://www.the-anchor.pub/) provides unique social opportunities in the **Heathrow area**:
 
-**Social Benefits at The Anchor:**
+**Social Benefits:**
 - Meet fellow dog lovers
-- Join our dog-walking groups
-- Attend pet-friendly events
 - Build local connections
 - Share pet care tips
 - Create lasting friendships
@@ -151,12 +149,12 @@ These responsibilities create a fulfilling sense of accomplishment and can posit
 Experience these benefits firsthand at our **dog-friendly pub in Stanwell Moor**:
 
 **What We Offer:**
-- Always dog-friendly environment
-- Fresh water stations
-- Treats for good dogs
-- Outdoor seating area
+- Dogs welcome throughout the pub, on a lead
+- Water bowls
+- Biscuits for good dogs
+- A beer garden
 - Fellow pet lovers
-- Understanding staff
+- A community notice board
 
 **Perfect For:**
 - Dog walks ending with refreshment
@@ -166,18 +164,6 @@ Experience these benefits firsthand at our **dog-friendly pub in Stanwell Moor**
 - Socializing your pet
 - Building community connections
 
-## Supporting Pet Owners Near Terminal 5
-
-At The Anchor, we understand the unique challenges of pet ownership near a busy airport:
-
-**Our Support Includes:**
-- Flexible visit times for shift workers
-- Quiet areas for nervous pets
-- Local vet recommendations
-- Pet care service contacts
-- Community notice board
-- Emergency assistance network
-
 ## Visit The Anchor with Your Pet
 
 Join our welcoming **pet-friendly community near Heathrow**:
@@ -185,10 +171,10 @@ Join our welcoming **pet-friendly community near Heathrow**:
 **Location & Details:**
 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 7 minutes from Heathrow Terminal 5  
-Bus routes 441 & 442  
+Bus route 442  
 Free parking  
-Dogs always welcome  
-Water bowls and treats available
+Dogs welcome throughout the pub, on a lead  
+Water bowls and biscuits available
 
 ## Building a Healthier Community Together
 

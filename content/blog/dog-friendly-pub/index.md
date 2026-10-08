@@ -3,6 +3,7 @@ title: Dog Friendly Pub Near Heathrow | Dogs Welcome in Stanwell Moor
 slug: dog-friendly-pub
 description: "Dogs are welcome throughout The Anchor, garden included, on a lead. Water bowls and biscuits waiting, Sunday roasts and 20 free parking spaces."
 date: '2023-03-05'
+updated: '2026-10-08'
 oldUrl: 'https://www.the-anchor.pub/post/the-importance-of-being-dog-friendly'
 author: Billy
 keywords:
@@ -77,7 +78,7 @@ High chairs, buggy space and bottle warming on request are all here, and breastf
 - **Where:** Horton Road, Stanwell Moor, Surrey, TW19 6AQ.
 - **By car:** seven minutes from Heathrow Terminal 5, eight from Staines, and two from junction 14 of the M25.
 - **Parking:** We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register.
-- **By bus:** routes 441, 442 and 555 from Heathrow Central Bus Station.
+- **By bus:** route 442 stops on Horton Road by the pub and runs from Heathrow Terminal 5.
 - **Getting in:** Step free from the car park. One step from the bar, with a ramp on request.
 - **Opening hours:** always up to date on our [find us page](/find-us).
 

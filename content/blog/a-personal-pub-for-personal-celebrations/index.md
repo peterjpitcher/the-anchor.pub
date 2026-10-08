@@ -2,6 +2,8 @@
 title: Party Venue Near Heathrow Airport | Private Events Stanwell Moor
 description: "Planning a birthday, christening or work do near Heathrow? A private dining room, buffet catering and free parking, seven minutes from Terminal 5."
 date: '2025-01-15'
+updated: '2026-10-08'
+hideDate: true
 oldUrl: 'https://www.the-anchor.pub/post/a-personal-pub-for-personal-celebrations'
 author: Billy
 keywords:
@@ -26,63 +28,70 @@ hero: hero.jpg
 images: []
 ---
 
-  
+## A Party Venue Near Heathrow Airport
 
-## Your Perfect Party Venue Near Heathrow Airport
+Got a birthday, a christening or a work do to plan? You can hire a space at The Anchor in **Stanwell Moor**, **7 minutes from Heathrow Terminal 5**, for 10+ to 150 guests.
 
-Celebrating life's most important moments deserves the perfect venue. At The Anchor in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, we make event planning effortless for airport staff parties, local celebrations, and travelers seeking an authentic British venue.
+### The spaces
 
-### Full-Service Event Planning Near Heathrow
+- **The dining room:** seats 26, or up to 50 standing. French doors open onto the beer garden.
+- **The beer garden:** seats 64, or up to 250 standing, under the Heathrow flight path.
+- **The whole pub:** 119 seated or 300 standing.
 
-As a **party venue near Heathrow Airport**, we offer comprehensive event services through our trusted network of partners. From corporate celebrations for airport businesses to intimate baby showers for **Staines** locals, our experienced team ensures every detail is perfect.
+### What we host
 
-![a personal pub for personal celebrations image](/content/blog/a-personal-pub-for-personal-celebrations/image-1.jpg)
+Milestone birthdays, christenings, engagement parties, baby showers, gender reveals, retirement parties, wakes, summer garden parties, corporate events and Christmas parties.
 
-### Birthday Parties & Milestone Celebrations Near Heathrow
+### Kids' parties
 
-Whether you're celebrating a 21st birthday or your 50th, our **function room near Heathrow** provides the perfect setting. We'll help you find the right DJ or entertainment through our trusted partners, creating unforgettable moments at our **birthday party venue near Terminal 5**.
+Children are welcome at all hours. Kids' party food is burger and chips, chicken nuggets and chips or mini pizza and chips, each for 20 children or more, and there's unlimited squash for 20 or more too. High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities.
 
-![a personal pub for personal celebrations image](/content/blog/a-personal-pub-for-personal-celebrations/image-2.jpg)
+![Chicken goujons with dips, under the words: from a small buffet to a huge BBQ, we have done it all](/content/blog/a-personal-pub-for-personal-celebrations/image-3.jpg)
 
-### Kids Party Venue Near Heathrow Airport
+### Food and drinks
 
-We love hosting children's celebrations at our **family-friendly pub near Heathrow**! From pirate-themed adventures to mermaid parties, we transform our space into magical worlds. Our **kids party venue in Stanwell Moor** offers:
+Buffets, and the numbers each one needs:
 
-- Themed party setups
-- Child-friendly catering options
-- Beer garden under the Heathrow flight path
-- Entertainment coordination
-- Stress-free planning for parents
+- Pizza Buffet: 10 guests
+- Burger Buffet: 20 guests
+- Indoor BBQ: 20 guests
+- Sandwich Buffet: 30 guests
+- Finger Buffet: 30 guests
+- Premium Buffet: 30 guests
 
-![a personal pub for personal celebrations image](/content/blog/a-personal-pub-for-personal-celebrations/image-3.jpg)
+Welcome drinks and a bar tab both start at 10 guests. Welcome prosecco needs 20, with orange juice for anyone not drinking.
 
-### Catering Options for Your Event Near Heathrow
+Tell us about any allergies or dietary needs when you book and we'll do our best. Everything is prepared in one kitchen, so we can't guarantee there's no cross-contamination.
 
-A party at our **event venue near Heathrow Airport** isn't complete without exceptional food. Through our trusted catering partners, we offer:
+You can bring your own food at no charge. We ask the organiser to sign an outside-food waiver. You're welcome to bring a celebration cake. We'll ask whoever brings it to sign our outside-food waiver.
 
-- Traditional finger buffets
-- Authentic South African BBQ
-- Spectacular hog roasts
-- Bespoke menu creation
-- Dietary requirement accommodations
+### What it costs
 
-Perfect for **corporate events near Terminal 5**, private parties, or any celebration in **Stanwell Moor**.
+Room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire). The calculator there prices the food and drinks against your numbers.
 
-## Book Your Event at Our Party Venue Near Heathrow
+A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 
-Ready to plan your perfect celebration? Our **private event space near Heathrow** is available for parties of all sizes. Contact us today:
+### What comes with it
+
+- TVs and a sound system. Our TVs can be used for photo slideshows or presentations, and we provide the connection cables. Test yours with us in advance. We don't have a projector.
+- A dedicated events coordinator
+- Free WiFi
+- Free parking. We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register.
+- Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting.
+
+### Good to know
+
+A start before 12pm or a finish after 10pm is by arrangement, so tell us the times you have in mind.
+
+No confetti cannons or confetti balloons, please. Smoke cannons are for outside only, well away from buildings and fencing. Please don't use push pins, Blu Tack, sticky tape or anything else that could damage the paintwork.
+
+## Ask Us About Your Date
+
+Get an instant estimate on our [private hire page](/private-hire), then ask us about your date.
 
 **Call**: 01753 682707
-**WhatsApp**: [Click here to message us](https://api.whatsapp.com/send?phone=4401753682707)
-**Facebook**: [Message us on Facebook](http://m.me/theanchorpubsm)
-**Visit**: The Anchor, Horton Road, Stanwell Moor (7 minutes from Terminal 5)
+**WhatsApp**: [Message us on WhatsApp](https://wa.me/441753682707)
+**Email**: manager@the-anchor.pub
+**Visit**: The Anchor, Horton Road, Stanwell Moor, Surrey, TW19 6AQ
 
-Ask for Billy to discuss your requirements - we'll provide a no-obligation quote and help bring your vision to life at our **party venue near Heathrow Airport**.
-
-**Why Choose The Anchor for Your Event?**
-- **Free parking** for all guests
-- **Private dining options** available
-- Just **7 minutes from Heathrow Terminal 5**
-- Trusted by airport staff and locals since 1751
-- Full event planning service
-- **Dog-friendly** for complete family celebrations
+The Anchor has been a village pub since 1751.

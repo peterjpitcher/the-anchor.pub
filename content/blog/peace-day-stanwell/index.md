@@ -60,16 +60,15 @@ Our **community near Heathrow** thrives with regular events that bring neighbour
 
 **Village Hall Events:**
 - Children's Easter egg hunts
-- Annual Christmas party for kids
+- A Christmas party for kids
 - Community gatherings throughout the year
 - Local group meetings and activities
 
 **The Anchor - Community Hub:**
-- Halloween parties for all ages
-- Christmas celebrations and events
-- Regular quiz nights bringing locals together
-- Meeting place for village groups
-- Just 7 minutes from Terminal 5
+- Monthly quiz nights bringing locals together
+- A Halloween party
+- The community notice board
+- Every night we have coming up is on [What's On](/whats-on)
 
 Between the Village Hall and The Anchor, **Stanwell Moor** ensures year-round festivities that make our community special for families and **Heathrow workers** alike.
 
@@ -77,13 +76,13 @@ Between the Village Hall and The Anchor, **Stanwell Moor** ensures year-round fe
 
 ## Harmony Beyond Humans: Caring for Nature and Peace
 
-We're also committed to extending our ethos of community and peace to the natural world. Our 'Honey Bee Mine' campaign is all about giving back to nature. Free pollinator-friendly seeds are distributed throughout the community, and we've even got a series of blog posts sharing tips on bee-friendly gardening. This initiative adds another dimension to our commitment to peace.
+We're also committed to extending our ethos of community and peace to the natural world. Our 'Honey Bee Mine' campaign was all about giving back to nature and bee-friendly gardening. It added another dimension to our commitment to peace.
 
 ##   
 
 ## A Village that Embodies Peace
 
-Stanwell Moor Village is more than its human inhabitants; it's a naturally beautiful space too. From the local fishing lake, a dog-walking favourite, to the idyllic Moors perfect for a Sunday picnic, there's beauty at every turn. The Stanwell Moor Residents Association often organises community clean-ups. Most recently, we all pitched in for a 'big clean-up' to celebrate the coronation of the King and Queen. Participants were afterwards treated to a well-deserved meal at The Anchor, making it a community event through and through.
+Stanwell Moor Village is more than its human inhabitants; it's a naturally beautiful space too. From the local fishing lake, a dog-walking favourite, to the idyllic Moors perfect for a Sunday picnic, there's beauty at every turn. The Stanwell Moor Residents Association often organises community clean-ups. In 2023 we all pitched in for a 'big clean-up' to celebrate the coronation of the King and Queen. Participants were afterwards treated to a well-deserved meal at The Anchor, making it a community event through and through.
 
   
 
@@ -101,13 +100,13 @@ Stanwell Moor Village is more than its human inhabitants; it's a naturally beaut
 **Getting to Stanwell Moor:**
 - 7 minutes from Heathrow Terminal 5
 - 8 minutes from Staines town centre
-- Bus routes 441 & 442
+- Bus route 442
 - Free parking at The Anchor
 
 ### Visit The Anchor - Your Village Pub Near Heathrow
 
 **Community Hub**: The Anchor, Horton Road, Stanwell Moor
-**Location**: 7 minutes from all Heathrow terminals
+**Location**: 7 minutes from Heathrow Terminal 5
 **Environment**: Peaceful village with nature walks
 **Community**: Family-friendly with regular events
 **Contact**: 01753 682707

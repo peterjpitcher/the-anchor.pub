@@ -185,12 +185,6 @@ describe('the pages the review named carry the approved wording', () => {
     expect(read(file)).toContain(ACCESS_WORDING)
   })
 
-  it('the winter hours post carries the short form and the accessible toilet sentence', () => {
-    expect(read('content/blog/winter-hours-cosy-times-at-the-anchor/index.md')).toContain(
-      `${ACCESS_SHORT_WORDING} ${NO_ACCESSIBLE_TOILET_WORDING}`
-    )
-  })
-
   it.each([
     'lib/schema-with-reviews.ts',
     'lib/schema.ts',

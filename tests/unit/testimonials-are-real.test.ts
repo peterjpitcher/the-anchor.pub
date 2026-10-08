@@ -182,6 +182,42 @@ describe('nothing that ships carries a review written by hand', () => {
   })
 })
 
+describe('blog posts carry no customer quote typed by hand', () => {
+  // The checks above read .ts and .tsx only, so a quote in a post's markdown
+  // walked straight past them: the 7 October 2026 site review found twelve,
+  // from "Sarah T.", "The Williams Family" and an unnamed "Regular remote
+  // worker" among others (findings B1-009, B1-041 and B2-017). None is in the
+  // approved source, so all came off. This reads the markdown.
+  const BLOG = join(ROOT, 'content', 'blog')
+  const posts = readdirSync(BLOG)
+    .map(slug => join(BLOG, slug, 'index.md'))
+    .filter(existsSync)
+
+  /** A quoted sentence with a name after a dash, on the same line or the next. */
+  const ATTRIBUTED_QUOTE =
+    /["“][^"”\n]{25,}["”]\*{0,2}\s*(?:\n\s*(?:>\s*)?)?[-–]\s*\*{0,2}(?:[A-Z][a-z]+ [A-Z]\.|The [A-Z][a-z]+ Family|(?:A |Our )?(?:Regular|Local|Happy|Recent)\b[^\n]{0,30}|[A-Z][a-z]+, [A-Z][a-z]+)/
+
+  it('reads every post, so this guard is not vacuous', () => {
+    expect(posts.length).toBeGreaterThan(80)
+  })
+
+  it('recognises the shapes the invented quotes took', () => {
+    expect('"Best fish and chips for miles, we come every Friday." - Sarah T.').toMatch(ATTRIBUTED_QUOTE)
+    expect('*"Perfect for our family Sunday lunch, kids loved it."* - The Williams Family').toMatch(ATTRIBUTED_QUOTE)
+    expect('> "I get more done here than at the hotel, honestly."\n> - Regular remote worker').toMatch(ATTRIBUTED_QUOTE)
+    // An example line in a party guide is not a review of the pub.
+    expect('"Describe them in one sentence"\n- Include photos from different eras').not.toMatch(ATTRIBUTED_QUOTE)
+  })
+
+  it('finds none in content/blog', () => {
+    const found = posts.flatMap(file => {
+      const hit = read(file).match(ATTRIBUTED_QUOTE)
+      return hit ? [`${rel(file)}: ${hit[0].replace(/\s+/g, ' ').slice(0, 90)}`] : []
+    })
+    expect(found).toEqual([])
+  })
+})
+
 describe('the approved review source', () => {
   it('attributes every review to a real display name and a date', () => {
     expect(GOOGLE_REVIEWS.length).toBeGreaterThan(0)

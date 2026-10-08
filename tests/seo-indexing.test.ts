@@ -658,6 +658,236 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     expect(stillLinked).toEqual([])
   })
 
+  it('retires nineteen old blog posts in one hop, with every older address repointed (owner decisions 6 and 16, 7 October 2026)', async () => {
+    // Site review work package P15. Each post goes to the live page that covers
+    // its subject today. Every rule is a concrete rule in config/redirects/*.json,
+    // served by middleware.ts (lib/middleware-redirects.ts).
+    const retired: Array<[string, string]> = [
+      ['/blog/autumn-winter-menu', '/food-menu'],
+      ['/blog/british-pie-week-2024', '/food-menu'],
+      ['/blog/pancake-day-celebration', '/food-menu'],
+      ['/blog/christmas-2021', '/find-us'],
+      ['/blog/winter-hours-cosy-times-at-the-anchor', '/find-us'],
+      ['/blog/day-of-the-dead-party', '/whats-on'],
+      ['/blog/jewellery-event', '/whats-on'],
+      ['/blog/st-patrick-s-day-2023', '/whats-on'],
+      ['/blog/st-patricks-day-2024', '/whats-on'],
+      ['/blog/charity-walk-holly', '/whats-on'],
+      ['/blog/easter-weekend-fun-at-the-anchor-pub', '/easter-sunday'],
+      ['/blog/friday-extended-hours', '/lunch-and-dinner'],
+      ['/blog/gameshow-house-party', '/music-bingo'],
+      ['/blog/mothers-day-at-the-anchor-march-19th', '/mothers-day'],
+      ['/blog/premier-league-2024-25', '/live-sport'],
+      ['/blog/six-nations-rugby-at-the-anchor-2023', '/live-sport/six-nations'],
+      ['/blog/valentines-special', '/valentines-day'],
+      ['/blog/calling-all-pool-players', '/pool-darts-pub'],
+      ['/blog/tabs-are-changing', '/drinks'],
+    ]
+    // Older Wix and /post/ addresses that used to land on a retired post, and
+    // now skip it. The last two used to land on the price guide, which is kept
+    // out of search, so they go to the page Google can show (finding B3-014).
+    const olderAddresses: Record<string, string[]> = {
+      '/food-menu': [
+        '/blog/dive-into-the-anchor-s-autumn-winter-menu-cozy-del',
+        '/post/dive-into-the-anchor-s-autumn-winter-menu-cozy-del',
+        '/post/autumn-winter-menu',
+        '/blog/celebrate-british-pie-week-heathrow-2024-stanwell-',
+        '/post/celebrate-british-pie-week-heathrow-2024-stanwell-',
+        '/post/british-pie-week-march-6th-to-12th-2023',
+        '/post/british-pie-week-the-anchor',
+        '/blog/pancake-day-fun-stanwell-moor-village-staines-the-',
+        '/post/pancake-day-fun-stanwell-moor-village-staines-the-',
+        '/post/pancake-day-celebration-anchor',
+      ],
+      '/find-us': ['/post/winter-hours-cosy-times-at-the-anchor'],
+      '/whats-on': [
+        '/blog/celebrate-day-of-the-dead-at-the-anchor-with-fun-a',
+        '/post/celebrate-day-of-the-dead-at-the-anchor-with-fun-a',
+        '/post/celebrating-life-and-spirits-day-of-the-dead-traditions',
+        '/post/tequila-cultural-significance-during-dia-de-los-muertos',
+        '/post/day-of-the-dead-halloween-party-the-anchor',
+        '/post/day-of-the-dead-anchor-pub-events',
+        '/blog/creations-by-lee-jewellery-event-at-the-anchor-exc',
+        '/post/creations-by-lee-jewellery-event-at-the-anchor-exc',
+        '/post/creations-by-lee-jewellery-event-anchor',
+        '/post/st-patrick-s-day-2023',
+        '/blog/st-patrick-s-day-2024-celebrate-at-the-anchor-thea',
+        '/post/st-patrick-s-day-2024-celebrate-at-the-anchor-thea',
+        '/post/st-patricks-day-2024-celebration-the-anchor',
+        '/blog/charity-walk-for-holly-near-heathrow-stanwell-moor',
+        '/post/charity-walk-for-holly-near-heathrow-stanwell-moor',
+        '/post/charity-walk-for-holly-fathers-mission',
+      ],
+      '/easter-sunday': [
+        '/post/easter-weekend-fun-at-the-anchor-pub',
+        '/post/hop-into-the-easter-weekend-at-the-anchor-pub-fun-food-and-festivities',
+        '/post/easter-weekend-at-the-anchor',
+        '/post/easter-weekend-2022',
+      ],
+      '/lunch-and-dinner': [
+        '/blog/exciting-news-extended-opening-hours-on-fridays-th',
+        '/post/exciting-news-extended-opening-hours-on-fridays-th',
+        '/post/extended-opening-hours-fridays',
+      ],
+      '/music-bingo': [
+        '/blog/a-night-to-remember-the-anchor-s-gameshow-house-pa',
+        '/post/a-night-to-remember-the-anchor-s-gameshow-house-pa',
+        '/post/gameshow-house-party-success-snatch-phrase-edition',
+        '/post/relive-the-laughter-at-the-anchor-s-gameshow-house',
+        '/post/unforgettable-gameshow-house-party-at-the-anchor',
+        '/post/gameshow-house-party',
+        '/post/unforgettable-gameshow-house-party-anchor',
+        '/post/gameshow-house-party-the-anchor',
+        '/post/gameshow-house-party-success',
+      ],
+      '/mothers-day': [
+        '/post/mothers-day-at-the-anchor-march-19th',
+        '/post/mothers-day',
+        '/post/mothers-day-celebration-anchor',
+        '/post/mother-s-day-at-the-anchor',
+      ],
+      '/live-sport': [
+        '/blog/welcome-to-the-2024-25-premier-league-season-at-th',
+        '/post/welcome-to-the-2024-25-premier-league-season-at-th',
+        '/post/premier-league-2024-25-at-the-anchor',
+      ],
+      '/live-sport/six-nations': ['/post/six-nations-rugby-at-the-anchor-2023'],
+      '/valentines-day': [
+        '/blog/valentine-s-special-stanwell-moor-village-staines-',
+        '/post/valentine-s-special-stanwell-moor-village-staines-',
+      ],
+      '/pool-darts-pub': ['/post/calling-all-pool-players'],
+      '/drinks': ['/post/tabs-are-changing'],
+      '/restaurants-near-heathrow': ['/blog/best-places-to-eat-near-heathrow', '/blog/best-pub-food-near-heathrow'],
+    }
+
+    // The destinations are live pages, not redirects.
+    const destinationFiles: Record<string, string> = {
+      '/food-menu': 'app/food-menu/page.tsx',
+      '/find-us': 'app/find-us/page.tsx',
+      '/whats-on': 'app/whats-on/page.tsx',
+      '/easter-sunday': 'app/easter-sunday/page.tsx',
+      '/lunch-and-dinner': 'app/lunch-and-dinner/page.tsx',
+      '/music-bingo': 'app/music-bingo/page.tsx',
+      '/mothers-day': 'app/mothers-day/page.tsx',
+      '/live-sport': 'app/live-sport/page.tsx',
+      '/live-sport/six-nations': 'app/live-sport/six-nations/page.tsx',
+      '/valentines-day': 'app/valentines-day/page.tsx',
+      '/pool-darts-pub': 'app/pool-darts-pub/page.tsx',
+      '/drinks': 'app/drinks/page.tsx',
+      '/restaurants-near-heathrow': 'app/restaurants-near-heathrow/page.tsx',
+    }
+    for (const [destination, file] of Object.entries(destinationFiles)) {
+      expect(fs.existsSync(path.join(process.cwd(), file))).toBe(true)
+      expect(lookupRedirect(destination)).toBeUndefined()
+    }
+
+    const nextConfig = require('../next.config.js')
+    const frameworkPatterns = ((await nextConfig.redirects()) as RedirectRule[]).map(
+      (rule) => new RegExp(`^${rule.source.replace(/:\w+\*/g, '.*').replace(/:\w+/g, '[^/]+')}$`),
+    )
+    const vercelSources: string[] = (
+      JSON.parse(fs.readFileSync(path.join(process.cwd(), 'vercel.json'), 'utf8')).redirects || []
+    ).map((rule: { source: string }) => rule.source)
+
+    for (const [source, destination] of retired) {
+      // Exactly one rule per source, nothing still lands on the old address,
+      // and the post's folder is gone so nobody edits it by mistake.
+      expect(ALL_REDIRECTS.filter((r) => r.source === source).map((r) => r.destination)).toEqual([destination])
+      expect(ALL_REDIRECTS.filter((r) => r.destination === source)).toEqual([])
+      expect(fs.existsSync(path.join(process.cwd(), 'content', source))).toBe(false)
+    }
+
+    const everyAddress: Array<[string, string]> = [
+      ...retired,
+      ...Object.entries(olderAddresses).flatMap(([destination, sources]) =>
+        sources.map((source): [string, string] => [source, destination]),
+      ),
+    ]
+    expect(everyAddress).toHaveLength(19 + 57)
+
+    for (const [source, destination] of everyAddress) {
+      const rule = lookupRedirect(source)
+      expect(rule?.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+      expect(destinationFiles[destination]).toBeDefined()
+
+      // Which layer: no next.config.js pattern and no vercel.json rule may
+      // catch the address first and send it somewhere else.
+      expect(frameworkPatterns.filter((pattern) => pattern.test(source))).toEqual([])
+      expect(vercelSources).not.toContain(source)
+
+      // End to end through the middleware, on the canonical host and the apex:
+      // one 301, and the destination is the rule's target.
+      for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+        const response = middleware(
+          new NextRequest(`https://${host}${source}`, { headers: { host, 'x-forwarded-proto': 'https' } }),
+        )
+        expect(response.status).toBe(301)
+        expect(response.headers.get('location')).toBe(`https://www.the-anchor.pub${destination}`)
+      }
+    }
+
+    // Nothing in the sitemap, and no link left in a page, a component or a post.
+    const sitemapPaths = (await sitemap()).map((entry) => toPath(entry.url))
+    for (const [source] of retired) {
+      expect(sitemapPaths).not.toContain(source)
+    }
+    const stillLinked: string[] = []
+    const walk = (dir: string): void => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name)
+        if (entry.isDirectory()) walk(full)
+        else if (/\.(tsx?|md|mdx|json)$/.test(entry.name)) {
+          const text = fs.readFileSync(full, 'utf8')
+          for (const [source] of retired) {
+            if (text.includes(source)) stillLinked.push(`${path.relative(process.cwd(), full)}: ${source}`)
+          }
+        }
+      }
+    }
+    for (const dir of ['app', 'components', 'content', 'lib']) walk(path.join(process.cwd(), dir))
+    expect(stillLinked).toEqual([])
+  })
+
+  it('keeps no post folder for an address that redirects (site review finding B3-013)', () => {
+    // Six posts redirected elsewhere while their markdown stayed in content/blog,
+    // so they still showed as cards on the blog list, tag pages and "More like
+    // this", and one was edited in a later sweep although nobody could read it.
+    // Retiring a post means deleting its folder: the redirect file is the only
+    // list of retired posts.
+    const redirectSources = new Set(ALL_REDIRECTS.map((rule) => rule.source))
+    const blogDir = path.join(process.cwd(), 'content', 'blog')
+    const foldersThatRedirect = fs
+      .readdirSync(blogDir, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && redirectSources.has(`/blog/${entry.name}`))
+      .map((entry) => entry.name)
+    expect(foldersThatRedirect).toEqual([])
+
+    // The six that redirected before this change, each still one 301.
+    const alreadyRedirected: Array<[string, string]> = [
+      ['/blog/autumn-internationals-2024-full-fixtures-highlight', '/live-sport'],
+      ['/blog/euro-2024-viewing', '/live-sport'],
+      ['/blog/best-places-to-eat-near-heathrow', '/restaurants-near-heathrow'],
+      ['/blog/best-pub-food-near-heathrow', '/restaurants-near-heathrow'],
+      ['/blog/plane-spotting-heathrow-guide', '/blog/heathrow-plane-spotting-locations'],
+      ['/blog/pub-jobs-heathrow', '/join-our-team'],
+    ]
+    for (const [source, destination] of alreadyRedirected) {
+      expect(fs.existsSync(path.join(process.cwd(), 'content', source))).toBe(false)
+      for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+        const response = middleware(
+          new NextRequest(`https://${host}${source}`, { headers: { host, 'x-forwarded-proto': 'https' } }),
+        )
+        expect(response.status).toBe(301)
+        expect(response.headers.get('location')).toBe(`https://www.the-anchor.pub${destination}`)
+      }
+    }
+    expect(fs.existsSync(path.join(process.cwd(), 'content', 'blog', 'heathrow-plane-spotting-locations', 'index.md'))).toBe(true)
+    // The stale copy of old blog rules that no code read is gone too.
+    expect(fs.existsSync(path.join(blogDir, 'redirects.json'))).toBe(false)
+  })
+
   it('does not include pattern-based sources (those stay in next.config.js)', () => {
     // Pattern rules use `:slug` or `:path*` syntax, middleware can not match
     // them with a simple Map lookup, so they remain in the framework redirects

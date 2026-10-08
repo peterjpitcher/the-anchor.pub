@@ -101,7 +101,7 @@
   },
   {
     "source": "/post/charity-walk-for-holly-fathers-mission",
-    "destination": "/blog/charity-walk-holly",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -141,22 +141,22 @@
   },
   {
     "source": "/post/mothers-day",
-    "destination": "/blog/mothers-day-at-the-anchor-march-19th",
+    "destination": "/mothers-day",
     "permanent": true
   },
   {
     "source": "/post/hop-into-the-easter-weekend-at-the-anchor-pub-fun-food-and-festivities",
-    "destination": "/blog/easter-weekend-fun-at-the-anchor-pub",
+    "destination": "/easter-sunday",
     "permanent": true
   },
   {
     "source": "/post/celebrating-life-and-spirits-day-of-the-dead-traditions",
-    "destination": "/blog/day-of-the-dead-party",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
     "source": "/post/tequila-cultural-significance-during-dia-de-los-muertos",
-    "destination": "/blog/day-of-the-dead-party",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -181,7 +181,7 @@
   },
   {
     "source": "/post/st-patricks-day-2024-celebration-the-anchor",
-    "destination": "/blog/st-patricks-day-2024",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -196,7 +196,7 @@
   },
   {
     "source": "/post/easter-weekend-at-the-anchor",
-    "destination": "/blog/easter-weekend-fun-at-the-anchor-pub",
+    "destination": "/easter-sunday",
     "permanent": true
   },
   {
@@ -231,7 +231,7 @@
   },
   {
     "source": "/post/premier-league-2024-25-at-the-anchor",
-    "destination": "/blog/premier-league-2024-25",
+    "destination": "/live-sport",
     "permanent": true
   },
   {
@@ -306,12 +306,12 @@
   },
   {
     "source": "/post/british-pie-week-the-anchor",
-    "destination": "/blog/british-pie-week-2024",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
     "source": "/post/day-of-the-dead-halloween-party-the-anchor",
-    "destination": "/blog/day-of-the-dead-party",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -326,22 +326,22 @@
   },
   {
     "source": "/post/pancake-day-celebration-anchor",
-    "destination": "/blog/pancake-day-celebration",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
     "source": "/post/day-of-the-dead-anchor-pub-events",
-    "destination": "/blog/day-of-the-dead-party",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
     "source": "/post/st-patrick-s-day-2023",
-    "destination": "/blog/st-patrick-s-day-2023",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
     "source": "/post/gameshow-house-party",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -351,7 +351,7 @@
   },
   {
     "source": "/post/six-nations-rugby-at-the-anchor-2023",
-    "destination": "/blog/six-nations-rugby-at-the-anchor-2023",
+    "destination": "/live-sport/six-nations",
     "permanent": true
   },
   {
@@ -361,7 +361,7 @@
   },
   {
     "source": "/post/unforgettable-gameshow-house-party-anchor",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -396,7 +396,7 @@
   },
   {
     "source": "/post/mothers-day-celebration-anchor",
-    "destination": "/blog/mothers-day-at-the-anchor-march-19th",
+    "destination": "/mothers-day",
     "permanent": true
   },
   {
@@ -416,7 +416,7 @@
   },
   {
     "source": "/post/gameshow-house-party-the-anchor",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -426,7 +426,7 @@
   },
   {
     "source": "/post/gameshow-house-party-success",
-    "destination": "/blog/gameshow-house-party",
+    "destination": "/music-bingo",
     "permanent": true
   },
   {
@@ -446,7 +446,7 @@
   },
   {
     "source": "/post/extended-opening-hours-fridays",
-    "destination": "/blog/friday-extended-hours",
+    "destination": "/lunch-and-dinner",
     "permanent": true
   },
   {
@@ -481,7 +481,7 @@
   },
   {
     "source": "/post/autumn-winter-menu",
-    "destination": "/blog/autumn-winter-menu",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
@@ -546,7 +546,7 @@
   },
   {
     "source": "/post/creations-by-lee-jewellery-event-anchor",
-    "destination": "/blog/jewellery-event",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -606,7 +606,7 @@
   },
   {
     "source": "/post/easter-weekend-2022",
-    "destination": "/blog/easter-weekend-fun-at-the-anchor-pub",
+    "destination": "/easter-sunday",
     "permanent": true
   },
   {
@@ -636,7 +636,7 @@
   },
   {
     "source": "/post/mother-s-day-at-the-anchor",
-    "destination": "/blog/mothers-day-at-the-anchor-march-19th",
+    "destination": "/mothers-day",
     "permanent": true
   },
   {
@@ -711,7 +711,7 @@
   },
   {
     "source": "/post/tabs-are-changing",
-    "destination": "/blog/tabs-are-changing",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -726,7 +726,7 @@
   },
   {
     "source": "/post/calling-all-pool-players",
-    "destination": "/blog/calling-all-pool-players",
+    "destination": "/pool-darts-pub",
     "permanent": true
   },
   {

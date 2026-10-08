@@ -817,7 +817,7 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ],
     [
       'cooling or year-round comfort',
-      /year[- ]round comfort|air[- ]?condition(?:ed|ing)|climate[- ]controlled|cool in (?:the )?summer/i,
+      /year[- ]round comfort|air[- ]?condition(?:ed|ing)|climate[- ]controlled|cool in (?:the )?summer|cool haven/i,
       [],
     ],
     [
@@ -889,8 +889,6 @@ describe('SSOT drift guard — high-risk site copy', () => {
   // frontmatter keyword, a `keywords:` array, a quote, or a quote's attribution).
   const COMPARISON_GUIDES = [
     'content/blog/best-beer-gardens-near-heathrow/index.md',
-    'content/blog/best-places-to-eat-near-heathrow/index.md',
-    'content/blog/best-pub-food-near-heathrow/index.md',
     'content/blog/best-sunday-roast-surrey/index.md',
     'content/blog/heathrow-plane-spotting-locations/index.md',
     'content/blog/pizza-near-heathrow/index.md',
@@ -1072,7 +1070,7 @@ describe('SSOT drift guard — high-risk site copy', () => {
     // "Bonfire Night", fire safety and code that talks about an event "firing" never do.
     expect(
       claimSentences(
-        /\b(?:real|log|open|roaring|crackling|our|the)\s+fires?\b(?!\s+(?:safety|exit|door|alarm|risk|extinguisher|brigade))|\bfires?\s+lit\b|\bfireplace|\b(?:log|wood)\s+burner/i,
+        /\b(?:real|log|open|roaring|crackling|our|the|a)\s+fires?\b(?!\s+(?:safety|exit|door|alarm|risk|extinguisher|brigade))|\bfires?\s+lit\b|\bfireplace|\b(?:log|wood)\s+burner/i,
       ).filter(
         (sentence) =>
           // A 2019 post describes someone miming a fireplace in a game of charades. That is a

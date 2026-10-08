@@ -17,11 +17,9 @@
  *    cables provided, but they are still never "large screens".
  *
  * Of the blog, the two posts that describe what we show now are read in full:
- * the live sport guide and the sports update. Three older sport posts (Euro
- * 2024, Autumn Internationals 2024, Premier League 2024-25) are read for the
- * screen, commentary and F1 rules only, because the owner asked for those to
- * be corrected and for nothing else in them to change. The 2023 Six Nations
- * post is left alone by owner instruction and is not read here.
+ * the live sport guide and the sports update. The four older sport posts (Euro
+ * 2024, Autumn Internationals 2024, Premier League 2024-25 and the 2023 Six
+ * Nations) were retired with redirects on 8 October 2026 and are no longer read.
  */
 
 import fs from 'fs'
@@ -29,11 +27,6 @@ import path from 'path'
 
 const ROOT = process.cwd()
 const CURRENT_POSTS = ['live-sport-pubs-near-heathrow', 'sports-update']
-const SCREEN_CORRECTED_POSTS = [
-  'euro-2024-viewing',
-  'autumn-internationals-2024-full-fixtures-highlight',
-  'premier-league-2024-25'
-]
 
 interface Source {
   file: string
@@ -62,8 +55,13 @@ const sources: Source[] = [
   ...CURRENT_POSTS.map(post)
 ].map(read)
 
-/** Everything above, plus the three older posts corrected for screens and F1. */
-const screenSources: Source[] = [...sources, ...SCREEN_CORRECTED_POSTS.map(post).map(read)]
+/**
+ * The three older posts corrected for screens and F1 (Euro 2024, Autumn
+ * Internationals 2024, Premier League 2024-25) were retired with redirects on
+ * 8 October 2026, along with the 2023 Six Nations post, so the screen rules
+ * now read the same sources as everything else.
+ */
+const screenSources: Source[] = sources
 
 const ssot = fs.readFileSync(path.join(ROOT, 'docs', 'SSOT.md'), 'utf8')
 const liveSport = fs.readFileSync(path.join(ROOT, 'app', 'live-sport', 'page.tsx'), 'utf8')

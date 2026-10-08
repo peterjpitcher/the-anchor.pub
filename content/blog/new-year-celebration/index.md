@@ -2,10 +2,11 @@
 title: Village Pub Near Heathrow | Community Spirit Year-Round
 slug: new-year-celebration
 description: >-
-  The Anchor, a village pub in Stanwell Moor since 1751, about seven minutes
-  from Terminal 5. Monthly quiz and bingo nights, Sunday roasts, free parking,
+  The Anchor, a village pub in Stanwell Moor since 1751, seven minutes from
+  Terminal 5. A monthly quiz, bingo nights, Sunday roasts, free parking,
   and dogs welcome throughout.
 date: '2023-12-29'
+updated: '2026-09-10'
 oldUrl: >-
   https://www.the-anchor.pub/post/new-year-vibes-stanwell-moor-village-staines-the-a
 author: Billy
@@ -31,7 +32,7 @@ noindex: true
 
 ![An image of people celebrating with beer with the caption "2024 at The Anchor, Bringing families, friends and neighbours together for another year".](/content/blog/new-year-celebration/hero.jpg)
 
-The Anchor has been a **village pub near Heathrow** since 1751, on Horton Road in Stanwell Moor. It stood here before Heathrow existed, and today it's about seven minutes by car from Terminal 5.
+The Anchor has been a **village pub near Heathrow** since 1751, on Horton Road in Stanwell Moor. It stood here before Heathrow existed, and today it's seven minutes by car from Terminal 5.
 
 ## Regular nights
 

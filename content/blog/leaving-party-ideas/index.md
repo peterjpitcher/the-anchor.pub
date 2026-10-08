@@ -2,6 +2,7 @@
 title: "Leaving Party Ideas Your Colleagues Will Actually Enjoy"
 slug: leaving-party-ideas
 date: "2026-04-15"
+updated: '2026-10-08'
 publishDate: "2026-04-15"
 description: "Planning a leaving do? Ideas for speeches, activities, and venues that make the send-off memorable. Plus venue tips near Heathrow."
 author: "The Anchor Team"
@@ -134,31 +135,29 @@ Whether you're planning a long lunch or an evening event, the venue can make or 
 
 **Flexible catering.** Some people want a sit-down meal. Some teams just want buffet food and drinks. The venue should offer options, not force you into a set menu. A per-head buffet keeps costs predictable. A bar tab option means you set a limit and nobody has to worry about individual rounds.
 
-Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
-
 **Parking.** If your team is driving, free parking matters. Paying £15 per car to attend someone's leaving drinks takes the shine off quickly. Free on-site parking for all guests removes that friction entirely.
 
 **Location that works for everyone.** If your team is spread across different offices or commuting from different directions, somewhere accessible by road, and ideally close to public transport, makes the logistics easier for everyone.
 
 ## Planning a leaving party at The Anchor
 
-We host leaving dos regularly, and we'll be straightforward about what we offer.
+We host leaving dos, and we'll be straightforward about what we offer.
 
-**The space:** Our private dining room seats 26 with standing room for more. French doors open onto the [beer garden](/beer-garden), so you're not boxed in. For larger groups, we can host up to 50 guests across the venue.
+**The space:** Our private dining room seats 26, or 50 standing. French doors open onto the [beer garden](/beer-garden), so you're not boxed in. Private hire runs from 10+ to 150 guests.
 
-**AV equipment:** We have TVs and a sound system, so your slideshow, video messages, or pub quiz all work properly. No faffing with Bluetooth speakers or balancing a laptop on a stool.
+**TVs and sound:** Our TVs can be used for photo slideshows or presentations, and we provide the connection cables. Test yours with us in advance. We don't have a projector. There's a sound system too.
 
-**Food options:** [Buffets](/food-menu) run from a burger buffet for 20 upwards, through sandwich, finger and premium buffets for 30 or more. Price any of them against your headcount with the [private hire calculator](/private-hire). Or skip the formal catering and order from our regular menu, we're a proper pub, so there's always food available during kitchen hours.
+**Food options:** Buffets run from a burger buffet for 20 upwards, through sandwich, finger and premium buffets for 30 or more. Price any of them against your headcount with the [private hire calculator](/private-hire).
 
 **Drinks:** A bar tab means you set a budget and we track it, from 10 guests up. Welcome drinks are available too if you want something waiting on arrival. Or just let people buy their own, no pressure either way. We accept cash, card, Amex, and contactless.
 
-Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+**What it costs:** Room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire). A £250 booking and damage deposit secures your date. It's held separately from your bill and refunded after the event, less any documented deductions.
 
-**Parking:** Free on-site parking for approximately 20 cars. Level surface, close to the entrance, CCTV and floodlit. No charges, no time limits while you're visiting.
+**Parking:** We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register.
 
-**Events coordinator:** Our dedicated events coordinator handles the planning, so you're not chasing emails and making spreadsheets. Tell us what you want, and we'll sort it.
+**Events coordinator:** A dedicated events coordinator handles your booking. Tell us what you have in mind.
 
-**Location:** We're in Stanwell Moor, 2 minutes from Junction 14 of the M25. That puts us within easy reach of West London, Surrey, and Berkshire. Bus routes 441, 442, and 555 run from Heathrow Central Bus Station if anyone's coming by public transport.
+**Location:** We're in Stanwell Moor, 2 minutes from Junction 14 of the M25. Bus route 442 stops on Horton Road by the pub and runs from Heathrow Terminal 5.
 
 ## Leaving party ideas for different budgets
 
@@ -180,7 +179,6 @@ Private-hire pricing at The Anchor is discussed on enquiry, and food and drink p
 
 ### Team's chipping in
 
-Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
 - Everyone orders their own food and drinks
 - Organise a collection for a gift
 - Someone volunteers for the speech
@@ -202,7 +200,7 @@ If the person is leaving under difficult circumstances (redundancy, restructure,
 
 ### How much should you spend on a leaving party?
 
-Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+That depends on who's paying and how many are coming. At The Anchor, room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire). Put your numbers into the calculator there to see an estimate for the room, the food and the drinks.
 
 ### Should you invite the whole company or just the team?
 
@@ -218,6 +216,6 @@ Two to four weeks is usually enough for smaller groups. For larger events (30+ p
 
 ### Can you host a leaving party at lunchtime?
 
-Absolutely, and it's becoming more common. A long lunch avoids the evening childcare juggle, includes people who can't stay out late, and feels less forced than after-work drinks. A [private venue](/private-hire/retirement-parties) with buffet catering makes lunchtime events simple to organise.
+Absolutely, and it's becoming more common. A long lunch avoids the evening childcare juggle, includes people who can't stay out late, and feels less forced than after-work drinks. A [private room](/private-hire) with buffet catering makes lunchtime events simple to organise.
 
-Private-hire pricing at The Anchor is discussed on enquiry, and food and drink prices come from the live approved source.
+Planning one? Get an instant estimate on our [private hire page](/private-hire), then ask us about your date on 01753 682707.

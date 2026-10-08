@@ -375,7 +375,6 @@ export default async function QuizNightPage() {
       <InternalLinkingSection
         title="Plan your night out"
         links={[
-          { href: '/blog/what-is-race-night', title: 'What Is a Race Night?', description: 'Our guide to how race nights work' },
           { href: '/whats-on', title: "What's On", description: 'All upcoming events and entertainment' },
           { href: '/music-bingo', title: 'Music Bingo', description: 'Another hosted night at The Anchor' },
         ]}
