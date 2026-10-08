@@ -38,13 +38,14 @@ describe('the register matches the code today', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 
-  it.each(register.dates.map((entry: { id: string; file: string; find: string }) => [entry.id, entry.file, entry.find]))(
-    '%s: %s still contains the text that carries the date',
-    (_id, file, find) => {
-      const source = fs.readFileSync(path.join(ROOT, file as string), 'utf8')
-      expect(source).toContain(find as string)
-    }
+  const rows: Array<[string, string, string]> = register.dates.map(
+    (entry: { id: string; file: string; find: string }) => [entry.id, entry.file, entry.find]
   )
+
+  it.each(rows)('%s: %s still contains the text that carries the date', (_id, file, find) => {
+    const source = fs.readFileSync(path.join(ROOT, file), 'utf8')
+    expect(source).toContain(find)
+  })
 
   it('names only files that exist in the list of claims with a check date', () => {
     for (const entry of register.checkedFiles.files) {
