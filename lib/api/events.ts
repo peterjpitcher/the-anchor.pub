@@ -6,6 +6,7 @@ import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { logError } from '@/lib/error-handling'
 import { isNotFoundError } from '@/lib/api/error-kind'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
+import { normalizeEventStatus } from '@/lib/event-lifecycle'
 import { dedupeUpcomingEvents } from '@/lib/event-normalization'
 import { RECENT_EVENT_WINDOW_DAYS } from '@/lib/event-seo-strategy'
 // The shared Europe/London calendar-date helper. It lives in the table-booking
@@ -856,6 +857,26 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead?: numb
 }
 
 /**
+ * The statuses a "nights we have run" listing asks for.
+ *
+ * Cancelled and postponed are left out on purpose. Both listings that use this
+ * introduce their cards as nights that happened, and What's On showed the
+ * cancelled 11 September 2026 Music Bingo under "A look back at recent
+ * nights", with its sales text (site review finding C2-007). A postponed
+ * record still carries the date it did NOT run on.
+ */
+const RAN_AS_LISTED_STATUSES = 'scheduled,rescheduled,sold_out'
+
+/**
+ * The same rule applied to what comes back, so the listing does not depend on
+ * the management API honouring the status filter.
+ */
+function ranAsListed(event: Pick<Event, 'event_status' | 'eventStatus'>): boolean {
+  const status = normalizeEventStatus(event)
+  return status !== 'cancelled' && status !== 'postponed' && status !== 'draft'
+}
+
+/**
  * Recent past events, with the outcome of the read attached.
  *
  * `getRecentEvents` stays the `Event[]` form every existing caller uses.
@@ -881,7 +902,7 @@ export async function readRecentEvents(
       from_date: shiftLondonIsoDate(now, -safeDaysBack),
       to_date: londonIsoDate(now),
       limit: fetchLimit,
-      status: 'scheduled,rescheduled,postponed,sold_out,cancelled',
+      status: RAN_AS_LISTED_STATUSES,
     })
 
     const events = readEventsPayload(response)
@@ -897,6 +918,7 @@ export async function readRecentEvents(
     return {
       status: 'ok',
       events: removeRetiredEvents(events)
+        .filter(ranAsListed)
         .filter(event => {
           const startMs = Date.parse(event.startDate)
           return Number.isFinite(startMs) && startMs < nowMs && startMs >= earliestMs
@@ -943,7 +965,7 @@ export async function getPastEvents(limit: number = 200): Promise<Event[]> {
         from_date: '2000-01-01',
         limit: MAX_EVENTS_LIMIT,
         offset: page * MAX_EVENTS_LIMIT,
-        status: 'scheduled,rescheduled,postponed,sold_out',
+        status: RAN_AS_LISTED_STATUSES,
       })
       const batch = response.events || []
       for (const event of batch) {
@@ -955,6 +977,7 @@ export async function getPastEvents(limit: number = 200): Promise<Event[]> {
 
     const nowMs = Date.now()
     return removeRetiredEvents(Array.from(collected.values()))
+      .filter(ranAsListed)
       .filter(event => {
         const startMs = Date.parse(event.startDate)
         return Number.isFinite(startMs) && startMs < nowMs

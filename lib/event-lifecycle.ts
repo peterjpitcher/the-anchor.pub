@@ -62,9 +62,14 @@ export function getEventBookingBlockReason(
   const status = normalizeEventStatus(event)
   if (status === 'draft') return 'draft'
   if (status === 'cancelled') return 'cancelled'
+  // Asked before the two reasons below, which only mean something while the
+  // night is still to come. A finished night that never took bookings used to
+  // answer 'bookings_disabled', and its page said "No booking is needed for
+  // this event, just turn up!" under a banner saying it had ended; a finished
+  // sold-out night said to call about cancellations (site review C2-023).
+  if (isEventInPast(event, now)) return 'past'
   if (event.bookings_enabled === false) return 'bookings_disabled'
   if (status === 'sold_out') return 'sold_out'
-  if (isEventInPast(event, now)) return 'past'
   return null
 }
 

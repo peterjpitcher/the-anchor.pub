@@ -1,5 +1,6 @@
 import type { Event } from '@/lib/api'
 import { formatEventLocalDate } from '@/lib/event-calendar'
+import { normalizeEventStatus } from '@/lib/event-lifecycle'
 import { getEventPresentation } from '@/lib/event-presentation'
 
 /**
@@ -49,9 +50,58 @@ export function getDisplayableFaqs<T extends FaqLike>(faqs: T[], hasEnded: boole
  * past-tense line.
  */
 function readsAsInvitation(text: string): boolean {
-  return /\b(get ready|join us|book (your|now|online)|don'?t miss|grab your|secure your|coming up|see you (there|then)|this (friday|saturday|sunday|monday|tuesday|wednesday|thursday))\b/i.test(
-    text,
+  // Copy typed or pasted into the management app carries typographic
+  // apostrophes, so "Don’t miss" walked straight past a pattern written
+  // with a straight one (site review finding C2-023).
+  const plain = text.replace(/[‘’ʼ]/g, "'")
+  // An exclamation mark is sales copy by itself: "Enjoy a thrilling Cash Bingo
+  // Night at The Anchor with 10 games, great prizes, and a lively atmosphere!"
+  // names no verb this list could catch.
+  if (plain.includes('!')) return true
+  return /\b(get ready|join|book (your|now|online|early|ahead)|don't miss|grab your|get your (tickets?|seats?|places?|table)|secure your|coming up|come (along|down)|see you (there|then)|this (friday|saturday|sunday|monday|tuesday|wednesday|thursday))\b/i.test(
+    plain,
   )
+}
+
+/**
+ * How a night that did not run is described, or null for one that did (or may
+ * yet). A cancelled night never "took place", whether its date has passed or
+ * not, and nor did a postponed one whose listed date has gone.
+ */
+function getDidNotRunWord(
+  event: Pick<Event, 'event_status' | 'eventStatus'>,
+  hasEnded: boolean,
+): 'cancelled' | 'postponed' | null {
+  const status = normalizeEventStatus(event)
+  if (status === 'cancelled') return 'cancelled'
+  if (status === 'postponed' && hasEnded) return 'postponed'
+  return null
+}
+
+/**
+ * A category name that reads properly in front of the word "dates".
+ *
+ * Category names are typed in the management app as headings: "Quiz Night",
+ * "Music Bingo", but also "Parties", "Celebrations" and "Tasting Nights".
+ * "See upcoming Parties dates" and "The next Parties is" both reached served
+ * pages (site review finding C2-040). A plural heading returns null and the
+ * caller says something that needs no category at all.
+ */
+export function getEventCategoryModifier(
+  category: { name?: string | null } | null | undefined,
+): string | null {
+  const name = category?.name?.trim()
+  if (!name || /s$/i.test(name)) return null
+  return name
+}
+
+/** Cuts at the last whole word that fits, so a lead never ends "and e…". */
+function truncateAtWord(text: string, max: number): string {
+  if (text.length <= max) return text
+  const slice = text.slice(0, max - 1)
+  const lastSpace = slice.lastIndexOf(' ')
+  const cut = lastSpace > max * 0.6 ? slice.slice(0, lastSpace) : slice
+  return `${cut.replace(/[\s,;:.-]+$/, '')}…`
 }
 
 /**
@@ -72,14 +122,40 @@ export function getEventHeroLead(
   const { hasEnded } = getEventPresentation(event)
   const summary = event.shortDescription || event.brief || null
 
+  // Asked first, and whatever the date: a cancelled night that is still in the
+  // future used to fall through to the live booking statement, and a past one
+  // to "took place" (site review finding C2-008).
+  const didNotRun = getDidNotRunWord(event, hasEnded)
+  if (didNotRun) {
+    const dueOn = eventDateLabel(event)
+    return `${event.name} was ${didNotRun}.${dueOn ? ` It was due on ${dueOn}.` : ''}`
+  }
+
   if (!hasEnded) return liveStatement
 
   if (summary && !readsAsInvitation(summary)) {
-    return summary.length > 160 ? `${summary.substring(0, 157).trimEnd()}…` : summary
+    return truncateAtWord(summary, 160)
   }
 
   const date = eventDateLabel(event)
   return `${event.name} took place at The Anchor${date ? ` on ${date}` : ''}.`
+}
+
+/**
+ * The stored one-line summary of a finished night, for a listing card, or null
+ * when that summary is an invitation and so cannot stand under a past date.
+ *
+ * The page hero has its own "took place" fallback; a card already prints the
+ * date and the name, so its caller supplies a plain line of its own instead.
+ */
+export function getEndedEventSummary(
+  event: Pick<Event, 'shortDescription' | 'brief' | 'description'>,
+): string | null {
+  // The short description first. On a full record `brief` is the long
+  // internal briefing, headings and all; a list record does not carry it.
+  const summary = event.shortDescription || event.brief || event.description || null
+  if (!summary || readsAsInvitation(summary)) return null
+  return truncateAtWord(summary, 160)
 }
 
 function eventDateLabel(event: Pick<Event, 'startDate'>): string {
@@ -107,13 +183,26 @@ export function getEventMetaDescription(
   liveFallback: string
 ): string {
   const { hasEnded } = getEventPresentation(event)
-  if (!hasEnded) {
+  const didNotRun = getDidNotRunWord(event, hasEnded)
+  if (!hasEnded && !didNotRun) {
     return event.metaDescription || event.shortDescription || event.description || liveFallback
   }
 
   const date = eventDateLabel(event)
-  const categoryName = event.category?.name
+  const categoryName = getEventCategoryModifier(event.category)
   const onward = categoryName ? ` See upcoming ${categoryName} dates.` : ' See what is coming up.'
+
+  // A cancelled or postponed night gets the same shape of line, without the
+  // claim that it happened.
+  if (didNotRun) {
+    const cancelledTail = ` was ${didNotRun}.${date ? ` It was due on ${date}.` : ''}${onward}`
+    const cancelledRoom = 160 - cancelledTail.length
+    const cancelledName =
+      event.name.length > cancelledRoom
+        ? `${event.name.slice(0, Math.max(0, cancelledRoom - 1)).trimEnd()}…`
+        : event.name
+    return `${cancelledName}${cancelledTail}`
+  }
 
   // Kept under 160 characters so results are not truncated. Event names run
   // long ("St Patrick's Day / Free Jamesons with First Guinness"), so the
@@ -142,7 +231,17 @@ export function getEventSchemaDescription(
   const stored =
     event.longDescription || event.about || event.description || event.shortDescription
 
-  if (stored && !(hasEnded && readsAsInvitation(stored))) return stored
+  const didNotRun = getDidNotRunWord(event, hasEnded)
+
+  // A night that did not run keeps its stored description only while that
+  // description is not an invitation: the original details may stay on a
+  // cancelled event, a call to book it may not.
+  if (stored && !((hasEnded || didNotRun) && readsAsInvitation(stored))) return stored
+
+  if (didNotRun) {
+    const dueOn = eventDateLabel(event)
+    return `${event.name} at The Anchor in Stanwell Moor was ${didNotRun}.${dueOn ? ` It was due on ${dueOn}.` : ''}`
+  }
 
   if (hasEnded) {
     const date = eventDateLabel(event)

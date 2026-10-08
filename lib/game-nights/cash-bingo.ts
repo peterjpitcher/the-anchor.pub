@@ -98,7 +98,7 @@ export const cashBingo: GameNightConfig = {
     {
       question: 'How does the snowball work?',
       answer:
-        'If nobody claims it, the snowball grows by £20 and two calls at the next cash bingo night. Only players from one of the previous three cash bingo nights can win it, and the current value is on the event listing below.'
+        'If nobody claims it, the snowball grows by £20 and two calls at the next cash bingo night. Only players from one of the previous three cash bingo nights can win it, and the current value is on that night’s own page.'
     }
   ],
 
