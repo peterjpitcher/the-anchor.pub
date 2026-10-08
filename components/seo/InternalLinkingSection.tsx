@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Card, CardBody, Section, Container, Grid, GridItem } from '@/components/ui'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 interface RelatedLink {
   href: string
@@ -61,7 +62,7 @@ export const commonLinkGroups = {
     { href: '/private-hire', title: 'Private Hire & Events', description: 'Get a quote and send an enquiry' }
   ],
   location: [
-    { href: '/near-heathrow', title: 'Near Heathrow', description: '7-12 minutes from Heathrow terminals' },
+    { href: '/near-heathrow', title: 'Near Heathrow', description: `${HEATHROW_TIMES.range} from Heathrow terminals` },
     { href: '/find-us', title: 'Find Us', description: 'Directions and parking' },
     { href: '/beer-garden', title: 'Beer Garden', description: 'Outdoor seating area' }
   ],

@@ -1,4 +1,5 @@
 import type { GameNightConfig } from './types'
+import { PARKING } from '@/lib/constants'
 
 /**
  * Cash bingo. Facts from docs/SSOT.md §10: set Wednesdays, not every month, arrive by 6:30pm,
@@ -60,7 +61,7 @@ export const cashBingo: GameNightConfig = {
     // not play." This chip published only the first half, which reads as a door
     // policy and turns away a family that could have come.
     { label: 'Age', value: '18+ to play, supervised under 18s welcome' },
-    { label: 'Parking', value: 'Free, 20 spaces' }
+    { label: 'Parking', value: `Free, ${PARKING.capacity} spaces` }
   ],
 
   bookingCtaPrefix: 'Reserve your places for',

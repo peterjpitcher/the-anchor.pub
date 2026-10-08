@@ -5,7 +5,7 @@ import { CtaBand } from '@/components/CtaBand'
 import { BusinessHours } from '@/components/BusinessHours'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, BUS_WORDING, DRIVE_TIMES, HEATHROW_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -15,7 +15,7 @@ import { getUpcomingFixtures } from '@/components/features/world-cup/upcoming-fi
 import { getWorldCup2026Matches } from '@/lib/world-cup-2026'
 import type { WorldCup2026Match } from '@/lib/world-cup-2026'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { ACCESS_WORDING } from '@/lib/approved-wording'
+import { ACCESS_WORDING, SPORT_WORDING, PARKING_WORDING, DOGS_WORDING, FAMILIES_WORDING, GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
 
 // This page is year-neutral on purpose (7 October 2026, owner-approved: the same
 // treatment /live-sport/six-nations got). In October 2026 it still advertised a
@@ -64,12 +64,7 @@ export const revalidate = 300 // 5 minutes, matches CheersAI feed CDN cache
 
 // Follows the approved Six Nations line in SSOT §16, with the tournament's name changed.
 const WORLD_CUP_WORDING = `We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on ${CONTACT.phone} to check a particular game.`
-// SSOT §16, approved wording, pasted as it stands.
-const SPORT_WORDING = "We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports."
-const PARKING_WORDING = "We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register."
-const DOGS_WORDING = "Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting."
-const FAMILIES_WORDING = "High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities."
-const GROUP_DEPOSIT_WORDING = 'Groups of 15 or more: a £10 per person deposit, fully deducted from your bill.'
+// The approved wording comes from lib/approved-wording.ts (SSOT §16).
 
 const features = [
   { title: 'Free parking', description: PARKING_WORDING },
@@ -108,7 +103,7 @@ const faqs = [
   },
   {
     question: 'How far are you from Heathrow?',
-    answer: "We're in Stanwell Moor. By car it's 7 minutes from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4.",
+    answer: `We're in Stanwell Moor. By car it's ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, ${HEATHROW_TIMES.terminal2} minutes from Terminals 2 and 3, and ${HEATHROW_TIMES.terminal4} minutes from Terminal 4.`,
   },
 ]
 
@@ -227,8 +222,8 @@ export default async function WorldCupPage() {
                 <h3 className="text-xl text-accent-text mb-4">Find us</h3>
                 <ul className="space-y-3 text-sm text-ink-muted mb-6">
                   <li className="flex gap-2"><span>{CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}</span></li>
-                  <li className="flex gap-2"><span>2 minutes from Junction 14 of the M25</span></li>
-                  <li className="flex gap-2"><span>Buses 441, 442 and 555 from Heathrow Central Bus Station</span></li>
+                  <li className="flex gap-2"><span>{DRIVE_TIMES.m25Junction14} minutes from Junction 14 of the M25</span></li>
+                  <li className="flex gap-2"><span>{BUS_WORDING}</span></li>
                 </ul>
                 <Link href="/find-us" className="text-accent-text font-semibold hover:underline">
                   Get directions

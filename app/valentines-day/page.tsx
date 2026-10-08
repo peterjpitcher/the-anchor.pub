@@ -17,6 +17,8 @@ import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
 import { getNextValentinesYear, isValentinesCandidate } from '@/lib/seasonal/valentines'
+import { HEATHROW_TIMES } from '@/lib/constants'
+import { bookingConfig } from '@/lib/booking-config'
 
 export const dynamic = 'force-dynamic'
 
@@ -292,11 +294,11 @@ export default async function ValentinesDayPage() {
         {
           question: 'How do I book?',
           answer:
-            "Book online via our table booking page, or call 01753 682707 if you're booking for 8+ guests or need help with a special request."
+            `Book online via our table booking page. Groups of more than ${bookingConfig.maxOnlinePartySize}, give us a call on 01753 682707, and call too if you need help with a special request.`
         },
         {
           question: 'Where is The Anchor?',
-          answer: `You'll find us at ${addressLine}. We're seven minutes from Heathrow Terminal 5 with free on-site parking.`
+          answer: `You'll find us at ${addressLine}. We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free on-site parking.`
         }
       ]
     : [
@@ -312,7 +314,7 @@ export default async function ValentinesDayPage() {
         {
           question: 'How do I book?',
           answer:
-            "Book online via our table booking page, or call 01753 682707 if you're booking for 8+ guests or need help with a special request."
+            `Book online via our table booking page. Groups of more than ${bookingConfig.maxOnlinePartySize}, give us a call on 01753 682707, and call too if you need help with a special request.`
         }
       ]
 
@@ -326,7 +328,7 @@ export default async function ValentinesDayPage() {
         crumb="Valentine's & Galentine's"
         kicker={eventDate}
         title="Valentine's and Galentine's at The Anchor"
-        lead={`${event?.description || "Good food, proper drinks and a relaxed night out with the people you love spending time with. Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19)."} Free parking • Seven minutes from Heathrow Terminal 5`}
+        lead={`${event?.description || "Good food, proper drinks and a relaxed night out with the people you love spending time with. Valentine's and Galentine's near Heathrow at The Anchor in Stanwell Moor (TW19)."} Free parking • ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5`}
       />
 
       <section className="py-section-y bg-surface">
@@ -375,7 +377,7 @@ export default async function ValentinesDayPage() {
                 </h2>
                 <p className="mt-4 text-ink-muted text-lg leading-relaxed">
                   Spend Valentine's or Galentine's at The Anchor in Stanwell Moor, a relaxed village pub with free
-                  parking, seven minutes from{' '}
+                  parking, {HEATHROW_TIMES.terminal5} minutes from{' '}
                   <Link href="/near-heathrow/terminal-5" className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted">
                     Heathrow Terminal 5
                   </Link>
@@ -504,7 +506,7 @@ export default async function ValentinesDayPage() {
                   <CardBody className="space-y-2">
                     <h2 className="text-lg font-semibold text-ink-strong">Getting here</h2>
                     <p className="text-sm text-ink-muted">
-                      {addressLine}. Free parking on site, seven minutes from Heathrow Terminal 5, and outside the ULEZ.
+                      {addressLine}. Free parking on site, {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and outside the ULEZ.
                     </p>
                     <Link href="/find-us" className="inline-flex items-center text-sm font-semibold text-accent-text hover:text-anchor-gold">
                       Get directions
@@ -517,7 +519,7 @@ export default async function ValentinesDayPage() {
                   <CardBody className="space-y-2">
                     <h2 className="text-lg font-semibold text-ink-strong">Prefer to talk?</h2>
                     <p className="text-sm text-ink-muted">
-                      Booking for 8+ or need a special request? Give us a call and we'll sort it.
+                      Groups of more than {bookingConfig.maxOnlinePartySize}, give us a call. Need a special request? Call and we'll sort it.
                     </p>
                     <PhoneButton
                       phone="01753 682707"

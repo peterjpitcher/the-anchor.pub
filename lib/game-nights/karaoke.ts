@@ -1,4 +1,5 @@
 import type { GameNightConfig } from './types'
+import { PARKING } from '@/lib/constants'
 
 /**
  * Karaoke. This is the one config with `promotable: false`, and the constraint
@@ -93,7 +94,7 @@ export const karaoke: GameNightConfig = {
     { label: 'Seating', value: 'Communal, no reserved tables' },
     { label: 'Ages', value: 'All welcome, under 18s with an adult' },
     { label: 'Runs', value: 'Occasionally, see listings' },
-    { label: 'Parking', value: 'Free, 20 spaces' }
+    { label: 'Parking', value: `Free, ${PARKING.capacity} spaces` }
   ],
 
   bookingCtaPrefix: 'Book free places for',

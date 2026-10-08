@@ -35,22 +35,104 @@ export const BRAND = {
   // This helps with SEO and brand consistency
 }
 
+/**
+ * Free guest parking. The number is docs/SSOT.md section 8 and SSOT.json
+ * venue.parking.free_spaces. For a sentence, use PARKING_WORDING from
+ * lib/approved-wording.ts: never "around 20", "large" or "guaranteed".
+ */
 export const PARKING = {
-  // Verified capacity from Find Us page
-  capacity: 20, // 20 spaces available for pub guests
+  capacity: 20, // 20 spaces for pub guests
   description: 'Free parking available',
   extendedDescription: 'Free on-site parking with extended parking available nearby'
 }
 
+/*
+ * Getting here. One home for every journey figure the site states.
+ *
+ * Each value is docs/SSOT.md section 2 and its mirror in SSOT.json;
+ * tests/one-home-for-facts-guard.test.ts fails if this file and SSOT.json
+ * disagree, and fails if a page types one of these figures instead of reading
+ * it from here. To change a figure: change the SSOT, then this file, once.
+ *
+ * Only what the SSOT holds is here. There is no figure for Windsor, Ashford,
+ * Feltham, Egham, Sunbury, Horton, Wraysbury, Colnbrook or Longford, no walk
+ * time from a hotel or a village, and no distance for Terminals 2 and 4, so
+ * pages say "a short drive" and give no number.
+ */
+
+/** Minutes by car to each terminal, traffic dependent. */
 export const HEATHROW_TIMES = {
-  // Consistent journey times to each terminal
   terminal2: 11,
   terminal3: 11,
   terminal4: 12,
   terminal5: 7,
 
-  // For general statements
-  range: '7-12 minutes'
+  // For general statements about "any terminal"
+  range: '7-12 minutes',
+  rangeWords: '7 to 12 minutes'
+}
+
+/** Road distance, for the two terminals the SSOT gives one for. */
+export const HEATHROW_DISTANCES = {
+  terminal3: '5.3 miles',
+  terminal5: '3.8 miles'
+}
+
+/** Minutes by car from the two other places the SSOT gives a figure for. */
+export const DRIVE_TIMES = {
+  m25Junction14: 2,
+  staines: 8
+}
+
+/**
+ * The bus. Only the 442 stops by the pub, and it runs from Terminal 5. The 441
+ * and the 555 do not come to Stanwell Moor. Never a fare, a frequency, a
+ * journey time or a last bus time (SSOT sections 2, 14 and 17).
+ */
+export const BUS = {
+  route: '442',
+  boardsAt: 'Heathrow Terminal 5',
+  stop: 'Horton Road, by the pub'
+}
+
+/** The one bus sentence. Use it wherever a page mentions the bus. */
+export const BUS_WORDING = `The ${BUS.route} bus stops on Horton Road by the pub and runs from ${BUS.boardsAt}.`
+
+/** The terminal times as one clause, for an answer or a description. */
+export const HEATHROW_TIMES_WORDING = `${HEATHROW_TIMES.terminal5} minutes from Terminal 5, ${HEATHROW_TIMES.terminal2} minutes from Terminals 2 and 3, and ${HEATHROW_TIMES.terminal4} minutes from Terminal 4 by car`
+
+/** Schema.org price band, SSOT.json venue.price_range. */
+export const PRICE_RANGE = '££'
+
+/**
+ * The pub's address and map position as structured data. Every JSON-LD block
+ * that describes The Anchor spreads these: none types a street, a town or a
+ * latitude of its own (three pages once carried coordinates a mile away).
+ */
+export const POSTAL_ADDRESS_SCHEMA = {
+  '@type': 'PostalAddress',
+  streetAddress: CONTACT.address.street,
+  addressLocality: CONTACT.address.town,
+  addressRegion: CONTACT.address.county,
+  postalCode: CONTACT.address.postcode,
+  addressCountry: CONTACT.address.country
+} as const
+
+export const GEO_COORDINATES_SCHEMA = {
+  '@type': 'GeoCoordinates',
+  latitude: CONTACT.coordinates.lat,
+  longitude: CONTACT.coordinates.lng
+} as const
+
+/**
+ * Crematoria and cemeteries the SSOT gives a drive time for (section 11,
+ * "Nearby venues for wakes"). No other landmark has one, so no other landmark
+ * page states one. Keyed by the slug used in lib/local-seo-data.ts.
+ */
+export const WAKE_VENUE_DRIVE_MINUTES: Record<string, number> = {
+  'south-west-middlesex-crematorium': 10,
+  'staines-cemetery': 8,
+  'slough-crematorium': 15
 }
 
 // Large-group deposit policy: applies to groups at or above the threshold,

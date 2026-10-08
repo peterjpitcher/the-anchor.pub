@@ -7,15 +7,16 @@ import { getBusinessHoursSnapshot } from '@/lib/api'
 import { InteriorHero } from '@/components/hero'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, HEATHROW_TIMES, HEATHROW_TIMES_WORDING, BUS_WORDING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { PARKING_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { DirectionsButton } from '@/components/DirectionsButton'
 
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Hotels | Food, Beer & Free Parking',
@@ -40,7 +41,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": ["Restaurant", "BarOrPub"],
   "@id": "https://www.the-anchor.pub/heathrow-hotels-pub#business",
-  "name": `${BRAND.name} - Near Heathrow Hotels`,
+  "name": BRAND.name,
   "image": `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   "address": {
     "@type": "PostalAddress",
@@ -73,7 +74,7 @@ const localBusinessSchema = {
       "name": "Bath Road Hotels"
     }
   ],
-  "priceRange": "££",
+  "priceRange": PRICE_RANGE,
   "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
   "telephone": CONTACT.phoneIntl,
   "url": "https://www.the-anchor.pub/heathrow-hotels-pub"
@@ -84,24 +85,11 @@ export default async function HeathrowHotelsPubPage() {
   // placeholder. Cached snapshot, so this page stays static.
   const businessHours = await getBusinessHoursSnapshot()
 
-  const directionsSchema = generateHowToDirectionsSchema(
-    'Heathrow Hotels',
-    'The Anchor - Heathrow Pub & Dining',
-    [
-      'From Terminal 5 hotels (Premier Inn, Sofitel), take A3044',
-      'Head east on Northern Perimeter Road',
-      'Turn left onto Horton Road',
-      'Continue for 1.5 miles',
-      'The Anchor is on your right with free parking',
-      'Alternative: From Bath Road hotels, take A4 to Horton Road'
-    ]
-  )
-
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[
@@ -153,7 +141,7 @@ export default async function HeathrowHotelsPubPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {[
                 { title: 'Great Value', description: 'Honest pub pricing with current menu prices' },
-                { title: 'Free Parking', description: '20 spaces - no hourly charges like hotel car parks' },
+                { title: 'Free Parking', description: `${PARKING.capacity} spaces - no hourly charges like hotel car parks` },
                 { title: 'Real Experience', description: 'Authentic British pub, not a chain hotel restaurant' }
               ].map(feature => (
                 <Card key={feature.title} accent hover>
@@ -180,22 +168,10 @@ export default async function HeathrowHotelsPubPage() {
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Terminal 5 Area Hotels</h3>
                 <ul className="space-y-3">
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Sofitel London Heathrow</span>
-                    <span className="text-accent-text font-bold">7 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Premier Inn T5</span>
-                    <span className="text-accent-text font-bold">8 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Travelodge Heathrow</span>
-                    <span className="text-accent-text font-bold">10 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Hilton London Heathrow</span>
-                    <span className="text-accent-text font-bold">10 mins</span>
-                  </li>
+                  <li className="font-medium">Sofitel London Heathrow</li>
+                  <li className="font-medium">Premier Inn T5</li>
+                  <li className="font-medium">Travelodge Heathrow</li>
+                  <li className="font-medium">Hilton London Heathrow</li>
                 </ul>
 	                <p className="mt-4 text-sm text-ink-muted">
 	                  A short taxi ride or an easy drive, with free parking
@@ -205,34 +181,13 @@ export default async function HeathrowHotelsPubPage() {
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Bath Road & T4 Area Hotels</h3>
                 <ul className="space-y-3">
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Marriott London Heathrow</span>
-                    <span className="text-accent-text font-bold">12 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Crowne Plaza Heathrow</span>
-                    <span className="text-accent-text font-bold">12 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Radisson Blu Heathrow</span>
-                    <span className="text-accent-text font-bold">12 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Holiday Inn Heathrow</span>
-                    <span className="text-accent-text font-bold">12 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">ibis London Heathrow</span>
-                    <span className="text-accent-text font-bold">12 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Novotel London Heathrow</span>
-                    <span className="text-accent-text font-bold">15 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Renaissance London Heathrow</span>
-                    <span className="text-accent-text font-bold">12 mins</span>
-                  </li>
+                  <li className="font-medium">Marriott London Heathrow</li>
+                  <li className="font-medium">Crowne Plaza Heathrow</li>
+                  <li className="font-medium">Radisson Blu Heathrow</li>
+                  <li className="font-medium">Holiday Inn Heathrow</li>
+                  <li className="font-medium">ibis London Heathrow</li>
+                  <li className="font-medium">Novotel London Heathrow</li>
+                  <li className="font-medium">Renaissance London Heathrow</li>
                 </ul>
 	                <p className="mt-4 text-sm text-ink-muted">
 	                  A short taxi ride away
@@ -324,10 +279,7 @@ export default async function HeathrowHotelsPubPage() {
 
             <Card accent className="text-center">
               <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Outside ULEZ Zone</h3>
-                <p className="text-lg text-ink-muted">
-                  No extra charges - perfect if you&apos;re renting a car from the airport!
-                </p>
+                <p className="text-lg text-ink-muted">{ULEZ_WORDING}</p>
               </CardBody>
             </Card>
           </div>
@@ -402,31 +354,24 @@ export default async function HeathrowHotelsPubPage() {
 	              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
 	                <h3 className="font-display text-h4 text-ink-strong mb-3"> By Taxi</h3>
 	                <ul className="space-y-2 text-ink-muted">
-	                  <li>• 7-12 minutes from most hotels</li>
-	                  <li>• 7-12 minute journey</li>
-	                  <li>• Ask for "The Anchor - Heathrow Pub & Dining"</li>
-	                  <li>• Ask at the bar for a taxi number for the trip back</li>
+	                  <li>• A short ride from most hotels</li>
+	                  <li>• Ask for {BRAND.name}, {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}</li>
+	                  <li>• {TAXI_WORDING}</li>
 	                </ul>
 	              </div>
 
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-3"> Rental Car</h3>
                 <ul className="space-y-2 text-ink-muted">
-                  <li>• Free parking at pub</li>
-                  <li>• Easy route from all hotels</li>
-                  <li>• Postcode: TW19 6AQ</li>
-                  <li>• Outside ULEZ zone</li>
+                  <li>• {PARKING.capacity} free spaces</li>
+                  <li>• Postcode: {CONTACT.address.postcode}</li>
+                  <li>• Outside the ULEZ zone</li>
                 </ul>
               </div>
 
               <div className="bg-surface border border-line rounded-md shadow-sm p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-3"> Public Transport</h3>
-                <ul className="space-y-2 text-ink-muted">
-                  <li>• Bus 442 from some hotels</li>
-                  <li>• Ask hotel concierge</li>
-                  <li>• Or combine with short taxi</li>
-                  <li>• Worth it for the savings!</li>
-                </ul>
+                <p className="text-ink-muted">{BUS_WORDING}</p>
               </div>
             </div>
 
@@ -435,11 +380,9 @@ export default async function HeathrowHotelsPubPage() {
                 Most hotel guests say the short journey is absolutely worth it for the authentic
                 experience and massive savings compared to hotel dining!
               </p>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/find-us">
-                  Get Detailed Directions
-                </Link>
-              </Button>
+              <DirectionsButton href={DIRECTIONS_URL} source="heathrow_hotels_directions" variant="outline" size="lg">
+                Get directions
+              </DirectionsButton>
             </div>
           </div>
         </Container>
@@ -489,7 +432,7 @@ export default async function HeathrowHotelsPubPage() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text"></span>
-                    <span><strong>7 minutes from terminals</strong> - Quick access for international teams</span>
+                    <span><strong>{HEATHROW_TIMES.range} from the terminals</strong> - Quick access for international teams</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text"></span>
@@ -589,7 +532,7 @@ export default async function HeathrowHotelsPubPage() {
         faqs={[
 	          {
 	            question: "How far is The Anchor from Heathrow hotels?",
-	            answer: "We're just 7-12 minutes by car from most Heathrow hotels. Terminal 5 hotels like Premier Inn and Sofitel are closest (7-8 mins), while Bath Road hotels take about 10-12 minutes."
+	            answer: `We're a short taxi ride or drive from most Heathrow hotels. We're ${HEATHROW_TIMES_WORDING}.`
 	          },
           {
             question: "Is it worth leaving my hotel to eat at The Anchor?",
@@ -605,7 +548,7 @@ export default async function HeathrowHotelsPubPage() {
           },
 	          {
 	            question: "What's the best way to get to The Anchor from my hotel?",
-	            answer: "Most guests take a taxi (7-12 minutes). If you have a rental car, we have free parking. Some hotels are on the 442 bus route which stops near us. The hotel concierge can arrange transport - just ask for 'The Anchor in Stanwell Moor, TW19 6AQ'."
+	            answer: `Most people take a taxi. Your hotel can arrange one: ask for ${BRAND.name}, ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}. If you have a rental car: ${PARKING_WORDING}`
 	          },
           {
             question: "Are you open early/late for travellers?",
@@ -617,7 +560,7 @@ export default async function HeathrowHotelsPubPage() {
 
       {/* CTA Section */}
       <CtaBand
-        title="Escape Hotel Prices Tonight"
+        title="Escape hotel prices"
         copy="Real food, real prices, real British pub - just minutes from your hotel"
       >
         <div className="flex flex-col items-center gap-6">
@@ -626,7 +569,7 @@ export default async function HeathrowHotelsPubPage() {
             <Button asChild variant="outline" size="lg"><Link href="/private-hire#enquiry">Book an Event</Link></Button>
             <Button asChild variant="outline" size="lg"><Link href="/food-menu">View Menu</Link></Button>
           </div>
-          <p className="text-ink-muted text-sm">Free Parking • 7-12 mins from all major hotels • Outside ULEZ Zone</p>
+          <p className="text-ink-muted text-sm">Free Parking • A short drive from Heathrow hotels • Outside the ULEZ zone</p>
         </div>
       </CtaBand>
     </>

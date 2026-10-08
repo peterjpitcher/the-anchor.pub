@@ -1,4 +1,5 @@
 import { SquareParking, Plane, Dog, Wifi, type LucideIcon } from 'lucide-react'
+import { PARKING, HEATHROW_TIMES } from '@/lib/constants'
 
 // AmenityStrip (spec §5.5): a dark green band sitting directly under the hero on
 // most pages. Four amenity cells (4-up on lg, 2-up on sm, 1-up below). Each cell is
@@ -15,8 +16,8 @@ export interface AmenityItem {
 }
 
 const DEFAULT_ITEMS: AmenityItem[] = [
-  { icon: SquareParking, title: '20 free spaces', subline: 'No fees while you visit' },
-  { icon: Plane, title: '7 mins from T5', subline: 'Outside the ULEZ zone' },
+  { icon: SquareParking, title: `${PARKING.capacity} free spaces`, subline: 'No fees while you visit' },
+  { icon: Plane, title: `${HEATHROW_TIMES.terminal5} mins from T5`, subline: 'Outside the ULEZ zone' },
   { icon: Dog, title: 'Dog friendly', subline: 'Water bowls on us' },
   { icon: Wifi, title: 'Free WiFi', subline: 'Pub and beer garden' }
 ]

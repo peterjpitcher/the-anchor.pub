@@ -170,7 +170,7 @@ export default function EasterSundayPage() {
               That makes Easter Sunday easy: turn up, settle in, and let us do the work.
             </p>
             <p className="text-ink-muted leading-relaxed">
-              Children are very welcome, dogs are welcome inside and in the garden, and there is space for everyone
+              Children are very welcome, dogs are welcome throughout the pub, on a lead, and there is space for everyone
               to relax. A plane passes overhead every 90 seconds or so, which, as it turns out, keeps the little ones
               (and a few of the grown-ups) entertained between courses.
             </p>

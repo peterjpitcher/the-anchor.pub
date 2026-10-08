@@ -1,3 +1,5 @@
+import { HEATHROW_TIMES } from '@/lib/constants'
+import { DOGS_WORDING } from '@/lib/approved-wording'
 // Enhanced Schema Markup for The Anchor Website
 
 // FAQ Schema for Homepage and Voice Search
@@ -26,7 +28,7 @@ export const homepageFAQSchema = {
       "name": "Is The Anchor dog friendly?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Absolutely! Dogs are welcome throughout The Anchor, including in our bar area and beer garden. We provide water bowls and your furry friends are part of the family here."
+        "text": DOGS_WORDING
       }
     },
     {
@@ -34,7 +36,7 @@ export const homepageFAQSchema = {
       "name": "How far is The Anchor from Heathrow Airport?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Anchor is just 7 minutes from Terminal 5, 11 minutes from Terminals 2 & 3, and 12 minutes from Terminal 4. We're the closest traditional British pub to Heathrow Airport."
+        "text": `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, ${HEATHROW_TIMES.terminal2} minutes from Terminals 2 & 3, and ${HEATHROW_TIMES.terminal4} minutes from Terminal 4. We're the closest traditional British pub to Heathrow Airport.`
       }
     },
     {
@@ -144,47 +146,6 @@ export const findUsPlaceSchema = {
   "isPartOf": { "@id": "https://www.the-anchor.pub/#business" }
 }
 
-// Event Booking Service Schema
-export const eventBookingServiceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Private Event Hosting at The Anchor",
-  "description": "Host your special event at The Anchor - birthdays, wakes, corporate events, and celebrations",
-  "provider": {
-    "@id": "https://www.the-anchor.pub/#business"
-  },
-  "areaServed": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": 51.4764,
-      "longitude": -0.4735
-    },
-    "geoRadius": "20 miles"
-  },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Event Packages",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "name": "Birthday Party Package",
-        "description": "Customizable birthday celebrations with food and drink options"
-      },
-      {
-        "@type": "Offer",
-        "name": "Corporate Event Package",
-        "description": "Professional venue for team events and business meetings"
-      },
-      {
-        "@type": "Offer",
-        "name": "Wake & Memorial Package",
-        "description": "Respectful and caring service for celebration of life events"
-      }
-    ]
-  }
-}
-
 // Speakable Schema for Voice Search
 export const speakableSchema = {
   "@context": "https://schema.org",
@@ -202,25 +163,4 @@ export const speakableSchema = {
 
 // Note: Review schemas should only be used for specific products/services, not the restaurant itself
 // Use aggregateRating on LocalBusiness schema instead for overall restaurant ratings
-
-// HowTo Schema for Directions
-export function generateHowToDirectionsSchema(from: string, to: string = "The Anchor", steps: string[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": `How to get to ${to} from ${from}`,
-    "step": steps.map((step, index) => ({
-      "@type": "HowToStep",
-      "name": `Step ${index + 1}`,
-      "text": step,
-      "position": index + 1
-    })),
-    "totalTime": "PT10M",
-    "supply": {
-      "@type": "HowToSupply",
-      "name": "Transportation",
-      "requiredQuantity": 1
-    }
-  }
-}
 

@@ -21,6 +21,7 @@ import {
   describeNgciDishCount,
   joinNgciDishNames
 } from '@/lib/ngci-menu-copy'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 export const revalidate = 3600
 
@@ -37,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // search for, and the SSOT allows it on search-facing surfaces only. The
   // visible on-page label is NGCI, because we cannot make the regulated claim.
   const description = data
-    ? `NGCI pub food near Heathrow, our gluten free options from The Anchor's live menu.${countPhrase}${pizzaPhrase} Free parking, 7 minutes from Terminal 5.`
+    ? `NGCI pub food near Heathrow, our gluten free options from The Anchor's live menu.${countPhrase}${pizzaPhrase} Free parking, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`
     : 'NGCI pub food near Heathrow, our gluten free options at The Anchor. Current dishes from the latest kitchen menu.'
 
   return {

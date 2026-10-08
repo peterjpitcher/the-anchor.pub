@@ -5,7 +5,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, HEATHROW_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -35,7 +35,7 @@ function extractSchemaPrice(item?: MenuPageItem): string | undefined {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getFishAndChipsMenuPageData()
   const description = data
-    ? "Fish and chips in Staines, see The Anchor's live menu with prices. Free parking, 7 mins from Heathrow Terminal 5."
+    ? `Fish and chips in Staines, see The Anchor's live menu with prices. Free parking, ${HEATHROW_TIMES.terminal5} mins from Heathrow Terminal 5.`
     : 'Fish and chips in Staines at The Anchor pub near Heathrow. Current menu with prices and free parking.'
 
   return {

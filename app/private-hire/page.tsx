@@ -19,10 +19,10 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, HEATHROW_TIMES, DRIVE_TIMES } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
-import { PRIVATE_HIRE_DEPOSIT_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
+import { PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY, PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 import { OccasionCard } from './_components/OccasionCard'
 import { CateringPackagesCard } from './_components/CateringPackagesCard'
@@ -124,7 +124,7 @@ const whyPoints = [
     },
     {
         lead: 'Free parking for everyone.',
-        text: 'A large on-site car park with around 20 spaces, free for you and your guests, with no fees while you visit.',
+        text: PARKING_WORDING,
     },
     {
         lead: 'Catering to suit your budget.',
@@ -136,14 +136,14 @@ const whyPoints = [
     },
     {
         lead: 'Easy to reach.',
-        text: 'Stanwell Moor, 7 minutes from Heathrow Terminal 5 and a short drive from Staines, just off the M25.',
+        text: `Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and a short drive from Staines, just off the M25.`,
     },
 ]
 
 const roomSetups = [
-    { title: 'Banquet', capacity: 'Dining room seats 26', desc: 'A seated dining set-up for meals and celebrations' },
-    { title: 'Boardroom', capacity: 'Dining room seats 26', desc: 'A meeting-table layout for discussions and presentations' },
-    { title: 'Cocktail reception', capacity: 'Main area up to 150 standing', desc: 'A standing reception for larger gatherings' },
+    { title: 'Banquet', capacity: `Dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}`, desc: 'A seated dining set-up for meals and celebrations' },
+    { title: 'Boardroom', capacity: `Dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}`, desc: 'A meeting-table layout for discussions and presentations' },
+    { title: 'Cocktail reception', capacity: `Main area up to ${PRIVATE_HIRE_CAPACITY.spaces.mainArea.standing} standing`, desc: 'A standing reception for larger gatherings' },
     { title: 'Theatre', capacity: 'Confirmed on enquiry', desc: 'Forward-facing seating for presentations' },
     { title: 'Classroom', capacity: 'Confirmed on enquiry', desc: 'Tables and chairs for training or workshops' },
     { title: 'Cabaret', capacity: 'Confirmed on enquiry', desc: 'Social seating arranged around a presentation area' },
@@ -156,19 +156,19 @@ const privateHireFaqs = [
     },
     {
         question: 'Do you have a private room for hire near Heathrow?',
-        answer: 'Yes. Our dining room seats 26 or holds up to 50 standing, with French doors onto the beer garden. The main area suits bigger groups, and exclusive hire of the whole pub covers up to 119 seated or 300 standing.',
+        answer: `Yes. Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated} or holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing, with French doors onto the beer garden. The main area suits bigger groups, and exclusive hire of the whole pub covers up to ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.seated} seated or ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing} standing.`,
     },
     {
         question: 'How many guests can you host?',
-        answer: 'Private hire works from 10 guests up to 150, with full-venue exclusive hire for larger events by enquiry. Tell us your numbers and we will suggest the right space.',
+        answer: `Private hire works for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, with full-venue exclusive hire for larger events by enquiry. Tell us your numbers and we will suggest the right space.`,
     },
     {
         question: 'Can you host corporate events and meetings?',
-        answer: 'Yes. We host meetings, training days and team meals with AV equipment, free WiFi and VAT invoicing, around 7 minutes from Heathrow Terminal 5 and 2 minutes from M25 Junction 14.',
+        answer: `Yes. We host meetings, training days and team meals with AV equipment, free WiFi and VAT invoicing, around ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and ${DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14.`,
     },
     {
         question: 'Is there parking for private hire guests?',
-        answer: 'Around 20 free spaces on site, with no charge while you visit. Ask in advance if anyone needs to leave a car overnight.',
+        answer: PARKING_WORDING,
     },
     {
         question: 'Can you arrange a wake at short notice?',
@@ -296,10 +296,10 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 crumb="Private Hire"
                 kicker="Private hire"
                 title="Function Room Hire Near Heathrow & Staines"
-                lead="Private hire for 10+ to 150 guests in Stanwell Moor, near Staines and Heathrow. Free parking, custom catering, and a team that plans it with you."
+                lead={`Private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange} in Stanwell Moor, near Staines and Heathrow. Free parking, custom catering, and a team that plans it with you.`}
                 badges={
                     <>
-                        <Badge variant="sand">10+ to 150 guests</Badge>
+                        <Badge variant="sand">{PRIVATE_HIRE_CAPACITY.recommendedRange}</Badge>
                         <Badge variant="sand">Free parking</Badge>
                         <Badge variant="sand">Custom catering</Badge>
                     </>
@@ -509,7 +509,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                                                         {landmark.name}
                                                     </h4>
                                                     <p className="mt-2 text-sm text-ink-muted">
-                                                        {landmark.distance ? `${landmark.distance} from The Anchor. ` : ''}{landmark.description}
+                                                        {landmark.distance ? `${landmark.distance}. ` : ''}{landmark.description}
                                                     </p>
                                                 </div>
                                             </Link>

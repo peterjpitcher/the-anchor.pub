@@ -118,3 +118,54 @@ export const PARKING_REFUND_WORDING =
  */
 export const CHRISTMAS_PRIVATE_DEPOSIT_WORDING =
   'A Christmas party of more than 20 is a private booking, so it pays the private hire deposit, not £10 per person.'
+
+/*
+ * Everyday facts: parking, taxis, dogs, families, sport. Every sentence below
+ * is in docs/SSOT.md section 16, and tests/one-home-for-facts-guard.test.ts
+ * fails when the two disagree, or when a page types one of them again instead
+ * of importing it from here.
+ */
+
+/** SSOT section 16, "Parking". The only way to describe free guest parking. */
+export const PARKING_WORDING =
+  "We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register."
+
+/** SSOT section 16, "Parking", for a coach. */
+export const COACH_PARKING_WORDING =
+  "A small coach fits in our car park. A full-size coach needs to park on the main road, where it's safe to."
+
+/** SSOT section 16, "Taxis". Never "we'll book", "we'll call" or "we can arrange". */
+export const TAXI_WORDING =
+  "Ask at the bar and we'll give you a taxi number. You'll need to make your own arrangements."
+
+/** SSOT section 16, "Dogs". Throughout the pub, any time we're open, on a lead. */
+export const DOGS_WORDING =
+  "Dogs are welcome throughout the pub, on a lead. We'll have water bowls and biscuits waiting."
+
+/** SSOT section 16, "Families". Carries the one "no": there is no baby changing. */
+export const FAMILIES_WORDING =
+  "High chairs, buggy space and bottle warming on request are all here, and breastfeeding is welcome. We don't have baby changing facilities."
+
+/**
+ * Children and the clock. SSOT section 8: children are welcome at all hours,
+ * with no age cut-off. Never type a curfew ("until 8pm", "until 9pm").
+ */
+export const CHILDREN_WELCOME_WORDING = 'Children are welcome at all hours.'
+
+/** SSOT section 16, "Sport". Terrestrial channels only. */
+export const SPORT_WORDING =
+  "We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports."
+
+/** SSOT section 16, "Sport", for the Six Nations. */
+export const SIX_NATIONS_WORDING =
+  'We show Six Nations games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on 01753 682707 to check a particular game.'
+
+/** SSOT section 16, "Sport", for commentary on other sport. */
+export const COMMENTARY_WORDING = "The commentary's on for big games and tournaments."
+
+/**
+ * SSOT sections 2 and 14. We say we're outside the ULEZ zone, and stop: whether
+ * a driver pays depends on their vehicle and their route, so nothing may follow
+ * about a charge, a saving or a fee.
+ */
+export const ULEZ_WORDING = "We're outside the ULEZ zone."

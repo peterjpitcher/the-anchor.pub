@@ -1,4 +1,5 @@
 import { Card, CardBody } from '@/components/ui'
+import { BUS_WORDING, DRIVE_TIMES, HEATHROW_TIMES } from '@/lib/constants'
 
 // Page-local light "Journey times by car" card for /near-heathrow (spec §7.6).
 // Rows: ink terminal names + gold (accent-text) DM Serif times. Footnote (muted):
@@ -11,9 +12,9 @@ interface JourneyRow {
 
 // SSOT §2 Heathrow proximity table (times by car).
 const ROWS: JourneyRow[] = [
-  { label: 'Terminal 5', time: '7 minutes' },
-  { label: 'Terminals 2 and 3', time: '11 minutes' },
-  { label: 'Terminal 4', time: '12 minutes' }
+  { label: 'Terminal 5', time: `${HEATHROW_TIMES.terminal5} minutes` },
+  { label: 'Terminals 2 and 3', time: `${HEATHROW_TIMES.terminal2} minutes` },
+  { label: 'Terminal 4', time: `${HEATHROW_TIMES.terminal4} minutes` }
 ]
 
 export function JourneyTimesCard() {
@@ -33,8 +34,7 @@ export function JourneyTimesCard() {
           ))}
         </ul>
         <p className="mt-6 text-sm text-ink-muted">
-          A straight run down the A3044 from Terminal 5, or 2 minutes from M25 Junction 14. Buses
-          441, 442 and 555 run from Heathrow Central Bus Station to Stanwell Moor.
+          {DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14. {BUS_WORDING}
         </p>
       </CardBody>
     </Card>

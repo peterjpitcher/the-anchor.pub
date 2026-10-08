@@ -55,12 +55,21 @@ describe('/private-hire/near/great-fosters-egham is about a hotel, not a registe
     expect(code('app/private-hire/page.tsx')).not.toContain('registry_office')
   })
 
-  it('only lets an `other` entry go without a drive time, so no page prints a blank one', async () => {
+  // Since 8 October 2026 a landmark has a drive time only where docs/SSOT.md
+  // gives one (tests/one-home-for-facts-guard.test.ts), so most have none, of
+  // every type. What matters here is that no page prints a blank one.
+  it('prints no blank drive time for any entry that has none', async () => {
     const { landmarks } = await import('@/lib/local-seo-data')
+    const { generateMetadata } = await import('@/app/private-hire/near/[slug]/page')
     const without = landmarks.filter((l) => !l.distance)
 
-    expect(without.map((l) => l.slug)).toEqual(['great-fosters-egham'])
-    expect(without.every((l) => l.type === 'other')).toBe(true)
+    expect(without.map((l) => l.slug)).toContain('great-fosters-egham')
+    expect(new Set(without.map((l) => l.type)).size).toBeGreaterThan(1)
+    for (const entry of without) {
+      const metadata = JSON.stringify(await generateMetadata({ params: { slug: entry.slug } }))
+      expect(`${entry.slug}: ${metadata}`).not.toContain('undefined')
+      expect(`${entry.slug}: ${metadata}`).not.toMatch(/\d+\s*mins?/i)
+    }
   })
 
   it('finds the copied register office wording on no other near entry', async () => {

@@ -1,4 +1,5 @@
-import { PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING } from '@/lib/approved-wording'
+import { CHILDREN_WELCOME_WORDING, DOGS_WORDING, FAMILIES_WORDING, PARKING_WORDING, PRIVATE_HIRE_DIETARY_QUESTION, PRIVATE_HIRE_DIETARY_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { getLandmarkBySlug, landmarks, type Landmark, type LandmarkType } from '@/lib/local-seo-data'
@@ -16,7 +17,7 @@ import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDown
 import { CtaBand } from '@/components/CtaBand'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, HEATHROW_TIMES, HEATHROW_TIMES_WORDING } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
 
@@ -35,12 +36,12 @@ export async function generateStaticParams() {
 // (with a slug-level override for Heathrow, which is typed `other`) so the
 // lead, the reasons-to-choose, the narrative section, the packages framing and
 // the FAQ all vary by what kind of place the landmark is. Every fact used here
-// is grounded in docs/SSOT.md (capacity 10+ to 150; dining room seats 26; 250
-// venue max; 20 free parking spaces; £250 private-hire deposit, which replaces
-// the £10pp group deposit, never both; TVs and a sound system, no projector; dedicated events
-// coordinator; ~7 minutes from Heathrow Terminal 5; outside the ULEZ;
-// dog-friendly garden). No food or drink prices are quoted (those are live).
-// Distances come only from the landmark dataset, never invented door-to-door.
+// is grounded in docs/SSOT.md and read from its home: capacities from
+// lib/private-hire-capacity.ts, parking and the Terminal 5 time from
+// lib/constants.ts, and the parking, dogs, families and ULEZ sentences from
+// lib/approved-wording.ts. No food or drink prices are quoted (those are live).
+// A drive time comes only from the landmark dataset, and most landmarks have
+// none, so every sentence here must read well without one.
 
 interface FaqEntry {
     question: string
@@ -85,32 +86,57 @@ interface LandmarkAngle {
 
 // Shared facts woven into copy. Kept as small helpers so wording stays
 // consistent across the angles and so there is a single place to change a fact.
+const { diningRoom, mainArea } = PRIVATE_HIRE_CAPACITY.spaces
 const PARKING_LINE =
-    'a large private car park with 20 free spaces, level and right beside the entrance'
+    `${PARKING.capacity} free spaces right outside`
 const CAPACITY_LINE =
-    'We can seat 26 in the dining room and host larger gatherings of up to 150 across the venue'
+    `We can seat ${diningRoom.seated} in the dining room and host larger gatherings of up to ${mainArea.standing} across the venue`
+const DINING_ROOM_LINE =
+    `Our private dining room seats ${diningRoom.seated} with French doors onto the beer garden, and we can host larger gatherings of up to ${mainArea.standing} across the venue`
+const PRIVATE_SPACE_ANSWER =
+    `Yes. Our private dining room seats ${diningRoom.seated} with French doors onto the garden, and we can arrange larger gatherings of up to ${mainArea.standing} across the venue.`
 const COORDINATOR_LINE =
     'a dedicated events coordinator who handles the setup and timings'
 const HEATHROW_LINE =
-    'roughly seven minutes from Heathrow Terminal 5 and just outside the ULEZ'
+    `${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 and outside the ULEZ zone`
+
+// "10 mins drive from X" when the landmark has a drive time on record, and
+// nothing when it has not. Heathrow's entry is a range across the terminals,
+// so it is never offered as one time to "the airport".
+function whereFrom(landmark: Landmark): string | undefined {
+    if (landmark.slug === 'heathrow-airport') {
+        return `${HEATHROW_TIMES.rangeWords} by car from the Heathrow terminals`
+    }
+    return landmark.distance ? `${landmark.distance} from ${landmark.name}` : undefined
+}
 
 function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
     const { name, distance, type, slug } = landmark
+
+    // Most landmarks have no drive time, so each of these reads without one.
+    const away = distance ? `, ${distance} away` : ''
+    const distanceBadge = distance ? [`${distance} from ${name}`] : []
+    const isFrom = distance ? `${distance} from ${name}` : `near ${name}`
+    const reach = distance ? `We are ${distance} from ${name}, with` : 'We have'
+    const howFar = (rest: string): FaqEntry[] =>
+        distance
+            ? [{ question: `How far is The Anchor from ${name}?`, answer: `We are ${distance} from ${name}${rest}` }]
+            : []
 
     // Heathrow is typed `other` but deserves its own travel-led angle.
     if (slug === 'heathrow-airport') {
         return {
             pageLabel: 'Private Hire & Events',
             crumb: `Near ${name}`,
-            lead: `A relaxed venue for airport gatherings, ${distance} from Terminal 5`,
+            lead: `A relaxed venue for airport gatherings, ${HEATHROW_TIMES.terminal5} minutes from Terminal 5`,
             badges: [...(distance ? [distance] : []), 'Free Parking', 'Outside the ULEZ', 'Luggage Storage'],
             bookingContext: 'private_party',
             eventType: 'Other',
-            intro: `${name} keeps unsociable hours, and finding somewhere genuinely comfortable nearby for a leaving do, a crew get-together or a farewell meal is not always easy. The Anchor sits ${HEATHROW_LINE}, so colleagues can gather without a long drive into town and without a congestion or emissions charge on the way.`,
+            intro: `${name} keeps unsociable hours, and finding somewhere genuinely comfortable nearby for a leaving do, a crew get-together or a farewell meal is not always easy. The Anchor sits ${HEATHROW_LINE}, so colleagues can gather without a long drive into town.`,
             reasons: [
                 {
                     title: 'Easy on the travel',
-                    content: `We are ${distance} from ${name}, with ${PARKING_LINE}. Guests arriving by car can park for free, and there is luggage storage if anyone is heading on to a flight afterwards.`,
+                    content: `We are ${HEATHROW_TIMES_WORDING}. ${PARKING_WORDING} There is luggage storage if anyone is heading on to a flight afterwards.`,
                 },
                 {
                     title: 'Built for shift patterns',
@@ -122,7 +148,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 paragraphs: [
                     `Heathrow has plenty of places to grab a quick coffee, but far fewer that feel like a proper pub where a group can settle in for the afternoon or evening. The Anchor is a traditional village pub in Stanwell Moor, ${HEATHROW_LINE}. For airport staff, ground crews and travellers with time before a flight, it is an easy escape from the terminals.`,
                     `We host leaving dos, team socials, retirement send-offs and farewell dinners for people moving on or moving away. ${CAPACITY_LINE}, with French doors from the dining room onto the beer garden, which sits directly under the flight path if your group enjoys the planes overhead.`,
-                    `${COORDINATOR_LINE} will help you plan the food, the drinks and the layout. There is free WiFi throughout, TVs and a sound system in the room, and a dog-friendly garden if anyone is bringing a four-legged friend. Call us on ${CONTACT.phone} and we will talk through what works for your group.`,
+                    `${COORDINATOR_LINE} will help you plan the food, the drinks and the layout. There is free WiFi throughout, and TVs and a sound system in the room. ${DOGS_WORDING} Call us on ${CONTACT.phone} and we will talk through what works for your group.`,
                 ],
             },
             packagesHeading: 'Food, drinks and a room to call your own',
@@ -130,19 +156,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
             faqs: [
                 {
                     question: `How far is The Anchor from ${name}?`,
-                    answer: `We are ${distance} from ${name}, in the village of Stanwell Moor. The pub is ${HEATHROW_LINE}.`,
+                    answer: `We are in the village of Stanwell Moor, ${HEATHROW_TIMES_WORDING}. ${ULEZ_WORDING}`,
                 },
                 {
                     question: 'Is there free parking?',
-                    answer: 'Yes. We have 20 free parking spaces on site, level and close to the entrance, with additional parking available nearby. There is no charge and no time limit while you are with us.',
+                    answer: PARKING_WORDING,
                 },
                 {
                     question: 'Can you store luggage during an event?',
                     answer: `Yes, we offer luggage storage, which is handy if guests are travelling to or from Heathrow around your gathering. Mention it when you call ${CONTACT.phone} and we will make space.`,
-                },
-                {
-                    question: 'Do you charge a congestion or emissions charge nearby?',
-                    answer: 'No. The Anchor sits outside the ULEZ zone, so guests driving in avoid the daily emissions charge they would pay at many venues closer to central London.',
                 },
                 {
                     question: 'How many people can you cater for?',
@@ -158,7 +180,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 },
                 {
                     question: 'Is the venue dog friendly?',
-                    answer: 'Yes, dogs are welcome throughout the venue and in the beer garden, with water bowls and biscuits provided. Dogs should be kept on a lead.',
+                    answer: DOGS_WORDING,
                 },
             ],
         }
@@ -169,15 +191,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
             return {
                 pageLabel: 'Wakes & Memorials',
                 crumb: `Wake venue near ${name}`,
-                lead: `A calm, private place to gather after a service, ${distance} away`,
-                badges: [`${distance} from ${name}`, 'Private Entrance Area', 'Short Notice Welcome', 'Free Parking'],
+                lead: `A calm, private place to gather after a service${away}`,
+                badges: [...distanceBadge, 'Private Entrance Area', 'Short Notice Welcome', 'Free Parking'],
                 bookingContext: 'wakes',
                 eventType: 'Wake / Memorial',
-                intro: `Saying goodbye is hard enough without a long, complicated journey to the wake. The Anchor is ${distance} from ${name}, a quiet village pub with a private entrance area where family and friends can gather away from the main bar. ${landmark.description}`,
+                intro: `Saying goodbye is hard enough without a long, complicated journey to the wake. The Anchor is ${isFrom}, a quiet village pub with a private entrance area where family and friends can gather away from the main bar. ${landmark.description}`,
                 reasons: [
                     {
-                        title: 'No parking worries on a difficult day',
-                        content: `After a service at ${name}, the last thing anyone needs is a scramble for spaces. We have ${PARKING_LINE}, with room for funeral cars, so guests can arrive together and without stress.`,
+                        title: 'Free parking right outside',
+                        content: PARKING_WORDING,
                     },
                     {
                         title: 'A private, respectful space',
@@ -195,10 +217,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 packagesHeading: 'Catering for the gathering',
                 packagesIntro: `We offer buffets, afternoon teas and unlimited tea and coffee. ${PRIVATE_HIRE_DIETARY_WORDING} We will give you a clear, tailored quote covering room hire and catering when you call.`,
                 faqs: [
-                    {
-                        question: `How far is The Anchor from ${name}?`,
-                        answer: `We are ${distance} from ${name}. We will have the private area ready before you arrive, and we are happy to allow for a slightly later start if the service runs on.`,
-                    },
+                    ...howFar('. We will have the private area ready before you arrive, and we are happy to allow for a slightly later start if the service runs on.'),
                     {
                         question: 'How quickly can you arrange a wake?',
                         answer: `We understand that funeral arrangements often happen at short notice. We can usually accommodate a wake within 24 to 48 hours. Call us on ${CONTACT.phone} and we will do our best to help.`,
@@ -212,8 +231,8 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                         answer: 'Yes. Room hire is charged by the hour for the space you use, alongside the catering and refreshments you choose. We will quote the whole thing clearly in advance so there are no surprises.',
                     },
                     {
-                        question: 'Is there parking for funeral cars?',
-                        answer: 'Yes. We have 20 free parking spaces on site, level and close to the entrance, with room for funeral cars and larger vehicles, plus additional parking nearby.',
+                        question: 'Is there free parking?',
+                        answer: PARKING_WORDING,
                     },
                     {
                         question: 'How many guests can you accommodate?',
@@ -234,47 +253,44 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
             return {
                 pageLabel: 'Christenings & Celebrations',
                 crumb: `Celebration venue near ${name}`,
-                lead: `Somewhere warm to continue the day after your service, ${distance} away`,
-                badges: [`${distance} from ${name}`, 'Family Friendly', 'Free Parking', 'Garden & Dining Room'],
+                lead: `Somewhere warm to continue the day after your service${away}`,
+                badges: [...distanceBadge, 'Family Friendly', 'Free Parking', 'Garden & Dining Room'],
                 bookingContext: 'christening',
                 eventType: 'Christening / Naming Day',
-                intro: `After a christening, naming day or service at ${name}, you will want somewhere relaxed to carry on celebrating with family and friends. The Anchor is ${distance} away, a friendly village pub with a private dining room and a garden. ${landmark.description}`,
+                intro: `After a christening, naming day or service at ${name}, you will want somewhere relaxed to carry on celebrating with family and friends. The Anchor is ${distance ? `${distance} away, ` : ''}a friendly village pub with a private dining room and a garden. ${landmark.description}`,
                 reasons: [
                     {
-                        title: 'Just minutes from the church',
-                        content: `We are ${distance} from ${name}, so guests can move easily from the service to the celebration. With ${PARKING_LINE}, families with young children and older relatives can park right by the door.`,
+                        title: 'From the service to the celebration',
+                        content: `${distance ? `We are ${distance} from ${name}, so guests can move easily from the service to the celebration. ` : ''}${PARKING_WORDING}`,
                     },
                     {
                         title: 'A space the whole family can enjoy',
-                        content: 'High chairs, a dog-friendly garden and a private dining room with French doors onto the outside mean there is room for children to be children and for everyone to settle in comfortably.',
+                        content: `${FAMILIES_WORDING} The private dining room has French doors onto the garden.`,
                     },
                 ],
                 narrative: {
                     heading: `Christening receptions near ${name}`,
                     paragraphs: [
-                        `A christening or naming day is a happy, family occasion, and we love hosting the celebration that follows. The Anchor is ${distance} from ${name}, ${HEATHROW_LINE}, so guests travelling from further afield can find us easily.`,
-                        `Our private dining room seats 26, with French doors opening onto the beer garden, and we can host larger gatherings of up to 150 across the venue. ${COORDINATOR_LINE}, so you can relax and enjoy the day. There are high chairs for little ones, plenty of room for buggies, and a garden where children can play.`,
-                        `Choose from buffets, afternoon teas or a sit-down meal, with options for every age and appetite. We are a dog-friendly pub too, so well-behaved dogs are welcome to join the family. Call us on ${CONTACT.phone} to talk through your celebration and we will help you plan it.`,
+                        `A christening or naming day is a happy, family occasion, and we love hosting the celebration that follows. The Anchor is ${isFrom}, ${HEATHROW_LINE}, so guests travelling from further afield can find us easily.`,
+                        `${DINING_ROOM_LINE}. ${COORDINATOR_LINE}, so you can relax and enjoy the day. ${FAMILIES_WORDING}`,
+                        `Choose from buffets, afternoon teas or a sit-down meal, with options for every age and appetite. ${DOGS_WORDING} Call us on ${CONTACT.phone} to talk through your celebration and we will help you plan it.`,
                     ],
                 },
                 packagesHeading: 'Food for the celebration',
                 packagesIntro: `From relaxed finger buffets to afternoon teas and sit-down meals, we will tailor the catering to your party, including options for children. ${PRIVATE_HIRE_DIETARY_WORDING} Room hire and catering are quoted on enquiry.`,
                 faqs: [
-                    {
-                        question: `How far is The Anchor from ${name}?`,
-                        answer: `We are ${distance} from ${name}, an easy journey for guests heading straight from the service to the celebration.`,
-                    },
+                    ...howFar(', an easy journey for guests heading straight from the service to the celebration.'),
                     {
                         question: 'Is the venue suitable for families with young children?',
-                        answer: 'Yes. We have high chairs, room for buggies, a children\'s menu and a garden where little ones can play. Children are welcome at all hours.',
+                        answer: `${FAMILIES_WORDING} There's a children's menu too. ${CHILDREN_WELCOME_WORDING}`,
                     },
                     {
                         question: 'Do you have a private space for a christening party?',
-                        answer: 'Yes. Our private dining room seats 26 with French doors onto the garden, and we can arrange larger gatherings of up to 150 across the venue.',
+                        answer: PRIVATE_SPACE_ANSWER,
                     },
                     {
                         question: 'Is there free parking?',
-                        answer: 'Yes. We have 20 free parking spaces on site, level and close to the entrance, with additional parking nearby. There is no charge and no time limit while you are with us.',
+                        answer: PARKING_WORDING,
                     },
                     {
                         question: 'Can you cater for a mix of adults and children?',
@@ -286,7 +302,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is the venue dog friendly?',
-                        answer: 'Yes, dogs are welcome throughout the venue and in the garden, with water bowls and biscuits provided. Dogs should be kept on a lead.',
+                        answer: DOGS_WORDING,
                     },
                     {
                         question: 'Is a deposit required?',
@@ -303,15 +319,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
             return {
                 pageLabel: 'Team Events & Celebrations',
                 crumb: `Event venue near ${name}`,
-                lead: `An easy, relaxed venue for staff and family gatherings, ${distance} away`,
-                badges: [`${distance} from ${name}`, 'Flexible Timings', 'Free Parking', 'Private Dining Room'],
+                lead: `An easy, relaxed venue for staff and family gatherings${away}`,
+                badges: [...distanceBadge, 'Flexible Timings', 'Free Parking', 'Private Dining Room'],
                 bookingContext: 'private_party',
                 eventType: 'Other',
-                intro: `Whether it is a leaving do, a team lunch, a baby shower or a get-together away from the ward, The Anchor gives staff and families near ${name} somewhere relaxed to gather. We are ${distance} away with free parking. ${landmark.description}`,
+                intro: `Whether it is a leaving do, a team lunch, a baby shower or a get-together away from the ward, The Anchor gives staff and families near ${name} somewhere relaxed to gather. We${distance ? ` are ${distance} away and` : ''} have free parking. ${landmark.description}`,
                 reasons: [
                     {
-                        title: 'A short hop from the hospital',
-                        content: `We are ${distance} from ${name}, with ${PARKING_LINE}. It is an easy journey for colleagues finishing a shift or families marking an occasion.`,
+                        title: 'A short drive from the hospital',
+                        content: `${distance ? `We are ${distance} from ${name}. ` : ''}${PARKING_WORDING}`,
                     },
                     {
                         title: 'Timings that work around shifts',
@@ -321,18 +337,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 narrative: {
                     heading: `Gatherings for teams and families near ${name}`,
                     paragraphs: [
-                        `The Anchor is a traditional village pub ${distance} from ${name}, ${HEATHROW_LINE}. We host leaving dos, retirement send-offs, team lunches, baby showers and family celebrations for staff and visitors who want a relaxed space away from the hospital.`,
-                        `Our private dining room seats 26 with French doors onto the beer garden, and we can host larger gatherings of up to 150 across the venue. ${COORDINATOR_LINE}, and there is free WiFi throughout, TVs and a sound system, and a dog-friendly garden.`,
+                        `The Anchor is a traditional village pub ${isFrom}, ${HEATHROW_LINE}. We host leaving dos, retirement send-offs, team lunches, baby showers and family celebrations for staff and visitors who want a relaxed space away from the hospital.`,
+                        `${DINING_ROOM_LINE}. ${COORDINATOR_LINE}, and there is free WiFi throughout, TVs and a sound system, and a dog-friendly garden.`,
                         `We know hospital schedules can be unpredictable, so we keep things flexible and can work around shift changes and last-minute numbers. Choose from buffets, afternoon teas or a sit-down meal. Call us on ${CONTACT.phone} and we will help you arrange it.`,
                     ],
                 },
                 packagesHeading: 'Food and drinks for your gathering',
                 packagesIntro: 'From finger buffets to afternoon teas and sit-down meals, plus drinks packages and unlimited tea and coffee, we will tailor the catering to your group. Room hire and catering are quoted on enquiry.',
                 faqs: [
-                    {
-                        question: `How far is The Anchor from ${name}?`,
-                        answer: `We are ${distance} from ${name}, an easy journey for staff finishing a shift or families marking an occasion.`,
-                    },
+                    ...howFar(', an easy journey for staff finishing a shift or families marking an occasion.'),
                     {
                         question: 'Can you work around hospital shift patterns?',
                         answer: 'Yes. We are used to flexible timings and can arrange daytime, evening or weekend gatherings to fit around the rota. Just let us know what suits your team.',
@@ -343,11 +356,11 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is there free parking?',
-                        answer: 'Yes. We have 20 free parking spaces on site, level and close to the entrance, with additional parking nearby. There is no charge and no time limit while you are with us.',
+                        answer: PARKING_WORDING,
                     },
                     {
                         question: 'Do you have a private space?',
-                        answer: 'Yes. Our private dining room seats 26 with French doors onto the garden, and we can arrange larger gatherings of up to 150 across the venue.',
+                        answer: PRIVATE_SPACE_ANSWER,
                     },
                     {
                         question: 'How many people can you cater for?',
@@ -368,15 +381,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
             return {
                 pageLabel: 'Corporate & Team Events',
                 crumb: `Corporate venue near ${name}`,
-                lead: `A relaxed off-site for meetings, lunches and team socials, ${distance} away`,
-                badges: [`${distance} from ${name}`, 'Free WiFi', 'Free Parking', 'TVs & Sound System'],
+                lead: `A relaxed off-site for meetings, lunches and team socials${away}`,
+                badges: [...distanceBadge, 'Free WiFi', 'Free Parking', 'TVs & Sound System'],
                 bookingContext: 'private_party',
                 eventType: 'Other',
-                intro: `Sometimes the best way to get a team talking is to get them out of the office. The Anchor is ${distance} from ${name}, a relaxed village pub that makes an easy off-site for meetings, client lunches, team socials and end-of-quarter dinners. ${landmark.description}`,
+                intro: `Sometimes the best way to get a team talking is to get them out of the office. The Anchor is ${isFrom}, a relaxed village pub that makes an easy off-site for meetings, client lunches, team socials and end-of-quarter dinners. ${landmark.description}`,
                 reasons: [
                     {
                         title: 'An easy off-site location',
-                        content: `We are ${distance} from ${name}, with ${PARKING_LINE} and free WiFi throughout, so the team can drive over, park for free and get straight to it.`,
+                        content: `${reach} ${PARKING_LINE} and free WiFi throughout, so the team can drive over, park for free and get straight to it.`,
                     },
                     {
                         title: 'Equipped for working sessions',
@@ -386,18 +399,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 narrative: {
                     heading: `An off-site venue near ${name}`,
                     paragraphs: [
-                        `The Anchor is a traditional village pub ${distance} from ${name}, ${HEATHROW_LINE}. It is an easy, professional yet relaxed alternative to the office canteen for away-days, client lunches, team socials and corporate dinners.`,
-                        `Our private dining room seats 26 with French doors onto the beer garden, and we can host larger gatherings of up to 150 across the venue. There is free WiFi throughout, TVs and a sound system for presentations (no projector), and ${COORDINATOR_LINE}.`,
-                        `Choose from working lunches and finger buffets through to sit-down meals and drinks packages, and we will fit the day around your agenda. With free parking and no ULEZ charge to factor in, it is a straightforward off-site for any team. Call us on ${CONTACT.phone} to plan it.`,
+                        `The Anchor is a traditional village pub ${isFrom}, ${HEATHROW_LINE}. It is an easy, professional yet relaxed alternative to the office canteen for away-days, client lunches, team socials and corporate dinners.`,
+                        `${DINING_ROOM_LINE}. There is free WiFi throughout, TVs and a sound system for presentations (no projector), and ${COORDINATOR_LINE}.`,
+                        `Choose from working lunches and finger buffets through to sit-down meals and drinks packages, and we will fit the day around your agenda. With free parking, it is a straightforward off-site for any team. ${ULEZ_WORDING} Call us on ${CONTACT.phone} to plan it.`,
                     ],
                 },
                 packagesHeading: 'Catering for the working day',
                 packagesIntro: 'From working lunches and finger buffets to sit-down meals, drinks packages and unlimited tea and coffee, we will tailor the day to your team. Room hire and catering are quoted on enquiry.',
                 faqs: [
-                    {
-                        question: `How far is The Anchor from ${name}?`,
-                        answer: `We are ${distance} from ${name}, an easy off-site journey with free parking when the team arrives.`,
-                    },
+                    ...howFar(', an easy off-site journey with free parking when the team arrives.'),
                     {
                         question: 'Is there free WiFi and somewhere to present?',
                         answer: 'Yes. There is free WiFi throughout the venue, and the private dining room has a TV and a sound system for presentations and video. We do not have a projector, but the TV handles slides well.',
@@ -408,11 +418,11 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is there free parking?',
-                        answer: 'Yes. We have 20 free parking spaces on site, level and close to the entrance, with additional parking nearby. We are also outside the ULEZ zone, so there is no emissions charge.',
+                        answer: `${PARKING_WORDING} ${ULEZ_WORDING}`,
                     },
                     {
                         question: 'Do you have a private space for a meeting?',
-                        answer: 'Yes. Our private dining room seats 26 with French doors onto the garden, and we can arrange larger gatherings of up to 150 across the venue.',
+                        answer: PRIVATE_SPACE_ANSWER,
                     },
                     {
                         question: 'How many people can you cater for?',
@@ -433,15 +443,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
             return {
                 pageLabel: 'Club & Team Events',
                 crumb: `Club venue near ${name}`,
-                lead: `A relaxed spot for presentations, socials and committee dinners, ${distance} away`,
-                badges: [`${distance} from ${name}`, 'Live Sport on Terrestrial TV', 'Free Parking', 'Garden & Dining Room'],
+                lead: `A relaxed spot for presentations, socials and committee dinners${away}`,
+                badges: [...distanceBadge, 'Live Sport on Terrestrial TV', 'Free Parking', 'Garden & Dining Room'],
                 bookingContext: 'private_party',
                 eventType: 'Other',
-                intro: `Every club needs somewhere to mark the season. The Anchor is ${distance} from ${name}, a friendly village pub that makes an easy home for end-of-season dinners, presentation nights, committee meetings and supporter get-togethers. ${landmark.description}`,
+                intro: `Every club needs somewhere to mark the season. The Anchor is ${isFrom}, a friendly village pub that makes an easy home for end-of-season dinners, presentation nights, committee meetings and supporter get-togethers. ${landmark.description}`,
                 reasons: [
                     {
-                        title: 'Just down the road from the club',
-                        content: `We are ${distance} from ${name}, with ${PARKING_LINE}, so players, families and supporters can all get here easily and park for free.`,
+                        title: 'Free parking for the whole club',
+                        content: `${reach} ${PARKING_LINE}, so players, families and supporters can park for free.`,
                     },
                     {
                         title: 'Set up for a club night',
@@ -451,18 +461,15 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 narrative: {
                     heading: `A venue for club events near ${name}`,
                     paragraphs: [
-                        `The Anchor is a traditional village pub ${distance} from ${name}, ${HEATHROW_LINE}. We host end-of-season dinners, presentation nights, committee meetings, team socials and supporter meet-ups for local clubs and teams.`,
-                        `Our private dining room seats 26 with French doors onto the beer garden, and we can host larger gatherings of up to 150 across the venue. There are TVs and a sound system for presentations and awards (no projector), free WiFi throughout, and a dog-friendly garden. Live sport is shown on terrestrial channels only.`,
+                        `The Anchor is a traditional village pub ${isFrom}, ${HEATHROW_LINE}. We host end-of-season dinners, presentation nights, committee meetings, team socials and supporter meet-ups for local clubs and teams.`,
+                        `${DINING_ROOM_LINE}. There are TVs and a sound system for presentations and awards (no projector), free WiFi throughout, and a dog-friendly garden. Live sport is shown on terrestrial channels only.`,
                         `Choose from buffets and sharing platters to sit-down meals and drinks packages, and ${COORDINATOR_LINE}. With free parking and a relaxed, welcoming atmosphere, it is an easy choice for any club occasion. Call us on ${CONTACT.phone} to arrange it.`,
                     ],
                 },
                 packagesHeading: 'Food and drinks for the club',
                 packagesIntro: 'From finger buffets and sharing platters to sit-down meals, drinks packages and unlimited tea and coffee, we will tailor the night to your club. Room hire and catering are quoted on enquiry.',
                 faqs: [
-                    {
-                        question: `How far is The Anchor from ${name}?`,
-                        answer: `We are ${distance} from ${name}, an easy journey for players, families and supporters, with free parking when you arrive.`,
-                    },
+                    ...howFar(', an easy journey for players, families and supporters, with free parking when you arrive.'),
                     {
                         question: 'Can we hold a presentation or awards night?',
                         answer: 'Yes. The private dining room has a TV and a sound system for presentations and trophy nights. We do not have a projector, but the TV handles slides and video well.',
@@ -477,7 +484,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is there free parking?',
-                        answer: 'Yes. We have 20 free parking spaces on site, level and close to the entrance, with additional parking nearby. There is no charge and no time limit while you are with us.',
+                        answer: PARKING_WORDING,
                     },
                     {
                         question: 'How many people can you cater for?',
@@ -523,7 +530,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     heading: `A private hire venue near ${name}`,
                     paragraphs: [
                         `The Anchor is a traditional village pub ${distance ? `${distance} from ${name}` : 'in Stanwell Moor'}, ${HEATHROW_LINE}. We host private parties, celebrations and gatherings of all kinds in a relaxed, welcoming setting.`,
-                        `Our private dining room seats 26 with French doors onto the beer garden, and we can host larger gatherings of up to 150 across the venue. You get ${COORDINATOR_LINE}, and there is free WiFi throughout, TVs and a sound system, and a dog-friendly garden.`,
+                        `${DINING_ROOM_LINE}. You get ${COORDINATOR_LINE}, and there is free WiFi throughout, TVs and a sound system, and a dog-friendly garden.`,
                         `Choose from buffets, afternoon teas or a sit-down meal, plus drinks packages to suit. Call us on ${CONTACT.phone} and we will help you plan an event that fits the occasion.`,
                     ],
                 },
@@ -540,11 +547,11 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                         : []),
                     {
                         question: 'Is there free parking?',
-                        answer: 'Yes. We have 20 free parking spaces on site, level and close to the entrance, with additional parking nearby. There is no charge and no time limit while you are with us.',
+                        answer: PARKING_WORDING,
                     },
                     {
                         question: 'Do you have a private space?',
-                        answer: 'Yes. Our private dining room seats 26 with French doors onto the garden, and we can arrange larger gatherings of up to 150 across the venue.',
+                        answer: PRIVATE_SPACE_ANSWER,
                     },
                     {
                         question: 'How many people can you cater for?',
@@ -560,7 +567,7 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         question: 'Is the venue dog friendly?',
-                        answer: 'Yes, dogs are welcome throughout the venue and in the garden, with water bowls and biscuits provided. Dogs should be kept on a lead.',
+                        answer: DOGS_WORDING,
                     },
                     {
                         question: 'Is a deposit required?',
@@ -603,21 +610,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     // version interpolated the full `descriptor` list and ran to 225.
     // `where` carries the drive time when the entry has one, and says only
     // "near" when it does not.
-    const where = landmark.distance ? `${landmark.distance} from ${landmark.name}` : `near ${landmark.name}`
-    const whereJust = landmark.distance ? `just ${where}` : where
-    const description = `${label} ${where}. Free parking, private space for 10 to 150 guests and someone to help you plan it.`
+    const where = whereFrom(landmark) ?? `near ${landmark.name}`
+    const description = `${label} ${where}. Free parking, private space for ${PRIVATE_HIRE_CAPACITY.recommendedRange} and someone to help you plan it.`
 
     return {
         title,
         description,
         openGraph: {
             title: `${label} Near ${landmark.name} | The Anchor Stanwell Moor`,
-            description: `A welcoming venue for ${descriptor}, ${whereJust}. Free parking and flexible private spaces.`,
+            description: `A welcoming venue for ${descriptor}, ${where}. Free parking and flexible private spaces.`,
             images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         },
         twitter: getTwitterMetadata({
             title: `${label} Near ${landmark.name} | The Anchor Stanwell Moor`,
-            description: `A welcoming venue for ${descriptor}, ${whereJust}.`,
+            description: `A welcoming venue for ${descriptor}, ${where}.`,
             images: [DEFAULT_CORPORATE_IMAGE]
         }),
         alternates: {
@@ -661,8 +667,8 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
         telephone: CONTACT.phoneIntl,
         url: `https://www.the-anchor.pub/private-hire/near/${landmark.slug}`,
         image: `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        description: `A flexible private hire venue for ${angle.pageLabel.toLowerCase()}, ${landmark.distance ? `${landmark.distance} from` : 'near'} ${landmark.name}.`,
-        maximumAttendeeCapacity: 150,
+        description: `A flexible private hire venue for ${angle.pageLabel.toLowerCase()}, ${whereFrom(landmark) ?? `near ${landmark.name}`}.`,
+        maximumAttendeeCapacity: mainArea.standing,
         amenityFeature: [
             { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
             { '@type': 'LocationFeatureSpecification', name: 'Private Dining Room', value: true },
@@ -772,7 +778,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
             <section className="py-section-y bg-surface-sunk">
                 <Container>
                     <SectionHeading
-                        title={landmark.distance ? `Just ${landmark.distance} Away` : 'How to Find Us'}
+                        title={landmark.distance && landmark.slug !== 'heathrow-airport' ? `Just ${landmark.distance} Away` : 'How to Find Us'}
                         script="Easy to find, easy to park"
                     />
                     <div className="mx-auto h-[400px] rounded-md overflow-hidden shadow-md">
@@ -829,7 +835,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 links={relatedLandmarks.map((l) => ({
                     href: `/private-hire/near/${l.slug}`,
                     title: l.name,
-                    description: l.distance ? `${l.distance} from The Anchor` : l.address,
+                    description: l.distance ?? l.address,
                 }))}
             />
 
