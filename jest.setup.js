@@ -1,6 +1,7 @@
 // Learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
 import './lib/test-utils/matchers'
+import { floatingLayers } from './lib/floating-layers'
 import nodeFetch, { Headers as NodeFetchHeaders, Request as NodeFetchRequest, Response as NodeFetchResponse } from 'next/dist/compiled/node-fetch'
 
 if (!global.fetch) {
@@ -40,6 +41,23 @@ global.IntersectionObserver = class IntersectionObserver {
   observe() {}
   unobserve() {}
 }
+
+// Mock ResizeObserver: jsdom has none, and the booking bar and the cookie banner
+// both measure themselves with one.
+if (!global.ResizeObserver) {
+  global.ResizeObserver = class ResizeObserver {
+    constructor() {}
+    disconnect() {}
+    observe() {}
+    unobserve() {}
+  }
+}
+
+// The floating layer coordinator is one object for the whole page, and it allows
+// one timed pop-up per page view. Every test is a new page view.
+beforeEach(() => {
+  floatingLayers.reset()
+})
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {

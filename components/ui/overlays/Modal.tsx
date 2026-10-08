@@ -37,8 +37,17 @@ const modalVariants = cva(
   }
 )
 
+// No `items-center` here, on purpose. A panel taller than the screen that is
+// centred by its container hangs off the top as far as it hangs off the bottom,
+// and the part above the top cannot be scrolled to: on a phone held sideways
+// the Christmas pop-up's close button was off the screen for good (site review
+// LS-008). The panel is centred by its own `my-auto` instead (see the panel
+// below). Auto margins share out spare room, so it sits in the middle when it
+// fits, and when it does not they collapse to nothing: the panel starts at the
+// top and the layer scrolls to the rest. The 32px above and below is this
+// layer's padding, where it used to be the panel's margin.
 const overlayVariants = cva(
-  'fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto',
+  'fixed inset-0 z-[100] flex justify-center px-4 py-8 overflow-y-auto',
   {
     variants: {
       backdrop: {
@@ -302,7 +311,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       >
         <div
           ref={modalRef}
-          className={cn(modalVariants({ size }), 'my-8', className)}
+          className={cn(modalVariants({ size }), 'my-auto', className)}
           onClick={(e) => e.stopPropagation()}
           onClickCapture={(event) => {
             const target = event.target as HTMLElement | null

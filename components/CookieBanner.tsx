@@ -14,6 +14,7 @@ import {
 import { trackCookieConsent } from '@/lib/gtm-events';
 import { Button } from '@/components/ui';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
+import { useFloatingLayer } from '@/hooks/useFloatingLayer';
 
 /**
  * Published so the sticky Book a table bar can sit directly above this banner instead of
@@ -33,6 +34,22 @@ export default function CookieBanner() {
   const [showPreferences, setShowPreferences] = useState(false);
   const [consent, setConsent] = useState<CookieConsent | null>(null);
   const [dismissed, setDismissed] = useState(false);
+  // True from the moment the page knows no choice has been made, which is a
+  // second before the bar is drawn (see the timer below), until one is made.
+  // It is what the floating layer coordinator is told, so that nothing lower in
+  // its order (the event card, a timed pop-up) appears in that second and is
+  // then pushed out again.
+  const [awaitingChoice, setAwaitingChoice] = useState(false);
+  // One floating layer at a time (lib/floating-layers.ts). While a dialog is
+  // open (the quick booking sheet, the phone menu, an enquiry drawer) the bar
+  // steps out, because it used to sit on the last control of each of them. It
+  // comes back when the dialog closes. This changes where the bar is drawn and
+  // nothing else: no choice is made, stored or assumed while it is away.
+  const bannerMayShow = useFloatingLayer('cookie-banner', awaitingChoice);
+  // Its own preferences panel is a dialog too, and covers the bar with a dark
+  // layer. The bar stays under it, so "choose which cookies" is still there to
+  // take focus back when the panel closes.
+  const bannerOnScreen = showBanner && (bannerMayShow || showPreferences);
   const bannerRef = useRef<HTMLDivElement | null>(null);
   // The panel is a modal dialog. This moves focus into it when it opens, keeps Tab inside
   // it, and hands focus back to whatever opened it (usually the footer's Cookie settings
@@ -59,7 +76,7 @@ export default function CookieBanner() {
     const root = document.documentElement;
     const clear = () => root.style.setProperty(BANNER_HEIGHT_VAR, '0px');
 
-    if (!showBanner) {
+    if (!bannerOnScreen) {
       clear();
       return;
     }
@@ -83,7 +100,7 @@ export default function CookieBanner() {
       // the bottom of the screen on every subsequent page with no banner in sight.
       clear();
     };
-  }, [showBanner, showPreferences]);
+  }, [bannerOnScreen, showPreferences]);
 
   useEffect(() => {
     // Check if user has already consented
@@ -91,6 +108,7 @@ export default function CookieBanner() {
     const currentConsent = getConsentStatus();
 
     if (!hasConsented) {
+      setAwaitingChoice(true);
       // Small delay to prevent banner from flashing on page load
       const timer = setTimeout(() => {
         setShowBanner(true);
@@ -104,12 +122,14 @@ export default function CookieBanner() {
   const handleAcceptAll = () => {
     acceptAllCookies();
     setShowBanner(false);
+    setAwaitingChoice(false);
     trackCookieConsent({ action: 'accept_all', analytics: true, marketing: true });
   };
 
   const handleRejectAll = () => {
     rejectAllCookies();
     setShowBanner(false);
+    setAwaitingChoice(false);
     trackCookieConsent({ action: 'reject_all', analytics: false, marketing: false });
   };
 
@@ -119,6 +139,7 @@ export default function CookieBanner() {
       marketing: consent?.marketing || false
     });
     setShowBanner(false);
+    setAwaitingChoice(false);
     setShowPreferences(false);
     trackCookieConsent({
       action: 'save_preferences',
@@ -136,7 +157,7 @@ export default function CookieBanner() {
           "We use cookies." */}
       {/* z-[90] keeps the banner above the sticky CTA bar (z-[80]), which now sits directly
           on top of it rather than waiting for it to be dismissed. */}
-      {showBanner && (
+      {bannerOnScreen && (
         <div
           ref={bannerRef}
           className="fixed bottom-0 left-0 right-0 bg-surface border-t border-line shadow-lg z-[90] animate-slide-up safe-area-inset-bottom"

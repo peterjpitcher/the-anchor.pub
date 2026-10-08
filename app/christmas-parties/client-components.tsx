@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { currentPagePath, floatingLayers } from '@/lib/floating-layers'
 import { Container } from '@/components/ui/layout/Container'
 import { Section } from '@/components/ui/layout/Section'
 import { Grid } from '@/components/ui/layout/Grid'
@@ -2471,9 +2472,15 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
     if (lastShown && now - lastShown < sevenDays) return
 
     const isDesktop = typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
-    let timeoutId: number | null = null
 
+    // One floating layer at a time (lib/floating-layers.ts). This pop-up used
+    // to open on its timer whatever else was up, the enquiry drawer included.
+    // The coordinator refuses while the cookie banner is unanswered or a dialog
+    // is open; a refusal records nothing, so the pop-up is not used up.
     const showLightbox = () => {
+      const release = floatingLayers.claimTimedPopup(currentPagePath())
+      if (!release) return false
+      releaseLayerRef.current = release
       setVisible(true)
       trackBannerEvent({
         id: 'christmas_seasonal_enquiry_lightbox',
@@ -2489,12 +2496,13 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
         meal_service: context.mode === 'meal' ? context.service : undefined
       })
       markLocalStorage(ENQUIRY_STORAGE_KEYS.lightbox, String(Date.now()))
+      return true
     }
 
     const handleMouseLeave = (event: MouseEvent) => {
       if (event.clientY <= 0) {
-        document.removeEventListener('mouseleave', handleMouseLeave)
-        showLightbox()
+        // Stop listening only once it has opened: a refusal leaves it armed.
+        if (showLightbox()) document.removeEventListener('mouseleave', handleMouseLeave)
       }
     }
 
@@ -2503,14 +2511,22 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
       return () => document.removeEventListener('mouseleave', handleMouseLeave)
     }
 
-    timeoutId = window.setTimeout(showLightbox, 35000)
-
-    return () => {
-      if (timeoutId) {
-        window.clearTimeout(timeoutId)
-      }
-    }
+    // Phones: 35 seconds into the page, or later if something higher in the
+    // order is in the way at that moment.
+    return floatingLayers.scheduleTimedPopup({ delayMs: 35000, attempt: showLightbox })
   }, [context.mode, context.service, suppressed])
+
+  // Hand the layer back when the pop-up has gone, or if this unmounts.
+  const releaseLayerRef = useRef<(() => void) | null>(null)
+  useEffect(() => {
+    if (visible) return
+    releaseLayerRef.current?.()
+    releaseLayerRef.current = null
+  }, [visible])
+  useEffect(() => () => {
+    releaseLayerRef.current?.()
+    releaseLayerRef.current = null
+  }, [])
 
   const closeLightbox = useCallback(() => {
     trackBannerEvent({

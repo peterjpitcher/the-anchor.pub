@@ -454,6 +454,13 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height, 80px); /* Account for fixed header */
+  /* A control reached with the Tab key is scrolled clear of whatever is docked
+     at the bottom of the screen, instead of ending up behind it (WCAG 2.2
+     SC 2.4.11, site review AX-004). Each layer publishes its own height while
+     it is on screen and 0px otherwise: the booking bar in
+     components/layout/StickyCtas.tsx, the cookie banner in
+     components/CookieBanner.tsx. Scroll padding moves nothing on the page. */
+  scroll-padding-bottom: calc(var(--booking-bar-height, 0px) + var(--cookie-banner-height, 0px));
 }
 
 html,

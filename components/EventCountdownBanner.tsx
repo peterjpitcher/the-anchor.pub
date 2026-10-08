@@ -1,12 +1,15 @@
 'use client'
 
 import { getEventSquareImage } from '@/lib/event-image'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { type Event } from '@/lib/api'
 import { trackBannerEvent, trackCtaClick } from '@/lib/gtm-events'
 import { EventBookingButton } from '@/components/EventBookingButton'
+import { useFloatingLayer } from '@/hooks/useFloatingLayer'
+import { usePastHero } from '@/hooks/usePastHero'
+import { useFocusedControlBehind, useFooterBehind } from '@/hooks/useLayerStepAside'
 
 const BANNER_STORAGE_KEY = 'event_banner_dismissed_until'
 const SESSION_ELIGIBILITY_KEY = 'event_banner_session_show'
@@ -277,38 +280,57 @@ export function EventCountdownBanner() {
     return getUrgencyCopy(event, daysUntil, hoursUntil)
   }, [banner])
 
+  // When the card is on screen is no longer the card's own decision. Three rules,
+  // all from the 7 October 2026 site review and owner decision 12 (one floating
+  // layer at a time):
+  //
+  // 1. Not over the first screen. Pinned above the bottom edge from the moment a
+  //    page opened, the card sat on the hero's own buttons on 67 pages, Book a
+  //    table on the homepage among them (LS-021). It now waits until the visitor
+  //    has scrolled past the hero, the same trigger the booking bar uses. The
+  //    hidden list above stays: those pages are booking pages at any scroll depth.
+  // 2. After the cookie banner, never with it. The booking bar rides up on the
+  //    banner into the space the card was told is free, and the card then covered
+  //    the bar (LS-002).
+  // 3. Never over a dialog. With the quick booking sheet open the card covered
+  //    nine of the ten times a visitor could pick (LS-001).
+  //
+  // Rules 2 and 3 are the floating layer coordinator's (lib/floating-layers.ts).
+  // The card says it wants to show and is told whether it may.
+  const pastHero = usePastHero(pathname)
+  const wantsCard = Boolean(banner) && !dismissed && pastHero
+  const cardShowing = useFloatingLayer('event-banner', wantsCard)
+
+  // Counted when the card is first on screen, once for each event. It used to be
+  // counted when the event was fetched, which was the same moment while the card
+  // appeared as the page opened and is not now.
+  const viewedCampaignRef = useRef<string | null>(null)
   useEffect(() => {
-    if (!banner) return
+    if (!banner || !cardShowing) return
+    const campaign = banner.event.slug || banner.event.id
+    if (viewedCampaignRef.current === campaign) return
+    viewedCampaignRef.current = campaign
     trackBannerEvent({
       id: 'event_countdown_banner',
       action: 'view',
       label: banner.event.name,
-      campaign: banner.event.slug || banner.event.id
+      campaign
     })
-  }, [banner])
+  }, [banner, cardShowing])
 
   // At the bottom of a page the card sat on top of the footer until it was closed. On a
   // phone, where it is as wide as the screen, that covered the whole row of legal links
   // (Privacy Policy, Cookie settings and the rest). On wider screens, where it is a
   // corner card, it covered the copyright line and the first three of them. It now steps
   // aside at every size while the footer is underneath it and comes back when the visitor
-  // scrolls up again. This only records where the footer is; the class on the card below
-  // does the hiding, so the card stays mounted.
-  const [footerUnderCard, setFooterUnderCard] = useState(false)
-  const cardShowing = Boolean(banner) && !dismissed
+  // scrolls up again. The class on the card below does the hiding, so the card stays
+  // mounted.
+  const footerUnderCard = useFooterBehind(cardShowing, CARD_BOTTOM_OFFSET_PX)
 
-  useEffect(() => {
-    if (!cardShowing) return
-    const footer = document.querySelector('footer[role="contentinfo"]')
-    if (!footer) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setFooterUnderCard(entry.isIntersecting),
-      { rootMargin: `0px 0px -${CARD_BOTTOM_OFFSET_PX}px 0px` }
-    )
-    observer.observe(footer)
-    return () => observer.disconnect()
-  }, [cardShowing])
+  // A control reached with the Tab key could be wholly hidden behind the card
+  // (site review AX-004). The card steps aside while that is so.
+  const cardRef = useRef<HTMLDivElement>(null)
+  const focusUnderCard = useFocusedControlBehind(cardRef, cardShowing)
 
   if (dismissed || !banner || !content) {
     return null
@@ -351,11 +373,16 @@ export function EventCountdownBanner() {
   const timeString = eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
 
   return (
+    // `data-layer-showing` is the coordinator's answer. The card stays mounted
+    // while it is hidden, so whatever its button opened is not torn down with it.
+    // The focus rule hides with visibility, not display: see useFocusedControlBehind.
     <div
+      data-layer-showing={cardShowing}
       data-footer-under-card={footerUnderCard}
-      className="fixed bottom-28 left-0 right-0 z-[90] px-4 pointer-events-none data-[footer-under-card=true]:hidden sm:left-6 sm:right-auto sm:px-0"
+      data-focus-under-card={focusUnderCard}
+      className="fixed bottom-28 left-0 right-0 z-[90] px-4 pointer-events-none data-[layer-showing=false]:hidden data-[footer-under-card=true]:hidden data-[focus-under-card=true]:invisible sm:left-6 sm:right-auto sm:px-0"
     >
-      <div className="pointer-events-auto relative mx-auto w-full rounded-2xl border border-line border-t-[3px] border-t-anchor-gold bg-surface text-ink px-4 py-4 shadow-lg backdrop-blur-lg sm:mx-0 sm:w-80 sm:px-4">
+      <div ref={cardRef} className="pointer-events-auto relative mx-auto w-full rounded-2xl border border-line border-t-[3px] border-t-anchor-gold bg-surface text-ink px-4 py-4 shadow-lg backdrop-blur-lg sm:mx-0 sm:w-80 sm:px-4">
         <div className="flex items-center gap-3 min-w-0">
           {/* No artwork means no avatar at all, rather than an empty grey ring. */}
           {imageSrc && (
@@ -387,7 +414,9 @@ export function EventCountdownBanner() {
         <button
           type="button"
           onClick={handleDismiss}
-          className="absolute right-3 top-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-surface-sunk text-ink-muted transition hover:text-ink"
+          // The circle stays 28px; the invisible ring round it makes the tap
+          // target 44px (site review LS-016).
+          className="absolute right-3 top-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-surface-sunk text-ink-muted transition hover:text-ink before:absolute before:-inset-2 before:content-['']"
           aria-label="Dismiss event reminder"
         >
           <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

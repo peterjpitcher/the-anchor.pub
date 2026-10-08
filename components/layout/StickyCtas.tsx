@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { resolveBookingCta, type BookingCta } from '@/lib/booking-cta'
 import { withCarriedAttributionParams } from '@/lib/booking-attribution'
-import { hasUserConsented } from '@/lib/cookies'
+import { useFloatingLayer, useFloatingLayerShowing } from '@/hooks/useFloatingLayer'
+import { usePastHero } from '@/hooks/usePastHero'
 import { Utensils, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { QuickBookSheet } from '@/components/features/TableBooking/QuickBookSheet'
@@ -25,8 +26,14 @@ import {
 
 const PHONE_DISPLAY = '01753682707'
 const WHATSAPP_HREF = 'https://wa.me/441753682707'
-const HERO_FALLBACK_HEIGHT = 480
-const REVEAL_OFFSET = 90
+
+/**
+ * The bar's height while it is on screen, 0px otherwise. Two things read it:
+ * `scroll-padding-bottom` in app/globals.css, so a control reached with the
+ * Tab key is scrolled clear of the bar instead of under it (site review
+ * AX-004), and any page prompt that has to sit above the bar.
+ */
+const BAR_HEIGHT_VAR = '--booking-bar-height'
 
 // The main button takes whatever width the three round buttons leave. On a
 // phone that can be less than its label: at 320px there were 108px, and
@@ -50,28 +57,14 @@ function resolveDeviceType(width: number): DeviceType {
   return 'desktop'
 }
 
-/**
- * Best-effort measurement of the current page hero so the bar can reveal once the
- * hero scrolls past. Prefers the explicit [data-hero] marker (InteriorHero/home
- * hero), falls back to the first <section> in <main>, then a documented constant.
- */
-function measureHeroHeight(): number {
-  if (typeof document === 'undefined') return HERO_FALLBACK_HEIGHT
-  const explicit = document.querySelector<HTMLElement>('[data-hero]')
-  if (explicit) return explicit.offsetHeight
-  const firstSection = document.querySelector<HTMLElement>('main section')
-  if (firstSection) return firstSection.offsetHeight
-  return HERO_FALLBACK_HEIGHT
-}
-
 export function StickyCtas() {
   const pathname = usePathname()
   const isBookTable = pathname?.startsWith('/book-table') ?? false
   const [pageAction, setPageAction] = useState<{ pathname: string; action: BookingCta } | null>(null)
   const action = pageAction?.pathname === pathname ? pageAction.action : resolveBookingCta(pathname || '/')
 
-  const [visible, setVisible] = useState(false)
-  const [cookieBannerVisible, setCookieBannerVisible] = useState(false)
+  // Revealed once the hero has scrolled out (scrollY > hero height - 90).
+  const visible = usePastHero(pathname, !isBookTable)
   const [deviceType, setDeviceType] = useState<DeviceType>('unknown')
   const [quickBookOpen, setQuickBookOpen] = useState(false)
 
@@ -105,19 +98,42 @@ export function StickyCtas() {
   // The banner is still tracked, but now only to position this bar on top of it rather
   // than to suppress it. No consent is required to render a link.
   const showStickyCtas = visible
-  const heroHeightRef = useRef<number>(HERO_FALLBACK_HEIGHT)
+  // The floating layer coordinator (lib/floating-layers.ts) has the last word on
+  // whether the bar is on screen. It docks with the cookie banner, the event card
+  // and a page prompt, and gives way only to something that covers the whole
+  // screen: an open dialog (the quick booking sheet, the phone menu, an enquiry
+  // drawer) or an open pop-up. It used to stay put under those and cover the last
+  // item of the phone menu.
+  //
+  // `showStickyCtas` still drives the "seconds shown" measurement, exactly as
+  // before, so that record means what it always has. The bar's buttons leave the
+  // tab order whenever it is off the screen, for either reason: not every dialog
+  // on the site holds keyboard focus inside itself.
+  const barOnScreen = useFloatingLayer('booking-bar', showStickyCtas)
+  const cookieBannerVisible = useFloatingLayerShowing('cookie-banner')
+  const barRef = useRef<HTMLDivElement | null>(null)
   const visibleSinceRef = useRef<number | null>(null)
   const deviceTypeRef = useRef<DeviceType>('unknown')
 
+  // Publish the bar's height while it is on screen. See BAR_HEIGHT_VAR.
   useEffect(() => {
-    const updateCookieBannerVisibility = () => {
-      setCookieBannerVisible(!hasUserConsented())
+    const root = document.documentElement
+    const clear = () => root.style.setProperty(BAR_HEIGHT_VAR, '0px')
+    const node = barRef.current
+    if (!barOnScreen || !node) {
+      clear()
+      return
     }
-
-    updateCookieBannerVisibility()
-    window.addEventListener('cookieConsentUpdate', updateCookieBannerVisibility)
-    return () => window.removeEventListener('cookieConsentUpdate', updateCookieBannerVisibility)
-  }, [])
+    const publish = () => root.style.setProperty(BAR_HEIGHT_VAR, `${node.offsetHeight}px`)
+    publish()
+    // The label wraps to two lines on the narrowest phones and the bar grows.
+    const observer = new ResizeObserver(publish)
+    observer.observe(node)
+    return () => {
+      observer.disconnect()
+      clear()
+    }
+  }, [barOnScreen])
 
   // Flush a "sticky_cta_shown" measurement (seconds the bar was visible) using the
   // existing GTM helper. Called on hide, route change and unmount.
@@ -135,33 +151,17 @@ export function StickyCtas() {
     }
   }, [])
 
-  // Track device type and (re)measure the hero on resize.
+  // Track device type. The hero is measured in usePastHero.
   useEffect(() => {
     if (isBookTable) return
     const handleResize = () => {
       const type = resolveDeviceType(window.innerWidth)
       deviceTypeRef.current = type
       setDeviceType(type)
-      heroHeightRef.current = measureHeroHeight()
     }
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [isBookTable, pathname])
-
-  // Reveal once the hero has scrolled out (scrollY > heroHeight - 90).
-  useEffect(() => {
-    if (isBookTable) return
-    // Re-measure after mount in case images/fonts changed the hero height.
-    heroHeightRef.current = measureHeroHeight()
-
-    const evaluate = () => {
-      const threshold = Math.max(0, heroHeightRef.current - REVEAL_OFFSET)
-      setVisible(window.scrollY > threshold)
-    }
-    evaluate()
-    window.addEventListener('scroll', evaluate, { passive: true })
-    return () => window.removeEventListener('scroll', evaluate)
   }, [isBookTable, pathname])
 
   // Start/stop the visibility timer and flush on hide.
@@ -182,27 +182,35 @@ export function StickyCtas() {
 
   return (
     <div
+      ref={barRef}
       aria-hidden={!showStickyCtas}
-      className="fixed inset-x-0 z-[80] border-t border-line bg-[var(--sticky-cta-surface)] py-3 backdrop-blur transition-[transform,bottom] duration-[var(--dur)] ease-[var(--ease-out)] supports-[backdrop-filter]:backdrop-blur"
+      className="fixed inset-x-0 bottom-0 z-[80] border-t border-line bg-[var(--sticky-cta-surface)] py-3 backdrop-blur transition-transform duration-[var(--dur)] ease-[var(--ease-out)] supports-[backdrop-filter]:backdrop-blur"
       style={{
-        // Rides on top of the cookie banner while it is up, then drops back to the bottom
-        // edge once it is dismissed. Defaults to 0px so every page with no banner renders
-        // exactly as before.
-        bottom: cookieBannerVisible ? 'var(--cookie-banner-height, 0px)' : 0,
         // The safe-area inset belongs to whichever element actually touches the bottom
         // edge, which is the banner whenever there is one. Keeping it here as well would
         // open a phantom gap inside the bar on notched phones.
         paddingBottom: cookieBannerVisible
           ? '0.75rem'
           : 'calc(0.75rem + env(safe-area-inset-bottom, 0px))',
-        transform: showStickyCtas ? 'translateY(0)' : 'translateY(125%)',
+        // Rides on top of the cookie banner while it is up, then drops back to the bottom
+        // edge once it is answered. The banner publishes 0px whenever it is not on screen,
+        // so every page with no banner renders exactly as before.
+        //
+        // Moved with transform, never with `bottom`. The banner arrives a second after
+        // the page, and a bar that changes its `bottom` to make room is counted by the
+        // browser as a layout shift: it was the moving part in 8 of the 10 real-visitor
+        // readings that recorded any movement (site review FD-007, LS-003). A transform
+        // is not counted, and nothing else on the page moves.
+        transform: barOnScreen
+          ? 'translateY(calc(-1 * var(--cookie-banner-height, 0px)))'
+          : 'translateY(125%)',
         boxShadow: '0 -6px 24px rgba(26,26,26,0.10)'
       }}
       data-testid="sticky-ctas"
     >
       <div className="container flex items-center gap-3 max-[359px]:gap-2 lg:justify-end">
         {action.kind === 'link' ? (
-          <Button asChild variant="primary" size="md" wrap className={PRIMARY_ACTION_CLASS} tabIndex={showStickyCtas ? undefined : -1}>
+          <Button asChild variant="primary" size="md" wrap className={PRIMARY_ACTION_CLASS} tabIndex={barOnScreen ? undefined : -1}>
             <Link
               href={action.href}
               onClick={(event) => {
@@ -231,7 +239,7 @@ export function StickyCtas() {
             size="md"
             wrap
             className={PRIMARY_ACTION_CLASS}
-            tabIndex={showStickyCtas ? undefined : -1}
+            tabIndex={barOnScreen ? undefined : -1}
             onClick={() => {
               trackCtaClick({
                 id: 'christmas_sticky_global',
@@ -255,7 +263,7 @@ export function StickyCtas() {
             size="md"
             wrap
             className={PRIMARY_ACTION_CLASS}
-            tabIndex={showStickyCtas ? undefined : -1}
+            tabIndex={barOnScreen ? undefined : -1}
             onClick={() => {
               trackTableBookingClick('sticky_global')
               setQuickBookOpen(true)
@@ -274,7 +282,7 @@ export function StickyCtas() {
           size="md"
           className="shrink-0 max-sm:h-12 max-sm:w-12 max-sm:px-0"
           icon={<Utensils className="h-5 w-5" aria-hidden />}
-          tabIndex={showStickyCtas ? undefined : -1}
+          tabIndex={barOnScreen ? undefined : -1}
         >
           <Link href="/food-menu" onClick={() => trackMenuView('food')}>
             <span className="max-sm:sr-only">View menu</span>
@@ -284,7 +292,7 @@ export function StickyCtas() {
         <a
           href={`tel:${PHONE_DISPLAY}`}
           aria-label="Call The Anchor"
-          tabIndex={showStickyCtas ? undefined : -1}
+          tabIndex={barOnScreen ? undefined : -1}
           onClick={() => trackPhoneCallClick({ phone: PHONE_DISPLAY, source: 'sticky_global' })}
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-accent text-accent transition-colors hover:bg-accent hover:text-canvas"
         >
@@ -296,7 +304,7 @@ export function StickyCtas() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp The Anchor"
-          tabIndex={showStickyCtas ? undefined : -1}
+          tabIndex={barOnScreen ? undefined : -1}
           onClick={() => trackWhatsAppClick('sticky_global')}
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-anchor-success text-white transition-opacity hover:opacity-90"
         >

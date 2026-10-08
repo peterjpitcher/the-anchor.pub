@@ -224,10 +224,12 @@ export function Footer({
         <Image
           src={businessInfo.logo}
           alt="The Anchor logo - white anchor symbol with traditional pub lettering on dark background"
-          width={180}
+          // The file is 400 by 200 and is drawn 48px tall, so 96 by 48. Stated as
+          // 180 by 48 it held a wider box until it loaded (site review LS-015).
+          width={96}
           height={48}
           className="h-12 w-auto"
-          sizes="180px"
+          sizes="96px"
         />
       )}
       <p className="font-script text-[1.9rem] leading-none text-anchor-gold-bright mt-4">
@@ -328,7 +330,12 @@ export function Footer({
         'theme-dark relative overflow-hidden bg-anchor-green-deep text-anchor-cream-text',
         className
       )}
-      style={{ paddingTop: 'var(--space-8)', paddingBottom: 'calc(var(--space-5) + 76px)' }}
+      // The bottom padding is room for the booking bar (76px) and, while it is
+      // unanswered, the cookie banner the bar rides on. With room for the bar
+      // alone, the Cookie settings button at the end of the page was under the
+      // bar on a first visit (site review LS-002). The padding is below every
+      // line of the footer, so nothing moves when the banner arrives or goes.
+      style={{ paddingTop: 'var(--space-8)', paddingBottom: 'calc(var(--space-5) + 76px + var(--cookie-banner-height, 0px))' }}
     >
       {/* Film grain overlay (~5%) — dark surface only */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 opacity-[0.05] bg-[var(--grain)]" />
