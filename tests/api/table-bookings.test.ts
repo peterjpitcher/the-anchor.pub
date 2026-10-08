@@ -6,7 +6,7 @@
 // Test imports to ensure TypeScript compilation
 import { GET as getAvailability } from '@/app/api/table-bookings/availability/route'
 import { POST as createBooking } from '@/app/api/table-bookings/create/route'
-import { GET as getBooking, DELETE as cancelBooking } from '@/app/api/table-bookings/[reference]/route'
+import * as bookingByReference from '@/app/api/table-bookings/[reference]/route'
 
 describe('Table Booking API Routes', () => {
   beforeEach(() => {
@@ -42,11 +42,9 @@ describe('Table Booking API Routes', () => {
   })
 
   describe('Booking Details Route', () => {
-    it('should export GET and DELETE handlers', () => {
-      expect(getBooking).toBeDefined()
-      expect(typeof getBooking).toBe('function')
-      expect(cancelBooking).toBeDefined()
-      expect(typeof cancelBooking).toBe('function')
+    it('exports the DELETE handler and no GET (the read was removed on 8 October 2026)', () => {
+      expect(typeof bookingByReference.DELETE).toBe('function')
+      expect((bookingByReference as Record<string, unknown>).GET).toBeUndefined()
     })
   })
 })
@@ -188,12 +186,6 @@ const typeChecks = async () => {
     celebration_type: 'birthday'
   }
   const booking: TableBookingResponse = await anchorAPI.createTableBooking(bookingRequest)
-
-  // Get booking
-  const bookingDetails: TableBookingResponse = await anchorAPI.getTableBooking(
-    'REF123',
-    'guest@example.com'
-  )
 
   // Cancel booking
   const cancellation = await anchorAPI.cancelTableBooking('REF123', {

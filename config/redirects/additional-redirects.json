@@ -141,6 +141,11 @@
     "permanent": true
   },
   {
+    "source": "/parking/bookings/:id",
+    "destination": "/heathrow-parking",
+    "permanent": true
+  },
+  {
     "source": "/event-",
     "destination": "/whats-on",
     "permanent": true

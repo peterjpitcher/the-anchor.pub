@@ -156,59 +156,6 @@ describe('routes that say private, no-store themselves', () => {
     expect(failed.headers.get('cache-control')).toBe('private, no-store')
   })
 
-  it("a parking booking: one customer's details, found or not", async () => {
-    const getParkingBooking = jest.fn().mockResolvedValueOnce({ id: 'b1', customer_mobile: '07700900000' })
-    mockAnchorApi({ getParkingBooking })
-    const { GET } = await import('@/app/api/parking/bookings/[id]/route')
-    const request = new Request('https://www.the-anchor.pub/api/parking/bookings/b1')
-
-    const found = await GET(request, { params: { id: 'b1' } })
-    expect(found.status).toBe(200)
-    expect(found.headers.get('cache-control')).toBe('private, no-store')
-
-    getParkingBooking.mockRejectedValueOnce(Object.assign(new Error('nope'), { status: 404 }))
-    const missing = await GET(request, { params: { id: 'b1' } })
-    expect(missing.status).toBe(404)
-    expect(missing.headers.get('cache-control')).toBe('private, no-store')
-
-    const noId = await GET(request, { params: { id: '' } })
-    expect(noId.status).toBe(400)
-    expect(noId.headers.get('cache-control')).toBe('private, no-store')
-  })
-
-  it('a table booking by reference: the booking and every refusal', async () => {
-    const getTableBooking = jest.fn().mockResolvedValueOnce({ booking_reference: 'ABC123' })
-    mockAnchorApi({ getTableBooking })
-    const { GET } = await import('@/app/api/table-bookings/[reference]/route')
-    const withEmail = new Request('https://www.the-anchor.pub/api/table-bookings/ABC123', {
-      headers: { 'x-customer-email': 'guest@example.com' },
-    })
-
-    const found = await GET(withEmail, { params: { reference: 'ABC123' } })
-    expect(found.status).toBe(200)
-    expect(found.headers.get('cache-control')).toBe('private, no-store')
-
-    getTableBooking.mockRejectedValueOnce(Object.assign(new Error('nope'), { status: 404 }))
-    const missing = await GET(withEmail, { params: { reference: 'ABC123' } })
-    expect(missing.status).toBe(404)
-    expect(missing.headers.get('cache-control')).toBe('private, no-store')
-
-    const noEmail = await GET(new Request('https://www.the-anchor.pub/api/table-bookings/ABC123'), {
-      params: { reference: 'ABC123' },
-    })
-    expect(noEmail.status).toBe(400)
-    expect(noEmail.headers.get('cache-control')).toBe('private, no-store')
-
-    // An email address in the query string is not read: an address is what
-    // request logs record, so the route takes it from the header or not at all.
-    const emailInAddress = await GET(
-      new Request('https://www.the-anchor.pub/api/table-bookings/ABC123?customer_email=guest%40example.com'),
-      { params: { reference: 'ABC123' } }
-    )
-    expect(emailInAddress.status).toBe(400)
-    expect(getTableBooking).toHaveBeenCalledTimes(2)
-  })
-
   it('the phone lookup: known, degraded and refused', async () => {
     const { POST } = await import('@/app/api/customers/lookup/route')
     const request = (body: Record<string, unknown>, lastOctet = Math.floor(Math.random() * 200) + 1) =>
