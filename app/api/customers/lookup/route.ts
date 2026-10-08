@@ -5,6 +5,9 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { safeJsonParse } from '@/lib/upstream-json'
 import { mapUpstreamFailure } from '@/lib/guest-error-messages'
 
+// Never built ahead of time or kept: every answer is about one phone number.
+export const dynamic = 'force-dynamic'
+
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
 
@@ -60,8 +63,7 @@ function asTrimmedString(value: unknown): string {
 
 // POST, with the number in the body. As a GET the number sat in the web
 // address, which is the part of a request that hosting, proxy and browser
-// history all record. There is deliberately no GET handler: an address with a
-// phone number in it is answered 405 rather than served.
+// history all record.
 //
 // The onward call to the management app is still a GET with the number in its
 // query string, because that is the only form its lookup accepts. That hop is
@@ -142,4 +144,13 @@ export async function POST(request: NextRequest) {
     logError('api/customers/lookup', error)
     return createDegradedLookupResponse('network_error')
   }
+}
+
+// A page left open from before this route became a POST still asks with a GET
+// and the number in the address. It is answered "could not check", which the
+// forms already handle by asking for a name as they would for a new guest, so
+// nobody is stopped from booking by a deploy. The number is not read, not
+// looked up and not passed on. Nothing on the site sends this any more.
+export async function GET() {
+  return createDegradedLookupResponse('get_not_supported')
 }

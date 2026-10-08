@@ -166,8 +166,19 @@ describe('POST /api/customers/lookup: response never identifies anyone', () => {
     expect(global.fetch).not.toHaveBeenCalled()
   })
 
-  it('has no GET handler, so an address with a number in it is never served', async () => {
-    const route = await import('@/app/api/customers/lookup/route')
-    expect((route as Record<string, unknown>).GET).toBeUndefined()
+  it('a GET from a page left open across the deploy is told "could not check", and the number goes nowhere', async () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    mockUpstream({ success: true, data: { known: true } })
+    const { GET } = await import('@/app/api/customers/lookup/route')
+
+    // The handler takes no request at all, so it cannot read the address.
+    expect(GET.length).toBe(0)
+    const response = await GET()
+
+    expect(response.status).toBe(200)
+    expect(response.headers.get('cache-control')).toBe('private, no-store')
+    expect(await response.json()).toEqual({ success: true, data: { known: false, lookup_degraded: true } })
+    expect(global.fetch).not.toHaveBeenCalled()
+    warn.mockRestore()
   })
 })
