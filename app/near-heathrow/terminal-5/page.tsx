@@ -280,8 +280,8 @@ export default function Terminal5Page() {
                     </ul>
                   </div>
                   <div className="p-4 bg-anchor-success/10 rounded-sm border border-anchor-success/30">
-                    <p className="font-semibold text-anchor-success mb-1">Return Taxi Service</p>
-                    <p className="text-sm text-ink-muted">We&apos;ll call you a cab back to T5 - just ask!</p>
+                    <p className="font-semibold text-anchor-success mb-1">Return taxi</p>
+                    <p className="text-sm text-ink-muted">Ask at the bar and we&apos;ll give you a taxi number. You&apos;ll need to make your own arrangements.</p>
                   </div>
                 </div>
               </div>

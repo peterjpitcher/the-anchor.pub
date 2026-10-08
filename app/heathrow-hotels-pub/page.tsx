@@ -405,7 +405,7 @@ export default async function HeathrowHotelsPubPage() {
 	                  <li>• 7-12 minutes from most hotels</li>
 	                  <li>• 7-12 minute journey</li>
 	                  <li>• Ask for "The Anchor - Heathrow Pub & Dining"</li>
-	                  <li>• Return taxi easily arranged</li>
+	                  <li>• Ask at the bar for a taxi number for the trip back</li>
 	                </ul>
 	              </div>
 

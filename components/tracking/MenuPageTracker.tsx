@@ -5,7 +5,7 @@ import { pushToDataLayer, trackViewItem } from '@/lib/gtm-events'
 import { usePathname } from 'next/navigation'
 
 interface MenuPageTrackerProps {
-  menuType: 'food' | 'drinks' | 'sunday_lunch' | 'pizza' | 'managers_special'
+  menuType: 'food' | 'drinks' | 'sunday_lunch' | 'pizza'
   specialOffers?: string[]
 }
 

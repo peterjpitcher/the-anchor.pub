@@ -270,7 +270,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
     { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
     { path: '/drinks', lastModified: DATES.apr2026 },
-    { path: '/drinks/managers-special', lastModified: DATES.seoOverhaul },
     { path: '/drinks/baby-guinness', lastModified: DATES.seoOverhaul },
 
     // Events & entertainment

@@ -103,12 +103,12 @@ export default function PreFlightDiningPage() {
                         </div>
                         <Card accent>
                             <CardBody className="text-center">
-                                <h2 className="font-display text-h3 mb-4 text-ink-strong">Taxi Service</h2>
+                                <h2 className="font-display text-h3 mb-4 text-ink-strong">Taxis</h2>
                                 <p className="mb-6 text-ink">
-                                    Need a ride to the terminal? We have direct numbers for reliable local taxi firms who know exactly where we are and which drop-off zone you need.
+                                    Need a ride to the terminal? Ask at the bar and we&apos;ll give you a taxi number. You&apos;ll need to make your own arrangements.
                                 </p>
                                 <PhoneButton phone={CONTACT.phone} source="preflight_taxi_info" variant="outline" wrap>
-                                    Check Taxi Availability
+                                    Call for a Taxi Number
                                 </PhoneButton>
                             </CardBody>
                         </Card>

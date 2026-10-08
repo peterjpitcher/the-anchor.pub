@@ -18,7 +18,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Gender Reveal Party Venue Near Heathrow',
-    description: `Hosting a gender reveal? The Anchor offers the perfect garden space for smoke cannons and confetti. Celebrate your baby news with family and friends.`,
+    description: `Hosting a gender reveal? The Anchor has a garden for an outdoor reveal, with smoke cannons outside only. Celebrate your baby news with family and friends.`,
     openGraph: {
         title: 'Gender Reveal Parties at The Anchor',
         description: 'Boy or Girl? Host your big reveal in our spacious beer garden. Perfect for photos, smoke cannons, and family celebrations.',
@@ -99,7 +99,7 @@ export default function GenderRevealPage() {
                             Gender Reveal Party Venue Near Heathrow
                         </PageTitle>
                         <p className="text-lg text-ink-muted">
-                            Gender reveals are all about the moment, and the photos! The Anchor offers extensive outdoor space ideal for smoke cannons, balloon pops, or confetti showers, followed by a relaxed celebration with your loved ones.
+                            Gender reveals are all about the moment, and the photos! The Anchor offers extensive outdoor space ideal for smoke cannons and balloon pops, followed by a relaxed celebration with your loved ones.
                         </p>
                     </div>
                 </Container>
@@ -114,7 +114,7 @@ export default function GenderRevealPage() {
 
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             {[
-                                { title: "Garden Space", description: "Our large beer garden is the safest and best place for smoke cannons and outdoor reveals." },
+                                { title: "Garden Space", description: "Our large beer garden is the place for an outdoor reveal. Smoke cannons are for outside only, well away from buildings and fencing." },
                                 { title: "Afternoon Tea", description: "Ask about our buffet or afternoon tea style packages for a classy touch." },
                                 { title: "Family Friendly", description: "Plenty of space for kids to run around while the adults celebrate." },
                             ].map(feature => (
@@ -137,10 +137,10 @@ export default function GenderRevealPage() {
                         <Card><CardBody>
                             <h3 className="font-display text-h4 mb-3 text-ink-strong">Garden Reveal</h3>
                             <p className="text-ink-muted mb-4">
-                                Our beer garden is the ideal setting for an outdoor reveal. There is ample open space for smoke cannons, confetti poppers, or balloon drops. Guests can gather in a semicircle, creating a natural amphitheatre for the big moment and your photos.
+                                Our beer garden is the ideal setting for an outdoor reveal. There is ample open space for smoke cannons, used well away from buildings and fencing, or a balloon pop. Guests can gather in a semicircle, creating a natural amphitheatre for the big moment and your photos.
                             </p>
                             <ul className="text-sm text-ink-muted space-y-1">
-                                <li>Best for smoke cannons and outdoor confetti</li>
+                                <li>Smoke cannons outside only, away from buildings and fencing</li>
                                 <li>Natural light for great photographs</li>
                                 <li>Space for guests to form a viewing circle</li>
                             </ul>
@@ -148,7 +148,7 @@ export default function GenderRevealPage() {
                         <Card><CardBody>
                             <h3 className="font-display text-h4 mb-3 text-ink-strong">Indoor Reveal</h3>
                             <p className="text-ink-muted mb-4">
-                                Prefer to keep things inside? Our function area can be arranged for an indoor reveal. Balloon pops, cake cuts, or confetti cannons all work well indoors. We can clear space and arrange seating to give you a clear reveal zone.
+                                Prefer to keep things inside? Our function area can be arranged for an indoor reveal. Balloon pops and cake cuts work well indoors. Confetti cannons and confetti balloons aren&apos;t allowed, and smoke cannons are for outside only. We can clear space and arrange seating to give you a clear reveal zone.
                             </p>
                             <ul className="text-sm text-ink-muted space-y-1">
                                 <li>Ideal for cake cuts and balloon pops</li>
@@ -187,7 +187,7 @@ export default function GenderRevealPage() {
                             <Card><CardBody>
                                 <h4 className="font-display text-h4 text-ink-strong mb-3">What to bring</h4>
                                 <ul className="text-sm text-ink-muted space-y-2">
-                                    <li>Your smoke cannons, confetti poppers, or reveal prop</li>
+                                    <li>Your smoke cannons (for the garden) or other reveal prop</li>
                                     <li>A photographer or nominated family member with a phone</li>
                                     <li>Any backdrop, banners, or balloon arrangements</li>
                                     <li>The sealed gender envelope (if using our keeper service)</li>
@@ -250,9 +250,8 @@ export default function GenderRevealPage() {
                                 <h3 className="font-display text-h4 text-ink-strong mb-3">Outdoor Reveal Ideas</h3>
                                 <p className="text-ink-muted mb-3">Our beer garden is the perfect stage for dramatic outdoor reveals. Popular choices include:</p>
                                 <ul className="text-sm text-ink-muted space-y-2">
-                                    <li><strong className="text-accent-text">Smoke cannons</strong>, the most popular choice. Vivid pink or blue smoke against the open sky makes for spectacular photos.</li>
-                                    <li><strong className="text-accent-text">Confetti poppers</strong>, handheld confetti cannons that shower pink or blue tissue paper. Best on a calm day.</li>
-                                    <li><strong className="text-accent-text">Balloon pop</strong>, fill a large black balloon with pink or blue confetti. Pop it together for the big reveal.</li>
+                                    <li><strong className="text-accent-text">Smoke cannons</strong>, the most popular choice. Vivid pink or blue smoke against the open sky makes for spectacular photos. Outside only, well away from buildings and fencing.</li>
+                                    <li><strong className="text-accent-text">Balloon pop</strong>, pop a balloon together for the big reveal. No confetti-filled balloons, please.</li>
                                     <li><strong className="text-accent-text">Paint throw</strong>, wearing white, throw coloured powder paint at each other for an unforgettable reveal (and unforgettable photos).</li>
                                 </ul>
                             </CardBody></Card>
@@ -309,7 +308,7 @@ export default function GenderRevealPage() {
                 faqs={[
                     {
                         question: "Are smoke cannons allowed?",
-                        answer: "Yes, absolutely! We just ask that you use them in the garden area for safety and best visibility. Please let us know in advance what reveal method you are planning so we can prepare the space."
+                        answer: "Yes, in the garden only, and well away from buildings and fencing. Confetti cannons and confetti balloons aren't allowed. Please let us know in advance what reveal method you are planning so we can prepare the space."
                     },
                     {
                         question: "What happens if it rains?",
@@ -321,7 +320,7 @@ export default function GenderRevealPage() {
                     },
                     {
                         question: "Can we set up a photo backdrop?",
-                        answer: "Yes. You are welcome to bring your own backdrop, balloon arch, or banner. We will make sure your reserved area has the space and access needed to set it up before guests arrive."
+                        answer: "Yes. You are welcome to bring your own backdrop, balloon arch, or banner. We will make sure your reserved area has the space and access needed to set it up before guests arrive. Please don't use push pins, Blu Tack, sticky tape or anything else that could damage the paintwork."
                     },
                     {
                         question: "Can you keep the gender secret for us?",

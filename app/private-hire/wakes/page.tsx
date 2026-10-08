@@ -210,7 +210,7 @@ export default async function WakesPage() {
                         {[
                             { title: "Private Dining Room", description: "Our self-contained private dining room seats up to 26 guests, or up to 50 standing. For larger gatherings the venue can be arranged to suit a wider group. The room is quiet, enclosed, and separate from the main bar area." },
                             { title: "Getting In and Around", description: ACCESS_WORDING },
-                            { title: "Flexible Timing", description: "We are available any day of the week, including at short notice for same-week bookings. We work around funeral service times and can open early or stay later to suit your schedule. Simply call us and we will accommodate your needs." },
+                            { title: "Flexible Timing", description: "We are available any day of the week, including at short notice for same-week bookings. We work around funeral service times. A start before 12pm or a finish after 10pm is by arrangement, so call us and tell us the times you have in mind." },
                             { title: "What It Costs", description: `Our packages cover the food, dedicated staff, setup, and cleardown. ${ROOM_HIRE_WORDING} ${PRIVATE_HIRE_DEPOSIT_WORDING}` },
                             { title: "Allergies and Dietary Needs", description: PRIVATE_HIRE_DIETARY_WORDING },
                             { title: "Free Parking", description: "Our car park provides 20 free spaces with room for funeral cars and larger vehicles. There is also ample unrestricted street parking nearby. We are just ten minutes from South West Middlesex Crematorium and easily reached from the surrounding area." },
@@ -249,7 +249,7 @@ export default async function WakesPage() {
                             Throughout the afternoon, we maintain a discreet presence. Our team is always nearby if you need anything, extra drinks, more napkins, a quiet word about timings, but we will never intrude on your gathering. Many families tell us they appreciated the balance between attentive service and respectful distance.
                         </p>
                         <p>
-                            There is no strict time limit on your wake. We understand that some gatherings naturally wind down after a couple of hours, while others continue into the early evening. We will never rush you. When you are ready to leave, we take care of all the cleardown and cleaning.
+                            We understand that some gatherings naturally wind down after a couple of hours, while others continue into the early evening. We will never rush you. When you are ready to leave, we take care of all the cleardown and cleaning.
                         </p>
                     </div>
                 </Container>

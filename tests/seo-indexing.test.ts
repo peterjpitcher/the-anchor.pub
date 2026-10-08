@@ -454,7 +454,7 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     const retired: Record<string, string> = {
       'prices-frozen-until-autumn-theanchor-pub': '/drinks',
       'events-offers-2025': '/whats-on',
-      'botanist-gin-july-2025': '/drinks/managers-special',
+      'botanist-gin-july-2025': '/drinks',
       'salami-day-pizza': '/pizza-menu',
       'rum-tasting-caribbean': '/whats-on',
       'the-boys-are-back-in-town': '/drinks',
@@ -535,6 +535,127 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
         expect(response.headers.get('location')).toBe(`https://www.the-anchor.pub${DESTINATION}`)
       }
     }
+  })
+
+  it("retires the Manager's Special and the four wrong landmark pages in one hop (owner decisions, 7 October 2026)", async () => {
+    // Fact 32: the Manager's Special page and function are retired completely.
+    // Decision 15 (site review finding C1-006): four "private hire near" pages
+    // were about places that do not exist or hold no ceremonies. Every rule
+    // below is a concrete rule in config/redirects/*.json, so it is served by
+    // middleware.ts (lib/middleware-redirects.ts), not by next.config.js and
+    // not by vercel.json.
+    const retired: Array<[string, string]> = [
+      ['/drinks/managers-special', '/drinks'],
+      ['/blog/monthly-managers-special', '/drinks'],
+      ['/blog/25-off-kraken-rum-this-june-manager-s-special', '/drinks'],
+      ['/private-hire/near/kempton-park-crematorium', '/private-hire/wakes'],
+      ['/private-hire/near/spelthorne-registration-office', '/private-hire'],
+      ['/private-hire/near/staines-registration-office', '/private-hire'],
+      ['/private-hire/near/windsor-register-office', '/private-hire'],
+    ]
+    // Older addresses that used to land on a retired one, and now skip it.
+    const olderAddresses: Array<[string, string]> = [
+      ['/managers-special', '/drinks'],
+      ['/special-offers', '/drinks'],
+      ['/blog/botanist-gin-july-2025', '/drinks'],
+      ['/post/25-off-kraken-rum-this-june-manager-s-special', '/drinks'],
+      ['/post/managers-special-the-anchor-pub', '/drinks'],
+      ['/post/have-you-tried-kraken-rum', '/drinks'],
+    ]
+
+    // The destinations are live pages, not redirects.
+    const destinationFiles: Record<string, string> = {
+      '/drinks': 'app/drinks/page.tsx',
+      '/private-hire': 'app/private-hire/page.tsx',
+      '/private-hire/wakes': 'app/private-hire/wakes/page.tsx',
+    }
+    for (const [destination, file] of Object.entries(destinationFiles)) {
+      expect(fs.existsSync(path.join(process.cwd(), file))).toBe(true)
+      expect(lookupRedirect(destination)).toBeUndefined()
+    }
+
+    const nextConfig = require('../next.config.js')
+    const frameworkPatterns = ((await nextConfig.redirects()) as RedirectRule[]).map(
+      (rule) => new RegExp(`^${rule.source.replace(/:\w+\*/g, '.*').replace(/:\w+/g, '[^/]+')}$`),
+    )
+    const vercelSources: string[] = (
+      JSON.parse(fs.readFileSync(path.join(process.cwd(), 'vercel.json'), 'utf8')).redirects || []
+    ).map((rule: { source: string }) => rule.source)
+
+    for (const [source, destination] of retired) {
+      // Exactly one rule per source, and nothing still lands on the old address.
+      expect(ALL_REDIRECTS.filter((r) => r.source === source).map((r) => r.destination)).toEqual([destination])
+      expect(ALL_REDIRECTS.filter((r) => r.destination === source)).toEqual([])
+    }
+
+    for (const [source, destination] of [...retired, ...olderAddresses]) {
+      const rule = lookupRedirect(source)
+      expect(rule?.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+      expect(destinationFiles[destination]).toBeDefined()
+
+      // Which layer: no next.config.js pattern and no vercel.json rule may
+      // catch the address first and send it somewhere else.
+      expect(frameworkPatterns.filter((pattern) => pattern.test(source))).toEqual([])
+      expect(vercelSources).not.toContain(source)
+
+      // End to end through the middleware, on the canonical host and the apex:
+      // one 301, and the destination is the rule's target.
+      for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+        const response = middleware(
+          new NextRequest(`https://${host}${source}`, { headers: { host, 'x-forwarded-proto': 'https' } }),
+        )
+        expect(response.status).toBe(301)
+        expect(response.headers.get('location')).toBe(`https://www.the-anchor.pub${destination}`)
+      }
+    }
+
+    // The pages, the function and the data behind them are gone.
+    for (const gone of [
+      'app/drinks/managers-special',
+      'app/api/managers-special',
+      'app/api/managers-special-image',
+      'lib/managers-special.ts',
+      'lib/managers-special-client.ts',
+      'lib/managers-special-image.ts',
+      'lib/managers-special-utils.ts',
+      'lib/managers-special-utils-client.ts',
+      'types/managers-special.ts',
+      'content/managers-special-promotions.json',
+      'content/managers-special-legacy.json',
+      'public/images/managers-special',
+      'content/blog/monthly-managers-special',
+      'content/blog/25-off-kraken-rum-this-june-manager-s-special',
+    ]) {
+      expect(fs.existsSync(path.join(process.cwd(), gone))).toBe(false)
+    }
+    const retiredSlugs = retired
+      .map(([source]) => source)
+      .filter((source) => source.startsWith('/private-hire/near/'))
+      .map((source) => source.replace('/private-hire/near/', ''))
+    expect(retiredSlugs).toHaveLength(4)
+    expect(landmarks.filter((landmark) => retiredSlugs.includes(landmark.slug))).toEqual([])
+
+    // Nothing in the sitemap, and no link left in a page, a component or a post.
+    const sitemapPaths = (await sitemap()).map((entry) => toPath(entry.url))
+    for (const [source] of retired) {
+      expect(sitemapPaths).not.toContain(source)
+    }
+    const stillLinked: string[] = []
+    const walk = (dir: string): void => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name)
+        if (entry.isDirectory()) walk(full)
+        else if (/\.(tsx?|md|mdx|json)$/.test(entry.name)) {
+          const text = fs.readFileSync(full, 'utf8')
+          for (const [source] of retired) {
+            if (text.includes(source)) stillLinked.push(`${path.relative(process.cwd(), full)}: ${source}`)
+          }
+        }
+      }
+    }
+    for (const dir of ['app', 'components', 'content', 'lib']) walk(path.join(process.cwd(), dir))
+    expect(stillLinked).toEqual([])
   })
 
   it('does not include pattern-based sources (those stay in next.config.js)', () => {
@@ -620,11 +741,8 @@ describe('orphan-page internal linking guards', () => {
       '/private-hire/near/bedfont-lakes',
       '/private-hire/near/great-fosters-egham',
       '/private-hire/near/heathrow-airport',
-      '/private-hire/near/spelthorne-registration-office',
-      '/private-hire/near/staines-registration-office',
       '/private-hire/near/staines-rugby-club',
       '/private-hire/near/stockley-park',
-      '/private-hire/near/windsor-register-office',
     ]))
   })
 

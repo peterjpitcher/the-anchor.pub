@@ -30,7 +30,7 @@ export function HeroBadge({ className, badgeClassName, reviewBadgeClassName }: H
 }
 
 // --- Item badge (legacy HeroBadge API) ---
-// Used by ManagersSpecial.tsx and MenuRenderer.tsx for menu item badges (NEW, Featured, etc.)
+// Used by MenuRenderer.tsx for menu item badges (NEW, Featured, etc.)
 // Routes through the Badge primitive instead of inline styles.
 
 const itemBadgeVariantMap: Record<string, 'danger' | 'gold' | 'success' | 'green'> = {
@@ -82,7 +82,7 @@ export function ItemBadge({
   )
 }
 
-// Preserve HeroItem export for backward compatibility with ManagersSpecial and MenuRenderer.
+// Preserve HeroItem export for backward compatibility with MenuRenderer.
 // HeroItem wraps children with an ItemBadge overlay.
 interface HeroItemProps {
   children: React.ReactNode

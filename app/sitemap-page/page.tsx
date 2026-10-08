@@ -71,7 +71,6 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Vegan Options', href: '/food-menu/vegan' },
       { label: 'NGCI Menu', href: '/food-menu/gluten-free' },
       { label: 'Drinks Menu', href: '/drinks' },
-      { label: "Manager's Special", href: '/drinks/managers-special' },
       { label: 'Baby Guinness', href: '/drinks/baby-guinness' },
     ]
   },

@@ -172,7 +172,6 @@ If you're looking for a christening venue near your church, here's how close we 
 | St Mary the Virgin, Stanwell | 4 minutes drive |
 | Our Lady of the Rosary RC Church, Staines | 8 minutes drive |
 | St John's Church, Egham | 10 minutes drive |
-| Staines Registration Office (naming ceremonies) | 9 minutes drive |
 
 For families coming from St Mary's in Stanwell, we're practically next door. The drive is four minutes, which means guests arrive at the reception while the good feeling from the service is still fresh.
 
@@ -252,7 +251,7 @@ No. We want to be upfront about this. We have high chairs, buggy space, bottle w
 
 ### How close is The Anchor to local churches?
 
-Four minutes from St Mary the Virgin in Stanwell, eight minutes from Our Lady of the Rosary in Staines, and ten minutes from St John's Church in Egham. We're also nine minutes from Staines Registration Office for non-religious naming ceremonies.
+Four minutes from St Mary the Virgin in Stanwell, eight minutes from Our Lady of the Rosary in Staines, and ten minutes from St John's Church in Egham.
 
 ### What time should a christening reception start?
 
