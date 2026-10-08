@@ -12,7 +12,7 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { CELEBRATION_CAKE_WORDING, DECORATING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 const { diningRoom, mainArea } = PRIVATE_HIRE_CAPACITY.spaces
@@ -143,10 +143,10 @@ export default function AnniversaryPartiesPage() {
                             <Card><CardBody className="space-y-3">
                                 <h3 className="font-display text-h4 text-ink-strong">The Venue</h3>
                                 <ul className="space-y-2 text-ink-muted">
-                                    <li><strong className="text-ink-strong">Room hire:</strong> a hire fee covers your space and varies by day and party size. We confirm the fee and full terms when you enquire.</li>
+                                    <li><strong className="text-ink-strong">Room hire:</strong> {ROOM_HIRE_WORDING} We confirm the full terms when you enquire.</li>
                                     <li><strong className="text-ink-strong">Dining room:</strong> {diningRoom.seated} seated, or up to {diningRoom.standing} standing. French doors open straight onto the beer garden in summer.</li>
                                     <li><strong className="text-ink-strong">Capacity:</strong> {PRIVATE_HIRE_CAPACITY.recommendedRange} across the pub. Smaller groups get a reserved area, or you can have the dining room to yourselves.</li>
-                                    <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table photos, anniversary signs, bring them along. We just ask for no confetti or glitter.</li>
+                                    <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table photos, anniversary signs, bring them along. {DECORATING_WORDING}</li>
                                 </ul>
                             </CardBody></Card>
                             <Card><CardBody className="space-y-3">
@@ -154,7 +154,7 @@ export default function AnniversaryPartiesPage() {
                                 <ul className="space-y-2 text-ink-muted">
                                     <li><strong className="text-ink-strong">Free parking:</strong> {PARKING.capacity} spaces right outside the door. No meters, no time limits.</li>
                                     <li><strong className="text-ink-strong">{HEATHROW_TIMES.terminal5} minutes from Heathrow T5</strong>, handy if family are flying in for the occasion.</li>
-                                    <li><strong className="text-ink-strong">AV equipment:</strong> TVs and a sound system for slideshows of the years gone by, or a few words and a toast.</li>
+                                    <li><strong className="text-ink-strong">TVs and sound system:</strong> TVs and a sound system for slideshows of the years gone by, or a few words and a toast.</li>
                                     <li><strong className="text-ink-strong">Deposit:</strong> {PRIVATE_HIRE_DEPOSIT_WORDING}</li>
                                     <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
                                 </ul>
@@ -248,7 +248,7 @@ export default function AnniversaryPartiesPage() {
                     <div className="mx-auto text-center">
                         <SectionHeading title="Ready to start planning?" />
                         <p className="text-lg text-ink-muted mb-8">
-                            Get in touch with our team to check availability and talk through your ideas. We recommend booking at least 4 weeks in advance for Friday and Saturday dates.
+                            Get in touch with our team to check availability and talk through your ideas.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button asChild size="lg" variant="primary">
@@ -278,7 +278,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "Can we decorate the room?",
-                        answer: "Absolutely. Bring balloons, banners, table photos, anniversary signs, whatever makes it feel like yours. We just ask for no confetti or glitter as it is tricky to clean up."
+                        answer: `Absolutely. Bring balloons, banners, table photos, anniversary signs, whatever makes it feel like yours. ${DECORATING_WORDING}`
                     },
                     {
                         question: "Do you require a deposit?",
@@ -286,7 +286,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "Can we bring an anniversary cake?",
-                        answer: "Please do. We will store it in our kitchen until you are ready, and we can provide plates, napkins, and a knife for cutting. Let us know when you would like it brought out and we will time it perfectly. We will ask whoever brings it to sign our outside-food waiver."
+                        answer: CELEBRATION_CAKE_WORDING
                     },
                     {
                         question: "Can we show a slideshow or play music?",
@@ -298,7 +298,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "How far in advance should we book?",
-                        answer: "We recommend booking at least 4 weeks ahead for Friday and Saturday evenings. Midweek and Sunday dates are usually easier to secure at shorter notice. Popular months like December and summer fill up faster."
+                        answer: "Get in touch as soon as you have a date in mind and we'll tell you if it's free."
                     },
                     {
                         question: "What food options are there?",

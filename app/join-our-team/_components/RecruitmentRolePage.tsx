@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button, Container, Icon } from '@/components/ui'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, STAFF_HOURLY_RATE_GBP } from '@/lib/constants'
 import {
   recruitmentDatePosted,
   recruitmentValidThrough,
@@ -51,7 +51,7 @@ export function buildJobPostingSchema(role: RecruitmentRolePageContent) {
       currency: 'GBP',
       value: {
         '@type': 'QuantitativeValue',
-        value: 12.71,
+        value: STAFF_HOURLY_RATE_GBP,
         unitText: 'HOUR'
       }
     }

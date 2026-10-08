@@ -7,6 +7,7 @@ import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, HEATHROW_TIMES } from '@/lib/constants'
+import { LUGGAGE_WORDING, TAXI_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 import { PhoneButton } from '@/components/PhoneButton'
@@ -88,11 +89,11 @@ export default function PreFlightDiningPage() {
                         <div>
                             <h2 className="font-display text-h3 mb-4 text-ink-strong">Timing is Everything</h2>
                             <p className="mb-4 text-ink-muted">
-                                We know you have a flight to catch. Our service is friendly but efficient. Let us know your timeline when you arrive, and we'll make sure you're fed and watered with plenty of time to get to the gate.
+                                We know you have a flight to catch. Check your airline&apos;s advice on when to be at the terminal, and leave yourself time for traffic and security.
                             </p>
                             <Card accent>
                                 <CardBody className="p-4">
-                                    <p className="font-semibold text-ink-strong">Estimated Taxi Times:</p>
+                                    <p className="font-semibold text-ink-strong">Journey times by car:</p>
                                     <ul className="mt-2 space-y-1 text-sm text-ink-muted">
                                         <li>Terminal 5: {HEATHROW_TIMES.terminal5} mins</li>
                                         <li>Terminal 4: {HEATHROW_TIMES.terminal4} mins</li>
@@ -105,10 +106,10 @@ export default function PreFlightDiningPage() {
                             <CardBody className="text-center">
                                 <h2 className="font-display text-h3 mb-4 text-ink-strong">Taxis</h2>
                                 <p className="mb-6 text-ink">
-                                    Need a ride to the terminal? Ask at the bar and we&apos;ll give you a taxi number. You&apos;ll need to make your own arrangements.
+                                    Need a ride to the terminal? {TAXI_WORDING}
                                 </p>
                                 <PhoneButton phone={CONTACT.phone} source="preflight_taxi_info" variant="outline" wrap>
-                                    Call for a Taxi Number
+                                    Call the Pub
                                 </PhoneButton>
                             </CardBody>
                         </Card>
@@ -128,7 +129,7 @@ export default function PreFlightDiningPage() {
                     },
                     {
                         question: "Can I bring my luggage inside?",
-                        answer: "Yes! We are very luggage friendly. We have ample space to stow suitcases safely while you eat."
+                        answer: `Yes. ${LUGGAGE_WORDING}`
                     }
                 ]}
                 className="bg-surface"

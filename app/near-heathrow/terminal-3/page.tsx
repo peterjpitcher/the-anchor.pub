@@ -12,7 +12,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { HeroBadge } from '@/components/HeroBadge'
 import { PARKING, CONTACT, HEATHROW_TIMES, HEATHROW_DISTANCES, BRAND, DIRECTIONS_URL, PRICE_RANGE } from '@/lib/constants'
-import { FAMILIES_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { FAMILIES_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -24,12 +24,12 @@ export const metadata: Metadata = {
   description: `Pub near Heathrow Terminal 3, ${HEATHROW_TIMES.terminal3} minutes by taxi. British pub food, free customer parking, Sunday roasts, pizza and table booking.`,
   openGraph: {
     title: `Pubs Near Heathrow Terminal 3 | ${HEATHROW_TIMES.terminal3} Mins Away | Free Parking`,
-    description: `${HEATHROW_TIMES.terminal3} minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.`,
+    description: `${HEATHROW_TIMES.terminal3} minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza.`,
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: `Pubs Near Heathrow Terminal 3 | ${HEATHROW_TIMES.terminal3} Mins Away | Free Parking`,
-    description: `${HEATHROW_TIMES.terminal3} minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.`,
+    description: `${HEATHROW_TIMES.terminal3} minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza.`,
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -53,7 +53,7 @@ export default function Terminal3Page() {
         image="/images/page-headers/near-heathrow-terminal-3/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 3 for Food and Free Parking"
-        lead="Perfect for Virgin Atlantic & Emirates travellers • Free parking • British hospitality"
+        lead="Handy before or after a flight • Free parking • British hospitality"
         actions={
           <BookTableButton source="terminal_3_hero" context="terminal_3" variant="primary" size="lg" fullWidth>
             Book a Table
@@ -69,7 +69,7 @@ export default function Terminal3Page() {
           <div className="mx-auto bg-surface border border-line rounded-md shadow-sm p-6">
             <h2 className="text-2xl font-bold text-accent-text mb-3">Key Info For Terminal 3 Travellers</h2>
             <p className="text-ink-muted mb-4">
-              A highly rated pub near Heathrow Terminal 3, we offer a proper village pub alternative to hotel dining. Friendly staff, fair prices and space for luggage make The Anchor ideal for Virgin Atlantic and Emirates passengers.
+              A highly rated pub near Heathrow Terminal 3, we offer a proper village pub alternative to hotel dining. Friendly staff, fair prices and space for luggage make The Anchor a good stop before or after a Terminal 3 flight.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
 	              <div className="flex items-start gap-2">
@@ -95,7 +95,7 @@ export default function Terminal3Page() {
 
       <CtaBand
         title="Turn Your Terminal 3 Layover into a Meal"
-        copy="Follow our Heathrow layover dining plan for 90-minute and 3-hour stopovers."
+        copy="Our Heathrow layover dining guide has journey times from each terminal and how much time to allow."
         primary={
           <Button asChild variant="primary" size="lg">
             <Link href="/heathrow-layover-dining">View Layover Dining Guide</Link>
@@ -103,7 +103,7 @@ export default function Terminal3Page() {
         }
         secondary={
           <Button asChild variant="outline" size="lg">
-            <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team!%20Flying%20via%20Heathrow%20T3%20-%20need%20a%20layover%20dining%20plan.">Chat to Plan Quickly</Link>
+            <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team!%20Flying%20via%20Heathrow%20T3%20-%20need%20a%20layover%20dining%20plan.">WhatsApp Us</Link>
           </Button>
         }
       />
@@ -204,7 +204,7 @@ export default function Terminal3Page() {
               { title: `${HEATHROW_TIMES.terminal3} mins`, description: 'by car' },
               { title: 'Free', description: 'parking' },
               { title: 'Family', description: 'friendly' },
-              { title: 'Virgin & Emirates', description: 'Terminal 3' }
+              { title: 'Free WiFi', description: 'throughout the pub' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
                 <CardBody>
@@ -293,7 +293,7 @@ export default function Terminal3Page() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
-                { title: "Global Airlines Hub", content: "Terminal 3 hosts Virgin Atlantic, Emirates, Delta, and many Asian carriers. Whether flying to New York, Dubai, or Tokyo, start with a taste of Britain." },
+                { title: "A Short Drive Away", content: `We're ${HEATHROW_TIMES.terminal3} minutes from Terminal 3 by car. Wherever you're flying to, start with a taste of Britain.` },
                 { title: "Family-Friendly Space", content: "Traveling with children? We offer a dedicated kids menu, high chairs, and a relaxed atmosphere. Much better than busy airport restaurants!" },
                 { title: "Value for Money", content: `Proper pub portions, a table you are not rushed out of, and free parking for as long as you are with us. ${ULEZ_WORDING}` },
                 { title: "Perfect for Arrivals", content: "Meeting someone from a long-haul flight? Wait comfortably with us instead of the crowded arrivals hall. Track flights on our free WiFi." }
@@ -338,41 +338,13 @@ export default function Terminal3Page() {
             </div>
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
-              <h3 className="font-display text-h3 text-ink-strong mb-4">Airlines & Routes</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <p className="font-semibold mb-2">Major Airlines:</p>
-                  <ul className="space-y-1 text-ink-muted text-sm">
-                    <li>• Virgin Atlantic - USA, Caribbean</li>
-                    <li>• Emirates - Dubai connections</li>
-                    <li>• Delta - USA destinations</li>
-                    <li>• Cathay Pacific - Hong Kong</li>
-                    <li>• Qantas - Australia via Dubai/Singapore</li>
-                  </ul>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">Peak Times:</p>
-                  <ul className="space-y-1 text-ink-muted text-sm">
-                    <li>• Morning: 10-11am Emirates departures</li>
-                    <li>• Afternoon: 12-3pm Virgin Atlantic to USA</li>
-                    <li>• Evening: 8-10pm Asian carriers</li>
-                    <li>• Quietest: Early morning (6-8am)</li>
-                  </ul>
-                </div>
-              </div>
+              <h3 className="font-display text-h3 text-ink-strong mb-4">Getting Back to Terminal 3</h3>
+              <ul className="space-y-1 text-ink-muted text-sm">
+                <li>• Allow {HEATHROW_TIMES.terminal3} minutes by car from The Anchor, and more if the traffic is heavy</li>
+                <li>• Check your airline&apos;s advice on when to be at the terminal</li>
+                <li>• {TAXI_WORDING}</li>
+              </ul>
             </div>
-
-            <Card accent>
-              <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-3">Local Insights</h3>
-                <ul className="space-y-3 text-ink-muted list-disc list-inside">
-                  <li>Virgin Atlantic Premium check-in is worth it for families - much shorter queues</li>
-                  <li>Emirates A380 flights board 45 mins early - don&apos;t cut it close!</li>
-                  <li>T3 has the best shopping at Heathrow - arrive early if you want to browse</li>
-                  <li>We&apos;re popular with Virgin cabin crew - great stories over Sunday roast!</li>
-                </ul>
-              </CardBody>
-            </Card>
           </div>
         </div>
       </section>
@@ -493,7 +465,7 @@ export default function Terminal3Page() {
           { href: '/food-menu#pizza', title: 'Pizza Menu', description: 'Stone-baked pizzas for crew and families' },
           { href: '/food-menu', title: 'Full Food Menu', description: 'Pub classics and Sunday roasts' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Energy boost before red-eye flights' },
-          { href: '/near-heathrow/terminal-4', title: 'Terminal 4 Guide', description: 'Travel tips for other Heathrow terminals' }
+          { href: '/near-heathrow/terminal-4', title: 'Terminal 4 Guide', description: 'Journey times and food near Terminal 4' }
         ]}
         className="py-section-y"
       />
@@ -518,7 +490,7 @@ export default function Terminal3Page() {
           },
           {
             question: "What time should I leave for Terminal 3?",
-            answer: `Allow ${HEATHROW_TIMES.terminal3} minutes to reach Terminal 3 from our pub, plus time for parking and security. We recommend leaving at least 2.5 hours before your flight for most destinations, 3.5 hours for long-haul flights to Asia or the Americas.`
+            answer: `Allow ${HEATHROW_TIMES.terminal3} minutes to reach Terminal 3 from our pub, plus time for traffic, parking and security. Check your airline's advice on when to be at the terminal.`
           },
           {
             question: "Is The Anchor good for Terminal 3 hotel guests?",
@@ -534,7 +506,7 @@ export default function Terminal3Page() {
 	          },
           {
             question: "Is The Anchor family-friendly for Terminal 3 travellers?",
-            answer: `Yes! We're very family-friendly with a dedicated children's menu and a relaxed atmosphere. ${FAMILIES_WORDING} Our garden area is perfect for kids to stretch their legs before a long flight.`
+            answer: `Yes! We're very family-friendly with a dedicated children's menu and a relaxed atmosphere. ${FAMILIES_WORDING} There's a big garden to sit out in, next to the car park, so keep little ones with you.`
           }
         ]}
         className="bg-canvas"

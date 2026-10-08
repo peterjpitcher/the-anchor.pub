@@ -83,8 +83,8 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
       },
       {
         href: '/heathrow-layover-dining',
-        label: 'Layover dining plan',
-        description: 'Timed meal plans for 90-minute and 3-hour Heathrow layovers.',
+        label: 'Layover dining guide',
+        description: 'Journey times from each terminal and how much time to allow.',
         anchor: 'Heathrow layover dining guide'
       },
       {
@@ -336,7 +336,7 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
       {
         href: '/luggage-storage-heathrow',
         label: 'Luggage storage',
-        description: 'Store bags while you eat, visit locally or wait for a flight.',
+        description: 'Bring your bags while you eat or wait for a flight.',
         anchor: 'luggage storage near Heathrow'
       }
     ]

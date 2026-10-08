@@ -101,7 +101,7 @@ function getSundayLunchFaqs() {
     },
     {
       question: 'Can we fit in a Sunday roast before a flight from Heathrow?',
-      answer: `Usually, yes. We are around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 and last tables are seated at 5:30pm. A pre-flight roast works well with around 90 minutes to spare; allow longer if you need to return a hire car or expect a busy security queue.`
+      answer: `Usually, yes. We are around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 and last tables are seated at 5:30pm. Leave yourself plenty of time before a flight, and allow longer if you need to return a hire car or expect a busy security queue.`
     }
   ] as const
 }
@@ -420,7 +420,7 @@ export default async function SundayRoastPage() {
               Coming as a group? For {SUNDAY_ROAST.largePartyThreshold} or more we take a {SUNDAY_ROAST.largePartyDepositLabel} deposit that comes straight off your final bill, so it is not an extra cost, just a way to hold the table. Smaller groups can book if you would like the certainty, or simply walk in.
             </p>
             <p className="mb-6 leading-relaxed text-ink-muted">
-              Booking is recommended for peak times and larger parties. Everyone else: the door is open from 1pm.
+              Booking is recommended for peak times and larger parties. Everyone else: roasts are served from 1pm.
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <BookTableButton
@@ -503,6 +503,7 @@ export default async function SundayRoastPage() {
         currentPath="/sunday-roast"
         title="More food near Heathrow"
         intro="Compare the restaurant guide, live menu and table booking page before planning your Sunday visit."
+        headings="label"
       />
 
       <FAQAccordionWithSchema

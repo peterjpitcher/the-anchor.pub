@@ -507,7 +507,7 @@ export default function HistoryPage(): React.JSX.Element {
           <div className="mx-auto">
             <SectionHeading
               title="Buses, Heathrow and a Changing Village"
-              subtitle="From a horse-powered moor to the world's busiest flight path"
+              subtitle="From a horse-powered moor to one of the world's busiest flight paths"
             />
 
             <div className="space-y-6 text-lg text-ink leading-relaxed">
@@ -543,7 +543,7 @@ export default function HistoryPage(): React.JSX.Element {
           <div className="mx-auto">
             <SectionHeading
               title="The Anchor Today"
-              subtitle="A village pub in the shadow of the world's busiest airport"
+              subtitle="A village pub in the shadow of one of the world's busiest airports"
             />
 
             <div className="max-w-xs mx-auto mb-10">

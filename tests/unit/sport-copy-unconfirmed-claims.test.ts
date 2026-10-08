@@ -135,7 +135,9 @@ describe('sport copy keeps to what the SSOT confirms', () => {
     it('leaves the rugby card with a tidy list', () => {
       const card = liveSport.slice(liveSport.indexOf('>Rugby</h3>'), liveSport.indexOf('>Formula 1</h3>'))
       const items = [...card.matchAll(/<li>• ([^<]+)<\/li>/g)].map((match) => match[1])
-      expect(items).toEqual(['Six Nations', 'Autumn Internationals', 'World Cups'])
+      // The Six Nations and the Nations Championship are the two the SSOT holds (section 10).
+      // "Autumn Internationals" and "World Cups" were on nobody's record (site review finding C2-010).
+      expect(items).toEqual(['Six Nations', 'Nations Championship', "Only when they're on BBC, ITV or Channel 4"])
     })
   })
 

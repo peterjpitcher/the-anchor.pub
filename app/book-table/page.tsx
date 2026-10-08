@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // add-on, which read as "Food from 1." in search results.
   const sundayMenu = await getSundayLunchMenuPageData()
   const sundayPhrase = sundayMenu.menuData
-    ? ' Sunday roast menu details are loaded live.'
+    ? ' Sunday roasts are served 1pm to 6pm, and you can walk in.'
     : ' Sunday roast details are available on request.'
   const description = `Reserve a table at The Anchor, Stanwell Moor.${sundayPhrase} Dog-friendly, free parking, ${HEATHROW_TIMES.terminal5} mins from Terminal 5.`
 
@@ -260,7 +260,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             <Card className="hidden p-6 lg:block">
               <h2 className="text-xl font-semibold text-accent-text">Quick tips</h2>
               <ul className="mt-3 space-y-2 text-left text-sm text-ink-muted">
-                <li>• For groups of 20+, please call us.</li>
+                <li>• For groups of more than 20, please call us.</li>
                 <li>• {LARGE_GROUP_DEPOSIT_POLICY_COPY}</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
                 <li>• Can't see the time you want? Give us a ring.</li>
@@ -270,7 +270,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             <Card className="hidden p-6 lg:block">
               <h3 className="text-xl font-semibold text-accent-text">Prefer to talk?</h3>
               <p className="mt-2 text-sm text-ink-muted">
-                Our team can help with tables of 20+, special celebrations, or last-minute changes.
+                Our team can help with tables of more than 20, special celebrations, or last-minute changes.
               </p>
               <div className="mt-4">
                 <PhoneButton
@@ -322,7 +322,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             <CardBody>
               <h3 className="text-lg font-semibold text-accent-text mb-2">Current Food Menu</h3>
               <p className="text-ink-muted text-sm mb-4">
-                Dish names, descriptions and prices follow the latest kitchen menu.
+                See what the kitchen&apos;s serving, with today&apos;s dishes and prices.
               </p>
               <Link href="/food-menu" className="text-accent-text font-semibold text-sm hover:underline">
                 View food menu &rarr;
@@ -360,7 +360,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       <Section background="white" spacing="md" container className="border-b border-line">
         <SectionHeading
           title="A Taste of What&rsquo;s on the Menu"
-          subtitle="A live sample from the current food menu."
+          subtitle="A few dishes from the menu right now."
           align="center"
         />
         <div className="space-y-4 mx-auto">
@@ -412,6 +412,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         currentPath="/book-table"
         title="Plan your meal near Heathrow"
         intro="Compare the restaurant guide, live menu and Sunday roast options before reserving."
+        headings="label"
       />
 
       {/* Real Google review from lib/google-reviews.ts. Replaced a quote
@@ -484,7 +485,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'Can I book for a Heathrow layover meal?',
-            answer: `Absolutely. Many of our guests book a table during a long Heathrow layover. We're ${HEATHROW_TIMES.terminal5} minutes from T5, offer free parking, and our kitchen can turn around a full meal in good time. Call us if you have a tight window and we'll do our best.`
+            answer: `Absolutely. Many of our guests book a table during a long Heathrow layover. We're ${HEATHROW_TIMES.terminal5} minutes from T5 by car and offer free parking. Leave yourself plenty of time to get back through security, and check your airline's advice on when to be at the terminal.`
           }
         ]}
       />

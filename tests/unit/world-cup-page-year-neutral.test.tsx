@@ -181,7 +181,7 @@ describe('/live-sport/world-cup after the tournament', () => {
     const text = await pageText()
     expect(text).toContain("We show live sport on BBC, ITV and Channel 4. We don't have Sky Sports or TNT Sports.")
     expect(text).toContain(
-      'We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on 01753 682707 to check a particular game.'
+      "We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs. The commentary's on for big games and tournaments. Call us on 01753 682707 to check a particular game."
     )
   })
 

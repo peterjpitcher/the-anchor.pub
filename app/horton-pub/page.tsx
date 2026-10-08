@@ -159,7 +159,7 @@ export default function HortonPubPage() {
                                     <h3 className="font-display text-h4 text-ink-strong mb-4">Entertainment Nearby</h3>
                                     <ul className="space-y-2 text-ink-muted">
                                         <li>• Monthly Quiz Nights (Short taxi ride home!)</li>
-                                        <li>• Music Bingo with Nikki Manfadge (see /whats-on)</li>
+                                        <li>• Music Bingo with Nikki Manfadge (<Link href="/whats-on" className="underline">see what&apos;s on</Link>)</li>
                                         <li>• Cash Bingo Nights</li>
                                         <li>• Free-to-air sport on our 4 TVs</li>
                                     </ul>

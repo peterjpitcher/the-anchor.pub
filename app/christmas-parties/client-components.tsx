@@ -397,7 +397,7 @@ function buildFaqItems(
       .map(group => `${group.title}: ${group.items.map(item => item.name).join(', ')}.`)
       .join(' ')
 
-    return `${courses} Each guest picks their own courses, and choices come to us ${courseChoices?.preorderCutoffDays ?? deadlineDays} days before your booking date. Prices come straight from our booking system, so what you see on this page is always the current price.`
+    return `${courses} Each guest picks their own courses. Two and three course choices come to us ${courseChoices?.preorderCutoffDays ?? deadlineDays} days before your booking date, and one course needs no pre-order. Prices come straight from our booking system, so what you see on this page is always the current price.`
   })()
 
   return [
@@ -417,7 +417,7 @@ function buildFaqItems(
     },
     {
       question: 'What dates can we take a Christmas booking for?',
-      answer: `Christmas dinner runs ${season.windowLabel}. The 20th of December is included, so a sitting on that day can be booked. ${DAYS_AVAILABLE_SUMMARY} Popular Friday and Saturday dates go first, so enquire early.`
+      answer: `Christmas dinner runs ${season.windowLabel}. The 20th of December is included, so a sitting on that day can be booked. ${DAYS_AVAILABLE_SUMMARY} Booking early is recommended.`
     },
     {
       question: 'Which days of the week can we book Christmas dinner?',
@@ -553,7 +553,7 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'home' as const,
     title: 'Private Spaces for Every Size',
-    description: 'Choose an intimate dining room, the main bar for a larger group, or ask about full venue hire. Christmas layouts can host up to 60 seated or 200 standing.'
+    description: 'Choose the dining room for a smaller group, or ask about hiring the whole pub for a bigger one. Christmas layouts can host up to 60 seated or 200 standing.'
   },
   {
     icon: 'heart' as const,
@@ -610,7 +610,7 @@ function buildPartyIdeas(facts: ChristmasFactsView) {
     },
     {
       title: 'A private space, or the whole pub',
-      description: `The dining room for a smaller group, the main bar for a bigger one, or ask about exclusive hire. Christmas layouts hold up to ${facts.maxSeated} seated or ${facts.maxStanding} standing.`,
+      description: `The dining room for a smaller group, or ask about hiring the whole pub for a bigger one. Christmas layouts hold up to ${facts.maxSeated} seated or ${facts.maxStanding} standing.`,
       ideal: 'Groups who want the room to themselves'
     }
   ]
@@ -736,8 +736,8 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               Heathrow Terminal 5. {DAYS_AVAILABLE_SUMMARY} Every Christmas dinner booking is for {facts.minPartySize} guests
               or more, booked at least {facts.minNoticeHours} hours ahead, with a £{facts.depositPerPerson} per person deposit
               that comes off your bill. Everyone chooses their own courses: a main for each guest, with a starter and a
-              dessert optional, so guests at the same table can have different numbers of courses. Choices come to us{' '}
-              {deadlineDays} days before your booking date. Festive buffets are available for {facts.buffetMinimumGuests}{' '}
+              dessert optional, so guests at the same table can have different numbers of courses. Two and three course choices come to us{' '}
+              {deadlineDays} days before your booking date, and one course needs no pre-order. Festive buffets are available for {facts.buffetMinimumGuests}{' '}
               guests or more.{' '}
               {courseChoices && courseChoices.groups.length > 0
                 ? <>The full Christmas dinner menu is <a href="#christmas-menu" className="font-semibold text-accent-text underline">on this page</a>; the festive buffet selection is confirmed for your date when you enquire.</>
@@ -748,7 +748,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Days</strong>Tuesday to Saturday, plus Sunday 1pm to 6pm. No Mondays</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Group size</strong>{facts.minPartySize} guests or more</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Notice</strong>At least {facts.minNoticeHours} hours, no same-day bookings</li>
-              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Pre-order</strong>Choices due {deadlineDays} days before your date</li>
+              <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Pre-order</strong>Two and three course choices due {deadlineDays} days before your date. One course needs no pre-order.</li>
               <li className="rounded-xl bg-surface-sunk p-4"><strong className="block text-ink-strong">Deposit</strong>£{facts.depositPerPerson} per person on every table booking, from {facts.minPartySize} to {facts.privateHireThreshold} guests</li>
             </ul>
           </div>
@@ -859,7 +859,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">How do we collect everyone&apos;s meal choices?</dt>
-                  <dd className="mt-1 text-sm text-ink-muted">You pick them per guest as you book, and they reach the kitchen directly. Choices are due {preOrderDeadlineDays(facts)} days before your date.</dd>
+                  <dd className="mt-1 text-sm text-ink-muted">You pick them per guest as you book, and they reach the kitchen directly. Two and three course choices are due {preOrderDeadlineDays(facts)} days before your date. One course needs no pre-order.</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-semibold text-ink-strong">Dietary requirements?</dt>
@@ -1156,7 +1156,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="mx-auto mb-8 space-y-3 text-center">
             <h2 className="text-3xl font-bold text-ink-strong">The spaces your party could be in</h2>
             <p className="text-base text-ink-muted">
-              The two rooms your party could be in, shown undecorated. We dress them for Christmas and set the layout
+              The two rooms your party could be in. We set the layout
               around your group.
             </p>
           </div>
@@ -1207,9 +1207,9 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 />
               </div>
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-ink-strong">Main Bar &amp; Dining</h3>
+                <h3 className="text-lg font-semibold text-ink-strong">The Whole Pub</h3>
                 <p className="text-sm font-semibold text-accent-text">Up to {facts.maxSeated} seated at Christmas, {facts.maxStanding} standing</p>
-                <p className="text-sm text-ink-muted">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We will shape the room to fit your Christmas party, whether it is 30 or {facts.maxSeated} guests.</p>
+                <p className="text-sm text-ink-muted">For a larger celebration, ask about hiring the whole pub, for a sit-down dinner or a buffet-style evening. We will shape the room to fit your Christmas party, whether it is 30 or {facts.maxSeated} guests.</p>
               </div>
             </Card>
           </Grid>
@@ -1259,8 +1259,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               <p className="text-base text-ink-muted mx-auto">
                 Been tasked with organising the works Christmas do? You need somewhere everyone can get to, food that is
                 actually good, and a bill that will not make finance wince. Whether your team calls it the work Christmas do
-                or the office Christmas party, we take it as one booking with one contact. We have been hosting office
-                Christmas parties for Heathrow businesses, Poyle teams and Surrey offices for years.
+                or the office Christmas party, we take it as one booking with one contact.
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -1294,11 +1293,11 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 <div className="space-y-4">
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Small team dinner ({facts.minPartySize} to 20)</h4>
-                    <p className="text-sm text-ink-muted">Private dining room with the sit-down Christmas menu, each guest choosing 1, 2 or 3 courses. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
+                    <p className="text-sm text-ink-muted">Private dining room with the sit-down Christmas menu, each guest choosing 1, 2 or 3 courses.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Department celebration (21 to {facts.maxSeated})</h4>
-                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Main bar configured for your group, buffet or sit-down. Ask about our festive game nights if your team wants more than a meal.</p>
+                    <p className="text-sm text-ink-muted">Above {facts.privateHireThreshold} guests this becomes private hire rather than a table booking. Ask about hiring the whole pub, buffet or sit-down. Ask about our festive game nights if your team wants more than a meal.</p>
                   </div>
                   <div className="rounded-xl border border-line bg-surface-sunk p-5">
                     <h4 className="font-semibold text-ink-strong mb-1">Full venue hire ({facts.maxSeated} to {facts.maxStanding})</h4>
@@ -1347,9 +1346,9 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
           <div className="mx-auto">
             <div className="rounded-2xl border-2 border-red-600/30 bg-red-50/5 p-8 text-center space-y-4">
               <Icon name="clock" className="mx-auto h-10 w-10 text-red-600" />
-              <h2 className="text-2xl font-bold text-ink-strong">Book early, December dates fill fast</h2>
+              <h2 className="text-2xl font-bold text-ink-strong">Booking early is recommended</h2>
               <p className="text-base text-ink-muted">
-                Christmas dinner runs {season.windowLabel} and popular December dates fill quickly. Enquiring early gives us
+                Christmas dinner runs {season.windowLabel}. Enquiring early gives us
                 more options for your preferred date, sitting and space.
               </p>
               <p className="text-sm text-ink-muted">
@@ -1891,8 +1890,8 @@ function ChristmasMenuAndPricing({
               <h3 className="text-2xl font-bold text-ink-strong">What is on the Christmas menu</h3>
               <p className="text-base text-ink-muted">
                 These are the dishes each guest picks from. A main is the 1 course; add a starter, a dessert, or both, and
-                everyone at the table can choose differently. We need everyone&apos;s choices{' '}
-                {courseChoices.preorderCutoffDays ?? preOrderDeadlineDays(facts)} days before your booking date.
+                everyone at the table can choose differently. For two and three courses we need everyone&apos;s choices{' '}
+                {courseChoices.preorderCutoffDays ?? preOrderDeadlineDays(facts)} days before your booking date. One course needs no pre-order.
               </p>
               <p className="text-base text-ink-muted">
                 Every main comes with the trimmings: {TRIMMINGS.join(', ').toLowerCase()}.
@@ -1919,7 +1918,7 @@ function ChristmasMenuAndPricing({
               {hasCourseChoices
                 ? 'The 1 course is priced per dish, so the figure beside a main is the figure that guest pays. The 2 and 3 course are priced per guest in the table above, and those guests choose from the same starters, mains and desserts.'
                 : 'Here is what the kitchen is serving this Christmas, grouped by how many courses a guest chooses. Prices come straight from our booking system and are shown per person, so the figure beside a dish is the figure you pay.'}{' '}
-              Send us everyone&apos;s choices {preOrderDeadlineDays(facts)} days before your booking date.
+              For two and three courses, send us everyone&apos;s choices {preOrderDeadlineDays(facts)} days before your booking date. One course needs no pre-order.
             </p>
             {/* Once the real dish list is on the page, the multi-course tiers hold
                 nothing but a priced placeholder row per service window. Those read

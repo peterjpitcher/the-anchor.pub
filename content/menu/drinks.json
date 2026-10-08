@@ -221,7 +221,7 @@
  {
  "name": "Passion Fruit Martini",
  "price": "",
- "description": "Tropical paradise in a glass. Sweet, tangy and utterly irresistible, served with a cheeky shot of fizz on the side. Our most Instagrammable cocktail."
+ "description": "Tropical paradise in a glass. Sweet, tangy and utterly irresistible, served with a shot of fizz on the side. Our most Instagrammable cocktail."
  },
  {
  "name": "Classic Margarita",
@@ -258,7 +258,7 @@
  {
  "name": "Woo Woo",
  "price": "",
- "description": "The cheeky cousin of the Cosmo. Pretty in pink with a perfect balance of sweet and tart. Guaranteed to get the party started."
+ "description": "A cousin of the Cosmo. Pretty in pink with a perfect balance of sweet and tart. Guaranteed to get the party started."
  },
  {
  "name": "Pimm's",
@@ -300,7 +300,7 @@
  {
  "name": "Skittle Bomb",
  "price": "",
- "description": "Taste the rainbow! Sweet and fruity shot that's like liquid candy. A colorful explosion of flavor."
+ "description": "Taste the rainbow! Sweet and fruity shot that's like liquid candy. A colourful explosion of flavour."
  }
  ]
  }
@@ -990,12 +990,12 @@
  {
  "title": "Sparkling Wine",
  "style": "grid",
- "description": "Bubbles for birthdays, brunch-style visits and tables that want a celebratory bottle without making it complicated.",
+ "description": "Bubbles for birthdays and tables that want a celebratory bottle without making it complicated.",
  "items": [
  {
  "name": "Giorgio & Gianni Prosecco",
  "price": "200ml/750ml",
- "description": "Italy - Fine bubbles with apple and pear flavours. Light, fresh and perfect for celebrations or Sunday brunch."
+ "description": "Italy - Fine bubbles with apple and pear flavours. Light, fresh and perfect for celebrations."
  }
  ]
  }
@@ -1042,12 +1042,12 @@
  {
  "title": "Fresh Juices & Mixers",
  "style": "grid",
- "description": "Juices and mixers for mocktails, long serves and building a spirit exactly how you like it.",
+ "description": "Juices and mixers for long serves and building a spirit exactly how you like it.",
  "items": [
  { 
  "name": "Fresh Fruit Juices", 
  "price": "",
- "description": "Orange, Apple, Pineapple, and Cranberry juices. Perfect for mocktails or enjoyed on their own over ice."
+ "description": "Orange, Apple, Pineapple, and Cranberry juices. Enjoy them on their own over ice."
  },
  { 
  "name": "Classic Mixers", 

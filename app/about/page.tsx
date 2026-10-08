@@ -222,7 +222,7 @@ export default function AboutPage() {
                       Traditional British Food
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      Pub classics, stone-baked pizzas, burgers, and sharers. Honest food at
+                      Pub classics, stone-baked pizzas and burgers. Honest food at
                       fair prices, served during live kitchen hours.
                     </p>
                     <p className="text-accent-text font-semibold">View menu &rarr;</p>
@@ -251,11 +251,11 @@ export default function AboutPage() {
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl text-ink-strong mb-2 group-hover:text-accent-text">
-                      Weekly Events
+                      Hosted Nights
                     </h3>
                     <p className="text-ink-muted mb-4">
-                      Quiz nights, music bingo with Nikki, cash bingo and karaoke when listed.
-                      There&apos;s always something on.
+                      A monthly quiz night, Music Bingo with Nikki, cash bingo on set
+                      Wednesdays, and karaoke when it&apos;s listed.
                     </p>
                     <p className="text-accent-text font-semibold">See what&apos;s on &rarr;</p>
                   </CardBody>

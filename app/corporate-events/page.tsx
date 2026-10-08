@@ -1,4 +1,4 @@
-import { PARKING_WORDING, PRIVATE_HIRE_DIETARY_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { CHARGING_WORDING, PARKING_WORDING, PRIVATE_HIRE_DIETARY_WORDING, PRIVATE_HIRE_TIMES_WORDING, ROOM_HIRE_WORDING, SLIDESHOW_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import Link from 'next/link'
 import ssot from '@/SSOT.json'
@@ -123,14 +123,14 @@ export default function CorporateEventsPage() {
       <section className="py-section-y bg-surface">
         <Container>
           <SectionHeading
-            title="Why Leading Companies Choose The Anchor"
+            title="Why Choose The Anchor for Work Events"
             lead="The smart choice for business events near Heathrow"
           />
           <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Heathrow Proximity", description: `Around ${HEATHROW_TIMES.terminal5} minutes from T5, traffic dependent, useful for international teams and clients` },
+              { title: "Heathrow Proximity", description: `Around ${HEATHROW_TIMES.terminal5} minutes from T5, traffic dependent, handy when colleagues or clients fly in` },
               { title: "Free Parking", description: PARKING_WORDING },
-              { title: "Flexible Pricing", description: "Competitive venue hire rates tailored to your needs" },
+              { title: "Clear Pricing", description: ROOM_HIRE_WORDING },
               { title: "Flexible Spaces", description: `Configure private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}; larger events by enquiry` },
             ].map(feature => (
               <Card key={feature.title} accent className="h-full text-center">
@@ -157,7 +157,7 @@ export default function CorporateEventsPage() {
               <p className="mb-4 text-ink-muted">Everything you need for successful business events:</p>
               <ul className="space-y-2 text-ink-muted">
                 <li><strong className="text-ink-strong">Dedicated events coordinator</strong> for seamless planning</li>
-                <li><strong className="text-ink-strong">Professional catering</strong> from coffee mornings to formal dinners</li>
+                <li><strong className="text-ink-strong">Catering</strong> from buffets to sit-down meals</li>
                 <li><strong className="text-ink-strong">TVs and a sound system</strong> for presentations, with free WiFi throughout</li>
                 <li><strong className="text-ink-strong">Flexible timings</strong> - a start before 12pm or a finish after 10pm, by arrangement</li>
                 <li><strong className="text-ink-strong">VAT invoices</strong> for corporate bookings, so expenses are straightforward</li>
@@ -175,13 +175,12 @@ export default function CorporateEventsPage() {
             <Card accent className="h-full"><CardBody>
               <h3 className="font-display text-h4 text-ink-strong mb-3">Business Meetings</h3>
               <p className="text-ink-muted mb-4">
-                Private space for confidential discussions, client meetings, and presentations.
-                Configurable for boardroom or theatre style.
+                A private dining room for client meetings and presentations.
               </p>
               <ul className="text-sm text-ink-muted space-y-1">
                 <li>• {PRIVATE_HIRE_CAPACITY.recommendedRange}</li>
                 <li>• TVs and sound system</li>
-                <li>• WiFi &amp; power points</li>
+                <li>• Free WiFi</li>
                 <li>• Coffee &amp; refreshments</li>
               </ul>
             </CardBody></Card>
@@ -192,8 +191,6 @@ export default function CorporateEventsPage() {
                 activities in a relaxed environment.
               </p>
               <ul className="text-sm text-ink-muted space-y-1">
-                <li>• Interactive spaces</li>
-                <li>• Breakout areas</li>
                 <li>• Team lunch options</li>
                 <li>• Evening social space</li>
               </ul>
@@ -321,21 +318,20 @@ export default function CorporateEventsPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">What We Offer</h3>
                 <p className="mb-4 text-ink-muted">Every corporate event is unique. We provide:</p>
                 <ul className="space-y-3 text-ink-muted">
-                  <li><strong className="text-ink-strong">Flexible timing</strong> - Half day, full day, or evening sessions</li>
+                  <li><strong className="text-ink-strong">Timings by arrangement</strong> - {PRIVATE_HIRE_TIMES_WORDING}</li>
                   <li><strong className="text-ink-strong">Scalable spaces</strong> - Configure rooms for {PRIVATE_HIRE_CAPACITY.recommendedRange}, with larger events by enquiry</li>
-                  <li><strong className="text-ink-strong">Custom catering</strong> - From coffee breaks to formal dinners</li>
+                  <li><strong className="text-ink-strong">Catering</strong> - Buffets, afternoon tea or a sit-down meal from our menu</li>
                   <li><strong className="text-ink-strong">Professional support</strong> - TVs, sound system and a dedicated events coordinator</li>
                   <li><strong className="text-ink-strong">Transparent pricing</strong> - Room hire is charged by the hour and catering is priced per person</li>
                 </ul>
               </CardBody></Card>
               <Card><CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">How Our Pricing Works</h3>
-                <p className="mb-4 text-ink-muted">We believe in fair, flexible pricing:</p>
+                <p className="mb-4 text-ink-muted">How the bill is made up:</p>
                 <ul className="space-y-3 text-ink-muted">
-                  <li><strong className="text-ink-strong">Venue hire quotes</strong> - Vary by day, time, group size and event needs</li>
-                  <li><strong className="text-ink-strong">Weekday rates</strong> - More competitive for daytime events</li>
-                  <li><strong className="text-ink-strong">Bespoke quotes</strong> - Based on your specific requirements</li>
-                  <li><strong className="text-ink-strong">All-inclusive options</strong> - Know your total cost upfront</li>
+                  <li><strong className="text-ink-strong">Room hire</strong> - {ROOM_HIRE_WORDING}</li>
+                  <li><strong className="text-ink-strong">Catering</strong> - Priced per person</li>
+                  <li><strong className="text-ink-strong">Quotes</strong> - Tell us your numbers and we&apos;ll quote for the whole event</li>
                   <li><strong className="text-ink-strong">VAT invoices</strong> - Issued for corporate bookings, so your finance team gets what it needs for the books</li>
                 </ul>
               </CardBody></Card>
@@ -387,10 +383,9 @@ export default function CorporateEventsPage() {
               <Card><CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Technology &amp; Equipment</h3>
                 <ul className="space-y-3 text-ink-muted">
-                  <li><strong className="text-ink-strong">High-speed WiFi</strong><p className="text-sm">Reliable connection for video calls and presentations</p></li>
+                  <li><strong className="text-ink-strong">Free WiFi</strong><p className="text-sm">Throughout the pub and beer garden</p></li>
                   <li><strong className="text-ink-strong">Presentation Equipment</strong><p className="text-sm">TVs and a sound system for slides and speeches; we do not have a projector</p></li>
-                  <li><strong className="text-ink-strong">Power Access</strong><p className="text-sm">Multiple power points for devices</p></li>
-                  <li><strong className="text-ink-strong">Audio System</strong><p className="text-sm">Microphone and speakers for larger groups</p></li>
+                  <li><strong className="text-ink-strong">Charging</strong><p className="text-sm">{CHARGING_WORDING}</p></li>
                 </ul>
               </CardBody></Card>
               <Card><CardBody>
@@ -411,12 +406,12 @@ export default function CorporateEventsPage() {
                   <p className="text-sm text-ink-muted">Dedicated coordinator to manage every detail</p>
                 </div>
                 <div className="text-center">
-                  <h4 className="font-semibold text-ink-strong mb-1">Bespoke Catering</h4>
-                  <p className="text-sm text-ink-muted">Menus tailored to your requirements</p>
+                  <h4 className="font-semibold text-ink-strong mb-1">Catering</h4>
+                  <p className="text-sm text-ink-muted">Buffets, afternoon tea or a sit-down meal from our menu</p>
                 </div>
                 <div className="text-center">
                   <h4 className="font-semibold text-ink-strong mb-1">Outdoor Options</h4>
-                  <p className="text-sm text-ink-muted">Garden space for breaks or evening BBQs</p>
+                  <p className="text-sm text-ink-muted">Garden space for breaks</p>
                 </div>
               </div>
             </CardBody></Card>
@@ -520,17 +515,17 @@ export default function CorporateEventsPage() {
         faqs={[
           {
             question: "What makes The Anchor ideal for corporate events near Heathrow?",
-            answer: `We're around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking, making us useful for international teams. We offer flexible private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, larger events by enquiry, professional catering, and venue hire quotes tailored to your needs. ${ULEZ_WORDING}`
+            answer: `We're around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking, which is handy when colleagues fly in. We offer private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, larger events by enquiry, catering, and a quote for the whole event. ${ULEZ_WORDING}`
           },
           {
             question: "What technology and equipment do you provide for business meetings?",
-            answer: "We provide free WiFi throughout the pub and beer garden, TVs, a sound system with microphones, and multiple power points throughout our spaces. We do not have a projector, so tell us what you plan to show and we will talk it through before you book."
+            answer: `We provide free WiFi throughout the pub and beer garden, TVs and a sound system. ${SLIDESHOW_WORDING}`
           },
           ...(christmasBookable
             ? [
               {
                 question: "Can we hold our office Christmas party at The Anchor?",
-                answer: `Yes. Work Christmas parties are one of the things we do most, and festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, with the £250 private hire deposit instead, so call us on 01753 682707 and we will plan it with you.`
+                answer: `Yes. Festive service runs ${formatChristmasWindowLabel()}. Sittings are Tuesday to Saturday, plus Sunday between 1pm and 6pm. Mondays are not available because the kitchen is closed. Every Christmas booking needs at least ${CHRISTMAS_MINIMUM_PARTY_SIZE} guests, at least ${CHRISTMAS_MINIMUM_NOTICE_HOURS} hours notice, and a £${CHRISTMAS_DEPOSIT_PER_PERSON} per person deposit that comes straight off your final bill. Groups above 20 are handled as private hire, with the £250 private hire deposit instead, so call us on 01753 682707 and we will plan it with you.`
               },
               {
                 question: "How many people can you seat for a work Christmas party?",
@@ -557,27 +552,23 @@ export default function CorporateEventsPage() {
           },
           {
             question: "Can you accommodate different types of corporate events?",
-            answer: "Yes! We regularly host board meetings, training workshops, team building days, product launches, corporate celebrations, conferences, and networking events. Our spaces are flexible and can be configured to suit your needs."
+            answer: "Yes. We host meetings, training days, team meals and work celebrations. Tell us what you're planning and we'll suggest the right space."
           },
           {
             question: "What are your corporate catering options?",
-            answer: "We offer everything from coffee mornings and light bites to buffet lunches and formal dinners. All menus can be customised to your requirements. " + PRIVATE_HIRE_DIETARY_WORDING + " We also provide drinks packages and bar tabs."
+            answer: "We offer buffets, afternoon tea and sit-down meals ordered from our menu. " + PRIVATE_HIRE_DIETARY_WORDING + " We also provide drinks packages and bar tabs."
           },
           {
             question: "How does venue hire pricing work for corporate events?",
-            answer: "We offer flexible venue hire pricing tailored to each corporate event. Our rates vary depending on the day, time, and size of your event. We're always willing to discuss your budget and requirements to find a solution that works for you. Contact us for a personalised quote."
+            answer: `${ROOM_HIRE_WORDING} The hourly rates are on our private hire page, and catering is priced per person. Contact us for a quote.`
           },
           {
             question: "How early can we access the venue for setup?",
-            answer: "We're flexible with access times. For full-day events, you can typically access the venue from 8am. Earlier access can be arranged if needed. We'll work around your schedule."
-          },
-          {
-            question: "Do you have experience with international business guests?",
-            answer: "Absolutely. Our proximity to Heathrow means we regularly host international teams. We understand the needs of global businesses and can accommodate different time zones and cultural preferences."
+            answer: `${PRIVATE_HIRE_TIMES_WORDING} Tell us when you'd like to set up and we'll agree it.`
           },
           {
             question: "Can we book regular corporate events?",
-            answer: "Yes, many businesses use us for regular meetings, training sessions, or team events. We ensure consistency in setup and service for our regular clients."
+            answer: "Yes. Tell us the dates you have in mind and we'll check them."
           }
         ]}
         className="bg-canvas"
@@ -620,7 +611,7 @@ export default function CorporateEventsPage() {
           </Button>
         </div>
         <p className="mt-8 text-lg text-anchor-cream-text/85">
-          <strong>We know business moves fast.</strong> Call, WhatsApp or email and our events coordinator will come back to you with a tailored quote.
+          <strong>We know business moves fast.</strong> Call, WhatsApp or email and our events coordinator will come back to you with a quote.
         </p>
       </CtaBand>
     </>

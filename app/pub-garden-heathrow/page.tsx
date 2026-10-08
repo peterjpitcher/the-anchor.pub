@@ -96,7 +96,7 @@ export default function PubGardenPage() {
                     },
                     {
                         question: "Is there cover if it rains?",
-                        answer: "We have large parasols, but in severe weather, we'll try our best to find you a spot inside."
+                        answer: "No part of the garden is covered. If it rains, we'll do our best to find you a spot inside."
                     },
                     {
                         question: "Is there lighting at night?",

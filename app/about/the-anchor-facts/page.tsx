@@ -7,7 +7,8 @@ import { InteriorHero } from '@/components/hero'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getRouteLastModified } from '@/lib/sitemap-lastmod'
 import { BRAND, CONTACT, HEATHROW_TIMES, PRICE_RANGE } from '@/lib/constants'
-import { PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
+import ssot from '@/SSOT.json'
 import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING, CHILDREN_WELCOME_WORDING, DOGS_WORDING, FAMILIES_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 import {
   STATIC_BAR_HOURS_SUMMARY,
@@ -17,7 +18,9 @@ import {
 
 const PAGE_URL = 'https://www.the-anchor.pub/about/the-anchor-facts'
 const PAGE_LAST_MODIFIED = getRouteLastModified('/about/the-anchor-facts')?.toISOString()
-const LAST_REVIEWED = '21 May 2026'
+// The rating comes from the SSOT's data file, as components/HeroBadge.tsx reads it.
+// Never a review count (SSOT section 12).
+const GOOGLE_RATING = ssot.ratings.google.rating
 
 export const metadata: Metadata = {
   title: { absolute: 'The Anchor Facts | Food, Hours, Private Hire and Events' },
@@ -50,12 +53,11 @@ const primaryFacts = [
   ['Dog policy', DOGS_WORDING],
   ['Family policy', `${CHILDREN_WELCOME_WORDING} ${FAMILIES_WORDING}`],
   ['Accessibility', ACCESS_WORDING],
-  ['Private hire capacity', `${PRIVATE_HIRE_CAPACITY_SUMMARY}. Larger events are by enquiry.`],
+  ['Private hire capacity', PRIVATE_HIRE_CAPACITY.summary],
   ['Hosted event types', 'Quiz nights, Music Bingo, Cash Bingo, karaoke when listed, and terrestrial live sport.'],
   ['Areas served', 'Stanwell Moor, Staines, Heathrow, Ashford, Colnbrook, Bedfont and nearby Surrey villages.'],
   ['Heathrow distance', `${HEATHROW_TIMES.terminal5} minutes by car from Heathrow Terminal 5, with other terminals usually within ${HEATHROW_TIMES.range}.`],
-  ['Google rating', 'Use an approved live source. Do not hardcode rating or review count.'],
-  ['Last reviewed', LAST_REVIEWED],
+  ['Google rating', `Rated ${GOOGLE_RATING} on Google.`],
 ] as const
 
 const keyLinks = [
@@ -164,7 +166,7 @@ export default function AnchorFactsPage() {
               Current factual details for The Anchor in Stanwell Moor, including food, booking links, opening hours, private hire, hosted events, parking and Heathrow distance.
             </p>
             <p className="mt-3 text-sm text-ink-muted">
-              {STATIC_HOURS_REVIEW_NOTE} Page last reviewed {LAST_REVIEWED}.
+              {STATIC_HOURS_REVIEW_NOTE}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
               <Button asChild size="lg">
@@ -221,9 +223,6 @@ export default function AnchorFactsPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-sm leading-relaxed text-ink-muted">
-                Facts on this page should match visible site copy, schema, Google Business Profile and booking pages.
-              </p>
             </div>
           </div>
         </Container>

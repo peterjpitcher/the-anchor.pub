@@ -182,7 +182,7 @@ export default function AshfordPubPage() {
               </div>
 
               <div>
-                <h3 className="font-display text-h3 text-ink-strong mb-4">Special Events & Offers</h3>
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Food and Events</h3>
                 <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -194,7 +194,7 @@ export default function AshfordPubPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, pool & darts (see /whats-on)</div>
+                    <div><strong>Entertainment</strong> - Quiz nights, Music Bingo with Nikki Manfadge, pool and darts. <Link href="/whats-on" className="underline">See what&apos;s on</Link>.</div>
                   </li>
                 </ul>
               </div>
@@ -204,7 +204,7 @@ export default function AshfordPubPage() {
               <CardBody className="p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Plane Spotting Bonus</h3>
                 <p className="text-lg text-ink-muted">
-                  Watch aircraft overhead every 90 seconds - entertainment Ashford pubs can't offer!
+                  Our beer garden is under Heathrow&apos;s southern runway approach path. At peak times a plane comes over about every 90 seconds.
                 </p>
               </CardBody>
             </Card>
@@ -228,7 +228,7 @@ export default function AshfordPubPage() {
                     <li>• Ashford football fans for big matches</li>
                     <li>• Cricket club celebrations</li>
                     <li>• Rugby supporters gatherings</li>
-                    <li>• Darts and pool leagues</li>
+                    <li>• A game of pool or darts</li>
                     <li>• Quiz teams from Ashford</li>
                   </ul>
                 </CardBody>
@@ -286,11 +286,11 @@ export default function AshfordPubPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong>Flexible spaces</strong> - Private hire for {PRIVATE_HIRE_CAPACITY.recommendedRange}</span>
+                      <span><strong>Private hire</strong> - For {PRIVATE_HIRE_CAPACITY.recommendedRange}</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong>Tailored pricing for every event</strong> - Let's discuss your needs</span>
+                      <span><strong>Hired by the hour</strong> - Prices and menus are on the <Link href="/private-hire" className="underline">private hire page</Link></span>
                     </li>
                   </ul>
                 </CardBody>
@@ -433,17 +433,12 @@ export default function AshfordPubPage() {
                 that offer something beyond the usual high-street chains, the short drive is well worth it.
               </p>
               <p>
-                We see a lot of Ashford Hospital staff, especially those finishing late shifts and looking for
-                somewhere with a warm kitchen and a decent pint. Kitchen times vary by date, so check before you
-                come or call {CONTACT.phone}. The free parking means no
-                scrambling for change after a long day on your feet.
+                Kitchen times vary by date, so check before you come or call {CONTACT.phone}. Parking&apos;s free,
+                so there&apos;s no scrambling for change.
               </p>
               <p>
-                Golfers from Ashford Manor Golf Club have been known to make the short detour for a post-round meal
-                and a celebratory (or consolation) pint. A
-                stone-baked pizza after eighteen holes is hard to beat. On weekends, families from the Ashford Common
-                area bring the kids and the dog, settle into the beer garden, and watch the planes come over while
-                the little ones run around. It is exactly the kind of afternoon you cannot get in a town-centre pub.
+                On a weekend, bring the kids and the dog, settle into the beer garden and watch the planes come
+                over. The garden is next to the car park, so keep little ones with you.
               </p>
             </div>
           </div>

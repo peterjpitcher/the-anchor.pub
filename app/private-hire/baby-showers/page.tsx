@@ -16,20 +16,20 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
-import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
+import { ACCESS_AMENITY_FEATURES, CELEBRATION_CAKE_WORDING, DECORATING_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const metadata: Metadata = {
     title: 'Baby Shower Venue Near Ashford Hospital',
-    description: 'Host the perfect baby shower at The Anchor. Afternoon tea packages, mocktails, and private spaces near Ashford Hospital. Free parking.',
+    description: 'Host the perfect baby shower at The Anchor. Afternoon tea packages and private spaces near Ashford Hospital. Free parking.',
     openGraph: {
         title: 'Baby Shower Venue | The Anchor Stanwell Moor',
-        description: 'Afternoon tea, mocktails, and games. The perfect daytime celebration.',
+        description: 'Afternoon tea and games. The perfect daytime celebration.',
         images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
     },
     twitter: getTwitterMetadata({
         title: 'Baby Shower Venue | The Anchor Stanwell Moor',
-        description: 'Afternoon tea, mocktails, and games. The perfect daytime celebration.',
+        description: 'Afternoon tea and games. The perfect daytime celebration.',
         images: [DEFAULT_CORPORATE_IMAGE]
     }),
     alternates: {
@@ -56,14 +56,13 @@ export default function BabyShowersPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/baby-showers",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "Bright and airy venue for baby showers with afternoon tea packages, mocktails, and private spaces near Ashford Hospital.",
+        "description": "Bright and airy venue for baby showers with afternoon tea packages and private spaces near Ashford Hospital.",
         "maximumAttendeeCapacity": PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
             ...ACCESS_AMENITY_FEATURES,
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Afternoon Tea Packages", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Mocktail Menu", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Space for Games", "value": true }
         ],
         "potentialAction": {
@@ -94,7 +93,6 @@ export default function BabyShowersPage() {
                 badges={
                     <>
                         <Badge variant="sand">Afternoon Tea</Badge>
-                        <Badge variant="sand">Mocktails</Badge>
                         <Badge variant="sand">Space for Games</Badge>
                         <Badge variant="sand">Easy Parking</Badge>
                     </>
@@ -153,10 +151,10 @@ export default function BabyShowersPage() {
                     />
                     <div className="mx-auto">
                         <p className="text-ink-muted text-center mb-6">
-                            From classic afternoon tea to relaxed buffets, we have a range of catering packages to suit your baby shower. Our bar team can also prepare a selection of alcohol-free cocktails so the mum-to-be never feels left out.
+                            From classic afternoon tea to relaxed buffets, we have a range of catering packages to suit your baby shower. A welcome orange juice is the alcohol-free partner to our welcome prosecco, so the mum-to-be never feels left out.
                         </p>
                         <p className="text-ink-muted text-center text-sm">
-                            See our full catering packages and pricing below, or ask us about seasonal mocktail options when you enquire.
+                            See our full catering packages and pricing below.
                         </p>
                     </div>
                 </Container>
@@ -201,8 +199,8 @@ export default function BabyShowersPage() {
                     />
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {[
-                            { title: "Mocktail Menu", description: "Delicious alcohol-free cocktails so the mum-to-be doesn't feel left out." },
-                            { title: "Gift Area", description: "We'll set up a dedicated table for gifts and party favours." },
+                            { title: "Alcohol-Free Welcome Drink", description: "A welcome orange juice, so the mum-to-be doesn't feel left out." },
+                            { title: "Gift Area", description: "Tell us if you'd like a table for gifts and party favours." },
                             { title: "Gender Reveals", description: "Planning a reveal alongside the shower? We can help coordinate the big surprise with balloons or cakes." },
                         ].map(feature => (
                             <Card key={feature.title} accent className="h-full text-center">
@@ -227,7 +225,7 @@ export default function BabyShowersPage() {
 
                         <Card><CardBody className="text-center">
                             <p className="text-ink-muted text-sm">
-                                All baby shower packages include dedicated staff, and parking is free. Room hire is charged by the hour for the space you book. Call us on <strong className="text-accent-text">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
+                                All baby shower packages include dedicated staff, and parking is free. Room hire is charged by the hour for the space you book. Call us on <strong className="text-accent-text">01753 682707</strong> for a quote based on your guest numbers and preferences.
                             </p>
                         </CardBody></Card>
                     </div>
@@ -242,20 +240,20 @@ export default function BabyShowersPage() {
                     />
                     <div className="mx-auto mb-8 space-y-4 text-ink-muted">
                         <p>
-                            Whether you are going for an Instagram-worthy baby shower venue or something more understated, we provide a blank canvas for you to decorate as you wish. Our reserved area has plenty of wall space for banners and backdrops, and we can arrange tables to create a dedicated gift area, game zone, and photo corner.
+                            Whether you are going for an Instagram-worthy baby shower venue or something more understated, we provide a blank canvas for you to decorate as you wish. Our reserved area has room for freestanding banners and backdrops, and we can arrange tables to create a dedicated gift area, game zone, and photo corner.
                         </p>
                         <p>
-                            Many of our baby shower guests bring balloon arches, flower arrangements, custom tablecloths, and themed tableware. You are welcome to arrive up to an hour early on the day to set everything up at your leisure. Our team will be on hand to help carry things in, rearrange furniture, and make sure the space looks exactly how you imagined it.
+                            Bring balloon arches, flower arrangements, custom tablecloths and themed tableware if you like. Tell us when you&apos;d like to set up and we&apos;ll agree it.
                         </p>
                         <p>
-                            We only ask that you avoid loose confetti and glitter, which can be very difficult to remove from our upholstery. Biodegradable confetti, paper pom-poms, and fabric bunting are all great alternatives that look just as lovely in photos.
+                            {DECORATING_WORDING}
                         </p>
                     </div>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {[
                             { title: "Balloon Arches", description: "Plenty of space for freestanding balloon arches, garlands, and helium arrangements." },
                             { title: "Photo Backdrops", description: "Set up a dedicated photo area with your own backdrop, props, and lighting." },
-                            { title: "Gift Table", description: "We will set up a dedicated table for gifts, nappy cakes, and party favours." },
+                            { title: "Gift Table", description: "Ask us for a table for gifts, nappy cakes, and party favours." },
                             { title: "Themed Tableware", description: "Bring your own tablecloths, plates, and napkins to match your colour scheme." },
                         ].map(feature => (
                             <Card key={feature.title} accent className="h-full text-center">
@@ -314,19 +312,19 @@ export default function BabyShowersPage() {
                     },
                     {
                         question: "Can we decorate the area?",
-                        answer: "Absolutely. Feel free to bring banners, balloons, sashes, and table decorations to make the space your own. We ask that you avoid loose confetti and glitter."
+                        answer: `Absolutely. Feel free to bring banners, balloons, sashes, and table decorations to make the space your own. ${DECORATING_WORDING}`
                     },
                     {
                         question: "Is there a time limit for the booking?",
-                        answer: "Afternoon bookings typically have the space for 3–4 hours, which is plenty of time for tea, games, and opening gifts. We can discuss timing when you enquire."
+                        answer: `${ROOM_HIRE_WORDING} Tell us how long you'd like when you enquire.`
                     },
                     {
-                        question: "Do you have mocktails for the mum-to-be?",
-                        answer: "Yes. Our bar team can prepare a selection of alcohol-free cocktails and mocktails so the guest of honour can join in the celebrations without feeling left out."
+                        question: "Is there an alcohol-free welcome drink for the mum-to-be?",
+                        answer: "Yes. A welcome orange juice is the alcohol-free partner to our welcome prosecco, and the bar has soft drinks."
                     },
                     {
                         question: "Can we bring a cake?",
-                        answer: "Yes, you are welcome to bring your own cake. We'll keep it safe in the kitchen until you are ready, and provide plates, a knife, and napkins. We'll ask whoever brings it to sign our outside-food waiver."
+                        answer: CELEBRATION_CAKE_WORDING
                     },
                     {
                         question: "Is the venue suitable for a gender reveal during the shower?",
@@ -338,7 +336,7 @@ export default function BabyShowersPage() {
                     },
                     {
                         question: "Is there a room hire fee?",
-                        answer: "Yes, a room hire fee applies for baby showers. The fee varies depending on the day, time, and group size. There is pricing discussed on enquiry. Contact us for specific details based on your guest numbers."
+                        answer: `Yes. ${ROOM_HIRE_WORDING} The hourly rates are on our private hire page. Contact us for a quote based on your guest numbers.`
                     }
                 ]}
             />

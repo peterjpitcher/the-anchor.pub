@@ -16,6 +16,7 @@ import {
 } from './_components/RecruitmentSections'
 import { RecruitmentApplicationForm } from './_components/RecruitmentApplicationForm'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
+import { STAFF_PAY_WORDING } from '@/lib/constants'
 import {
   mainRoleCards,
   poorFitSignals,
@@ -177,7 +178,7 @@ export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageP
             <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <RecruitmentFact label="Current roles" value="Bar Staff and Kitchen Team" />
               <RecruitmentFact label="Location" value="The Anchor, Stanwell Moor, TW19 6AQ" />
-              <RecruitmentFact label="Pay" value="£12.71 per hour base rate" />
+              <RecruitmentFact label="Pay" value={STAFF_PAY_WORDING} />
               <RecruitmentFact label="Hours" value="Part-time, mainly evenings and weekends" />
             </dl>
           </Card>

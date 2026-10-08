@@ -16,7 +16,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT, HEATHROW_TIMES, HEATHROW_DISTANCES, BUS, BUS_WORDING } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { PARKING_REFUND_WORDING } from '@/lib/approved-wording'
+import { PARKING_REFUND_WORDING, TAXI_WORDING } from '@/lib/approved-wording'
 
 const formatRate = (value: number) => value.toFixed(2)
 const pricingUnavailable = 'We could not load current parking prices. Please refresh the page or call 01753 682707.'
@@ -394,7 +394,7 @@ export default async function HeathrowParkingPage() {
                 <CardBody className="p-6">
                   <h3 className="text-lg font-semibold text-ink-strong">Daily price promise</h3>
                   <p className="mt-2 text-sm text-ink-muted">
-                    {rateCard ? `Lock in from £${formatRate(rateCard.daily_rate)} per day or £${formatRate(rateCard.weekly_rate)} per week, no surge pricing, no pre-authorisation. Pay in advance with PayPal.` : pricingUnavailable}
+                    {rateCard ? `Lock in from £${formatRate(rateCard.daily_rate)} per day or £${formatRate(rateCard.weekly_rate)} per week. Pay in advance with PayPal.` : pricingUnavailable}
                   </p>
                 </CardBody>
               </Card>
@@ -402,7 +402,7 @@ export default async function HeathrowParkingPage() {
                 <CardBody className="p-6">
                   <h3 className="text-lg font-semibold text-ink-strong">Terminal-specific savings</h3>
                   <p className="mt-2 text-sm text-ink-muted">
-                    Beat “cheap parking near Heathrow Terminal 5/3/4/2” searches by parking once and taxiing to any terminal in {HEATHROW_TIMES.range}.
+                    Park once, then take a taxi to any terminal in {HEATHROW_TIMES.range}.
                   </p>
                 </CardBody>
               </Card>
@@ -481,7 +481,7 @@ export default async function HeathrowParkingPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-ink-strong">Taxi or rideshare (recommended)</h3>
                     <p className="mt-2 text-sm text-ink-muted">
-                      Local taxi firms reach all Heathrow terminals in around {HEATHROW_TIMES.range}. Book in advance or ask our team on arrival. Uber and Bolt also serve our postcode TW19 6AQ, making door-to-door transfers simple.
+                      Local taxi firms reach all Heathrow terminals in around {HEATHROW_TIMES.range}. Book your own in advance. {TAXI_WORDING} Uber and Bolt also serve our postcode TW19 6AQ, making door-to-door transfers simple.
                     </p>
                   </div>
                   <div>
@@ -591,13 +591,12 @@ export default async function HeathrowParkingPage() {
             <div>
               <h2 className="font-display text-h2 text-ink-strong">Airport long term parking with pub-level perks</h2>
               <p className="mt-4 text-ink-muted">
-                Choose The Anchor when you need reliable Heathrow long stay parking at fair prices. Travellers Googling "cheap long term parking", "long term parking near me" or "airport long term parking rates" land here because we keep pricing transparent and pair it with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, barista coffee, speedy Wi-Fi and restrooms before you head to Heathrow, all while your car stays in a CCTV-covered, well-lit village setting outside the ULEZ. Arrange your own taxi once you've parked.
+                Choose The Anchor when you need reliable Heathrow long stay parking at fair prices. We keep pricing transparent and pair it with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, barista coffee, speedy Wi-Fi and restrooms before you head to Heathrow, all while your car stays in a CCTV-covered, well-lit village setting outside the ULEZ. Arrange your own taxi once you've parked.
               </p>
               <ul className="mt-4 space-y-2 text-ink-muted">
                 <li>• Flexible booking windows, from four hours to 30 days</li>
                 <li>• PayPal receipts for expenses and insurance</li>
                 <li>• Easy access from M25 Junction 14 and the A3044</li>
-                <li>• Optional overnight pub stays for early flights</li>
               </ul>
             </div>
             <Card accent>
@@ -605,7 +604,7 @@ export default async function HeathrowParkingPage() {
                 <h3 className="font-display text-h3 text-ink-strong">Quick Heathrow parking checklist</h3>
                 <ol className="mt-4 space-y-3 text-ink-muted">
                   <li><strong>1.</strong> Book online and pay with PayPal or card.</li>
-                  <li><strong>2.</strong> Receive confirmation by SMS and email.</li>
+                  <li><strong>2.</strong> We&apos;ll confirm your booking.</li>
                   <li><strong>3.</strong> Park at The Anchor and pop in for refreshments.</li>
                   <li><strong>4.</strong> Taxi or rideshare to your terminal in {HEATHROW_TIMES.range}.</li>
                 </ol>

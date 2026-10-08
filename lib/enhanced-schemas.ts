@@ -38,14 +38,6 @@ export const homepageFAQSchema = {
         "@type": "Answer",
         "text": `The Anchor is just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, ${HEATHROW_TIMES.terminal2} minutes from Terminals 2 & 3, and ${HEATHROW_TIMES.terminal4} minutes from Terminal 4. We're the closest traditional British pub to Heathrow Airport.`
       }
-    },
-    {
-      "@type": "Question",
-      "name": "Does The Anchor have any special offers?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! We have hosted nights like Music Bingo with Nikki Manfadge and one-off events. See /whats-on for the latest details."
-      }
     }
   ]
 }

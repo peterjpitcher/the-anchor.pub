@@ -157,6 +157,12 @@ export function computeLargeGroupDepositAmount(partySize: number): number {
 // The approved sentence, SSOT section 16. It lives in lib/approved-wording.ts.
 export const LARGE_GROUP_DEPOSIT_POLICY_COPY = GROUP_DEPOSIT_WORDING
 
+// Staff pay, SSOT section 2: both jobs, bar staff and kitchen team, are open at
+// this rate "for now" (owner-confirmed, 7 October 2026). The one home for the
+// rate: the recruitment pages and their JobPosting data read it from here.
+export const STAFF_HOURLY_RATE_GBP = 12.71
+export const STAFF_PAY_WORDING = `£${STAFF_HOURLY_RATE_GBP.toFixed(2)} per hour base rate`
+
 // Walk-in launch banner timestamps (BST). Used by <LaunchAnnouncement>.
 // - STARTS_AT: start of 17 May 2026 BST (banner switches from pre-launch
 //   "starts on 17 May" copy to launch-day "today from 1pm" copy)

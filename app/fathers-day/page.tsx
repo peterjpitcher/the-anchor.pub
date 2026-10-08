@@ -65,13 +65,13 @@ export default function FathersDayPage() {
     {
       question: "Do I need to book for Father's Day?",
       answer:
-        "Booking is recommended, especially for groups, since it's one of our busiest Sundays. " +
+        "Booking is recommended, especially for groups. " +
         "Groups of 15 or more take a £10 per person deposit on booking, fully deducted from the bill on the day."
     },
     {
       question: "Where to take Dad on Father's Day near Heathrow?",
       answer:
-        `The Anchor in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car, with ${PARKING.capacity} free parking spaces, a dog-friendly beer garden and planes passing overhead every 90 seconds. ` +
+        `The Anchor in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car, with ${PARKING.capacity} free parking spaces, and a dog-friendly beer garden under the Heathrow flight path. ` +
         "It's a proper local pub, not a chain."
     },
     {
@@ -131,8 +131,8 @@ export default function FathersDayPage() {
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               The short answer: a proper Father&apos;s Day pub near me, not a chain restaurant, not a hotel buffet.
-              The Anchor in Stanwell Moor is {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, with {PARKING.capacity} free parking spaces, a dog-friendly
-              beer garden, and a plane every 90 seconds that gives Dad a perfectly valid reason to sit outside as long as he likes.
+              The Anchor in Stanwell Moor is {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, with {PARKING.capacity} free parking spaces, and a dog-friendly
+              beer garden under the Heathrow flight path, which gives Dad a perfectly valid reason to sit outside as long as he likes.
             </p>
             <p className="text-ink-muted leading-relaxed">
               Drinks from the bar, the family all in one place,
@@ -140,7 +140,7 @@ export default function FathersDayPage() {
               from Heathrow T5, it&apos;s easy to get to from anywhere nearby.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Badge variant="green">Planes every 90 seconds</Badge>
+              <Badge variant="green">Under the flight path</Badge>
               <Badge variant="success">Free parking</Badge>
               <Badge variant="green">Dog-friendly</Badge>
             </div>
@@ -162,7 +162,7 @@ export default function FathersDayPage() {
             </p>
             <p className="text-ink-muted leading-relaxed">
               {DOGS_WORDING} The garden has plenty of space for families,
-              and there&apos;s always something to watch in the sky. It&apos;s the kind of afternoon
+              and at busy times a plane comes over about every 90 seconds. It&apos;s the kind of afternoon
               where nobody checks the time.
             </p>
             <div className="flex flex-wrap gap-3">

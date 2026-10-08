@@ -50,9 +50,11 @@ export const metadata: Metadata = buildGameNightMetadata(quizNight, {
 // shared by the four game pages.
 
 /**
- * Six questions, down from nine.
+ * Five questions, down from nine.
  *
- * The three that went were a duplicate private-quiz question, a "do you run quiz
+ * The private quiz question went on 8 October 2026: docs/SSOT.md holds private
+ * nights for music bingo only (site review C2-019). The three that went before
+ * it were a duplicate private-quiz question, a "do you run quiz
  * nights on weekends" filler, and a "closest pub quiz near Heathrow hotels"
  * question aimed at airport guests. This page is for people who live within a few
  * miles: the keyword data shows the demand sits in "pub quiz near me", not in
@@ -84,12 +86,7 @@ const FAQS = [
     // No kitchen closing time: it comes from the live hours and varies by date
     // (docs/SSOT.md §3). This said 9pm in fixed text.
     answer:
-      'Kitchen times vary by date, so order when you arrive, or call 01753 682707 to check that night’s times. Cocktails, mocktails and bottled ales are available from the bar all evening.'
-  },
-  {
-    question: 'Do you host private or corporate quiz nights?',
-    answer:
-      'Yes. We run custom trivia nights for corporate teams, birthdays and fundraisers with tailored rounds and prizes. Email manager@the-anchor.pub or call 01753 682707.'
+      'Kitchen times vary by date, so order when you arrive, or call 01753 682707 to check that night’s times. Cocktails and bottled ales are available from the bar all evening.'
   }
 ]
 
@@ -217,8 +214,10 @@ export default async function QuizNightPage() {
                     <li><strong>7pm</strong> · first round. Four rounds of ten questions, general knowledge, no specialist subjects.</li>
                     {/* Five rounds in all: four of ten questions, and this one in the
                         middle, played on phones (owner-confirmed 11 September 2026). */}
-                    <li><strong>8:15pm</strong> · interactive quick-fire round, played on your phone.</li>
-                    <li><strong>8:30pm</strong> · comfort break, time to top up drinks.</li>
+                    {/* No clock time for either: docs/SSOT.md §10 gives 6:30pm, 7pm
+                        and 9:30pm only (site review C2-029). */}
+                    <li><strong>In the middle</strong> · interactive quick-fire round, played on your phone.</li>
+                    <li><strong>Then a comfort break</strong> · time to top up drinks.</li>
                     {/* 9:30pm, owner-confirmed 17 August 2026 and matching end_time
                         21:30 in the management DB. This said 9:45pm while the event
                         pages said 9:30pm. */}
@@ -226,7 +225,7 @@ export default async function QuizNightPage() {
                   </ul>
                   <p className="text-sm text-ink-muted">
                     Teams up to six. House rule: phones away, except in the interactive round, or
-                    it&rsquo;s a 5 point penalty. Friendly rather than serious, with the odd bit of adult humour.
+                    it&rsquo;s a 5 point penalty. Friendly rather than serious.
                   </p>
                 </CardBody>
               </Card>
@@ -290,8 +289,8 @@ export default async function QuizNightPage() {
                 11 September 2026, docs/SSOT.md §10). A third card offered a prize
                 for the best team name, which the quiz does not have. */}
             <div className="grid gap-4 md:grid-cols-2">
-              <PrizeCard title="Champions" reward="£25 Bar Voucher" copy="For the winning team, to spend at our bar." />
-              <PrizeCard title="Second from last" reward="Bottle of House Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
+              <PrizeCard title="Champions" reward="£25 Bar Voucher" copy="For the winning team, to spend with us." />
+              <PrizeCard title="Second from last" reward="Bottle of House Wine" copy="A consolation prize that keeps everyone in the game." />
             </div>
           </div>
         </Container>
@@ -308,7 +307,7 @@ export default async function QuizNightPage() {
             {/* Kitchen times vary by date and come from the live hours
                 (docs/SSOT.md §3), so none is written here, as on /karaoke. */}
             <p className="mb-5 text-ink-muted">
-              Order pizzas, burgers, pies or anything else on the full menu at your table. Kitchen
+              Order pizzas, burgers, pies or anything else on the full menu, and food is brought to your table. Kitchen
               times vary by date, so get your order in when you arrive, or call 01753 682707 to
               check that night&rsquo;s times. You do not need a separate dining booking, because your
               quiz booking is your team&rsquo;s table.

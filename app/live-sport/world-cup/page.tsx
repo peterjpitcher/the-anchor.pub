@@ -15,7 +15,7 @@ import { getUpcomingFixtures } from '@/components/features/world-cup/upcoming-fi
 import { getWorldCup2026Matches } from '@/lib/world-cup-2026'
 import type { WorldCup2026Match } from '@/lib/world-cup-2026'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { ACCESS_WORDING, SPORT_WORDING, PARKING_WORDING, DOGS_WORDING, FAMILIES_WORDING, GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { ACCESS_WORDING, SPORT_WORDING, COMMENTARY_WORDING, PARKING_WORDING, DOGS_WORDING, FAMILIES_WORDING, GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
 
 // This page is year-neutral on purpose (7 October 2026, owner-approved: the same
 // treatment /live-sport/six-nations got). In October 2026 it still advertised a
@@ -31,19 +31,21 @@ import { ACCESS_WORDING, SPORT_WORDING, PARKING_WORDING, DOGS_WORDING, FAMILIES_
 //
 // Every standing line rests on docs/SSOT.md. Sport, parking, dogs, families,
 // access and deposit lines are the approved wording from SSOT §16, pasted as it
-// stands. The World Cup line follows the approved Six Nations line: terrestrial
-// only (§6), 4 TVs (§8), and the commentary on, which the owner confirmed on
-// 7 October 2026 for big games and tournaments. It names no fixture, date, year
-// or channel for a given game. tests/unit/world-cup-page-year-neutral.test.tsx
+// stands. The World Cup line is built from them: terrestrial only (§6), 4 TVs
+// (§8), then the approved commentary sentence as it stands. That sentence says
+// "big games and tournaments" and the SSOT adds that it is no promise for
+// everything that is on, so the page does not say the commentary is on for
+// every World Cup game. It names no fixture, date, year or channel for a given
+// game. tests/unit/world-cup-page-year-neutral.test.tsx
 // holds all of this.
 
 const PAGE_TITLE = 'World Cup Football | The Anchor Stanwell Moor'
-const SOCIAL_DESCRIPTION = `We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call ${CONTACT.phone} to check a game.`
+const SOCIAL_DESCRIPTION = `We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs. Call ${CONTACT.phone} to check a game.`
 
 export const metadata: Metadata = {
   // Absolute, so the root layout's "| The Anchor" template is not added on top.
   title: { absolute: PAGE_TITLE },
-  description: `Watch the World Cup near Heathrow. We show games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call ${CONTACT.phone} to check a game.`,
+  description: `Watch the World Cup near Heathrow. We show games that are on BBC, ITV or Channel 4, on 4 TVs. Call ${CONTACT.phone} to check a game.`,
   openGraph: {
     title: PAGE_TITLE,
     description: SOCIAL_DESCRIPTION,
@@ -62,8 +64,9 @@ export const metadata: Metadata = {
 
 export const revalidate = 300 // 5 minutes, matches CheersAI feed CDN cache
 
-// Follows the approved Six Nations line in SSOT §16, with the tournament's name changed.
-const WORLD_CUP_WORDING = `We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs with the commentary on. Call us on ${CONTACT.phone} to check a particular game.`
+// Terrestrial only and 4 TVs (SSOT §6 and §8), then the approved commentary
+// sentence from §16, word for word.
+const WORLD_CUP_WORDING = `We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs. ${COMMENTARY_WORDING} Call us on ${CONTACT.phone} to check a particular game.`
 // The approved wording comes from lib/approved-wording.ts (SSOT §16).
 
 const features = [
@@ -130,7 +133,7 @@ export default async function WorldCupPage() {
         image={DEFAULT_PAGE_HEADER_IMAGE}
         crumb="World Cup"
         title="World Cup football at The Anchor"
-        lead="We show World Cup games that are on BBC, ITV or Channel 4. Four TVs, commentary on."
+        lead="We show World Cup games that are on BBC, ITV or Channel 4, on 4 TVs."
         actions={
           <>
             <BookTableButton source="world_cup_hero" variant="primary" size="lg" fullWidth>

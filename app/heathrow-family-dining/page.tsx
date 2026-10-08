@@ -16,16 +16,16 @@ import { ACCESS_AMENITY_FEATURES, FAMILIES_WORDING } from '@/lib/approved-wordin
 
 export const metadata: Metadata = {
     title: 'Family Friendly Pub Near Heathrow | Kids Menu & Garden',
-    description: `${BRAND.name} is the perfect family stop near Heathrow. Kids menu, large beer garden for running around, and high chairs available. Stress-free dining for parents.`,
+    description: `${BRAND.name} is the perfect family stop near Heathrow. Kids menu, a big beer garden to sit out in, and high chairs available. Stress-free dining for parents.`,
     openGraph: {
         title: 'Family Friendly Dining Near Heathrow',
-        description: 'Let the kids burn off some energy in our garden before the flight. Great food for them, cold drinks for you.',
+        description: 'Sit out in our big garden before the flight. Great food for the kids, cold drinks for you.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Family Friendly Dining Near Heathrow',
-        description: 'Let the kids burn off some energy in our garden before the flight. Great food for them, cold drinks for you.',
+        description: 'Sit out in our big garden before the flight. Great food for the kids, cold drinks for you.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -77,7 +77,7 @@ export default function FamilyDiningPage() {
         image="/images/page-headers/home/page-headers-homepage.jpg"
         crumb="Family Dining"
         title="Family Friendly Dining Near Heathrow"
-        lead="Fresh air, good food, and plenty of space for the kids to run around"
+        lead="Fresh air, good food, and a big garden to sit out in"
       />
 
             <AmenityStrip/>
@@ -87,7 +87,7 @@ export default function FamilyDiningPage() {
                     <div className="mx-auto">
                         <SectionHeading
                             title="Family-Friendly Pub & Restaurant Near Heathrow Airport"
-                            lead="Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal and let the little ones stretch their legs."
+                            lead="Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal for a while."
                         />
                     </div>
                 </Container>

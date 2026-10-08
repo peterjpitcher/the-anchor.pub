@@ -1,3 +1,4 @@
+import { LUGGAGE_WORDING } from '@/lib/approved-wording'
 import { SectionHeading, Card, CardBody, Container } from '@/components/ui'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { CtaBand } from '@/components/CtaBand'
@@ -46,7 +47,7 @@ export default function LuggageStoragePage() {
             {
                 "@type": "HowToStep",
                 "name": "Arrive with Your Bags",
-                "text": "Bring your luggage inside, we have plenty of space and you're welcome to keep it beside you."
+                "text": `Bring your luggage inside. ${LUGGAGE_WORDING}`
             },
             {
                 "@type": "HowToStep",
@@ -94,7 +95,7 @@ export default function LuggageStoragePage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
                                 { title: '1. Book a Table', description: 'Book a table for a meal, no need to mention luggage, just turn up with it.' },
-                                { title: '2. Bring Your Bags', description: 'Wheel your luggage right in, we have plenty of room and you can keep it beside you.' },
+                                { title: '2. Bring Your Bags', description: `Wheel your luggage right in. ${LUGGAGE_WORDING}` },
                                 { title: '3. Eat & Relax', description: 'Enjoy a Sunday Roast, Fish & Chips, or a cold pint in the garden.' }
                             ].map(feature => (
                                 <Card key={feature.title} accent hover>
@@ -109,7 +110,7 @@ export default function LuggageStoragePage() {
                         <Card accent className="mx-auto mt-8">
                             <CardBody>
                                 <h3 className="font-display text-h4 text-ink-strong mb-2">Good to Know</h3>
-                                <p className="text-ink-muted">{`We can easily accommodate standard suitcases and cabin bags. If you have oversized items, please call us first on ${CONTACT.phone} and we'll do our best to help.`}</p>
+                                <p className="text-ink-muted">{`${LUGGAGE_WORDING} If you're bringing something unusual, call us first on ${CONTACT.phone}.`}</p>
                             </CardBody>
                         </Card>
                     </div>
@@ -128,7 +129,7 @@ export default function LuggageStoragePage() {
                                 <CardBody>
                                     <h3 className="font-display text-h4 text-ink-strong mb-2">The Anchor</h3>
                                     <ul className="space-y-3 text-ink">
-                                        <li>Luggage welcome, plenty of space</li>
+                                        <li>Luggage storage: ask the bar team</li>
                                         <li>Comfortable seating & WiFi</li>
                                         <li>Great food & beer</li>
                                         <li>Fresh air in the garden</li>
@@ -155,11 +156,11 @@ export default function LuggageStoragePage() {
                 faqs={[
                     {
                         question: "Can I bring my luggage to the pub?",
-                        answer: "Absolutely! You are very welcome to bring your luggage with you when visiting The Anchor. We have plenty of space, so just wheel your bags in and enjoy your meal."
+                        answer: `Yes. You are very welcome to bring your luggage with you. ${LUGGAGE_WORDING}`
                     },
                     {
                         question: "Is there enough room for suitcases?",
-                        answer: "Yes, we are a spacious venue with lots of room. Standard suitcases and cabin bags are no problem at all. If you have particularly large or unusual items, give us a call and we will do our best to accommodate you."
+                        answer: `${LUGGAGE_WORDING} If you're bringing something unusual, give us a call first.`
                     },
                     {
                         question: "How far are you from Terminal 5?",

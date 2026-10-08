@@ -108,7 +108,7 @@ export default async function StanwellPubPage() {
         image="/images/page-headers/stanwell-pub/find-us.jpg"
         crumb="Stanwell"
         title="Stanwell's Traditional Village Pub"
-        lead="The heart of the Stanwell community since generations"
+        lead="A proper village local since 1751"
         actions={
           <BookTableButton source="stanwell_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -215,13 +215,13 @@ export default async function StanwellPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
                     <div className="text-ink-muted">
-                      <strong className="text-ink">Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)
+                      <strong className="text-ink">Music Bingo</strong> - Hosted by Nikki Manfadge. <Link href="/whats-on" className="underline">See what&apos;s on</Link> for dates.
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
                     <div className="text-ink-muted">
-                      <strong className="text-ink">Pool & Darts</strong> - Join our local leagues or play casually
+                      <strong className="text-ink">Pool & Darts</strong> - Pool is £1 a game, and there&apos;s a dartboard too
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -280,7 +280,7 @@ export default async function StanwellPubPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Weekday Favourites</h3>
                   <p className="text-ink-muted mb-3">Classic British pub fare loved by Stanwell residents</p>
                   <ul className="space-y-2 text-ink-muted">
-                    <li>• Fish & Chips Fridays</li>
+                    <li>• Fish & Chips</li>
                     <li>• Beef & Ale Pie</li>
                     <li>• Chicken Katsu Curry</li>
                     <li>• Stone-baked Pizzas</li>
@@ -364,7 +364,6 @@ export default async function StanwellPubPage() {
                   <li>• Regular meetup spot for Stanwell clubs</li>
                   <li>• Supporters of local charities</li>
                   <li>• Venue for Stanwell celebrations</li>
-                  <li>• Home to local darts and pool teams</li>
                   <li>• Dog walkers' favourite refreshment stop</li>
                 </ul>
               </div>
@@ -436,8 +435,8 @@ export default async function StanwellPubPage() {
       <OrganicSearchClusterLinks
         cluster="localPub"
         currentPath="/stanwell-pub"
-        title="More local pub routes near Stanwell Moor"
-        intro="Compare nearby local pub pages for Heathrow, Staines, Stanwell Moor and directions to The Anchor."
+        title="More local guides"
+        intro="More on the food, the pub and how to find us."
       />
 
       {/* FAQ Section */}
@@ -458,10 +457,6 @@ export default async function StanwellPubPage() {
           {
             question: "What's the best way to get to The Anchor from Stanwell without a car?",
             answer: `A taxi is the simplest way. ${BUS_WORDING} For the trip home: ${TAXI_WORDING}`
-          },
-          {
-            question: "Do Stanwell residents get any special offers?",
-            answer: "All our regular offers are available to everyone! This includes our famous Sunday roasts and stone-baked pizzas. We're Stanwell's local, so all locals are treated like family!"
           }
         ]}
         className="bg-canvas"

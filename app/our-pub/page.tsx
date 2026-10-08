@@ -173,8 +173,7 @@ export default function OurPubPage() {
               </p>
               <p className="text-ink leading-relaxed">
                 We accept all major credit cards (yes, including American Express)
-                and cash. If you&apos;re a regular or bringing the team, we can set
-                up business accounts for monthly invoicing too.
+                and cash.
               </p>
             </div>
           </div>
@@ -220,10 +219,9 @@ export default function OurPubPage() {
                 lovely spot for a meal.
               </p>
               <p className="text-ink leading-relaxed">
-                Here&apos;s the bit people don&apos;t expect: you can watch planes
-                landing and taking off from Heathrow right from your table. The
-                south runway is close enough that you can spot airline liveries
-                while you eat. It&apos;s genuinely brilliant, especially if
+                Here&apos;s the bit people don&apos;t expect: step out into the
+                garden and planes land right overhead on their way into
+                Heathrow. It&apos;s genuinely brilliant, especially if
                 you&apos;ve got kids (or, let&apos;s be honest, if you&apos;re just
                 into{' '}
                 <Link
@@ -250,9 +248,9 @@ export default function OurPubPage() {
                   birthday parties
                 </Link>
                 , retirement dos, baby showers or business meetings,
-                you get exclusive use of the room, full access to the bar, and the
-                option to extend into the garden. There&apos;s a TV in there as
-                well, handy for presentations or watching live events.
+                you get exclusive use of the room and full access to the bar.
+                There&apos;s a TV in there as well, handy for a slideshow or a
+                presentation.
               </p>
             </div>
           </div>
@@ -286,8 +284,8 @@ export default function OurPubPage() {
                 >
                   beer garden
                 </Link>{' '}
-                sits directly under Heathrow&apos;s south runway, planes
-                come over every 90&nbsp;seconds or so, at around 500 to
+                sits directly under Heathrow&apos;s southern runway approach
+                path. Planes come over about every 90&nbsp;seconds at peak times, at around 500 to
                 800&nbsp;feet. It&apos;s mesmerising. Grab a drink, stretch out on
                 the grass, and just look up. There&apos;s nothing quite like it.
               </p>
@@ -336,17 +334,14 @@ export default function OurPubPage() {
                 next to you.
               </p>
               <p className="text-ink leading-relaxed">
-                The jukebox deserves a mention on its own. It plays throughout the
-                pub, inside and out in the garden, so the music
-                follows you wherever you go. And the{' '}
+                And the{' '}
                 <Link
                   href="/pool-darts-pub"
                   className="text-accent-text font-semibold hover:text-accent hover:underline"
                 >
                   dartboard
                 </Link>
-                ? Proper pub darts. No booking needed, just grab your arrows and
-                play.
+                ? Proper pub darts.
               </p>
             </div>
           </div>
@@ -391,7 +386,7 @@ export default function OurPubPage() {
                 >
                   pool table
                 </Link>{' '}
-                is &pound;1 a game and available whenever we&apos;re open. It&apos;s
+                is &pound;1 a game. It&apos;s
                 tucked into its own area, the kind of spot where you&apos;ll
                 lose an hour without noticing, especially with a couple of pints on
                 the go. Mates, dates, work colleagues, everyone ends up round
@@ -420,7 +415,7 @@ export default function OurPubPage() {
           {
             question: 'Can I hire the dining room for a private event?',
             answer:
-              `Yes. Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated} and is available for private hire, birthday parties, business meetings, retirement dos and more. You get exclusive use of the room with full bar access and the option to extend into the garden. Call us on 01753 682707 to discuss.`,
+              `Yes. Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated} and is available for private hire, birthday parties, business meetings, retirement dos and more. You get exclusive use of the room with full bar access. Call us on 01753 682707 to discuss.`,
           },
           {
             question: 'Is the pub dog-friendly?',
@@ -430,7 +425,7 @@ export default function OurPubPage() {
           {
             question: 'How much is the pool table?',
             answer:
-              'The pool table is £1 a game and available at all times we\'re open. No booking needed.',
+              'The pool table is £1 a game.',
           },
           {
             question: 'Do you have parking?',

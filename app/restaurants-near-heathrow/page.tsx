@@ -483,7 +483,7 @@ export default async function RestaurantsNearHeathrowPage() {
                       <li>• Park free while you dine</li>
                       <li>• Quick {HEATHROW_TIMES.terminal5}-minute drive to Terminal 5</li>
                       <li>• Skip the terminal queues</li>
-                      <li>• Luggage storage available</li>
+                      <li>• Luggage storage: ask the bar team</li>
                     </ul>
               </CardBody>
             </Card>
@@ -576,7 +576,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
           {
             question: "Can I leave Heathrow during a layover to eat?",
-            answer: "Yes, if you have enough time. Arriving international passengers need to clear immigration, leave, eat, return and pass security again, so allow at least 2.5 to 3 hours. If you are already landside or connecting domestically, around 90 minutes is enough to reach us, have a proper meal and get back."
+            answer: "Yes, if you have enough time. Arriving international passengers need to clear immigration, leave, eat, return and pass security again, so allow at least 2.5 to 3 hours."
           },
           {
             question: "Is it worth leaving the airport to eat?",

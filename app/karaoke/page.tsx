@@ -23,7 +23,7 @@ import { formatEventDate, formatEventTime, type Event } from '@/lib/api'
 import Link from 'next/link'
 import { BookTableButton } from '@/components/BookTableButton'
 import { ACCESS_WORDING } from '@/lib/approved-wording'
-import { BUS_WORDING, PARKING, CONTACT } from '@/lib/constants'
+import { BUS_WORDING, DRIVE_TIMES, PARKING, CONTACT } from '@/lib/constants'
 
 /**
  * Karaoke is the largest organic opportunity across the four game pages: GKP puts
@@ -65,11 +65,11 @@ export const metadata: Metadata = buildGameNightMetadata(karaoke, {
 const HOW_IT_WORKS = [
   {
     title: 'Turn up and get comfortable',
-    body: 'The pub is open from 12pm, so come early, eat, and settle in. Seating is communal, which means we lay the room out for the number of people booked in.'
+    body: 'Come early and settle in. Seating is communal, which means we lay the room out for the number of people booked in.'
   },
   {
     title: 'Ask the host for a song',
-    body: 'Tell whoever is hosting what you fancy singing and they will add you to the queue. Solo, a duet with a mate, or the whole table in on the chorus.'
+    body: 'Tell the host what you fancy singing and they will add you to the queue. Solo, a duet with a mate, or the whole table in on the chorus.'
   },
   {
     title: 'Or do not sing at all',
@@ -81,7 +81,7 @@ const FAQS = [
   {
     question: 'Where is your karaoke night?',
     answer:
-      `At The Anchor on Horton Road, Stanwell Moor, TW19 6AQ. It is a few minutes from Staines, Ashford, Bedfont and Egham, with ${PARKING.capacity} free parking spaces on site. ${BUS_WORDING}`
+      `At The Anchor on Horton Road, Stanwell Moor, TW19 6AQ. It is ${DRIVE_TIMES.staines} minutes from Staines by car, with ${PARKING.capacity} free parking spaces on site. ${BUS_WORDING}`
   },
   {
     question: 'How much does karaoke cost?',
@@ -297,7 +297,7 @@ export default async function KaraokePage() {
           <div className="mx-auto text-center">
             <h2 className="mb-3 text-h4 text-ink-strong">Eat before you sing</h2>
             <p className="mb-5 text-ink-muted">
-              Kitchen times vary by date, so check before you come or call {CONTACT.phone}, and order at your seat
+              Kitchen times vary by date, so check before you come or call {CONTACT.phone}, and order
               before things get going. You do not need a separate table booking to eat: your karaoke
               booking is your seat for the evening.
             </p>
@@ -321,8 +321,8 @@ export default async function KaraokePage() {
             <div>
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">
-                The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
-                Bedfont and Egham, with {PARKING.capacity} free parking spaces on site.
+                The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. {DRIVE_TIMES.staines} minutes from Staines
+                by car, with {PARKING.capacity} free parking spaces on site.
               </p>
               <ul className="space-y-3 text-sm text-ink-muted">
                 <li><strong>Driving:</strong> use postcode TW19 6AQ. {PARKING.capacity} free spaces, first come, first served.</li>

@@ -121,7 +121,7 @@ export default async function FishAndChipsPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="Fish and Chips Near Heathrow"
-              lead="Current dish names, descriptions and prices are shown here when available online."
+              lead="Our fish and chip dishes and prices, straight from today's menu."
             />
           </div>
         </div>

@@ -22,7 +22,9 @@ describe('RegretReduction', () => {
     render(<RegretReduction variant="enquiry" />)
     expect(screen.getByText(/No commitment/i)).toBeInTheDocument()
     expect(screen.getByText(/just a conversation/i)).toBeInTheDocument()
-    expect(screen.getByText(/24 hours/i)).toBeInTheDocument()
+    expect(screen.getByText(/as soon as we can/i)).toBeInTheDocument()
+    // No reply time is on record, so none is promised (site review finding C1-039).
+    expect(screen.queryByText(/24 hours/i)).not.toBeInTheDocument()
   })
 
   it('renders booking variant by default', () => {

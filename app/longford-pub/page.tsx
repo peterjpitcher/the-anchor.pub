@@ -8,7 +8,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
-import { PARKING_WORDING } from '@/lib/approved-wording'
+import { LUGGAGE_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -113,7 +113,7 @@ export default function LongfordPubPage() {
                     <div className="mx-auto text-center">
                         <SectionHeading
                             title="Why Travellers Choose The Anchor"
-                            lead="We're the favourite choice for guests at the Thistle, Premier Inn, and other Longford hotels."
+                            lead="Staying at a Longford hotel? We're a short drive away."
                         />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -185,7 +185,7 @@ export default function LongfordPubPage() {
                         />
                         <div className="prose max-w-none space-y-4 text-ink-muted">
                             <p>
-                                If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you, it&rsquo;s the soundtrack to your life. We&rsquo;re on the same flight path over here in Stanwell Moor, so we understand completely. The difference is, we&rsquo;ve turned it into a feature. Our beer garden sits right under the flight path, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
+                                If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you, it&rsquo;s the soundtrack to your life. Over here in Stanwell Moor, we&rsquo;ve turned it into a feature. Our beer garden sits under Heathrow&rsquo;s southern runway approach path, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
                             </p>
                             <p>
                                 Getting here from Longford is a short drive or taxi ride, whether you&rsquo;re in the village or at the Bath Road end near the hotels.
@@ -231,7 +231,7 @@ export default function LongfordPubPage() {
                     },
                     {
                         question: "Can I bring my luggage?",
-                        answer: "Yes, if you're stopping by on your way to/from the airport, we can find a safe spot for your bags while you eat."
+                        answer: `Yes. ${LUGGAGE_WORDING}`
                     }
                 ]}
                 className="bg-surface"

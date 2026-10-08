@@ -186,7 +186,7 @@ export default function WindsorPubPage() {
               </div>
 
               <div>
-                <h3 className="font-display text-h3 text-ink-strong mb-4">Special Events & Offers</h3>
+                <h3 className="font-display text-h3 text-ink-strong mb-4">Food and Events</h3>
                 <ul className="space-y-3 text-ink">
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -198,7 +198,7 @@ export default function WindsorPubPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)</div>
+                    <div><strong>Music Bingo</strong> - Hosted by Nikki Manfadge. <Link href="/whats-on" className="underline">See what&apos;s on</Link> for dates.</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -210,9 +210,9 @@ export default function WindsorPubPage() {
 
             <Card accent className="mt-8 text-center">
               <CardBody className="p-6">
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Royal Connection</h3>
+                <h3 className="font-display text-h4 text-ink-strong mb-2">A Village Local</h3>
                 <p className="text-lg text-ink-muted">
-                  Many castle staff and Windsor locals are regulars - discover where the real community meets!
+                  A proper village pub, a short drive from Windsor.
                 </p>
               </CardBody>
             </Card>
@@ -225,23 +225,10 @@ export default function WindsorPubPage() {
         <Container>
           <div className="mx-auto">
             <SectionHeading
-              title="Popular with Windsor Groups"
+              title="For Windsor Groups"
             />
 
-            <div className="grid md:grid-cols-2 gap-5 mb-8">
-              <Card accent>
-                <CardBody className="p-6">
-                  <h3 className="font-display text-h4 text-ink-strong mb-4">Regular Visitors</h3>
-                  <ul className="space-y-2 text-ink-muted">
-                    <li>• Windsor Rugby Club socials</li>
-                    <li>• Eton College staff gatherings</li>
-                    <li>• Windsor & Eton FC supporters</li>
-                    <li>• Local business networking</li>
-                    <li>• Theatre Royal Windsor groups</li>
-                  </ul>
-                </CardBody>
-              </Card>
-
+            <div className="mx-auto max-w-xl mb-8">
               <Card accent>
                 <CardBody className="p-6">
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Perfect For</h3>
@@ -365,7 +352,7 @@ export default function WindsorPubPage() {
                 That&rsquo;s what brings Windsor residents our way. It&rsquo;s a short drive, and you swap Windsor&rsquo;s parking charges for {PARKING.capacity} free spaces right outside the door.
               </p>
               <p>
-                We get a lot of Windsor Great Park walkers who have spent the morning on the Long Walk or around Virginia Water and want a proper pub lunch without heading back into town. Castle staff pop in after their shifts too, they&rsquo;ve told us they prefer somewhere they won&rsquo;t bump into visitors from work. And if you&rsquo;ve just done the Theatre Royal or a Windsor Racecourse meeting, we&rsquo;re a brilliant pit-stop on the way home, quieter, cheaper, and you can actually hear your mates talk.
+                We get a lot of Windsor Great Park walkers who have spent the morning on the Long Walk or around Virginia Water and want a proper pub lunch without heading back into town. And if you&rsquo;ve just done the Theatre Royal or a Windsor Racecourse meeting, we&rsquo;re a brilliant pit-stop on the way home, quieter, cheaper, and you can actually hear your mates talk.
               </p>
               <p>
                 The beer garden is the clincher for most people. Sit outside with a pint and watch the planes coming into Heathrow overhead, it&rsquo;s a genuinely good free show. {DOGS_WORDING} So if you&rsquo;ve brought the spaniel along for that Great Park walk, they&rsquo;re sorted too.
@@ -393,8 +380,8 @@ export default function WindsorPubPage() {
       <OrganicSearchClusterLinks
         cluster="localPub"
         currentPath="/windsor-pub"
-        title="Compare local pub pages"
-        intro="Use these local pages for nearby pub, food and directions searches before you visit."
+        title="More local guides"
+        intro="More on the food, the pub and how to find us."
       />
 
       {/* FAQ Section */}
@@ -417,8 +404,8 @@ export default function WindsorPubPage() {
             answer: `Set your sat nav to ${CONTACT.address.postcode}, or use the Get directions link on this page.`
           },
           {
-            question: "Do you get many customers from Windsor and Eton?",
-            answer: "Absolutely! We have many regulars from Windsor, Old Windsor, Datchet, and Eton. Castle staff, local business people, and sports clubs often choose us for meals and events away from the tourist areas."
+            question: "Is The Anchor handy for Windsor and Eton?",
+            answer: "Yes. We're a short drive from Windsor, Old Windsor, Datchet and Eton, and parking's free when you get here."
           },
           {
             question: "Can you accommodate large Windsor groups?",

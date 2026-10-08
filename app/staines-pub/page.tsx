@@ -10,7 +10,7 @@ import { DirectionsButton } from '@/components/DirectionsButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING, HEATHROW_TIMES, DRIVE_TIMES, BUS_WORDING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
-import { FAMILIES_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
+import { FAMILIES_WORDING, PARKING_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -36,7 +36,7 @@ export function generateMetadata(): Metadata {
 
   return {
     title: 'Pub Near Staines | Food, Events & Free Parking',
-    description: `Pub near Staines with ${sundayPhrase}, stone-baked pizza, quiz nights, private rooms, dog-friendly beer garden and free customer parking.`,
+    description: `Pub near Staines with ${sundayPhrase}, stone-baked pizza, quiz nights, private hire, dog-friendly beer garden and free customer parking.`,
     openGraph: {
       title: 'Pub Near Staines, Beer Garden, Sunday Roasts & Free Parking',
       description: `${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, ${DRIVE_TIMES.staines} mins from Staines-upon-Thames.`,
@@ -143,11 +143,11 @@ export default function StainesPubPage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-accent-text">•</span>
-                  <span>Sunday roasts, stone-baked pizzas and seasonal specials</span>
+                  <span>Sunday roasts and stone-baked pizzas</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-accent-text">•</span>
-                  <span>Hosted nights like Music Bingo with Nikki Manfadge, quiz nights and charity bingo</span>
+                  <span>Music Bingo with Nikki Manfadge, quiz nights and cash bingo</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-accent-text">•</span>
@@ -185,10 +185,10 @@ export default function StainesPubPage() {
               {[
                 { title: "Easy Access from Staines", description: `${DRIVE_TIMES.staines} minutes by car\n${PARKING.capacity} free spaces` },
                 { title: "Famous Sunday Roasts", description: "Our renowned roasts\nServed 1pm-6pm\nWalk in or book ahead, no pre-order needed\nRegular menu also available" },
-                { title: "Unique Entertainment", description: "Hosted nights like Music Bingo with Nikki Manfadge\nQuiz nights and bingo\nSee /whats-on for the latest" },
+                { title: "Events", description: "Music Bingo with Nikki Manfadge\nQuiz nights and cash bingo" },
                 { title: "Stone-Baked Pizzas", description: "Hand-stretched bases\nRich tomato sauce\nGenerous toppings" },
                 { title: "Beer Garden Paradise", description: "Dog-friendly outdoor space\nHeathrow plane spotting" },
-                { title: "Community Hub", description: "Private function room\nBirthday parties welcome\nCorporate events catered" },
+                { title: "Community Hub", description: "Private hire by the hour\nBirthday parties welcome\nWork events too" },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -205,19 +205,19 @@ export default function StainesPubPage() {
       <section className="py-section-y bg-canvas">
         <Container>
           <SectionHeading
-            title="Private Rooms & Event Hire Near Staines"
-            lead="Flexible spaces for celebrations, parties and family gatherings."
+            title="Private Hire Near Staines"
+            lead="For celebrations, parties and family gatherings."
           />
           <div className="grid md:grid-cols-2 gap-5">
             <Card accent>
               <CardBody className="p-6">
-                <h3 className="font-display text-h4 text-ink-strong mb-3">Private rooms near Staines</h3>
+                <h3 className="font-display text-h4 text-ink-strong mb-3">Private hire near Staines</h3>
                 <p className="mb-4 text-ink-muted">
-                  Planning a birthday, wake or team night? Our private dining room is a popular option for
-                  groups searching for pubs with private rooms in Staines, with free parking and tailored menus.
+                  Planning a birthday, wake or team night? The dining room, the garden or the whole pub can be
+                  hired by the hour. Prices and menus are on the private hire page.
                 </p>
                 <Link href="/private-hire" className="text-accent-text font-semibold hover:underline transition">
-                  Explore function room hire →
+                  See private hire →
                 </Link>
               </CardBody>
             </Card>
@@ -225,8 +225,8 @@ export default function StainesPubPage() {
               <CardBody className="p-6">
                 <h3 className="font-display text-h4 text-ink-strong mb-3">Event hire in the Staines area</h3>
                 <p className="mb-4 text-ink-muted">
-                  We host private events near Staines with flexible layouts, buffet or three-course menus,
-                  and dedicated support for speeches and playlists.
+                  Birthdays, engagement parties, retirement dos and more. Buffet menus and what each space
+                  holds are on the private hire pages.
                 </p>
                 <Link href="/private-hire/milestone-birthdays" className="text-accent-text font-semibold hover:underline transition">
                   View private party options →
@@ -294,7 +294,7 @@ export default function StainesPubPage() {
                     <h3 className="font-display text-h4 text-ink-strong">Wednesday</h3>
                     <Badge variant="gold">QUIZ</Badge>
                   </div>
-                  <p className="text-ink-muted">Monthly Quiz Night - Win a £25 bar voucher! See /whats-on for details.</p>
+                  <p className="text-ink-muted">Monthly Quiz Night - Win a £25 bar voucher! <Link href="/whats-on" className="underline">See what&apos;s on</Link> for dates.</p>
                 </CardBody>
               </Card>
 
@@ -314,9 +314,9 @@ export default function StainesPubPage() {
                 <CardBody className="p-6">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-display text-h4 text-ink-strong">Monthly</h3>
-                    <Badge variant="sand">HOSTED</Badge>
+                    <Badge variant="sand">MUSIC BINGO</Badge>
                   </div>
-                  <p className="text-ink-muted">Hosted nights with Nikki Manfadge (including Music Bingo) and one-off events. See /whats-on for details.</p>
+                  <p className="text-ink-muted">Music Bingo with Nikki Manfadge. <Link href="/whats-on" className="underline">See what&apos;s on</Link> for dates.</p>
                 </CardBody>
               </Card>
             </div>
@@ -352,7 +352,7 @@ export default function StainesPubPage() {
                     </li>
                     <li className="flex items-start gap-3">
                       <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                      <span><strong className="text-ink">Flexible spaces</strong> - From intimate gatherings to large parties</span>
+                      <span><strong className="text-ink">Private hire</strong> - The dining room, the garden or the whole pub</span>
                     </li>
                   </ul>
                 </CardBody>
@@ -364,7 +364,7 @@ export default function StainesPubPage() {
                   <div className="space-y-4">
                     <div>
                       <h4 className="font-semibold text-ink mb-1">Birthday Parties</h4>
-                      <p className="text-sm text-ink-muted">Celebrate milestones with custom packages</p>
+                      <p className="text-sm text-ink-muted">Celebrate a milestone with us</p>
                     </div>
                     <div>
                       <h4 className="font-semibold text-ink mb-1">Corporate Events</h4>
@@ -386,8 +386,7 @@ export default function StainesPubPage() {
             <Card accent className="text-center">
               <CardBody className="p-6">
                 <p className="text-lg text-ink mb-4">
-                  <strong>Flexible venue hire pricing!</strong> Tailored to your event.
-                  We're always willing to discuss your needs and budget.
+                  {ROOM_HIRE_WORDING} Prices and menus are on the private hire page.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button asChild variant="primary" size="md">
@@ -478,8 +477,8 @@ export default function StainesPubPage() {
       <OrganicSearchClusterLinks
         cluster="localPub"
         currentPath="/staines-pub"
-        title="Compare local pub pages"
-        intro="Use these local pages for Stanwell, Staines and directions searches before you book."
+        title="More local guides"
+        intro="More on the food, the pub and how to find us."
       />
 
       {/* FAQ Section */}
@@ -491,19 +490,19 @@ export default function StainesPubPage() {
           },
           {
             question: "What makes The Anchor different from other pubs in Staines?",
-            answer: "We offer unique entertainment including hosted nights like Music Bingo with Nikki Manfadge, quiz nights, famous Sunday roasts, stone-baked pizzas, plus a dog-friendly beer garden with plane spotting views of Heathrow. Unlike most pubs in Staines-upon-Thames, we have free parking and a spacious outdoor garden. See /whats-on for the latest events."
+            answer: "We've Music Bingo with Nikki Manfadge, quiz nights, famous Sunday roasts, stone-baked pizzas, plus a dog-friendly beer garden with plane spotting views of Heathrow. Unlike most pubs in Staines-upon-Thames, we have free parking and a spacious outdoor garden. Our What's On page has the latest events."
           },
           {
             question: "Do you have parking at your Staines area pub?",
             answer: PARKING_WORDING
           },
           {
-            question: "Do you have private rooms near Staines?",
-            answer: "Yes. We offer private rooms and flexible layouts for birthdays, wakes and group celebrations. See the function room hire page or call 01753 682707 to plan your event."
+            question: "Can I hire a private room near Staines?",
+            answer: `Yes. The dining room, the garden or the whole pub can be hired by the hour. Prices and menus are on the private hire page, or call ${CONTACT.phone} to plan your event.`
           },
           {
             question: "Can we book private events in the Staines area?",
-            answer: "We host private events near Staines with buffet or seated menu options, a dedicated event team, and free on-site parking. Contact us to check dates."
+            answer: "Yes. We host private events with buffet menus, a dedicated events coordinator and free parking. Contact us to check dates."
           }
         ]}
         className="bg-canvas"

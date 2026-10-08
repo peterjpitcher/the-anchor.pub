@@ -80,7 +80,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
     {
       question: 'Is there a ticket or entry fee?',
       answer:
-        "We confirm whether a given year's evening is ticketed or free entry on our What's On page closer to the date. Either way, booking a table is recommended to guarantee your spot.",
+        "We confirm whether a given year's evening is ticketed or free entry on our What's On page closer to the date. Either way, booking a table is recommended.",
     },
     {
       question: "What time does the pub close on New Year's Eve?",
@@ -155,7 +155,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
               Why The Anchor for New Year&apos;s Eve
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
-              No long taxi home. No surge pricing. No spending half the night in a queue. Just a village pub
+              No spending half the night in a queue. Just a village pub
               that knows how to throw a party, with {PARKING.capacity} free parking spaces right outside for whoever&apos;s
               driving.
             </p>
@@ -270,8 +270,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               We stay open until 1am on New Year&apos;s Eve, with a DJ and a midnight countdown. Call us on {CONTACT.phone} for
-              the latest. Walk-ins are welcome, but booking is strongly recommended, it gets busy, and a reserved table
-              means you&apos;re guaranteed your spot.
+              the latest. Walk-ins are welcome, but booking is recommended.
             </p>
             <Card accent>
               <CardBody>
@@ -334,12 +333,11 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
               Staying at a Heathrow hotel over New Year&apos;s? Don&apos;t settle for the hotel bar. We&apos;re
-              just {HEATHROW_TIMES.terminal5} minutes from Terminal 5, an easy taxi ride for a proper New Year&apos;s
+              just {HEATHROW_TIMES.terminal5} minutes from Terminal 5, a short drive for a proper New Year&apos;s
               Eve celebration with real atmosphere.
             </p>
             <p className="text-ink-muted leading-relaxed">
-              Airport hotel guests regularly come over for the evening. The taxi back is quick and
-              affordable, a fraction of what you&apos;d pay in central London.
+              {TAXI_WORDING}
             </p>
             <Link
               href="/near-heathrow/terminal-5"
@@ -355,7 +353,7 @@ export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
       {/* Booking CTA */}
       <CtaBand
         title="Book your New Year's Eve"
-        copy={`New Year's Eve always fills up. Book your table now to guarantee your spot. Groups of more than ${bookingConfig.maxOnlinePartySize}, give us a call so we can sort the right space.`}
+        copy={`Booking a table is recommended. Groups of more than ${bookingConfig.maxOnlinePartySize}, give us a call so we can sort the right space.`}
         primary={
           <Button asChild variant="primary" size="lg">
             <a href={NYE_BOOKING_URL}>Book Your Spot Online</a>

@@ -63,7 +63,7 @@ export const landmarks: Landmark[] = [
         type: 'crematorium',
         address: 'London Road, Staines-upon-Thames TW18 4AJ',
         distance: wakeVenueDistance('staines-cemetery'),
-        description: 'A convenient and quiet location for families gathering after services at Staines Cemetery. Our private rooms offer a secluded space for reflection.'
+        description: 'A convenient and quiet location for families gathering after services at Staines Cemetery. The dining room can be hired as a private space.'
     },
     {
         slug: 'slough-crematorium',
@@ -80,14 +80,14 @@ export const landmarks: Landmark[] = [
         name: 'St Mary the Virgin, Stanwell',
         type: 'church',
         address: 'Church Road, Stanwell TW19 7HF',
-        description: 'We are the perfect neighbour for St Mary\'s, located just minutes away in Stanwell Moor. Ideal for christening receptions and post-service meals.'
+        description: 'We are the perfect neighbour for St Mary\'s, close by in Stanwell Moor. Ideal for christening celebrations and post-service meals.'
     },
     {
         slug: 'our-lady-of-the-rosary-staines',
         name: 'Our Lady of the Rosary RC Church',
         type: 'church',
         address: '59 Gresham Road, Staines TW18 2BD',
-        description: 'After your ceremony at Our Lady of the Rosary, gather your friends and family at The Anchor for a celebratory meal or buffet.'
+        description: 'After your service at Our Lady of the Rosary, gather your friends and family at The Anchor for a celebratory meal or buffet.'
     },
     {
         slug: 'st-johns-church-egham',
@@ -132,7 +132,7 @@ export const landmarks: Landmark[] = [
         name: 'Stockley Park',
         type: 'business_park',
         address: 'Uxbridge UB11 1AQ',
-        description: 'Accessible via the M25 and local roads, we provide a great off-site location for Stockley Park businesses.'
+        description: 'An off-site location for Stockley Park businesses, with free parking when the team arrives.'
     },
 
     // Removed on 8 October 2026 (owner decision 15, site review finding C1-006):

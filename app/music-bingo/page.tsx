@@ -31,8 +31,8 @@ import {
 import Link from 'next/link'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { rollingSeriesEndDate } from '@/lib/schema'
-import { ACCESS_WORDING } from '@/lib/approved-wording'
-import { BUS_WORDING, PARKING } from '@/lib/constants'
+import { ACCESS_WORDING, CHILDREN_WELCOME_WORDING } from '@/lib/approved-wording'
+import { BUS_WORDING, DRIVE_TIMES, PARKING } from '@/lib/constants'
 
 /**
  * Title carries both measured clusters for this page: "music bingo near me" and
@@ -70,7 +70,7 @@ const HOW_TO_PLAY = [
   },
   {
     title: 'Shout for the win',
-    body: 'A line or a full house takes the prize. Two games across the night, with interactive music rounds and quizzes in between.'
+    body: 'Winners get a £25 voucher to spend with us. Two games across the night, with interactive music rounds and quizzes in between.'
   }
 ]
 
@@ -83,7 +83,7 @@ const FAQS = [
   {
     question: 'When does music bingo start and finish?',
     answer:
-      'The first game is at 7pm and the room is set from 6:30pm, unless the event listing for that date says otherwise. The pub itself is open from 12pm, so come early and eat first.'
+      'The first game is at 7pm and the room is set from 6:30pm, unless the event listing for that date says otherwise, and we finish by 10pm. The pub itself is open from 12pm, so come early and eat first.'
   },
   {
     question: 'What is the format?',
@@ -97,8 +97,7 @@ const FAQS = [
   },
   {
     question: 'Is music bingo suitable for families?',
-    answer:
-      'Yes. The music runs from the 1950s to today, so a mix of ages tends to cover more of the card than a group of the same age.'
+    answer: `Yes. ${CHILDREN_WELCOME_WORDING}`
   },
   {
     question: 'Can you run a private music bingo night?',
@@ -149,7 +148,7 @@ function MusicBingoEventCards({ events, datesUnavailable }: { events: Event[]; d
       renderDetails={() => (
         <p className="text-sm text-ink-muted">
           Two themed games of song clips with interactive music rounds and quizzes between them.
-          Grab your card, spot the track, and celebrate every line win.
+          Grab your card and spot the track.
         </p>
       )}
       emptyState={
@@ -192,7 +191,7 @@ export default async function MusicBingoPage() {
           "@type": "EventSeries",
           "@id": "https://www.the-anchor.pub/#music-bingo-series",
           "name": "Music Bingo with Nikki Manfadge at The Anchor",
-          "description": "Song clips replace numbers, prizes land across both games, and drag host Nikki Manfadge keeps the singalong energy high. A themed music bingo night in Stanwell Moor.",
+          "description": "Song clips replace numbers, winners get a £25 voucher to spend with us, and drag host Nikki Manfadge keeps the singalong energy high. A themed music bingo night in Stanwell Moor.",
           "startDate": "2024-01-01",
           // Rolling, like the quiz and cash bingo series. The typed 2026-12-31
           // would have told Google the series was over from 1 January 2027.
@@ -268,7 +267,7 @@ export default async function MusicBingoPage() {
           </PageTitle>
           <p className="mx-auto text-center text-lg text-ink-muted">
             Bingo with the numbers swapped for song clips, hosted by drag queen Nikki Manfadge. Every
-            date has its own theme, there are prizes across both games, and you do not need to know
+            date has its own theme, winners get a £25 voucher to spend with us, and you do not need to know
             anything about music to play. {heroDescription}
           </p>
         </Container>
@@ -309,7 +308,7 @@ export default async function MusicBingoPage() {
                     <li><strong>Finale</strong> · last card of the night. Winners get a £25 voucher to spend with us.</li>
                   </ul>
                   <p className="text-sm text-ink-muted">
-                    Song clips are short, so keep ears open and phones away during the rounds.
+                    Song clips are short, so keep your ears open.
                   </p>
                 </CardBody>
               </Card>
@@ -383,7 +382,7 @@ export default async function MusicBingoPage() {
             {/* Kitchen times vary by date and come from the live hours
                 (docs/SSOT.md §3), so none is written here, as on /karaoke. */}
             <p className="mb-5 text-ink-muted">
-              Kitchen times vary by date, so order at your table when you arrive, or call 01753 682707
+              Kitchen times vary by date, so order when you arrive and food is brought to your table, or call 01753 682707
               to check that night&rsquo;s times. You do not need a separate dining booking, because
               your music bingo booking is your seat for the night.
             </p>
@@ -442,12 +441,12 @@ export default async function MusicBingoPage() {
             <div>
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">
-                The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
-                Bedfont and Egham, with {PARKING.capacity} free parking spaces on site.
+                The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. {DRIVE_TIMES.staines} minutes from Staines
+                by car, with {PARKING.capacity} free parking spaces on site.
               </p>
               <ul className="space-y-3 text-sm text-ink-muted">
                 <li><strong>Driving:</strong> use postcode TW19 6AQ. {PARKING.capacity} free spaces, first come, first served.</li>
-                <li><strong>Public transport:</strong> {BUS_WORDING} Uber and Bolt know us well.</li>
+                <li><strong>Public transport:</strong> {BUS_WORDING}</li>
                 <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">

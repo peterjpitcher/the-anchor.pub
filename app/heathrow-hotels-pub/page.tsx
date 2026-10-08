@@ -9,7 +9,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING, HEATHROW_TIMES, HEATHROW_TIMES_WORDING, BUS_WORDING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
-import { PARKING_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { CHARGING_WORDING, LUGGAGE_WORDING, PARKING_WORDING, ROOM_HIRE_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -140,7 +140,7 @@ export default async function HeathrowHotelsPubPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {[
-                { title: 'Great Value', description: 'Honest pub pricing with current menu prices' },
+                { title: 'Great Value', description: 'Honest pub pricing' },
                 { title: 'Free Parking', description: `${PARKING.capacity} spaces - no hourly charges like hotel car parks` },
                 { title: 'Real Experience', description: 'Authentic British pub, not a chain hotel restaurant' }
               ].map(feature => (
@@ -164,45 +164,22 @@ export default async function HeathrowHotelsPubPage() {
               title="Minutes from Major Heathrow Hotels"
             />
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
-                <h3 className="font-display text-h4 text-ink-strong mb-4">Terminal 5 Area Hotels</h3>
-                <ul className="space-y-3">
-                  <li className="font-medium">Sofitel London Heathrow</li>
-                  <li className="font-medium">Premier Inn T5</li>
-                  <li className="font-medium">Travelodge Heathrow</li>
-                  <li className="font-medium">Hilton London Heathrow</li>
-                </ul>
-	                <p className="mt-4 text-sm text-ink-muted">
-	                  A short taxi ride or an easy drive, with free parking
-	                </p>
-              </div>
-
-              <div className="bg-surface border border-line rounded-md shadow-sm p-6">
-                <h3 className="font-display text-h4 text-ink-strong mb-4">Bath Road & T4 Area Hotels</h3>
-                <ul className="space-y-3">
-                  <li className="font-medium">Marriott London Heathrow</li>
-                  <li className="font-medium">Crowne Plaza Heathrow</li>
-                  <li className="font-medium">Radisson Blu Heathrow</li>
-                  <li className="font-medium">Holiday Inn Heathrow</li>
-                  <li className="font-medium">ibis London Heathrow</li>
-                  <li className="font-medium">Novotel London Heathrow</li>
-                  <li className="font-medium">Renaissance London Heathrow</li>
-                </ul>
-	                <p className="mt-4 text-sm text-ink-muted">
-	                  A short taxi ride away
-	                </p>
-              </div>
+            <div className="bg-surface border border-line rounded-md shadow-sm p-6">
+              <h3 className="font-display text-h4 text-ink-strong mb-4">Heathrow Hotels Near Us</h3>
+              <ul className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                <li className="font-medium">Sofitel</li>
+                <li className="font-medium">Premier Inn</li>
+                <li className="font-medium">Travelodge</li>
+                <li className="font-medium">Hilton</li>
+                <li className="font-medium">Marriott</li>
+                <li className="font-medium">Crowne Plaza</li>
+                <li className="font-medium">ibis</li>
+                <li className="font-medium">Renaissance</li>
+              </ul>
+              <p className="mt-4 text-sm text-ink-muted">
+                A short taxi ride or an easy drive, with free parking. We&apos;re {HEATHROW_TIMES.rangeWords} from the terminals by car.
+              </p>
             </div>
-
-            <Card accent className="mt-8 text-center">
-              <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-2">Hotel Shuttle Tip</h3>
-                <p className="text-lg text-ink-muted">
-                  Some hotels offer area shuttles - ask reception if they go near Stanwell Moor!
-                </p>
-              </CardBody>
-            </Card>
           </div>
         </Container>
       </section>
@@ -240,7 +217,8 @@ export default async function HeathrowHotelsPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl"></span>
                     <div>
-                      <strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, live atmosphere (see /whats-on)
+                      <strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge.{' '}
+                      <Link href="/whats-on" className="font-semibold text-accent-text underline underline-offset-2">See what&apos;s on</Link>
                     </div>
                   </li>
                 </ul>
@@ -264,13 +242,13 @@ export default async function HeathrowHotelsPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl"></span>
                     <div>
-                      <strong>Luggage storage</strong> - We'll keep bags safe while you eat
+                      <strong>Luggage storage</strong> - Ask the bar team when you arrive
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl"></span>
                     <div>
-                      <strong>All currencies</strong> - Cards welcome, including Amex
+                      <strong>All major cards</strong> - Including American Express
                     </div>
                   </li>
                 </ul>
@@ -323,7 +301,7 @@ export default async function HeathrowHotelsPubPage() {
                     <p className="font-semibold text-ink-strong mb-2">Expense-Friendly</p>
                     <ul className="space-y-1 text-ink-muted text-sm">
                       <li>• Full VAT receipts provided</li>
-                      <li>• Honest pub pricing, current menu prices</li>
+                      <li>• Honest pub pricing</li>
                       <li>• Proper business atmosphere</li>
                     </ul>
                   </div>
@@ -332,7 +310,7 @@ export default async function HeathrowHotelsPubPage() {
                     <ul className="space-y-1 text-ink-muted text-sm">
                       <li>• Free WiFi throughout</li>
                       <li>• Quiet corners available</li>
-                      <li>• Power outlets in dining room</li>
+                      <li>• {CHARGING_WORDING}</li>
                     </ul>
                   </div>
                 </div>
@@ -436,11 +414,7 @@ export default async function HeathrowHotelsPubPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text"></span>
-                    <span><strong>Airline crew events</strong> - Regular venue for BA, Virgin, Emirates teams</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-accent-text"></span>
-                    <span><strong>No hotel markups</strong> - Corporate rates, not inflated airport prices</span>
+                    <span><strong>Hired by the hour</strong> - {ROOM_HIRE_WORDING} Prices and menus are on the <Link href="/private-hire" className="font-semibold text-accent-text underline underline-offset-2">private hire page</Link>.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text"></span>
@@ -476,8 +450,7 @@ export default async function HeathrowHotelsPubPage() {
               <CardBody className="text-center">
                 <h3 className="font-display text-h4 text-ink-strong mb-2">Perfect for Airport Companies</h3>
                 <p className="mb-4 text-ink-muted">
-                  We understand the unique needs of airport businesses.
-                  Flexible timing for shift patterns and crew requirements.
+                  The dining room, the garden or the whole pub can be hired by the hour.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Button asChild variant="primary" size="md">
@@ -540,11 +513,11 @@ export default async function HeathrowHotelsPubPage() {
           },
           {
             question: "Do you accommodate flight crews and business travellers?",
-            answer: "Yes! We regularly serve flight crews and business travellers. We provide full VAT receipts for expenses, have free WiFi for working, and understand the needs of travellers including flexible dining times and quick service when needed."
+            answer: "Yes! We regularly serve flight crews and business travellers. We provide full VAT receipts for expenses, and have free WiFi for working."
           },
           {
             question: "Can I store luggage while dining?",
-            answer: "Yes, we offer secure luggage storage for diners. This is perfect if you're between hotel checkout and flight time, or if you've just arrived and your room isn't ready yet."
+            answer: `${LUGGAGE_WORDING} It's handy if you're between hotel checkout and flight time, or if you've just arrived and your room isn't ready yet.`
           },
 	          {
 	            question: "What's the best way to get to The Anchor from my hotel?",

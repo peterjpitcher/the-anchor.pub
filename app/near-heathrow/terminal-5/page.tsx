@@ -13,7 +13,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { HeroBadge } from '@/components/HeroBadge'
 import { BRAND, BUS_WORDING, CONTACT, DIRECTIONS_URL, HEATHROW_DISTANCES, HEATHROW_TIMES, PARKING, PRICE_RANGE } from '@/lib/constants'
-import { PARKING_WORDING } from '@/lib/approved-wording'
+import { LUGGAGE_WORDING, PARKING_WORDING, TAXI_WORDING } from '@/lib/approved-wording'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
@@ -53,7 +53,7 @@ export default function Terminal5Page() {
         image="/images/page-headers/near-heathrow-terminal-5/heathrow-airport-view.jpg"
         crumb="Near Heathrow"
         title="Pub Near Heathrow Terminal 5 for Food and Free Parking"
-        lead="Perfect for British Airways travellers • Free parking • Traditional British pub"
+        lead="Handy before or after a flight • Free parking • Traditional British pub"
         actions={
           <BookTableButton source="terminal_5_hero" context="terminal_5" variant="primary" size="lg" fullWidth>
             Book a Table
@@ -74,7 +74,7 @@ export default function Terminal5Page() {
             <div className="grid gap-3 md:grid-cols-2 text-ink-muted">
 	              <div className="flex items-start gap-2">
 	                <span className="font-semibold text-accent-text"></span>
-	                <span>{HEATHROW_TIMES.terminal5} minute taxi or Uber from BA arrivals</span>
+	                <span>{HEATHROW_TIMES.terminal5} minute taxi or Uber from Terminal 5</span>
 	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-accent-text"></span>
@@ -94,8 +94,8 @@ export default function Terminal5Page() {
       </section>
 
       <CtaBand
-        title="Plan a 90-Minute Layover Meal"
-        copy="Follow our new Heathrow layover dining guide for timed itineraries, taxi tips, and menu ideas between flights."
+        title="Got a Layover at Terminal 5?"
+        copy="Our Heathrow layover dining guide has journey times from each terminal and how much time to allow."
         primary={
           <Button asChild variant="primary" size="lg">
             <Link href="/heathrow-layover-dining">View Layover Guide</Link>
@@ -103,7 +103,7 @@ export default function Terminal5Page() {
         }
         secondary={
           <Button asChild variant="outline" size="lg" wrap>
-            <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team!%20Can%20you%20help%20plan%20a%20Heathrow%20layover%20meal%3F">WhatsApp for Fast Booking</Link>
+            <Link href="https://wa.me/441753682707?text=Hi%20Anchor%20Team!%20Can%20you%20help%20plan%20a%20Heathrow%20layover%20meal%3F">WhatsApp Us</Link>
           </Button>
         }
       />
@@ -113,7 +113,7 @@ export default function Terminal5Page() {
         <div className="container mx-auto px-4">
           <SectionHeading
             title="Need Food Near Terminal 5?"
-            subtitle="Book ahead so your meal is ready when you arrive, proper pub food, no queues."
+            subtitle="Walk in or book a table. Check our kitchen times before you travel."
           />
           <div className="grid md:grid-cols-3 gap-6 mx-auto">
             <div className="bg-surface border border-line rounded-md shadow-sm p-6">
@@ -156,7 +156,7 @@ export default function Terminal5Page() {
             <div className="bg-surface border border-line rounded-md shadow-sm p-6">
               <h3 className="text-lg font-semibold text-accent-text mb-2">Pub Menu</h3>
               <p className="text-sm text-ink-muted mb-4">
-                Burgers, fish & chips, veggie options and sharers served fast, great for BA crews and Sofitel/Hilton guests.
+                Burgers, fish & chips, pizzas and veggie options, handy if you&apos;re staying at a Terminal 5 hotel.
               </p>
               <div className="flex flex-col gap-2">
                 <BookTableButton
@@ -199,7 +199,7 @@ export default function Terminal5Page() {
               { title: `${HEATHROW_TIMES.terminal5} mins`, description: 'by car' },
               { title: 'Free', description: 'parking' },
               { title: 'Real', description: 'British pub' },
-              { title: 'BA Hub', description: 'Terminal 5' }
+              { title: 'Free WiFi', description: 'throughout the pub' }
             ].map(feature => (
               <Card key={feature.title} accent hover>
                 <CardBody>
@@ -260,7 +260,7 @@ export default function Terminal5Page() {
                   </div>
                   <div className="p-4 bg-anchor-success/10 rounded-sm border border-anchor-success/30">
                     <p className="font-semibold text-anchor-success mb-1">Return taxi</p>
-                    <p className="text-sm text-ink-muted">Ask at the bar and we&apos;ll give you a taxi number. You&apos;ll need to make your own arrangements.</p>
+                    <p className="text-sm text-ink-muted">{TAXI_WORDING}</p>
                   </div>
                 </div>
               </div>
@@ -299,13 +299,13 @@ export default function Terminal5Page() {
           <div className="mx-auto">
             <SectionHeading
               title="Why Terminal 5 Travellers Choose The Anchor"
-              subtitle="British Airways crews and Sofitel/Hilton guests love our authentic pub"
+              subtitle="Proper pub food and free parking, minutes from the terminal"
               align="center"
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
-                { title: 'Perfect for BA Travellers', content: "Terminal 5 is British Airways' exclusive hub. Whether you're flying Club World or Euro Traveller, enjoy a proper British welcome just minutes away." },
+                { title: 'A Short Drive Away', content: `We're ${HEATHROW_TIMES.terminal5} minutes from Terminal 5 by car. Wherever you're flying to, enjoy a proper British welcome first.` },
                 { title: 'Great Value Pub Food', content: 'Proper British pub meals, stone-baked pizzas, burgers, fish & chips, and Sunday roasts. Real food, generous portions, in a relaxed village pub setting.' },
                 { title: 'Free Parking for Patrons', content: PARKING_WORDING },
                 { title: 'Pre-Flight Dining', content: 'Start your holiday right. Relax in our beer garden, enjoy a proper meal, then head to T5 refreshed and ready - not rushed and hungry.' }
@@ -350,39 +350,14 @@ export default function Terminal5Page() {
             </div>
 
             <div className="bg-surface border border-line rounded-md shadow-sm p-8 mb-8">
-              <h3 className="font-display text-h3 text-ink-strong mb-4">Terminal 5 Insider Tips</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <p className="font-semibold mb-2">Check-in Times:</p>
-                  <ul className="space-y-1 text-ink-muted text-sm">
-                    <li>• Short-haul: 2 hours before</li>
-                    <li>• Long-haul: 3 hours before</li>
-                    <li>• Allow {HEATHROW_TIMES.terminal5} mins to reach T5 from here</li>
-                  </ul>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">Popular Routes:</p>
-                  <ul className="space-y-1 text-ink-muted text-sm">
-                    <li>• New York JFK</li>
-                    <li>• Dubai</li>
-                    <li>• Barcelona</li>
-                    <li>• Edinburgh</li>
-                  </ul>
-                </div>
-              </div>
+              <h3 className="font-display text-h3 text-ink-strong mb-4">Getting Back to Terminal 5</h3>
+              <ul className="space-y-1 text-ink-muted text-sm">
+                <li>• Allow {HEATHROW_TIMES.terminal5} minutes by car from The Anchor, and more if the traffic is heavy</li>
+                <li>• Check your airline&apos;s advice on when to be at the terminal</li>
+                <li>• {TAXI_WORDING}</li>
+                <li>• {LUGGAGE_WORDING}</li>
+              </ul>
             </div>
-
-            <Card accent>
-              <CardBody>
-                <h3 className="font-display text-h4 text-ink-strong mb-3">Local Knowledge</h3>
-                <ul className="space-y-3 text-ink-muted list-disc list-inside">
-                  <li>T5 security is typically quieter before 6am and after 8pm</li>
-                  <li>The Anchor is popular with BA cabin crew - we know the flight schedules!</li>
-                  <li>We can store luggage for short periods if you&apos;re between flights</li>
-                  <li>Our Sunday roast is famous among T5 staff - walk in 1pm-6pm or book ahead (groups of 15+ pay a £10 per person deposit)</li>
-                </ul>
-              </CardBody>
-            </Card>
           </div>
         </div>
       </section>
@@ -399,7 +374,7 @@ export default function Terminal5Page() {
 
             <div className="mb-12">
               <p className="text-center text-lg text-ink-muted mx-auto">
-                If you're staying at the Sofitel, Hilton Garden Inn, or any T5 hotel,
+                If you're staying at the Sofitel, the Hilton, or any T5 hotel,
                 The Anchor offers the perfect escape from generic hotel dining.
                 Experience a real British family pub where locals have gathered for over 250 years.
               </p>
@@ -445,7 +420,7 @@ export default function Terminal5Page() {
                 <ul className="space-y-2 text-ink-muted mb-6">
                   <li className="flex gap-2">
                     <span className="text-accent-text"></span>
-                    <span>Bottled draught beers alongside ciders and ciders</span>
+                    <span>Draught beers and ciders</span>
                   </li>
 	                  <li className="flex gap-2">
 	                    <span className="text-accent-text"></span>
@@ -521,7 +496,7 @@ export default function Terminal5Page() {
           { href: '/food-menu', title: 'Food Menu', description: 'Stone-baked pizzas, burgers and Sunday roasts' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Draught beers, cocktails and value pub prices near Heathrow' },
           { href: '/private-hire#enquiry', title: 'Book an Event', description: 'Reserve private space for crew briefings or celebrations' },
-          { href: '/near-heathrow/terminal-3', title: 'Terminal 3 Guide', description: 'Directions and tips for Virgin and Emirates flights' }
+          { href: '/near-heathrow/terminal-3', title: 'Terminal 3 Guide', description: 'Journey times and food near Terminal 3' }
         ]}
         className="py-section-y"
       />
@@ -550,15 +525,11 @@ export default function Terminal5Page() {
 	          },
           {
             question: "What time should I leave The Anchor to catch my flight from T5?",
-            answer: `Allow ${HEATHROW_TIMES.terminal5} minutes to drive from The Anchor to Terminal 5, plus parking time if needed. For short-haul flights, leave 2.5 hours before departure. For long-haul, leave 3.5 hours before.`
-          },
-          {
-            question: "Do BA cabin crew visit The Anchor?",
-            answer: "Yes! We're very popular with British Airways crew based at Terminal 5. Many are regulars who appreciate our proximity to T5 and relaxed atmosphere after long flights."
+            answer: `Allow ${HEATHROW_TIMES.terminal5} minutes to drive from The Anchor to Terminal 5, plus time for traffic, parking and security. Check your airline's advice on when to be at the terminal.`
           },
           {
             question: "Can I store luggage at The Anchor between flights?",
-            answer: "We can store luggage for short periods for customers who are dining with us. Perfect if you have a long layover or are between flights. Just ask our staff."
+            answer: LUGGAGE_WORDING
           },
           {
             question: "Do you welcome guests from nearby hotels?",

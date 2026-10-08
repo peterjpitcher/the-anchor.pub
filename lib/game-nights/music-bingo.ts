@@ -42,7 +42,7 @@ export const musicBingo: GameNightConfig = {
     // within a few miles and already know where the pub is.
     title: 'Music Bingo at The Anchor, Stanwell Moor',
     lead:
-      'Song clips instead of numbers, hosted by drag queen Nikki Manfadge. Two themed games, prizes across both, and communal seating, so book ahead and we will keep your group together.'
+      'Song clips instead of numbers, hosted by drag queen Nikki Manfadge. Two themed games, a £25 voucher for the winners, and communal seating, so book ahead and we will keep your group together.'
   },
 
   share: {
@@ -131,7 +131,7 @@ export const musicBingo: GameNightConfig = {
     {
       src: '/images/events/music-bingo/music-bingo-winner-with-host.jpg',
       alt: 'A music bingo winner collecting their prize from the host at The Anchor',
-      caption: 'Prizes across both games'
+      caption: 'A £25 voucher for the winners'
     },
     {
       src: '/images/events/music-bingo/music-bingo-group-standing.jpg',

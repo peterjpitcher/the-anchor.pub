@@ -12,14 +12,14 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { PRIVATE_HIRE_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { CELEBRATION_CAKE_WORDING, DECORATING_WORDING, PARKING_WORDING, PRIVATE_HIRE_DEPOSIT_WORDING, ROOM_HIRE_WORDING } from '@/lib/approved-wording'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 const { diningRoom, mainArea, entirePub } = PRIVATE_HIRE_CAPACITY.spaces
 
 export const metadata: Metadata = {
     title: 'Engagement Party Venue Near Heathrow',
-    description: `Engagement party venue near Heathrow and Staines. buffets priced from the live approved source, prosecco packages, and free parking at ${BRAND.name}. ${PRIVATE_HIRE_CAPACITY.recommendedRange}.`,
+    description: `Engagement party venue near Heathrow and Staines. Buffets, welcome prosecco and free parking at ${BRAND.name}. ${PRIVATE_HIRE_CAPACITY.recommendedRange}.`,
     openGraph: {
         title: 'Engagement Party Venue | The Anchor Stanwell Moor',
         description: 'She said yes! Now let\'s celebrate. Discover our engagement party packages with prosecco, buffets, and private areas.',
@@ -53,7 +53,7 @@ export default function EngagementPartiesPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/engagement-parties",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": `Engagement party venue near Heathrow Airport with buffets priced from the live approved source, prosecco packages, and free parking. A private dining room (${diningRoom.seated} seated, ${diningRoom.standing} standing) and room for up to ${mainArea.standing} guests across the pub in Stanwell Moor, Surrey.`,
+        "description": `Engagement party venue near Heathrow Airport with buffets, welcome prosecco and free parking. A private dining room (${diningRoom.seated} seated, ${diningRoom.standing} standing) and room for up to ${mainArea.standing} guests across the pub in Stanwell Moor, Surrey.`,
         "potentialAction": {
             "@type": "CommunicateAction",
             "target": {
@@ -78,7 +78,7 @@ export default function EngagementPartiesPage() {
                 image={DEFAULT_CORPORATE_IMAGE}
                 crumb="Engagement Parties"
                 title="Engagement Party Venue Near Heathrow, celebrate at The Anchor"
-                lead={`buffets priced from the live approved source, prosecco packages, free parking, and a private dining room for up to ${diningRoom.standing} standing`}
+                lead={`Buffets, welcome prosecco, free parking, and a private dining room for up to ${diningRoom.standing} standing`}
                 actions={
                     <>
                         <Button asChild variant="primary" size="lg" fullWidth>
@@ -118,7 +118,7 @@ export default function EngagementPartiesPage() {
                             {[
                                 { title: "Prosecco Packages", description: "Pre-order welcome drinks for your guests to start the night right." },
                                 { title: "Flexible Buffets", description: "From finger food to hearty spreads, we cater to all budgets." },
-                                { title: "Music & Atmosphere", description: "Bring your own playlist or book our function area with space for a DJ." },
+                                { title: "Music & Atmosphere", description: "Bring your own playlist, or your own DJ or band." },
                             ].map(feature => (
                                 <Card key={feature.title} accent className="h-full">
                                     <CardBody className="flex h-full flex-col gap-2">
@@ -143,10 +143,10 @@ export default function EngagementPartiesPage() {
                             <Card><CardBody className="space-y-3">
                                 <h3 className="font-display text-h4 text-ink-strong">The Venue</h3>
                                 <ul className="space-y-2 text-ink-muted">
-                                    <li><strong className="text-ink-strong">Room hire:</strong> a simple hire fee covers your space (varies by day and party size). Pricing discussed on enquiry on top, you only pay for what you order.</li>
+                                    <li><strong className="text-ink-strong">Room hire:</strong> {ROOM_HIRE_WORDING} Food and drink are on top, and you only pay for what you order.</li>
                                     <li><strong className="text-ink-strong">Dining room:</strong> {diningRoom.seated} seated, or up to {diningRoom.standing} standing. French doors open straight onto the beer garden in summer.</li>
                                     <li><strong className="text-ink-strong">Capacity:</strong> {PRIVATE_HIRE_CAPACITY.recommendedRange} across the pub. Smaller groups get a reserved area, or you can have the dining room to yourselves.</li>
-                                    <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table decorations, engagement signs, go for it. We just ask for no confetti or glitter.</li>
+                                    <li><strong className="text-ink-strong">Decorations welcome:</strong> Balloons, banners, table decorations, engagement signs, go for it. {DECORATING_WORDING}</li>
                                 </ul>
                             </CardBody></Card>
                             <Card><CardBody className="space-y-3">
@@ -154,7 +154,7 @@ export default function EngagementPartiesPage() {
                                 <ul className="space-y-2 text-ink-muted">
                                     <li><strong className="text-ink-strong">Free parking:</strong> {PARKING.capacity} spaces right outside the door. No meters, no time limits.</li>
                                     <li><strong className="text-ink-strong">{HEATHROW_TIMES.terminal5} minutes from Heathrow T5</strong>, handy if guests are flying in for the celebration.</li>
-                                    <li><strong className="text-ink-strong">AV equipment:</strong> TVs and sound system available for slideshows or speeches.</li>
+                                    <li><strong className="text-ink-strong">TVs and sound system:</strong> TVs and sound system available for slideshows or speeches.</li>
                                     <li><strong className="text-ink-strong">Deposit:</strong> {PRIVATE_HIRE_DEPOSIT_WORDING}</li>
                                     <li><strong className="text-ink-strong">Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
                                 </ul>
@@ -248,7 +248,7 @@ export default function EngagementPartiesPage() {
                     <div className="mx-auto text-center">
                         <SectionHeading title="Ready to start planning?" />
                         <p className="text-lg text-ink-muted mb-8">
-                            Get in touch with our team to check availability and discuss your ideas. We recommend booking at least 4 weeks in advance for Friday/Saturday slots.
+                            Get in touch with our team to check availability and discuss your ideas.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button asChild size="lg" variant="primary">
@@ -278,7 +278,7 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "Can we decorate the area?",
-                        answer: "Absolutely. Bring balloons, banners, table decorations, engagement signs, whatever makes it feel like yours. We just ask for no confetti or glitter as it's tricky to clean up."
+                        answer: `Absolutely. Bring balloons, banners, table decorations, engagement signs, whatever makes it feel like yours. ${DECORATING_WORDING}`
                     },
                     {
                         question: "Do you require a deposit?",
@@ -286,23 +286,23 @@ export default function EngagementPartiesPage() {
                     },
                     {
                         question: "Can we bring a cake?",
-                        answer: "Please do! We'll store it in our kitchen until you're ready. We can provide plates, napkins, and a knife for cutting. Let us know when you want it brought out and we'll time it perfectly. We'll ask whoever brings it to sign our outside-food waiver."
+                        answer: CELEBRATION_CAKE_WORDING
                     },
                     {
                         question: "Is there parking for engagement party guests?",
-                        answer: `Yes. We have ${PARKING.capacity} free parking spaces right outside the pub, no meters, no time limits. It's one of the biggest advantages of choosing a pub venue over a town-centre hotel.`
+                        answer: PARKING_WORDING
                     },
                     {
                         question: "How far in advance should we book?",
-                        answer: "We recommend booking at least 4 weeks ahead for Friday and Saturday evenings. Midweek and Sunday dates are usually easier to get at shorter notice. Popular months like December and summer fill up faster."
+                        answer: "Get in touch as soon as you have a date in mind and we'll tell you if it's free."
                     },
                     {
                         question: "Can we have music or a DJ?",
-                        answer: "Yes. Our function area has space for a DJ setup and we have a sound system available. You can also bring your own playlist, just let our events coordinator know what you need and we'll set it up."
+                        answer: "Yes. You can bring your own DJ or band, or a playlist to play through our sound system. Tell us what you're planning when you book."
                     },
                     {
                         question: "What food options are there?",
-                        answer: "We offer buffets priced from the live approved source (sandwich, finger, burger, premium, and pizza options), or you can let guests order from the à la carte menu. For drinks, we can pour a welcome prosecco as your guests arrive, or set up a bar tab."
+                        answer: "We offer buffets (sandwich, finger, burger, premium, and pizza options), or you can let guests order from the à la carte menu. For drinks, we can pour a welcome prosecco as your guests arrive, or set up a bar tab."
                     },
                     {
                         question: "Where is The Anchor?",
