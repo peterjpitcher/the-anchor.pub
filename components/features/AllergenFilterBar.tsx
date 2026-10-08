@@ -90,7 +90,7 @@ export function AllergenFilterBar({
         onClick={onOpen}
         aria-label={`Open dietary filters${activeFilterCount > 0 ? `, ${activeFilterCount} active` : ''}`}
         className={cn(
-          'fixed bottom-20 right-4 z-50 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold shadow-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold-dark',
+          'fixed bottom-20 right-4 z-50 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold shadow-lg transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text',
           activeFilterCount > 0
             ? 'bg-anchor-gold-dark text-white'
             : 'bg-anchor-green text-white ring-1 ring-line-gold',
@@ -147,7 +147,7 @@ export function AllergenFilterBar({
             type="button"
             onClick={onClose}
             aria-label="Close filters"
-            className="rounded-full p-1.5 text-ink-muted hover:bg-surface-sunk hover:text-ink transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-anchor-gold-dark"
+            className="rounded-full p-1.5 text-ink-muted hover:bg-surface-sunk hover:text-ink transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-text"
           >
             <X size={18} aria-hidden="true" />
           </button>
@@ -172,7 +172,7 @@ export function AllergenFilterBar({
                   onToggleVegetarian()
                 }}
                 className={cn(
-                  'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold-dark',
+                  'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text',
                   showVegetarianOnly
                     ? 'bg-anchor-green text-white shadow'
                     : 'bg-surface-sunk text-ink hover:bg-surface-sunk/70'
@@ -194,7 +194,7 @@ export function AllergenFilterBar({
                   onToggleVegan()
                 }}
                 className={cn(
-                  'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold-dark',
+                  'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text',
                   showVeganOnly
                     ? 'bg-anchor-green text-white shadow'
                     : 'bg-surface-sunk text-ink hover:bg-surface-sunk/70'
@@ -227,7 +227,7 @@ export function AllergenFilterBar({
                       onToggleAllergen(key)
                     }}
                     className={cn(
-                      'w-full flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold-dark',
+                      'w-full flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text',
                       selectedAllergens.has(key)
                         ? 'bg-anchor-gold-dark text-white shadow'
                         : 'bg-surface-sunk text-ink hover:bg-surface-sunk/70'
@@ -255,7 +255,7 @@ export function AllergenFilterBar({
                 trackClearAllFilters(activeFilterCount)
                 onClearAll()
               }}
-              className="w-full rounded-lg bg-surface-sunk px-4 py-2.5 text-sm font-medium text-anchor-danger hover:bg-anchor-danger/10 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-anchor-gold-dark"
+              className="w-full rounded-lg bg-surface-sunk px-4 py-2.5 text-sm font-medium text-anchor-danger hover:bg-anchor-danger/10 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-text"
             >
               Clear all filters
             </button>

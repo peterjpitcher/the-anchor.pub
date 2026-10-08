@@ -71,7 +71,7 @@ export function EventMetadata({
       value: event.offers.price === "0" 
         ? "FREE" 
         : formatPrice(event.offers.price, event.offers.priceCurrency),
-      className: event.offers.price === "0" ? 'text-green-600 font-semibold' : ''
+      className: event.offers.price === "0" ? 'text-anchor-success font-semibold' : ''
     })
   }
 

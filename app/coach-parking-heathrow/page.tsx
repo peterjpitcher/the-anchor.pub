@@ -109,19 +109,19 @@ export default function CoachParkingPage() {
                         <div className="grid md:grid-cols-3 gap-6">
                             <Card accent>
                                 <CardBody className="p-6">
-                                    <h4 className="font-bold text-lg mb-2 text-ink-strong">Quick & Easy</h4>
+                                    <h3 className="font-bold text-lg mb-2 text-ink-strong">Quick & Easy</h3>
                                     <p className="text-ink-muted text-sm">Fish & Chips or Burger & Drink deals. Served fast.</p>
                                 </CardBody>
                             </Card>
                             <Card accent>
                                 <CardBody className="p-6">
-                                    <h4 className="font-bold text-lg mb-2 text-ink-strong">Buffet Spread</h4>
+                                    <h3 className="font-bold text-lg mb-2 text-ink-strong">Buffet Spread</h3>
                                     <p className="text-ink-muted text-sm">Self-service hot and cold buffet for casual dining.</p>
                                 </CardBody>
                             </Card>
                             <Card accent>
                                 <CardBody className="p-6">
-                                    <h4 className="font-bold text-lg mb-2 text-ink-strong">Cream Tea</h4>
+                                    <h3 className="font-bold text-lg mb-2 text-ink-strong">Cream Tea</h3>
                                     <p className="text-ink-muted text-sm">Scones, tea, and sandwiches for afternoon stops.</p>
                                 </CardBody>
                             </Card>

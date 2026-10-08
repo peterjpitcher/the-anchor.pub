@@ -108,7 +108,7 @@ export function MenuAnchorNav({ links, className }: MenuAnchorNavProps) {
               aria-controls={link.id}
               onClick={event => handleClick(event, link)}
               className={cn(
-                'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold-dark',
+                'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text',
                 isActive
                   ? 'bg-anchor-green text-white shadow-lg'
                   : 'bg-surface-sunk text-ink hover:bg-anchor-green/10 hover:text-accent-text'

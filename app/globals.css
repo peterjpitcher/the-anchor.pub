@@ -407,6 +407,11 @@
   --border-strong: rgba(201, 160, 32, 0.45);
   --border-gold: rgba(201, 160, 32, 0.55);
   --focus-ring: var(--anchor-gold-bright);
+  /* Said again here on purpose. A variable that points at another is worked
+     out where it is declared, so the :root line alone kept the light skin's
+     dark gold inside a dark section of a light page (the footer, a hero):
+     1.69:1 on the green. */
+  --anchor-focus-ring-color: var(--focus-ring);
   --link: var(--anchor-gold-bright);
   --link-hover: var(--anchor-cream-text);
 
@@ -427,6 +432,17 @@
   /* Lifted for dark surfaces: 8.5:1 and 5.6:1 on green-card respectively. */
   --status-success: #6ddaa1;
   --status-danger: #ef8078;
+}
+
+/* Native date and time fields draw their own picker icon. On a dark surface
+   the browser's light scheme leaves that icon dark on dark, and a field with no
+   background of its own stays white. Only under .theme-dark, so the light
+   months keep the light controls. */
+.theme-dark input[type='date'],
+.theme-dark input[type='time'],
+.theme-dark input[type='datetime-local'],
+.theme-dark input[type='month'] {
+  color-scheme: dark;
 }
 
 * {
@@ -634,9 +650,22 @@ a:focus-visible {
 }
 
 /* Focus styles for buttons with existing focus ring */
-button:focus-visible:not(.focus\:ring-2),
-.focus\:outline-none:focus-visible {
+button:focus-visible:not(.focus\:ring-2) {
   outline: var(--anchor-focus-ring-width) solid var(--anchor-focus-ring-color);
+  outline-offset: var(--anchor-focus-ring-offset);
+}
+
+/* A control that switches its outline off still gets the theme's focus ring
+   when it is reached by keyboard. The class is doubled on purpose: there is no
+   `@tailwind variants` line in this file, so Tailwind writes every `focus:`
+   utility at the very end of the stylesheet, after this rule, and at equal
+   weight `focus:outline-none` won. Fields, the header links and the burger
+   were left with a ring of dark gold at 10% or on dark green, 1.15:1 to
+   1.69:1 (site review, 7 October 2026). --focus-ring follows the skin: bright
+   gold wherever .theme-dark applies. */
+.focus\:outline-none.focus\:outline-none:focus-visible,
+.focus-visible\:outline-none.focus-visible\:outline-none:focus-visible {
+  outline: var(--anchor-focus-ring-width) solid var(--focus-ring);
   outline-offset: var(--anchor-focus-ring-offset);
 }
 

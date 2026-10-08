@@ -371,7 +371,7 @@ export default async function CashBingoPage() {
                 <DirectionsLink
                   href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
                   source="cash_bingo_directions"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 font-semibold text-anchor-green transition hover:bg-anchor-green hover:text-white"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-accent px-4 py-2 font-semibold text-accent transition hover:bg-accent hover:text-canvas"
                 >
                   Get directions
                 </DirectionsLink>

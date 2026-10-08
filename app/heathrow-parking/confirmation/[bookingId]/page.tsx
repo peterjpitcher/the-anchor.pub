@@ -137,7 +137,7 @@ export default async function ParkingConfirmationPage({ params }: Props) {
                 </div>
                 <div className="flex justify-between items-center py-3">
                   <span className="text-ink-muted text-sm">Amount paid</span>
-                  <span className="text-anchor-green text-lg font-bold">£{amount.toFixed(2)}</span>
+                  <span className="text-ink-strong text-lg font-bold">£{amount.toFixed(2)}</span>
                 </div>
               </div>
             </CardBody>

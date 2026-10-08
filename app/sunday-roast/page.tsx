@@ -337,7 +337,7 @@ export default async function SundayRoastPage() {
               <p className="mb-6 leading-relaxed text-ink-muted">
                 If you are weighing up a chain carvery near Heathrow versus an independent pub Sunday roast, the main difference is service style: we plate from the kitchen rather than running a self-serve carvery line.
               </p>
-              <div className="overflow-x-auto rounded-md border border-line">
+              <div className="overflow-x-auto rounded-md border border-line" role="region" tabIndex={0} aria-label="Table: Sunday roast or carvery">
                 <table className="w-full text-left text-sm md:text-base">
                   <thead className="bg-surface-sunk text-ink-strong">
                     <tr>
@@ -457,21 +457,21 @@ export default async function SundayRoastPage() {
             </p>
             <ol className="space-y-4 leading-relaxed text-ink">
               <li className="flex gap-4">
-                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold text-white font-bold">1</span>
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-dark text-white font-bold">1</span>
                 <div>
                   <p className="font-semibold text-ink-strong">Land at T5</p>
                   <p className="text-sm text-ink-muted">7-minute drive with free parking at the pub.</p>
                 </div>
               </li>
               <li className="flex gap-4">
-                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold text-white font-bold">2</span>
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-dark text-white font-bold">2</span>
                 <div>
                   <p className="font-semibold text-ink-strong">Sunday roast</p>
                   <p className="text-sm text-ink-muted">Walk in during service or book ahead for a guaranteed table.</p>
                 </div>
               </li>
               <li className="flex gap-4">
-                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold text-white font-bold">3</span>
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-dark text-white font-bold">3</span>
                 <div>
                   <p className="font-semibold text-ink-strong">Easy return</p>
                   <p className="text-sm text-ink-muted">Head back to T5 when you are ready.</p>

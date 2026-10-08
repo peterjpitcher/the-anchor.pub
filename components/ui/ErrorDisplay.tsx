@@ -57,7 +57,7 @@ export function ErrorDisplay({
           {onRetry && (
             <button
               onClick={onRetry}
-              className="px-6 py-2 bg-anchor-gold text-ink-on-gold rounded-full font-semibold hover:bg-anchor-gold-dark hover:text-white transition-colors min-h-[44px] min-w-[44px]"
+              className="px-6 py-2 bg-anchor-gold-dark text-white rounded-full font-semibold hover:bg-anchor-green transition-colors min-h-[44px] min-w-[44px]"
               aria-label="Try again"
             >
               Try Again

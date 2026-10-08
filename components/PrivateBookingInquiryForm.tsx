@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { PrivateBookingRequest, createPrivateBooking } from '@/lib/api'
 import { toGuestMessage } from '@/lib/guest-error-messages'
@@ -47,6 +47,10 @@ export function PrivateBookingInquiryForm({
 }: Props) {
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
+    // Ties each label to its control. The labels sat beside the fields with
+    // nothing joining them, so a screen reader announced nine unnamed boxes
+    // (site review AX-010, 7 October 2026).
+    const fieldId = useId()
     const [error, setError] = useState<string | null>(null)
     const [phone, setPhone] = useState(initialData?.contact_phone || '')
     const [lookupState, setLookupState] = useState<LookupState>('idle')
@@ -265,9 +269,11 @@ export function PrivateBookingInquiryForm({
                 <div className="space-y-4">
                     <h4 className="font-medium text-ink-strong border-b border-line pb-2">Contact Details</h4>
                     <div>
-                        <label className="block text-sm font-medium text-ink mb-1">Mobile Number *</label>
+                        <label htmlFor={`${fieldId}-mobile-number`} className="block text-sm font-medium text-ink mb-1">Mobile Number *</label>
                         <p className="text-xs text-ink-muted mb-1">Enter your mobile so we can confirm your enquiry and check whether you are already in our system.</p>
                         <input
+                            id={`${fieldId}-mobile-number`}
+                            autoComplete="tel"
                             required
                             type="tel"
                             value={phone}
@@ -276,7 +282,7 @@ export function PrivateBookingInquiryForm({
                                 trackEnquiryStartedOnce()
                                 setPhone(e.target.value)
                             }}
-                            className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10 disabled:opacity-60"
+                            className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10 disabled:opacity-60"
                         />
                     </div>
 
@@ -333,8 +339,10 @@ export function PrivateBookingInquiryForm({
                                 <h4 className="font-medium text-ink-strong border-b border-line pb-2">Personal Details</h4>
 
                                 <div>
-                                    <label className="block text-sm font-semibold text-ink mb-1">First Name *</label>
+                                    <label htmlFor={`${fieldId}-first-name`} className="block text-sm font-semibold text-ink mb-1">First Name *</label>
                                     <input
+                                        id={`${fieldId}-first-name`}
+                                        autoComplete="given-name"
                                         required
                                         type="text"
                                         value={formData.customer_first_name}
@@ -342,13 +350,15 @@ export function PrivateBookingInquiryForm({
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, customer_first_name: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-semibold text-ink mb-1">Last Name *</label>
+                                    <label htmlFor={`${fieldId}-last-name`} className="block text-sm font-semibold text-ink mb-1">Last Name *</label>
                                     <input
+                                        id={`${fieldId}-last-name`}
+                                        autoComplete="family-name"
                                         required
                                         type="text"
                                         value={formData.customer_last_name || ''}
@@ -356,20 +366,22 @@ export function PrivateBookingInquiryForm({
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, customer_last_name: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-semibold text-ink mb-1">Email (Optional)</label>
+                                    <label htmlFor={`${fieldId}-email`} className="block text-sm font-semibold text-ink mb-1">Email (Optional)</label>
                                     <input
+                                        id={`${fieldId}-email`}
+                                        autoComplete="email"
                                         type="email"
                                         value={formData.contact_email || ''}
                                         onChange={e => {
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, contact_email: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
                         </div>
@@ -378,46 +390,50 @@ export function PrivateBookingInquiryForm({
                             <h4 className="font-medium text-ink-strong border-b border-line pb-2">Event Details</h4>
 
                             <div>
-                                <label className="block text-sm font-semibold text-ink mb-1">Preferred Date</label>
+                                <label htmlFor={`${fieldId}-preferred-date`} className="block text-sm font-semibold text-ink mb-1">Preferred Date</label>
                                 <input
+                                    id={`${fieldId}-preferred-date`}
                                     type="date"
                                     value={formData.event_date || ''}
                                     onChange={e => setFormData({ ...formData, event_date: e.target.value })}
                                     data-native-date-time="true"
-                                    className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
+                                    className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                 />
                             </div>
 
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label className="block text-sm font-semibold text-ink mb-1">Start Time</label>
+                                    <label htmlFor={`${fieldId}-start-time`} className="block text-sm font-semibold text-ink mb-1">Start Time</label>
                                     <input
+                                        id={`${fieldId}-start-time`}
                                         type="time"
                                         value={formData.start_time || ''}
                                         onChange={e => setFormData({ ...formData, start_time: e.target.value })}
                                         data-native-date-time="true"
-                                        className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
+                                        className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-semibold text-ink mb-1">Approx Guests</label>
+                                    <label htmlFor={`${fieldId}-approx-guests`} className="block text-sm font-semibold text-ink mb-1">Approx Guests</label>
                                     <input
+                                        id={`${fieldId}-approx-guests`}
                                         type="number"
                                         min={1}
                                         max={300}
                                         value={formData.guest_count || 0}
                                         onChange={e => setFormData({ ...formData, guest_count: Number(e.target.value) })}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-ink mb-1">Event Type</label>
+                                <label htmlFor={`${fieldId}-event-type`} className="block text-sm font-semibold text-ink mb-1">Event Type</label>
                                 <select
+                                    id={`${fieldId}-event-type`}
                                     value={formData.event_type}
                                     onChange={e => setFormData({ ...formData, event_type: e.target.value })}
-                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                 >
                                     <option>Birthday Party</option>
                                     <option>Corporate Event</option>
@@ -428,12 +444,13 @@ export function PrivateBookingInquiryForm({
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-ink mb-1">Notes / Special Requests</label>
+                                <label htmlFor={`${fieldId}-notes-special-requests`} className="block text-sm font-semibold text-ink mb-1">Notes / Special Requests</label>
                                 <textarea
+                                    id={`${fieldId}-notes-special-requests`}
                                     rows={3}
                                     value={formData.internal_notes || ''}
                                     onChange={e => setFormData({ ...formData, internal_notes: e.target.value })}
-                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-anchor-gold-dark focus:ring-4 focus:ring-anchor-gold-dark/10"
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     placeholder="Any dietary requirements or special requests?"
                                 />
                             </div>

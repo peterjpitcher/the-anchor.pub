@@ -2261,7 +2261,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
                 id="christmas-course-tier"
                 value={context.courseTier}
                 onChange={event => onContextChange({ courseTier: event.target.value as CourseTier })}
-                className="mt-1 w-full rounded-sm border-[1.5px] border-amber-400 bg-white px-3 py-2 text-sm text-amber-950 focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+                className="mt-1 w-full rounded-sm border-[1.5px] border-amber-400 bg-white px-3 py-2 text-sm text-amber-950 focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               >
                 {COURSE_TIER_OPTIONS.map(option => (
                   <option
@@ -2283,7 +2283,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               id="christmas-party-format"
               value={partyFormat}
               onChange={event => setPartyFormat(event.target.value)}
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             >
               {/* An empty default rather than pre-selecting a style: a wrong
                   pre-selection misroutes the kitchen conversation, and the
@@ -2306,7 +2306,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               onChange={event => setName(event.target.value)}
               autoComplete="name"
               placeholder="Your full name"
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
           </div>
@@ -2319,7 +2319,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               onChange={event => setEmail(event.target.value)}
               autoComplete="email"
               placeholder="you@example.com"
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
           </div>
@@ -2333,7 +2333,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               autoComplete="tel"
               inputMode="tel"
               placeholder="Best number for a quick call"
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
           </div>
@@ -2347,7 +2347,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               value={partySize}
               onChange={event => setPartySize(event.target.value)}
               placeholder="e.g. 18"
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
             <p className="mt-1 text-xs text-ink-muted">
@@ -2369,7 +2369,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               min={season.minEnquiryDate}
               max={season.maxEnquiryDate}
               data-native-date-time="true"
-              className="mt-1 block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="mt-1 block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
             <p className="mt-1 text-xs text-ink-muted">
@@ -2383,7 +2383,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               id="christmas-preferred-time"
               value={preferredTime}
               onChange={event => setPreferredTime(event.target.value)}
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             >
               {timeOptions.map(option => (
                 <option key={option.value} value={option.value}>{option.label}</option>
@@ -2399,7 +2399,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
             rows={4}
             value={notes}
             onChange={event => setNotes(event.target.value)}
-            className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+            className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             placeholder={context.mode === 'meal' ? 'Share dietary requirements, allergies, accessibility needs or anything else we should know.' : 'Share entertainment ideas, room preferences, dietary needs or anything else we should know.'}
           />
         </div>
@@ -2730,7 +2730,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
               value={name}
               onChange={event => setName(event.target.value)}
               autoComplete="name"
-              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
             <input
@@ -2740,7 +2740,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
               value={email}
               onChange={event => setEmail(event.target.value)}
               autoComplete="email"
-              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
             <input
@@ -2751,7 +2751,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
               onChange={event => setPhone(event.target.value)}
               autoComplete="tel"
               inputMode="tel"
-              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -2763,7 +2763,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
                 placeholder="Number of guests"
                 value={partySize}
                 onChange={event => setPartySize(event.target.value)}
-                className="min-w-0 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+                className="min-w-0 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
                 required
               />
               <input
@@ -2774,7 +2774,7 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
                 min={season.minEnquiryDate}
                 max={season.maxEnquiryDate}
                 data-native-date-time="true"
-                className="block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-anchor-gold-dark focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10"
+                className="block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
                 required
               />
             </div>

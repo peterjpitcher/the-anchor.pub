@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
+import { createContext, forwardRef, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
@@ -53,12 +53,39 @@ const overlayVariants = cva(
   }
 )
 
+/**
+ * What a Modal tells the title and description inside it.
+ *
+ * The dialog's name is whatever its `aria-labelledby` points at. Modal used to
+ * build that id from its own `id` while each caller gave its title a fixed one
+ * ('modal-title'), so two dialogs on the Sunday roast page pointed at an id that
+ * was not in the page and were announced as 'dialog' with no name (site review
+ * AX-015, 7 October 2026). The title now takes its id from here, and says when
+ * it is there, so the dialog never points at nothing.
+ */
+interface ModalLabelContext {
+  titleId: string
+  descriptionId: string
+  setHasTitle: (present: boolean) => void
+  setHasDescription: (present: boolean) => void
+}
+
+const ModalLabels = createContext<ModalLabelContext | null>(null)
+
 export interface ModalProps 
   extends BaseComponentProps,
     VariantProps<typeof modalVariants>,
     VariantProps<typeof overlayVariants> {
   open: boolean
-  onClose: () => void
+  /** Called with why the dialog is closing when the Modal itself closed it. */
+  onClose: (reason?: ModalCloseReason) => void
+  /** Extra classes for the full-screen layer behind the panel. */
+  overlayClassName?: string
+  /**
+   * False for a caller that records its own open, engage and close events, so
+   * the same pop-up is not counted twice.
+   */
+  analytics?: boolean
   children: React.ReactNode
   title?: string
   description?: string
@@ -97,6 +124,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     returnFocus = true,
     preventScroll = true,
     role = 'dialog',
+    overlayClassName,
+    analytics = true,
     id,
     testId,
     ...props 
@@ -110,17 +139,23 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const titleId = `${id || 'modal'}-title`
     const descriptionId = `${id || 'modal'}-description`
     const modalId = id || (title ? `modal_${slugify(title)}` : 'modal')
+    const [hasTitle, setHasTitle] = useState(false)
+    const [hasDescription, setHasDescription] = useState(false)
+    const labels = useMemo<ModalLabelContext>(
+      () => ({ titleId, descriptionId, setHasTitle, setHasDescription }),
+      [titleId, descriptionId]
+    )
 
     const recordEngagement = useCallback((interaction: 'click' | 'focus' | 'keydown', element?: string) => {
-      if (!open) return
+      if (!open || !analytics) return
       if (engaged.current) return
       engaged.current = true
       trackModalEngage({ id: modalId, title, interaction, element })
-    }, [modalId, open, title])
+    }, [analytics, modalId, open, title])
 
     const requestClose = useCallback((reason: ModalCloseReason) => {
       lastCloseReason.current = reason
-      onClose()
+      onClose(reason)
     }, [onClose])
 
     // Mount on client only
@@ -130,7 +165,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     // Track open/close lifecycle
     useEffect(() => {
-      if (!mounted) return
+      if (!mounted || !analytics) return
 
 	      if (open && !previousOpen.current) {
 	        previousOpen.current = true
@@ -154,7 +189,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
         })
         lastCloseReason.current = null
       }
-    }, [backdrop, modalId, mounted, open, size, title])
+    }, [analytics, backdrop, modalId, mounted, open, size, title])
 
     // Handle escape key
     useEffect(() => {
@@ -227,6 +262,15 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
         const firstFocusable = focusableArray[0]
         const lastFocusable = focusableArray[focusableArray.length - 1]
 
+        // Focus is somewhere behind the dialog (a click on the page before it
+        // opened, or a control that has since gone). Bring it in, or Tab would
+        // carry on through the page underneath.
+        if (!modalRef.current!.contains(document.activeElement)) {
+          e.preventDefault()
+          ;(e.shiftKey ? lastFocusable : firstFocusable).focus()
+          return
+        }
+
         if (e.shiftKey) {
           if (document.activeElement === firstFocusable) {
             e.preventDefault()
@@ -242,13 +286,17 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
       document.addEventListener('keydown', handleTabKey)
       return () => document.removeEventListener('keydown', handleTabKey)
-    }, [open])
+      // `mounted` matters: a Modal first rendered already open draws nothing
+      // until it has mounted, so on the pass where `open` is first true there
+      // is no panel to trap. Without it here the trap was never set for such a
+      // Modal, and Tab walked out of the dialog.
+    }, [open, mounted])
 
     if (!mounted || !open) return null
 
     return createPortal(
       <div
-        className={cn(overlayVariants({ backdrop }))}
+        className={cn(overlayVariants({ backdrop }), overlayClassName)}
         onClick={closeOnBackdropClick ? () => requestClose('backdrop_click') : undefined}
         data-testid={testId}
       >
@@ -269,10 +317,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           }}
           role={role}
           aria-modal="true"
-          aria-labelledby={title ? titleId : undefined}
-          aria-describedby={description ? descriptionId : undefined}
+          aria-labelledby={hasTitle ? titleId : undefined}
+          aria-label={!hasTitle ? title : undefined}
+          aria-describedby={hasDescription ? descriptionId : undefined}
           {...props}
         >
+          <ModalLabels.Provider value={labels}>
           {showCloseButton && (
             <button
               type="button"
@@ -287,6 +337,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
             </button>
           )}
           {children}
+          </ModalLabels.Provider>
         </div>
       </div>,
       document.body
@@ -320,16 +371,29 @@ export interface ModalTitleProps extends BaseComponentProps {
 }
 
 export const ModalTitle = forwardRef<HTMLHeadingElement, ModalTitleProps>(
-  ({ className, children, id, ...props }, ref) => (
-    <h2
-      ref={ref}
-      id={id}
-      className={cn('text-lg font-semibold text-ink-strong', className)}
-      {...props}
-    >
-      {children}
-    </h2>
-  )
+  ({ className, children, id, ...props }, ref) => {
+    const labels = useContext(ModalLabels)
+    const setHasTitle = labels?.setHasTitle
+
+    useEffect(() => {
+      if (!setHasTitle) return
+      setHasTitle(true)
+      return () => setHasTitle(false)
+    }, [setHasTitle])
+
+    return (
+      <h2
+        ref={ref}
+        // Inside a Modal the id is the Modal's, whatever the caller passed: it
+        // is the one the dialog's aria-labelledby points at.
+        id={labels?.titleId ?? id}
+        className={cn('text-lg font-semibold text-ink-strong', className)}
+        {...props}
+      >
+        {children}
+      </h2>
+    )
+  }
 )
 
 ModalTitle.displayName = 'ModalTitle'
@@ -339,16 +403,27 @@ export interface ModalDescriptionProps extends BaseComponentProps {
 }
 
 export const ModalDescription = forwardRef<HTMLParagraphElement, ModalDescriptionProps>(
-  ({ className, children, id, ...props }, ref) => (
-    <p
-      ref={ref}
-      id={id}
-      className={cn('mt-1 text-sm text-ink-muted', className)}
-      {...props}
-    >
-      {children}
-    </p>
-  )
+  ({ className, children, id, ...props }, ref) => {
+    const labels = useContext(ModalLabels)
+    const setHasDescription = labels?.setHasDescription
+
+    useEffect(() => {
+      if (!setHasDescription) return
+      setHasDescription(true)
+      return () => setHasDescription(false)
+    }, [setHasDescription])
+
+    return (
+      <p
+        ref={ref}
+        id={labels?.descriptionId ?? id}
+        className={cn('mt-1 text-sm text-ink-muted', className)}
+        {...props}
+      >
+        {children}
+      </p>
+    )
+  }
 )
 
 ModalDescription.displayName = 'ModalDescription'

@@ -199,7 +199,7 @@ export default function HeathrowLayoverDiningPage() {
             title="Travel Times & Costs"
             lead="Budget your layover with realistic timings and typical fares."
           />
-          <div className="overflow-x-auto rounded-md border border-line bg-surface shadow-sm">
+          <div className="overflow-x-auto rounded-md border border-line bg-surface shadow-sm" role="region" tabIndex={0} aria-label="Table: Travel times and costs">
             <table className="min-w-full divide-y divide-line">
               <thead className="bg-anchor-green text-white">
                 <tr>

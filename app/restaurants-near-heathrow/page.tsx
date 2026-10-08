@@ -176,7 +176,7 @@ export default async function RestaurantsNearHeathrowPage() {
               title="How Eating Near Heathrow Compares"
               subtitle="Parking, travel time and atmosphere at a glance"
             />
-            <div className="overflow-x-auto rounded-md border border-line bg-surface shadow-sm">
+            <div className="overflow-x-auto rounded-md border border-line bg-surface shadow-sm" role="region" tabIndex={0} aria-label="Table: How eating near Heathrow compares">
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-line">

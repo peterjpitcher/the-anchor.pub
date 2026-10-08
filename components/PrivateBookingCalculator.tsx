@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useRef } from 'react'
+import { useState, useEffect, useId, useMemo, useRef } from 'react'
 import { PrivateBookingConfig, PrivateBookingItem, getPrivateBookingConfig, formatCurrency } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { PrivateBookingInquiryForm } from './PrivateBookingInquiryForm'
@@ -49,6 +49,9 @@ export function PrivateBookingCalculator({
 }: PrivateBookingCalculatorProps) {
     const [config, setConfig] = useState<PrivateBookingConfig | null>(null)
     const [loading, setLoading] = useState(true)
+    // Ties the date, guests and hours boxes to their visible labels (site
+    // review AX-010, 7 October 2026).
+    const fieldId = useId()
     const [error, setError] = useState<string | null>(null)
     const [showInquiryForm, setShowInquiryForm] = useState(false)
 
@@ -355,11 +358,12 @@ export function PrivateBookingCalculator({
                 <section>
                     <div className={cn('flex items-center gap-2', compact ? 'mb-3' : 'mb-6')}>
                         <span className={cn(compact ? 'w-5 h-5 text-[10px]' : 'w-7 h-7 text-xs', 'flex items-center justify-center border border-anchor-gold-dark/50 text-accent-text font-bold')}>1</span>
-                        <h4 className={cn(compact ? 'text-sm' : 'font-display text-xl', 'font-bold text-ink-strong')}>When is your event?</h4>
+                        <h4 className={cn(compact ? 'text-sm' : 'font-display text-xl', 'font-bold text-ink-strong')} id={`${fieldId}-date-label`}>When is your event?</h4>
                     </div>
                     <div className={cn(compact ? 'max-w-full' : 'max-w-xs')}>
                         <input
                             type="date"
+                            aria-labelledby={`${fieldId}-date-label`}
                             value={selectedDate}
                             min={new Date(Date.now() + 86400000).toISOString().split('T')[0]}
                             onChange={(e) => {
@@ -368,7 +372,7 @@ export function PrivateBookingCalculator({
                             }}
                             data-native-date-time="true"
                             className={cn(
-                                'block w-full min-w-0 max-w-full bg-surface border-[1.5px] border-line-strong rounded-sm focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10 focus:border-anchor-gold-dark transition-all font-bold text-ink',
+                                'block w-full min-w-0 max-w-full bg-surface border-[1.5px] border-line-strong rounded-sm focus:outline-none focus:ring-4 focus:ring-accent-text/10 focus:border-accent-text transition-all font-bold text-ink',
                                 compact ? 'px-3 py-2 text-sm' : 'px-5 py-4 text-xl',
                                 !selectedDate && 'text-ink-muted'
                             )}
@@ -502,9 +506,10 @@ export function PrivateBookingCalculator({
 
                     <div className={cn('grid grid-cols-2', compact ? 'gap-3' : 'grid-cols-1 md:grid-cols-2 gap-8')}>
                         <div>
-                            <label className={cn(compact ? 'text-xs mb-1' : 'text-sm mb-2', 'block font-bold text-ink uppercase tracking-wide')}>Guests</label>
+                            <label className={cn(compact ? 'text-xs mb-1' : 'text-sm mb-2', 'block font-bold text-ink uppercase tracking-wide')} htmlFor={`${fieldId}-guests`}>Guests</label>
                             <div className="relative group">
                                 <input
+                                    id={`${fieldId}-guests`}
                                     type="number"
                                     min="10"
                                     max={selectedSpace?.capacity_standing || 200}
@@ -514,7 +519,7 @@ export function PrivateBookingCalculator({
                                         setGuestCount(Number(e.target.value))
                                     }}
                                     className={cn(
-                                        'w-full bg-surface border-[1.5px] border-line-strong rounded-sm focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10 focus:border-anchor-gold-dark transition-all font-bold text-ink group-hover:border-anchor-gold-dark/50',
+                                        'w-full bg-surface border-[1.5px] border-line-strong rounded-sm focus:outline-none focus:ring-4 focus:ring-accent-text/10 focus:border-accent-text transition-all font-bold text-ink group-hover:border-anchor-gold-dark/50',
                                         compact ? 'pl-3 pr-3 py-2 text-sm' : 'pl-5 pr-16 py-4 text-xl'
                                     )}
                                 />
@@ -526,9 +531,10 @@ export function PrivateBookingCalculator({
                             </div>
                         </div>
                         <div>
-                            <label className={cn(compact ? 'text-xs mb-1' : 'text-sm mb-2', 'block font-bold text-ink uppercase tracking-wide')}>Hours</label>
+                            <label className={cn(compact ? 'text-xs mb-1' : 'text-sm mb-2', 'block font-bold text-ink uppercase tracking-wide')} htmlFor={`${fieldId}-hours`}>Hours</label>
                             <div className="relative group">
                                 <input
+                                    id={`${fieldId}-hours`}
                                     type="number"
                                     min={selectedSpace?.minimum_hours || 2}
                                     max="12"
@@ -538,7 +544,7 @@ export function PrivateBookingCalculator({
                                         setHours(Number(e.target.value))
                                     }}
                                     className={cn(
-                                        'w-full bg-surface border-[1.5px] border-line-strong rounded-sm focus:outline-none focus:ring-4 focus:ring-anchor-gold-dark/10 focus:border-anchor-gold-dark transition-all font-bold text-ink group-hover:border-anchor-gold-dark/50',
+                                        'w-full bg-surface border-[1.5px] border-line-strong rounded-sm focus:outline-none focus:ring-4 focus:ring-accent-text/10 focus:border-accent-text transition-all font-bold text-ink group-hover:border-anchor-gold-dark/50',
                                         compact ? 'pl-3 pr-3 py-2 text-sm' : 'pl-5 pr-16 py-4 text-xl'
                                     )}
                                 />
@@ -612,17 +618,19 @@ export function PrivateBookingCalculator({
                                             <div className="flex items-center gap-2 flex-shrink-0">
                                                 <input
                                                     type="number"
+                                                    aria-label={`Number of guests for ${pkg.name}`}
                                                     min={pkg.minimum_guests || 1}
                                                     max={guestCount}
                                                     value={selection.quantity}
                                                     onChange={(e) => updatePackageQuantity(pkg.id, Number(e.target.value))}
-                                                    className="w-14 h-8 px-1 text-center text-sm font-bold text-ink bg-surface border border-line-strong outline-none focus:ring-1 focus:ring-anchor-gold-dark"
+                                                    className="w-14 h-8 px-1 text-center text-sm font-bold text-ink bg-surface border border-line-strong outline-none focus:ring-1 focus:ring-accent-text"
                                                 />
                                                 <span className="text-sm font-bold text-ink-strong tabular-nums">{formatCurrency(pkg.cost_per_head * selection.quantity)}</span>
                                                 <button
                                                     onClick={() => removePackage(pkg.id)}
                                                     className="w-7 h-7 flex items-center justify-center text-ink-muted hover:text-anchor-danger transition-all"
                                                     title="Remove"
+                                                    aria-label={`Remove ${pkg.name}`}
                                                 >
                                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -643,9 +651,10 @@ export function PrivateBookingCalculator({
                                             <div className="flex items-center justify-between gap-6 bg-surface p-3 rounded-xl md:bg-transparent md:p-0">
                                                 <div className="flex items-center gap-3">
                                                     <label className="text-[10px] text-ink-muted font-bold uppercase tracking-wider hidden sm:block">Update Qty</label>
-                                                    <div className="flex items-center bg-surface border border-line-strong overflow-hidden focus-within:ring-2 focus-within:ring-anchor-gold-dark focus-within:border-anchor-gold-dark">
+                                                    <div className="flex items-center bg-surface border border-line-strong overflow-hidden focus-within:ring-2 focus-within:ring-accent-text focus-within:border-accent-text">
                                                         <input
                                                             type="number"
+                                                            aria-label={`Number of guests for ${pkg.name}`}
                                                             min={pkg.minimum_guests || 1}
                                                             max={guestCount}
                                                             value={selection.quantity}
@@ -664,6 +673,7 @@ export function PrivateBookingCalculator({
                                                         onClick={() => removePackage(pkg.id)}
                                                         className="w-10 h-10 flex items-center justify-center rounded-full text-ink-muted hover:text-anchor-danger hover:bg-anchor-danger/10 transition-all"
                                                         title="Remove"
+                                                    aria-label={`Remove ${pkg.name}`}
                                                     >
                                                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -807,7 +817,7 @@ export function PrivateBookingCalculator({
                                             type="checkbox"
                                             checked={selectedVendorIds.has(vendor.id)}
                                             onChange={() => toggleVendor(vendor.id)}
-                                            className={cn(compact ? 'h-4 w-4' : 'h-5 w-5', 'rounded-none border-line-strong focus:ring-anchor-gold-dark accent-[#005131]')}
+                                            className={cn(compact ? 'h-4 w-4' : 'h-5 w-5', 'rounded-none border-line-strong focus:ring-accent-text accent-[#005131]')}
                                         />
                                     </div>
                                     <div className={cn(compact ? 'ml-2' : 'ml-4')}>

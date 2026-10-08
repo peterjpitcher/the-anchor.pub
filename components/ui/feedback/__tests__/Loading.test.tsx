@@ -16,7 +16,7 @@ describe('Spinner', () => {
     const spinner = screen.getByRole('status')
     expect(spinner).toBeInTheDocument()
     expect(spinner).toHaveClass('h-6', 'w-6') // Default size md
-    expect(spinner).toHaveClass('text-anchor-gold-dark') // Default colour primary
+    expect(spinner).toHaveClass('text-accent-text') // Default colour primary
   })
 
   it('renders with different sizes', () => {

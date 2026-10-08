@@ -8,7 +8,7 @@ export function VenueSpacesTable({ spaces }: VenueSpacesTableProps): JSX.Element
   if (spaces.length === 0) return null
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" role="region" tabIndex={0} aria-label="Table: What each space holds">
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="border-b border-line-strong">

@@ -99,14 +99,14 @@ export function ExitIntentBookingModal() {
         <button
           type="button"
           onClick={() => close('dismissed')}
-          className="rounded-md border border-line-strong bg-transparent px-4 py-2 text-sm text-ink hover:bg-surface-sunk focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
+          className="rounded-md border border-line-strong bg-transparent px-4 py-2 text-sm text-ink hover:bg-surface-sunk focus:outline-none focus:ring-2 focus:ring-accent-text"
         >
           No thanks
         </button>
         <Link
           href="/book-table?source=sunday_lunch_exit_intent"
           onClick={() => close('cta_clicked')}
-          className="inline-flex items-center justify-center rounded-md bg-anchor-gold-dark px-4 py-2 text-sm font-semibold text-white hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2"
+          className="inline-flex items-center justify-center rounded-md bg-anchor-gold-dark px-4 py-2 text-sm font-semibold text-white hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2"
         >
           Book a table
         </Link>

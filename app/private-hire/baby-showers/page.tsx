@@ -173,7 +173,7 @@ export default function BabyShowersPage() {
                         </p>
                         <div className="grid sm:grid-cols-2 gap-4">
                             <Card><CardBody>
-                                <h4 className="font-display text-h4 text-ink-strong mb-2">Popular games we host</h4>
+                                <h3 className="font-display text-h4 text-ink-strong mb-2">Popular games we host</h3>
                                 <ul className="text-sm text-ink-muted space-y-1">
                                     <li>Guess the baby weight</li>
                                     <li>Baby bingo</li>
@@ -183,7 +183,7 @@ export default function BabyShowersPage() {
                                 </ul>
                             </CardBody></Card>
                             <Card><CardBody>
-                                <h4 className="font-display text-h4 text-ink-strong mb-2">Photo area and backdrop</h4>
+                                <h3 className="font-display text-h4 text-ink-strong mb-2">Photo area and backdrop</h3>
                                 <p className="text-sm text-ink-muted">
                                     We can help you set up a dedicated photo area or backdrop in your reserved space. Bring your props, banners, and balloon arrangements, we'll give you room to create something special.
                                 </p>

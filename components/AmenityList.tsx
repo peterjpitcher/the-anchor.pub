@@ -14,7 +14,7 @@ interface AmenityListProps {
 export function AmenityList({ 
   items, 
   variant = 'default',
-  iconColor = 'text-anchor-gold-dark',
+  iconColor = 'text-accent-text',
   className = '' 
 }: AmenityListProps) {
   const spacing = variant === 'compact' ? 'space-y-2' : 'space-y-3'

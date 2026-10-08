@@ -496,7 +496,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
               <p className="font-semibold text-accent-text">Best rates for longer stays</p>
               {isLoadingRates && <p className="mt-1 text-ink-muted">Loading the latest rate card…</p>}
-              {ratesError && <p className="mt-1 text-anchor-danger">{ratesError}</p>}
+              {ratesError && <p role="alert" className="mt-1 text-anchor-danger">{ratesError}</p>}
 	              {rates && !ratesError && (
 	                <ul className="mt-2 space-y-1 text-ink-muted">
 	                  <li>• Hourly: {formatPrice(rates.hourly_rate, 'GBP')}</li>
@@ -514,19 +514,19 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               {availabilityState.status === 'available' && (
-                <div className="flex items-center text-sm text-anchor-success">
+                <div role="status" className="flex items-center text-sm text-anchor-success">
                   <Icon name="check" className="mr-2 h-4 w-4" />
                   {availabilityState.message || 'Spaces available'}
                 </div>
               )}
               {availabilityState.status === 'unavailable' && (
-                <div className="flex items-center text-sm text-anchor-danger">
+                <div role="alert" className="flex items-center text-sm text-anchor-danger">
                   <Icon name="alert" className="mr-2 h-4 w-4" />
                   {availabilityState.message || 'No spaces available for that window'}
                 </div>
               )}
               {availabilityError && (
-                <div className="text-sm text-anchor-danger">{availabilityError}</div>
+                <div role="alert" className="text-sm text-anchor-danger">{availabilityError}</div>
               )}
               <div className="sm:ml-auto">
                 <Button
@@ -547,22 +547,28 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             <div className="grid gap-6 md:grid-cols-2">
               <Input
                 label="First name"
+                autoComplete="given-name"
                 value={customer.firstName}
                 onChange={event => setCustomer(prev => ({ ...prev, firstName: event.target.value }))}
               />
               <Input
                 label="Last name"
+                autoComplete="family-name"
                 value={customer.lastName}
                 onChange={event => setCustomer(prev => ({ ...prev, lastName: event.target.value }))}
               />
               <Input
                 type="email"
+                autoComplete="email"
                 label="Email address"
                 placeholder="you@example.com"
                 value={customer.email}
                 onChange={event => setCustomer(prev => ({ ...prev, email: event.target.value }))}
               />
               <Input
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
                 label="Mobile number"
                 placeholder="+44 7700 900123"
                 value={customer.phone}
@@ -669,17 +675,17 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
               {/* State messages */}
               {captureState === 'cancelled' && (
-                <p className="text-sm text-accent-text bg-surface-sunk rounded-md px-4 py-3">
+                <p role="status" className="text-sm text-accent-text bg-surface-sunk rounded-md px-4 py-3">
                   Payment cancelled, you can try again below.
                 </p>
               )}
               {captureState === 'error' && (
-                <p className="text-sm text-anchor-danger bg-surface-sunk rounded-md px-4 py-3">
+                <p role="alert" className="text-sm text-anchor-danger bg-surface-sunk rounded-md px-4 py-3">
                   Payment could not be completed. Please try again or call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink>.
                 </p>
               )}
               {captureState === 'capturing' && (
-                <p className="text-sm text-ink bg-surface-sunk rounded-md px-4 py-3">
+                <p role="status" className="text-sm text-ink bg-surface-sunk rounded-md px-4 py-3">
                   Confirming your booking…
                 </p>
               )}
@@ -687,7 +693,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               {/* PayPal button container */}
               {/* Error state, shown if SDK fails to load or client ID is missing */}
               {(paypalLoadError || !process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID) && (
-                <p className="text-sm text-anchor-danger bg-surface-sunk rounded-md px-4 py-3">
+                <p role="alert" className="text-sm text-anchor-danger bg-surface-sunk rounded-md px-4 py-3">
                   Payment could not be loaded. Please call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_paypal_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> to complete your booking.
                 </p>
               )}
@@ -741,7 +747,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
                   isDone
                     ? 'bg-anchor-green text-white'
                     : isActive
-                      ? 'bg-anchor-gold text-white'
+                      ? 'bg-anchor-gold-dark text-white'
                       : 'bg-surface-sunk text-ink-muted'
                 }`}
               >

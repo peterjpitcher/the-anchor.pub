@@ -593,7 +593,18 @@ describe.each([
     expect(typeof answer.body.error).toBe('string')
     if (capture) expect(answer.body.error).toContain('before paying again')
     expectReported(route, { payment: true })
-    expect(log.lines()[0]).toMatchObject({ payment: true, text: 'no_sender' })
+    expect(log.lines()[0]).toMatchObject({ payment: true })
+    // The pub is texted through the management app: one request, two codes, no
+    // guest details. The stand-in answers it the same way it answered the
+    // payment, so in every case here the text fails too (a 200 that is only a gateway page
+    // is not taken as a sent text), and the guest's answer
+    // and the email above are unchanged by that.
+    const textCalls = managementCalls.filter((call) => call.url.endsWith('/website/payment-failure-alert'))
+    expect(textCalls).toHaveLength(1)
+    expect(textCalls[0].init.method).toBe('POST')
+    expect(Object.keys(JSON.parse(String(textCalls[0].init.body))).sort()).toEqual(['area', 'reason'])
+    expectNoPersonalData(`${textCalls[0].url} ${String(textCalls[0].init.body)}`, PERSONAL)
+    expect(log.alertLines()).toEqual([expect.objectContaining({ route, texted: false })])
     expect(log.lines()[0].refHash).toMatch(/^[0-9a-f]{12}$/)
   })
 

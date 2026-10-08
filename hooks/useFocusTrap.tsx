@@ -13,22 +13,38 @@ export function useFocusTrap(isActive: boolean) {
     const container = containerRef.current
     if (!container) return
 
-    // Get all focusable elements
+    // Only controls that can take focus right now. The selector alone also
+    // matches links inside a collapsed section (display: none), a [hidden]
+    // block or an [inert] one. focus() does nothing on those, so with them in
+    // the list Tab stuck on the control before the first hidden one: in the
+    // phone menu that was the first heading, 'Food' (site review AX-001,
+    // 7 October 2026).
+    const canTakeFocus = (element: HTMLElement) => {
+      if (element.closest('[hidden], [inert]')) return false
+      if (window.getComputedStyle(element).visibility === 'hidden') return false
+      // display: none on the control or on anything between it and the
+      // container takes it out of the page. Read from the styles, not from the
+      // element's boxes, so the answer is the same where nothing is laid out.
+      for (let node: HTMLElement | null = element; node; node = node.parentElement) {
+        if (window.getComputedStyle(node).display === 'none') return false
+        if (node === container) break
+      }
+      return true
+    }
+
     const getFocusableElements = () => {
       const focusableSelectors = [
         'a[href]',
         'button:not([disabled])',
         'textarea:not([disabled])',
-        'input[type="text"]:not([disabled])',
-        'input[type="radio"]:not([disabled])',
-        'input[type="checkbox"]:not([disabled])',
+        'input:not([disabled]):not([type="hidden"])',
         'select:not([disabled])',
         '[tabindex]:not([tabindex="-1"])'
       ]
-      
-      return Array.from(
+
+      return (Array.from(
         container.querySelectorAll(focusableSelectors.join(','))
-      ) as HTMLElement[]
+      ) as HTMLElement[]).filter(canTakeFocus)
     }
 
     // Focus first element

@@ -146,7 +146,7 @@ export function PlaneSpottingBookingPrompt({
           </p>
           <Link
             href={href}
-            className="mt-3 inline-flex rounded-full bg-anchor-gold-dark px-4 py-2 text-sm font-semibold text-white hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2"
+            className="mt-3 inline-flex rounded-full bg-anchor-gold-dark px-4 py-2 text-sm font-semibold text-white hover:bg-anchor-green focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2"
             onClick={() => {
               pushToDataLayer({
                 event: 'plane_spotting_prompt_cta_clicked',
@@ -163,7 +163,7 @@ export function PlaneSpottingBookingPrompt({
           type="button"
           onClick={dismiss}
           aria-label="Dismiss plane spotting booking prompt"
-          className="rounded-sm p-1 text-ink-muted hover:text-ink focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
+          className="rounded-sm p-1 text-ink-muted hover:text-ink focus:outline-none focus:ring-2 focus:ring-accent-text"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </button>

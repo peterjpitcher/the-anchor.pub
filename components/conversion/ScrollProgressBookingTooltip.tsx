@@ -126,7 +126,7 @@ export function ScrollProgressBookingTooltip() {
           </p>
           <Link
             href="/book-table?source=sunday_lunch_scroll_tooltip"
-            className="mt-2 inline-flex items-center text-accent-text underline hover:text-accent focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark rounded-sm"
+            className="mt-2 inline-flex items-center text-accent-text underline hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent-text rounded-sm"
             onClick={() => dismiss()}
           >
             Book a table
@@ -136,7 +136,7 @@ export function ScrollProgressBookingTooltip() {
           type="button"
           onClick={dismiss}
           aria-label="Dismiss booking tooltip"
-          className="rounded-sm p-1 text-ink-muted hover:text-ink focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark"
+          className="rounded-sm p-1 text-ink-muted hover:text-ink focus:outline-none focus:ring-2 focus:ring-accent-text"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </button>

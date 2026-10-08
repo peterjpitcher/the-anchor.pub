@@ -899,6 +899,28 @@ export function ManagementTableBookingForm({
     () => availableSlots.find((slot) => slot.time === selectedTime) || null,
     [availableSlots, selectedTime]
   )
+
+  // What a screen reader hears after 'Find a table'. The times appear lower
+  // down the page and nothing used to say so (site review AX-011, 7 October
+  // 2026). Empty while a search is running or when the checker could not
+  // answer: that case has its own notice.
+  const searchStatus =
+    !availability || availabilityLoading || availabilityUnknown
+      ? ''
+      : availableSlots.length === 0
+        ? `No times available on ${formatDateForDisplay(date)}.`
+        : `${availableSlots.length} ${availableSlots.length === 1 ? 'time' : 'times'} available on ${formatDateForDisplay(date)}.`
+
+  // Three-screen flow only: the search button is on a screen that goes away
+  // when the times arrive, and focus went with it to the top of the page. Put
+  // it on the heading of the screen that replaced it.
+  const chooseHeadingRef = useRef<HTMLHeadingElement>(null)
+  const lastStepRef = useRef<BookingStep>(step)
+  useEffect(() => {
+    const previous = lastStepRef.current
+    lastStepRef.current = step
+    if (previous === 'find' && step === 'choose') chooseHeadingRef.current?.focus()
+  }, [step])
   const slotHighChairsRemaining = useMemo(
     () => readSlotHighChairsRemaining(selectedSlot),
     [selectedSlot]
@@ -2269,6 +2291,7 @@ export function ManagementTableBookingForm({
 
   return (
     <div ref={wizardRef} className="mx-auto">
+    <p role="status" className="sr-only">{searchStatus}</p>
     <Card accent>
       <CardBody className="space-y-6">
         {uncertainAttempt && (
@@ -2689,7 +2712,7 @@ export function ManagementTableBookingForm({
                             </span>
                             <span className="flex items-baseline gap-2">
                               {option.highChairsFree !== undefined ? (
-                                <span className="text-xs font-medium text-anchor-gold-dark">
+                                <span className="text-xs font-medium text-accent-text">
                                   {highChairFlagLabel(option.highChairsFree)}
                                 </span>
                               ) : null}
@@ -2950,7 +2973,7 @@ export function ManagementTableBookingForm({
         {step === 'choose' && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-display text-h4 text-ink-strong">Choose your time</h3>
+              <h3 ref={chooseHeadingRef} tabIndex={-1} className="font-display text-h4 text-ink-strong">Choose your time</h3>
               <p className="mt-1 text-sm text-ink-muted">
                 {formatDateForDisplay(date)} for {partySize} {partySize === 1 ? 'guest' : 'guests'}.
               </p>
@@ -3032,7 +3055,7 @@ export function ManagementTableBookingForm({
                           {servesFood ? 'Drinks & food' : 'Drinks only'}
                         </span>
                         {loadCaption ? (
-                          <span className={`mt-1 block text-xs font-medium ${isSelected ? 'text-white' : slot.busyness === 'busy' ? 'text-anchor-gold-dark' : 'text-ink-muted'}`}>
+                          <span className={`mt-1 block text-xs font-medium ${isSelected ? 'text-white' : slot.busyness === 'busy' ? 'text-accent-text' : 'text-ink-muted'}`}>
                             {loadCaption}
                           </span>
                         ) : null}
@@ -3045,7 +3068,7 @@ export function ManagementTableBookingForm({
                   <button
                     type="button"
                     onClick={() => setShowAllTimes(true)}
-                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-pill border-[1.5px] border-line-strong px-4 py-3 text-base font-medium text-ink transition-colors hover:border-anchor-gold focus:outline-none focus:ring-2 focus:ring-anchor-gold-dark focus:ring-offset-2 sm:w-auto sm:px-6"
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-pill border-[1.5px] border-line-strong px-4 py-3 text-base font-medium text-ink transition-colors hover:border-anchor-gold focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2 sm:w-auto sm:px-6"
                   >
                     See more times
                     <ChevronDown aria-hidden="true" className="h-4 w-4" />
