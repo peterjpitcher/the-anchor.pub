@@ -6,6 +6,7 @@ import {
   guestMessageForBlockedReason,
   guestMessageForCode,
   isBareCode,
+  kindForUpstreamCode,
   listMappedCodes,
   mapUpstreamFailure,
   toGuestMessage,
@@ -301,6 +302,189 @@ describe('mapUpstreamFailure, for the routes', () => {
     expect(mapped.kind).toBe('failed')
     expect(mapped.message).toContain('not booked twice')
     expectGuestSentence(mapped.message)
+  })
+})
+
+/**
+ * The management app sends a stable `code` beside its sentence (its PR #198).
+ * The code decides first. An answer with no code, or a code we do not know, is
+ * judged by its status exactly as it was before.
+ */
+describe('mapUpstreamFailure reads the code before the status and the sentence', () => {
+  it('an expired event payment hold (410) is a refusal with its own sentence, not an outage', () => {
+    // The shape the management app's event payment routes now answer with.
+    const mapped = mapUpstreamFailure({
+      status: 410,
+      body: {
+        success: false,
+        error: 'hold_expired',
+        code: 'hold_expired',
+        message: 'The time to pay for these places has run out. Please start your booking again, or call 01753 682707.'
+      },
+      context: 'event_payment'
+    })
+
+    expect(mapped.kind).toBe('refused')
+    expect(mapped.code).toBe('hold_expired')
+    expect(mapped.message).toBe(
+      'The time to pay for these places has run out. Please start your booking again. Call 01753 682707 if you need help.'
+    )
+  })
+
+  it('the same 410 with no code is still judged by its status, as before', () => {
+    const mapped = mapUpstreamFailure({ status: 410, body: { success: false }, context: 'event_payment' })
+    expect(mapped.kind).toBe('failed')
+    expect(mapped.code).toBe('UPSTREAM_ERROR')
+    expect(mapped.message).toBe(GUEST_FALLBACK.event_payment)
+  })
+
+  it.each([
+    ['DEPOSIT_ALREADY_PAID', 409, 'Deposit has already been paid for this booking.', 'The deposit for this booking has already been paid.'],
+    ['DEPOSIT_NOT_REQUIRED', 400, 'This booking does not require a deposit payment', 'This booking does not need a deposit.'],
+    ['BOOKING_NOT_PAYABLE', 409, 'This booking is no longer payable.', 'This booking is no longer open for payment.'],
+    ['PAYMENT_HOLD_EXPIRED', 409, 'This payment link has expired.', 'The time to pay this deposit has run out. Please start your booking again.'],
+    ['PAYMENT_HOLD_MISSING', 409, 'This booking is missing a valid payment hold.', 'This booking is not waiting for a deposit.'],
+    ['BOOKING_NOT_PENDING_PAYMENT', 409, 'This booking is not awaiting deposit payment.', 'This booking is not waiting for a deposit.']
+  ])('table deposit %s is a refusal answered in our words, not the management app\'s', (code, status, upstream, ours) => {
+    const mapped = mapUpstreamFailure({
+      status,
+      body: { success: false, error: upstream, code },
+      context: 'table_deposit'
+    })
+
+    expect(mapped.kind).toBe('refused')
+    expect(mapped.code).toBe(code)
+    expect(mapped.message).toBe(`${ours} Call 01753 682707 if you need help.`)
+    if (upstream !== ours) expect(mapped.message).not.toContain(upstream.replace(/\.$/, ''))
+    expectGuestSentence(mapped.message)
+  })
+
+  it.each([
+    ['PAYPAL_ORDER_FAILED', 502, 'Failed to create PayPal order. Please try again.'],
+    ['PAYPAL_ORDER_NOT_SAVED', 502, 'Order created but could not be saved. Please try again.']
+  ])('table deposit %s is a failure, and the guest may try again because nothing was charged', (code, status, upstream) => {
+    const mapped = mapUpstreamFailure({ status, body: { success: false, error: upstream, code }, context: 'table_deposit' })
+    expect(mapped.kind).toBe('failed')
+    expect(mapped.code).toBe(code)
+    expect(mapped.message).toBe(GUEST_FALLBACK.table_deposit)
+  })
+
+  it.each([
+    ['CAPTURE_FAILED', 502, 'Failed to capture PayPal payment. Please try again.'],
+    ['CAPTURED_AMOUNT_UNVERIFIED', 502, 'Payment captured but amount could not be verified. Please contact support; do not retry.'],
+    ['CAPTURED_AMOUNT_MISMATCH', 502, 'Payment captured but amount did not match the booking. Please contact support; do not retry.'],
+    ['CAPTURED_BOOKING_UPDATE_FAILED', 502, 'Payment captured but booking update failed. Our team has been notified.'],
+    ['PAYPAL_ORDER_LOOKUP_FAILED', 502, 'Failed to verify PayPal order amount. Please try again.'],
+    ['AMOUNT_MISMATCH', 409, 'Payment amount no longer matches this booking. Please refresh and try again.'],
+    ['ORDER_MISMATCH', 400, 'Order ID mismatch']
+  ])('a deposit capture answered %s tells the guest to ring before paying again, never "try again"', (code, status, upstream) => {
+    const mapped = mapUpstreamFailure({ status, body: { success: false, error: upstream, code }, context: 'table_deposit_capture' })
+
+    expect(mapped.code).toBe(code)
+    expect(mapped.message).toBe(GUEST_FALLBACK.table_deposit_capture)
+    expect(mapped.message).toContain('before paying again')
+    expect(mapped.message).not.toMatch(/try again/i)
+    expect(mapped.message).not.toContain('support')
+  })
+
+  it('a 400 that is about our request, not the guest\'s details, is a failure and never "check your details"', () => {
+    const mapped = mapUpstreamFailure({
+      status: 400,
+      body: { success: false, error: 'Missing Idempotency-Key header', code: 'IDEMPOTENCY_KEY_REQUIRED' },
+      context: 'private_hire',
+      trustValidationSentences: true
+    })
+
+    expect(mapped.kind).toBe('failed')
+    expect(mapped.code).toBe('IDEMPOTENCY_KEY_REQUIRED')
+    expect(mapped.message).toBe(GUEST_FALLBACK.private_hire)
+    expect(mapped.message).not.toMatch(/Idempotency|check them/i)
+  })
+
+  it('reads the flat shape the enquiry and create-booking routes answer with', () => {
+    const mapped = mapUpstreamFailure({
+      status: 400,
+      body: { success: false, error: 'Please enter the number of guests', code: 'VALIDATION_ERROR' },
+      context: 'private_hire',
+      trustValidationSentences: true
+    })
+
+    expect(mapped.kind).toBe('refused')
+    expect(mapped.code).toBe('VALIDATION_ERROR')
+    expect(mapped.message).toBe('Please enter the number of guests. Call 01753 682707 if you need help.')
+  })
+
+  it('a retired route is a failure with our sentence, though its own sentence carries the number', () => {
+    const mapped = mapUpstreamFailure({
+      status: 410,
+      body: {
+        success: false,
+        error: {
+          code: 'ENDPOINT_RETIRED',
+          message: 'This enquiry form has been replaced, so we could not take your enquiry here. Please call 01753 682707 or email manager@the-anchor.pub and we will help.'
+        }
+      },
+      context: 'private_hire'
+    })
+
+    expect(mapped.kind).toBe('failed')
+    expect(mapped.code).toBe('ENDPOINT_RETIRED')
+    expect(mapped.message).toBe(GUEST_FALLBACK.private_hire)
+  })
+
+  it('the limiter\'s RATE_LIMIT_EXCEEDED is our fault and gets the "very busy" sentence, never its own', () => {
+    // The shape src/lib/rate-limit.ts answers with in the management app.
+    const mapped = mapUpstreamFailure({
+      status: 429,
+      body: { error: 'Too many requests', code: 'RATE_LIMIT_EXCEEDED' },
+      context: 'private_hire'
+    })
+
+    expect(mapped.kind).toBe('failed')
+    expect(mapped.code).toBe('RATE_LIMIT_EXCEEDED')
+    expect(mapped.message).toBe('Our booking system is very busy just now. Please try again in a few minutes, or call 01753 682707.')
+    expect(mapped.message).not.toContain('Too many requests')
+  })
+
+  it('RATE_LIMIT_EXCEEDED with a sentence written for the guest is still theirs, and the sentence is kept', () => {
+    const mapped = mapUpstreamFailure({
+      status: 429,
+      body: {
+        success: false,
+        error: {
+          code: 'RATE_LIMIT_EXCEEDED',
+          message: 'Too many booking attempts for this phone number. Please try again later or call us on 01753 682707.'
+        }
+      },
+      context: 'table_booking'
+    })
+
+    expect(mapped.kind).toBe('refused')
+    expect(mapped.message).toBe('Too many booking attempts for this phone number. Please try again later or call us on 01753 682707.')
+  })
+
+  it('a code nobody has listed changes nothing: the status decides and the code is never shown', () => {
+    const refused = mapUpstreamFailure({ status: 409, body: { success: false, error: 'Nope', code: 'SOMETHING_NEW' }, context: 'table_deposit' })
+    expect(refused.kind).toBe('refused')
+    expect(refused.message).toBe(GUEST_FALLBACK.table_deposit)
+
+    const failed = mapUpstreamFailure({ status: 500, body: { success: false, error: 'Nope', code: 'SOMETHING_NEW' }, context: 'table_deposit' })
+    expect(failed.kind).toBe('failed')
+    expect(failed.message).toBe(GUEST_FALLBACK.table_deposit)
+
+    for (const mapped of [refused, failed]) {
+      expect(mapped.code).toBe('SOMETHING_NEW')
+      expect(mapped.message).not.toMatch(/SOMETHING_NEW|Nope/)
+    }
+  })
+
+  it('exposes what a code means on its own, and says nothing for one it does not know', () => {
+    expect(kindForUpstreamCode('INTERNAL_ERROR')).toBe('failed')
+    expect(kindForUpstreamCode('VALIDATION_ERROR')).toBe('refused')
+    expect(kindForUpstreamCode('hold_expired')).toBe('refused')
+    for (const unknown of ['RATE_LIMIT_EXCEEDED', 'REFUSED', 'UPSTREAM_ERROR', 'SOMETHING_NEW', '', null, undefined]) {
+      expect(kindForUpstreamCode(unknown)).toBeNull()
+    }
   })
 })
 

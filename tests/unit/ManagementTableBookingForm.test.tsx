@@ -840,6 +840,13 @@ describe('ManagementTableBookingForm', () => {
     })
     expect(fallbackLink).toHaveAttribute('href', 'https://pay.example.com/secure-link')
 
+    // The answer above does not say a message went (no `notification_sent`),
+    // so the screen offers the link itself and does not send the guest off to
+    // look for a payment link "we've sent".
+    expect(screen.getByText('Two ways to finish your booking:')).toBeInTheDocument()
+    expect(screen.queryByText(/we've sent/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/check your (phone|email)/i)).not.toBeInTheDocument()
+
     // A sentence with the phone number, not the upstream wording and not a crash.
     expect(screen.queryByText(/Rate limit exceeded/)).not.toBeInTheDocument()
     expect(screen.queryByText(/\[object Object\]/)).not.toBeInTheDocument()
@@ -928,6 +935,7 @@ describe('ManagementTableBookingForm', () => {
                 next_step_url: null,
                 hold_expires_at: null,
                 table_name: 'Window 4',
+                notification_sent: true,
                 notification_channel: 'email',
                 reason: null
               }

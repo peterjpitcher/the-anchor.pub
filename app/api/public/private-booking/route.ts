@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
-import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
+import { GUEST_FALLBACK, kindForUpstreamCode, mapUpstreamFailure } from '@/lib/guest-error-messages'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import { sanitizeCommunicationConsent } from '@/lib/communication-consent-server'
 import { sendEnquiryFallbackEmail, escapeHtml } from '@/lib/enquiry-fallback-email'
@@ -11,6 +11,13 @@ import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
 const ROUTE = 'api/public/private-booking'
+
+// The management app's answers for "this submission is already here": the same
+// idempotency key is still being worked on, or has already been recorded.
+const DUPLICATE_SUBMISSION_CODES: ReadonlySet<string> = new Set([
+    'IDEMPOTENCY_KEY_IN_PROGRESS',
+    'IDEMPOTENCY_KEY_CONFLICT'
+])
 
 type LegacyPrivateBookingPayload = {
     customer_first_name?: string
@@ -272,19 +279,25 @@ export async function POST(request: NextRequest) {
         if (!upstreamOk) {
             const status = res?.status ?? 0
 
-            // A 409 means this exact submission is already in flight or already
-            // recorded upstream, so the lead is not lost and must not be
-            // emailed again.
-            const isDuplicate = status === 409
-
-            // Only a 400 or a 422 is the guest's to correct. A 401, 403, 404 or
-            // 429 used to be shown to them as if they could fix it; those are
-            // faults on our side and are reported as such.
-            const guestCanFixIt = status === 400 || status === 422
-
             const mapped = res === null
                 ? { kind: 'failed' as const, code: API_KEY ? 'NO_RESPONSE' : 'API_KEY_MISSING', message: GUEST_FALLBACK.private_hire }
                 : mapUpstreamFailure({ status, body: data, context: 'private_hire', trustValidationSentences: true })
+
+            // The management app sends a stable code beside its sentence on
+            // this route. Where it is one we know, the code decides what
+            // happened; where there is none, the status does, as before.
+            const codeSettlesIt = res !== null && kindForUpstreamCode(mapped.code) !== null
+
+            // This exact submission is already in flight or already recorded
+            // upstream, so the lead is not lost and must not be emailed again.
+            const isDuplicate = codeSettlesIt ? DUPLICATE_SUBMISSION_CODES.has(mapped.code) : status === 409
+
+            // Only a detail the guest typed is theirs to correct. A 401, 403,
+            // 404 or 429 used to be shown to them as if they could fix it;
+            // those are faults on our side and are reported as such. So is a
+            // 400 that is about our request and not their details (a missing
+            // idempotency key), which the code now tells apart.
+            const guestCanFixIt = codeSettlesIt ? mapped.code === 'VALIDATION_ERROR' : status === 400 || status === 422
 
             await reportFailure({
                 route: ROUTE,
