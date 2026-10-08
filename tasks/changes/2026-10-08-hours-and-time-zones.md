@@ -103,4 +103,8 @@ The same defect, looked for in the management app for each website fix:
 2. An event record with no end and no duration runs for three hours. The same figure is used by the fixture lists.
 3. "This event has started, so online booking has closed." states only what the page already enforces. It makes no promise about turning up.
 4. The repeated hour on 25 October is read as its first pass, and the missing hour on 28 March as an hour later.
-5. The new tests were not re-run against the old code. They are written so the old code fails them: in the UTC run for summer dates, and in `npm run test:zones` for a device abroad.
+5. The management app column in the table above rests on the review's reading of its export, apart from the four findings re-checked on its `main` today.
+
+## Proof the tests catch the fault
+
+The header and parking tests (19 cases) were run against the old `StatusBar.tsx` and the old parking form: 1 failed in London, 7 in UTC, 13 as a phone in Sydney and 14 as a phone in Los Angeles. On this branch all 19 pass in all four.
