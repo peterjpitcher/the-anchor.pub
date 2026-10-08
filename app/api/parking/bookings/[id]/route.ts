@@ -3,6 +3,7 @@ import { anchorAPI } from '@/lib/api'
 import { toPublicParkingBooking } from '@/lib/api/parking'
 import { logError } from '@/lib/error-handling'
 import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
+import { RATE_LIMITS, RATE_LIMIT_MESSAGE, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 type RouteContext = {
   params: {
@@ -10,7 +11,14 @@ type RouteContext = {
   }
 }
 
-export async function GET(_request: Request, context: RouteContext) {
+export async function GET(request: Request, context: RouteContext) {
+  // Spends the management app's shared key, so one address gets 20 a minute.
+  // Per server (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'parking-booking-read', RATE_LIMITS.publicRead)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { success: false, error: { code: 'RATE_LIMITED', message: RATE_LIMIT_MESSAGE } })
+  }
+
   const bookingId = context?.params?.id
 
   if (!bookingId) {

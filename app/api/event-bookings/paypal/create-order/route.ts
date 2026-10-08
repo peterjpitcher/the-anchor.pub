@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
+import { PAYMENT_RATE_LIMIT_MESSAGE, RATE_LIMITS, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 const ROUTE = 'api/event-bookings/paypal/create-order'
 
@@ -23,6 +24,12 @@ function jsonNoStore(body: unknown, init?: ResponseInit) {
 }
 
 export async function POST(request: NextRequest): Promise<Response> {
+  // Ten orders an hour from one address. Per server (lib/rate-limit.ts).
+  const rateLimit = limitByAddress(request, 'event-payment-create', RATE_LIMITS.paymentCreate)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { code: 'RATE_LIMITED', error: PAYMENT_RATE_LIMIT_MESSAGE })
+  }
+
   const parsed = BodySchema.safeParse(await request.json().catch(() => null))
   if (!parsed.success) {
     return jsonNoStore({ error: 'bookingId (UUID) is required' }, { status: 400 })

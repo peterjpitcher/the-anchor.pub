@@ -86,6 +86,9 @@ beforeEach(async () => {
     debug: jest.spyOn(console, 'debug').mockImplementation(() => {})
   }
   ;({ POST } = await import('@/app/api/web-vitals/route'))
+  // The route counts requests per address. Each test starts from nothing, so
+  // the count belongs to the limiter's own suite and not to this one.
+  ;(await import('@/lib/rate-limit')).resetRateLimitsForTests()
 })
 
 afterEach(() => {
@@ -219,7 +222,10 @@ describe('POST /api/web-vitals with a bad report', () => {
   it('answers 413 without reading the body when the declared length is over the limit', async () => {
     const text = jest.fn(async () => JSON.stringify(LCP))
 
-    const response = await POST({ headers: new Headers({ 'content-length': '5000000' }), text })
+    const response = await POST({
+      headers: new Headers({ 'content-length': '5000000', 'x-forwarded-for': '203.0.113.77' }),
+      text
+    })
 
     expect(response.status).toBe(413)
     expect(text).not.toHaveBeenCalled()
@@ -228,7 +234,7 @@ describe('POST /api/web-vitals with a bad report', () => {
 
   it('answers 400 and logs nothing when the body cannot be read', async () => {
     const response = await POST({
-      headers: new Headers(),
+      headers: new Headers({ 'x-forwarded-for': '203.0.113.77' }),
       text: async () => {
         throw new Error('stream closed')
       }
@@ -248,5 +254,24 @@ describe('the log line', () => {
     const line = formatWebVitalLine({ ...report!, ip: '203.0.113.77' } as any)
 
     expect(line).toBe('[web-vital] {"metric":"LCP","value":2480,"rating":"good","path":"/","size":"desktop"}')
+  })
+})
+
+describe('POST /api/web-vitals rate limit', () => {
+  it('answers 429 with Retry-After once one address passes 60 a minute, and logs no address', async () => {
+    const raw = JSON.stringify(LCP)
+    for (let i = 0; i < 60; i += 1) {
+      expect((await POST(requestWith(raw))).status).toBe(200)
+    }
+
+    const refused = await POST(requestWith(raw))
+
+    expect(refused.status).toBe(429)
+    expect(Number(refused.headers.get('Retry-After'))).toBeGreaterThan(0)
+    expect(linesLogged().join('\n')).not.toMatch(/203\.0\.113\.77/)
+
+    // Another visitor is not affected.
+    const other = await POST(requestWith(raw, { ...VISITOR_HEADERS, 'x-forwarded-for': '203.0.113.78' }))
+    expect(other.status).toBe(200)
   })
 })
