@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getIndexableBlogPosts } from '@/lib/markdown'
+import { blogAuthorSchema } from '@/lib/blog/post-schema'
 import { Badge, Button, Card, Container } from '@/components/ui'
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
@@ -238,15 +239,12 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
                 "headline": post.title,
                 "description": post.description,
                 "datePublished": post.date,
-                "author": {
-                  "@type": "Person",
-                  "name": post.author
-                }
+                "author": blogAuthorSchema(post.author)
               }))
             },
             "publisher": {
               "@type": "Organization",
-              "name": "The Anchor - Heathrow Pub & Dining",
+              "name": "The Anchor",
               "logo": {
                 "@type": "ImageObject",
                 "url": "https://www.the-anchor.pub/images/branding/the-anchor-pub-logo-black-transparent.png"

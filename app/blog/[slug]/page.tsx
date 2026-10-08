@@ -21,6 +21,7 @@ import { shouldShowVisitPlannerPanel } from '@/components/conversion/visit-plann
 import type { OrganicSearchClusterKey } from '@/lib/seo/organic-search-map'
 import { stripBrandSuffix } from '@/lib/metadata/strip-brand-suffix'
 import { getRelatedPosts } from '@/lib/blog/related-posts'
+import { blogAuthorSchema, blogDateModified } from '@/lib/blog/post-schema'
 
 export const revalidate = 3600
 
@@ -198,6 +199,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       ],
       type: 'article',
       publishedTime: post.date,
+      ...(post.lastUpdated ? { modifiedTime: post.lastUpdated } : {}),
       authors: [post.author],
       tags: post.tags
     },
@@ -273,21 +275,18 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     "headline": post.title,
     "alternativeHeadline": post.description,
     "description": post.description,
-    "author": {
-      "@type": "Person",
-      "name": post.author,
-      "url": "https://www.the-anchor.pub/blog"
-    },
+    "author": blogAuthorSchema(post.author),
     "datePublished": post.date,
-    "dateModified": post.date,
+    "dateModified": blogDateModified(post),
     "publisher": {
       "@type": "Organization",
       "name": "The Anchor",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.the-anchor.pub/images/branding/the-anchor-pub-logo-white-transparent.png",
-        "width": 320,
-        "height": 320
+        // The black logo: the white one cannot be seen on a white background.
+        "url": "https://www.the-anchor.pub/images/branding/the-anchor-pub-logo-black-transparent.png",
+        "width": 400,
+        "height": 200
       },
       "address": {
         "@type": "PostalAddress",
