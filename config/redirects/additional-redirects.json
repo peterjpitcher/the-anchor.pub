@@ -10,6 +10,16 @@
     "permanent": true
   },
   {
+    "source": "/downloads/the-anchor-world-cup-sweep-draw-results.pdf",
+    "destination": "/live-sport/world-cup/sweepstake",
+    "permanent": true
+  },
+  {
+    "source": "/images/events/world-cup/world-cup-sweep-draw-results.png",
+    "destination": "/live-sport/world-cup/sweepstake",
+    "permanent": true
+  },
+  {
     "source": "/bonfire-night",
     "destination": "/whats-on",
     "permanent": true

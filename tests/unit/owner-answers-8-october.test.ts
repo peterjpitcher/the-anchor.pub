@@ -71,6 +71,63 @@ describe('/private-hire/near/great-fosters-egham is about a hotel, not a registe
   })
 })
 
+describe('the World Cup sweepstake page names nobody', () => {
+  const PAGE = 'app/live-sport/world-cup/sweepstake/page.tsx'
+  const SHEET_PDF = '/downloads/the-anchor-world-cup-sweep-draw-results.pdf'
+  const SHEET_IMAGE = '/images/events/world-cup/world-cup-sweep-draw-results.png'
+
+  // What a name looked like in the old data: a `customer` field, and sentences
+  // of the form "<Name> won £50 with <team>". The names themselves are not
+  // written here, or this file would be the one still holding them.
+  it('has no customer field and no "<someone> won" sentence in its source', () => {
+    const page = read(PAGE)
+
+    expect(page).not.toMatch(/customer/i)
+    expect(page).not.toMatch(/\b[A-Z][a-z]+(?: [A-Z][a-z]*)? won\b/)
+    expect(page).not.toMatch(/winners are [A-Z]/)
+  })
+
+  it('lists each prize by its team only, in data whose every value is a prize, an amount, a team or the goal', () => {
+    const page = read(PAGE)
+    const dataBlock = page.slice(page.indexOf('const MAIN_PRIZES'), page.indexOf('const PRIZE_COUNT'))
+    const keys = [...dataBlock.matchAll(/\b([a-z]+):/g)].map((m) => m[1])
+
+    expect([...new Set(keys)].sort()).toEqual(['amount', 'detail', 'prize', 'team'])
+    expect(dataBlock).toContain("team: 'Spain'")
+  })
+
+  it('sends no result sheet to Google or to a share card', async () => {
+    const { metadata } = await import('@/app/live-sport/world-cup/sweepstake/page')
+    const serialised = JSON.stringify(metadata)
+
+    expect(serialised).not.toContain('sweep-draw-results')
+    expect(serialised).not.toMatch(/customer|winner/i)
+    expect(read(PAGE)).not.toContain('sweep-draw-results')
+    // Still out of search.
+    expect(metadata.robots).toEqual({ index: false, follow: true })
+  })
+
+  it('has deleted the result sheet, which listed every entrant by name, and redirects its two addresses', async () => {
+    for (const file of [SHEET_PDF, SHEET_IMAGE]) {
+      expect(fs.existsSync(path.join(process.cwd(), 'public', file))).toBe(false)
+    }
+
+    const { NextRequest } = await import('next/server')
+    const { middleware } = await import('@/middleware')
+    for (const file of [SHEET_PDF, SHEET_IMAGE]) {
+      for (const host of ['www.the-anchor.pub', 'the-anchor.pub']) {
+        const response = middleware(
+          new NextRequest(`https://${host}${file}`, { headers: { host, 'x-forwarded-proto': 'https' } })
+        )
+        expect(response.status).toBe(301)
+        expect(response.headers.get('location')).toBe('https://www.the-anchor.pub/live-sport/world-cup/sweepstake')
+      }
+    }
+    // The destination is the page itself, which still exists.
+    expect(fs.existsSync(path.join(process.cwd(), PAGE))).toBe(true)
+  })
+})
+
 describe('garden parties: "Receptions" is not on the "Perfect for" list', () => {
   // On its own the word reads as wedding receptions, which the pub takes on
   // enquiry but does not market (docs/SSOT.md section 14).

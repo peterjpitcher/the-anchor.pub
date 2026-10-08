@@ -989,10 +989,12 @@ describe('blog tag index policy', () => {
 
 describe('the World Cup sweepstake winners page', () => {
   /**
-   * A finished results page that names the people who won. It was the one
-   * fixed page serving "index, follow" while missing from the sitemap (site
-   * review, 7 October 2026). It stays reachable from the live sport pages but
-   * is kept out of search, and so out of the sitemap as well.
+   * A finished results page. It was the one fixed page serving "index,
+   * follow" while missing from the sitemap (site review, 7 October 2026). It
+   * stays reachable from the live sport pages but is kept out of search, and
+   * so out of the sitemap as well. It named the people who won until
+   * 8 October 2026; tests/unit/owner-answers-8-october.test.ts keeps the
+   * names off it.
    */
   it('is noindex, still followed, and absent from the sitemap', async () => {
     const { metadata } = await import('@/app/live-sport/world-cup/sweepstake/page')
