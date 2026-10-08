@@ -4,6 +4,11 @@ import {
   CHRISTMAS_MINIMUM_PARTY_SIZE,
   formatChristmasWindowLabel
 } from './christmas-season'
+import {
+  formatFestiveDay,
+  getFestiveKitchenStatus,
+  type FestiveKitchenClosure
+} from './festive-kitchen-closure'
 
 /**
  * Homepage copy, one set per month, resolved from the London date.
@@ -214,8 +219,57 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
   }
 }
 
-/** Convenience wrapper: today's copy, in Europe/London. */
+/**
+ * The homepage while the kitchen is shut over Christmas and New Year.
+ *
+ * The December set sells Christmas dinner and a "Festive menu" chip, and the
+ * January set sells long lunches and "a proper roast on a Sunday". Both ran
+ * straight through the break (21 December to 11 January in 2026), when there is
+ * no food at all. This set makes no food promise: no roast, no lunch, no menu
+ * chip, no menu button, and no "walk in".
+ *
+ * Built from the two closure dates, so it names the day the kitchen is back
+ * without anybody typing it. Boxing Day and New Year's Day are closures of the
+ * whole pub (SSOT section 7), so the line about them stays until 1 January has
+ * passed and then goes.
+ */
+export function getFestiveBreakHomepageCopy(today: string, closure: FestiveKitchenClosure): MonthlyHomepageCopy {
+  const returnDay = formatFestiveDay(closure.returns)
+  const kitchen = `Our kitchen's last day of the year is ${formatFestiveDay(closure.lastService)}, and it's back on ${returnDay}.`
+  const beforeNewYear = today.slice(0, 4) === closure.lastService.slice(0, 4)
+  const newYearsDay = `${closure.returns.slice(0, 4)}-01-01`
+  const closedDays = today <= newYearsDay ? " We're closed on Boxing Day and on New Year's Day." : ''
+  // "12 January", for a chip that has to stay short.
+  const returnDayShort = returnDay.split(' ').slice(1).join(' ')
+
+  return {
+    script: beforeNewYear ? 'See the year out with us' : 'Happy New Year from The Anchor',
+    lead: `${kitchen} The bar stays open.${closedDays} A proper village pub, 7 minutes from Heathrow Terminal 5.`,
+    primaryCta: 'Book a table',
+    secondaryCta: 'See the drinks',
+    secondaryHref: '/drinks',
+    badges: [`Kitchen back ${returnDayShort}`, 'Free parking', 'Dog friendly', '7 mins from T5'],
+    bandTitle: beforeNewYear ? 'See the year out with us' : `Kitchen back on ${returnDay}`,
+    bandCopy: beforeNewYear
+      ? 'We would love to see you in before New Year, so come and raise one with us.'
+      : `The bar is open, and the kitchen is back on ${returnDay}.`
+  }
+}
+
+/**
+ * Today's copy, in Europe/London.
+ *
+ * The month decides it, with one exception: while the kitchen is shut for the
+ * festive break, the break's own set is used instead of December's or
+ * January's (see getFestiveBreakHomepageCopy).
+ */
 export function getCurrentMonthlyHomepageCopy(testDate?: Date): MonthlyHomepageCopy {
-  const { month } = nowInLondonComponents(testDate ?? new Date())
+  const now = testDate ?? new Date()
+  const festive = getFestiveKitchenStatus(now)
+  if (festive.state === 'closed' && festive.closure) {
+    return getFestiveBreakHomepageCopy(festive.today, festive.closure)
+  }
+
+  const { month } = nowInLondonComponents(now)
   return getMonthlyHomepageCopy(month)
 }

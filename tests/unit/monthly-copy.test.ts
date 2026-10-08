@@ -145,9 +145,11 @@ describe('getCurrentMonthlyHomepageCopy', () => {
     expect(getCurrentMonthlyHomepageCopy(lateAugust)).toEqual(getMonthlyHomepageCopy(9))
   })
 
-  it('should stay in December at 23:30 UTC on 31 December (GMT, no offset)', () => {
-    const newYearsEve = new Date(Date.UTC(2026, 11, 31, 23, 30, 0))
-    expect(getCurrentMonthlyHomepageCopy(newYearsEve)).toEqual(getMonthlyHomepageCopy(12))
+  it('should stay in December at 23:30 UTC on 30 November (GMT, no offset)', () => {
+    // Was pinned to 31 December, which now falls in the kitchen's festive break
+    // and has its own set (tests/unit/festive-kitchen-closure.test.tsx).
+    const lastOfNovember = new Date(Date.UTC(2026, 10, 30, 23, 30, 0))
+    expect(getCurrentMonthlyHomepageCopy(lastOfNovember)).toEqual(getMonthlyHomepageCopy(11))
   })
 
   it.each([

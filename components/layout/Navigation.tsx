@@ -81,7 +81,7 @@ const defaultItems: NavigationItem[] = [
     href: '/food-menu',
     items: [
       { label: 'Full Food Menu', href: '/food-menu', description: 'Pub classics, prices and dietary filters' },
-      { label: 'Sunday Roast', href: '/sunday-roast', description: 'Carved fresh to order, every Sunday' },
+      { label: 'Sunday Roast', href: '/sunday-roast', description: 'Carved fresh to order on Sundays' },
       { label: 'Stone-Baked Pizza', href: '/pizza-menu', description: 'Hand-stretched pizzas from the live menu' },
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow', description: 'A proper chippy tea near Heathrow' },
       { label: 'Kids Menu', href: '/food-menu#kids', description: 'Children’s dishes and current prices' },

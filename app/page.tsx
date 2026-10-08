@@ -26,6 +26,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getSeasonalHomepageImage, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
 import { getCurrentMonthlyHomepageCopy } from '@/lib/monthly-copy'
+import { getFestiveKitchenStatus, getFestiveKitchenWording } from '@/lib/festive-kitchen-closure'
 import {
   CHRISTMAS_MINIMUM_PARTY_SIZE,
   formatChristmasWindowLabel,
@@ -78,6 +79,8 @@ export const metadata: Metadata = {
 
 const GOOGLE_MAPS_URL = 'https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ'
 
+const ROAST_CARD_COPY = 'Roasts served every Sunday, 1pm to 6pm. Walk in or book ahead.'
+
 const PATH_CARDS = [
   {
     icon: Utensils,
@@ -89,7 +92,7 @@ const PATH_CARDS = [
   {
     icon: Beef,
     title: 'Sunday roast',
-    copy: 'Roasts served every Sunday, 1pm to 6pm. Walk in or book ahead.',
+    copy: ROAST_CARD_COPY,
     cta: 'See the roast',
     href: '/sunday-roast'
   },
@@ -200,6 +203,14 @@ export default async function HomePage() {
   // current even in the middle of the long dark window. Independent of the
   // skin: changing one must not drag the other with it.
   const monthlyCopy = getCurrentMonthlyHomepageCopy()
+  const festiveKitchen = getFestiveKitchenStatus()
+  const festiveKitchenWording = getFestiveKitchenWording()
+  const roastCardOverride =
+    festiveKitchen.state === 'none' || !festiveKitchenWording
+      ? null
+      : festiveKitchen.state === 'closed'
+        ? `No roasts just now. ${festiveKitchenWording}`
+        : `Roasts on Sundays, 1pm to 6pm. ${festiveKitchenWording}`
   // Fetched on the server so the seven-day table ships in the initial HTML rather
   // than the "loading" fallback. The cached snapshot keeps this page on ISR;
   // returns null on failure, which WeekHours handles.
@@ -236,7 +247,11 @@ export default async function HomePage() {
             lead="Whatever brings you in, we will make you feel at home. Pick a starting point."
           />
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {PATH_CARDS.map(({ icon: Icon, title, copy, cta, href }) => (
+            {PATH_CARDS.map(({ icon: Icon, title, copy: cardCopy, cta, href }) => {
+              // The roast card must not promise "every Sunday" into the kitchen's
+              // festive break. See lib/festive-kitchen-closure.ts.
+              const copy = cardCopy === ROAST_CARD_COPY && roastCardOverride ? roastCardOverride : cardCopy
+              return (
               <Link key={title} href={href} className="group block h-full">
                 <Card accent hover className="flex h-full flex-col">
                   <CardBody className="flex flex-1 flex-col">
@@ -254,7 +269,8 @@ export default async function HomePage() {
                   </CardBody>
                 </Card>
               </Link>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

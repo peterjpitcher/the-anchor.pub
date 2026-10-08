@@ -12,6 +12,8 @@ import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
+import { anchorAPI } from '@/lib/api/client'
+import { getNewYearsEveFoodCopy } from '@/lib/seasonal/new-years-eve'
 
 const NYE_BOOKING_URL = '/book-table?purpose=drinks'
 
@@ -45,7 +47,20 @@ export const metadata: Metadata = {
   }),
 }
 
-export default function NewYearsEvePage(): React.JSX.Element {
+// The food lines on this page are worked out, not typed. They come from the live
+// hours for 31 December when the feed carries that date, from the kitchen's
+// festive break in the SSOT when it does not, and otherwise make no promise.
+// See lib/seasonal/new-years-eve.ts.
+async function loadHours(): Promise<Awaited<ReturnType<typeof anchorAPI.getBusinessHoursSnapshot>> | null> {
+  try {
+    return await anchorAPI.getBusinessHoursSnapshot()
+  } catch {
+    return null
+  }
+}
+
+export default async function NewYearsEvePage(): Promise<React.JSX.Element> {
+  const food = getNewYearsEveFoodCopy(new Date(), await loadHours())
   const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.county}, ${CONTACT.address.postcode}`
   const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
@@ -72,8 +87,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
     },
     {
       question: "Is food available on New Year's Eve?",
-      answer:
-        "We usually serve food earlier in the evening. Confirmed kitchen times for each year go on our What's On page, or give us a call closer to the date.",
+      answer: food.faqAnswer,
     },
     {
       question: 'Is there parking?',
@@ -193,9 +207,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               Food &amp; drink
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
-              We usually serve food earlier in the evening on New Year&apos;s Eve, a chance to eat well
-              before the night gets going. Book your table if you&apos;re planning to dine. Kitchen times
-              are confirmed closer to the date.
+              {food.paragraph}
             </p>
             <p className="text-ink-muted leading-relaxed">
               Throughout the evening we&apos;ll have our full range of draught lagers, bottled beers, wines,
@@ -203,30 +215,45 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </p>
             <Card accent className="mt-6">
               <CardBody>
-                <h3 className="text-lg font-semibold text-ink-strong">Browse our menus</h3>
+                <h3 className="text-lg font-semibold text-ink-strong">{food.state === 'closed' ? 'Browse our drinks' : 'Browse our menus'}</h3>
                 <p className="mt-3 text-sm text-ink-muted leading-relaxed">
-                  Take a look at our{' '}
-                  <Link
-                    href="/food-menu"
-                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                  >
-                    food menu
-                  </Link>
-                  ,{' '}
-                  <Link
-                    href="/pizza-menu"
-                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                  >
-                    pizza menu
-                  </Link>{' '}
-                  and{' '}
-                  <Link
-                    href="/drinks"
-                    className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
-                  >
-                    drinks menu
-                  </Link>
-                  . New Year&apos;s Eve food details will be confirmed closer to the date.
+                  {food.state === 'closed' ? (
+                    <>
+                      Take a look at our{' '}
+                      <Link
+                        href="/drinks"
+                        className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                      >
+                        drinks menu
+                      </Link>
+                      .
+                    </>
+                  ) : (
+                    <>
+                      Take a look at our{' '}
+                      <Link
+                        href="/food-menu"
+                        className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                      >
+                        food menu
+                      </Link>
+                      ,{' '}
+                      <Link
+                        href="/pizza-menu"
+                        className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                      >
+                        pizza menu
+                      </Link>{' '}
+                      and{' '}
+                      <Link
+                        href="/drinks"
+                        className="font-semibold text-accent-text hover:text-anchor-gold underline decoration-dotted"
+                      >
+                        drinks menu
+                      </Link>
+                      .
+                    </>
+                  )}
                 </p>
               </CardBody>
             </Card>
@@ -242,9 +269,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
               Practical details
             </h2>
             <p className="text-ink-muted text-lg leading-relaxed">
-              We stay open until 1am on New Year&apos;s Eve, with a DJ and a midnight countdown. Opening time and
-              confirmed kitchen hours for each year go on our What&apos;s On page, so check there or call us for the
-              latest. Walk-ins are welcome, but booking is strongly recommended, it gets busy, and a reserved table
+              We stay open until 1am on New Year&apos;s Eve, with a DJ and a midnight countdown. Call us on {CONTACT.phone} for
+              the latest. Walk-ins are welcome, but booking is strongly recommended, it gets busy, and a reserved table
               means you&apos;re guaranteed your spot.
             </p>
             <Card accent>
@@ -265,10 +291,12 @@ export default function NewYearsEvePage(): React.JSX.Element {
                     <span className="text-accent-text">&bull;</span>
                     <span>Full bar all evening</span>
                   </li>
-                  <li className="flex gap-2">
-                    <span className="text-accent-text">&bull;</span>
-                    <span>Food served earlier in the evening</span>
-                  </li>
+                  {food.glance ? (
+                    <li className="flex gap-2">
+                      <span className="text-accent-text">&bull;</span>
+                      <span>{food.glance}</span>
+                    </li>
+                  ) : null}
                   <li className="flex gap-2">
                     <span className="text-accent-text">&bull;</span>
                     <span>{PARKING.capacity} free parking spaces on site</span>
