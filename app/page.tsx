@@ -1,4 +1,5 @@
 import { TournamentLinkInWindow } from '@/components/features/nations-championship/TournamentLinkInWindow'
+import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { isNationsChampionshipPromoOpen } from '@/lib/nations-championship/promo-window'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -446,17 +447,13 @@ export default async function HomePage() {
               </CardBody>
             </Card>
 
-            {/* Map panel */}
-            <div className="overflow-hidden rounded-md border border-line shadow-sm" style={{ minHeight: '360px' }}>
-              <iframe
-                title="Map showing The Anchor, Horton Road, Stanwell Moor, Surrey TW19 6AQ"
-                src="https://www.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ&output=embed"
-                className="h-full min-h-[360px] w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-            </div>
+            {/* Map panel. Loads on a press, not with the page: see GoogleMapEmbed. */}
+            <GoogleMapEmbed
+              query="The Anchor Stanwell Moor TW19 6AQ"
+              title="Map showing The Anchor, Horton Road, Stanwell Moor, Surrey TW19 6AQ"
+              height="100%"
+              className="min-h-[360px] rounded-md shadow-sm"
+            />
           </div>
 
           {/* Opening hours + flight path */}

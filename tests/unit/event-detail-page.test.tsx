@@ -18,7 +18,7 @@
  * pattern as tests/unit/parking-page-prices.test.tsx.
  */
 
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import type { Event } from '@/lib/api'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
 
@@ -361,6 +361,13 @@ describe('event detail page, what a customer reads', () => {
 
   it('names the map frame', async () => {
     const container = await renderEventPage()
+    // The map waits to be asked for (components/ui/GoogleMapEmbed.tsx).
+    expect(container.querySelector('iframe')).toBeNull()
+    const showMap = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent?.trim() === 'Show the map'
+    )
+    if (!showMap) throw new Error('No Show the map button rendered')
+    fireEvent.click(showMap)
     const frame = container.querySelector('iframe')
 
     expect(frame).not.toBeNull()
