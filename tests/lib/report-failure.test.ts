@@ -9,6 +9,7 @@ jest.mock('@/lib/microsoft-graph-mail', () => ({
 }))
 
 import {
+  PAYMENT_TEXT_TIMEOUT_MS,
   FAILURE_ALERT_RECIPIENT,
   FAILURE_ALERT_RETRY_MS,
   FAILURE_ALERT_WINDOW_MS,
@@ -36,13 +37,38 @@ const PERSONAL = [NAME, 'Alice', 'Booker', PHONE, PHONE_INTL, EMAIL, PLATE, REFE
 const LONG_DASH = String.fromCharCode(8212)
 
 const ORIGINAL_ENV = process.env
+const ORIGINAL_FETCH = global.fetch
+
+// A stand-in key. It must never appear in anything the reporter writes.
+const TEST_API_KEY = 'anch_test_key_for_report_failure'
+const TEXT_URL = 'https://management.orangejelly.co.uk/api/website/payment-failure-alert'
+
+// Stands in for the management app. Nothing in this file reaches the network.
+const mockFetch = jest.fn()
+
+function textAnswer(status: number, body: unknown = { success: status < 400 }): Response {
+  return { ok: status >= 200 && status < 300, status, json: async () => body } as unknown as Response
+}
+
+function textRequests(): Array<{ url: string; init: RequestInit }> {
+  return mockFetch.mock.calls.map(([url, init]) => ({ url: String(url), init: init as RequestInit }))
+}
 
 let log: CapturedFailureLog
 
 beforeEach(() => {
   jest.useFakeTimers()
   jest.setSystemTime(new Date('2026-10-07T18:30:00Z'))
-  process.env = { ...ORIGINAL_ENV, VERCEL_ENV: 'production', MICROSOFT_USER_EMAIL: 'bot@the-anchor.pub' }
+  process.env = {
+    ...ORIGINAL_ENV,
+    VERCEL_ENV: 'production',
+    MICROSOFT_USER_EMAIL: 'bot@the-anchor.pub',
+    ANCHOR_API_KEY: TEST_API_KEY
+  }
+  delete process.env.ANCHOR_API_BASE_URL
+  mockFetch.mockReset()
+  mockFetch.mockResolvedValue(textAnswer(202, { success: true, data: { sent: true } }))
+  global.fetch = mockFetch as unknown as typeof fetch
   mockSendEmail.mockReset()
   mockSendEmail.mockResolvedValue(undefined)
   resetFailureAlertsForTests()
@@ -52,6 +78,7 @@ beforeEach(() => {
 afterEach(() => {
   log.restore()
   process.env = ORIGINAL_ENV
+  global.fetch = ORIGINAL_FETCH
   jest.useRealTimers()
 })
 
@@ -245,7 +272,6 @@ describe('the alert email', () => {
       page: '/book-table',
       refHash: '3f1c9a7be204',
       alert: 'email',
-      text: 'no_sender',
       at: '2026-10-07T18:30:00.000Z'
     }
 
@@ -328,38 +354,238 @@ describe('when the alert cannot be sent', () => {
 })
 
 describe('the text for a failed payment', () => {
-  it('is a named hook that says the website has no way to send one', async () => {
-    await expect(sendPaymentFailureText({ route: 'api/parking/payment/capture', status: 502, reason: 'CAPTURE_FAILED' })).resolves.toEqual({
-      sent: false,
-      reason: 'no_sms_sender_on_website'
+  const CAPTURE = { route: 'api/parking/payment/capture', status: 502, reason: 'CAPTURE_FAILED' }
+
+  describe('what is sent to the management app', () => {
+    it('is one POST, with the API key, holding an area and a reason and nothing else', async () => {
+      await expect(sendPaymentFailureText(CAPTURE)).resolves.toEqual({ sent: true, reason: 'sent' })
+
+      expect(mockFetch).toHaveBeenCalledTimes(1)
+      const [{ url, init }] = textRequests()
+      expect(url).toBe(TEXT_URL)
+      expect(init.method).toBe('POST')
+      expect(init.cache).toBe('no-store')
+      expect(init.headers).toEqual({ Authorization: `Bearer ${TEST_API_KEY}`, 'Content-Type': 'application/json' })
+      expect(JSON.parse(String(init.body))).toEqual({ area: 'parking_capture', reason: 'server_error' })
+    })
+
+    it.each([
+      ['api/table-bookings/paypal/create-order', 'table_deposit_start'],
+      ['api/table-bookings/paypal/capture-order', 'table_deposit_capture'],
+      ['api/event-bookings/paypal/create-order', 'event_ticket_start'],
+      ['api/event-bookings/paypal/capture-order', 'event_ticket_capture'],
+      ['api/parking/payment/create-order', 'parking_start'],
+      ['api/parking/payment/capture', 'parking_capture']
+    ])('names the payment step for %s', async (route, area) => {
+      await sendPaymentFailureText({ route, status: 500, reason: 'UPSTREAM_NOT_OK' })
+
+      expect(JSON.parse(String(textRequests()[0].init.body)).area).toBe(area)
+    })
+
+    it.each([
+      [503, 'UPSTREAM_NOT_OK', 'server_error'],
+      [500, 'UPSTREAM_NOT_OK', 'server_error'],
+      [401, 'UPSTREAM_NOT_OK', 'refused'],
+      [409, 'UPSTREAM_NOT_OK', 'refused'],
+      [null, 'UPSTREAM_UNREACHABLE', 'no_answer'],
+      [null, 'UNEXPECTED_ERROR', 'unexpected_error']
+    ])('turns status %s and reason %s into %s', async (status, reason, expected) => {
+      await sendPaymentFailureText({ route: CAPTURE.route, status, reason })
+
+      expect(JSON.parse(String(textRequests()[0].init.body)).reason).toBe(expected)
+    })
+
+    it('carries no guest detail, whatever the route was told', async () => {
+      await reportFailure({
+        route: 'api/table-bookings/paypal/capture-order',
+        payment: true,
+        status: 502,
+        reason: 'UPSTREAM_NOT_OK',
+        upstreamCode: 'INTERNAL_ERROR',
+        state: 'pending_payment',
+        reference: REFERENCE,
+        page: `/book-table/${BOOKING_ID}`,
+        error: new Error(`Capture failed for ${NAME} on ${PHONE}, ${EMAIL}, ${PLATE}`)
+      })
+
+      expect(mockFetch).toHaveBeenCalledTimes(1)
+      const sent = `${textRequests()[0].url} ${String(textRequests()[0].init.body)}`
+      for (const value of PERSONAL) {
+        expect(sent).not.toContain(value)
+      }
+      expect(JSON.parse(String(textRequests()[0].init.body))).toEqual({
+        area: 'table_deposit_capture',
+        reason: 'server_error'
+      })
     })
   })
 
-  it('is recorded on the log line of a failed payment, and the email is still sent', async () => {
-    await reportFailure({ route: 'api/parking/payment/capture', payment: true, status: 502, reason: 'CAPTURE_FAILED' })
+  describe('when it is not sent at all', () => {
+    it('is not asked for away from the live site', async () => {
+      for (const env of [undefined, 'preview', 'development']) {
+        if (env === undefined) delete process.env.VERCEL_ENV
+        else process.env.VERCEL_ENV = env
+        await expect(sendPaymentFailureText(CAPTURE)).resolves.toEqual({ sent: false, reason: 'not_production' })
+      }
+      await reportFailure({ ...CAPTURE, payment: true })
 
-    expect(log.lines()[0]).toMatchObject({ payment: true, alert: 'email', text: 'no_sender' })
-    expect(mockSendEmail).toHaveBeenCalledTimes(1)
-    expect(mockSendEmail.mock.calls[0][0].subject).toContain('a payment failed on the website')
+      expect(mockFetch).not.toHaveBeenCalled()
+    })
+
+    it('is not asked for by a route that is not a payment step', async () => {
+      await expect(sendPaymentFailureText({ route: 'api/table-bookings', status: 502, reason: 'X' })).resolves.toEqual({
+        sent: false,
+        reason: 'not_a_payment_route'
+      })
+      expect(mockFetch).not.toHaveBeenCalled()
+    })
+
+    it('is not asked for when a failure is not a payment', async () => {
+      await reportFailure({ route: 'api/table-bookings', status: 502, reason: 'X' })
+      await reportFailure({ route: 'api/public/private-booking', status: null, reason: 'UPSTREAM_UNREACHABLE' })
+
+      expect(mockSendEmail).toHaveBeenCalledTimes(2)
+      expect(mockFetch).not.toHaveBeenCalled()
+      expect(log.alertLines()).toEqual([])
+    })
+
+    it('is not asked for when a payment was refused rather than broken', async () => {
+      await reportFailure({ ...CAPTURE, payment: true, kind: 'refused', status: 409 })
+
+      expect(mockFetch).not.toHaveBeenCalled()
+    })
+
+    it('is asked for once per route in ten minutes from this server, like the email', async () => {
+      for (let attempt = 0; attempt < 5; attempt += 1) {
+        await reportFailure({ ...CAPTURE, payment: true })
+      }
+      expect(mockFetch).toHaveBeenCalledTimes(1)
+
+      jest.setSystemTime(Date.now() + FAILURE_ALERT_WINDOW_MS + 1)
+      await reportFailure({ ...CAPTURE, payment: true })
+      expect(mockFetch).toHaveBeenCalledTimes(2)
+    })
+
+    it('says so, without a request, when the API key is missing', async () => {
+      delete process.env.ANCHOR_API_KEY
+
+      await expect(sendPaymentFailureText(CAPTURE)).resolves.toEqual({ sent: false, reason: 'api_key_missing' })
+      expect(mockFetch).not.toHaveBeenCalled()
+    })
   })
 
-  it('is not mentioned for a failure that is not a payment', async () => {
-    await reportFailure({ route: 'api/table-bookings', status: 502, reason: 'X' })
+  describe('when the text goes', () => {
+    it('is recorded on a second line, after the email', async () => {
+      await reportFailure({ ...CAPTURE, payment: true })
 
-    expect(log.lines()[0]).not.toHaveProperty('text')
+      expect(log.lines()[0]).toMatchObject({ payment: true, alert: 'email' })
+      expect(mockSendEmail).toHaveBeenCalledTimes(1)
+      expect(mockSendEmail.mock.calls[0][0].subject).toContain('a payment failed on the website')
+      expect(log.alertLines()).toEqual([{ route: CAPTURE.route, texted: true, at: '2026-10-07T18:30:00.000Z' }])
+    })
+
+    it('still goes when the email could not be sent', async () => {
+      mockSendEmail.mockRejectedValue(new Error('Graph is down'))
+
+      await reportFailure({ ...CAPTURE, payment: true })
+
+      expect(mockFetch).toHaveBeenCalledTimes(1)
+      expect(log.alertLines()).toEqual([
+        expect.objectContaining({ route: CAPTURE.route, emailed: false }),
+        expect.objectContaining({ route: CAPTURE.route, texted: true })
+      ])
+    })
   })
-})
 
-describe('pageFromRequest', () => {
-  it('returns the path of the referring page, without its query string', () => {
-    const request = { headers: new Headers({ referer: 'https://www.the-anchor.pub/book-table?fbclid=abc' }) }
-    expect(pageFromRequest(request)).toBe('/book-table')
-  })
+  describe('when the text cannot be sent', () => {
+    async function expectEmailSentAndTextLogged(reason: string): Promise<void> {
+      await expect(reportFailure({ ...CAPTURE, payment: true, reference: REFERENCE })).resolves.toBeUndefined()
 
-  it.each([[undefined], [null], [{}], [{ headers: {} }], [{ headers: new Headers({ referer: 'not a url' }) }]])(
-    'returns null rather than throwing for %p',
-    (request) => {
-      expect(pageFromRequest(request)).toBeNull()
+      // The email went first and is unaffected.
+      expect(mockSendEmail).toHaveBeenCalledTimes(1)
+      expect(mockSendEmail.mock.calls[0][0].to).toBe(FAILURE_ALERT_RECIPIENT)
+      // The failure is on the record.
+      expect(log.lines()).toHaveLength(1)
+      expect(log.alertLines()).toEqual([{ route: CAPTURE.route, texted: false, reason, at: '2026-10-07T18:30:00.000Z' }])
+      // And neither the key nor a guest detail is.
+      expect(log.everything()).not.toContain(TEST_API_KEY)
+      expectNoPersonalData(log.everything(), PERSONAL)
     }
-  )
+
+    it('logs it and still emails when the management app cannot be reached', async () => {
+      mockFetch.mockRejectedValue(new TypeError(`fetch failed for ${NAME} ${PHONE}`))
+
+      await expectEmailSentAndTextLogged('request_failed')
+    })
+
+    it('logs it and still emails when the request throws something that is not an error', async () => {
+      mockFetch.mockImplementation(() => {
+        throw 'boom'
+      })
+
+      await expectEmailSentAndTextLogged('request_failed')
+    })
+
+    it('gives up after a short wait when the management app does not answer', async () => {
+      mockFetch.mockImplementation(
+        (_url: string, init: RequestInit) =>
+          new Promise((_resolve, reject) => {
+            init.signal?.addEventListener('abort', () => {
+              const aborted = new Error('This operation was aborted')
+              aborted.name = 'AbortError'
+              reject(aborted)
+            })
+          })
+      )
+
+      const pending = sendPaymentFailureText(CAPTURE)
+      await jest.advanceTimersByTimeAsync(PAYMENT_TEXT_TIMEOUT_MS - 1)
+      expect(mockFetch.mock.calls[0][1].signal.aborted).toBe(false)
+      await jest.advanceTimersByTimeAsync(1)
+
+      await expect(pending).resolves.toEqual({ sent: false, reason: 'timed_out' })
+      expect(PAYMENT_TEXT_TIMEOUT_MS).toBeLessThanOrEqual(3000)
+    })
+
+    it.each([
+      [429, 'ALERT_WINDOW_LIMIT'],
+      [429, 'ALERT_DAILY_CAP'],
+      [503, 'ALERT_NOT_CONFIGURED'],
+      [502, 'SMS_SEND_FAILED'],
+      [403, 'FORBIDDEN'],
+      [401, 'UNAUTHORIZED']
+    ])('logs the code the management app answered with (%s %s) and still emails', async (status, code) => {
+      mockFetch.mockResolvedValue(textAnswer(status, { success: false, error: { code, message: `About ${NAME}` } }))
+
+      await expectEmailSentAndTextLogged(code)
+    })
+
+    it('logs the status when the answer has no usable code', async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 502,
+        json: async () => {
+          throw new SyntaxError('Unexpected token <')
+        }
+      } as unknown as Response)
+
+      await expectEmailSentAndTextLogged('http_502')
+    })
+
+    it.each([
+      ['a page that is not JSON', async () => { throw new SyntaxError('Unexpected token <') }],
+      ['JSON that does not say a text was sent', async () => ({ success: true })],
+      ['JSON that says it was not sent', async () => ({ success: true, data: { sent: false } })]
+    ])('does not take a 200 with %s as a sent text', async (_label, json) => {
+      mockFetch.mockResolvedValue({ ok: true, status: 200, json } as unknown as Response)
+
+      await expectEmailSentAndTextLogged('unexpected_answer')
+    })
+
+    it('does not trust a code that reads like prose', async () => {
+      mockFetch.mockResolvedValue(textAnswer(500, { error: { code: `Card declined for ${NAME}` } }))
+
+      await expectEmailSentAndTextLogged('http_500')
+    })
+  })
 })

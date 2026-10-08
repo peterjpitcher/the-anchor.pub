@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { escapeHtml, sendMicrosoftGraphEmail } from '@/lib/microsoft-graph-mail'
 
 /**
@@ -19,10 +20,11 @@ import { escapeHtml, sendMicrosoftGraphEmail } from '@/lib/microsoft-graph-mail'
  *      reason;
  *   2. for a `failed` outcome, emails manager@the-anchor.pub, at most once per
  *      route every ten minutes;
- *   3. for a failed payment, calls the text hook as well.
+ *   3. for a failed payment, asks the management app to text the pub as well.
  *
  * It never throws and never changes what the guest is told. If the email
- * cannot be sent the log line has already been written.
+ * cannot be sent the log line has already been written, and if the text
+ * cannot be sent the email has already been tried and a second line says so.
  *
  * No personal data, ever. The log line and the email carry no name, phone
  * number, email address, number plate or booking reference in clear. Callers
@@ -60,7 +62,7 @@ export interface FailureReport {
   status?: number | null
   /** A short machine-readable reason: `UPSTREAM_ERROR`, `API_KEY_MISSING`. */
   reason: string
-  /** True on the payment routes. A failed payment also triggers the text hook. */
+  /** True on the payment routes. A failed payment also asks for a text to the pub. */
   payment?: boolean
   /** The code the upstream answered with, when it gave one. */
   upstreamCode?: string | null
@@ -94,7 +96,6 @@ export type FailureLogLine = {
   errorName?: string
   errorMessage?: string
   alert: 'email' | 'throttled' | 'not_production' | 'none'
-  text?: 'no_sender'
   at: string
 }
 
@@ -308,19 +309,93 @@ export function buildFailureAlertEmail(
 export type PaymentFailureText = { route: string; status: number | null; reason: string }
 export type PaymentFailureTextResult = { sent: boolean; reason: string }
 
+const PAYMENT_TEXT_AREAS: Record<string, string> = {
+  'api/table-bookings/paypal/create-order': 'table_deposit_start',
+  'api/table-bookings/paypal/capture-order': 'table_deposit_capture',
+  'api/event-bookings/paypal/create-order': 'event_ticket_start',
+  'api/event-bookings/paypal/capture-order': 'event_ticket_capture',
+  'api/parking/payment/create-order': 'parking_start',
+  'api/parking/payment/capture': 'parking_capture'
+}
+
+export const PAYMENT_TEXT_ENDPOINT = '/website/payment-failure-alert'
+export const PAYMENT_TEXT_TIMEOUT_MS = 3000
+
+function paymentTextReason(alert: PaymentFailureText): string {
+  if (typeof alert.status !== 'number') {
+    return alert.reason === 'UNEXPECTED_ERROR' ? 'unexpected_error' : 'no_answer'
+  }
+  return alert.status >= 500 ? 'server_error' : 'refused'
+}
+
 /**
- * HOOK: the text message for a failed payment (owner decision 10).
+ * The text message for a failed payment (owner decision 10).
  *
- * The website cannot send a text. It has no SMS provider, no credentials and
- * no sender: every text the pub sends goes out from the management app, which
- * owns Twilio. So this does nothing yet and says so. To finish the job the
- * management app needs an authenticated endpoint that sends an alert text to
- * the owner's number, and this function then becomes one POST to it. Keep the
- * payload exactly as it is here: a route, a status and a reason, and no guest
- * details.
+ * The website cannot send a text itself: every text the pub sends goes out
+ * from the management app, which owns Twilio. So this is one POST to that app,
+ * server to server, with the website's API key. The management app decides
+ * everything that matters: the wording, the number it goes to, and its own
+ * limits (one text per area every ten minutes, and a daily cap).
+ *
+ * What is sent is two codes and nothing else. `area` names the payment step,
+ * taken from the route; `reason` is one of four values worked out from the
+ * upstream status. No reason text, no reference, no page and no guest detail
+ * leaves the website, and the management app refuses any other field.
+ *
+ * It never throws. Anything that stops the text is returned as a short reason
+ * for the caller to log. The email alert does not depend on it.
  */
-export async function sendPaymentFailureText(_alert: PaymentFailureText): Promise<PaymentFailureTextResult> {
-  return { sent: false, reason: 'no_sms_sender_on_website' }
+export async function sendPaymentFailureText(alert: PaymentFailureText): Promise<PaymentFailureTextResult> {
+  try {
+    // The same rule as the email: a preview or a laptop must not text the pub.
+    // Local development talks to the live management app, so this matters.
+    if (!isProductionDeployment()) return { sent: false, reason: 'not_production' }
+
+    const area = PAYMENT_TEXT_AREAS[alert?.route]
+    if (!area) return { sent: false, reason: 'not_a_payment_route' }
+
+    const apiKey = process.env.ANCHOR_API_KEY
+    if (!apiKey) return { sent: false, reason: 'api_key_missing' }
+
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), PAYMENT_TEXT_TIMEOUT_MS)
+    try {
+      const response = await fetch(`${getManagementApiBaseUrl()}${PAYMENT_TEXT_ENDPOINT}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ area, reason: paymentTextReason(alert) }),
+        cache: 'no-store',
+        signal: controller.signal
+      })
+
+      // The management app answers with a short code: ALERT_WINDOW_LIMIT when it
+      // has already texted about this step, ALERT_NOT_CONFIGURED when it has no
+      // number to text, SMS_SEND_FAILED when Twilio would not take it.
+      const body = (await response.json().catch(() => null)) as {
+        success?: unknown
+        data?: { sent?: unknown }
+        error?: { code?: unknown }
+      } | null
+
+      if (response.ok) {
+        // A 200 alone is not proof. A gateway page in front of the management
+        // app can answer 200 with HTML, and no text went.
+        return body?.success === true && body.data?.sent === true
+          ? { sent: true, reason: 'sent' }
+          : { sent: false, reason: 'unexpected_answer' }
+      }
+
+      return { sent: false, reason: safeToken(body?.error?.code) ?? `http_${response.status}` }
+    } finally {
+      clearTimeout(timer)
+    }
+  } catch (error) {
+    const name = error instanceof Error ? error.name : ''
+    return { sent: false, reason: name === 'AbortError' ? 'timed_out' : 'request_failed' }
+  }
 }
 
 async function withTimeout<T>(work: Promise<T>, ms: number): Promise<T> {
@@ -346,7 +421,8 @@ function writeLine(prefix: string, payload: Record<string, unknown>): void {
 /**
  * Report that a public write did not complete. Await it: on Vercel a promise
  * left running after the response is not guaranteed to finish. It adds no
- * delay for a refusal, and at most one short email send per route per window.
+ * delay for a refusal, and at most one short email send per route per window
+ * (plus, for a failed payment, one short request for a text).
  */
 export async function reportFailure(report: FailureReport): Promise<void> {
   try {
@@ -387,7 +463,6 @@ export async function reportFailure(report: FailureReport): Promise<void> {
       ...(refHash ? { refHash } : {}),
       ...describeError(report.error),
       alert,
-      ...(payment && alert === 'email' ? { text: 'no_sender' as const } : {}),
       at: now.toISOString()
     }
 
@@ -429,9 +504,12 @@ export async function reportFailure(report: FailureReport): Promise<void> {
     if (payment) {
       try {
         const text = await sendPaymentFailureText({ route, status, reason: line.reason })
-        if (!text.sent && text.reason !== 'no_sms_sender_on_website') {
-          writeLine(FAILURE_ALERT_LOG_PREFIX, { route, texted: false, reason: safeToken(text.reason) ?? 'unknown', at: now.toISOString() })
-        }
+        writeLine(FAILURE_ALERT_LOG_PREFIX, {
+          route,
+          texted: text.sent,
+          ...(text.sent ? {} : { reason: safeToken(text.reason) ?? 'unknown' }),
+          at: now.toISOString()
+        })
       } catch (textError) {
         writeLine(FAILURE_ALERT_LOG_PREFIX, { route, texted: false, ...describeError(textError), at: now.toISOString() })
       }
