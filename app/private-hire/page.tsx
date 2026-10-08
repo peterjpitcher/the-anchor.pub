@@ -47,8 +47,8 @@ const landmarkGroups: LandmarkGroup[] = [
     },
     {
         title: 'Christenings and ceremonies',
-        description: 'Churches and ceremony venues within a practical drive of The Anchor.',
-        types: ['church', 'registry_office'],
+        description: 'Churches within a practical drive of The Anchor.',
+        types: ['church'],
     },
     {
         title: 'Work, travel and team gatherings',
@@ -509,7 +509,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                                                         {landmark.name}
                                                     </h4>
                                                     <p className="mt-2 text-sm text-ink-muted">
-                                                        {landmark.distance} from The Anchor. {landmark.description}
+                                                        {landmark.distance ? `${landmark.distance} from The Anchor. ` : ''}{landmark.description}
                                                     </p>
                                                 </div>
                                             </Link>
