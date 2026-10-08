@@ -23,3 +23,9 @@
 - When the SSOT and the management records disagree about something the owner controls, ask the owner before calling either one wrong. On 11 September 2026 an audit flagged every quiz page for naming Peter Pitcher as host because the SSOT said Question One Quiz Masters; the records were right and the SSOT was stale. The SSOT is the source for copy, but it is only as current as its last owner confirmation.
 
 - Count event attendance from real bookings only. `bookings.is_reminder_only` rows are "remind me" sign-ups with one seat each, and an August 2026 note that counted them reported a steep fall in seats a night that real bookings do not show: summer 2025 and summer 2026 were level. Cross-check any attendance trend against the daily cash-up before acting on it, and keep the figures themselves out of this public repository.
+
+- Each change writes its notes to its own file, `tasks/changes/YYYY-MM-DD-short-name.md`, and never to `tasks/todo.md`. From 5 to 7 October 2026 every branch added a section at the top of `tasks/todo.md`, so 26 of 27 merges touched the same lines, each one conflicted with the one before, and 17 extra merge commits existed only to carry the task log forward (owner decision 21, 7 October 2026).
+
+- Ship approved fixes in batches: several fixes as separate commits on one branch, one pull request, one CI run, one deployment. Twenty-eight pull requests in three days meant 27 production deployments and five CI runs on `main` cancelled by the next merge (owner decision 21, 7 October 2026).
+
+- A check nothing runs is not a check. `npm run lint` chained nine audits, CI ran only ESLint, and on Node 20 the first audit crashed on load so the eight behind it never ran for anyone. Put a new audit in the command CI runs, and run that command on the Node version CI uses before calling it done.

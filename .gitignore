@@ -98,4 +98,3 @@ tsx-*/
 # diffed). The human-readable reports alongside them ARE committed.
 tasks/**/evidence/
 .claude/settings.json
-tasks/lessons.md

@@ -25,8 +25,8 @@ A modern, SEO-optimised website for The Anchor pub in Stanwell Moor, featuring e
 
 ### Prerequisites
 
-- Node.js 18 or higher
-- npm or yarn
+- Node.js 22 (the version in `.nvmrc`, the one Vercel and CI use)
+- npm
 - API key from The Anchor management system
 
 ### Installation
@@ -64,11 +64,11 @@ website/
 │   ├── globals.css        # Global styles
 │   └── layout.tsx         # Root layout with metadata
 ├── components/            # Reusable components
-│   ├── Navigation.tsx     # Main navigation
-│   ├── EventsToday.tsx    # Today's events display
+│   ├── layout/            # Navigation, footer, status bar
+│   ├── features/          # Booking forms, menus, parking
 │   └── ...
 ├── lib/                   # Utilities and API
-│   ├── api.ts            # API client
+│   ├── api/client.ts     # Management API client (api.ts re-exports it)
 │   └── schema.ts         # Schema.org definitions
 ├── public/               # Static assets
 │   └── images/           # Optimised images
@@ -92,9 +92,11 @@ website/
 npm run dev      # Start development server
 npm run build    # Build for production
 npm run start    # Start production server
-npm run lint     # Run ESLint
+npm run lint     # ESLint and the nine house audits
+npx tsc --noEmit # Type check, tests included
+npm test         # Jest, as the pub's clock (Europe/London)
+npm run test:utc # The same suite as the server's clock (UTC)
 npm run optimize:images  # Optimise blog + public imagery
-npm run type     # Type check with TypeScript
 ```
 
 Image optimisation details live in `docs/image-optimization.md`.
@@ -168,7 +170,7 @@ The website includes a blog system for news, updates, and promotional content.
 
 ## Deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
+Hosted on Vercel. A merge to `main` deploys to production; every pull request gets a preview. The checks run on every pull request are in `.github/workflows/ci.yml`.
 
 ## Contributing
 

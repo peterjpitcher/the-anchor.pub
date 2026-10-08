@@ -251,8 +251,6 @@ GTM fires booking_confirmed event
   ↓
 Redirect to /booking-confirmation/[reference]
   ↓
-Confirmation page loads booking details via GET /api/table-bookings/[reference]
-  ↓
 User sees confirmation message + booking details
 ```
 
