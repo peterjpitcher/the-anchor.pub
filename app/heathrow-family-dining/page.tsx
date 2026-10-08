@@ -46,7 +46,7 @@ export default function FamilyDiningPage() {
                     "telephone": "+441753682707",
                     "address": {
                         "@type": "PostalAddress",
-                        "streetAddress": "The Anchor, Horton Road",
+                        "streetAddress": "Horton Road",
                         "addressLocality": "Stanwell Moor",
                         "addressRegion": "Surrey",
                         "postalCode": "TW19 6AQ",

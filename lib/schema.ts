@@ -432,7 +432,6 @@ export const createImageObjectSchema = (image: {
         "addressCountry": "GB"
       }
     },
-    "license": "https://www.the-anchor.pub/terms",
     "acquireLicensePage": "https://www.the-anchor.pub/find-us"
   }
 }

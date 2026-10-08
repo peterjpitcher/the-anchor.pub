@@ -10,6 +10,7 @@ import { seasonalOccasionLinks, trustLinks } from '@/lib/internal-linking-data'
 import { landmarks } from '@/lib/local-seo-data'
 import { formatEventDate, getPastEvents, type Event } from '@/lib/api'
 import { pageOpenGraph } from '@/lib/page-open-graph'
+import { REVIEW_REQUEST_URL } from '@/lib/constants'
 
 type SitemapLink = {
   label: string
@@ -187,7 +188,7 @@ const sitemapSections: SitemapSection[] = [
         label: link.label,
         href: link.href,
       })),
-      { label: 'Leave a Review', href: '/leave-review' },
+      { label: 'Leave a Review', href: REVIEW_REQUEST_URL },
       { label: 'Accessibility', href: '/accessibility' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
     ]
