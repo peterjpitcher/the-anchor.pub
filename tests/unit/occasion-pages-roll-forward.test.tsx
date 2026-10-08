@@ -80,6 +80,35 @@ describe('the three occasion pages', () => {
     expect(all).not.toMatch(/There's no separate set menu/)
     expect(all).not.toMatch(/so the full Sunday roast menu is on/)
   })
+
+  // Owner ruling, 8 October 2026: each is a special day whose menu is confirmed
+  // nearer the time, so the page may not describe the regular Sunday roast, its
+  // dishes, its serving times or its walk-ins as if they were confirmed for the
+  // day. Comments are stripped first: they explain the rule in these words.
+  // The one sentence allowed to say "Sunday roast" is the notice itself, which
+  // lives in the component, not in the page.
+  it.each(PAGES)('%s promises no roast, dish, serving time or walk-in for the day', (file) => {
+    const code = read(file)
+      .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
+      .replace(/^\s*\/\/.*$/gm, '')
+
+    expect(code).not.toMatch(/roast/i)
+    expect(code).not.toMatch(/wellington|yorkshire|gravy|turkey|pork|beef|vegan|vegetarian/i)
+    expect(code).not.toMatch(/walk[- ]?in/i)
+    expect(code).not.toMatch(/sitting|pre-?order|last (?:table|booking)/i)
+    expect(code).not.toMatch(/\b\d{1,2}(?::\d{2})?\s?(?:am|pm)\b/i)
+    expect(code).not.toMatch(/sunday-roast|sunday-lunch|pizza-menu/)
+  })
+
+  it('links to the three pages without promising a roast', () => {
+    const links = read('lib/internal-linking-data.ts')
+    for (const href of ['/mothers-day', '/easter-sunday', '/fathers-day']) {
+      const entry = links.slice(links.indexOf(`href: '${href}'`)).split('}')[0]
+      expect(entry).toContain('description:')
+      expect(entry).not.toMatch(/roast/i)
+    }
+    expect(read('lib/mothers-day-booking.ts')).not.toMatch(/CTA_LABEL = '[^']*Roast/i)
+  })
 })
 
 describe('the menu notice', () => {
