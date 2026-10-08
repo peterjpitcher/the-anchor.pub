@@ -13,7 +13,7 @@
 
 import ssot from '@/SSOT.json'
 import { nowInLondonComponents, parseLondonDate } from '@/lib/time-london'
-import { formatTime12h } from '@/lib/hero-context'
+import { formatTime12Hour } from '@/lib/time-utils'
 
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 
@@ -125,6 +125,10 @@ export type ChristmasDayView = {
  * `foodService` defaults to false, the conservative reading: if the SSOT block
  * is missing or malformed, claim no food rather than invent a service.
  */
+function formatTime12h(time: string | undefined): string | null {
+  return time && /^\d{1,2}:\d{2}/.test(time) ? formatTime12Hour(time) : null
+}
+
 export function getChristmasDay(): ChristmasDayView {
   const block = (ssot as SsotWithChristmas).christmas_2026?.christmas_day
   const opens = typeof block?.opens === 'string' ? block.opens : undefined

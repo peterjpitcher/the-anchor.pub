@@ -12,6 +12,11 @@ import { formatPrice } from '@/lib/utils'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import {
+  formatLondonDateTime,
+  londonWallClockToInstant,
+  toLondonDateTimeLocal,
+} from '@/lib/time-london'
+import {
   DEFAULT_COMMUNICATION_CONSENT_STATE,
   GUEST_SERVICE_CONTACT_NOTICE,
   buildCommunicationConsentPayload,
@@ -30,23 +35,30 @@ interface EstimateResult {
   breakdown: ParkingPricingBreakdownItem[]
 }
 
-const dateTimeLocal = (date: Date) => {
-  const pad = (value: number) => value.toString().padStart(2, '0')
-  const year = date.getFullYear()
-  const month = pad(date.getMonth() + 1)
-  const day = pad(date.getDate())
-  const hours = pad(date.getHours())
-  const minutes = pad(date.getMinutes())
-  return `${year}-${month}-${day}T${hours}:${minutes}`
+// The arrival and departure boxes hold UK time, whatever the device is set to.
+// They used to be filled, read and printed back on the device's own clock, so a
+// phone on New York time booked a 10am arrival as 3pm in London and showed 10am
+// right up to the confirmation page. Every conversion goes through the London
+// helpers in lib/time-london.
+const HOUR_MS = 60 * 60 * 1000
+
+const hoursFromNow = (hours: number) => new Date(Date.now() + hours * HOUR_MS)
+
+/** Milliseconds for a typed UK time, or NaN when the box is empty or invalid. */
+const ukTimeMs = (value: string) => londonWallClockToInstant(value)?.getTime() ?? Number.NaN
+
+/** The instant sent to the booking system for a typed UK time. */
+const iso = (value: string) => {
+  const instant = londonWallClockToInstant(value)
+  if (!instant) throw new Error('Please enter a valid date and time.')
+  return instant.toISOString()
 }
 
-const msFromNow = (hours: number) => {
-  const now = new Date()
-  now.setMinutes(now.getMinutes() + hours * 60)
-  return now
+/** A typed UK time printed back for the summary, still in UK time. */
+const formatUkTime = (value: string) => {
+  const instant = londonWallClockToInstant(value)
+  return instant ? formatLondonDateTime(instant) : value
 }
-
-const iso = (value: string) => new Date(value).toISOString()
 
 const HOURS_IN_DAY = 24
 const HOURS_IN_WEEK = 24 * 7
@@ -85,8 +97,9 @@ function calculateEstimate(
   endAt: string
 ): EstimateResult | null {
   if (!rates || !startAt || !endAt) return null
-  const start = Date.parse(startAt)
-  const end = Date.parse(endAt)
+  // The same instants the booking system prices, not the device's reading of them.
+  const start = ukTimeMs(startAt)
+  const end = ukTimeMs(endAt)
   if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) return null
 
   const totalHours = (end - start) / (1000 * 60 * 60)
@@ -189,8 +202,8 @@ interface ParkingBookingWizardProps {
 }
 
 export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWizardProps) {
-  const [start, setStart] = useState(() => dateTimeLocal(msFromNow(1)))
-  const [end, setEnd] = useState(() => dateTimeLocal(msFromNow(4)))
+  const [start, setStart] = useState(() => toLondonDateTimeLocal(hoursFromNow(1)))
+  const [end, setEnd] = useState(() => toLondonDateTimeLocal(hoursFromNow(4)))
   const [currentStep, setCurrentStep] = useState(1)
   const [rates, setRates] = useState<ParkingRateCard | null>(initialRates)
   const [ratesError, setRatesError] = useState<string | null>(null)
@@ -464,26 +477,24 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
           <div className="grid gap-6 md:grid-cols-2">
             <Input
               type="datetime-local"
-              label="Parking start (arrival)"
+              label="Parking start (arrival, UK time)"
               value={start}
-              min={dateTimeLocal(msFromNow(0))}
+              min={toLondonDateTimeLocal(hoursFromNow(0))}
               onChange={event => {
                   const value = event.target.value
                   setStart(value)
                   setAvailabilityState({ status: 'idle' })
 
-                  const selectedStart = Date.parse(value)
-                  const currentEnd = Date.parse(end)
+                  const selectedStart = ukTimeMs(value)
+                  const currentEnd = ukTimeMs(end)
                   if (Number.isFinite(selectedStart) && Number.isFinite(currentEnd) && selectedStart >= currentEnd) {
-                    const adjustedEnd = new Date(selectedStart)
-                    adjustedEnd.setHours(adjustedEnd.getHours() + 2)
-                    setEnd(dateTimeLocal(adjustedEnd))
+                    setEnd(toLondonDateTimeLocal(new Date(selectedStart + 2 * HOUR_MS)))
                   }
               }}
             />
             <Input
               type="datetime-local"
-              label="Parking end (departure)"
+              label="Parking end (departure, UK time)"
                 value={end}
                 min={start}
                 onChange={event => {
@@ -645,9 +656,9 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
                 <h3 className="font-semibold text-ink-strong text-base">Booking summary</h3>
                 <div className="grid min-w-0 grid-cols-1 gap-y-1 text-ink sm:grid-cols-2 sm:gap-y-2">
                   <span className="text-ink-muted">Arrival</span>
-                  <span className="break-words font-medium">{new Date(start).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                  <span className="break-words font-medium">{formatUkTime(start)}</span>
                   <span className="text-ink-muted">Departure</span>
-                  <span className="break-words font-medium">{new Date(end).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                  <span className="break-words font-medium">{formatUkTime(end)}</span>
                   <span className="text-ink-muted">Name</span>
                   <span className="break-words font-medium">{customer.firstName} {customer.lastName}</span>
                   <span className="text-ink-muted">Mobile</span>

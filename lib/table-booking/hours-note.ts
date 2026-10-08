@@ -67,7 +67,7 @@ export function buildBookingHoursNote(
 
   const parts: string[] = []
   if (barRange) parts.push(`Bar open ${barRange}`)
-  if (kitchenIsClosed) parts.push('Kitchen closed today')
+  if (kitchenIsClosed) parts.push('Kitchen closed on this date')
   else if (kitchenRange) parts.push(`Kitchen open ${kitchenRange}`)
 
   if (parts.length === 0) return null
