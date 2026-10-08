@@ -291,8 +291,7 @@ export default function Terminal5Page() {
                 <h3 className="font-display text-h3 text-ink-strong mb-4">By Bus (Budget Option)</h3>
                 <div className="space-y-4 text-ink-muted">
 	                  <div className="bg-surface-sunk p-4 rounded-sm border border-line">
-	                    <p className="font-semibold text-lg text-anchor-success mb-1">£2.50 single fare</p>
-	                    <p className="text-sm text-ink-muted">15-20 minutes journey</p>
+	                    <p className="font-semibold text-lg text-anchor-success mb-1">15-20 minutes journey</p>
 	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Routes to The Anchor:</p>
@@ -761,7 +760,7 @@ export default function Terminal5Page() {
 	                {
 	                  "@type": "Vehicle",
 	                  "name": "Bus",
-	                  "description": "Route 442/441, £2.50 single, 15-20 minutes"
+	                  "description": "Route 442/441, 15-20 minutes"
 	                }
               ]
             }

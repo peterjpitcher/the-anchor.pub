@@ -1490,8 +1490,6 @@
     ],
     "payment_methods": [
       "PayPal",
-      "Apple Pay",
-      "Google Pay",
       "Cards"
     ],
     "cancellation": "You can change or cancel your parking booking up to 24 hours before your booked arrival time, and a cancelled booking is refunded less the payment fee.",

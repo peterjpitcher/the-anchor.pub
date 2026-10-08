@@ -314,3 +314,24 @@ describe('third-party prices are off the main pages (owner decision 17)', () => 
     expect(scan(PAGES, RULES)).toEqual([])
   })
 })
+
+// Owner decision, 8 October 2026: no typed bus fare, and no Apple Pay or Google
+// Pay in the parking facts. A fare is the bus company's to change, and nothing
+// we hold shows which wallets the payment page offers.
+describe('bus fares and wallet payments (owner decision, 8 October 2026)', () => {
+  it('no terminal page types a bus fare', () => {
+    for (const n of [2, 3, 4, 5]) {
+      const page = read(`app/near-heathrow/terminal-${n}/page.tsx`)
+      expect(page).not.toMatch(/£\s?2\.50|single fare/i)
+    }
+  })
+
+  it('the parking facts and the parking post name no wallet', () => {
+    expect(JSON.stringify(ssotJson)).not.toMatch(/Apple Pay|Google Pay/)
+    expect(read('content/blog/cheap-heathrow-parking-alternatives/index.md')).not.toMatch(/Apple|Google Pay/)
+  })
+
+  it('the surprise party post does not promise a booking without a deposit', () => {
+    expect(read('content/blog/how-to-plan-surprise-birthday-party/index.md')).not.toMatch(/no deposit needed/i)
+  })
+})

@@ -510,8 +510,8 @@ export default function Terminal4Page() {
 	                </div>
 	                <div>
 	                  <p className="font-semibold mb-2">By Bus</p>
-	                  <p className="font-display text-h3 text-accent-text mb-2">£2.50</p>
-	                  <p className="text-sm text-ink-muted">Take 442 bus</p>
+	                  <p className="font-display text-h3 text-accent-text mb-2">442</p>
+	                  <p className="text-sm text-ink-muted">The 442 bus stops near us</p>
 	                </div>
 	              </div>
               <p className="text-center text-sm text-ink-muted mt-4">
@@ -578,7 +578,7 @@ export default function Terminal4Page() {
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 4 hotel?",
-	            answer: "It's about 12 minutes by taxi or Uber. The 442 bus also stops near us for just £2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
+	            answer: "It's about 12 minutes by taxi or Uber. The 442 bus also stops near us. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
 	          },
 	          {
 	            question: "Can I get a taxi from Terminal 4 to The Anchor?",
