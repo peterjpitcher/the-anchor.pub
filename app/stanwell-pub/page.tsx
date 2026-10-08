@@ -6,9 +6,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND, PARKING } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, DRIVE_TIMES, HEATHROW_TIMES, BUS_WORDING, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { DOGS_WORDING, PARKING_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -59,7 +59,7 @@ export default async function StanwellPubPage() {
     "@context": "https://schema.org",
     "@type": ["Restaurant", "BarOrPub"],
     "@id": "https://www.the-anchor.pub/stanwell-pub#business",
-    "name": `${BRAND.name} - Stanwell Village Pub`,
+    "name": BRAND.name,
     "image": `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
     "address": {
       "@type": "PostalAddress",
@@ -84,28 +84,17 @@ export default async function StanwellPubPage() {
         "name": "Stanwell Moor"
       }
     ],
-    "priceRange": "££",
+    "priceRange": PRICE_RANGE,
     "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
     "telephone": CONTACT.phoneIntl,
     "url": "https://www.the-anchor.pub/stanwell-pub"
   }
-  const directionsSchema = generateHowToDirectionsSchema(
-    'Stanwell Village',
-    'The Anchor - Heathrow Pub & Dining',
-    [
-      'From Stanwell Village, head north on Oaks Road',
-      'Turn left onto Stanwell Moor Road',
-      'Continue for about 0.5 miles',
-      'Turn right onto Horton Road',
-      'The Anchor will be on your right with free parking'
-    ]
-  )
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[
@@ -167,7 +156,7 @@ export default async function StanwellPubPage() {
               {[
                 { title: "Village Heart", description: "The social hub of Stanwell Moor, where locals gather daily" },
                 { title: "Traditional Values", description: "Proper British pub with draught beers and honest food" },
-                { title: "Family Friendly", description: "Children and dogs always welcome in our community pub" },
+                { title: "Family Friendly", description: DOGS_WORDING },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -196,19 +185,13 @@ export default async function StanwellPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
                     <div className="text-ink-muted">
-                      <strong className="text-ink">Walking distance from Stanwell Village</strong> - Just a pleasant stroll through Stanwell Moor
+                      <strong className="text-ink">{PARKING.capacity} free spaces</strong> right outside
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
                     <div className="text-ink-muted">
-                      <strong className="text-ink">Free parking for 20 cars</strong> - Never worry about parking charges
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-accent-text text-xl">•</span>
-                    <div className="text-ink-muted">
-                      <strong className="text-ink">Dog-friendly throughout</strong> - Bring your four-legged friends
+                      <strong className="text-ink">Dog-friendly throughout</strong> - Bring your four-legged friends, on a lead
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -254,8 +237,7 @@ export default async function StanwellPubPage() {
             <Card accent className="mt-8 text-center">
               <CardBody className="p-6">
                 <p className="text-lg text-ink-muted">
-                  <span className="font-bold text-ink">Outside the ULEZ zone.</span> No ULEZ charge at
-                  our end of the journey.
+                  <span className="font-bold text-ink">{ULEZ_WORDING}</span>
                 </p>
               </CardBody>
             </Card>
@@ -331,16 +313,10 @@ export default async function StanwellPubPage() {
               <Card accent>
                 <CardBody className="p-6">
                   <h3 className="font-display text-h4 text-ink-strong mb-4">From Stanwell Village</h3>
-                  <ol className="space-y-3">
-                    <li className="flex gap-3"><span className="font-bold text-accent-text">1.</span><span className="text-ink-muted">Head north on Oaks Road from the village centre</span></li>
-                    <li className="flex gap-3"><span className="font-bold text-accent-text">2.</span><span className="text-ink-muted">Turn left onto Stanwell Moor Road</span></li>
-                    <li className="flex gap-3"><span className="font-bold text-accent-text">3.</span><span className="text-ink-muted">Continue for about half a mile</span></li>
-                    <li className="flex gap-3"><span className="font-bold text-accent-text">4.</span><span className="text-ink-muted">Turn right onto Horton Road</span></li>
-                    <li className="flex gap-3"><span className="font-bold text-accent-text">5.</span><span className="text-ink-muted">The Anchor is on your right with free parking</span></li>
-                  </ol>
-                  <p className="mt-4 text-sm text-ink-muted">
-                    <strong className="text-ink">Journey time:</strong> 5 minutes by car, 20 minutes walking
+                  <p className="text-ink-muted">
+                    We're a short drive from Stanwell village. You'll find us at {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}.
                   </p>
+                  <p className="mt-4 text-ink-muted">{PARKING_WORDING}</p>
                 </CardBody>
               </Card>
 
@@ -349,16 +325,10 @@ export default async function StanwellPubPage() {
                   <h3 className="font-display text-h4 text-ink-strong mb-4">Public Transport</h3>
                   <div className="space-y-4">
                     <div>
-                      <p className="font-semibold text-ink mb-2">Bus Route 442</p>
-                      <p className="text-ink-muted">Stops directly outside The Anchor. Connects Stanwell, Stanwell Moor, and Heathrow.</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-ink mb-2">Walking from Stanwell</p>
-                      <p className="text-ink-muted">Pleasant 20-minute walk through residential areas. Popular route for dog walkers!</p>
+                      <p className="text-ink-muted">{BUS_WORDING}</p>
                     </div>
                     <div className="pt-4 border-t border-line">
-                      <p className="font-semibold text-accent-text">Eco-Friendly Route</p>
-                      <p className="text-ink-muted">Outside ULEZ zone - no charges for any vehicles</p>
+                      <p className="text-ink-muted">{ULEZ_WORDING}</p>
                     </div>
                   </div>
                 </CardBody>
@@ -367,7 +337,7 @@ export default async function StanwellPubPage() {
 
             <div className="mt-8 text-center">
               <DirectionsButton
-                href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                href={DIRECTIONS_URL}
                 source="stanwell_directions"
                 variant="outline"
                 size="md"
@@ -402,13 +372,11 @@ export default async function StanwellPubPage() {
               <div className="text-left">
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Near Stanwell Landmarks</h3>
                 <ul className="space-y-3 text-ink-muted">
-                  <li>• 5 minutes from Stanwell Village</li>
-                  <li>• 10 minutes from King George VI Reservoir</li>
+                  <li>• A short drive from Stanwell Village</li>
                   {/* SSOT §2 distance table: Staines is 8 minutes. This said 15,
                       contradicting /staines-pub and both private-hire pages. */}
-                  <li>• 8 minutes from Staines-upon-Thames</li>
-                  <li>• 7 minutes from Heathrow Terminal 5</li>
-                  <li>• Next to St Mary's Church, Stanwell Moor</li>
+                  <li>• {DRIVE_TIMES.staines} minutes from Staines-upon-Thames</li>
+                  <li>• {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5</li>
                 </ul>
               </div>
             </div>
@@ -433,9 +401,7 @@ export default async function StanwellPubPage() {
               <p>
                 Stanwell village and Stanwell Moor are neighbouring communities separated by a few fields and a
                 pleasant stretch of Stanwell Moor Road. The Anchor sits on the Moor side, at the end of Horton Road,
-                where the village meets open countryside and the reservoirs. It is a fifteen-to-twenty-minute walk
-                from Stanwell village centre, a route many of our regulars take on summer evenings, often with
-                a dog or two in tow.
+                where the village meets open countryside and the reservoirs.
               </p>
               <p>
                 The area has deep roots. St Mary the Virgin in Stanwell dates back to the twelfth century, and
@@ -445,12 +411,10 @@ export default async function StanwellPubPage() {
                 on these streets, and their children after them.
               </p>
               <p>
-                For those who enjoy a walk before their pint, the Staines Reservoirs and the King George VI
-                Reservoir are right on our doorstep. Birdwatchers, joggers, and weekend walkers regularly finish
-                their circuit at The Anchor for a well-earned Sunday roast or a midweek pizza. The beer garden
-                catches the afternoon sun and offers uninterrupted views of the Heathrow flight path, it is the
-                natural pit-stop after a lap of the reservoir, and far more rewarding than heading back to the car
-                park empty-handed.
+                If you enjoy a walk before your pint, Staines Moor and the King George VI Reservoir are each
+                about a 30-minute walk, one way. Birdwatchers, joggers, and weekend walkers regularly finish
+                at The Anchor for a well-earned Sunday roast or a midweek pizza. The beer garden
+                catches the afternoon sun and offers uninterrupted views of the Heathrow flight path.
               </p>
             </div>
           </div>
@@ -481,7 +445,7 @@ export default async function StanwellPubPage() {
         faqs={[
           {
             question: "How far is The Anchor from Stanwell Village?",
-            answer: "The Anchor is approximately 1.2 miles from Stanwell Village centre, about a 5-minute drive or a pleasant 20-minute walk. We're located in Stanwell Moor, which is part of greater Stanwell."
+            answer: `The Anchor is a short drive from Stanwell Village centre. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}.`
           },
           {
             question: "Is The Anchor the closest pub to Stanwell?",
@@ -493,7 +457,7 @@ export default async function StanwellPubPage() {
           },
           {
             question: "What's the best way to get to The Anchor from Stanwell without a car?",
-            answer: "The 442 bus runs from Stanwell to our doorstep, or it's a pleasant 20-minute walk through Stanwell Moor. Many Stanwell residents enjoy the walk, especially with their dogs who are welcome in our pub!"
+            answer: `A taxi is the simplest way. ${BUS_WORDING} For the trip home: ${TAXI_WORDING}`
           },
           {
             question: "Do Stanwell residents get any special offers?",

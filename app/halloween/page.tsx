@@ -9,6 +9,7 @@ import { Badge, Button, Card, CardBody, Container } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
+import { bookingConfig } from '@/lib/booking-config'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import type { SeasonalDynamicFields } from '@/lib/seasonal-utils'
@@ -215,7 +216,7 @@ export default function HalloweenPage() {
                     </PhoneButton>
                   </div>
                   <p className="text-sm text-ink-muted">
-                    Tables for 8+ guests, please call.
+                    Groups of more than {bookingConfig.maxOnlinePartySize}, give us a call.
                   </p>
                 </CardBody>
               </Card>

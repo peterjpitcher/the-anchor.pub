@@ -1,10 +1,11 @@
-import { PRIVATE_HIRE_DIETARY_WORDING } from '@/lib/approved-wording'
+import { PARKING_WORDING, PRIVATE_HIRE_DIETARY_WORDING, TAXI_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import Link from 'next/link'
 import ssot from '@/SSOT.json'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT } from '@/lib/constants'
+import { BUS_WORDING, CONTACT, DRIVE_TIMES, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { Button, Container, SectionHeading, Card, CardBody, Badge } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -25,11 +26,11 @@ import {
   getChristmasSeasonStatus
 } from '@/lib/christmas-season'
 
-const OG_DESCRIPTION = 'Work events, team meals and office Christmas parties near Heathrow. Private hire and free parking, around 7 minutes from Terminal 5.'
+const OG_DESCRIPTION = `Work events, team meals and office Christmas parties near Heathrow. Private hire and free parking, around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`
 
 export const metadata: Metadata = {
   title: 'Corporate & Christmas Parties Near Heathrow',
-  description: 'A real pub for work events near Heathrow, not a hotel function room. Team meals and office Christmas parties, VAT invoices and free parking, 7 mins from T5.',
+  description: `A real pub for work events near Heathrow, not a hotel function room. Team meals and office Christmas parties, VAT invoices and free parking, ${HEATHROW_TIMES.terminal5} mins from T5.`,
   openGraph: {
     title: 'Corporate Event Venue Near Heathrow | The Anchor',
     description: OG_DESCRIPTION,
@@ -75,10 +76,10 @@ export default function CorporateEventsPage() {
         image="/images/page-headers/corporate-events/corporate-events.jpg"
         crumb="Corporate Events"
         title="Corporate Event Venue Near Heathrow"
-        lead="Meetings, team days and office Christmas parties for 10+ to 150 guests, with larger corporate events by enquiry. Around 7 minutes from Terminal 5, traffic dependent, with free parking."
+        lead={`Meetings, team days and office Christmas parties for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, with larger corporate events by enquiry. Around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking.`}
         badges={
           <>
-            <Badge variant="sand">Around 7 mins from Heathrow</Badge>
+            <Badge variant="sand">{HEATHROW_TIMES.terminal5} mins from Terminal 5</Badge>
             <Badge variant="sand">Free Parking</Badge>
             <Badge variant="sand">TVs &amp; Sound System</Badge>
             <Badge variant="sand">Outside ULEZ</Badge>
@@ -112,7 +113,7 @@ export default function CorporateEventsPage() {
               Corporate Events and Office Christmas Parties Near Heathrow
             </PageTitle>
             <p className="text-lg text-ink-muted">
-              Planning a work event near Heathrow? The Anchor hosts meetings, training days, team meals and office Christmas parties for 10+ to 150 guests, with larger events by enquiry. We are around 7 minutes from Terminal 5, traffic dependent, and this is a proper village pub rather than a hotel function room, so your team gets its own space instead of sharing a ballroom with three other companies.
+              Planning a work event near Heathrow? The Anchor hosts meetings, training days, team meals and office Christmas parties for {PRIVATE_HIRE_CAPACITY.recommendedRange}, with larger events by enquiry. We are around {HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, and this is a proper village pub rather than a hotel function room, so your team gets its own space instead of sharing a ballroom with three other companies.
             </p>
           </div>
         </Container>
@@ -127,10 +128,10 @@ export default function CorporateEventsPage() {
           />
           <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Heathrow Proximity", description: "Around 7 minutes from T5, traffic dependent, useful for international teams and clients" },
-              { title: "Free Parking", description: "20 free spaces on site, no fees and no time limit while you are with us" },
+              { title: "Heathrow Proximity", description: `Around ${HEATHROW_TIMES.terminal5} minutes from T5, traffic dependent, useful for international teams and clients` },
+              { title: "Free Parking", description: PARKING_WORDING },
               { title: "Flexible Pricing", description: "Competitive venue hire rates tailored to your needs" },
-              { title: "Flexible Spaces", description: "Configure private hire for 10+ to 150 guests; larger events by enquiry" },
+              { title: "Flexible Spaces", description: `Configure private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}; larger events by enquiry` },
             ].map(feature => (
               <Card key={feature.title} accent className="h-full text-center">
                 <CardBody className="flex h-full flex-col gap-2">
@@ -145,9 +146,9 @@ export default function CorporateEventsPage() {
               <h3 className="font-display text-h4 text-ink-strong mb-4">Perfect Location for Business</h3>
               <p className="mb-4 text-ink-muted">Strategic advantages for your corporate events:</p>
               <ul className="space-y-2 text-ink-muted">
-                <li><strong className="text-ink-strong">Outside ULEZ zone</strong> - no charges for attendees</li>
-                <li><strong className="text-ink-strong">M25 Junction 14</strong> - 2 minutes away</li>
-                <li><strong className="text-ink-strong">Heathrow hotels</strong> - 5-10 minutes for overnight guests</li>
+                <li><strong className="text-ink-strong">Outside the ULEZ zone</strong></li>
+                <li><strong className="text-ink-strong">M25 Junction 14</strong> - {DRIVE_TIMES.m25Junction14} minutes away</li>
+                <li><strong className="text-ink-strong">Heathrow hotels</strong> - a short drive for overnight guests</li>
                 <li><strong className="text-ink-strong">Central location</strong> - accessible from London &amp; Surrey</li>
               </ul>
             </CardBody></Card>
@@ -178,7 +179,7 @@ export default function CorporateEventsPage() {
                 Configurable for boardroom or theatre style.
               </p>
               <ul className="text-sm text-ink-muted space-y-1">
-                <li>• 10+ to 150 attendees</li>
+                <li>• {PRIVATE_HIRE_CAPACITY.recommendedRange}</li>
                 <li>• TVs and sound system</li>
                 <li>• WiFi &amp; power points</li>
                 <li>• Coffee &amp; refreshments</li>
@@ -245,8 +246,7 @@ export default function CorporateEventsPage() {
             <p className="mb-6 text-lg text-ink-muted">
               Most office Christmas parties near Heathrow end up in a hotel ballroom, sharing the room, the playlist and the bar
               with two or three other companies. The Anchor works the other way round. Your team gets its own table in a proper
-              village pub around 7 minutes from Terminal 5, traffic dependent, with 20 free parking spaces on site and no ULEZ
-              charge to reach us. It suits a lunchtime team meal, an evening work Christmas do, or a full private hire of the
+              village pub around {HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent. {PARKING_WORDING} {ULEZ_WORDING} It suits a lunchtime team meal, an evening work Christmas do, or a full private hire of the
               dining room or beer garden.
             </p>
             {christmasBookable ? (
@@ -322,7 +322,7 @@ export default function CorporateEventsPage() {
                 <p className="mb-4 text-ink-muted">Every corporate event is unique. We provide:</p>
                 <ul className="space-y-3 text-ink-muted">
                   <li><strong className="text-ink-strong">Flexible timing</strong> - Half day, full day, or evening sessions</li>
-                  <li><strong className="text-ink-strong">Scalable spaces</strong> - Configure rooms for 10+ to 150 attendees, with larger events by enquiry</li>
+                  <li><strong className="text-ink-strong">Scalable spaces</strong> - Configure rooms for {PRIVATE_HIRE_CAPACITY.recommendedRange}, with larger events by enquiry</li>
                   <li><strong className="text-ink-strong">Custom catering</strong> - From coffee breaks to formal dinners</li>
                   <li><strong className="text-ink-strong">Professional support</strong> - TVs, sound system and a dedicated events coordinator</li>
                   <li><strong className="text-ink-strong">Transparent pricing</strong> - Room hire is charged by the hour and catering is priced per person</li>
@@ -434,36 +434,33 @@ export default function CorporateEventsPage() {
               <Card><CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Quick Access From</h3>
                 <ul className="space-y-2 text-ink-muted text-left">
-                  <li><strong className="text-ink-strong">Heathrow Business Parks:</strong> 5-10 mins</li>
-                  <li><strong className="text-ink-strong">Heathrow Hotels:</strong> 5-10 mins</li>
-                  <li><strong className="text-ink-strong">Central London:</strong> 45 mins</li>
-                  <li><strong className="text-ink-strong">Staines:</strong> 8 mins</li>
-                  <li><strong className="text-ink-strong">Windsor:</strong> 15 mins</li>
-                  <li><strong className="text-ink-strong">Woking:</strong> 20 mins</li>
+                  <li><strong className="text-ink-strong">Heathrow Business Parks:</strong> a short drive</li>
+                  <li><strong className="text-ink-strong">Heathrow Hotels:</strong> a short drive</li>
+                  <li><strong className="text-ink-strong">Staines:</strong> {DRIVE_TIMES.staines} mins</li>
+                  <li><strong className="text-ink-strong">Windsor:</strong> a short drive</li>
                 </ul>
               </CardBody></Card>
               <Card><CardBody>
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Transport Links</h3>
                 <ul className="space-y-2 text-ink-muted text-left">
-                  <li><strong className="text-ink-strong">M25 Junction 14:</strong> 2 mins</li>
-                  <li><strong className="text-ink-strong">Heathrow T5:</strong> 7 mins</li>
-                  <li><strong className="text-ink-strong">Staines Station:</strong> 10 mins</li>
-                  <li><strong className="text-ink-strong">Local Bus Routes:</strong> Regular service</li>
-                  <li><strong className="text-ink-strong">Taxi/Uber:</strong> Readily available</li>
-                  <li><strong className="text-ink-strong">Free Parking:</strong> 20 spaces</li>
+                  <li><strong className="text-ink-strong">M25 Junction 14:</strong> {DRIVE_TIMES.m25Junction14} mins</li>
+                  <li><strong className="text-ink-strong">Heathrow T5:</strong> {HEATHROW_TIMES.terminal5} mins</li>
+                  <li><strong className="text-ink-strong">Bus:</strong> {BUS_WORDING}</li>
+                  <li><strong className="text-ink-strong">Taxis:</strong> {TAXI_WORDING}</li>
+                  <li><strong className="text-ink-strong">Free Parking:</strong> {PARKING.capacity} spaces</li>
                 </ul>
               </CardBody></Card>
             </div>
             <Card accent><CardBody>
-              <h3 className="font-display text-h4 text-ink-strong mb-4">Cost Savings for Your Business</h3>
+              <h3 className="font-display text-h4 text-ink-strong mb-4">Practical for Your Business</h3>
               <div className="grid md:grid-cols-3 gap-4 text-ink-muted">
                 <div>
                   <strong className="text-ink-strong">Outside the ULEZ</strong>
-                  <p className="text-sm">Unlike a London venue, there&apos;s no ULEZ charge at our end of the journey</p>
+                  <p className="text-sm">{ULEZ_WORDING}</p>
                 </div>
                 <div>
                   <strong className="text-ink-strong">Free Parking</strong>
-                  <p className="text-sm">20 free spaces on site, with no fees and no time limit</p>
+                  <p className="text-sm">{PARKING_WORDING}</p>
                 </div>
                 <div>
                   <strong className="text-ink-strong">Flexible Venue Pricing</strong>
@@ -523,7 +520,7 @@ export default function CorporateEventsPage() {
         faqs={[
           {
             question: "What makes The Anchor ideal for corporate events near Heathrow?",
-            answer: "We're around 7 minutes from Terminal 5, traffic dependent, with free parking, making us useful for international teams. We offer flexible private hire for 10+ to 150 guests, larger events by enquiry, professional catering, and venue hire quotes tailored to your needs. Being outside the ULEZ zone saves your attendees money too."
+            answer: `We're around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking, making us useful for international teams. We offer flexible private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, larger events by enquiry, professional catering, and venue hire quotes tailored to your needs. ${ULEZ_WORDING}`
           },
           {
             question: "What technology and equipment do you provide for business meetings?",
@@ -556,7 +553,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "How is a work Christmas do here different from a hotel party night?",
-            answer: "Hotel party nights near Heathrow usually put several companies in one function room with a shared bar and a DJ. We are a village pub around 7 minutes from Terminal 5, so your team gets its own table or its own room, free parking for everyone, and no ULEZ charge to reach us."
+            answer: `Hotel party nights near Heathrow usually put several companies in one function room with a shared bar and a DJ. We are a village pub around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, so your team gets its own table or its own room, and free parking. ${ULEZ_WORDING}`
           },
           {
             question: "Can you accommodate different types of corporate events?",

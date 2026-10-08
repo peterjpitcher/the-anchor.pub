@@ -12,7 +12,9 @@ import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from '@/lib/image-fallb
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { ACCESS_AMENITY_FEATURES } from '@/lib/approved-wording'
+import { ACCESS_AMENITY_FEATURES, PARKING_WORDING } from '@/lib/approved-wording'
+import { BRAND, CONTACT, HEATHROW_TIMES, PARKING, DRIVE_TIMES, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const metadata: Metadata = {
   title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden',
@@ -39,7 +41,7 @@ export default async function PubsInStanwellPage() {
     "@context": "https://schema.org",
     "@type": "BarOrPub",
     "@id": "https://www.the-anchor.pub/pubs-in-stanwell",
-    "name": "The Anchor - Traditional Pub in Stanwell Moor",
+    "name": BRAND.name,
     "description": "Family-friendly local pub serving Stanwell Moor and Stanwell since 1751. Traditional British pub with great food, beer garden, and free parking.",
     "url": "https://www.the-anchor.pub",
     "image": [
@@ -49,19 +51,19 @@ export default async function PubsInStanwellPage() {
     ],
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Horton Road",
-      "addressLocality": "Stanwell Moor",
-      "addressRegion": "Surrey",
-      "postalCode": "TW19 6AQ",
-      "addressCountry": "GB"
+      "streetAddress": CONTACT.address.street,
+      "addressLocality": CONTACT.address.town,
+      "addressRegion": CONTACT.address.county,
+      "postalCode": CONTACT.address.postcode,
+      "addressCountry": CONTACT.address.country
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 51.462509,
-      "longitude": -0.502067
+      "latitude": CONTACT.coordinates.lat,
+      "longitude": CONTACT.coordinates.lng
     },
-    "telephone": "+441753682707",
-    "priceRange": "££",
+    "telephone": CONTACT.phoneIntl,
+    "priceRange": PRICE_RANGE,
     "servesCuisine": ["British", "Pub Food"],
     "hasMenu": "https://www.the-anchor.pub/food-menu",
     "acceptsReservations": true,
@@ -73,7 +75,7 @@ export default async function PubsInStanwellPage() {
       { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
       ...ACCESS_AMENITY_FEATURES,
       { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Dog Friendly (Garden)", "value": true }
+      { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true }
     ]
   }
   return (
@@ -148,7 +150,7 @@ export default async function PubsInStanwellPage() {
                       <li>Draught beers and chilled lagers</li>
                       <li>Large beer garden</li>
                       <li>Quiz nights and hosted events</li>
-                      <li>Free parking always</li>
+                      <li>Free parking</li>
                     </ul>
                   </div>
                 </CardBody>
@@ -164,19 +166,16 @@ export default async function PubsInStanwellPage() {
                 </p>
                 <div className="grid md:grid-cols-3 gap-4 text-ink-muted">
                   <ul className="space-y-1 text-sm">
-                    <li>• Stanwell Village: 5 mins</li>
-                    <li>• Staines: 8 mins</li>
-                    <li>• Ashford: 10 mins</li>
+                    <li>• Staines: {DRIVE_TIMES.staines} mins</li>
+                    <li>• Heathrow T5: {HEATHROW_TIMES.terminal5} mins</li>
                   </ul>
                   <ul className="space-y-1 text-sm">
-                    <li>• Heathrow T5: 7 mins</li>
-                    <li>• Feltham: 10 mins</li>
-                    <li>• Sunbury: 12 mins</li>
+                    <li>• M25 Junction 14: {DRIVE_TIMES.m25Junction14} mins</li>
+                    <li>• Stanwell Village: a short drive</li>
                   </ul>
                   <ul className="space-y-1 text-sm">
-                    <li>• M25 Junction 14: 2 mins</li>
-                    <li>• Outside ULEZ zone</li>
-                    <li>• 20 free parking spaces</li>
+                    <li>• Outside the ULEZ zone</li>
+                    <li>• {PARKING.capacity} free parking spaces</li>
                   </ul>
                 </div>
               </CardBody>
@@ -197,13 +196,13 @@ export default async function PubsInStanwellPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {[
                 { title: "Great Drinks Selection", description: "Draught lagers, bottled ales, wines, spirits and soft drinks" },
-                { title: "Home-Cooked Food", description: "Traditional British pub food cooked fresh daily" },
+                { title: "Home-Cooked Food", description: "Traditional British pub food cooked fresh" },
                 { title: "Beautiful Beer Garden", description: "Spacious outdoor area perfect for sunny days" },
                 { title: "Quiz Nights & Hosted Events", description: "Music Bingo with Nikki Manfadge, quizzes, and special events (see /whats-on)" },
                 { title: "Family Friendly", description: "Children welcome with kids menu available" },
                 { title: "Sports Coverage", description: "Major sporting events on our screens" },
                 { title: "Private Functions", description: "Host your special occasions with us" },
-                { title: "Free Parking", description: "20 spaces - no parking stress" },
+                { title: "Free Parking", description: `${PARKING.capacity} free spaces right outside` },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -234,11 +233,11 @@ export default async function PubsInStanwellPage() {
                     <ul className="space-y-3 text-ink">
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                        <div><strong>Free Parking:</strong> 20 spaces always available</div>
+                        <div><strong>Free Parking:</strong> {PARKING.capacity} free spaces</div>
                       </li>
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
-                        <div><strong>Kitchen Hours:</strong> Food served lunch & dinner most days</div>
+                        <div><strong>Kitchen Hours:</strong> Kitchen times vary by date, so check our <Link href="/find-us" className="underline">Find Us page</Link> before you come</div>
                       </li>
                       <li className="flex items-start gap-2">
                         <svg viewBox="0 0 20 20" aria-hidden="true" className="text-accent-text mt-0.5 h-5 w-5 flex-none fill-current"><path d="M7.6 14.7 3.5 10.6l1.4-1.4 2.7 2.7 7-7 1.4 1.4z" /></svg>
@@ -296,10 +295,10 @@ export default async function PubsInStanwellPage() {
 
             <div className="grid gap-4">
               {[
-                { day: "Monday", text: "Drinks only • Kitchen closed • See today's hours above" },
-                { day: "Tuesday", text: "Stone-baked pizzas and the full menu • See today's kitchen hours above" },
-                { day: "Wednesday-Thursday", text: "Full menu available • See today's kitchen hours above" },
-                { day: "Friday - Fish & Chips", text: "Fish & chips served • See today's kitchen hours above" },
+                { day: "Monday", text: "Drinks only • Kitchen closed • See /find-us for this week's hours" },
+                { day: "Tuesday", text: "Stone-baked pizzas and the full menu • See /find-us for this week's kitchen hours" },
+                { day: "Wednesday-Thursday", text: "Full menu available • See /find-us for this week's kitchen hours" },
+                { day: "Friday - Fish & Chips", text: "Fish & chips served • See /find-us for this week's kitchen hours" },
                 { day: "Saturday - Entertainment Night", text: "Hosted nights & one-off events • See /whats-on for details" },
                 { day: "Sunday - Roast Day", text: "Traditional Sunday roast • Kitchen 1pm-6pm" },
               ].map((row) => (
@@ -327,7 +326,7 @@ export default async function PubsInStanwellPage() {
                 Stanwell Moor is one of those villages that people drive through without realising what&rsquo;s here. Tucked between the M25 and the King George VI Reservoir, it&rsquo;s a proper little community with more going on than you&rsquo;d think. The village sits on Horton Road, which connects Stanwell to Horton and Wraysbury to the west, and The Anchor sits right at the heart of it, the village&rsquo;s gathering place since 1751.
               </p>
               <p>
-                The area around Stanwell Moor is surprisingly green for somewhere so close to Heathrow. The reservoir walks are a local favourite, the path around the King George VI and Staines reservoirs gives you miles of flat, easy walking with big skies and good birdwatching. The Stanwell Moor nature reserve, just off Horton Road, is a quiet spot that most visitors to the area never discover. St Mary&rsquo;s Church in nearby Stanwell village dates back to the 12th century and is worth a look if you&rsquo;re interested in local history.
+                The area around Stanwell Moor is surprisingly green for somewhere so close to Heathrow. The reservoir walks are a local favourite, the path around the King George VI and Staines reservoirs gives you miles of flat, easy walking with big skies and good birdwatching. St Mary&rsquo;s Church in nearby Stanwell village dates back to the 12th century and is worth a look if you&rsquo;re interested in local history.
               </p>
               <p>
                 What makes Stanwell Moor different from Stanwell village is the feel. Stanwell proper is bigger and more suburban, with its own high street and shops. Stanwell Moor has kept its village character, smaller, quieter, and with a stronger sense of community. Everyone knows everyone, and The Anchor is where those connections happen. Whether it&rsquo;s the Tuesday night pizza crowd, the quiz night regulars, or the Sunday roast families, the pub is where the village comes together.
@@ -364,7 +363,7 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "Do you have parking at the pub?",
-            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space."
+            answer: PARKING_WORDING
           },
           {
             question: "Are families welcome at The Anchor?",
@@ -376,7 +375,7 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "How far is The Anchor from Stanwell village?",
-            answer: "We're just 5 minutes from Stanwell village centre, located on Horton Road in Stanwell Moor. We're also only 8 minutes from Staines, 7 minutes from Heathrow Terminal 5, and 2 minutes from M25 Junction 14."
+            answer: `We're a short drive from Stanwell village centre, at ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}. We're also only ${DRIVE_TIMES.staines} minutes from Staines, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and ${DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14.`
           },
           {
             question: "Do you show sports at the pub?",
@@ -384,7 +383,7 @@ export default async function PubsInStanwellPage() {
           },
           {
             question: "Can I book The Anchor for a private event?",
-            answer: "Yes! We offer flexible private hire for parties, celebrations, wakes, and corporate events. Our spaces suit 10+ to 150 guests, with larger events by enquiry and various catering options. Contact us on 01753 682707 to discuss your requirements."
+            answer: `Yes! We offer flexible private hire for parties, celebrations, wakes, and corporate events. Our spaces suit ${PRIVATE_HIRE_CAPACITY.recommendedRange}, with larger events by enquiry and various catering options. Contact us on ${CONTACT.phone} to discuss your requirements.`
           }
         ]}
         className="bg-surface"
@@ -401,7 +400,7 @@ export default async function PubsInStanwellPage() {
         <Button asChild variant="outline" size="lg">
           <Link href="/private-hire#enquiry">Book an Event</Link>
         </Button>
-        <DirectionsButton href="https://maps.google.com/?q=The+Anchor+Stanwell+Moor" source="pubs_in_stanwell_directions" variant="outline" size="lg">
+        <DirectionsButton href={DIRECTIONS_URL} source="pubs_in_stanwell_directions" variant="outline" size="lg">
           Get Directions
         </DirectionsButton>
       </CtaBand>

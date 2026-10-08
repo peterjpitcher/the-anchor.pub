@@ -5,6 +5,7 @@ import type { Event } from '@/lib/api'
 import type { EventFactsVariant } from '@/lib/event-presentation'
 import { formatEventLocalDate } from '@/lib/event-calendar'
 import { getEventPriceLabel } from '@/lib/event-pricing'
+import { PARKING } from '@/lib/constants'
 
 type Fact = {
   label: string
@@ -49,7 +50,7 @@ export function EventBookingFactsStrip({
     },
     { label: didNotRun ? 'Entry' : isHistoric ? 'Entry was' : 'Price', value: priceLabel, Icon: PoundSterling },
     { label: didNotRun ? 'Planned start' : isHistoric ? 'Started' : 'Start', value: eventTime, Icon: Clock },
-    { label: 'Parking', value: 'Free parking, 20 spaces', Icon: Car }
+    { label: 'Parking', value: `Free parking, ${PARKING.capacity} spaces`, Icon: Car }
   ]
 
   return (

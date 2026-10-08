@@ -32,6 +32,7 @@ import Link from 'next/link'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { rollingSeriesEndDate } from '@/lib/schema'
 import { ACCESS_WORDING } from '@/lib/approved-wording'
+import { BUS_WORDING, PARKING } from '@/lib/constants'
 
 /**
  * Title carries both measured clusters for this page: "music bingo near me" and
@@ -442,11 +443,11 @@ export default async function MusicBingoPage() {
               <h2 className="mb-3 text-h4 text-ink-strong">Find us</h2>
               <p className="mb-4 text-ink-muted">
                 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ. A few minutes from Staines, Ashford,
-                Bedfont and Egham, with 20 free parking spaces on site.
+                Bedfont and Egham, with {PARKING.capacity} free parking spaces on site.
               </p>
               <ul className="space-y-3 text-sm text-ink-muted">
-                <li><strong>Driving:</strong> use postcode TW19 6AQ. 20 free spaces, first come, first served.</li>
-                <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
+                <li><strong>Driving:</strong> use postcode TW19 6AQ. {PARKING.capacity} free spaces, first come, first served.</li>
+                <li><strong>Public transport:</strong> {BUS_WORDING} Uber and Bolt know us well.</li>
                 <li><strong>Accessibility:</strong> {ACCESS_WORDING}</li>
               </ul>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">

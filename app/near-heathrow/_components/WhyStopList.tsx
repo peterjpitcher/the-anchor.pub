@@ -1,4 +1,6 @@
 import { Check } from 'lucide-react'
+import { HEATHROW_TIMES, PARKING } from '@/lib/constants'
+import { ULEZ_WORDING } from '@/lib/approved-wording'
 
 // Page-local check-marked reasons list for the /near-heathrow "Why stop" split
 // (spec §7.6). Gold check icons, bold lead-ins. All claims are SSOT-confirmed
@@ -6,18 +8,18 @@ import { Check } from 'lucide-react'
 // closest proper pub to T5 §12).
 
 interface WhyStopPoint {
-  lead: string
+  lead?: string
   detail: string
 }
 
 const POINTS: WhyStopPoint[] = [
   {
-    lead: 'Free parking for 20 cars',
+    lead: `Free parking for ${PARKING.capacity} cars`,
     detail: 'No fees and no time limit while you eat or drink with us.'
   },
   {
-    lead: 'Outside the ULEZ zone',
-    detail: 'No daily charge to reach us, unlike venues inside London.'
+    // The approved sentence stands alone: a lead-in would only say it twice.
+    detail: ULEZ_WORDING
   },
   {
     lead: 'Freshly made pub food',
@@ -29,7 +31,7 @@ const POINTS: WhyStopPoint[] = [
   },
   {
     lead: 'The closest proper pub to Terminal 5',
-    detail: 'Just 7 minutes by car, and a world away from the terminal.'
+    detail: `Just ${HEATHROW_TIMES.terminal5} minutes by car, and a world away from the terminal.`
   }
 ]
 
@@ -37,7 +39,7 @@ export function WhyStopList() {
   return (
     <ul className="flex flex-col gap-4">
       {POINTS.map(point => (
-        <li key={point.lead} className="flex items-start gap-3">
+        <li key={point.detail} className="flex items-start gap-3">
           <span
             aria-hidden
             className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-anchor-gold/15 text-accent-text"
@@ -45,7 +47,11 @@ export function WhyStopList() {
             <Check className="h-4 w-4" strokeWidth={2.5} />
           </span>
           <span className="text-base text-ink">
-            <strong className="font-semibold text-ink-strong">{point.lead}.</strong>{' '}
+            {point.lead ? (
+              <>
+                <strong className="font-semibold text-ink-strong">{point.lead}.</strong>{' '}
+              </>
+            ) : null}
             {point.detail}
           </span>
         </li>

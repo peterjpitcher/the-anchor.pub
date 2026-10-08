@@ -13,6 +13,7 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { ACCESS_SHORT_WORDING, NO_ACCESSIBLE_TOILET_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
@@ -186,7 +187,7 @@ export default function RetirementPartiesPage() {
                     },
                     {
                         question: "How many people can you fit?",
-                        answer: "Our dining room seats 26, or holds up to 50 standing for a buffet and drinks reception. If you are expecting more, the main area takes bigger groups, and exclusive hire of the whole pub covers up to 119 seated or 300 standing."
+                        answer: `Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated}, or holds up to ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.standing} standing for a buffet and drinks reception. If you are expecting more, the main area takes bigger groups, and exclusive hire of the whole pub covers up to ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.seated} seated or ${PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing} standing.`
                     }
                 ]}
                 className="bg-canvas"

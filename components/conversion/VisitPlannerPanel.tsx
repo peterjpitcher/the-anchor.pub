@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 interface VisitPlannerPanelProps {
   /**
@@ -38,7 +39,7 @@ const HIGHLIGHTS: PlannerHighlight[] = [
   {
     icon: Car,
     title: 'Free parking for all guests',
-    body: 'Park on site for free, just 7 minutes from Heathrow Terminal 5.',
+    body: `Park on site for free, just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
   },
   {
     icon: Plane,

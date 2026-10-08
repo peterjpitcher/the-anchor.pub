@@ -20,8 +20,9 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { JourneyTimesCard } from './_components/JourneyTimesCard'
 import { WhyStopList } from './_components/WhyStopList'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-
-const GOOGLE_MAPS_URL = 'https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ'
+import { HEATHROW_TIMES, HEATHROW_DISTANCES, PARKING, DRIVE_TIMES, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
+import { DOGS_WORDING, FAMILIES_WORDING, CHILDREN_WELCOME_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 // verifiedAt: '2026-08-26'  Owner: Peter Pitcher.
 // Terminal times checked against the docs/SSOT.md §2 distance table and against
@@ -35,11 +36,11 @@ export function generateMetadata(): Metadata {
     ? `Sunday roasts ${SUNDAY_ROAST.fromPriceLabel}`
     : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
 
-  const title = 'Pub Near Heathrow Airport | 7 Mins from T5'
+  const title = `Pub Near Heathrow Airport | ${HEATHROW_TIMES.terminal5} Mins from T5`
 
   return {
     title,
-    description: `A traditional pub 7 minutes from Heathrow Terminal 5. Free parking, ${sundayPhrase} and a dog-friendly beer garden under the flight path.`,
+    description: `A traditional pub ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Free parking, ${sundayPhrase} and a dog-friendly beer garden under the flight path.`,
     openGraph: {
       title,
       description: 'The closest traditional pub to Heathrow Terminal 5. Free customer parking, freshly made pub food, a dog-friendly beer garden under the flight path, and easy access from the M25 and every terminal.',
@@ -79,11 +80,11 @@ export default function NearHeathrowPage() {
         crumb="Near Heathrow"
         kicker="Stanwell Moor Village"
         title="The Anchor: Your Pub Near Heathrow Airport"
-        lead="The closest proper pub to Heathrow Terminal 5, just 7 minutes by car. Free parking, freshly made pub food, and a beer garden right under the flight path. Outside the ULEZ zone, with easy access from the M25 and every terminal."
+        lead={`The closest proper pub to Heathrow Terminal 5, just ${HEATHROW_TIMES.terminal5} minutes by car. Free parking, freshly made pub food, and a beer garden right under the flight path. Outside the ULEZ zone, with easy access from the M25 and every terminal.`}
         badges={
           <>
-            <Badge variant="sand">7 mins from T5</Badge>
-            <Badge variant="sand">20 free spaces</Badge>
+            <Badge variant="sand">{HEATHROW_TIMES.terminal5} mins from T5</Badge>
+            <Badge variant="sand">{PARKING.capacity} free spaces</Badge>
             <Badge variant="sand">Outside ULEZ</Badge>
           </>
         }
@@ -93,7 +94,7 @@ export default function NearHeathrowPage() {
               Book a table
             </BookTableButton>
             <DirectionsButton
-              href={GOOGLE_MAPS_URL}
+              href={DIRECTIONS_URL}
               source="near_heathrow_directions"
               variant="outline"
               size="lg"
@@ -116,7 +117,7 @@ export default function NearHeathrowPage() {
                 align="left"
                 kicker="Why stop with us"
                 title="One of the easiest places to eat near Heathrow"
-                lead="Skip the terminal queues and the terminal prices. The Anchor is a traditional village pub minutes from every Heathrow terminal, with free parking and room to relax before you fly or while you wait for arrivals. We are a highly rated independent pub near Heathrow, around 7 minutes from Terminal 5, traffic dependent."
+                lead={`Skip the terminal queues and the terminal prices. The Anchor is a traditional village pub minutes from every Heathrow terminal, with free parking and room to relax before you fly or while you wait for arrivals. We are a highly rated independent pub near Heathrow, around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent.`}
                 className="mb-0"
               />
               <WhyStopList/>
@@ -139,7 +140,7 @@ export default function NearHeathrowPage() {
                 className="mb-0"
               />
               <div className="flex flex-wrap gap-2">
-                <Badge variant="sand">64 seats</Badge>
+                <Badge variant="sand">{PRIVATE_HIRE_CAPACITY.spaces.gardenTerrace.seated} seats</Badge>
                 <Badge variant="sand">Plane spotting</Badge>
               </div>
               <div>
@@ -167,7 +168,7 @@ export default function NearHeathrowPage() {
         cluster="pubsNearHeathrow"
         currentPath="/near-heathrow"
         title="Find your terminal"
-        intro="Flying from a particular terminal? These pages give you door-to-door directions, taxi notes and Heathrow hotel alternatives for each one."
+        intro="Flying from a particular terminal? These pages give you journey times, taxi notes and Heathrow hotel alternatives for each one."
       />
 
       {/* FAQ Section */}
@@ -179,23 +180,23 @@ export default function NearHeathrowPage() {
               faqs={[
                 {
                   question: "How far is The Anchor from Heathrow Airport?",
-                  answer: "The Anchor is the closest proper pub to Heathrow Terminal 5, about 7 minutes by car. Terminals 2 and 3 are roughly 11 minutes away and Terminal 4 about 12 minutes. We are 2 minutes from M25 Junction 14, so most terminals are 7 to 12 minutes door to door. Our address is Horton Road, Stanwell Moor, Surrey TW19 6AQ."
+                  answer: `The Anchor is the closest proper pub to Heathrow Terminal 5, about ${HEATHROW_TIMES.terminal5} minutes by car. Terminals 2 and 3 are roughly ${HEATHROW_TIMES.terminal2} minutes away and Terminal 4 about ${HEATHROW_TIMES.terminal4} minutes. We are ${DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14, so most terminals are ${HEATHROW_TIMES.rangeWords} door to door. Our address is Horton Road, Stanwell Moor, Surrey TW19 6AQ.`
                 },
                 {
                   question: "What is the closest terminal to The Anchor pub?",
-                  answer: "Terminal 5 is closest, about 7 minutes and 3.8 miles by car. Terminal 3 is around 11 minutes and 5.3 miles, Terminal 2 is about 11 minutes, and Terminal 4 is about 12 minutes. The Anchor is the nearest traditional village pub to Heathrow."
+                  answer: `Terminal 5 is closest, about ${HEATHROW_TIMES.terminal5} minutes and ${HEATHROW_DISTANCES.terminal5} by car. Terminal 3 is around ${HEATHROW_TIMES.terminal3} minutes and ${HEATHROW_DISTANCES.terminal3}, Terminal 2 is about ${HEATHROW_TIMES.terminal2} minutes, and Terminal 4 is about ${HEATHROW_TIMES.terminal4} minutes. The Anchor is the nearest traditional village pub to Heathrow.`
                 },
                 {
                   question: "Is there free parking at The Anchor near Heathrow?",
-                  answer: "Yes. The Anchor has 20 free parking spaces for guests, with no fees and no time limit while you are eating or drinking with us. The car park is level and close to the entrance. If you need somewhere to leave the car while you fly, we also run separate pre-bookable airport parking, with rates and booking on our Heathrow parking page."
+                  answer: `Yes. The Anchor has ${PARKING.capacity} free parking spaces for guests, with no fees and no time limit while you are eating or drinking with us. The car park is level and close to the entrance. If you need somewhere to leave the car while you fly, we also run separate pre-bookable airport parking, with rates and booking on our Heathrow parking page.`
                 },
                 {
                   question: "How do I get from Heathrow Terminal 5 to The Anchor?",
-                  answer: "From Terminal 5, head out onto the A3044 towards Stanwell Moor and Staines, then turn into Horton Road. The Anchor is on the left. It is a short 7-minute drive by car or taxi, and free parking is waiting when you arrive."
+                  answer: `It is a short ${HEATHROW_TIMES.terminal5}-minute drive by car or taxi from Terminal 5, and free parking is waiting when you arrive. Our address is ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.county} ${CONTACT.address.postcode}. Tap Get directions at the top of this page for a route from where you are.`
                 },
                 {
                   question: "Where can I eat near Heathrow before a flight?",
-                  answer: "The Anchor is one of the easiest places to eat near Heathrow, just 7 minutes from Terminal 5. We serve freshly made pub food cooked to order, from stone-baked pizzas and burgers to fish and chips, with a vegan Wellington and a kids menu too. You will find everything, including live prices, on our food menu. With free parking and a relaxed dining room, you can have a proper meal and still make your flight with time to spare."
+                  answer: `The Anchor is one of the easiest places to eat near Heathrow, just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5. We serve freshly made pub food cooked to order, from stone-baked pizzas and burgers to fish and chips, with a vegan Wellington and a kids menu too. You will find everything, including live prices, on our food menu. With free parking and a relaxed dining room, you can have a proper meal and still make your flight with time to spare.`
                 },
                 {
                   question: "Where is the best pub for plane spotting near Heathrow?",
@@ -203,7 +204,7 @@ export default function NearHeathrowPage() {
                 },
                 {
                   question: "Is The Anchor dog friendly?",
-                  answer: "Yes, The Anchor is dog friendly. Dogs are welcome in the beer garden, and well-behaved dogs on leads are welcome in the bar area. We keep water bowls and a few dog biscuits behind the bar for our four-legged guests."
+                  answer: `Yes, The Anchor is dog friendly. ${DOGS_WORDING}`
                 },
                 {
                   question: "Can I bring luggage to The Anchor?",
@@ -211,13 +212,13 @@ export default function NearHeathrowPage() {
                 },
                 {
                   question: "Is The Anchor family friendly?",
-                  answer: "Yes, The Anchor is family friendly. There is a dedicated kids menu, plenty of space in the beer garden, and children are welcome throughout the day with no age cut-off. Buggies are no problem."
+                  answer: `Yes, The Anchor is family friendly. There is a dedicated kids menu and plenty of space in the beer garden. ${CHILDREN_WELCOME_WORDING} ${FAMILIES_WORDING}`
                 },
                 {
                   question: "Do you serve Sunday roast near Heathrow?",
                   answer: sunday.isLive
-                    ? "Yes. Our Sunday roast is served on Sundays from 1pm to 6pm, just 7 minutes from Terminal 5. Walk-ins are welcome the whole way through, with the last seating at 5:30pm, and you can see the full line-up and live prices on our Sunday roast page. For groups of 15 or more we ask for a small deposit per person, which comes off your bill."
-                    : `Yes. Our Sunday roast is served on Sundays from 1pm to 6pm, just 7 minutes from Terminal 5. ${sunday.availabilityLong} You can see the full line-up and live prices on our Sunday roast page.`
+                    ? `Yes. Our Sunday roast is served on Sundays from 1pm to 6pm, just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5. Walk-ins are welcome the whole way through, with the last seating at 5:30pm, and you can see the full line-up and live prices on our Sunday roast page. For groups of 15 or more we ask for a small deposit per person, which comes off your bill.`
+                    : `Yes. Our Sunday roast is served on Sundays from 1pm to 6pm, just ${HEATHROW_TIMES.terminal5} minutes from Terminal 5. ${sunday.availabilityLong} You can see the full line-up and live prices on our Sunday roast page.`
                 },
                 {
                   question: "Can I book a table at The Anchor?",
@@ -252,9 +253,9 @@ export default function NearHeathrowPage() {
       <InternalLinkingSection
         title="More for Heathrow visitors"
         links={[
-          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: 'Proper pub food 7 minutes from Terminal 5, with free parking' },
+          { href: '/restaurants-near-heathrow', title: 'Restaurants Near Heathrow', description: `Proper pub food ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, with free parking` },
           { href: '/sunday-roast', title: 'Sunday Roast Near Heathrow', description: 'Walk in for a freshly plated roast, served Sundays 1pm to 6pm' },
-          { href: '/private-hire', title: 'Function Room Hire', description: 'Private hire for 10+ to 150 guests, free parking' },
+          { href: '/private-hire', title: 'Function Room Hire', description: `Private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, free parking` },
           { href: '/blog/tag/heathrow', title: 'Heathrow Guides', description: 'Our guides for visitors and workers near Heathrow' },
           { href: '/heathrow-parking', title: 'Heathrow Parking', description: 'Parking options near Heathrow' },
           { href: '/find-us', title: 'Find Us', description: 'Directions and free parking' },

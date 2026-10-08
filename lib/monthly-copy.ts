@@ -9,6 +9,7 @@ import {
   getFestiveKitchenStatus,
   type FestiveKitchenClosure
 } from './festive-kitchen-closure'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 /**
  * Homepage copy, one set per month, resolved from the London date.
@@ -54,7 +55,7 @@ export interface MonthlyHomepageCopy {
   bandCopy: string
 }
 
-const ROAST_BADGES = ['Sunday roasts', 'Free parking', 'Dog friendly', '7 mins from T5'] as const
+const ROAST_BADGES = ['Sunday roasts', 'Free parking', 'Dog friendly', `${HEATHROW_TIMES.terminal5} mins from T5`] as const
 const GARDEN_BADGES = ['Beer garden', 'Free parking', 'Dog friendly', 'Plane spotting'] as const
 
 const READY_TO_VISIT = {
@@ -80,7 +81,7 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
     case 1:
       return {
         script: 'Start the year somewhere warm',
-        lead: 'January is for long lunches, quiet pints and a proper roast on a Sunday. Pub classics, stone-baked pizzas and free parking, 7 minutes from Heathrow Terminal 5.',
+        lead: `January is for long lunches, quiet pints and a proper roast on a Sunday. Pub classics, stone-baked pizzas and free parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'See the Sunday roast',
         secondaryHref: '/sunday-roast',
@@ -91,7 +92,7 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
     case 2:
       return {
         script: 'Pull up a chair',
-        lead: 'Dark evenings, warm rooms and somewhere to properly sit down. Roasts carved fresh every Sunday, stone-baked pizzas and pub classics, 7 minutes from Heathrow Terminal 5.',
+        lead: `Dark evenings, warm rooms and somewhere to properly sit down. Roasts carved fresh every Sunday, stone-baked pizzas and pub classics, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'View food menu',
         secondaryHref: '/food-menu',
@@ -102,7 +103,7 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
     case 3:
       return {
         script: 'Lighter evenings ahead',
-        lead: 'The evenings are stretching out again and the garden is waking up. Sunday roasts, stone-baked pizzas and free parking, 7 minutes from Heathrow Terminal 5.',
+        lead: `The evenings are stretching out again and the garden is waking up. Sunday roasts, stone-baked pizzas and free parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'See the Sunday roast',
         secondaryHref: '/sunday-roast',
@@ -113,17 +114,17 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
     case 4:
       return {
         script: "Spring's in the garden",
-        lead: 'Longer days, planes overhead and a pint outside again. Roasts carved fresh every Sunday, stone-baked pizzas and free parking, 7 minutes from Heathrow Terminal 5.',
+        lead: `Longer days, planes overhead and a pint outside again. Roasts carved fresh every Sunday, stone-baked pizzas and free parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'Visit the beer garden',
         secondaryHref: '/beer-garden',
-        badges: ['Beer garden', 'Free parking', 'Dog friendly', '7 mins from T5'],
+        badges: ['Beer garden', 'Free parking', 'Dog friendly', `${HEATHROW_TIMES.terminal5} mins from T5`],
         ...READY_TO_VISIT
       }
     case 5:
       return {
         script: 'Garden weather at last',
-        lead: 'A beer garden under the flight path, a pint in the sun and the planes coming in low. Stone-baked pizzas, pub classics and free parking, 7 minutes from Heathrow Terminal 5.',
+        lead: `A beer garden under the flight path, a pint in the sun and the planes coming in low. Stone-baked pizzas, pub classics and free parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'Visit the beer garden',
         secondaryHref: '/beer-garden',
@@ -134,7 +135,7 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
     case 6:
       return {
         script: 'Long afternoons out the back',
-        lead: 'Summer in a proper village pub: the garden open, the planes overhead and no rush to leave. Stone-baked pizzas, pub classics and free parking, 7 minutes from Heathrow Terminal 5.',
+        lead: `Summer in a proper village pub: the garden open, the planes overhead and no rush to leave. Stone-baked pizzas, pub classics and free parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'Visit the beer garden',
         secondaryHref: '/beer-garden',
@@ -144,7 +145,7 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
     case 7:
       return {
         script: 'Pints, planes and no rush',
-        lead: 'The garden is the whole point in July. Cold drinks, stone-baked pizzas and Terminal 5 arrivals passing right over your head, 7 minutes from the airport with free parking.',
+        lead: `The garden is the whole point in July. Cold drinks, stone-baked pizzas and Terminal 5 arrivals passing right over your head, ${HEATHROW_TIMES.terminal5} minutes from the airport with free parking.`,
         primaryCta: 'Book a table',
         secondaryCta: 'View food menu',
         secondaryHref: '/food-menu',
@@ -156,17 +157,17 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
       // The evergreen baseline. Every other month is a departure from this.
       return {
         script: "Where everyone's welcome",
-        lead: 'A proper village pub in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Pub classics, stone-baked pizzas, a beer garden under the flight path and free customer parking.',
+        lead: `A proper village pub in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Pub classics, stone-baked pizzas, a beer garden under the flight path and free customer parking.`,
         primaryCta: 'Book a table',
         secondaryCta: 'View food menu',
         secondaryHref: '/food-menu',
-        badges: ['Free parking', 'Dog friendly', 'Beer garden', '7 mins from T5'],
+        badges: ['Free parking', 'Dog friendly', 'Beer garden', `${HEATHROW_TIMES.terminal5} mins from T5`],
         ...READY_TO_VISIT
       }
     case 9:
       return {
         script: 'Cosy season starts here',
-        lead: 'Darker evenings, warmer welcomes. Pub classics, stone-baked pizzas and roasts carved fresh every Sunday, 7 minutes from Heathrow Terminal 5.',
+        lead: `Darker evenings, warmer welcomes. Pub classics, stone-baked pizzas and roasts carved fresh every Sunday, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'See the Sunday roast',
         secondaryHref: '/sunday-roast',
@@ -179,7 +180,7 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
       // surfaces a Christmas link from 1 August.
       return {
         script: 'Pull the evenings in',
-        lead: 'The clocks go back and the roasts get better. Beef topside carved fresh every Sunday from 1pm, stone-baked pizzas and free parking, 7 minutes from Heathrow Terminal 5.',
+        lead: `The clocks go back and the roasts get better. Beef topside carved fresh every Sunday from 1pm, stone-baked pizzas and free parking, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'See the Sunday roast',
         secondaryHref: '/sunday-roast',
@@ -192,19 +193,19 @@ export function getMonthlyHomepageCopy(month: number): MonthlyHomepageCopy {
       // so the lead states the window rather than implying it is already running.
       return {
         script: 'Party season is open',
-        lead: `Festive service runs ${christmasWindow}. Christmas bookings take groups from ${minParty} guests up, in a proper village pub 7 minutes from Heathrow Terminal 5.`,
+        lead: `Festive service runs ${christmasWindow}. Christmas bookings take groups from ${minParty} guests up, in a proper village pub ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Christmas enquiry',
         primaryHref: '/christmas-parties',
         secondaryCta: 'View food menu',
         secondaryHref: '/food-menu',
-        badges: [`Groups from ${minParty}`, 'Free parking', 'Dog friendly', '7 mins from T5'],
+        badges: [`Groups from ${minParty}`, 'Free parking', 'Dog friendly', `${HEATHROW_TIMES.terminal5} mins from T5`],
         bandTitle: 'Planning the Christmas do?',
         bandCopy: `Groups from ${minParty} guests up, £${deposit} per person deposit that comes off your bill. Tell us your date and we will hold it.`
       }
     case 12:
       return {
         script: 'Christmas is on at The Anchor',
-        lead: `Festive service runs ${christmasWindow}, then we see the year out together. Christmas dinner, groups from ${minParty} guests up and a village pub 7 minutes from Heathrow Terminal 5.`,
+        lead: `Festive service runs ${christmasWindow}, then we see the year out together. Christmas dinner, groups from ${minParty} guests up and a village pub ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
         primaryCta: 'Book a table',
         secondaryCta: 'Christmas enquiry',
         secondaryHref: '/christmas-parties',
@@ -244,11 +245,11 @@ export function getFestiveBreakHomepageCopy(today: string, closure: FestiveKitch
 
   return {
     script: beforeNewYear ? 'See the year out with us' : 'Happy New Year from The Anchor',
-    lead: `${kitchen} The bar stays open.${closedDays} A proper village pub, 7 minutes from Heathrow Terminal 5.`,
+    lead: `${kitchen} The bar stays open.${closedDays} A proper village pub, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
     primaryCta: 'Book a table',
     secondaryCta: 'See the drinks',
     secondaryHref: '/drinks',
-    badges: [`Kitchen back ${returnDayShort}`, 'Free parking', 'Dog friendly', '7 mins from T5'],
+    badges: [`Kitchen back ${returnDayShort}`, 'Free parking', 'Dog friendly', `${HEATHROW_TIMES.terminal5} mins from T5`],
     bandTitle: beforeNewYear ? 'See the year out with us' : `Kitchen back on ${returnDay}`,
     bandCopy: beforeNewYear
       ? 'We would love to see you in before New Year, so come and raise one with us.'

@@ -6,9 +6,10 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND, PARKING } from '@/lib/constants'
+import { CONTACT, BRAND, PARKING, DRIVE_TIMES, PRICE_RANGE, DIRECTIONS_URL } from '@/lib/constants'
+import { PARKING_WORDING, ULEZ_WORDING, DOGS_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -18,16 +19,16 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Pubs in Windsor | Free Parking Alternative',
-  description: `Pubs near Windsor? ${BRAND.name} is 15 minutes from Windsor Castle with free parking, Sunday roasts and stone-baked pizzas. Outside the ULEZ zone.`,
+  description: `Pubs near Windsor? ${BRAND.name} is a short drive from Windsor with free parking, Sunday roasts and stone-baked pizzas. Outside the ULEZ zone.`,
   openGraph: {
     title: 'Pubs in Windsor, The Anchor, Stanwell Moor',
-    description: 'A highly rated pub near Windsor, 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
+    description: 'A highly rated pub near Windsor, a short drive away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pubs in Windsor, The Anchor, Stanwell Moor',
-    description: 'A highly rated pub near Windsor, 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
+    description: 'A highly rated pub near Windsor, a short drive away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -72,31 +73,18 @@ const localBusinessSchema = {
       "name": "Eton"
     }
   ],
-  "priceRange": "££",
+  "priceRange": PRICE_RANGE,
   "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
   "telephone": CONTACT.phoneIntl,
   "url": "https://www.the-anchor.pub/windsor-pub"
 }
 
 export default function WindsorPubPage() {
-  const directionsSchema = generateHowToDirectionsSchema(
-    'Windsor Town Centre',
-    'The Anchor - Heathrow Pub & Dining',
-    [
-      'From Windsor town centre, head east on High Street/A308',
-      'Continue onto Datchet Road/B376',
-      'Turn left onto Horton Road/B376',
-      'Continue for about 4 miles through Wraysbury',
-      'After passing Wraysbury Station, continue on Horton Road',
-      'The Anchor will be on your left with free parking'
-    ]
-  )
-
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([localBusinessSchema]) }}
       />
       <BreadcrumbJsonLd
         items={[
@@ -110,7 +98,7 @@ export default function WindsorPubPage() {
         image="/images/page-headers/windsor-pub/find-us.jpg"
         crumb="Windsor"
         title="Traditional British Pub Near Windsor"
-        lead="Just 15 minutes from Windsor Castle with free parking"
+        lead="A short drive from Windsor with free parking"
         actions={
           <BookTableButton source="windsor_pub_hero"
           context="local_pub" variant="primary" size="lg" fullWidth>
@@ -133,7 +121,7 @@ export default function WindsorPubPage() {
               Pubs in Windsor, Traditional British Pub Near Windsor
             </PageTitle>
             <p className="text-lg text-ink-muted">
-              Searching for pubs in Windsor? Your local traditional pub is just 15 minutes from Windsor Castle with free parking
+              Searching for pubs in Windsor? Your local traditional pub is a short drive from Windsor with free parking
             </p>
           </div>
         </Container>
@@ -145,14 +133,14 @@ export default function WindsorPubPage() {
           <div className="mx-auto text-center">
             <SectionHeading
               title="Windsor's Favourite Traditional Pub Experience"
-              lead="Just a 15-minute drive from Windsor Castle, The Anchor offers authentic British hospitality without the tourist prices. Enjoy traditional pub atmosphere, fantastic food, and a warm welcome in our historic Stanwell Moor location."
+              lead="A short drive from Windsor, The Anchor offers authentic British hospitality without the tourist prices. Enjoy traditional pub atmosphere, fantastic food, and a warm welcome in our historic Stanwell Moor location."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { title: "Near Windsor", description: "15 minutes from Windsor Castle via M4 or B376" },
+                { title: "Near Windsor", description: "A short drive from Windsor" },
                 { title: "Better Value", description: "Avoid Windsor tourist prices - proper pub rates" },
-                { title: "Outside the ULEZ", description: "No ULEZ charge at our end of the journey" },
+                { title: "Outside the ULEZ", description: ULEZ_WORDING },
               ].map((item) => (
                 <Card key={item.title} accent>
                   <CardBody className="p-6 text-center">
@@ -188,7 +176,7 @@ export default function WindsorPubPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
-                    <div><strong>Free parking always available</strong> - No expensive Windsor parking fees</div>
+                    <div><strong>{PARKING.capacity} free spaces</strong> - No expensive Windsor parking fees</div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-accent-text text-xl">•</span>
@@ -270,7 +258,7 @@ export default function WindsorPubPage() {
 
             <div className="text-center">
               <p className="text-lg text-ink-muted mb-6">
-                Private function room available for Windsor groups - 10+ to 150 guests
+                Private hire for Windsor groups, for {PRIVATE_HIRE_CAPACITY.recommendedRange}
               </p>
               <Button asChild variant="primary" size="lg" wrap>
                 <Link href="/private-hire#enquiry">
@@ -290,58 +278,18 @@ export default function WindsorPubPage() {
               title="Getting to The Anchor from Windsor"
             />
 
-            <div className="grid md:grid-cols-2 gap-5">
-              <Card accent>
-                <CardBody className="p-6">
-                  <h3 className="font-display text-h4 text-ink-strong mb-4">Driving Routes</h3>
-                  <div className="space-y-4">
-                    <div>
-                      <p className="font-semibold text-ink mb-2">Via M4 (Fastest)</p>
-                      <ul className="space-y-1 text-ink-muted text-sm">
-                        <li>• M4 westbound to Junction 5</li>
-                        <li>• A4 towards Slough</li>
-                        <li>• Follow signs to Stanwell Moor</li>
-                        <li>• 15 minutes in normal traffic</li>
-                      </ul>
-                    </div>
-                    <div className="pt-4 border-t border-line">
-                      <p className="font-semibold text-ink mb-2">Via B376 (Scenic)</p>
-                      <ul className="space-y-1 text-ink-muted text-sm">
-                        <li>• Through Datchet and Wraysbury</li>
-                        <li>• Beautiful countryside route</li>
-                        <li>• 20 minutes, avoiding motorway</li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-
-              <Card accent>
-                <CardBody className="p-6">
-                  <h3 className="font-display text-h4 text-ink-strong mb-4">Local Landmarks</h3>
-                  <div className="space-y-3 text-ink-muted">
-                    <p><strong className="text-ink">From Windsor Castle:</strong> 6.5 miles (15 mins)</p>
-                    <p><strong className="text-ink">From Windsor Racecourse:</strong> 5.5 miles (12 mins)</p>
-                    <p><strong className="text-ink">From Legoland:</strong> 7 miles (16 mins)</p>
-                    <p><strong className="text-ink">Near M25 Junction 14:</strong> Perfect stopover</p>
-                    <div className="pt-4 border-t border-line">
-                      <p className="font-semibold text-accent-text">Parking</p>
-                      <p>20 free spaces - no time limits!</p>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-            </div>
-
-            <div className="mt-8 text-center">
+            <div className="text-center">
+              <p className="text-lg text-ink-muted mb-4">
+                We&apos;re on {CONTACT.address.street}, {CONTACT.address.town}. Set your sat nav to {CONTACT.address.postcode}.
+              </p>
+              <p className="text-lg text-ink-muted mb-6">{PARKING_WORDING}</p>
               <DirectionsButton
-                href="https://maps.google.com/maps?saddr=Windsor+Castle&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                href={DIRECTIONS_URL}
                 source="windsor_directions"
                 variant="outline"
                 size="md"
-                fromLocation="Windsor Castle"
               >
-                Get Directions from Windsor
+                Get directions
               </DirectionsButton>
             </div>
           </div>
@@ -373,9 +321,9 @@ export default function WindsorPubPage() {
                 <CardBody className="p-6">
                   <h3 className="font-display text-h4 text-ink-strong mb-3">Easy Access</h3>
                   <ul className="space-y-2 text-ink-muted text-sm">
-                    <li>• 15 mins from Windsor</li>
-                    <li>• Free parking</li>
-                    <li>• Near M4 & M25</li>
+                    <li>• A short drive from Windsor</li>
+                    <li>• {PARKING.capacity} free spaces</li>
+                    <li>• {DRIVE_TIMES.m25Junction14} mins from M25 Junction 14</li>
                     <li>• Avoid town traffic</li>
                   </ul>
                 </CardBody>
@@ -387,7 +335,7 @@ export default function WindsorPubPage() {
                   <ul className="space-y-2 text-ink-muted text-sm">
                     <li>• Plane spotting garden</li>
                     <li>• Monthly entertainment</li>
-                    <li>• Dog friendly throughout</li>
+                    <li>• Dogs welcome throughout, on a lead</li>
                     <li>• Traditional games</li>
                   </ul>
                 </CardBody>
@@ -414,13 +362,13 @@ export default function WindsorPubPage() {
                 If you&rsquo;re looking for pubs near Windsor, you know the drill: fight for a parking space in River Street or King Edward VII car park, pay through the nose, then squeeze into a packed High Street pub where half the crowd are day-trippers clutching castle guidebooks. There&rsquo;s nothing wrong with the tourist pubs, they serve their purpose, but sometimes you want somewhere that feels like <em>yours</em>.
               </p>
               <p>
-                That&rsquo;s the drive that brings Windsor residents our way. The quickest route is straight down the A308 through Datchet, picking up Horton Road past Wraysbury, about 20 minutes of easy, mostly single-carriageway driving with barely a traffic light in sight. If you&rsquo;d rather use the motorway, the M25 from Junction 13 or 14 drops you practically on our doorstep. Either way, you swap Windsor&rsquo;s parking charges for 20 free spaces right outside the door.
+                That&rsquo;s what brings Windsor residents our way. It&rsquo;s a short drive, and you swap Windsor&rsquo;s parking charges for {PARKING.capacity} free spaces right outside the door.
               </p>
               <p>
                 We get a lot of Windsor Great Park walkers who have spent the morning on the Long Walk or around Virginia Water and want a proper pub lunch without heading back into town. Castle staff pop in after their shifts too, they&rsquo;ve told us they prefer somewhere they won&rsquo;t bump into visitors from work. And if you&rsquo;ve just done the Theatre Royal or a Windsor Racecourse meeting, we&rsquo;re a brilliant pit-stop on the way home, quieter, cheaper, and you can actually hear your mates talk.
               </p>
               <p>
-                The beer garden is the clincher for most people. Sit outside with a pint and watch the planes coming into Heathrow overhead, it&rsquo;s a genuinely good free show. Dogs are welcome throughout, so if you&rsquo;ve brought the spaniel along for that Great Park walk, they&rsquo;re sorted too.
+                The beer garden is the clincher for most people. Sit outside with a pint and watch the planes coming into Heathrow overhead, it&rsquo;s a genuinely good free show. {DOGS_WORDING} So if you&rsquo;ve brought the spaniel along for that Great Park walk, they&rsquo;re sorted too.
               </p>
             </div>
           </div>
@@ -454,7 +402,7 @@ export default function WindsorPubPage() {
         faqs={[
           {
             question: "How far is The Anchor from Windsor Castle?",
-            answer: "The Anchor is approximately 6.5 miles from Windsor Castle, which is about a 15-minute drive via the M4 or a scenic 20-minute route through Datchet and Wraysbury via the B376."
+            answer: `The Anchor is a short drive from Windsor. We're on ${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.postcode}.`
           },
           {
             question: "Why do Windsor residents come to The Anchor instead of Windsor pubs?",
@@ -462,11 +410,11 @@ export default function WindsorPubPage() {
           },
           {
             question: "Is there parking at The Anchor for Windsor visitors?",
-            answer: "Yes! We have 20 free parking spaces with no time restrictions. You can relax and enjoy your visit without watching the clock."
+            answer: `Yes. ${PARKING_WORDING}`
           },
           {
-            question: "What's the best route from Windsor to avoid traffic?",
-            answer: "The quickest route is via the M4 (Junction 5) which takes about 15 minutes. For a more scenic route avoiding motorways, take the B376 through Datchet and Wraysbury. Avoid rush hours (8-9am and 5-6pm) for the smoothest journey."
+            question: "How do I find The Anchor from Windsor?",
+            answer: `Set your sat nav to ${CONTACT.address.postcode}, or use the Get directions link on this page.`
           },
           {
             question: "Do you get many customers from Windsor and Eton?",
@@ -474,7 +422,7 @@ export default function WindsorPubPage() {
           },
           {
             question: "Can you accommodate large Windsor groups?",
-            answer: "Yes! We regularly host groups from Windsor for birthdays, work events, and celebrations. We can accommodate private hire from 10+ to 150 guests. Many prefer us to Windsor venues for better value and a more relaxed atmosphere."
+            answer: `Yes! We regularly host groups from Windsor for birthdays, work events, and celebrations. We can accommodate private hire for ${PRIVATE_HIRE_CAPACITY.recommendedRange}. Many prefer us to Windsor venues for better value and a more relaxed atmosphere.`
           }
         ]}
         className="bg-canvas"
@@ -483,7 +431,7 @@ export default function WindsorPubPage() {
       {/* CTA Section */}
       <CtaBand
         title="Discover Windsor's Favourite Local"
-        copy="Just 15 minutes from the castle - where Windsor locals escape the tourists"
+        copy="A short drive from the castle - where Windsor locals escape the tourists"
       >
         <Button asChild variant="primary" size="lg">
           <Link href={CONTACT.phoneHref}>Book a Table</Link>

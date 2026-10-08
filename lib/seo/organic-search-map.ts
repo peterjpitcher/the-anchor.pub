@@ -1,3 +1,5 @@
+import { HEATHROW_TIMES, DRIVE_TIMES } from '@/lib/constants'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 export type OrganicSearchClusterKey =
   | 'planeSpotting'
   | 'heathrowDining'
@@ -178,7 +180,7 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
       {
         href: '/dog-friendly-pub-heathrow',
         label: 'Dog-friendly pub',
-        description: 'Dogs welcome in the garden with water bowls available.',
+        description: 'Dogs welcome throughout the pub, on a lead, with water bowls and biscuits.',
         anchor: 'dog-friendly pub garden near Heathrow'
       }
     ]
@@ -190,7 +192,7 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
     primaryRoute: '/staines-pub',
     primaryAnchor: 'pub near Staines',
     primaryLabel: "A pub near Staines",
-    primaryDescription: "Eight minutes from Staines by car, with free parking.",
+    primaryDescription: `${DRIVE_TIMES.staines} minutes from Staines by car, with free parking.`,
     successEvents: ['table_booking_started', 'directions_clicked', 'call_clicked'],
     supportingRoutes: [
       {
@@ -286,13 +288,13 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
       {
         href: '/corporate-events',
         label: 'Work Christmas parties',
-        description: 'Office parties, team meals and business events around 7 minutes from Terminal 5.',
+        description: `Office parties, team meals and business events around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`,
         anchor: 'work Christmas party venue near Heathrow'
       },
       {
         href: '/private-hire',
         label: 'Private hire',
-        description: 'Hire the dining room or beer garden for a festive gathering, 10 to 150 guests.',
+        description: `Hire the dining room or beer garden for a festive gathering, ${PRIVATE_HIRE_CAPACITY.recommendedRange}.`,
         anchor: 'private room hire for a Christmas party'
       },
       {
@@ -322,7 +324,7 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
       {
         href: '/plane-spotting-heathrow',
         label: 'Plane spotting',
-        description: 'Watch aircraft from the beer garden around seven minutes from Terminal 5.',
+        description: `Watch aircraft from the beer garden around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`,
         anchor: 'Heathrow plane spotting'
       },
       {

@@ -8,17 +8,19 @@ import { CtaBand } from '@/components/CtaBand'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { InteractiveVenueFloorPlan } from '@/components/private-hire/venue-tour'
+import { DOGS_WORDING } from '@/lib/approved-wording'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 
 export const revalidate = 86400
 
 export const metadata: Metadata = {
   title: 'Our Pub, Garden & Facilities | Stanwell Moor',
   description:
-    'Look around The Anchor: the bar, a sunlit dining room, a beer garden under the Heathrow flight path, pool and darts. 7 minutes from Terminal 5.',
+    `Look around The Anchor: the bar, a sunlit dining room, a beer garden under the Heathrow flight path, pool and darts. ${HEATHROW_TIMES.terminal5} minutes from Terminal 5.`,
   openGraph: {
     title: 'Inside The Anchor | Our Pub, Garden & Facilities',
     description:
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   twitter: getTwitterMetadata({
     title: 'Inside The Anchor | Our Pub, Garden & Facilities',
     description:
-      'Take a look around The Anchor in Stanwell Moor, bar, dining room, garden, pool and darts. 7 min from Heathrow T5.',
+      `Take a look around The Anchor in Stanwell Moor, bar, dining room, garden, pool and darts. ${HEATHROW_TIMES.terminal5} min from Heathrow T5.`,
     images: ['/images/our-pub/the-anchor-main-bar-area.jpg'],
   }),
   alternates: { canonical: '/our-pub' },
@@ -128,9 +130,9 @@ export default function OurPubPage() {
         <Container>
           <p className="text-center text-lg md:text-xl text-ink mx-auto leading-relaxed">
             We could tell you all about The Anchor, a village pub since 1751,
-            the plane-spotting garden, the 18&nbsp;gins behind the bar. But honestly?
+            the plane-spotting garden, the gins behind the bar. But honestly?
             It&apos;s better to just show you. Here&apos;s a look around our pub in
-            Stanwell Moor, just seven minutes from Heathrow Terminal&nbsp;5.
+            Stanwell Moor, just {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal&nbsp;5.
           </p>
         </Container>
       </section>
@@ -156,19 +158,12 @@ export default function OurPubPage() {
 
             <div className="space-y-4">
               <p className="text-ink leading-relaxed">
-                Whether you&apos;re after a cold pint of Guinness, a Tanqueray and
-                tonic, or something from our collection of 17&nbsp;whiskeys, the bar
-                has you covered. We pour seven draught lines, Birra Moretti,
-                Stella Artois, Fosters, Carlsberg, Guinness, Aspall cider and
-                Inch&apos;s.
+                Whether you&apos;re after a cold pint, a gin and tonic or a
+                whisky, the bar has you covered.
               </p>
               <p className="text-ink leading-relaxed">
-                Behind the bar, things get interesting. Our gin shelf runs
-                18&nbsp;deep, from Hendrick&apos;s and Bombay Sapphire to Tanqueray
-                Flor de Sevilla, Warner&apos;s Honeybee and Whitley Neill Rhubarb.
-                More of a whiskey person? Take your pick from Glenfiddich, Talisker,
-                Bowmore 12&nbsp;Year, Maker&apos;s Mark, Monkey Shoulder and plenty
-                more besides.{' '}
+                What&apos;s on draught and behind the bar changes from time to
+                time, so the current list is on our drinks menu.{' '}
                 <Link
                   href="/drinks"
                   className="text-accent-text font-semibold hover:text-accent hover:underline"
@@ -221,7 +216,7 @@ export default function OurPubPage() {
                 seasons, and somehow gets better each time. In summer,
                 sunshine floods through the french doors, which open straight out
                 to the garden for that fresh, airy feel. In winter, the heating
-                keeps things properly cosy. It seats 26 and it&apos;s always a
+                keeps things properly cosy. It seats {PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated} and it&apos;s always a
                 lovely spot for a meal.
               </p>
               <p className="text-ink leading-relaxed">
@@ -297,7 +292,7 @@ export default function OurPubPage() {
                 the grass, and just look up. There&apos;s nothing quite like it.
               </p>
               <p className="text-ink leading-relaxed">
-                With 64&nbsp;seats across tables and open lawn, there&apos;s plenty
+                With {PRIVATE_HIRE_CAPACITY.spaces.gardenTerrace.seated}&nbsp;seats across tables and open lawn, there&apos;s plenty
                 of room whether you&apos;re here for a quiet pint, a family lunch
                 or a bigger group. It&apos;s dog-friendly too, so bring the whole
                 pack. On a warm afternoon, this{' '}
@@ -420,17 +415,17 @@ export default function OurPubPage() {
           {
             question: 'What drinks do you have on draught?',
             answer:
-              'We pour seven draught lines: Birra Moretti, Stella Artois, Fosters, Carlsberg, Guinness, Aspall cider and Inch\'s cider.',
+              'What\'s on draught changes from time to time, so the current list is on our drinks menu.',
           },
           {
             question: 'Can I hire the dining room for a private event?',
             answer:
-              'Yes. Our dining room seats 26 and is available for private hire, birthday parties, business meetings, retirement dos and more. You get exclusive use of the room with full bar access and the option to extend into the garden. Call us on 01753 682707 to discuss.',
+              `Yes. Our dining room seats ${PRIVATE_HIRE_CAPACITY.spaces.diningRoom.seated} and is available for private hire, birthday parties, business meetings, retirement dos and more. You get exclusive use of the room with full bar access and the option to extend into the garden. Call us on 01753 682707 to discuss.`,
           },
           {
             question: 'Is the pub dog-friendly?',
             answer:
-              'Absolutely. Dogs are welcome inside and in the garden. We provide water bowls and treats are available at the bar.',
+              `Yes. ${DOGS_WORDING}`,
           },
           {
             question: 'How much is the pool table?',
@@ -440,7 +435,7 @@ export default function OurPubPage() {
           {
             question: 'Do you have parking?',
             answer:
-              'We have 20 free parking spaces on site, all covered by CCTV and floodlit. We\'re just seven minutes from Heathrow Terminal 5.',
+              `We have ${PARKING.capacity} free parking spaces on site, all covered by CCTV and floodlit. We're just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
           },
         ]}
       />
@@ -448,7 +443,7 @@ export default function OurPubPage() {
       {/* CTA */}
       <CtaBand
         title="That's The Anchor"
-        copy="A proper village pub since 1751, seven minutes from Heathrow, with 20 free parking spaces and room for everyone. Come and see it for yourself."
+        copy={`A proper village pub since 1751, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, with ${PARKING.capacity} free parking spaces and room for everyone. Come and see it for yourself.`}
       >
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -461,7 +456,7 @@ export default function OurPubPage() {
             </DirectionsButton>
           </div>
           <p className="text-sm text-anchor-cream-text/70">
-            Just 7 minutes from Heathrow Terminal 5 &middot; Free parking &middot; Dogs welcome
+            Just {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 &middot; Free parking &middot; Dogs welcome
           </p>
           {/* /history, /about and /about/the-anchor-facts had no editorial
               inbound links at all, only nav and footer. This page is the

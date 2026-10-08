@@ -7,7 +7,7 @@ import { DirectionsButton } from '@/components/DirectionsButton'
 import { InteriorHero } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT, BRAND, HEATHROW_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -18,19 +18,20 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
+import { FAMILIES_WORDING } from '@/lib/approved-wording'
 
 export const metadata: Metadata = {
     title: 'Live Sport Pub Near Heathrow | 4 TVs',
     description: `Watch free-to-air sport on 4 TVs at The Anchor, Stanwell Moor: Six Nations, F1 and major tournaments when they're on terrestrial TV. Food, drinks and free parking.`,
     openGraph: {
         title: 'Watch Live Sport Near Heathrow, Major Tournaments on 4 TVs',
-        description: "Six Nations, World Cup, Euros and F1 when they're on terrestrial TV, shown on 4 TVs. Cold pints and free parking, 7 mins from Heathrow T5.",
+        description: `Six Nations, World Cup, Euros and F1 when they're on terrestrial TV, shown on 4 TVs. Cold pints and free parking, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5.`,
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Watch Live Sport Near Heathrow, Major Tournaments on 4 TVs',
-        description: "Six Nations, World Cup, Euros and F1 when they're on terrestrial TV, shown on 4 TVs. Free parking and great food, 7 mins from Heathrow T5.",
+        description: `Six Nations, World Cup, Euros and F1 when they're on terrestrial TV, shown on 4 TVs. Free parking and great food, ${HEATHROW_TIMES.terminal5} mins from Heathrow T5.`,
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -286,7 +287,7 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Are children allowed during matches?",
-                        answer: "Yes, until 8pm. However, please be aware that the pub can get loud and busy during major sporting events."
+                        answer: `Yes, at all hours. ${FAMILIES_WORDING} Big games can get loud and busy.`
                     },
                     {
                         question: "Do you show Six Nations rugby?",
@@ -306,7 +307,7 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Is there food available during live sport?",
-                        answer: "Yes, our full kitchen menu is available including stone-baked pizza, burgers, fish and chips, and pub classics. Book a table to guarantee your spot for big matches."
+                        answer: `Kitchen times vary by date, so check before you come or call ${CONTACT.phone}. When the kitchen's open you can order from the full menu. For a big game, book a table.`
                     }
                 ]}
             />

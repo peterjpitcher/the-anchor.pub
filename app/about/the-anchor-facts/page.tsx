@@ -6,9 +6,9 @@ import { JsonLd } from '@/components/JsonLd'
 import { InteriorHero } from '@/components/hero'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { getRouteLastModified } from '@/lib/sitemap-lastmod'
-import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
+import { BRAND, CONTACT, HEATHROW_TIMES, PRICE_RANGE } from '@/lib/constants'
 import { PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
-import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING } from '@/lib/approved-wording'
+import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING, CHILDREN_WELCOME_WORDING, DOGS_WORDING, FAMILIES_WORDING, PARKING_WORDING } from '@/lib/approved-wording'
 import {
   STATIC_BAR_HOURS_SUMMARY,
   STATIC_HOURS_REVIEW_NOTE,
@@ -46,9 +46,9 @@ const primaryFacts = [
   ['Cuisine', 'British pub food, pizza and Sunday roast.'],
   ['Bar hours', STATIC_BAR_HOURS_SUMMARY.replace('Bar hours: ', '')],
   ['Kitchen hours', STATIC_KITCHEN_HOURS_SUMMARY.replace('Kitchen hours: ', '')],
-  ['Parking', `${PARKING.capacity} free on-site customer parking spaces.`],
-  ['Dog policy', 'Dogs are welcome inside the pub and in the beer garden.'],
-  ['Family policy', 'Families are welcome for food, Sunday roast, private hire and hosted events.'],
+  ['Parking', PARKING_WORDING],
+  ['Dog policy', DOGS_WORDING],
+  ['Family policy', `${CHILDREN_WELCOME_WORDING} ${FAMILIES_WORDING}`],
   ['Accessibility', ACCESS_WORDING],
   ['Private hire capacity', `${PRIVATE_HIRE_CAPACITY_SUMMARY}. Larger events are by enquiry.`],
   ['Hosted event types', 'Quiz nights, Music Bingo, Cash Bingo, karaoke when listed, and terrestrial live sport.'],
@@ -109,7 +109,7 @@ const factsSchema = {
         longitude: CONTACT.coordinates.lng,
       },
       servesCuisine: ['British', 'Pub Food', 'Pizza', 'Sunday Roast'],
-      priceRange: '££',
+      priceRange: PRICE_RANGE,
       hasMenu: 'https://www.the-anchor.pub/food-menu',
       acceptsReservations: true,
       sameAs: socialLinks.map(([, href]) => href),

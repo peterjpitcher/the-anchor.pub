@@ -9,10 +9,11 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { HEATHROW_TIMES } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Baby Guinness Shot | Near Heathrow',
-  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. Ask the bar team for the current price. Popular for hen parties and celebrations.',
+  description: `Perfect Baby Guinness shots at The Anchor, just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Ask the bar team for the current price.`,
   alternates: {
     canonical: '/drinks/baby-guinness'
   },
@@ -42,7 +43,7 @@ export default function BabyGuinnessPage() {
         <div className="container">
           <article className="mx-auto">
             <h2 className="mb-6 text-h2 text-ink-strong">
-              Baby Guinness Shot at The Anchor - Heathrow Pub & Dining&apos;s Favourite Party Starter
+              Baby Guinness Shot: The Anchor&apos;s Favourite Party Starter
             </h2>
 
             <div className="mb-8 flex gap-4">
@@ -59,7 +60,7 @@ export default function BabyGuinnessPage() {
               </p>
               <p className="leading-relaxed text-ink-muted">
                 This clever visual trick makes it one of the most Instagram-worthy shots you can order,
-                and at The Anchor, we&apos;ve perfected the art of pouring them. Located just 7 minutes from
+                and at The Anchor, we&apos;ve perfected the art of pouring them. Located just {HEATHROW_TIMES.terminal5} minutes from
                 Heathrow Terminal 5, we&apos;re the perfect spot for pre-flight celebrations or welcoming
                 friends back from their travels.
               </p>
@@ -153,7 +154,7 @@ export default function BabyGuinnessPage() {
                 <CardBody>
                   <ul className="space-y-3 text-ink-muted">
                     <li><strong className="text-ink-strong">Better Value:</strong> Proper pub pricing without airport markup</li>
-                    <li><strong className="text-ink-strong">Perfect Location:</strong> Just 7 minutes from Terminal 5</li>
+                    <li><strong className="text-ink-strong">Perfect Location:</strong> Just {HEATHROW_TIMES.terminal5} minutes from Terminal 5</li>
                     <li><strong className="text-ink-strong">Experienced Staff:</strong> We make hundreds every month</li>
                     <li><strong className="text-ink-strong">A proper local:</strong> Friendly village pub, not a chain</li>
                     <li><strong className="text-ink-strong">Free Parking:</strong> No airport parking fees here!</li>
@@ -192,7 +193,7 @@ export default function BabyGuinnessPage() {
 
       <CtaBand
         title="Ready for a Baby Guinness?"
-        copy="Visit The Anchor today for the perfect shot. Just 7 minutes from Heathrow Terminal 5, with free parking."
+        copy={`Visit The Anchor today for the perfect shot. Just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, with free parking.`}
       >
         <BookTableButton
           source="baby_guinness_page"
