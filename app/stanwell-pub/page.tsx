@@ -64,7 +64,7 @@ export default async function StanwellPubPage() {
     "address": {
       "@type": "PostalAddress",
       "streetAddress": CONTACT.address.street,
-      "addressLocality": "Stanwell Moor, Stanwell",
+      "addressLocality": CONTACT.address.town,
       "addressRegion": "Surrey",
       "postalCode": CONTACT.address.postcode,
       "addressCountry": "GB"
@@ -109,8 +109,8 @@ export default async function StanwellPubPage() {
       />
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.the-anchor.pub' },
-          { name: 'Stanwell Pub', url: 'https://www.the-anchor.pub/stanwell-pub' }
+          { name: 'Home', url: '/' },
+          { name: 'Stanwell Pub', url: '/stanwell-pub' }
         ]}
       />
 

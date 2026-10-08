@@ -45,9 +45,9 @@ export default function KitchenTeamRecruitmentPage() {
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: 'Home', url: 'https://www.the-anchor.pub' },
-          { name: 'Join Our Team', url: 'https://www.the-anchor.pub/join-our-team' },
-          { name: role.title, url: `https://www.the-anchor.pub/join-our-team/${role.slug}` }
+          { name: 'Home', url: '/' },
+          { name: 'Join Our Team', url: '/join-our-team' },
+          { name: role.title, url: `/join-our-team/${role.slug}` }
         ]}
       />
       <script

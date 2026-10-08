@@ -12,15 +12,22 @@ import {
   VenueTourEnquiryLink,
 } from '@/components/private-hire/venue-tour'
 import { CONTACT } from '@/lib/constants'
+import { pageOpenGraph } from '@/lib/page-open-graph'
 
 // Indexable as of 26 August 2026 (owner decision 4). It was noindex, but an
 // interactive floor plan with real photographs of each hire space is exactly
 // what someone comparing venues wants to find, and nothing here duplicates
 // another page.
+const PAGE_TITLE = 'Interactive Venue Tour | Private Hire Spaces'
+const PAGE_DESCRIPTION =
+  'Walk round our private hire spaces on an interactive floor plan, with real photos of each room. Free parking, near Heathrow and Staines.'
+
 export const metadata: Metadata = {
-  title: 'Interactive Venue Tour | Private Hire Spaces',
-  description:
-    'Walk round our private hire spaces on an interactive floor plan, with real photos of each room. Free parking, near Heathrow and Staines.',
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  // Its own share block. Without one the page inherits the root layout's,
+  // which describes the homepage.
+  openGraph: pageOpenGraph({ title: 'Interactive Venue Tour', description: PAGE_DESCRIPTION }),
   alternates: { canonical: './' },
 }
 

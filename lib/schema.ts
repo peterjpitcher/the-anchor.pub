@@ -19,13 +19,12 @@ export const organizationSchema = {
     "The Anchor Pub Heathrow"
   ],
   "url": "https://www.the-anchor.pub",
-  "logo": "https://www.the-anchor.pub/images/the-anchor-pub-logo-black-transparent.png",
+  "logo": "https://www.the-anchor.pub/images/branding/the-anchor-pub-logo-black-transparent.png",
   "sameAs": [
     "https://www.facebook.com/theanchorpubsm/",
     "https://www.instagram.com/theanchor.pub/",
     "https://www.google.com/maps?cid=17928230944823812473",
     "https://www.tripadvisor.co.uk/Restaurant_Review-g477981-d9717898-Reviews-The_Anchor-Staines_Surrey_England.html",
-    "https://www.opentable.co.uk/r/the-anchor-stanwell-moor",
     "https://ratings.food.gov.uk/business/1110171/the-anchor-stanwell-moor"
   ],
   "address": {
@@ -433,7 +432,6 @@ export const createImageObjectSchema = (image: {
         "addressCountry": "GB"
       }
     },
-    "license": "https://www.the-anchor.pub/terms",
     "acquireLicensePage": "https://www.the-anchor.pub/find-us"
   }
 }

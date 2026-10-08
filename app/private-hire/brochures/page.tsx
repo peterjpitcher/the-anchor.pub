@@ -7,11 +7,18 @@ import { Button, Container, SectionHeading } from '@/components/ui'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { BrochureGrid } from '@/components/features/PrivateHire/BrochureGrid'
 import { CONTACT } from '@/lib/constants'
+import { pageOpenGraph } from '@/lib/page-open-graph'
+
+const PAGE_TITLE = 'Event Brochures'
+const PAGE_DESCRIPTION =
+  'Download our 2026 event brochures. Spaces, buffets, drinks packages and how to book, for birthdays, christenings, baby showers, wakes, corporate events and more.'
 
 export const metadata: Metadata = {
-  title: 'Event Brochures',
-  description:
-    'Download our 2026 event brochures. Spaces, buffets, drinks packages and how to book, for birthdays, christenings, baby showers, wakes, corporate events and more.',
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  // Its own share block. Without one the page inherits the root layout's,
+  // which describes the homepage.
+  openGraph: pageOpenGraph({ title: PAGE_TITLE, description: PAGE_DESCRIPTION }),
   alternates: { canonical: './' },
 }
 

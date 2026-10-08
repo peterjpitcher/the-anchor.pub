@@ -57,8 +57,8 @@ export default async function PubsInStanwellPage() {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 51.4592,
-      "longitude": -0.5147
+      "latitude": 51.462509,
+      "longitude": -0.502067
     },
     "telephone": "+441753682707",
     "priceRange": "££",
