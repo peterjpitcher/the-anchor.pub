@@ -44,8 +44,9 @@ import {
 } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
-import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead } from '@/lib/event-copy'
+import { getEventMetaDescription, getDisplayableFaqs, getEventHeroLead, getEventCategoryModifier } from '@/lib/event-copy'
 import { getEventSocialCopy } from '@/lib/event-social-copy'
+import { getEventAgeRule } from '@/lib/event-age-rule'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import type { Event } from '@/lib/api'
 import RelatedEvents from '@/components/events/RelatedEvents'
@@ -65,6 +66,19 @@ const EVENT_NOT_FOUND_METADATA: Metadata = {
   description: 'This event could not be found.',
 }
 
+/**
+ * The venue name as visible copy.
+ *
+ * The API sends the schema name, "The Anchor Pub", which is right in the
+ * JSON-LD and wrong in a sentence or an address block: docs/SSOT.md section 1
+ * keeps that form for page titles, alt text and schema names only. Any other
+ * venue name is printed as sent.
+ */
+function getVenueDisplayName(name: string | null | undefined): string {
+  const trimmed = name?.trim() || 'The Anchor'
+  return /^the anchor pub$/i.test(trimmed) ? 'The Anchor' : trimmed
+}
+
 /** An API timestamp, or undefined when the record holds nothing usable. */
 function toArticleTimestamp(value: string | null | undefined): string | undefined {
   if (typeof value !== 'string') return undefined
@@ -76,7 +90,11 @@ function toArticleTimestamp(value: string | null | undefined): string | undefine
 function getStatusNotice(
   status: ReturnType<typeof normalizeEventStatus>,
   pastEvent: boolean,
-  eventDate?: string
+  eventDate?: string,
+  // Whether a next date is linked directly under this message. "See below for
+  // the next dates" was printed with nothing below it on a category that had
+  // no night in the diary (site review finding C2-040).
+  hasNextDate: boolean = false
 ): {
   variant: 'info' | 'warning'
   title: string
@@ -103,12 +121,13 @@ function getStatusNotice(
   // Cancelled and postponed stay above this, because those nights never took
   // place, so "It took place on <date>" would be false for them.
   if (pastEvent) {
+    const onward = hasNextDate
+      ? 'The next date is below.'
+      : "See what's on for everything coming up."
     return {
       variant: 'info',
       title: 'This event has ended',
-      message: eventDate
-        ? `It took place on ${eventDate}. See below for the next dates.`
-        : 'See below for the next dates.'
+      message: eventDate ? `It took place on ${eventDate}. ${onward}` : onward
     }
   }
 
@@ -295,14 +314,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`,
     )
     const socialCopy = getEventSocialCopy(event)
-    const socialTitle = socialCopy?.title || event.metaTitle || event.name
+    // A night that is over, or is not happening, never shares its sales title.
+    // The record's metaTitle is written to sell ("Pub Quiz Night, Join Us!",
+    // "Join Our Christmas Pub Quiz Night in Stanwell Moor!"), and a link
+    // preview is cached and reshared long after the date (site review finding
+    // C2-023). Such a page shares the same dated title its <title> carries.
+    const headPresentation = getEventPresentation(event)
+    const isOverOrOff = headPresentation.phase !== 'upcoming'
+    const socialTitle = isOverOrOff
+      ? getEventPageTitle(event)
+      : socialCopy?.title || event.metaTitle || event.name
     // The Open Graph description states the date. getEventSocialCopy() writes a
     // relative phrase for the native share sheet ("is at The Anchor next Friday
     // from 7pm"), which is true on the day it renders and wrong the moment the
     // week turns. A link preview is cached by the platform and reshared for
     // weeks, so "next Friday" was still being shown after that Friday had gone.
     // The share sheet keeps the personal wording; the card carries the date.
-    const socialDescription = socialCopy
+    const socialDescription = socialCopy && !isOverOrOff
       ? `${event.name} at The Anchor, Stanwell Moor. ${formatEventDate(event.startDate)}, ${formatEventTime(event.startDate)}.`
       : getEventMetaDescription(
           event,
@@ -472,20 +500,32 @@ export default async function EventPage({ params }: Props) {
   // points at the format that replaced it rather than a generic listing.
   const discontinuedReplacement = getDiscontinuedFormatReplacement(event)
   const categoryPageUrl = discontinuedReplacement?.href ?? getCategoryPageUrl(event.category?.slug)
-  const categoryPageLabel =
-    discontinuedReplacement?.label ?? `All ${event.category?.name} dates`
+  // "Quiz Night" reads properly in front of "dates"; "Parties", "Celebrations"
+  // and "Tasting Nights" do not, so a plural category is named by itself.
+  const categoryModifier = getEventCategoryModifier(event.category)
+  const categoryAllLabel = categoryModifier
+    ? `All ${categoryModifier} dates`
+    : `All ${event.category?.name}`
+  const categoryPageLabel = discontinuedReplacement?.label ?? categoryAllLabel
   const safeAccessibilityNotes = getSafeAccessibilityNotes(event)
   const displayedFaqs = getDisplayableFaqs(
     event.faq || event.faqPage?.mainEntity || [],
     presentation.hasEnded,
   )
+  // The closing band's opening words. A cancelled night did not "finish".
+  const nightOverLine =
+    presentation.phase === 'cancelled' ? 'This night was cancelled.' : 'This night has finished.'
   const nextEventHref = nextInCategory ? getEventWebsitePath(nextInCategory) : null
   const nextEventDate = nextInCategory ? formatEventDate(nextInCategory.startDate) : null
 
   const eventDate = formatEventDate(event.startDate)
-  const statusNotice = getStatusNotice(status, isPastEvent, eventDate)
+  const statusNotice = getStatusNotice(status, isPastEvent, eventDate, Boolean(nextEventHref))
   const eventTime = formatEventTime(event.startDate)
-  const headerDoorTime = formatDoorTime(event.doorTime)
+  // "Arrive from 6:30pm" is an instruction, so it is only given for a night
+  // somebody can still arrive at (site review finding C2-023).
+  const headerDoorTime = presentation.phase === 'upcoming' ? formatDoorTime(event.doorTime) : null
+  // The format's age rule from docs/SSOT.md, for a kind of night that has one.
+  const ageRule = getEventAgeRule(event)
   const eventBookingCopy = getEventBookingCopy(event)
   const bookingModeLabel = eventBookingCopy.label || getEventBookingModeLabel(event.booking_mode)
   // One label for one action: the hero button, the form heading, the form's
@@ -548,6 +588,11 @@ export default async function EventPage({ params }: Props) {
           { label: eventTime, variant: 'default' as const }
         ]),
     ...(headerDoorTime ? [{ label: headerDoorTime, variant: 'default' as const }] : []),
+    // Stated while the night can still be booked, beside the button that books
+    // it. The details list below keeps it for the record afterwards.
+    ...(ageRule && presentation.phase === 'upcoming'
+      ? [{ label: ageRule, variant: 'default' as const }]
+      : []),
     // Gated on the same flag as the status row in the details list, so the hero
     // cannot say "Status: Sold Out" on a night the rest of the page treats as
     // finished.
@@ -610,8 +655,12 @@ export default async function EventPage({ params }: Props) {
     // Music Bingo"), so rendering category.name here would have printed the
     // same words twice under two labels. One row, human wording.
     { label: 'Category', value: event.category?.name },
-    { label: 'Performer', value: event.performer?.name || event.performer_name },
-    { label: 'Price', value: priceLabel }
+    // "Host", not "Performer": the record's performer is whoever runs the
+    // night, which on a quiz or a bingo night is the person asking the
+    // questions or calling the numbers.
+    { label: 'Host', value: event.performer?.name || event.performer_name },
+    { label: 'Price', value: priceLabel },
+    { label: 'Age', value: ageRule }
   ]
 
   return (
@@ -645,7 +694,7 @@ export default async function EventPage({ params }: Props) {
                 {nextEventHref && (
                   <p className="mt-2">
                     <Link href={nextEventHref} className="font-semibold underline">
-                      Next {event.category?.name || 'event'}: {nextEventDate}
+                      Next up: {nextInCategory?.name}, {nextEventDate}
                     </Link>
                   </p>
                 )}
@@ -914,12 +963,15 @@ export default async function EventPage({ params }: Props) {
                     href={getCategoryPageUrl(event.category.slug)}
                     className="inline-flex items-center text-sm text-accent-text hover:text-accent-text hover:underline mb-6"
                   >
-                    View all {event.category.name} events &rarr;
+                    {categoryAllLabel} &rarr;
                   </Link>
                 )}
 
-                {/* Cancellation Policy */}
-                {event.cancellation_policy && !eventBookingCopy.suppressRawCancellationPolicy && (
+                {/* Cancellation Policy. Upcoming only: it is written in the
+                    present tense about a booking nobody can now make or cancel,
+                    so it goes with the rest of the booking surfaces once the
+                    night is over or off. */}
+                {presentation.showBookingPolicy && event.cancellation_policy && !eventBookingCopy.suppressRawCancellationPolicy && (
                   <div className="mt-4 mb-6 p-3 rounded-md bg-surface-sunk border border-line">
                     <p className="text-xs font-medium text-accent-text mb-1">Cancellation Policy</p>
                     <p className="text-sm text-ink-muted">{event.cancellation_policy}</p>
@@ -938,7 +990,7 @@ export default async function EventPage({ params }: Props) {
                     <div>
                       <h2 className="text-xl md:text-2xl text-accent-text mb-3 md:mb-4">Location</h2>
                       <address className="not-italic text-ink-muted text-base">
-                        <p className="font-semibold">{event.location.name}</p>
+                        <p className="font-semibold">{getVenueDisplayName(event.location.name)}</p>
                         <p>{event.location.address.streetAddress}</p>
                         <p>{event.location.address.addressLocality}, {event.location.address.addressRegion}</p>
                         <p>{event.location.address.postalCode}</p>
@@ -1078,11 +1130,9 @@ export default async function EventPage({ params }: Props) {
           copy={
             discontinuedReplacement
               ? discontinuedReplacement.copy
-              : nextEventDate && event.category?.name
-                ? `This night has finished. The next ${event.category.name} is ${nextEventDate}.`
-                : event.category?.name
-                  ? `This night has finished. See when ${event.category.name} is on next, or browse everything coming up at The Anchor.`
-                  : 'This night has finished. Browse everything coming up at The Anchor.'
+              : nextEventDate && nextInCategory
+                ? `${nightOverLine} The next one is ${nextInCategory.name} on ${nextEventDate}.`
+                : `${nightOverLine} Browse everything coming up at The Anchor.`
           }
         >
           {nextEventHref ? (

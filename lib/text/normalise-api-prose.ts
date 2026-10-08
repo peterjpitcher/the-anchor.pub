@@ -317,6 +317,61 @@ export function normaliseFaqProse<T extends ProseFaqEntry>(
   })
 }
 
+const MARKDOWN_LINK = /\[([^\]\n]+)\]\((?:[^()\s]|\([^()\s]*\))*\)/g
+const MARKDOWN_BOLD_PAIR = /(\*\*|__)(?=\S)([^\n]*?\S)\1/g
+const FIELD_LABEL_PREFIX = /^\s*(?:long|short|meta|event)?\s*description\s*:\s*/i
+
+/**
+ * Take the formatting marks out of one piece of event copy.
+ *
+ * Event pages print their copy as plain text, so Markdown typed or generated
+ * in the management app is shown as typed. Three indexed past pages served
+ * "**Snowball Finale**", "[Grab tickets here](https://...)" and a description
+ * that opened "Long description: The Anchor transforms..." on 7 October 2026
+ * (site review finding C2-041).
+ *
+ * A link keeps its label and loses its address, because a plain paragraph
+ * cannot carry one. Bold marks go and their words stay. A field label pasted
+ * in at the very start goes. Nothing else is touched: this is not a Markdown
+ * renderer, and a single asterisk or underscore is left exactly where it is.
+ *
+ * Kept apart from normaliseProseField on purpose. That function also cleans
+ * menus and business copy, where an asterisk can be a footnote mark.
+ */
+export function stripEventMarkup(value: string): string
+export function stripEventMarkup(value: string | null | undefined): string | null | undefined
+export function stripEventMarkup(value: string | null | undefined): string | null | undefined {
+  if (typeof value !== 'string') return value
+  if (!/\*\*|__|\]\(|description\s*:/i.test(value)) return value
+  if (!isNormalisableProse(value)) return value
+
+  return value
+    .replace(MARKDOWN_LINK, '$1')
+    .replace(MARKDOWN_BOLD_PAIR, '$2')
+    // A bold mark left without its partner is still a mark nobody should see.
+    .replace(/\*\*/g, '')
+    .replace(FIELD_LABEL_PREFIX, '')
+}
+
+/** The same marks, out of an event's questions and answers. */
+function stripFaqMarkup<T extends ProseFaqEntry>(faqs: T[]): T[] {
+  return faqs.map((faq) => {
+    if (!faq || typeof faq !== 'object') return faq
+    const answer = faq.acceptedAnswer
+    const hasAnswerText = Boolean(answer) && typeof answer.text === 'string'
+    return {
+      ...faq,
+      name: typeof faq.name === 'string' ? stripEventMarkup(faq.name) : faq.name,
+      ...(hasAnswerText ? { acceptedAnswer: { ...answer, text: stripEventMarkup(answer.text) } } : {}),
+    } as T
+  })
+}
+
+/** Both event-only cleaners, in the order they must run. */
+function normaliseEventField(value: string): string {
+  return stripEventMarkup(normaliseProseField(value))
+}
+
 /**
  * Normalise every prose field on an event object in one call, for wiring at the
  * point an event is rendered.
@@ -334,25 +389,27 @@ export function normaliseEventProse<T extends object>(event: T): T {
   for (const field of NORMALISED_PROSE_FIELDS) {
     const value = next[field]
     if (typeof value === 'string') {
-      next[field] = normaliseProseField(value)
+      next[field] = normaliseEventField(value)
     }
   }
 
   const highlights = next.highlights
   if (Array.isArray(highlights)) {
-    next.highlights = normaliseProseList(highlights as string[])
+    next.highlights = (highlights as unknown[]).map((entry) =>
+      typeof entry === 'string' ? normaliseEventField(entry) : entry,
+    )
   }
 
   const faq = next.faq
   if (Array.isArray(faq)) {
-    next.faq = normaliseFaqProse(faq as ProseFaqEntry[])
+    next.faq = stripFaqMarkup(normaliseFaqProse(faq as ProseFaqEntry[]))
   }
 
   const faqPage = next.faqPage as { mainEntity?: unknown } | null | undefined
   if (faqPage && typeof faqPage === 'object' && Array.isArray(faqPage.mainEntity)) {
     next.faqPage = {
       ...faqPage,
-      mainEntity: normaliseFaqProse(faqPage.mainEntity as ProseFaqEntry[]),
+      mainEntity: stripFaqMarkup(normaliseFaqProse(faqPage.mainEntity as ProseFaqEntry[])),
     }
   }
 

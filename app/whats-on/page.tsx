@@ -36,6 +36,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
+import { getEndedEventSummary } from '@/lib/event-copy'
 
 export const metadata: Metadata = {
   // Short enough that the root layout's " | The Anchor" suffix still fits inside
@@ -390,7 +391,7 @@ export default async function WhatsOnPage() {
         <Container>
           <SectionHeading
             kicker="Seasonal occasions"
-            title="Plan ahead for the dates people search for"
+            title="Dates to plan ahead for"
             lead="Guides for the seasonal pub dates near Heathrow, from bank holiday weekends to New Year's Eve."
           />
 
@@ -437,7 +438,11 @@ export default async function WhatsOnPage() {
                       {event.name}
                     </h3>
                     <p className="mt-2 text-sm text-ink-muted">
-                      {event.brief || event.shortDescription || event.description || 'See details from this recent event at The Anchor.'}
+                      {/* Never the stored sales line on a finished night: "Join
+                          Nikki for two themed rounds" under a date that has
+                          gone. getEndedEventSummary keeps a summary only when
+                          it is not an invitation. */}
+                      {getEndedEventSummary(event) || 'See the details from this night at The Anchor.'}
                     </p>
                   </Card>
                 </Link>
@@ -483,8 +488,8 @@ export default async function WhatsOnPage() {
       <OrganicSearchClusterLinks
         cluster="events"
         currentPath="/whats-on"
-        title="Find the right event page"
-        intro="Use these pages for live sport, quiz night and Music Bingo searches before you reserve a table."
+        title="More to do at The Anchor"
+        intro="Live sport, quiz night and Music Bingo each have a page of their own, with the dates and how to book."
       />
 
       {/* 5. CtaBand (§7.3.5) */}
