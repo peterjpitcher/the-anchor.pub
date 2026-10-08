@@ -630,6 +630,104 @@ describe.each([
   }
 })
 
+// The management app sends a stable `code` on its payment routes (its PR #198).
+// A refusal the guest can act on is told to them in our words, logged as a
+// refusal, and is not an outage: nobody is emailed and the pub is not texted.
+describe.each([
+  {
+    name: 'POST /api/event-bookings/paypal/create-order, hold expired (410)',
+    load: () => import('@/app/api/event-bookings/paypal/create-order/route'),
+    status: 410,
+    upstream: {
+      success: false,
+      error: 'hold_expired',
+      code: 'hold_expired',
+      message: 'The time to pay for these places has run out. Please start your booking again, or call 01753 682707.'
+    },
+    code: 'hold_expired',
+    sentence: 'The time to pay for these places has run out. Please start your booking again. Call 01753 682707 if you need help.'
+  },
+  {
+    name: 'POST /api/table-bookings/paypal/create-order, deposit already paid (409)',
+    load: () => import('@/app/api/table-bookings/paypal/create-order/route'),
+    status: 409,
+    upstream: { success: false, error: 'Deposit has already been paid for this booking', code: 'DEPOSIT_ALREADY_PAID' },
+    code: 'DEPOSIT_ALREADY_PAID',
+    sentence: 'The deposit for this booking has already been paid. Call 01753 682707 if you need help.'
+  },
+  {
+    name: 'POST /api/table-bookings/paypal/create-order, time to pay ran out (409)',
+    load: () => import('@/app/api/table-bookings/paypal/create-order/route'),
+    status: 409,
+    upstream: { success: false, error: 'This payment link has expired.', code: 'PAYMENT_HOLD_EXPIRED' },
+    code: 'PAYMENT_HOLD_EXPIRED',
+    sentence: 'The time to pay this deposit has run out. Please start your booking again. Call 01753 682707 if you need help.'
+  }
+])('$name', ({ load, status, upstream, code, sentence }) => {
+  it('tells the guest in our words, logs a refusal, and alerts nobody', async () => {
+    management = () => json(upstream, status)
+
+    const { POST } = await load()
+    const answer = await read(await POST(jsonRequest({ bookingId: BOOKING_ID })))
+
+    expect(answer.status).toBe(status)
+    // `code` is for the form to branch on. `error` is the only thing a guest is
+    // shown, and it is our sentence with the number, never the code or the
+    // management app's wording.
+    expect(answer.body).toEqual({ success: false, code, error: sentence })
+    expect(answer.body.error).toContain(PHONE_NUMBER)
+    expect(answer.body.error).not.toContain(code)
+    if (upstream.error !== code) expect(answer.body.error).not.toContain(upstream.error.replace(/\.$/, ''))
+    expect(log.lines()).toEqual([expect.objectContaining({ kind: 'refused', upstreamCode: code, alert: 'none' })])
+    expect(mockSendAlertEmail).not.toHaveBeenCalled()
+    expect(managementCalls.filter((call) => call.url.endsWith('/website/payment-failure-alert'))).toHaveLength(0)
+    expectNoPersonalData(log.everything(), PERSONAL)
+  })
+})
+
+describe('a payment the booking system could not take, told apart by its code', () => {
+  it('a table deposit PayPal could not open (502, PAYPAL_ORDER_FAILED) is told to the guest and reported', async () => {
+    management = (url) =>
+      url.endsWith('/website/payment-failure-alert')
+        ? json({ success: true, texted: true })
+        : json({ success: false, error: 'Failed to create PayPal order. Please try again.', code: 'PAYPAL_ORDER_FAILED' }, 502)
+
+    const { POST } = await import('@/app/api/table-bookings/paypal/create-order/route')
+    const answer = await read(await POST(jsonRequest({ bookingId: BOOKING_ID })))
+
+    expect(answer.status).toBe(502)
+    expectGuestTold(answer)
+    expect(answer.body.code).toBe('PAYPAL_ORDER_FAILED')
+    expect(answer.body.error).not.toContain('Failed to create PayPal order')
+    expectReported('api/table-bookings/paypal/create-order', { payment: true })
+    expect(log.lines()[0]).toMatchObject({ kind: 'failed', upstreamCode: 'PAYPAL_ORDER_FAILED' })
+  })
+
+  it('a captured deposit that could not be matched (502, CAPTURED_AMOUNT_MISMATCH) says ring before paying again', async () => {
+    management = (url) =>
+      url.endsWith('/website/payment-failure-alert')
+        ? json({ success: true, texted: true })
+        : json(
+            {
+              success: false,
+              error: 'Payment captured but amount did not match the booking. Please contact support; do not retry.',
+              code: 'CAPTURED_AMOUNT_MISMATCH'
+            },
+            502
+          )
+
+    const { POST } = await import('@/app/api/table-bookings/paypal/capture-order/route')
+    const answer = await read(await POST(jsonRequest({ bookingId: BOOKING_ID, orderId: PAYPAL_ORDER_ID })))
+
+    expect(answer.status).toBe(502)
+    expectGuestTold(answer)
+    expect(answer.body.error).toContain('before paying again')
+    expect(answer.body.error).not.toMatch(/support|do not retry/)
+    expectReported('api/table-bookings/paypal/capture-order', { payment: true })
+    expect(log.lines()[0]).toMatchObject({ upstreamCode: 'CAPTURED_AMOUNT_MISMATCH' })
+  })
+})
+
 // ── Private hire ────────────────────────────────────────────────────────────
 
 describe.each([
@@ -710,6 +808,78 @@ describe.each([
     expect(answer.body.error.message).toBe('Please enter a valid email address. Call 01753 682707 if you need help.')
     expect(log.lines()[0]).toMatchObject({ kind: 'refused', alert: 'none' })
     expect(mockSendAlertEmail).not.toHaveBeenCalled()
+  })
+
+  // The management app now sends a stable code on this route. The same three
+  // statuses mean different things depending on the code beside them.
+  it('reads VALIDATION_ERROR as a detail the guest can correct', async () => {
+    management = () => json({ success: false, error: 'Please enter the number of guests', code: 'VALIDATION_ERROR' }, 400)
+
+    const answer = await post()
+
+    expect(answer.status).toBe(400)
+    expect(answer.body.error).toEqual({
+      code: 'VALIDATION_ERROR',
+      message: 'Please enter the number of guests. Call 01753 682707 if you need help.'
+    })
+    expect(log.lines()[0]).toMatchObject({ kind: 'refused', upstreamCode: 'VALIDATION_ERROR', alert: 'none' })
+    expect(mockSendAlertEmail).not.toHaveBeenCalled()
+  })
+
+  it('a 400 that is our fault (IDEMPOTENCY_KEY_REQUIRED) is not handed to the guest to fix: it is emailed and reported', async () => {
+    management = () => json({ success: false, error: 'Missing Idempotency-Key header', code: 'IDEMPOTENCY_KEY_REQUIRED' }, 400)
+
+    const answer = await post()
+
+    // The enquiry reached a person, so the guest is told it arrived.
+    expect(answer.status).toBe(200)
+    expect(answer.body).toMatchObject({ success: true, state: 'enquiry_emailed' })
+    expect(answer.text).not.toContain('Idempotency')
+    expect(mockSendEnquiryFallbackEmail).toHaveBeenCalledTimes(1)
+    expectReported('api/public/private-booking')
+    expect(log.lines()[0]).toMatchObject({ kind: 'failed', upstreamCode: 'IDEMPOTENCY_KEY_REQUIRED' })
+  })
+
+  it('that same fault with the fallback email down is told to the guest, with the number', async () => {
+    management = () => json({ success: false, error: 'Missing Idempotency-Key header', code: 'IDEMPOTENCY_KEY_REQUIRED' }, 400)
+    mockSendEnquiryFallbackEmail.mockResolvedValue({ sent: false, error: `Microsoft rejected ${GUEST.email}` })
+
+    const answer = await post()
+
+    expect(answer.status).toBe(400)
+    expect(answer.body.success).toBe(false)
+    expectGuestTold(answer)
+    expect(answer.text).not.toContain('Idempotency')
+    expect(answer.text).not.toMatch(/check them/i)
+    expectReported('api/public/private-booking')
+    expect(log.lines().map((line) => line.reason)).toEqual(['UPSTREAM_NOT_OK', 'ENQUIRY_LOST_FALLBACK_EMAIL_FAILED'])
+  })
+
+  it.each([
+    ['IDEMPOTENCY_KEY_IN_PROGRESS', 'This request is already being processed. Please retry shortly.'],
+    ['IDEMPOTENCY_KEY_CONFLICT', 'Idempotency key already used with a different request payload']
+  ])('a submission that is already there (%s) is not emailed a second time', async (code, upstream) => {
+    management = () => json({ success: false, error: upstream, code }, 409)
+
+    const answer = await post()
+
+    expect(answer.status).toBe(409)
+    expectGuestTold(answer)
+    expect(answer.text).not.toContain(upstream)
+    expect(mockSendEnquiryFallbackEmail).not.toHaveBeenCalled()
+    expect(log.lines()).toEqual([expect.objectContaining({ kind: 'refused', upstreamCode: code, alert: 'none' })])
+    expect(mockSendAlertEmail).not.toHaveBeenCalled()
+  })
+
+  it('a 409 with no code is still read as "already there", as before', async () => {
+    management = () => json({ success: false, error: 'Conflict' }, 409)
+
+    const answer = await post()
+
+    expect(answer.status).toBe(409)
+    expectGuestTold(answer)
+    expect(mockSendEnquiryFallbackEmail).not.toHaveBeenCalled()
+    expect(log.lines()[0]).toMatchObject({ kind: 'refused', alert: 'none' })
   })
 })
 
@@ -890,6 +1060,46 @@ describe('POST /api/enquiry/christmas', () => {
     expect(answer.body).toMatchObject({ success: true, delivery: 'email_fallback' })
     expectReported('api/enquiry/christmas')
     expect(log.lines()[0]).toMatchObject({ reason: 'API_KEY_MISSING', status: null })
+  })
+
+  // A 409 used to be retried whatever it meant. The code now says which 409 it
+  // is: a key already used for a different enquiry cannot heal by waiting.
+  it('does not retry a conflict the code says cannot heal, and still gets the enquiry to a person', async () => {
+    management = () =>
+      json({ success: false, error: 'Idempotency key already used with a different request payload', code: 'IDEMPOTENCY_KEY_CONFLICT' }, 409)
+
+    const answer = await post()
+
+    expect(managementCalls.filter((call) => call.url.endsWith('/external/create-booking'))).toHaveLength(1)
+    expect(answer.status).toBe(200)
+    expect(answer.body).toMatchObject({ success: true, delivery: 'email_fallback' })
+    expectReported('api/enquiry/christmas')
+    expect(log.lines()[0]).toMatchObject({ status: 409, reason: 'UPSTREAM_NOT_OK', upstreamCode: 'IDEMPOTENCY_KEY_CONFLICT' })
+  })
+
+  it('that conflict with the fallback email down is told to the guest and reported as a lost enquiry', async () => {
+    management = () =>
+      json({ success: false, error: 'Idempotency key already used with a different request payload', code: 'IDEMPOTENCY_KEY_CONFLICT' }, 409)
+    graphWorks = false
+
+    const answer = await post()
+
+    expect(answer.status).toBeGreaterThanOrEqual(500)
+    expect(answer.body.success).toBe(false)
+    expectGuestTold(answer)
+    expect(answer.text).not.toMatch(/Idempotency|IDEMPOTENCY/)
+    expectReported('api/enquiry/christmas')
+    expect(log.lines().map((line) => line.reason)).toEqual(['UPSTREAM_NOT_OK', 'ENQUIRY_LOST_FALLBACK_EMAIL_FAILED'])
+  })
+
+  it('keeps only a code from the answer for the log, never a sentence', async () => {
+    management = () => json({ success: false, error: `No booking for ${GUEST.email}`, code: `Ring ${GUEST.phone}` }, 400)
+
+    const answer = await post()
+
+    expect(answer.body).toMatchObject({ success: true, delivery: 'email_fallback' })
+    expect(log.lines()[0]).not.toHaveProperty('upstreamCode')
+    expectNoPersonalData(log.everything(), PERSONAL)
   })
 })
 
