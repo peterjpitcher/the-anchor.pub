@@ -187,7 +187,7 @@ export default function AnniversaryPartiesPage() {
                                 Hotel function rooms feel formal and the bill adds up quickly. A party at home means you are cooking, hosting, and clearing up well past midnight on your own anniversary. A pub gives you the atmosphere, the catering, and the bar, without the aftermath.
                             </p>
                             <p>
-                                At The Anchor, an anniversary feels like a proper celebration rather than a corporate booking. Guests can spread between the dining room and the beer garden, order from the bar at their own pace, and stay as late as the evening takes them. There is no ticking clock and no room turnover pressure.
+                                At The Anchor, an anniversary feels like a proper celebration rather than a corporate booking. Guests can spread between the dining room and the beer garden and order from the bar at their own pace. A finish after 10pm is by arrangement, so tell us the times you have in mind.
                             </p>
                             <p>
                                 We are a genuine village pub in Stanwell Moor, not a chain venue. Our events coordinator works with you on the details, from the welcome drinks to the timing of the food, so you can relax and enjoy the day you are marking.
@@ -283,7 +283,7 @@ export default function AnniversaryPartiesPage() {
                     },
                     {
                         question: "Can we bring an anniversary cake?",
-                        answer: "Please do. We will store it in our kitchen until you are ready, and we can provide plates, napkins, and a knife for cutting. Let us know when you would like it brought out and we will time it perfectly."
+                        answer: "Please do. We will store it in our kitchen until you are ready, and we can provide plates, napkins, and a knife for cutting. Let us know when you would like it brought out and we will time it perfectly. We will ask whoever brings it to sign our outside-food waiver."
                     },
                     {
                         question: "Can we show a slideshow or play music?",

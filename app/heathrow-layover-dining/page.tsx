@@ -108,7 +108,7 @@ export default function HeathrowLayoverDiningPage() {
             {[
               { title: 'Food at Terminal 5 Heathrow - a calmer option', body: 'We are 7 minutes from Terminal 5 with quick table service and pre-booked meals. Skip terminal queues and enjoy proper dining before you return to security.' },
               { title: 'Food in Terminal 3 Heathrow - leave the airport', body: 'Terminal 3 guests reach us in around 11 minutes. Let us know your flight time and we will pace your meal for a smooth return to departures.' },
-              { title: 'Terminal 2 & 4 layovers', body: 'Allow 12-14 minutes from Terminals 2 and 4. We will coordinate taxi timing so you can dine without stress and still make it back for boarding.' },
+              { title: 'Terminal 2 & 4 layovers', body: 'Allow 12-14 minutes from Terminals 2 and 4. Ask at the bar for a taxi number, and book your own ride back in good time for boarding.' },
               { title: 'Book ahead for express service', body: 'Share your terminal and boarding time when you book. We will have a table ready and time mains to land within minutes of your arrival.' }
             ].map(box => (
               <Card key={box.title} accent>
@@ -133,7 +133,7 @@ export default function HeathrowLayoverDiningPage() {
             {[
               { title: 'In & Out in 90 Minutes', description: 'Let us know your flight time when you book and we’ll pace courses so you can dine without clock-watching.' },
               { title: 'The Full Menu', description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.' },
-              { title: 'Free Parking & Easy Transfers', description: 'Park free for as long as you are with us, no registering and no time limit. Need a cab back? We’ll organise one with our trusted local partners.' },
+              { title: 'Free Parking & Easy Transfers', description: 'Park free for as long as you are with us, no registering and no time limit. Need a cab back? Ask at the bar and we’ll give you a taxi number. You’ll need to make your own arrangements.' },
               { title: 'Luggage-Friendly Seating', description: 'Plenty of space at tables for hand luggage and suitcases, we’ll help you keep everything nearby and secure.' },
               { title: 'Work-Friendly Amenities', description: 'Free WiFi, plug sockets, and quiet corners when you need to catch up on email or plan the onward journey.' },
               { title: 'Perfect for Crew & Families', description: 'Airline staff, business travellers, and families rate us for group menus, kids’ portions, and celebratory welcome-back drinks.' }
@@ -163,7 +163,7 @@ export default function HeathrowLayoverDiningPage() {
                   <li>Taxi from Terminal 5 – 7 minutes</li>
                   <li>Let the team know your timing so mains land within minutes of sitting down</li>
                   <li>Coffee &amp; dessert to-go for airport return</li>
-                  <li>Taxi booked back 30 minutes before boarding gate closes</li>
+                  <li>Book your own taxi back for 30 minutes before the boarding gate closes</li>
                 </ul>
               </CardBody>
             </Card>
@@ -267,7 +267,7 @@ export default function HeathrowLayoverDiningPage() {
 
       <CtaBand
         title="Ready to Book Your Layover Meal?"
-        copy="Tell us your flight number, party size, and arrival time. We’ll confirm the best itinerary, reserve parking, and keep a taxi on standby so you return to Heathrow relaxed."
+        copy="Tell us your flight number, party size, and arrival time. We’ll confirm the best itinerary and reserve parking, and give you a taxi number so you can book your own ride back to Heathrow."
       >
         <BookTableButton
           source="layover_footer"

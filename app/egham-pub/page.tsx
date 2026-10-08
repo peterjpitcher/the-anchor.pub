@@ -279,7 +279,7 @@ export default function EghamPubPage() {
                 <h3 className="font-display text-h4 text-ink-strong mb-4">Transport Options</h3>
                 <div className="text-center">
                   <p className="font-semibold text-ink mb-2">Taxi Services</p>
-                  <p className="text-ink-muted">We can arrange taxis back to Egham/Royal Holloway</p>
+                  <p className="text-ink-muted">Ask at the bar and we&apos;ll give you a taxi number. You&apos;ll need to make your own arrangements.</p>
                 </div>
               </CardBody>
             </Card>

@@ -243,8 +243,8 @@ export default function Terminal2Page() {
                     </ul>
                   </div>
                   <div className="p-4 bg-surface-sunk rounded-sm border border-line">
-                    <p className="font-semibold text-accent-text mb-2">Pre-book Return:</p>
-                    <p className="text-sm text-ink-muted">We can arrange your return taxi - just ask at the bar!</p>
+                    <p className="font-semibold text-accent-text mb-2">Return taxi:</p>
+                    <p className="text-sm text-ink-muted">Ask at the bar and we&apos;ll give you a taxi number. You&apos;ll need to make your own arrangements.</p>
                   </div>
                 </div>
               </div>

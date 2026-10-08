@@ -345,7 +345,7 @@ export default function ChristeningsPage() {
                 faqs={[
                     {
                         question: "Can we bring a celebration cake?",
-                        answer: "Yes, absolutely. You are very welcome to bring your own cake. We will provide a knife, plates, and napkins. Just let us know in advance so we can keep it safe in our kitchen until it's needed."
+                        answer: "Yes, absolutely. You are very welcome to bring your own cake. We will provide a knife, plates, and napkins. Just let us know in advance so we can keep it safe in our kitchen until it's needed. We'll ask whoever brings it to sign our outside-food waiver."
                     },
                     {
                         question: "What are the decoration rules?",

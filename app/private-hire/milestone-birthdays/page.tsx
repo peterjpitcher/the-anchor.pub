@@ -144,7 +144,7 @@ export default function MilestoneBirthdaysPage() {
                             <Card hover className="h-full">
                                 <CardBody>
                                     <h3 className="font-display text-h4 mb-2 text-ink-strong">The Big Bash</h3>
-                                    <p className="text-ink-muted mb-4">Hire our main function area. Clear the tables for a dance floor, set up a DJ, and party until late(ish).</p>
+                                    <p className="text-ink-muted mb-4">Hire our main function area. Clear the tables for a dance floor and set up a DJ. A finish after 10pm is by arrangement.</p>
                                     <span className="text-sm font-semibold text-accent-text">Best for 40ths & 50ths</span>
                                 </CardBody>
                             </Card>
@@ -239,7 +239,7 @@ export default function MilestoneBirthdaysPage() {
                     },
                     {
                         question: "What time can the party go on until?",
-                        answer: "Our standard license allows for music and alcohol service until late (please check specific day times). We can advise on specific finishing times when you book."
+                        answer: "An evening private hire can run later than 10pm, by arrangement. Tell us the finishing time you have in mind when you book."
                     },
                     {
                         question: "Can we set up early?",

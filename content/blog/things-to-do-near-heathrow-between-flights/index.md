@@ -107,7 +107,7 @@ The Anchor is 7–15 minutes from any terminal by taxi or Uber. From Stanwell Mo
 - Terminal 4: ~10–12 minutes
 - Terminals 2 & 3: ~12–15 minutes
 
-Staff at The Anchor can help you call a taxi if needed. Uber works reliably from TW19 6AQ.
+Ask at the bar and we'll give you a taxi number. You'll need to make your own arrangements. Uber works reliably from TW19 6AQ.
 
 ---
 
