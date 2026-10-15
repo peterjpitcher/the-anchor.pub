@@ -3,7 +3,7 @@ title: "Cheap Heathrow Parking Alternatives"
 slug: cheap-heathrow-parking-alternatives
 description: "Heathrow parking compared: official car parks, meet-and-greet, hotel deals and off-airport options, and what to check before you book."
 date: "2026-02-18"
-updated: '2026-10-08'
+updated: '2026-10-15'
 author: "Billy"
 keywords:
   - cheap parking near heathrow
@@ -70,7 +70,7 @@ The Anchor sits on Horton Road in Stanwell Moor. By car it's 7 minutes from Term
 
 - **Live prices:** the current rates are on [our Heathrow parking page](/heathrow-parking)
 - **Book online:** pay by PayPal or card
-- **Keep your keys:** you park the car yourself, and the car park has CCTV and is floodlit
+- **Keep your keys:** you park the car yourself, and the car park has CCTV
 - **Your own transfer:** you arrange your own way to the terminal. Ask at the bar and we'll give you a taxi number. Bus route 442 stops by the pub and runs from Terminal 5
 - **Collect at any hour:** pick your car up whenever you get back
 - **The pub itself:** when we're open, you're welcome inside for food, a coffee or the free WiFi. We don't do breakfast, so check [our opening hours](/find-us) before you plan on it
@@ -114,7 +114,7 @@ Terminals 2 and 3 are 11 minutes away by car, and Terminal 4 is 12.
 
 ### Is my vehicle safe overnight?
 
-The car park has CCTV and is floodlit, and you keep your keys. You can collect your car at any hour.
+The car park has CCTV, and you keep your keys. You can collect your car at any hour.
 
 ### Do you offer electric vehicle charging?
 

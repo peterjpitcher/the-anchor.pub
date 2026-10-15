@@ -242,7 +242,8 @@
     "parking": {
       "free_spaces": 20,
       "RESOLVED": "Confirmed 2026-03-22: 20 is correct. Verified 2026-08-15: lib/schema.ts ParkingFacility numberOfSpaces already reads 20 and every page states 20. No outstanding action.",
-      "description": "Free on-site parking for pub guests. No fees, no time limit while visiting. Level surface, close to entrance. CCTV and floodlit.",
+      "description": "Free on-site parking for pub guests. No fees, no time limit while visiting. Level surface, close to entrance. CCTV.",
+      "floodlights": "The floodlights are not working as of 2026-10-15 (owner: the floodlights don't work right now). Never describe the car park as floodlit or lit until the owner says they are fixed.",
       "extended": "Additional parking available nearby",
       "marked_disabled_bay": false,
       "marked_disabled_bay_note": "There is no marked disabled parking bay (owner-confirmed 2026-10-07). Never write disabled parking, a disabled bay or Blue Badge bays.",
@@ -1526,7 +1527,6 @@
     "collection": "Parking customers can collect their car at any hour (owner-confirmed 2026-10-07).",
     "features": [
       "CCTV",
-      "Floodlit",
       "Level surface"
     ],
     "payment_methods": [

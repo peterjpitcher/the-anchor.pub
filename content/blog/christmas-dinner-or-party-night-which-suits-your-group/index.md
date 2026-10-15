@@ -2,7 +2,7 @@
 title: "Christmas Dinner or Party Night Near Heathrow: Which to Book"
 description: "An honest comparison of a hotel Christmas party night and a sit-down Christmas dinner at a village pub near Heathrow, so you book the right one for your group."
 date: "2026-08-10"
-updated: '2026-10-08'
+updated: '2026-10-15'
 author: "The Anchor Team"
 keywords:
   - christmas dinner in heathrow
@@ -116,7 +116,7 @@ That becomes private hire rather than a table booking. Email manager@the-anchor.
 
 ### How far is it from Heathrow, and is parking free?
 
-Terminal 5 is about 7 minutes by car (3.8 miles), Terminals 2 and 3 about 11 minutes, Terminal 4 about 12. Parking is free: 20 spaces on site, level, floodlit, with CCTV and no time limit while you are visiting.
+Terminal 5 is about 7 minutes by car (3.8 miles), Terminals 2 and 3 about 11 minutes, Terminal 4 about 12. Parking is free: 20 spaces on site, level, with CCTV and no time limit while you are visiting.
 
 ### When can we book Christmas dinner?
 

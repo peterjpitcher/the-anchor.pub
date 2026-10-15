@@ -83,7 +83,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Heathrow Parking Guides | The Anchor Stanwell Moor',
     metaDescription: `Guides to parking near Heathrow from The Anchor in Stanwell Moor, ${HEATHROW_TIMES.rangeWords} by car from any terminal.`,
     heroContent: 'Flying from Heathrow and working out where to leave the car? These guides walk you through it.',
-    introContent: 'We run paid airport parking from our own car park in Stanwell Moor. It\'s floodlit, on a level surface and has CCTV. You arrange your own transfer to the terminal, and you can collect your car at any hour. It\'s separate from the free parking you get while you\'re visiting the pub.',
+    introContent: 'We run paid airport parking from our own car park in Stanwell Moor. It\'s on a level surface and has CCTV. You arrange your own transfer to the terminal, and you can collect your car at any hour. It\'s separate from the free parking you get while you\'re visiting the pub.',
     valueProposition: 'You can change or cancel your parking booking up to 24 hours before your booked arrival time, and a cancelled booking is refunded less the payment fee.',
     keywords: ['heathrow parking guide', 'parking near heathrow', 'terminal 5 parking stanwell moor', 'airport parking stanwell moor', 'off airport parking heathrow']
   },

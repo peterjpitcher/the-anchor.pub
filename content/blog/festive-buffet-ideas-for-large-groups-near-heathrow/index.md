@@ -2,7 +2,7 @@
 title: "Festive Buffet or Sit-Down? Large Groups Near Heathrow"
 description: "Christmas buffet or sit-down meal for a big group near Heathrow? How each format works on the night, the 30-guest buffet minimum, and how to choose."
 date: "2026-08-10"
-updated: '2026-10-08'
+updated: '2026-10-15'
 author: "The Anchor Team"
 keywords:
   - buffet food ideas christmas heathrow
@@ -86,7 +86,7 @@ A few practical things worth knowing before you enquire:
 
 Format is the decision. Arrival is the thing that actually goes wrong, and it gets harder the bigger your group is. Forty people means forty separate journeys, and a buffet only absorbs ragged arrivals if people can actually get to you.
 
-Parking is the one that matters most at this size. We have 20 free spaces on site, level and floodlit, no fees and no time limit while you are with us, plus more parking nearby. For a group of 40 that will not hold everybody at once, so it is worth telling people to share cars or come by bus rather than assuming. The 442 bus stops on Horton Road by the pub and runs from Heathrow Terminal 5, and directions are on our [find us page](/find-us).
+Parking is the one that matters most at this size. We have 20 free spaces on site, level, no fees and no time limit while you are with us, plus more parking nearby. For a group of 40 that will not hold everybody at once, so it is worth telling people to share cars or come by bus rather than assuming. The 442 bus stops on Horton Road by the pub and runs from Heathrow Terminal 5, and directions are on our [find us page](/find-us).
 
 If your group is coming off shift or off a flight, the numbers are short: 7 minutes from Terminal 5, 11 from Terminals 2 and 3, 12 from Terminal 4, 8 from Staines and 2 minutes from Junction 14 of the M25. We are outside the ULEZ zone. Dogs are welcome throughout, on a lead and off the furniture.
 

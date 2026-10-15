@@ -2,7 +2,7 @@
 title: "Christening Party Ideas and Venues Near Heathrow"
 slug: christening-party-ideas-venues
 date: "2026-04-14"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-14"
 description: "Planning a christening celebration? Party ideas, venue tips, and everything you need for a brilliant post-service gathering near Heathrow."
 author: "The Anchor Team"
@@ -213,7 +213,7 @@ A £250 booking and damage deposit secures your date. It's held separately from 
 
 ### Parking and access
 
-Twenty free parking spaces on site. Level surface, right by the entrance, CCTV monitored and floodlit. No time limits while you're visiting. Additional parking available nearby for larger groups.
+Twenty free parking spaces on site. Level surface, right by the entrance, CCTV monitored. No time limits while you're visiting. Additional parking available nearby for larger groups.
 
 Getting in from the car park is step free, and so are the bar and the dining area. The beer garden is step free straight from the car park. From inside, there's one step between the bar and the garden, and we'll put our ramp out for it if you ask. We don't have an accessible toilet. If you'd like to check what will work best for you, give us a call on 01753 682707 and we'll help.
 

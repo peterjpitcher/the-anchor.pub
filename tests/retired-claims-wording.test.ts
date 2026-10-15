@@ -484,7 +484,7 @@ const REMOVED_BY_P12: ReadonlyArray<RemovedClaim> = [
     only: /^(?:app|components)\//,
   },
   {
-    claim: 'parking safety beyond floodlit, CCTV, level and keep your keys (C4-012)',
+    claim: 'parking safety beyond CCTV, level and keep your keys (C4-012)',
     pattern: /\b24\/7 access\b|\bstaff presence\b|\bresidents overlooking\b|\btrusted heathrow\b|\boverseen by the pub team\b|\babsolutely safe\b|\bsecure (?:long stay|parking|heathrow|car park)\b/i,
   },
   {

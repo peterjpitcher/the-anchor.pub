@@ -631,7 +631,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
             <Textarea
               label="Notes for our team (optional)"
-              placeholder="e.g. Leaving keys with reception, prefer a well-lit spot, etc."
+              placeholder="e.g. Leaving keys with reception, etc."
               value={notes}
               onChange={event => setNotes(event.target.value)}
             />

@@ -566,7 +566,8 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 - **No number plate registration.** We do not ask guests to register a vehicle, and no page may say we do. Owner-confirmed 15 August 2026.
 - **No free-parking time cap.** Never state a two or three hour limit for guests using the pub. Owner-confirmed 15 August 2026.
 - **Leaving a car for longer** (for example while flying) is the separate **paid** airport parking product, not guest parking. Keep the two clearly distinct in copy.
-- Level surface, close to entrance. CCTV and floodlit.
+- Level surface, close to entrance. CCTV.
+- **The floodlights are not working** as of 15 October 2026 (owner: "the floodlights don't work right now"). Do not say the car park is floodlit, lit or well lit, in any form, until the owner says they are fixed (§14).
 - **CCTV footage is kept for 1 month.** (Owner-confirmed, 8 October 2026.) The privacy policy says so.
 - Additional parking available nearby.
 - **There is no marked disabled parking bay.** (Owner-confirmed, 7 October 2026.) Never write "disabled parking", "a disabled bay", "Blue Badge bays" or "accessible parking bays". The car park is level and close to the entrance, which is true and fine to say.
@@ -580,7 +581,7 @@ The paid airport parking on `/heathrow-parking` is a separate product from guest
 - **Collecting the car:** parking customers can collect their car at any hour. (Owner-confirmed, 7 October 2026.)
 - **Changes, cancellations and refunds:** see §7. A booking cancelled up to 24 hours before the booked arrival time is refunded less the payment fee.
 - **Paying:** PayPal or card. A website booking has a 30-minute payment window. (Mirrored from `SSOT.json`; neither has an owner confirmation date on record.)
-- **The car park:** CCTV, floodlit, level surface, as for guest parking above.
+- **The car park:** CCTV, level surface, as for guest parking above. Not floodlit while the floodlights are not working (owner, 15 October 2026).
 - **Getting to the terminal:** customers arrange their own transfer. We give a taxi number and do not book one (§2).
 
 ### The dining room
@@ -1065,6 +1066,7 @@ Remove every trace of these from copy, schema, JSON-LD and data shapes:
 - **Special doggy Sunday dinners**, unverified, do not claim.
 - **Baby changing facilities**, verified **NO**, we do not have them.
 - **Accessible toilet**, verified **NO**, we do not have one.
+- **A floodlit or lit car park**, not while the floodlights are not working (owner, 15 October 2026: "the floodlights don't work right now"; §8). Never write "floodlit", "floodlights", "floodlighting", "well lit" or "lit" about the car park, on a page, in a post, in structured data or in `SSOT.json`. The claim comes back only when the owner says the floodlights are fixed. The tests fail if "floodlit" or "floodlights" appears anywhere on the site while this entry stands.
 - **A marked disabled parking bay**, verified **NO** (owner-confirmed 7 October 2026, §8). Never write "disabled parking", "a disabled bay" or "Blue Badge bays".
 - **Booking or arranging a taxi**, we do not (owner-confirmed 7 October 2026, §2). The bar team gives a number and the customer makes their own arrangements. Never "we'll call you a cab", "we can arrange your return taxi" or "a taxi on standby".
 - **Confetti cannons, confetti balloons and indoor smoke cannons**, not allowed (owner-confirmed 7 October 2026, §11). Never suggest one.
@@ -1313,6 +1315,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **15 October 2026, the car park floodlights are not working.** The owner said in chat on 15 October 2026: "the floodlights don't work right now". The car park is no longer described as floodlit or lit (§8, both the guest parking and the airport parking entries), and "a floodlit or lit car park" is a claim not to make while it stands (§14). The claim comes back only when the owner says the floodlights are fixed. On the site, "floodlit", "floodlighting" and "well lit" came off every page that described the car park, the parking structured data, the parking FAQs and metadata, and the 15 blog posts that said it; where a line read "CCTV and floodlit" it now says "CCTV". The main parking page's "CCTV monitored" badge is unchanged (owner decision). `SSOT.json` no longer lists "Floodlit" among the parking features, and `tests/ssot-drift-guard.test.ts` fails if "floodlit" or "floodlights" comes back anywhere on the site while this entry stands.
 
 - **8 October 2026, nine owner answers.** Given by the owner in chat on 8 October 2026. CCTV footage is kept for 1 month (§8). We give VAT receipts and VAT invoices (§8). A table can be booked in the garden, but not a specific table (§9). Billy and Peter co-own the tenancy; no surname for Billy is on record (§1). We offer no storage for food brought in, to avoid risks of cross-contamination (§11); the approved cake wording in §16 already made no such offer and is unchanged. The new dining room was built in 2024, and nobody knows when the conservatory was built, so the 1995 date that `SSOT.json` carried in two places is withdrawn (§8). "We can't guarantee a Snowball", so cash bingo copy never promises or projects one for a future night (§10, §14); no page did. Terminal 5 is the only terminal the 442 goes to (§2). An unsuccessful job applicant who ticks "keep my details for future roles" is covered by the same 12 months as everyone else (§2).
 

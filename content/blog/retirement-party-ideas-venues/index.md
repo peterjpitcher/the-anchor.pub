@@ -2,7 +2,7 @@
 title: "Retirement Party Ideas and Venues Near Heathrow"
 slug: retirement-party-ideas-venues
 date: "2026-04-16"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-16"
 description: "Give them a proper send-off. Retirement party ideas, planning tips, and venues near Heathrow and Staines."
 author: "The Anchor Team"
@@ -159,7 +159,7 @@ We'll be direct about what we offer and what we don't.
 
 **Times:** A start before 12pm or a finish after 10pm is by arrangement, so tell us the times you have in mind.
 
-**Parking:** We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register. Level surface, close to the entrance, CCTV and floodlit.
+**Parking:** We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register. Level surface, close to the entrance, CCTV.
 
 **Accessibility:** Step-free access to the bar, dining area, and car park. Beer garden step free from the car park, one step from the bar, ramp on request. Assistance dogs always welcome. No accessible toilet, please call us on 01753 682707 if you'd like to discuss specific accessibility needs before booking.
 

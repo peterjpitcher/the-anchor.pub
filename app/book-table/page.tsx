@@ -440,7 +440,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               The Anchor is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ, just {DRIVE_TIMES.m25Junction14} minutes from M25 Junction 14 and {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Whether you&apos;re booking a pub table near Heathrow for a pre-flight meal, a layover lunch, or a restaurant reservation near Heathrow for a special evening, we&apos;re easy to reach from all directions.
             </p>
             <p>
-              We have {PARKING.capacity} free on-site parking spaces with CCTV and floodlighting. No meters, no time limits while you&apos;re dining. The car park has a level surface with step-free access to the bar and dining area.
+              We have {PARKING.capacity} free on-site parking spaces with CCTV. No meters, no time limits while you&apos;re dining. The car park has a level surface with step-free access to the bar and dining area.
             </p>
             <p>
               {BUS_WORDING} {ULEZ_WORDING}

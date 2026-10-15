@@ -2,7 +2,7 @@
 title: "60th Birthday Party Ideas and Venues Near Heathrow"
 slug: 60th-birthday-party-ideas-venues
 date: "2026-04-12"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-12"
 description: "Celebrating a 60th birthday? Relaxed party ideas and venues near Heathrow for a memorable milestone."
 author: "The Anchor Team"
@@ -84,7 +84,7 @@ When you're planning a 60th birthday party, accessibility isn't a nice-to-have. 
 **What The Anchor offers:**
 - Step-free access to the bar, dining area, and car park
 - Beer garden step free from the car park, with one step from the bar and a ramp on request
-- Free on-site parking on a level surface, close to the entrance, CCTV and floodlit
+- Free on-site parking on a level surface, close to the entrance, CCTV
 - Assistance dogs always welcome
 - Guests with specific access needs are encouraged to call ahead on 01753 682707 so we can plan their visit
 

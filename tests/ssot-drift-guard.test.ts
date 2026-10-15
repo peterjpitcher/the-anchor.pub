@@ -1152,6 +1152,28 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(matchingFiles(/curry[- ]club|curry[- ]nights?/i)).toEqual([])
   })
 
+  // "The floodlights don't work right now" (owner, 15 October 2026). While section 8
+  // says so, no page, post, shared component, data file or llms.txt may call the car
+  // park floodlit. When the owner says they are fixed, the SSOT line goes first and
+  // this check stops applying on its own.
+  const floodlightsNotWorking = mdPlain.includes('The floodlights are not working as of 15 October 2026')
+
+  it('records that the car park floodlights are not working (owner, 2026-10-15)', () => {
+    expect(floodlightsNotWorking).toBe(true)
+    expect(mdPlain).toContain('A floodlit or lit car park, not while the floodlights are not working')
+    expect(ssot.heathrow_parking.features).not.toContain('Floodlit')
+    expect(ssot.venue.parking.description).not.toMatch(/floodl|\blit\b/i)
+  })
+
+  ;(floodlightsNotWorking ? it : it.skip)('does not say the car park is floodlit while the floodlights are not working', () => {
+    expect(matchingFiles(/floodl(?:it|ights?|ighting)/i)).toEqual([])
+    // The two other ways it was said: "well-lit" on /find-us and "Well Lit" in the
+    // parking structured data. A generic tip about other venues does not count.
+    expect(
+      claimSentences(/\bwell[- ]lit\b/i, { sentence: /look for venues/i }),
+    ).toEqual([])
+  })
+
   it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {
     // The smoking area is covered, so a sentence about it is exempt.
     expect(

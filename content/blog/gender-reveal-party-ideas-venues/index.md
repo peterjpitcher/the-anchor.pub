@@ -2,7 +2,7 @@
 title: "Gender Reveal Party Ideas and Venues Near Heathrow"
 slug: gender-reveal-party-ideas-venues
 date: "2026-04-13"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-13"
 description: "Planning a gender reveal party? Creative reveal ideas, planning tips, and the best venues with outdoor space near Heathrow."
 author: "The Anchor Team"
@@ -154,7 +154,7 @@ A £250 booking and damage deposit secures your date. It's held separately from 
 
 ### Parking
 
-Twenty free spaces on-site. Level surface, close to the entrance, CCTV monitored and floodlit. No meters, no time limits while you're with us. Additional parking is available nearby for larger groups. For a gender reveal party, 20 spaces comfortably covers 25-30 guests (people share lifts to these things).
+Twenty free spaces on-site. Level surface, close to the entrance, CCTV monitored. No meters, no time limits while you're with us. Additional parking is available nearby for larger groups. For a gender reveal party, 20 spaces comfortably covers 25-30 guests (people share lifts to these things).
 
 ### Location
 

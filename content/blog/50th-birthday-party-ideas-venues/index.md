@@ -2,7 +2,7 @@
 title: "50th Birthday Party Ideas and Venues Near Heathrow"
 slug: 50th-birthday-party-ideas-venues
 date: "2026-04-11"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-11"
 description: "Turning 50 deserves a proper celebration. Party ideas, planning tips, and how to choose a venue near Heathrow for a milestone birthday."
 author: "The Anchor"
@@ -158,7 +158,7 @@ You can also bring your own food at no charge. We ask the organiser to sign an o
 
 ### What we get right
 
-- **Free parking** for all guests, 20 spaces on site, no fees, no time limit while you're with us. CCTV and floodlit.
+- **Free parking** for all guests, 20 spaces on site, no fees, no time limit while you're with us. CCTV.
 - **Step-free access** to the bar, dining area, and car park
 - **Beer garden access:** step free from the car park, with one step from the bar and a ramp for it on request
 - **TVs and a sound system** for speeches, or that embarrassing montage someone always puts together. Our TVs can be used for photo slideshows or presentations, and we provide the connection cables. Test yours with us in advance. We don't have a projector.

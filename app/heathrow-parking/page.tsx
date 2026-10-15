@@ -106,8 +106,8 @@ const featureHighlights = [
   },
   {
     icon: '',
-    title: 'CCTV, floodlit and level',
-    description: 'Our car park is floodlit, level and covered by CCTV. You keep your keys, and your car is parked at your own risk.'
+    title: 'CCTV and level',
+    description: 'Our car park is level and covered by CCTV. You keep your keys, and your car is parked at your own risk.'
   },
   {
     icon: '',
@@ -199,7 +199,7 @@ const faqs = (rateCard: ParkingRateCard | null) => {
   },
   {
     question: 'Is my car safe overnight?',
-    answer: 'The car park is floodlit, level and covered by CCTV, and you keep your keys. Your car is parked at your own risk. The parking terms on this page set out the detail.'
+    answer: 'The car park is level and covered by CCTV, and you keep your keys. Your car is parked at your own risk. The parking terms on this page set out the detail.'
   },
   {
     question: 'Can I cancel or change my Heathrow car parking booking?',
@@ -214,7 +214,7 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
     '@type': 'ParkingFacility',
     '@id': 'https://www.the-anchor.pub/heathrow-parking#facility',
     name: 'Heathrow Parking at The Anchor',
-    description: 'Long stay and short stay Heathrow airport parking in Stanwell Moor. CCTV, floodlit and level, with PayPal checkout. You keep your keys.',
+    description: 'Long stay and short stay Heathrow airport parking in Stanwell Moor. CCTV and level, with PayPal checkout. You keep your keys.',
     image: 'https://www.the-anchor.pub/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg',
     url: 'https://www.the-anchor.pub/heathrow-parking',
     telephone: '+441753682707',
@@ -233,7 +233,6 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
     },
 	    amenityFeature: [
 	      { '@type': 'LocationFeatureSpecification', name: 'CCTV', value: true },
-	      { '@type': 'LocationFeatureSpecification', name: 'Floodlighting', value: true },
 	      { '@type': 'LocationFeatureSpecification', name: 'PayPal Payments', value: true }
 	    ],
     paymentAccepted: ['PayPal', 'CreditCard', 'ContactlessPayment'],
@@ -387,7 +386,7 @@ export default async function HeathrowParkingPage() {
           <div className="mx-auto">
             <SectionHeading
               title="Cheap Heathrow Parking Without Hidden Fees"
-              lead={<>Search terms like <strong>cheap parking near Heathrow</strong>, <strong>cheap parking near Heathrow Terminal 5</strong> and <strong>cheap Heathrow airport parking</strong> all come down to price. Our Stanwell Moor car park publishes its prices up front. It is floodlit, level and covered by CCTV, and you can collect your car at any hour.</>}
+              lead={<>Search terms like <strong>cheap parking near Heathrow</strong>, <strong>cheap parking near Heathrow Terminal 5</strong> and <strong>cheap Heathrow airport parking</strong> all come down to price. Our Stanwell Moor car park publishes its prices up front. It is level and covered by CCTV, and you can collect your car at any hour.</>}
             />
             <div className="grid gap-6 md:grid-cols-3">
               <Card accent>
@@ -594,7 +593,7 @@ export default async function HeathrowParkingPage() {
             <div>
               <h2 className="font-display text-h2 text-ink-strong">Airport long term parking with pub-level perks</h2>
               <p className="mt-4 text-ink-muted">
-                We publish our Heathrow long stay parking prices up front and pair them with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, coffee and free WiFi before you head to Heathrow. The car park is floodlit, level and covered by CCTV, in a village setting outside the ULEZ. Arrange your own taxi once you've parked.
+                We publish our Heathrow long stay parking prices up front and pair them with real hospitality. We welcome airport crew, business travellers, families and jet-setters who prefer relaxed departures. Enjoy hot food, coffee and free WiFi before you head to Heathrow. The car park is level and covered by CCTV, in a village setting outside the ULEZ. Arrange your own taxi once you've parked.
               </p>
               <ul className="mt-4 space-y-2 text-ink-muted">
                 <li>• Flexible booking windows, from four hours to 30 days</li>

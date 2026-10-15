@@ -94,7 +94,7 @@ function buildFaqs(terminalNumber: string, transferTime: string) {
     },
     {
       question: `How much does Terminal ${terminalNumber} parking cost at The Anchor?`,
-      answer: 'Our hourly, daily and weekly prices are on our Heathrow parking page, read live from our booking system. The car park is floodlit, level and covered by CCTV. You keep your keys, your car is parked at your own risk, and you arrange your own taxi or rideshare transfer.'
+      answer: 'Our hourly, daily and weekly prices are on our Heathrow parking page, read live from our booking system. The car park is level and covered by CCTV. You keep your keys, your car is parked at your own risk, and you arrange your own taxi or rideshare transfer.'
     },
     {
       question: `Can I amend or cancel my Terminal ${terminalNumber} parking booking?`,
@@ -133,7 +133,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
             <Badge variant="sand">{`Terminal ${terminalNumber}`}</Badge>
             <Badge variant="sand">{`Transfer ${terminal.transferTime}`}</Badge>
             <Badge variant="sand">Keep your keys</Badge>
-            <Badge variant="sand">CCTV and floodlit</Badge>
+            <Badge variant="sand">CCTV</Badge>
           </>
         }
         actions={

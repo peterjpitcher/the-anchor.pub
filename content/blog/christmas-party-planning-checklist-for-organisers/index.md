@@ -2,7 +2,7 @@
 title: "Christmas Party Checklist for Organisers Near Heathrow"
 description: "A practical, ordered checklist for booking a group Christmas meal near Heathrow. Headcount first, then date, deposit, pre-orders and the day itself."
 date: "2026-08-10"
-updated: '2026-10-08'
+updated: '2026-10-15'
 author: "The Anchor Team"
 keywords:
   - christmas booking in heathrow
@@ -105,7 +105,7 @@ Put access needs in that same message. It is the same job and the same awkwardne
 
 ## The day itself
 
-**Parking and directions.** We have 20 free spaces on site, level, floodlit and CCTV covered, no fees and no time limit, plus more parking nearby. Send the postcode, TW19 6AQ, with the invite rather than the pub name, and point people at [how to find us](/find-us). We are 2 minutes from Junction 14 of the M25, about 7 minutes from Terminal 5 and 11 to 12 from the other terminals, 8 minutes from Staines, and outside the ULEZ zone. The 442 bus stops on Horton Road by the pub and runs from Heathrow Terminal 5.
+**Parking and directions.** We have 20 free spaces on site, level and CCTV covered, no fees and no time limit, plus more parking nearby. Send the postcode, TW19 6AQ, with the invite rather than the pub name, and point people at [how to find us](/find-us). We are 2 minutes from Junction 14 of the M25, about 7 minutes from Terminal 5 and 11 to 12 from the other terminals, 8 minutes from Staines, and outside the ULEZ zone. The 442 bus stops on Horton Road by the pub and runs from Heathrow Terminal 5.
 
 **One point of contact.** Nominate one person to talk to the venue and take the calls. Not a committee. It stops the kitchen ringing three people and getting three answers.
 

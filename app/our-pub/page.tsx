@@ -431,7 +431,7 @@ export default function OurPubPage() {
           {
             question: 'Do you have parking?',
             answer:
-              `We have ${PARKING.capacity} free parking spaces on site, all covered by CCTV and floodlit. We're just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
+              `We have ${PARKING.capacity} free parking spaces on site, all covered by CCTV. We're just ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`,
           },
         ]}
       />
