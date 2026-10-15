@@ -1174,6 +1174,14 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
+  it('does not list the Kick Bomb anywhere (owner, 2026-10-15)', () => {
+    // "don't list kickbomb anywhere". The drinks list lives in content/menu, outside
+    // the folders above, so it is read on its own. Kick Energy is a different drink.
+    const drinks = fs.readFileSync(path.join(process.cwd(), 'content/menu/drinks.json'), 'utf8')
+    expect(drinks).not.toMatch(/kick ?-?bomb/i)
+    expect(matchingFiles(/kick ?-?bomb/i)).toEqual([])
+  })
+
   it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {
     // The smoking area is covered, so a sentence about it is exempt.
     expect(
