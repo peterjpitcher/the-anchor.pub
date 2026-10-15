@@ -2,7 +2,7 @@
 title: "Pub vs Hotel: Where to Host Your Celebration Near Heathrow"
 slug: pub-vs-hotel-celebration-venue
 date: "2026-04-22"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-22"
 description: "Pub or hotel for your next celebration? Honest comparison of atmosphere, cost, flexibility, parking, and food near Heathrow."
 author: "The Anchor Team"
@@ -90,7 +90,7 @@ That flexibility matters because no two celebrations are the same. A christening
 
 If your guests are driving to a hotel near the airport, check what parking costs before you book. If there's a charge, either your guests pay it or you cover it as the host, in which case add it to your total.
 
-At The Anchor, parking is free. Twenty spaces on site, level surface, close to the entrance, CCTV and floodlit, with additional parking available nearby. For an event with families (car seats, pushchairs, gifts), this matters more than you'd think.
+At The Anchor, parking is free. Twenty spaces on site, level surface, close to the entrance, CCTV, with additional parking available nearby. For an event with families (car seats, pushchairs, gifts), this matters more than you'd think.
 
 We're outside the ULEZ zone.
 

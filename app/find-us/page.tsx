@@ -312,7 +312,7 @@ export default async function FindUsPage() {
                   </div>
                   <div>
                     <h3 className="font-display text-h4 text-ink-strong mb-2">{PARKING.capacity} SPACES</h3>
-                    <p className="text-ink-muted">Well-lit with CCTV coverage</p>
+                    <p className="text-ink-muted">Covered by CCTV</p>
                   </div>
                 </div>
                 <div className="mt-6 bg-surface-sunk rounded-sm border border-line p-4">

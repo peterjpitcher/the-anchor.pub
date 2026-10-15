@@ -1152,6 +1152,47 @@ describe('SSOT drift guard — high-risk site copy', () => {
     expect(matchingFiles(/curry[- ]club|curry[- ]nights?/i)).toEqual([])
   })
 
+  // "The floodlights don't work right now" (owner, 15 October 2026). While section 8
+  // says so, no page, post, shared component, data file or llms.txt may call the car
+  // park floodlit. When the owner says they are fixed, the SSOT line goes first and
+  // this check stops applying on its own.
+  const floodlightsNotWorking = mdPlain.includes('The floodlights are not working as of 15 October 2026')
+
+  it('records that the car park floodlights are not working (owner, 2026-10-15)', () => {
+    expect(floodlightsNotWorking).toBe(true)
+    expect(mdPlain).toContain('A floodlit or lit car park, not while the floodlights are not working')
+    expect(ssot.heathrow_parking.features).not.toContain('Floodlit')
+    expect(ssot.venue.parking.description).not.toMatch(/floodl|\blit\b/i)
+  })
+
+  ;(floodlightsNotWorking ? it : it.skip)('does not say the car park is floodlit while the floodlights are not working', () => {
+    expect(matchingFiles(/floodl(?:it|ights?|ighting)/i)).toEqual([])
+    // The two other ways it was said: "well-lit" on /find-us and "Well Lit" in the
+    // parking structured data. A generic tip about other venues does not count.
+    expect(
+      claimSentences(/\bwell[- ]lit\b/i, { sentence: /look for venues/i }),
+    ).toEqual([])
+  })
+
+  it('gives wakes a dedicated space, never a private entrance (owner, 2026-10-15)', () => {
+    // "We have the dining room, not a dedicated entrance but a dedicated space."
+    // A private entrance area was on the wakes page, every crematorium page, the
+    // private hire FAQ, llms.txt and both SSOT files. Two surprise-party posts tell
+    // readers to look for a venue with a separate entrance; that is advice about
+    // other venues, so only the wording that describes a space we have is matched.
+    expect(mdPlain).toContain('We have the dining room, not a dedicated entrance but a dedicated space.')
+    expect(ssot.private_hire.wakes_speciality).not.toMatch(/private entrance/i)
+    expect(matchingFiles(/\b(?:private|own|dedicated) entrance\b/i)).toEqual([])
+  })
+
+  it('does not list the Kick Bomb anywhere (owner, 2026-10-15)', () => {
+    // "don't list kickbomb anywhere". The drinks list lives in content/menu, outside
+    // the folders above, so it is read on its own. Kick Energy is a different drink.
+    const drinks = fs.readFileSync(path.join(process.cwd(), 'content/menu/drinks.json'), 'utf8')
+    expect(drinks).not.toMatch(/kick ?-?bomb/i)
+    expect(matchingFiles(/kick ?-?bomb/i)).toEqual([])
+  })
+
   it('does not claim any of the beer garden is covered (owner-confirmed 2026-09-10)', () => {
     // The smoking area is covered, so a sentence about it is exempt.
     expect(

@@ -3,7 +3,7 @@ title: International Women's Day | What It Is and Why It Matters
 slug: womens-day-celebration
 description: "What International Women's Day is, why it's marked on 8 March, and a word from The Anchor, the village pub in Stanwell Moor where everyone's welcome."
 date: '2023-02-10'
-updated: '2026-10-08'
+updated: '2026-10-15'
 oldUrl: >-
   https://www.the-anchor.pub/post/international-women-s-day-celebrating-the-achievem
 author: Billy
@@ -53,7 +53,7 @@ You're welcome any day we're open, whether you're on your own, with friends or c
 
 **Near**: 7 minutes from Heathrow Terminal 5
 
-**Parking**: We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register. The car park is floodlit and has CCTV.
+**Parking**: We've 20 free spaces right outside. There's no time limit while you're with us, and nothing to register. The car park has CCTV.
 
 **Opening hours**: always up to date on our [find us page](/find-us)
 

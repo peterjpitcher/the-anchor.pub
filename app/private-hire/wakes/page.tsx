@@ -115,10 +115,10 @@ export default async function WakesPage() {
                 image="/images/page-headers/private-hire/private-hire.jpg"
                 crumb="Wakes"
                 title="Wakes, Funeral Receptions & Celebrations of Life"
-                lead="A peaceful, respectful venue for gathering with family and friends. A private entrance area is available, and we can arrange everything at 24 to 48 hours' notice."
+                lead="A peaceful, respectful venue for gathering with family and friends. The dining room is a dedicated space for your family and friends, and we can arrange everything at 24 to 48 hours' notice."
                 badges={
                     <>
-                        <Badge variant="sand">Private Entrance Area</Badge>
+                        <Badge variant="sand">Dedicated Dining Room</Badge>
                         <Badge variant="sand">Near SW Middlesex Crematorium</Badge>
                         <Badge variant="sand">Compassionate Team</Badge>
                         <Badge variant="sand">{fromPrice ? `Funeral Tea from ${fromPrice}pp` : 'Current catering packages'}</Badge>
@@ -183,7 +183,7 @@ export default async function WakesPage() {
                     <Card accent className="mx-auto text-center">
                         <CardBody>
                             <h3 className="font-display text-h4 text-ink-strong mb-2">The Dining Room</h3>
-                            <p className="text-ink-muted">A private, enclosed space seating up to {diningRoom.seated} guests, or up to {diningRoom.standing} standing. Quiet and self-contained with direct access to facilities, and a private entrance area is available.</p>
+                            <p className="text-ink-muted">A private, enclosed space seating up to {diningRoom.seated} guests, or up to {diningRoom.standing} standing. Quiet and self-contained with direct access to facilities.</p>
                         </CardBody>
                     </Card>
                 </Container>

@@ -192,10 +192,10 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                 pageLabel: 'Wakes & Memorials',
                 crumb: `Wake venue near ${name}`,
                 lead: `A calm, private place to gather after a service${away}`,
-                badges: [...distanceBadge, 'Private Entrance Area', 'Short Notice Welcome', 'Free Parking'],
+                badges: [...distanceBadge, 'Dedicated Dining Room', 'Short Notice Welcome', 'Free Parking'],
                 bookingContext: 'wakes',
                 eventType: 'Wake / Memorial',
-                intro: `Saying goodbye is hard enough without a long, complicated journey to the wake. The Anchor is ${isFrom}, a quiet village pub with a private entrance area where family and friends can gather away from the main bar. ${landmark.description}`,
+                intro: `Saying goodbye is hard enough without a long, complicated journey to the wake. The Anchor is ${isFrom}, a quiet village pub with a dining room that is a dedicated space for your family and friends. ${landmark.description}`,
                 reasons: [
                     {
                         title: 'Free parking right outside',
@@ -203,28 +203,28 @@ function getLandmarkAngle(landmark: Landmark): LandmarkAngle {
                     },
                     {
                         title: 'A private, respectful space',
-                        content: 'Wakes have a private entrance area, set apart from the main bar, so family and friends can gather quietly.',
+                        content: 'Wakes have the dining room, a dedicated space where family and friends can gather quietly.',
                     },
                 ],
                 narrative: {
                     heading: `Holding a wake near ${name}`,
                     paragraphs: [
-                        `We understand that timings after a service can be unpredictable. We will have the private area set and ready before you arrive from ${name}, and we will never rush you when the gathering naturally winds down.`,
-                        `There is a private entrance area so guests can come and go with dignity, away from the main bar. ${CAPACITY_LINE}, so whether you are expecting a small, close family group or a larger gathering, we can arrange the room to suit. You'll have ${COORDINATOR_LINE}.`,
+                        `We understand that timings after a service can be unpredictable. We will have the dining room set and ready before you arrive from ${name}, and we will never rush you when the gathering naturally winds down.`,
+                        `The dining room is a dedicated space for your family and friends. ${CAPACITY_LINE}, so whether you are expecting a small, close family group or a larger gathering, we can arrange the room to suit. You'll have ${COORDINATOR_LINE}.`,
                         `If you would like to display photographs, an order of service or flowers, we will set up a dedicated table. You are welcome to play a favourite piece of music through our sound system. Wakes often need to be arranged at short notice, and we can usually accommodate a booking within 24 to 48 hours. Please call us on ${CONTACT.phone}.`,
                     ],
                 },
                 packagesHeading: 'Catering for the gathering',
                 packagesIntro: `We offer buffets, afternoon teas and unlimited tea and coffee. ${PRIVATE_HIRE_DIETARY_WORDING} We will give you a clear quote covering room hire and catering when you call.`,
                 faqs: [
-                    ...howFar('. We will have the private area ready before you arrive, and we are happy to allow for a slightly later start if the service runs on.'),
+                    ...howFar('. We will have the dining room ready before you arrive, and we are happy to allow for a slightly later start if the service runs on.'),
                     {
                         question: 'How quickly can you arrange a wake?',
                         answer: `We understand that funeral arrangements often happen at short notice. We can usually accommodate a wake within 24 to 48 hours. Call us on ${CONTACT.phone} and we will do our best to help.`,
                     },
                     {
                         question: 'Is there a private space for the wake?',
-                        answer: 'Yes. Wakes have a private entrance area, set apart from the main bar.',
+                        answer: 'Yes. Wakes have the dining room, a dedicated space for your family and friends.',
                     },
                     {
                         question: 'Is there a room hire charge for a wake?',

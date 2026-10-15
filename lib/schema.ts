@@ -353,11 +353,6 @@ export const parkingFacilitySchema = {
     ...ACCESS_AMENITY_FEATURES,
     {
       "@type": "LocationFeatureSpecification",
-      "name": "Well Lit",
-      "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
       "name": "CCTV Monitored",
       "value": true
     }

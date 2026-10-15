@@ -15,7 +15,7 @@
  * @jest-environment jsdom
  */
 
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import CookieBanner from '@/components/CookieBanner'
 import { EventCountdownBanner } from '@/components/EventCountdownBanner'
@@ -157,11 +157,13 @@ afterEach(() => {
 describe('the event card', () => {
   async function renderCard() {
     render(<EventCountdownBanner />)
-    // The event is fetched after mount.
-    await waitFor(() => expect(global.fetch).toHaveBeenCalled())
-    await act(async () => {
-      await Promise.resolve()
-    })
+    // The event is fetched after mount, and the card is drawn once the answer is
+    // in. Wait for the card itself. This used to wait only for fetch to have been
+    // called: the answer then landed while waitFor had act switched off, so React
+    // drew the card on its own timer, and on a busy machine that timer could fire
+    // after the first test had already looked for the card and found nothing.
+    // The other tests scroll first, and that act drew the card for them.
+    await screen.findByText('Next Event')
   }
 
   it('is not on the first screen: it waits until the page has scrolled past the hero', async () => {

@@ -2,7 +2,7 @@
 title: "30th Birthday Party Ideas and Venues Near Heathrow"
 slug: 30th-birthday-party-ideas-venues
 date: "2026-04-09"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-09"
 author: "The Anchor Team"
 description: "Planning a 30th birthday? From party themes to the perfect venue, here's everything you need for a brilliant celebration near Heathrow."
@@ -130,7 +130,7 @@ Right, you've got your theme. You've got your food plan. Now you need somewhere 
 
 Room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire). The calculator there prices the food and drinks against your numbers.
 
-**Parking that doesn't cost extra.** If your guests are driving (and near Heathrow, many will be), parking fees add up fast. The Anchor has 20 free parking spaces on-site, no fees, no time limits while visiting, CCTV and floodlit. Additional parking is also available nearby.
+**Parking that doesn't cost extra.** If your guests are driving (and near Heathrow, many will be), parking fees add up fast. The Anchor has 20 free parking spaces on-site, no fees, no time limits while visiting, CCTV. Additional parking is also available nearby.
 
 **A dedicated person who handles things.** You don't want to be chasing bar staff on the night of your own party. Venues with a dedicated events coordinator take the logistics off your hands. That means someone who manages the timeline, checks the food is ready, and sorts problems before you even notice them.
 

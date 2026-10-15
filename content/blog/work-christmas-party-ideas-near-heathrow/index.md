@@ -2,7 +2,7 @@
 title: "Work Christmas Party Ideas Near Heathrow: Organiser's Guide"
 description: "Landed with organising the work Christmas do near Heathrow? A straight guide to formats, group sizes, deposits, parking and the bits that usually go wrong."
 date: "2026-08-10"
-updated: '2026-10-08'
+updated: '2026-10-15'
 author: "The Anchor Team"
 keywords:
   - work xmas party in heathrow airport
@@ -94,7 +94,7 @@ Because the £10 per person deposit comes off the bill, it is not an extra cost.
 
 Getting there is the bit organisers underestimate, and it is quietly what decides whether the reluctant half of your team bothers. Near Heathrow, it is solvable.
 
-- **Parking:** 20 free spaces on site. No fee, no time limit while you are with us, level surface, close to the entrance, CCTV and floodlit. More parking nearby. Free parking is not a perk here, it is what lets the drivers come without resenting it.
+- **Parking:** 20 free spaces on site. No fee, no time limit while you are with us, level surface, close to the entrance, CCTV. More parking nearby. Free parking is not a perk here, it is what lets the drivers come without resenting it.
 - **From the terminals:** Terminal 5 is 7 minutes, Terminals 2 and 3 are 11 minutes, Terminal 4 is 12 minutes. Staines is 8 minutes, M25 Junction 14 is 2 minutes.
 - **Bus:** route 442 stops on Horton Road by the pub and runs from Heathrow Terminal 5.
 - **ULEZ:** We're outside the ULEZ zone.

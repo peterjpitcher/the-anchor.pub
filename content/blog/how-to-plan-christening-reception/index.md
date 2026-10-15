@@ -2,7 +2,7 @@
 title: "How to Plan a Christening Reception: A Step-by-Step Guide"
 slug: how-to-plan-christening-reception
 date: "2026-04-20"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-20"
 description: "Planning a christening reception? Step-by-step guide covering venue, catering, timing, cake, decorations, and guest logistics."
 author: "The Anchor Team"
@@ -178,7 +178,7 @@ You probably don't need a professional photographer for a christening (though so
 
 These are the things that make the difference between a smooth day and a stressful one.
 
-**Parking.** Guests arriving with babies and small children need door-to-door convenience. "There's a car park ten minutes' walk away" doesn't cut it when you're carrying a car seat, a nappy bag, and a gift. At The Anchor, we have 20 free parking spaces on site: level surface, close to the entrance, CCTV and floodlit.
+**Parking.** Guests arriving with babies and small children need door-to-door convenience. "There's a car park ten minutes' walk away" doesn't cut it when you're carrying a car seat, a nappy bag, and a gift. At The Anchor, we have 20 free parking spaces on site: level surface, close to the entrance, CCTV.
 
 **Directions.** Send guests clear directions to the venue, not just a postcode. Include a note about parking availability. If your venue is near the M25, mention the junction number. Ours is Junction 14, 2 minutes away.
 

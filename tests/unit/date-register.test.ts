@@ -55,19 +55,19 @@ describe('the register matches the code today', () => {
 })
 
 describe('the job adverts (site review finding DT-010)', () => {
-  it('is quiet until 30 days before 12 May 2027', () => {
-    expect(stateOn('2026-10-08', 'job-adverts-valid-through')).toBe('ok')
-    expect(stateOn('2027-04-11', 'job-adverts-valid-through')).toBe('ok')
+  it('is quiet until 30 days before 7 October 2027', () => {
+    expect(stateOn('2026-10-15', 'job-adverts-valid-through')).toBe('ok')
+    expect(stateOn('2027-09-06', 'job-adverts-valid-through')).toBe('ok')
   })
 
-  it('warns from 12 April 2027', () => {
-    expect(stateOn('2027-04-12', 'job-adverts-valid-through')).toBe('due')
-    expect(stateOn('2027-05-12', 'job-adverts-valid-through')).toBe('due')
+  it('warns from 7 September 2027', () => {
+    expect(stateOn('2027-09-07', 'job-adverts-valid-through')).toBe('due')
+    expect(stateOn('2027-10-07', 'job-adverts-valid-through')).toBe('due')
   })
 
   it('keeps saying so once the date has passed, until someone acts', () => {
-    expect(stateOn('2027-05-13', 'job-adverts-valid-through')).toBe('passed')
-    expect(stateOn('2027-08-01', 'job-adverts-valid-through')).toBe('passed')
+    expect(stateOn('2027-10-08', 'job-adverts-valid-through')).toBe('passed')
+    expect(stateOn('2028-01-01', 'job-adverts-valid-through')).toBe('passed')
   })
 })
 
@@ -169,8 +169,8 @@ describe('the weekly report', () => {
   })
 
   it('says what passes and what to do when a date is due', () => {
-    const report = freshness.buildReport(freshness.auditAll('2027-04-20'))
-    expect(report).toContain('2027-05-12')
+    const report = freshness.buildReport(freshness.auditAll('2027-09-20'))
+    expect(report).toContain('2027-10-07')
     expect(report).toContain('app/join-our-team/recruitmentContent.ts')
     expect(report).toContain('To do:')
   })

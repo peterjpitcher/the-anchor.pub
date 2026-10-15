@@ -169,7 +169,7 @@ const privateHireFaqs = [
     },
     {
         question: 'Can you arrange a wake at short notice?',
-        answer: 'Yes. We accept wake bookings at 24 to 48 hours’ notice where we can, with a private entrance area.',
+        answer: 'Yes. We accept wake bookings at 24 to 48 hours’ notice where we can, in the dining room, a dedicated space for your family and friends.',
     },
     {
         question: 'What kinds of events do you host?',
@@ -523,7 +523,7 @@ export default async function PrivateHirePage({ searchParams }: PrivateHirePageP
                 links={[
                     { href: '/private-hire/brochures', title: 'All 2026 Event Brochures', description: 'Nine brochures by occasion, with every space, menu and package' },
                     { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
-                    { href: '/private-hire/wakes', title: 'Wakes & Memorials', description: 'A private entrance area and short-notice bookings' },
+                    { href: '/private-hire/wakes', title: 'Wakes & Memorials', description: 'The dining room as a dedicated space, and short-notice bookings' },
                     { href: '/private-hire/anniversary-parties', title: 'Anniversary Parties', description: 'Milestone celebrations with food, drinks and free parking' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                     { href: '/join-our-team', title: 'Work at The Anchor', description: 'Bar and kitchen jobs near Heathrow' },

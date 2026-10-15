@@ -16,11 +16,11 @@
       "id": "job-adverts-valid-through",
       "what": "The date both job adverts tell Google they expire.",
       "file": "app/join-our-team/recruitmentContent.ts",
-      "find": "recruitmentValidThrough = '2027-05-12'",
-      "date": "2027-05-12",
+      "find": "recruitmentValidThrough = '2027-10-07'",
+      "date": "2027-10-07",
       "warnDays": 30,
       "whenItPasses": "Google treats the bar staff and kitchen team adverts as closed and drops them from job search.",
-      "action": "In April 2027: if still hiring, move recruitmentDatePosted and recruitmentValidThrough on a year. If not, remove the JobPosting data.",
+      "action": "In September 2027: if still hiring, move recruitmentDatePosted and recruitmentValidThrough on a year. If not, remove the JobPosting data.",
       "afterPassing": "act"
     },
     {

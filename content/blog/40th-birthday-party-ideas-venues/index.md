@@ -2,7 +2,7 @@
 title: "40th Birthday Party Ideas and Venues Near Heathrow"
 slug: 40th-birthday-party-ideas-venues
 date: "2026-04-10"
-updated: '2026-10-08'
+updated: '2026-10-15'
 publishDate: "2026-04-10"
 description: "Planning a 40th birthday celebration? Creative party ideas, planning tips, and venue options near Heathrow and Staines."
 author: "The Anchor Team"
@@ -137,7 +137,7 @@ The venue makes or breaks it. Not because of how it looks on Instagram, nobody o
 
 Room hire is charged by the hour for the space you book, and the rates are on our [private hire page](/private-hire). The calculator there prices the food and drinks against your numbers.
 
-**Free parking for guests.** Near Heathrow, this matters more than you'd think. The Anchor has 20 free parking spaces, no charge, no time limit while visiting, CCTV and floodlit. Additional parking is also available nearby.
+**Free parking for guests.** Near Heathrow, this matters more than you'd think. The Anchor has 20 free parking spaces, no charge, no time limit while visiting, CCTV. Additional parking is also available nearby.
 
 **Equipment included.** AV gear (TVs, sound system), WiFi, and a dedicated events coordinator should come with the venue, not as add-ons. At The Anchor, they're all included with private hire.
 

@@ -370,7 +370,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   </p>
                   <div className="bg-surface-sunk rounded-sm p-4 border border-line">
                     <p className="font-semibold text-anchor-success">The Anchor: free parking while you&apos;re with us</p>
-                    <p className="text-sm text-anchor-success mt-1">Level surface, close to the door, floodlit with CCTV</p>
+                    <p className="text-sm text-anchor-success mt-1">Level surface, close to the door, with CCTV</p>
                   </div>
                 </CardBody>
               </Card>
@@ -596,7 +596,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
           {
             question: "Is parking really free?",
-            answer: `Yes. We have ${PARKING.capacity} free parking spaces for our guests, with no time limit while you are dining with us. The car park is level, floodlit and covered by CCTV.`
+            answer: `Yes. We have ${PARKING.capacity} free parking spaces for our guests, with no time limit while you are dining with us. The car park is level and covered by CCTV.`
           },
           {
             question: "What type of food do you serve?",
