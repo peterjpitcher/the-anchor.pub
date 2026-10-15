@@ -1174,6 +1174,17 @@ describe('SSOT drift guard — high-risk site copy', () => {
     ).toEqual([])
   })
 
+  it('gives wakes a dedicated space, never a private entrance (owner, 2026-10-15)', () => {
+    // "We have the dining room, not a dedicated entrance but a dedicated space."
+    // A private entrance area was on the wakes page, every crematorium page, the
+    // private hire FAQ, llms.txt and both SSOT files. Two surprise-party posts tell
+    // readers to look for a venue with a separate entrance; that is advice about
+    // other venues, so only the wording that describes a space we have is matched.
+    expect(mdPlain).toContain('We have the dining room, not a dedicated entrance but a dedicated space.')
+    expect(ssot.private_hire.wakes_speciality).not.toMatch(/private entrance/i)
+    expect(matchingFiles(/\b(?:private|own|dedicated) entrance\b/i)).toEqual([])
+  })
+
   it('does not list the Kick Bomb anywhere (owner, 2026-10-15)', () => {
     // "don't list kickbomb anywhere". The drinks list lives in content/menu, outside
     // the folders above, so it is read on its own. Kick Energy is a different drink.

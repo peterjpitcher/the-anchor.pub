@@ -971,7 +971,7 @@ Wakes / memorials · Christenings · Engagement parties · Baby showers · Gende
 
 ### Wakes, speciality
 
-- Private entrance area.
+- **The dining room, a dedicated space.** "We have the dining room, not a dedicated entrance but a dedicated space." (Owner, 15 October 2026.) There is no private, separate or dedicated entrance for a wake: never write "private entrance", "private entrance area", "own entrance" or "separate entrance". Say the dining room is a dedicated space for the family and friends, and stop there.
 - **Room hire is charged**, at the standard hourly rate for the space. Owner-confirmed 17 August 2026. Never publish "no room hire charge for wakes".
 - Short notice accepted (24–48 hours).
 
@@ -1315,6 +1315,8 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
+
+- **15 October 2026, wakes have a dedicated space, not a dedicated entrance.** The owner said in chat on 15 October 2026: "We have the dining room, not a dedicated entrance but a dedicated space." §11 had said "Private entrance area" since before this document's current form, and the wakes page, the wake pages for each crematorium, the private hire page and FAQ, `/llms.txt` and `SSOT.json` all repeated it, with "set apart from the main bar" and "come and go with dignity" added on the crematorium pages. §11 now records the dining room as the dedicated space and bans the entrance wording, and every page says the dining room instead. `tests/ssot-drift-guard.test.ts` fails if a private, own or dedicated entrance comes back.
 
 - **15 October 2026, the car park floodlights are not working.** The owner said in chat on 15 October 2026: "the floodlights don't work right now". The car park is no longer described as floodlit or lit (§8, both the guest parking and the airport parking entries), and "a floodlit or lit car park" is a claim not to make while it stands (§14). The claim comes back only when the owner says the floodlights are fixed. On the site, "floodlit", "floodlighting" and "well lit" came off every page that described the car park, the parking structured data, the parking FAQs and metadata, and the 15 blog posts that said it; where a line read "CCTV and floodlit" it now says "CCTV". The main parking page's "CCTV monitored" badge is unchanged (owner decision). `SSOT.json` no longer lists "Floodlit" among the parking features, and `tests/ssot-drift-guard.test.ts` fails if "floodlit" or "floodlights" comes back anywhere on the site while this entry stands.
 
