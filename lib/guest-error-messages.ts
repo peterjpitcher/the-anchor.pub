@@ -341,7 +341,11 @@ const UPSTREAM_SENTENCE_ALLOW_LIST: ReadonlySet<string> = new Set([
   // The management app's answers when a table deposit cannot be started.
   'deposit has already been paid for this booking',
   'this payment link has expired',
-  'this booking is no longer payable'
+  'this booking is no longer payable',
+  // The parking booking's checks on what the guest typed, beside the phone
+  // number above (management app src/app/api/parking/bookings/route.ts).
+  'parking must be booked for at least 30 minutes',
+  'please enter your surname'
 ])
 
 /** Text that was written for a developer or produced by a browser or parser. */
@@ -553,6 +557,16 @@ function pickUpstreamSentence(body: Record<string, unknown> | null): string | nu
 
 function isAllowListed(sentence: string): boolean {
   return UPSTREAM_SENTENCE_ALLOW_LIST.has(sentence.trim().replace(/\.$/, '').toLowerCase())
+}
+
+/**
+ * An upstream sentence on the short list above, with the phone number added, or
+ * null for anything else. For a route that keeps its own handling for every
+ * other answer and passes through only what the guest can put right.
+ */
+export function allowListedGuestSentence(sentence: unknown): string | null {
+  const text = asText(sentence)
+  return text && isAllowListed(text) ? withGuestPhone(text) : null
 }
 
 /**

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { anchorAPI } from '@/lib/api'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
-import { GUEST_FALLBACK } from '@/lib/guest-error-messages'
+import { GUEST_FALLBACK, allowListedGuestSentence } from '@/lib/guest-error-messages'
 import { PAYMENT_RATE_LIMIT_MESSAGE, RATE_LIMITS, checkRateLimit, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 const ROUTE = 'api/parking/payment/create-order'
@@ -119,7 +119,31 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result, { status: 201 })
   } catch (error: unknown) {
     // error is typed as unknown; cast to access dynamic API error shape
-    const apiError = error as { status?: number; code?: string }
+    const apiError = error as { status?: number; code?: string; message?: unknown }
+
+    // A detail the guest typed that the booking system turned down: a mobile
+    // number that is not one, a stay under 30 minutes, or no surname for a new
+    // customer. Its sentence is shown with our number and logged without an
+    // alert, because the guest can put it right. Only a sentence on the short
+    // list in lib/guest-error-messages.ts passes, so any other refusal is still
+    // reported as a fault and the guest still gets the line with our number.
+    const guestSentence =
+      apiError?.status === 400 && apiError?.code === 'VALIDATION_ERROR'
+        ? allowListedGuestSentence(apiError.message)
+        : null
+    if (guestSentence) {
+      await reportFailure({
+        route: ROUTE,
+        payment: true,
+        kind: 'refused',
+        status: 400,
+        reason: 'GUEST_DETAILS_REFUSED',
+        upstreamCode: 'VALIDATION_ERROR',
+        page: pageFromRequest(request),
+      })
+      return NextResponse.json({ error: guestSentence, code: 'VALIDATION_ERROR' }, { status: 400 })
+    }
+
     const status = apiError?.status === 409 ? 409 : 502
 
     // A 409 is a deliberate no (the dates filled, or a duplicate press). It is
