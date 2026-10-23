@@ -241,6 +241,9 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
   const [paypalRendered, setPaypalRendered] = useState(false)
   const [paypalLoadError, setPaypalLoadError] = useState(false)
   const [captureState, setCaptureState] = useState<'idle' | 'capturing' | 'error' | 'cancelled'>('idle')
+  // A detail the guest typed that the booking system turned down, in the words
+  // the server chose. Shown in place of the general error line while set.
+  const [orderProblem, setOrderProblem] = useState<string | null>(null)
   // Stores the booking_id returned by createOrder so onApprove can pass it to capture
   const pendingBookingIdRef = useRef<string | null>(null)
   // Sync ref keeps createOrder callbacks from closing over stale state
@@ -392,6 +395,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
       createOrder: async () => {
         setCaptureState('idle')
+        setOrderProblem(null)
         const res = await fetch('/api/parking/payment/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -417,6 +421,11 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
         if (!res.ok) {
           const err = await res.json().catch(() => ({}))
+          // The route answers a detail the guest can put right with a 400, this
+          // code and a sentence for them. Any other failure keeps the general line.
+          if (res.status === 400 && err?.code === 'VALIDATION_ERROR' && typeof err.error === 'string') {
+            setOrderProblem(err.error)
+          }
           // Throwing here causes PayPal SDK to show its own error screen, intentional.
           throw new Error(err?.error || 'Could not create order')
         }
@@ -692,7 +701,11 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               )}
               {captureState === 'error' && (
                 <p role="alert" className="text-sm text-anchor-danger bg-surface-sunk rounded-md px-4 py-3">
-                  Payment could not be completed. Please try again or call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink>.
+                  {orderProblem ?? (
+                    <>
+                      Payment could not be completed. Please try again or call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink>.
+                    </>
+                  )}
                 </p>
               )}
               {captureState === 'capturing' && (
@@ -729,7 +742,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               {/* Back button */}
               <button
                 type="button"
-                onClick={() => { setCurrentStep(3); setPaypalRendered(false); setCaptureState('idle') }}
+                onClick={() => { setCurrentStep(3); setPaypalRendered(false); setCaptureState('idle'); setOrderProblem(null) }}
                 className="w-full text-sm text-ink-muted hover:text-ink underline"
               >
                 ← Back to vehicle details

@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import {
   GUEST_FALLBACK,
   GUEST_PHONE,
+  allowListedGuestSentence,
   guestMessageForBlockedReason,
   guestMessageForCode,
   isBareCode,
@@ -498,5 +499,39 @@ describe('the small helpers', () => {
   it('tells a code from a sentence', () => {
     for (const code of ['customer_conflict', 'RATE_LIMIT_EXCEEDED', 'blocked', 'hold_expired']) expect(isBareCode(code)).toBe(true)
     for (const sentence of ['This event is sold out.', 'Not today', '']) expect(isBareCode(sentence)).toBe(false)
+  })
+})
+
+describe('allowListedGuestSentence, for a route that passes through only what the guest can put right', () => {
+  // The parking booking's answers to what the guest typed (management app,
+  // src/app/api/parking/bookings/route.ts). A change of wording there falls
+  // back to the general line, which is safe, and fails here first.
+  it.each([
+    'Please enter a valid phone number',
+    'Parking must be booked for at least 30 minutes',
+    'Please enter your surname'
+  ])('passes "%s" through with the phone number', (sentence) => {
+    expect(allowListedGuestSentence(sentence)).toBe(`${sentence}. Call ${GUEST_PHONE} if you need help.`)
+  })
+
+  it('ignores case and a closing full stop', () => {
+    expect(allowListedGuestSentence('please enter your surname.')).toBe(
+      `please enter your surname. Call ${GUEST_PHONE} if you need help.`
+    )
+  })
+
+  it('passes nothing else, so other refusals keep the route its own handling', () => {
+    for (const other of [
+      'End time must be after start time',
+      'Failed to create parking booking',
+      'Required',
+      'VALIDATION_ERROR',
+      '',
+      null,
+      undefined,
+      { message: 'Please enter your surname' }
+    ]) {
+      expect(allowListedGuestSentence(other)).toBeNull()
+    }
   })
 })

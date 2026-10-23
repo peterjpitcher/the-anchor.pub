@@ -87,3 +87,64 @@ describe('POST /api/parking/payment/create-order', () => {
     expect(res.status).toBe(502)
   })
 })
+
+// What the API client throws when the management app answers with an error.
+function upstreamError(status: number, code: string, message: string) {
+  return { status, code, message, details: {} }
+}
+
+describe('POST /api/parking/payment/create-order: details the guest can put right', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => undefined)
+    jest.spyOn(console, 'warn').mockImplementation(() => undefined)
+  })
+  afterEach(() => jest.restoreAllMocks())
+
+  function failureLogLines(): Array<Record<string, unknown>> {
+    const calls = [...jest.mocked(console.error).mock.calls, ...jest.mocked(console.warn).mock.calls]
+    return calls
+      .map(([line]) => String(line))
+      .filter((line) => line.startsWith('[write-failure]'))
+      .map((line) => JSON.parse(line.slice('[write-failure]'.length).trim()))
+  }
+
+  it.each([
+    'Please enter a valid phone number',
+    'Parking must be booked for at least 30 minutes',
+    'Please enter your surname'
+  ])('shows "%s" with our number, as a refusal nobody is alerted about', async (sentence) => {
+    mockCreateOrder.mockRejectedValue(upstreamError(400, 'VALIDATION_ERROR', sentence))
+
+    const res = await POST(makeRequest(validBody))
+    const data = await res.json()
+
+    expect(res.status).toBe(400)
+    expect(data).toEqual({ error: `${sentence}. Call 01753 682707 if you need help.`, code: 'VALIDATION_ERROR' })
+    expect(failureLogLines()).toEqual([
+      expect.objectContaining({ kind: 'refused', status: 400, reason: 'GUEST_DETAILS_REFUSED', alert: 'none' })
+    ])
+  })
+
+  it('keeps any other refusal a fault, with the general line and an alert', async () => {
+    mockCreateOrder.mockRejectedValue(upstreamError(400, 'VALIDATION_ERROR', 'Invalid booking payload'))
+
+    const res = await POST(makeRequest(validBody))
+    const data = await res.json()
+
+    expect(res.status).toBe(502)
+    expect(data.code).toBeUndefined()
+    expect(data.error).toContain('01753 682707')
+    expect(failureLogLines()).toEqual([
+      expect.objectContaining({ kind: 'failed', reason: 'CREATE_ORDER_FAILED', upstreamCode: 'VALIDATION_ERROR' })
+    ])
+  })
+
+  it('does not pass an allowed sentence through on a status other than 400', async () => {
+    mockCreateOrder.mockRejectedValue(upstreamError(500, 'INTERNAL_ERROR', 'Please enter your surname'))
+
+    const res = await POST(makeRequest(validBody))
+
+    expect(res.status).toBe(502)
+    expect(failureLogLines()).toEqual([expect.objectContaining({ kind: 'failed' })])
+  })
+})
