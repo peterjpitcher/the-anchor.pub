@@ -34,7 +34,10 @@ export async function POST(request: NextRequest) {
   const stage = pick(body.stage, STAGES)
   const form = pick(body.form, FORMS)
   if (stage && form) {
-    console.info(
+    // console.warn, not console.info: next.config.js strips every console call from the
+    // production build except error and warn, so an info line would record nothing.
+    // It is a record, not a warning (as app/api/web-vitals/route.ts).
+    console.warn(
       '[christmas-enquiry-signal]',
       JSON.stringify({
         stage,

@@ -20,7 +20,7 @@ describe('POST /api/enquiry/christmas/signal', () => {
   let info: jest.SpyInstance
 
   beforeEach(() => {
-    info = jest.spyOn(console, 'info').mockImplementation(() => {})
+    info = jest.spyOn(console, 'warn').mockImplementation(() => {})
   })
 
   afterEach(() => info.mockRestore())
