@@ -8,6 +8,7 @@ import {
   confirmationDeliveryCopy,
   type ManagementTableBookingResult,
 } from '@/lib/table-booking/submission'
+import { PreorderNotSavedNotice } from './PreorderNotSavedNotice'
 
 /**
  * The terminal confirmed screen.
@@ -56,6 +57,8 @@ export function BookingConfirmedCard({
               </p>
             </div>
           </div>
+
+          <PreorderNotSavedNotice preorder={result.preorder} />
 
           <div className="rounded-md border border-line bg-surface-sunk p-4 text-left text-sm">
             <dl className="space-y-2 text-ink">
