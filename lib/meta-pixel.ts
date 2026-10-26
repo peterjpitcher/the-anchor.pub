@@ -86,7 +86,7 @@ function normaliseValue(value: number | null | undefined) {
 // booking was worth nothing and overwrote the figure the server had already stored.
 //
 // An explicit zero is still a fact, though. A free hosted event really is worth GBP 0
-// (calculateBookingValue in ManagementEventBookingForm returns 0 when there is no
+// (calculateEventBookingValue in lib/event-booking-experience returns 0 when there is no
 // ticket price), so only a missing, non-finite or negative value counts as unknown.
 function normaliseKnownValue(value: number | null | undefined) {
   return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null

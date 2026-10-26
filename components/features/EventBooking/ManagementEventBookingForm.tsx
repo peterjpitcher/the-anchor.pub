@@ -22,6 +22,7 @@ import {
   getEventBookingActionLabel,
   getEventBookingReassurance,
   getEventUnitPrice,
+  calculateEventBookingValue,
   isPrepaidEvent
 } from '@/lib/event-booking-experience'
 import {
@@ -539,7 +540,7 @@ export function ManagementEventBookingForm({
     const attribution = collectBookingAttribution()
     const totalValue = isMultiTypeEvent
       ? multiTypeBreakdown.total
-      : calculateBookingValue(event, clampedSeats)
+      : calculateEventBookingValue(event, clampedSeats)
     const bookingSeatingPreference = isCommunalEvent ? seatingPreference : null
     setSubmittedSeatingPreference(bookingSeatingPreference)
     setSubmittedTicketBreakdown(
@@ -1344,10 +1345,3 @@ export function ManagementEventBookingForm({
   )
 }
 
-function calculateBookingValue(
-  event: ManagementEventBookingFormProps['event'],
-  tickets: number
-): number {
-  const price = getEventUnitPrice(event)
-  return price ? price * tickets : 0
-}
