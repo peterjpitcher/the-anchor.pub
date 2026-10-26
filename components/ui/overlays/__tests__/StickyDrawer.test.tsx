@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import { StickyDrawer } from '../StickyDrawer'
 
 /**
@@ -91,5 +91,46 @@ describe('StickyDrawer closed-state markup', () => {
     const panel = screen.getByTestId('drawer')
     expect(panel).toBeInTheDocument()
     expect(panel.className).toContain('transition-transform')
+  })
+})
+
+describe('StickyDrawer opening focus', () => {
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
+  it('moves focus into the drawer shortly after it opens', () => {
+    jest.useFakeTimers()
+    render(
+      <StickyDrawer open onClose={() => {}} title="Quick book" testId="drawer">
+        <button type="button">Choose a time</button>
+      </StickyDrawer>
+    )
+
+    act(() => {
+      jest.advanceTimersByTime(200)
+    })
+    expect(screen.getByTestId('drawer')).toContainElement(document.activeElement as HTMLElement)
+  })
+
+  it('leaves focus alone when something inside the drawer already has it', () => {
+    // The defect this pins: the quick-book sheet moves focus to the phone box, its first
+    // refusal or its result, and the drawer's own opening focus, 150ms later, took it back
+    // to the first button. The guest lost their place and the screen reader read the wrong
+    // thing; in CI the sheet's focus tests failed whenever the sheet was quicker than 150ms.
+    jest.useFakeTimers()
+    render(
+      <StickyDrawer open onClose={() => {}} title="Quick book" testId="drawer">
+        <button type="button">Close-ish first button</button>
+        <input aria-label="Mobile number" />
+      </StickyDrawer>
+    )
+
+    const phone = screen.getByLabelText('Mobile number')
+    act(() => {
+      phone.focus()
+      jest.advanceTimersByTime(200)
+    })
+    expect(phone).toHaveFocus()
   })
 })
