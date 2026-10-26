@@ -9,11 +9,27 @@ import type { EventBookingQuestion } from './api/events'
 export const GUEST_DETAILS_PRIVACY_LINE =
   "Only add people who are happy to share these details with us. We use their answers for this event only, and delete them 90 days after it."
 
+/** The booker's confirmation, recorded against each guest with the time it was saved (BK-017). */
+export const GUEST_DETAILS_CONFIRM_LABEL = "Everyone I've added is happy to share these details."
+export const GUEST_DETAILS_CONFIRM_ERROR = "Please confirm everyone you've added is happy to share these details."
+
+/**
+ * Whether the form asks for each ticket's name and answers. The management app sends the answer
+ * (guest_details_required, from the event's own setting). The fallback is the old rule, for an
+ * event read before the management app sent it; it never asks for less than that rule did.
+ */
+export function eventCollectsGuestDetails(event: { guest_details_required?: boolean; booking_questions?: unknown[] }, fallback: { takesPayment: boolean; prepaid: boolean }): boolean {
+  if (typeof event.guest_details_required === 'boolean') return event.guest_details_required
+  return fallback.takesPayment && (fallback.prepaid || (event.booking_questions?.length ?? 0) > 0)
+}
+
 export interface EventAttendee {
   id: string
   name: string
   ticket_type_id?: string | null
   answers: Record<string, string>
+  /** Sent only as true, when the booker ticked the confirmation (BK-017). */
+  details_confirmed?: true
 }
 
 /** Keep each person's identity and answers attached to their ticket. */

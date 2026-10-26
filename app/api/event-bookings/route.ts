@@ -186,6 +186,8 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       return typeof value.id !== 'string' || !uuid.test(value.id) || typeof value.name !== 'string' || !value.name.trim() || value.name.length > 120 ||
         (value.ticket_type_id != null && (typeof value.ticket_type_id !== 'string' || !uuid.test(value.ticket_type_id))) ||
         !value.answers || typeof value.answers !== 'object' || Array.isArray(value.answers) ||
+        // The booker's confirmation is only ever true; anything else is not ours (BK-017).
+        (value.details_confirmed !== undefined && value.details_confirmed !== true) ||
         Object.entries(value.answers).some(([id, answer]) => !uuid.test(id) || typeof answer !== 'string' || answer.length > 2000)
     }) || new Set(body.attendees.map((person: EventAttendee) => person.id)).size !== body.attendees.length) return { error: 'Please provide valid details for every ticket.' }
   }
