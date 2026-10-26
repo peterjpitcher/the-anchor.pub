@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { fixtureBookingContext, fixtureNotesAllowance, fixtureKickoffLabel, isFixtureArrivalAllowed, type FixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
+import { FIXTURE_UNCONFIRMED_MESSAGE, readBookingPrefill, readFixtureId, type BookingPrefill } from '@/lib/table-booking/prefill'
 import { screeningFeedSchema } from '@/lib/nations-championship/types'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { ArrowLeft, ArrowRight, Check, ChevronDown } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Badge } from '@/components/ui/primitives/Badge'
@@ -14,12 +15,10 @@ import { Button } from '@/components/ui/primitives/Button'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { SecurityCheckWaitingNote } from '@/components/security/SecurityCheckWaitingNote'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
-import { pickSlotWindow } from '@/lib/table-booking-slot-window'
 import { londonNowParts } from '@/lib/table-booking-service-windows'
 import {
   addDays,
   formatDateForDisplay,
-  formatGbpCurrency,
   formatHoldExpiry,
   formatTimeForDisplay,
   formatTimeList,
@@ -87,7 +86,7 @@ import {
   type BookingAttributionPayload,
 } from '@/lib/booking-attribution'
 import { buildBookingHoursNote } from '@/lib/table-booking/hours-note'
-import { PayPalDepositSection } from './PayPalDepositSection'
+import dynamic from 'next/dynamic'
 import { GROUP_DEPOSIT_REFUND_WORDING } from '@/lib/approved-wording'
 import { BookingConfirmedCard } from './BookingConfirmedCard'
 import { BookingProgressBar } from './BookingProgressBar'
@@ -142,11 +141,8 @@ import {
   isFoodCheckUnavailable,
 } from '@/lib/table-booking/purpose'
 import {
-  HIGH_CHAIR_HOUSE_CAP,
   STEP_LABELS,
   STEP_ORDER,
-  TWO_SCREEN_STEP_LABELS,
-  TWO_SCREEN_STEP_ORDER,
   findDetailsStepRefusals,
   isHighChairShortfallAcknowledged,
   readSlotHighChairsRemaining,
@@ -157,6 +153,16 @@ import {
 } from '@/lib/table-booking/journey'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+
+/**
+ * PayPal's wrapper is fetched only when a deposit is actually due, not with
+ * the booking page: almost nobody books a party of 15 or more (review BK-199).
+ * The "Setting up payment" line below covers the moment it takes.
+ */
+const PayPalDepositSection = dynamic(
+  () => import('./PayPalDepositSection').then((mod) => mod.PayPalDepositSection),
+  { ssr: false, loading: () => <p className="text-sm text-ink-muted">Setting up payment…</p> }
+)
 
 const POLICY_NOT_ACCEPTED_MESSAGE =
   'Please confirm you understand the booking and no-show policy before continuing.'
@@ -198,28 +204,29 @@ function buildAvailabilityInputsKey(input: {
 }
 
 interface ManagementTableBookingFormProps {
+  /**
+   * A game already looked up. /book-table passes none: the form finds the game
+   * in the address itself (`fixture_id`), so the page can be cached.
+   */
   fixtureContext?: FixtureBookingContext | null
   fixtureMessage?: string
-  prefill?: {
-    date?: string
-    time?: string
-    partySize?: number
-    drinksOnly?: boolean
-  }
   /**
-   * The approved two-screen journey (spec D1). Off by default and set from the
-   * runtime `booking_options_step1` flag by the page, which reads it server-side
-   * and defaults to off whenever AMS cannot be reached. The four-step path below
-   * stays until the new one is proven in production, and is then deleted.
+   * What to start with. Read from the address when not given, which is how
+   * /book-table uses it (review BK-200).
    */
-  twoScreenFlow?: boolean
+  prefill?: BookingPrefill
 }
 
+/**
+ * The booking journey: find a table and its time on one screen, then details
+ * and confirm on the next (spec D1). The four-step journey it replaced, behind
+ * the `booking_options_step1` flag, was deleted in October 2026 after running
+ * alongside it from 1 August (review BK-199, website W4).
+ */
 export function ManagementTableBookingForm({
   prefill,
   fixtureContext = null,
-  fixtureMessage,
-  twoScreenFlow = false
+  fixtureMessage
 }: ManagementTableBookingFormProps) {
   // Trigger re-renders so time-based cutoffs update without requiring a reload.
   // (Retained because hold-expiry and other time-derived
@@ -285,28 +292,21 @@ export function ManagementTableBookingForm({
     })
   }
 
+  // The address fills these in unless the caller says otherwise. Read here, in
+  // the browser, so /book-table can be served from the cache (review BK-200).
+  const urlPrefill = useMemo(() => readBookingPrefill(searchParams), [searchParams])
+  const startingPrefill = prefill ?? urlPrefill
   const today = useMemo(() => londonNowParts().isoDate, [])
-  const defaultDate = toIsoDateInputValue(prefill?.date) || today
-  const defaultRequestedTime = toTimeInputValue(prefill?.time) || getDefaultTimeValue()
-  const defaultPartySize = Math.min(Math.max(prefill?.partySize || 2, 1), 20)
+  const defaultDate = toIsoDateInputValue(startingPrefill.date) || today
+  const defaultRequestedTime = toTimeInputValue(startingPrefill.time) || getDefaultTimeValue()
+  const defaultPartySize = Math.min(Math.max(startingPrefill.partySize || 2, 1), 20)
 
   const [step, setStep] = useState<BookingStep>('find')
-  // In the two-screen flow the slot grid lives on `find`, so everything that
-  // used to send the guest back to the `choose` step sends them here instead.
-  const slotsStep: BookingStep = twoScreenFlow ? 'find' : 'choose'
-  const stepKeys = twoScreenFlow ? TWO_SCREEN_STEP_ORDER : STEP_ORDER
-  const stepLabels = twoScreenFlow ? TWO_SCREEN_STEP_LABELS : STEP_LABELS
 
   const [partySize, setPartySize] = useState(defaultPartySize)
   const [partySizeDisplay, setPartySizeDisplay] = useState(String(defaultPartySize))
   const [date, setDate] = useState(defaultDate)
-  const [requestedTime, setRequestedTime] = useState(defaultRequestedTime)
   const [selectedTime, setSelectedTime] = useState<string>('')
-  // Step-2 slot window. `slotWindowAnchorTime` is captured at search time so
-  // selecting a slot (which mutates `requestedTime`) does not re-centre the
-  // visible grid; `showAllTimes` toggles the "See more times" expander.
-  const [showAllTimes, setShowAllTimes] = useState(false)
-  const [slotWindowAnchorTime, setSlotWindowAnchorTime] = useState(defaultRequestedTime)
   // Captured at slot-select time so the submit step can read the slot's
   // authoritative `bookable_purpose` without re-fetching availability. Covers
   // the nearest-alternative path, where the chosen slot is not in the current
@@ -353,10 +353,54 @@ export function ManagementTableBookingForm({
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [notes, setNotes] = useState('')
+  // The game this booking was opened for, as first confirmed: handed in, or
+  // looked up from the address below. `currentFixture` follows later checks.
+  const [baseFixture, setBaseFixture] = useState(fixtureContext)
   const [currentFixture, setCurrentFixture] = useState(fixtureContext)
   const [fixtureAttached, setFixtureAttached] = useState(Boolean(fixtureContext))
   const [fixtureUnavailable, setFixtureUnavailable] = useState(false)
   const [fixtureDetached, setFixtureDetached] = useState(false)
+  const [fixtureNotice, setFixtureNotice] = useState(fixtureMessage)
+  const requestedFixtureId = fixtureContext ? null : readFixtureId(searchParams)
+  const [fixtureLookupPending, setFixtureLookupPending] = useState(Boolean(requestedFixtureId))
+
+  // A link from the tournament page names its game in the address. The server
+  // used to look it up, which kept /book-table from being cached; the form
+  // asks the same feed the tournament page reads (review BK-200). Until the
+  // game is confirmed this is a normal booking, and if it cannot be confirmed
+  // it stays one, with a word saying so: nothing is promised about a game the
+  // feed does not vouch for.
+  useEffect(() => {
+    if (!requestedFixtureId) return
+    let cancelled = false
+    const controller = new AbortController()
+    void (async () => {
+      try {
+        const response = await fetch('/api/nations-championship', { cache: 'no-store', signal: controller.signal })
+        if (!response.ok) throw new Error('Screening unavailable')
+        const feed = screeningFeedSchema.parse(await response.json())
+        const fixture = feed.fixtures.find((item) => item.id === requestedFixtureId)
+        const context = fixture ? fixtureBookingContext(fixture) : null
+        if (cancelled) return
+        if (!context) throw new Error('Screening unavailable')
+        setBaseFixture(context)
+        setCurrentFixture(context)
+        setFixtureAttached(true)
+        // Moved to the game's date unless the guest has already started on
+        // the form, in which case their own choices stand.
+        if (!hasInteractedRef.current) setDate(context.date)
+      } catch (lookupFailure) {
+        if (cancelled || (lookupFailure as Error)?.name === 'AbortError') return
+        setFixtureNotice(FIXTURE_UNCONFIRMED_MESSAGE)
+      } finally {
+        if (!cancelled) setFixtureLookupPending(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
+  }, [requestedFixtureId])
   const activeFixture = fixtureAttached && !fixtureUnavailable && currentFixture?.date === date ? currentFixture : null
   const notesAllowance = fixtureNotesAllowance(activeFixture)
   const completedBookings = useRef(new Set<string>())
@@ -374,7 +418,7 @@ export function ManagementTableBookingForm({
   // kitchen hours, so the clock cannot be used to guess. Ticking it switches the house order
   // to the bar, shortens the turn, drops out of kitchen pacing and reveals slots when the
   // kitchen is shut.
-  const [drinksOnly, setDrinksOnly] = useState(prefill?.drinksOnly === true)
+  const [drinksOnly, setDrinksOnly] = useState(startingPrefill.drinksOnly === true)
 
   // A seating requirement, never a reason or a diagnosis. Small Bay has a step and High 4 is
   // bar height, so this is a real filter, not a preference.
@@ -472,15 +516,11 @@ export function ManagementTableBookingForm({
     () => ({
       partySize,
       highChairCount,
-      // Owner decision D4 hides a time with no chair free, and the guest can
-      // set chairs back to 0 to see it. The four-step flow has no way to show a
-      // hidden time, so it offers "book anyway" on its details step instead.
-      hideWhenNoHighChairFree: twoScreenFlow,
       // A seasonal meal needs the kitchen open, so accepting the period narrows
       // the grid to times the kitchen can actually serve.
       requiresFoodService: seasonalRequiresFoodService
     }),
-    [partySize, highChairCount, twoScreenFlow, seasonalRequiresFoodService]
+    [partySize, highChairCount, seasonalRequiresFoodService]
   )
 
   // Any of these changes which TABLES qualify, so a reading taken before the change is stale.
@@ -494,11 +534,10 @@ export function ManagementTableBookingForm({
   // availability with the new inputs and keep their time if it survives, and only interrupt them
   // when it genuinely does not.
   //
-  // PARTY SIZE BELONGS HERE. It was left out because in the four-step flow it
-  // lived on a different screen from the grid, so it could not change under an
-  // answer. The two-screen flow rightly puts them together, and without this a
-  // guest could search for two, choose a time, change to eight, and book that
-  // time with nothing re-checked and nothing on screen to say so. The route
+  // PARTY SIZE BELONGS HERE. Party size sits on the same screen as the grid,
+  // and without this a guest could search for two, choose a time, change to
+  // eight, and book that time with nothing re-checked and nothing on screen to
+  // say so. The route
   // reports capacity from the local schedule (50 for the drinks range), so the
   // client-side filter cannot catch it either: only asking again can.
   const availabilityInputsKey = buildAvailabilityInputsKey({
@@ -514,11 +553,11 @@ export function ManagementTableBookingForm({
     if (previousAvailabilityInputs.current === availabilityInputsKey) return
     previousAvailabilityInputs.current = availabilityInputsKey
 
-    // Two-screen flow: the refinements sit directly above the grid, so a change
-    // has to re-filter that grid in place (spec §3.5). Once a search has run,
-    // re-read with the new inputs whether or not a time is chosen; the grid the
-    // guest is looking at must never be answering the previous question.
-    const refilterGridInPlace = twoScreenFlow && availability !== null && Boolean(date)
+    // The refinements sit directly above the grid, so a change has to
+    // re-filter that grid in place (spec §3.5). Once a search has run, re-read
+    // with the new inputs whether or not a time is chosen; the grid the guest
+    // is looking at must never be answering the previous question.
+    const refilterGridInPlace = availability !== null && Boolean(date)
 
     // On the find step nothing is chosen yet, so drop the stale reading and let the
     // "Find a table" button fetch with the new inputs. Any in-flight request was
@@ -567,7 +606,7 @@ export function ManagementTableBookingForm({
           trackSlotInvalidated({ reason: 'availability_error' })
           setSelectedTime('')
           setSelectedSlotService(null)
-          setStep(slotsStep)
+          setStep('find')
           reportSlotDropped(
             'availability_unknown',
             'We could not check that time with those options. Please try again.'
@@ -596,12 +635,10 @@ export function ManagementTableBookingForm({
           : undefined
 
         // A shortfall that appeared underneath them is not something they have
-        // agreed to. In the two-screen flow consent is given by tapping the
-        // slot while the count is printed on it, so send them back to do that
-        // rather than carry a time they chose when no chairs were in play. The
-        // four-step flow keeps its own acknowledgement on the details step.
+        // agreed to. Consent is given by tapping the slot while the count is
+        // printed on it, so send them back to do that rather than carry a time
+        // they chose when no chairs were in play.
         const shortfallNeedsFreshConsent =
-          twoScreenFlow &&
           freshVerdict.highChairsFree !== undefined &&
           !isHighChairShortfallAcknowledged(highChairConsent, date, timeAtChange, {
             free: freshVerdict.highChairsFree,
@@ -629,7 +666,7 @@ export function ManagementTableBookingForm({
           trackSlotInvalidated({ reason: 'high_chair_shortfall' })
           setSelectedTime('')
           setSelectedSlotService(null)
-          setStep(slotsStep)
+          setStep('find')
           reportSlotDropped(
             'slot_high_chair_shortfall',
             `${formatTimeForDisplay(timeAtChange)} now has only ${freshVerdict.highChairsFree} high chair${
@@ -657,7 +694,7 @@ export function ManagementTableBookingForm({
           setSelectedTime('')
           setSelectedSlotService(null)
           setSlotDroppedNotice(null)
-          setStep(slotsStep)
+          setStep('find')
           return
         }
 
@@ -666,7 +703,7 @@ export function ManagementTableBookingForm({
         trackSlotInvalidated({ reason: 'options_changed' })
         setSelectedTime('')
         setSelectedSlotService(null)
-        setStep(slotsStep)
+        setStep('find')
         reportSlotDropped(
           'slot_options_changed',
           `${formatTimeForDisplay(timeAtChange)} is not available with those options. Please choose another time.`
@@ -693,7 +730,7 @@ export function ManagementTableBookingForm({
         setSelectedTime('')
         setSelectedSlotService(null)
         setAlternativeSlots([])
-        setStep(slotsStep)
+        setStep('find')
         setAvailabilityError(
           'We could not check that time with those options. Please try again.'
         )
@@ -729,7 +766,8 @@ export function ManagementTableBookingForm({
   const [submittedAttribution, setSubmittedAttribution] = useState<BookingAttributionPayload | null>(null)
 
   useEffect(() => {
-    if (!fixtureAttached || !fixtureContext || (result && result.state !== 'blocked')) return
+    if (!fixtureAttached || !baseFixture || (result && result.state !== 'blocked')) return
+    const booked = baseFixture
     let cancelled = false
     const controller = new AbortController()
     async function refreshFixture() {
@@ -737,11 +775,11 @@ export function ManagementTableBookingForm({
         const response = await fetch('/api/nations-championship', { cache: 'no-store', signal: controller.signal })
         if (!response.ok) throw new Error('Screening unavailable')
         const feed = screeningFeedSchema.parse(await response.json())
-        const fixture = feed.fixtures.find(item => item.id === fixtureContext!.fixtureId)
+        const fixture = feed.fixtures.find(item => item.id === booked.fixtureId)
         const context = fixture ? fixtureBookingContext(fixture) : null
         if (!cancelled) {
-          setFixtureUnavailable(!context || context.date !== fixtureContext!.date)
-          if (context && context.date === fixtureContext!.date) setCurrentFixture(context)
+          setFixtureUnavailable(!context || context.date !== booked.date)
+          if (context && context.date === booked.date) setCurrentFixture(context)
         }
       } catch { if (!cancelled) setFixtureUnavailable(true) }
     }
@@ -750,7 +788,7 @@ export function ManagementTableBookingForm({
     const interval = window.setInterval(() => { void refreshFixture() }, 60_000)
     window.addEventListener('focus', refreshFixture)
     return () => { cancelled = true; controller.abort(); window.clearInterval(interval); window.removeEventListener('focus', refreshFixture) }
-  }, [fixtureAttached, fixtureContext, result])
+  }, [fixtureAttached, baseFixture, result])
 
   const [policyAccepted, setPolicyAccepted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -823,14 +861,11 @@ export function ManagementTableBookingForm({
   }, [fieldFocusRequest])
 
 
-  // The chosen time stopped qualifying. In the two-screen flow the guest is
-  // already looking at the grid, so this is an inline note beside it rather
-  // than a red failure banner: the same machine code is recorded either way.
+  // The chosen time stopped qualifying. The guest is already looking at the
+  // grid, so this is an inline note beside it rather than a red failure
+  // banner: nothing has failed, they simply need to pick again. The machine
+  // code is recorded as for any other error.
   function reportSlotDropped(code: string, message: string) {
-    if (!twoScreenFlow) {
-      showBookingError(code, message)
-      return
-    }
     trackBookingErrorShown({ code })
     setSlotDroppedNotice(message)
   }
@@ -839,9 +874,12 @@ export function ManagementTableBookingForm({
   const awaitingSecurityCheck = Boolean(TURNSTILE_SITE_KEY) && !turnstileToken
   const [website, setWebsite] = useState('')
   const formLoadedAt = useRef(Date.now())
+  // The chosen time once there is one; before that, the time the page was
+  // opened for (a link's own time, or an hour from now).
+  const aircraftNoteTime = selectedTime || defaultRequestedTime
   const aircraftOverheadNote = useMemo(
-    () => getAircraftOverheadNotePartsForDateTime(date, requestedTime),
-    [date, requestedTime]
+    () => getAircraftOverheadNotePartsForDateTime(date, aircraftNoteTime),
+    [date, aircraftNoteTime]
   )
 
   // Wizard root ref for scroll-to-top on step transitions. Mounted-guard ref
@@ -916,7 +954,7 @@ export function ManagementTableBookingForm({
   const hideDateEventSuggestions = suggestedEvents.dismissed
   const showDateEventSuggestions = !hideDateEventSuggestions && selectedDateEvents.length > 0
 
-  const currentStepIndex = stepKeys.indexOf(step)
+  const currentStepIndex = STEP_ORDER.indexOf(step)
   // Everything the purpose rules need, gathered once. The slot caption, the
   // review line and the submitted `purpose` all read it, which is what stops
   // what the guest is shown drifting from what gets booked.
@@ -965,15 +1003,6 @@ export function ManagementTableBookingForm({
     () => selectableSlots(screeningSlots, slotSelectionContext),
     [screeningSlots, slotSelectionContext]
   )
-  // Visible step-2 slots: by default a 7-slot window centred on the search-time
-  // anchor, expanded to the full list when the customer taps "See more times".
-  const visibleSlots = useMemo(
-    () =>
-      showAllTimes
-        ? availableSlots
-        : pickSlotWindow(availableSlots, slotWindowAnchorTime),
-    [availableSlots, showAllTimes, slotWindowAnchorTime]
-  )
   const selectedSlot = useMemo(
     () => availableSlots.find((slot) => slot.time === selectedTime) || null,
     [availableSlots, selectedTime]
@@ -990,38 +1019,28 @@ export function ManagementTableBookingForm({
         ? `No times available on ${formatDateForDisplay(date)}.`
         : `${availableSlots.length} ${availableSlots.length === 1 ? 'time' : 'times'} available on ${formatDateForDisplay(date)}.`
 
-  // Three-screen flow only: the search button is on a screen that goes away
-  // when the times arrive, and focus went with it to the top of the page. Put
-  // it on the heading of the screen that replaced it.
-  const chooseHeadingRef = useRef<HTMLHeadingElement>(null)
-  const lastStepRef = useRef<BookingStep>(step)
-  useEffect(() => {
-    const previous = lastStepRef.current
-    lastStepRef.current = step
-    if (previous === 'find' && step === 'choose') chooseHeadingRef.current?.focus()
-  }, [step])
-
-  // Two-screen flow: the heading of whichever screen is showing. Continue,
-  // Back, a dropped time and "Back to table booking" each take away the
-  // control the guest pressed, so focus goes to the new screen's heading and
-  // a screen reader announces where they are (review BK-103). The fix above
-  // only ever ran on the retired three-screen order.
+  // The heading of whichever screen is showing. Continue, Back, a dropped
+  // time and "Back to table booking" each take away the control the guest
+  // pressed, so focus goes to the new screen's heading and a screen reader
+  // announces where they are (review BK-103). The October fix for this only
+  // ever ran on the retired three-screen order, deleted with it.
   const screenHeadingRef = useRef<HTMLHeadingElement>(null)
   const screenKey = selectedSuggestedEvent
     ? 'event'
     : result?.state === 'confirmed'
       ? 'confirmed'
       : step
-  useFocusOnChange(screenHeadingRef, twoScreenFlow ? screenKey : null)
+  useFocusOnChange(screenHeadingRef, screenKey)
 
   // After the screen heading above, on purpose: a refused booking also sends
   // the guest back to the times, and the alert saying why must win the focus.
   // A failure of the booking itself goes in the top alert, which is a screen
-  // above Confirm on a phone, so the guest is taken to it. Two-screen flow
-  // only: the four-step flow also raises this alert from a background re-read,
-  // where taking focus would pull the guest off whatever they were doing.
+  // above Confirm on a phone, so the guest is taken to it. Only ever raised by
+  // something the guest pressed: a time dropped by a background re-read is an
+  // inline note instead (reportSlotDropped), so this never pulls focus away
+  // from what they were doing.
   useEffect(() => {
-    if (errorSequence === 0 || !twoScreenFlow) return
+    if (errorSequence === 0) return
     const alert = errorAlertRef.current
     if (!alert) return
     alert.focus({ preventScroll: true })
@@ -1056,10 +1075,6 @@ export function ManagementTableBookingForm({
       chairsRequested: highChairShortfallRequested
     })
   }, [highChairShortfallFree, highChairShortfallRequested])
-  // With no chairs left and none requested there is nothing to pick; the copy
-  // below explains instead. A carried-over request keeps the stepper visible
-  // so the guest can still reduce it.
-  const hideHighChairPicker = slotHighChairsRemaining === 0 && highChairCount === 0
   const quieterSlots = useMemo(() => {
     if (!selectedSlot || !shouldNudgeForBusyness(selectedSlot.busyness)) return []
     const selectedMinutes = toMinutes(selectedSlot.time)
@@ -1259,16 +1274,9 @@ export function ManagementTableBookingForm({
         if (!response) continue
 
         // The same rule, on the same chair policy the rest of the flow already
-        // runs on: `probeContext` carries the current `hideWhenNoHighChairFree`,
-        // so this panel asks only whether a time is selectable and inherits the
-        // answer.
-        //
-        // Deliberately no second condition. One that also demanded the chairs
-        // be covered in full withheld every short time on the four-step path,
-        // where the details step the guest is sent to next openly offers "no
-        // high chairs are free at this time, book anyway?". A panel that will
-        // not show a time the very next screen offers to book is its own kind
-        // of wrong.
+        // runs on, so this panel asks only whether a time is selectable and
+        // inherits the answer. A short time is offered with its shortfall
+        // printed on the button, exactly as the grid prints it.
         const probeContext: SlotSelectionContext = {
           ...slotSelectionContext,
           partySize: targetPartySize
@@ -1361,25 +1369,18 @@ export function ManagementTableBookingForm({
     )
 
     setDate(input.targetDate)
-    if (!twoScreenFlow) {
-      setRequestedTime(input.targetTime)
-      // Pin the slot-window anchor at the originally-requested time. Subsequent
-      // slot selections may move `requestedTime`, but the visible window stays put.
-      setSlotWindowAnchorTime(input.targetTime)
-      setShowAllTimes(false)
-    }
     // Stamp the date we asked about when the response does not echo one, so
     // resolveSlotBookablePurpose can prove which date this reading covers.
     setAvailability({ ...availabilityData, date: availabilityData.date || input.targetDate })
-    // Two-screen flow: nothing is pre-selected. The guest was never asked for a
-    // preferred time, so choosing one for them would put a time on the summary
-    // they never picked. `closestTime` is still computed, because "there is no
-    // closest slot" is exactly "there is nothing free" below.
-    setSelectedTime(twoScreenFlow ? '' : closestTime || '')
+    // Nothing is pre-selected. The guest was never asked for a preferred time,
+    // so choosing one for them would put a time on the summary they never
+    // picked. `closestTime` is still computed, because "there is no closest
+    // slot" is exactly "there is nothing free" below.
+    setSelectedTime('')
     setSlotDroppedNotice(null)
     // A new availability response invalidates the previous slot selection.
     setSelectedSlotService(null)
-    setStep(slotsStep)
+    setStep('find')
 
     if (!closestTime && availabilityData.calculation_state !== 'unknown') {
       // No point probing nearby dates while the checker itself is unavailable;
@@ -1436,7 +1437,6 @@ export function ManagementTableBookingForm({
     setResult(null)
     setAlternativeSlots([])
     supersedeAlternatives()
-    setShowAllTimes(false)
     setSlotDroppedNotice(null)
     // A new availability search starts a new submit-intent. Drop any cached
     // idempotency key so the next Confirm cannot accidentally dedupe with a
@@ -1446,9 +1446,9 @@ export function ManagementTableBookingForm({
     try {
       await runAvailabilitySearch({
         targetDate: date,
-        // Two-screen flow: the guest was never asked for a preferred time
-        // (spec D7), so the request carries a neutral anchor for the day.
-        targetTime: twoScreenFlow ? NEUTRAL_AVAILABILITY_ANCHOR_TIME : requestedTime,
+        // The guest is never asked for a preferred time (spec D7), so the
+        // request carries a neutral anchor for the day.
+        targetTime: NEUTRAL_AVAILABILITY_ANCHOR_TIME,
         targetPartySize: clampedSize,
         source: 'book_table_find_table',
         context: 'availability_first',
@@ -1502,19 +1502,16 @@ export function ManagementTableBookingForm({
   function handleSlotSelect(slot: AvailabilitySlot) {
     const verdict = judgeSlot(slot, slotSelectionContext)
 
-    // Consent to a high-chair shortfall is given HERE, in the two-screen flow,
-    // because here the count is printed on the button being tapped and read out
-    // in its aria-label. Tapping it is therefore an informed choice. The
-    // four-step grid shows no such flag, so tapping there consents to nothing
-    // and its details step asks separately (review F06).
+    // Consent to a high-chair shortfall is given HERE, because here the count
+    // is printed on the button being tapped and read out in its aria-label.
+    // Tapping it is therefore an informed choice (review F06).
     setHighChairConsent(
-      twoScreenFlow && verdict.highChairsFree !== undefined
+      verdict.highChairsFree !== undefined
         ? { date, time: slot.time, free: verdict.highChairsFree, requested: highChairCount }
         : null
     )
 
     setSelectedTime(slot.time)
-    setRequestedTime(slot.time)
     setSlotDroppedNotice(null)
     setSelectedSlotService({
       date,
@@ -1530,7 +1527,6 @@ export function ManagementTableBookingForm({
 
   function handleChooseAlternative(alternative: AlternativeSlot) {
     setDate(alternative.date)
-    setRequestedTime(alternative.time)
     setSelectedTime(alternative.time)
     // Carry the alternative's bookable purpose through so submit can read it
     // even though the current `availability` belongs to the originally
@@ -1545,27 +1541,9 @@ export function ManagementTableBookingForm({
     setError(null)
   }
 
-  function handleBackToFind() {
+  function handleBackToTimes() {
     setStep('find')
     setError(null)
-  }
-
-  function handleBackToChoose() {
-    setStep(slotsStep)
-    setError(null)
-  }
-
-  function handleRequestedTimeChange(value: string) {
-    markFunnelStart()
-    setRequestedTime(value)
-    // Do NOT set the slot-window anchor here, the anchor is search-time
-    // state, owned exclusively by `runAvailabilitySearch` (spec §5.2).
-    // Mutating it from a draft input handler couples input state to choose-
-    // step rendering and can re-centre stale availability after a failed or
-    // unsubmitted edit. See codex ARCH-002.
-    setShowAllTimes(false)
-    setSelectedSlotService(null)
-    supersedeAlternatives()
   }
 
   function handleDateChange(value: string) {
@@ -1584,7 +1562,6 @@ export function ManagementTableBookingForm({
     supersedeAlternatives()
     setSelectedTime('')
     setSelectedSlotService(null)
-    setShowAllTimes(false)
     setSlotDroppedNotice(null)
     if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
       // Past-date validation runs in Europe/London. Do not parse value with
@@ -1632,10 +1609,9 @@ export function ManagementTableBookingForm({
     )
   }
 
-  // The deposit step for bookings that take one. The four-step flow renders it
-  // from the review screen and the two-screen flow from the details screen,
-  // which is the same moment in the journey: the booking exists, the deposit
-  // has not been paid, and nothing else may happen until it is.
+  // The deposit step for bookings that take one, rendered on the details
+  // screen at the moment the booking exists and the deposit has not been
+  // paid: nothing else may happen until it is.
   function renderPendingPayment() {
     if (result?.state !== 'pending_payment') return null
 
@@ -1906,12 +1882,10 @@ export function ManagementTableBookingForm({
       // The Continue button just pressed is replaced by "Use Different
       // Number", so focus goes where the guest types next: their first name,
       // or the notes for a number we already know (review BK-103).
-      if (twoScreenFlow) {
-        setFieldFocusRequest((previous) => ({
-          field: lookup.known ? 'notes' : 'firstName',
-          sequence: (previous?.sequence ?? 0) + 1
-        }))
-      }
+      setFieldFocusRequest((previous) => ({
+        field: lookup.known ? 'notes' : 'firstName',
+        sequence: (previous?.sequence ?? 0) + 1
+      }))
     } catch (lookupFailure: any) {
       trackBookingErrorShown({ code: 'lookup_failed' })
       setLookupState('idle')
@@ -1953,10 +1927,8 @@ export function ManagementTableBookingForm({
 
     const [refusal] = refusals
 
-    // Beside the controls, on the two-screen flow where they are all on the
-    // screen being confirmed from. The four-step flow confirms from a review
-    // screen that shows none of them, so it keeps the alert until it goes.
-    if (twoScreenFlow && refusal.field) {
+    // Beside the controls, which are all on the screen being confirmed from.
+    if (refusal.field) {
       showFieldErrors([
         ...refusals.flatMap((entry) =>
           entry.field ? [{ field: entry.field, code: entry.code, message: entry.message }] : []
@@ -1970,15 +1942,14 @@ export function ManagementTableBookingForm({
 
     // The slot context is gone, so the message only makes sense on the slot
     // list. Move them there first, exactly as the inline checks did.
-    if (refusal.returnToChoose) setStep(slotsStep)
+    if (refusal.returnToChoose) setStep('find')
     showBookingError(refusal.code, refusal.message)
     return false
   }
 
   // Funnel: guest details passed validation. Documented since the funnel
-  // launched but never fired until the analytics baseline (spec W1). The
-  // four-step flow reaches this on the way to review; the two-screen flow has
-  // no review, so it fires at the same moment, inside Confirm.
+  // launched but never fired until the analytics baseline (spec W1). There is
+  // no review screen, so it fires inside Confirm.
   function trackDetailsEntered() {
     trackTableBookingFunnel({
       step: 'details_entered',
@@ -1989,23 +1960,6 @@ export function ManagementTableBookingForm({
       bookingType,
       deviceType: getDeviceType(),
     })
-  }
-
-  function handleContinueToReview() {
-    setError(null)
-
-    if (!validateDetailsStep()) {
-      return
-    }
-
-    trackTableBookingClick({
-      source: 'book_table_details_complete',
-      context: 'details_step'
-    })
-
-    trackDetailsEntered()
-
-    setStep('review')
   }
 
   // Reuse the cached idempotency key when the fingerprint matches the previous
@@ -2121,25 +2075,19 @@ export function ManagementTableBookingForm({
       return
     }
 
-    // The two-screen flow confirms straight from the details screen, so this is
-    // where its details pass validation.
-    if (twoScreenFlow) {
-      trackDetailsEntered()
-    }
+    // Confirm is pressed on the details screen itself, so this is where the
+    // details pass validation.
+    trackDetailsEntered()
 
     if (!policyAccepted) {
-      if (twoScreenFlow) {
-        showFieldErrors([{ field: 'policy', code: 'policy_not_accepted', message: POLICY_NOT_ACCEPTED_MESSAGE }])
-      } else {
-        showBookingError('policy_not_accepted', POLICY_NOT_ACCEPTED_MESSAGE)
-      }
+      showFieldErrors([{ field: 'policy', code: 'policy_not_accepted', message: POLICY_NOT_ACCEPTED_MESSAGE }])
       return
     }
 
     const purpose = deriveSubmitPurpose(slotPurposeContext)
     if (!purpose) {
       showBookingError('slot_context_lost', 'Please choose a time again before confirming.')
-      setStep(slotsStep)
+      setStep('find')
       return
     }
 
@@ -2156,16 +2104,15 @@ export function ManagementTableBookingForm({
     }
     if (activeFixture && !isFixtureArrivalAllowed(activeFixture, date, selectedTime)) {
       showBookingError('screening_arrival', 'Choose an available arrival from pub opening and before the screening ends.')
-      setStep(slotsStep)
+      setStep('find')
       return
     }
     if (trimmedNotes.length > notesAllowance) {
-      const notesMessage = `Please keep your notes to ${notesAllowance} characters so we can include the match details.`
-      if (twoScreenFlow) {
-        showFieldErrors([{ field: 'notes', code: 'notes_too_long', message: notesMessage }])
-      } else {
-        showBookingError('notes_too_long', notesMessage)
-      }
+      showFieldErrors([{
+        field: 'notes',
+        code: 'notes_too_long',
+        message: `Please keep your notes to ${notesAllowance} characters so we can include the match details.`
+      }])
       return
     }
     // Submit the ORIGINAL request, never a value clamped to the advisory
@@ -2314,7 +2261,7 @@ export function ManagementTableBookingForm({
         // An unknown reason gets the general line. It used to fall back to
         // `reason`, which is the management app's own text.
         showBookingError(blockedReason, BLOCKED_REASON_COPY[blockedReason] || BLOCKED_REASON_COPY.blocked)
-        setStep(slotsStep)
+        setStep('find')
         trackTableBookingFunnel({
           step: 'error',
           partySize,
@@ -2365,9 +2312,6 @@ export function ManagementTableBookingForm({
     setPartySize(defaultPartySize)
     setPartySizeDisplay(String(defaultPartySize))
     setDate(defaultDate)
-    setRequestedTime(defaultRequestedTime)
-    setSlotWindowAnchorTime(defaultRequestedTime)
-    setShowAllTimes(false)
     setSelectedTime('')
     setSelectedSlotService(null)
     setAvailability(null)
@@ -2425,7 +2369,7 @@ export function ManagementTableBookingForm({
           result={result}
           partySize={partySize}
           date={date}
-          time={selectedTime || requestedTime}
+          time={selectedTime}
           onBookAnother={resetJourney}
         />
       </div>
@@ -2456,18 +2400,23 @@ export function ManagementTableBookingForm({
             <p className="text-sm">Choose an available arrival time below. The game details will be included with your booking.</p>
           </div>
         )}
-        {(fixtureMessage || fixtureDetached || (fixtureAttached && fixtureUnavailable)) && (
+        {/* Says the game is being checked while it is; kept on the page so a
+            screen reader hears the wait. Out of the layout when empty. */}
+        <p role="status" className={fixtureLookupPending ? 'text-sm text-ink-muted' : 'sr-only'}>
+          {fixtureLookupPending ? 'Checking the game details...' : ''}
+        </p>
+        {(fixtureNotice || fixtureDetached || (fixtureAttached && fixtureUnavailable)) && (
           <div role="status" className="space-y-2 rounded-md border border-line p-4">
-            <p>{fixtureDetached ? 'This is now a normal table booking without a game attached.' : fixtureAttached && fixtureUnavailable ? 'We cannot confirm this screening right now. Please check before booking for the game.' : fixtureMessage}</p>
+            <p>{fixtureDetached ? 'This is now a normal table booking without a game attached.' : fixtureAttached && fixtureUnavailable ? 'We cannot confirm this screening right now. Please check before booking for the game.' : fixtureNotice}</p>
             <Link href="/live-sport/nations-championship" className="underline">Check the tournament page</Link>
             {fixtureAttached && fixtureUnavailable && !uncertainAttempt && <Button type="button" variant="outline" onClick={() => { setFixtureAttached(false); setFixtureDetached(true) }}>Continue with a normal table booking</Button>}
           </div>
         )}
         <BookingProgressBar
           currentStep={currentStepIndex + 1}
-          totalSteps={stepKeys.length}
-          stepKeys={stepKeys}
-          stepLabels={stepLabels}
+          totalSteps={STEP_ORDER.length}
+          stepKeys={STEP_ORDER}
+          stepLabels={STEP_LABELS}
         />
 
         {error && (
@@ -2483,7 +2432,7 @@ export function ManagementTableBookingForm({
           </Alert>
         )}
 
-        {step === 'find' && twoScreenFlow && (
+        {step === 'find' && (
           <div className="space-y-5">
             <form
               className="space-y-4"
@@ -2939,414 +2888,7 @@ export function ManagementTableBookingForm({
           </div>
         )}
 
-        {step === 'find' && !twoScreenFlow && (
-          <form
-            className="space-y-4"
-            onSubmit={(event) => {
-              event.preventDefault()
-              void handleFindTable()
-            }}
-          >
-            <div>
-              <h3 className="font-display text-h4 text-ink-strong">Find a table</h3>
-              <p className="mt-1 text-sm text-ink-muted">
-                {`Start with party size, date, and time. We'll ask for contact details after you pick a slot.`}
-              </p>
-            </div>
-
-            {hoursNote ? (
-              <div className="rounded-sm border border-line bg-surface-sunk p-3 text-sm text-ink">
-                <p className="font-semibold text-ink-strong">
-                  {formatDateForDisplay(date)}
-                </p>
-                <p className="mt-1">{hoursNote.summary}</p>
-                {hoursNote.footer ? (
-                  <p className="mt-2 text-xs text-ink-muted">{hoursNote.footer}</p>
-                ) : null}
-              </div>
-            ) : null}
-
-            <Input
-              label="Party Size"
-              type="number"
-              size="lg"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              min={1}
-              max={20}
-              required
-              value={partySizeDisplay}
-              onChange={(event) => {
-                markFunnelStart()
-                const raw = event.target.value
-                setPartySizeDisplay(raw)
-                if (raw === '') return
-                const parsed = Number.parseInt(raw, 10)
-                if (Number.isNaN(parsed)) return
-                const clamped = Math.min(Math.max(parsed, 1), 20)
-                setPartySize(clamped)
-                setSelectedSlotService(null)
-                setShowAllTimes(false)
-                supersedeAlternatives()
-              }}
-              onBlur={() => {
-                const parsed = Number.parseInt(partySizeDisplay, 10)
-                const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
-                setPartySize(clamped)
-                setPartySizeDisplay(String(clamped))
-                setSelectedSlotService(null)
-                setShowAllTimes(false)
-                supersedeAlternatives()
-              }}
-            />
-
-            {requiresGroupDeposit ? (
-              <Badge variant="sand" className="block w-full whitespace-normal text-left leading-snug">
-                {LARGE_GROUP_DEPOSIT_POLICY_COPY}
-              </Badge>
-            ) : null}
-
-            {/*
-              Two questions, both optional, both placed BEFORE times are shown because each
-              changes which tables qualify. Asking after a time is chosen would mean the guest
-              picks a slot that was never valid for them.
-            */}
-            <div className="space-y-3 rounded-lg border border-line bg-surface-subtle p-4">
-              <label className="flex items-start gap-3 text-sm">
-                <input
-                  type="checkbox"
-                  checked={drinksOnly}
-                  onChange={(event) => {
-                    setDrinksOnly(event.target.checked)
-                    trackOptionToggled({ option: 'drinks_only', value: event.target.checked, step })
-                  }}
-                  className="mt-0.5 h-4 w-4"
-                />
-                <span>
-                  <span className="font-medium text-ink-strong">Just drinks</span>
-                  <span className="block text-ink-muted">
-                    We will seat you in the bar, and your table will not be held for food.
-                  </span>
-                </span>
-              </label>
-
-              <label className="flex items-start gap-3 text-sm">
-                <input
-                  type="checkbox"
-                  checked={requiresAccessibleTable}
-                  onChange={(event) => {
-                    // Deliberately NOT tracked. A step-free seating request
-                    // infers a mobility impairment, which is special-category
-                    // data under UK GDPR Article 9, and analytics-cookie
-                    // consent is not Article 9 explicit consent. See the rules
-                    // at the top of lib/gtm-events.ts.
-                    setRequiresAccessibleTable(event.target.checked)
-                  }}
-                  className="mt-0.5 h-4 w-4"
-                />
-                <span>
-                  <span className="font-medium text-ink-strong">
-                    I need an accessible table
-                  </span>
-                  <span className="block text-ink-muted">
-                    Step-free, with standard-height seating rather than bar stools.
-                  </span>
-                </span>
-              </label>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Input
-                label="Date"
-                type="date"
-                size="lg"
-                min={today}
-                required
-                value={date}
-                onChange={(event) => handleDateChange(event.target.value)}
-                error={dateError || undefined}
-              />
-
-              <Input
-                label="Preferred Time"
-                type="time"
-                size="lg"
-                required
-                value={requestedTime}
-                onChange={(event) => handleRequestedTimeChange(event.target.value)}
-              />
-            </div>
-
-            <div
-              className="rounded-sm border border-line bg-surface-sunk p-3 text-sm text-ink"
-              aria-live="polite"
-            >
-              <p className="font-medium text-ink-strong">{aircraftOverheadNote.message}</p>
-              <p className="mt-1 text-xs text-ink-muted">{aircraftOverheadNote.caveat}</p>
-            </div>
-
-            {(showDateEventSuggestions || selectedDateEventsLoading) &&
-              renderDateEventSuggestions({
-                title: 'Events on this date',
-                description:
-                  'If you were planning a night out, you can switch to an event booking in one tap.',
-                context: 'find_step'
-              })}
-
-            {selectedDateEventError && !showDateEventSuggestions && !selectedDateEventsLoading ? (
-              <p className="text-xs text-ink-muted">{selectedDateEventError}</p>
-            ) : null}
-
-            {availabilityError && (
-              <Alert variant="warning">
-                <p>{availabilityError}</p>
-              </Alert>
-            )}
-
-            <Button
-              type="submit"
-              fullWidth
-              size="lg"
-              loading={availabilityLoading}
-              icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
-              iconPosition="right"
-            >
-              Find a table
-            </Button>
-          </form>
-        )}
-
-        {step === 'choose' && (
-          <div className="space-y-4">
-            <div>
-              <h3 ref={chooseHeadingRef} tabIndex={-1} className="font-display text-h4 text-ink-strong">Choose your time</h3>
-              <p className="mt-1 text-sm text-ink-muted">
-                {formatDateForDisplay(date)} for {partySize} {partySize === 1 ? 'guest' : 'guests'}.
-              </p>
-            </div>
-
-            {availabilityLoading ? (
-              <p className="text-sm text-ink-muted">Checking available times...</p>
-            ) : null}
-
-            {/* Deliberately outside the slot-list branch so this renders on
-                exactly the same condition as its twin on the review step. It
-                used to sit inside the "there are slots" branch, so the two
-                could disagree about whether the guest had been told. */}
-            {foodCheckUnavailable ? renderFoodCheckNotice('grid') : null}
-
-            {availabilityUnknown ? (
-              <div
-                className="space-y-3 rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink"
-                aria-live="polite"
-              >
-                <p className="font-semibold text-ink-strong">We could not check live availability</p>
-                {/* The reason, when we have one. Without this a failed retry
-                    looked identical to the first failure and the guest had no
-                    idea anything had happened. */}
-                {currentReading?.message || availabilityError ? (
-                  <p>{currentReading?.message || availabilityError}</p>
-                ) : null}
-                <p>
-                  Please try again in a moment. If it keeps happening, give us a ring on{' '}
-                  <PhoneLink
-                    phone={CONTACT.phone}
-                    source="table_booking_availability_unknown"
-                    showIcon={false}
-                    className="font-semibold underline"
-                  >
-                    01753 682707
-                  </PhoneLink>{' '}
-                  and we will book you in.
-                </p>
-                <Button
-                  type="button"
-                  variant="primary"
-                  className="w-full sm:w-auto min-h-12"
-                  loading={availabilityLoading}
-                  onClick={() => void handleFindTable()}
-                >
-                  Try again
-                </Button>
-              </div>
-            ) : availableSlots.length > 0 ? (
-              <>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                  {visibleSlots.map((slot) => {
-                    const isSelected = selectedTime === slot.time
-                    // Label and submitted purpose both read the SAME field, so
-                    // what the guest is shown and what gets booked cannot drift
-                    // apart. Combined aria-label so screen readers announce
-                    // time and service as one phrase.
-                    const servesFood = slot.bookable_purpose === 'food_or_drinks'
-                    const serviceCaption = servesFood ? 'drinks and food' : 'drinks only'
-                    const loadCaption = busynessCaption(slot.busyness)
-                    return (
-                      <button
-                        key={slot.time}
-                        type="button"
-                        aria-label={`${formatTimeForDisplay(slot.time)}, ${serviceCaption}${loadCaption ? `, ${loadCaption}` : ''}`}
-                        aria-pressed={isSelected}
-                        onClick={() => handleSlotSelect(slot)}
-                        className={`min-h-16 rounded-pill border-[1.5px] px-3 py-3 text-center transition-colors ${
-                          isSelected
-                            ? 'border-anchor-green bg-anchor-green text-white'
-                            : 'border-line-strong bg-surface text-ink hover:border-anchor-gold'
-                        }`}
-                      >
-                        <span className="block text-base font-semibold">
-                          {formatTimeForDisplay(slot.time)}
-                        </span>
-                        <span className={`mt-1 block text-xs font-normal ${isSelected ? 'text-white/80' : 'text-ink-muted'}`}>
-                          {servesFood ? 'Drinks & food' : 'Drinks only'}
-                        </span>
-                        {loadCaption ? (
-                          <span className={`mt-1 block text-xs font-medium ${isSelected ? 'text-white' : slot.busyness === 'busy' ? 'text-accent-text' : 'text-ink-muted'}`}>
-                            {loadCaption}
-                          </span>
-                        ) : null}
-                      </button>
-                    )
-                  })}
-                </div>
-
-                {!showAllTimes && availableSlots.length > visibleSlots.length ? (
-                  <button
-                    type="button"
-                    onClick={() => setShowAllTimes(true)}
-                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-pill border-[1.5px] border-line-strong px-4 py-3 text-base font-medium text-ink transition-colors hover:border-anchor-gold focus:outline-none focus:ring-2 focus:ring-accent-text focus:ring-offset-2 sm:w-auto sm:px-6"
-                  >
-                    See more times
-                    <ChevronDown aria-hidden="true" className="h-4 w-4" />
-                  </button>
-                ) : null}
-
-                {selectedSlotAdvisory ? (
-                  <div className="rounded-md border border-anchor-gold bg-surface-sunk p-4 text-sm text-ink">
-                    <p>{selectedSlotAdvisory}</p>
-                    {quieterTimeLabel ? (
-                      <p className="mt-2">
-                        {quieterTimeLabel} may be a smoother option.
-                      </p>
-                    ) : null}
-                    {quieterSlots.length > 0 ? (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {quieterSlots.map((slot) => (
-                          <button
-                            key={slot.time}
-                            type="button"
-                            onClick={() => handleSlotSelect(slot)}
-                            className="rounded-pill border border-line-strong bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-anchor-gold"
-                          >
-                            {formatTimeForDisplay(slot.time)}
-                          </button>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                ) : null}
-              </>
-            ) : (
-              <Alert variant="warning" title="No online times available">
-                <p>
-                  {currentReading?.message ||
-                    `We couldn't find an online slot for that request. Try one of the nearest alternatives below, or join the waitlist.`}
-                </p>
-                {currentReading?.special_notes ? <p className="mt-2">{currentReading.special_notes}</p> : null}
-              </Alert>
-            )}
-
-            {(showDateEventSuggestions || selectedDateEventsLoading) &&
-              renderDateEventSuggestions({
-                title:
-                  availableSlots.length === 0
-                    ? 'There are events on this date'
-                    : 'Also happening on this date',
-                description:
-                  availableSlots.length === 0
-                    ? 'If table times are limited, you can switch to one of these events right away.'
-                    : 'You can continue with your table booking, or switch to an event if that suits your plans better.',
-                context:
-                  availableSlots.length === 0 ? 'choose_step_no_availability' : 'choose_step_with_availability',
-                highlight: availableSlots.length === 0
-              })}
-
-            {availableSlots.length === 0 && !availabilityUnknown && (
-              <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
-                <p className="text-sm font-semibold text-ink-strong">Nearest alternatives</p>
-
-                {alternativesLoading ? (
-                  <p className="text-sm text-ink-muted">Finding nearby options...</p>
-                ) : alternativeSlots.length > 0 ? (
-                  <div className="space-y-2">
-                    {alternativeSlots.map((option) => (
-                      <button
-                        key={`${option.date}-${option.time}`}
-                        type="button"
-                        onClick={() => handleChooseAlternative(option)}
-                        // A re-read is in flight, so this panel is about to be replaced.
-                        // Taking one of these now would move the guest to the details
-                        // step under an answer that is already being superseded.
-                        disabled={revalidatingAvailability}
-                        className="flex min-h-12 w-full items-center justify-between rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-3 text-left text-base hover:border-anchor-gold"
-                      >
-                        <span className="font-medium text-ink">{formatDateForDisplay(option.date)}</span>
-                        <span className="text-accent-text font-semibold">{formatTimeForDisplay(option.time)}</span>
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-ink-muted">No nearby online alternatives were found.</p>
-                )}
-
-                <div className="rounded-sm border border-line bg-surface-raised p-3 text-sm text-ink">
-                  <p className="font-semibold text-ink-strong">Join waitlist</p>
-                  <p className="mt-1">Call us and we'll add you to the waitlist for cancellations.</p>
-                  <div className="mt-2">
-                    <PhoneButton phone={CONTACT.phone} source="table_booking_waitlist" size="sm" variant="outline" className="min-h-12">
-                      Join waitlist by phone
-                    </PhoneButton>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">
-              <Button
-                type="button"
-                variant="ghost"
-                className="w-full sm:w-auto min-h-12"
-                icon={<ArrowLeft aria-hidden="true" className="h-4 w-4" />}
-                iconPosition="left"
-                onClick={handleBackToFind}
-              >
-                Back
-              </Button>
-
-              {/* The same gate as the two-screen grid, for the same reason. */}
-              {hasUsableSelection ? (
-                <Button
-                  type="button"
-                  variant="primary"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                  icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
-                  iconPosition="right"
-                  onClick={() => {
-                    setStep('details')
-                    setError(null)
-                  }}
-                >
-                  {selectedSlot && shouldNudgeForBusyness(selectedSlot.busyness)
-                    ? `Book ${formatTimeForDisplay(selectedSlot.time)} anyway`
-                    : 'Continue'}
-                </Button>
-              ) : null}
-            </div>
-          </div>
-        )}
-
-        {step === 'details' && twoScreenFlow && (
+        {step === 'details' && (
           <div className="space-y-4">
             <div>
               <h3 ref={screenHeadingRef} tabIndex={-1} className="font-display text-h4 text-ink-strong">
@@ -3363,7 +2905,7 @@ export function ManagementTableBookingForm({
             <BookingSummaryCard
               partySize={partySize}
               date={date}
-              time={selectedTime || requestedTime}
+              time={selectedTime}
               bookingPurpose={reviewBookingPurpose}
               isOutsideSeating={isOutsideSeating}
               requiresAccessibleTable={requiresAccessibleTable}
@@ -3613,7 +3155,7 @@ export function ManagementTableBookingForm({
                     className="w-full sm:w-auto min-h-12"
                     icon={<ArrowLeft aria-hidden="true" className="h-4 w-4" />}
                     iconPosition="left"
-                    onClick={handleBackToChoose}
+                    onClick={handleBackToTimes}
                     disabled={loading}
                   >
                     Back
@@ -3647,428 +3189,6 @@ export function ManagementTableBookingForm({
           </div>
         )}
 
-        {step === 'details' && !twoScreenFlow && (
-          <div className="space-y-4">
-            <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm text-ink">
-              <p>
-                <strong className="text-ink-strong">{partySize}</strong> guests on <strong className="text-ink-strong">{formatDateForDisplay(date)}</strong> at{' '}
-                <strong className="text-ink-strong">{formatTimeForDisplay(selectedTime || requestedTime)}</strong>
-              </p>
-              {/* Continue is refused while a re-read is in flight, so the guest
-                  has to be able to see that something is actually happening.
-                  Without this the refusal message appeared with no explanation
-                  anywhere on screen. */}
-              {revalidatingAvailability ? (
-                <p className="mt-2 text-ink-muted" aria-live="polite">
-                  Checking that time is still free with your new options...
-                </p>
-              ) : null}
-            </div>
-
-            <div className="rounded-md border border-line bg-surface-sunk p-4">
-              <Input
-                label="Mobile Number"
-                type="tel"
-                size="lg"
-                inputMode="tel"
-                autoComplete="tel"
-                required
-                value={phone}
-                disabled={detailsUnlocked}
-                onChange={(event) => {
-                  markFunnelStart()
-                  setPhone(event.target.value)
-                }}
-                placeholder="07xxx xxxxxx"
-                helperText="We only use this for booking confirmation and reminders."
-              />
-
-              <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                {!detailsUnlocked ? (
-                  <Button
-                    type="button"
-                    size="md"
-                    className="w-full sm:w-auto min-h-12"
-                    loading={lookupState === 'loading'}
-                    onClick={handlePhoneLookup}
-                  >
-                    Continue
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    size="md"
-                    variant="outline"
-                    className="w-full sm:w-auto min-h-12"
-                    onClick={resetPhoneLookup}
-                  >
-                    Use Different Number
-                  </Button>
-                )}
-              </div>
-
-              {lookupError ? <p className="mt-3 text-sm text-anchor-danger">{lookupError}</p> : null}
-
-              {isKnownCustomer ? (
-                <p className="mt-3 text-sm font-medium text-accent-text">
-                  Welcome back. We recognise this number, so we've skipped your personal details.
-                </p>
-              ) : null}
-
-              {lookupState === 'unknown' ? (
-                <p className="mt-3 text-sm font-medium text-ink">
-                  {lookupDegraded
-                    ? 'We could not verify this number right now. Please continue by entering your details below.'
-                    : 'New customer detected. Please complete your details below.'}
-                </p>
-              ) : null}
-            </div>
-
-            {detailsUnlocked && !isKnownCustomer ? (
-              <div className="grid gap-4 md:grid-cols-2">
-                <Input
-                  label="First Name"
-                  type="text"
-                  size="lg"
-                  autoComplete="given-name"
-                  required
-                  value={firstName}
-                  onChange={(event) => setFirstName(event.target.value)}
-                  placeholder="John"
-                />
-                <Input
-                  label="Last name (optional)"
-                  type="text"
-                  size="lg"
-                  autoComplete="family-name"
-                  value={lastName}
-                  onChange={(event) => setLastName(event.target.value)}
-                  placeholder="Smith"
-                />
-                <div className="md:col-span-2">
-                  <Input
-                    label="Email address"
-                    type="email"
-                    size="lg"
-                    required
-                    inputMode="email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    placeholder="name@example.com"
-                    hint="So we can send your confirmation and tell you about any changes."
-                  />
-                </div>
-              </div>
-            ) : null}
-
-            {detailsUnlocked ? (
-              <Textarea
-                label="Notes (optional)"
-                value={notes}
-                maxLength={notesAllowance}
-                hint={`${Math.max(0, notesAllowance - notes.length)} characters remaining${activeFixture ? ", match details are included separately" : ""}.`}
-                onChange={(event) => setNotes(event.target.value)}
-                placeholder="Special requests, accessibility needs, occasion details..."
-                rows={3}
-              />
-            ) : null}
-
-            {detailsUnlocked ? (
-              <div className="space-y-3 rounded-md border border-line bg-surface-sunk p-4">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-sm font-medium text-ink-strong">High chair (for a baby)</p>
-                    <p className="mt-0.5 text-xs text-ink-muted">
-                      {hideHighChairPicker
-                        ? "Sorry, all our high chairs are booked for this time. If you need one, please try another time slot; you're very welcome to book here without one."
-                        : 'We have a limited number, reserved on a first-come basis.'}
-                    </p>
-                  </div>
-                  {hideHighChairPicker ? null : (
-                    <div className="flex items-center gap-2">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="h-10 w-10 min-h-0 p-0"
-                        aria-label="Fewer high chairs"
-                        disabled={highChairCount <= 0}
-                        onClick={() => {
-                          const next = Math.max(0, highChairCount - 1)
-                          setHighChairCount(next)
-                          trackOptionToggled({ option: 'high_chair_count', value: next, step })
-                        }}
-                      >
-                        &#8722;
-                      </Button>
-                      <span
-                        className="w-6 text-center text-base font-semibold text-ink-strong"
-                        aria-live="polite"
-                      >
-                        {highChairCount}
-                      </span>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="h-10 w-10 min-h-0 p-0"
-                        aria-label="More high chairs"
-                        disabled={highChairCount >= HIGH_CHAIR_HOUSE_CAP}
-                        onClick={() => {
-                          const next = Math.min(HIGH_CHAIR_HOUSE_CAP, highChairCount + 1)
-                          setHighChairCount(next)
-                          trackOptionToggled({ option: 'high_chair_count', value: next, step })
-                        }}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  )}
-                </div>
-
-                {highChairShortfall ? (
-                  <div className="rounded-md border border-anchor-gold bg-surface-raised p-3 text-sm text-ink">
-                    <p>
-                      {highChairShortfall.free === 0
-                        ? 'No high chairs are free at this time. Book anyway?'
-                        : highChairShortfall.free === 1
-                        ? 'Only 1 high chair is free at this time. Book with 1?'
-                        : `Only ${highChairShortfall.free} high chairs are free at this time. Book with ${highChairShortfall.free}?`}
-                    </p>
-                    <p className="mt-1 text-xs text-ink-muted">
-                      We&apos;ll keep your request for {highChairShortfall.requested} on the booking and do our best on the day.
-                    </p>
-                    {highChairShortfall && highChairShortfallAcknowledged ? (
-                      <p className="mt-2 text-xs font-medium text-accent-text">
-                        Thanks, that&apos;s noted for your booking.
-                      </p>
-                    ) : (
-                      <Button
-                        type="button"
-                        size="sm"
-                        variant="outline"
-                        className="mt-2 min-h-12"
-                        onClick={() =>
-                          setHighChairConsent({
-                            date,
-                            time: selectedTime,
-                            free: highChairShortfall.free,
-                            requested: highChairShortfall.requested
-                          })
-                        }
-                      >
-                        {highChairShortfall.free === 0
-                          ? 'Yes, book anyway'
-                          : `Yes, book with ${highChairShortfall.free}`}
-                      </Button>
-                    )}
-                  </div>
-                ) : null}
-
-                <label className="flex items-start gap-2 pt-1 text-sm text-ink">
-                  <input
-                    type="checkbox"
-                    checked={isOutsideSeating}
-                    onChange={(event) => {
-                      setIsOutsideSeating(event.target.checked)
-                      trackOptionToggled({ option: 'outside_seating', value: event.target.checked, step })
-                    }}
-                    className="mt-1 accent-anchor-green"
-                  />
-                  <span>I&apos;d like an outside table (weather permitting)</span>
-                </label>
-              </div>
-            ) : null}
-
-            {detailsUnlocked ? (
-              <CommunicationConsentFields
-                value={communicationConsent}
-                onChange={setCommunicationConsent}
-                variant="compact"
-                notice={GUEST_TABLE_COMPACT_CONSENT_NOTICE}
-              />
-            ) : null}
-
-            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">
-              <Button
-                type="button"
-                variant="ghost"
-                className="w-full sm:w-auto min-h-12"
-                icon={<ArrowLeft aria-hidden="true" className="h-4 w-4" />}
-                iconPosition="left"
-                onClick={handleBackToChoose}
-              >
-                Back
-              </Button>
-
-              {detailsUnlocked ? (
-                <Button
-                  type="button"
-                  variant="primary"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                  icon={<ArrowRight aria-hidden="true" className="h-4 w-4" />}
-                  iconPosition="right"
-                  onClick={handleContinueToReview}
-                >
-                  Continue to review
-                </Button>
-              ) : null}
-            </div>
-          </div>
-        )}
-
-        {step === 'review' && (
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-display text-h4 text-ink-strong">Review your booking</h3>
-              <p className="mt-1 text-sm text-ink-muted">Check details, then confirm your booking.</p>
-            </div>
-
-            {/* Repeated here because this is where the guest commits. Someone
-                who skimmed the grid could otherwise reach Confirm with nothing
-                on screen telling them they are booking drinks. */}
-            {foodCheckUnavailable ? renderFoodCheckNotice('review') : null}
-
-            <div className="rounded-md border border-line bg-surface-sunk p-4 text-sm">
-              <dl className="space-y-2 text-ink">
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium text-ink-muted">Party size</dt>
-                  <dd className="text-ink-strong">{partySize}</dd>
-                </div>
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium text-ink-muted">Date</dt>
-                  <dd className="text-ink-strong">{formatDateForDisplay(date)}</dd>
-                </div>
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium text-ink-muted">Time</dt>
-                  <dd className="text-ink-strong">{formatTimeForDisplay(selectedTime || requestedTime)}</dd>
-                </div>
-                {/* What is actually being booked. The guest could previously
-                    reach Confirm without this ever appearing on screen, so a
-                    drinks-only slot could be paid for by someone expecting a
-                    roast. Reads the same authoritative purpose as submit. */}
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium text-ink-muted">Booking</dt>
-                  <dd className="text-ink-strong">
-                    {/* null means the slot context was lost, which Confirm
-                        blocks on anyway. Say that rather than stating a booking
-                        type nothing stands behind. */}
-                    {reviewBookingPurpose === 'food'
-                      ? 'Table for food'
-                      : reviewBookingPurpose === 'drinks'
-                      ? 'Drinks only'
-                      : 'Please choose your time again'}
-                  </dd>
-                </div>
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium text-ink-muted">Mobile</dt>
-                  <dd className="text-ink-strong">{phone}</dd>
-                </div>
-                {!isKnownCustomer ? (
-                  <div className="flex justify-between gap-3">
-                    <dt className="font-medium text-ink-muted">Guest</dt>
-                    <dd className="text-ink-strong">
-                      {[firstName.trim(), lastName.trim()].filter(Boolean).join(' ') || 'Not provided'}
-                    </dd>
-                  </div>
-                ) : null}
-                {requiresGroupDeposit ? (
-                  <div className="flex justify-between gap-3">
-                    <dt className="font-medium text-ink-muted">Deposit due now</dt>
-                    <dd className="text-ink-strong">{formatGbpCurrency(groupDepositAmount)}</dd>
-                  </div>
-                ) : null}
-              </dl>
-              {requiresGroupDeposit ? (
-                <p className="mt-3 text-xs text-ink-muted">
-                  {groupDepositNote}
-                </p>
-              ) : null}
-            </div>
-
-            {selectedSlotAdvisory ? (
-              <div className="rounded-md border border-anchor-gold bg-surface-sunk p-4 text-sm text-ink">
-                <p className="font-semibold text-ink-strong">Worth knowing before you confirm</p>
-                <p className="mt-1">{selectedSlotAdvisory}</p>
-              </div>
-            ) : null}
-
-            <p className="text-sm text-ink-muted">
-              Plans changed?{' '}
-              <PhoneLink phone={CONTACT.phone} source="table_booking_change" showIcon={false} className="font-semibold underline">
-                A quick call to 01753 682707
-              </PhoneLink>{' '}
-              lets us offer your table to someone else. Thanks for letting us know.
-            </p>
-
-            {result?.state === 'pending_payment' ? (
-              renderPendingPayment()
-            ) : (
-              <>
-                {/* Honeypot, hidden from real users, filled by bots */}
-                <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
-                  <label htmlFor="website">Website</label>
-                  <input
-                    id="website"
-                    name="website"
-                    type="text"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                  />
-                </div>
-
-                {!uncertainAttempt && TURNSTILE_SITE_KEY && (
-                  <TurnstileField
-                    id="table-booking-turnstile"
-                    turnstileRef={turnstileRef}
-                    onTokenChange={setTurnstileToken}
-                  />
-                )}
-
-                <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-ink">
-                  <input
-                    type="checkbox"
-                    checked={policyAccepted}
-                    onChange={(event) => setPolicyAccepted(event.target.checked)}
-                    className="mt-1 accent-anchor-green"
-                  />
-                  <span>
-                    I understand The Anchor's booking and no-show policy, and I agree to continue.
-                  </span>
-                </label>
-
-                <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="w-full sm:w-auto min-h-12"
-                    icon={<ArrowLeft aria-hidden="true" className="h-4 w-4" />}
-                    iconPosition="left"
-                    onClick={() => setStep('details')}
-                    disabled={loading}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="primary"
-                    size="lg"
-                    className="w-full sm:w-auto"
-                    loading={loading}
-                    disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
-                    icon={<Check aria-hidden="true" className="h-4 w-4" />}
-                    iconPosition="right"
-                    onClick={handleConfirmBooking}
-                  >
-                    {requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}
-                  </Button>
-                </div>
-              </>
-            )}
-          </div>
-        )}
       </CardBody>
     </Card>
     </div>

@@ -9,30 +9,17 @@ import type { AvailabilitySlot } from '@/lib/table-booking/availability'
  * a guest typed.
  */
 
-export type BookingStep = 'find' | 'choose' | 'details' | 'review'
+/**
+ * The booking journey (spec D1, D7, D8): find a table and its time on one
+ * screen, then details and confirm on the next. The four-step journey before
+ * it (find, choose, details, review) was deleted in October 2026 (review
+ * BK-199, website W4).
+ */
+export type BookingStep = 'find' | 'details'
 
-export const STEP_ORDER: BookingStep[] = ['find', 'choose', 'details', 'review']
+export const STEP_ORDER: BookingStep[] = ['find', 'details']
 
 export const STEP_LABELS: Record<BookingStep, string> = {
-  find: 'Find table',
-  choose: 'Choose time',
-  details: 'Guest details',
-  review: 'Review & book'
-}
-
-/**
- * The approved two-screen journey (spec D1, D7, D8): find a table and its time
- * on one surface, then details and confirm on the next. `choose` and `review`
- * are gone: the slot grid lives on `find`, and the review summary is an inline
- * card on `details`.
- *
- * The four-step vocabulary above stays until the old path is deleted, so both
- * can be rendered from the same state while the runtime flag decides which the
- * guest sees.
- */
-export const TWO_SCREEN_STEP_ORDER: BookingStep[] = ['find', 'details']
-
-export const TWO_SCREEN_STEP_LABELS: Record<'find' | 'details', string> = {
   find: 'Find a table',
   details: 'Your details'
 }

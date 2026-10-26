@@ -13,32 +13,27 @@ party size, food or drinks, high chairs, outside seating, customer details and s
 ```tsx
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 
-<ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} />
+// Reads its starting values from the address, so it sits inside Suspense.
+<Suspense fallback={<BookingFormFallback />}>
+  <ManagementTableBookingForm />
+</Suspense>
 ```
 
 Import it directly. There is deliberately **no barrel file**: the old one exported components that
 nothing rendered, which made it easy to spend a day editing a file that was never on screen.
 
-#### Two journeys, one runtime flag
+#### One journey
 
-`twoScreenFlow` selects the approved two-screen journey. The page reads it from AMS through
-`lib/flags.ts` (`booking_options_step1`), server-side, cached for 60 seconds, OFF in every failure
-mode. `/book-table` is server-rendered on demand, so switching the flag off in AMS rolls every guest
-back with no deploy.
-
-| | Flag off (four steps) | Flag on (two screens) |
-|---|---|---|
-| Steps | find, choose, details, review | find (search and times), details |
-| Table options | drinks and step-free on `find`; chairs and outside on `details` | all four on `find`, directly above the grid |
-| High chairs | plus/minus stepper, shortfall acknowledged on `details` | 0/1/2 segmented control, shortfall flagged on the slot itself |
-| Times | seven-slot window anchored on Preferred Time | every time, grouped Lunch and Evening |
-| Preferred Time | required input | deleted; the request carries a neutral midday anchor |
-| Summary | its own review step | inline card on `details` |
-
-Both paths run off the same state, the same fetches and the same submit, so a rollback loses nothing.
-**The four-step path exists only until the two-screen one is proven in production, then it goes.**
-Its suite is `tests/unit/ManagementTableBookingForm.test.tsx`; the two-screen suite is
+Find a table and its time on one screen, then details and confirm on the next (spec D1). The
+four-step journey (find, choose, details, review) ran beside it behind the `booking_options_step1`
+flag from 1 August 2026 and was deleted in October 2026 (review BK-199, website W4), with the flag
+read on `/book-table`. Its suite became `tests/unit/ManagementTableBookingForm.test.tsx`, rewritten
+for the journey that stayed; the journey's own suite is
 `tests/unit/ManagementTableBookingForm.twoScreen.test.tsx`.
+
+`/book-table` is cached (review BK-200): the form reads the date, time, party size, drinks choice and
+a Nations Championship game (`fixture_id`) from the address in the browser, inside a Suspense
+boundary on the page.
 
 The form is the wizard and its state. The rules it applies live outside it, so each can be read and
 tested on its own:
@@ -53,7 +48,7 @@ tested on its own:
 | `BookingSummaryCard` | What the guest is about to book, restated on screen 2 |
 | `lib/table-booking/availability` | The reading's shape, its normalisation (fails closed on `bookable_purpose`), the availability predicates, and the fetch |
 | `lib/table-booking/purpose` | What a slot may be booked for. Read, never inferred. The slot caption, the review line and the submitted `purpose` all come from here |
-| `lib/table-booking/journey` | Step vocabulary (both journeys), high-chair cap and shortfall, and the details-step refusals |
+| `lib/table-booking/journey` | Step vocabulary, high-chair cap and shortfall, and the details-step refusals |
 | `lib/table-booking/slot-groups` | Lunch/Evening grouping and the high-chair display rules. Can only make an affirmed slot less available, never more |
 | `lib/table-booking/horizon` | How far ahead we take bookings (12 months). Shared by the form and both website proxies |
 | `lib/table-booking/submission` | The create-booking payload, the result shape and the blocked-reason copy |
@@ -61,8 +56,8 @@ tested on its own:
 | `lib/table-booking/suggested-events` | The event shape and response normalisation |
 | `lib/table-booking/hours-note` | The advisory bar/kitchen summary. Decides nothing |
 
-Three older siblings predate that folder and still sit flat in `lib/`:
-`table-booking-idempotency`, `table-booking-slot-window` and `table-booking-service-windows`. They are
+Two older siblings predate that folder and still sit flat in `lib/`:
+`table-booking-idempotency` and `table-booking-service-windows`. They are
 imported by API routes as well, so they were left where they are.
 
 ### `PayPalDepositSection`

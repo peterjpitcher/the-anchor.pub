@@ -108,25 +108,21 @@ async function bookATable(): Promise<{ payload: Record<string, unknown>; sent: S
   const { sent, bookingBodies } = mockRequests()
 
   render(<ManagementTableBookingForm />)
-  fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-  fireEvent.blur(screen.getByLabelText('Party Size'))
+  fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+  fireEvent.blur(screen.getByLabelText('Party size'))
   fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
   fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
-  await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-  fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-  fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+  fireEvent.click(await screen.findByRole('button', { name: /^7pm,/ }))
+  fireEvent.click(screen.getByRole('button', { name: 'Continue with 7pm' }))
 
-  fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+  fireEvent.change(await screen.findByLabelText('Mobile Number'), { target: { value: '07700900000' } })
   fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
   await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
   fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
   fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
   fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-  fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-  await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
   fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
   fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 

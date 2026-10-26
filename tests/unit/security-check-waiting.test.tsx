@@ -146,7 +146,7 @@ describe('the booking forms wait in the open', () => {
     const { ManagementTableBookingForm } = require('@/components/features/TableBooking/ManagementTableBookingForm')
     // Tomorrow in London: inside the booking horizon, and never a time that
     // has already gone.
-    render(<ManagementTableBookingForm prefill={{ date: addDays(londonNowParts().isoDate, 1) }} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: addDays(londonNowParts().isoDate, 1) }} />)
 
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
     fireEvent.click(await screen.findByRole('button', { name: /^7pm,/ }))

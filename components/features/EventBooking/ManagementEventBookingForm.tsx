@@ -37,7 +37,8 @@ import { BRAND, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 import { confirmationNoticeCopy } from '@/lib/confirmation-notice'
 import { canUseCookieCategory } from '@/lib/cookies'
-import { PayPalEventPaymentSection, type EventPaymentConversionPayload } from './PayPalEventPaymentSection'
+import dynamic from 'next/dynamic'
+import type { EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { GUEST_PHONE, guestMessageForBlockedReason, toGuestMessage } from '@/lib/guest-error-messages'
@@ -46,6 +47,16 @@ import {
   buildCommunicationConsentPayload,
   type CommunicationConsentState,
 } from '@/lib/communication-consent'
+
+/**
+ * PayPal's wrapper is fetched only when a booking is held for payment, not
+ * with every event page (review BK-199). Most nights are free or paid on the
+ * door, and the form never needs it.
+ */
+const PayPalEventPaymentSection = dynamic(
+  () => import('./PayPalEventPaymentSection').then((mod) => mod.PayPalEventPaymentSection),
+  { ssr: false, loading: () => <p className="mt-2 text-sm">Setting up payment…</p> }
+)
 
 /**
  * Read per render rather than once at module load. Webpack inlines

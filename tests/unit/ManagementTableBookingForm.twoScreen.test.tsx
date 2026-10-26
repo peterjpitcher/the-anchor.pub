@@ -1,5 +1,5 @@
 import { fixtureBookingContext, fixtureNotesAllowance } from '@/lib/nations-championship/booking-context-shared'
-import { nationsFixture, nationsFeed } from '../fixtures/nations-championship'
+import { nationsFixture, nationsFeed, sundayNationsFixture, approvedNationsFixture } from '../fixtures/nations-championship'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { STEP_FREE_TABLE_EXPLANATION } from '@/components/features/TableBooking/TableRefinements'
@@ -7,12 +7,11 @@ import { clearBookingAttributionForTest } from '@/lib/booking-attribution'
 import { analyticsSaleId } from '@/lib/tracking/booking-identifiers'
 
 /**
- * The approved two-screen journey (spec D1), which renders only when the
- * runtime `booking_options_step1` flag is on.
- *
- * The four-step path has its own suite in ManagementTableBookingForm.test.tsx
- * and is untouched by this one: both flows are live at once while the new one
- * is proven, so both need their own coverage.
+ * The booking journey (spec D1): find a table and its time on one screen, then
+ * details and confirm on the next. It ran behind the `booking_options_step1`
+ * flag beside the old four-step journey until October 2026, when the old one
+ * was deleted (review BK-199). ManagementTableBookingForm.test.tsx holds the
+ * rest of the form's behaviour, rewritten for this journey.
  */
 
 const trackTableBookingFunnel = jest.fn()
@@ -231,7 +230,7 @@ const TUESDAY_SITTINGS_HOURS = {
 }
 
 function renderTwoScreen(prefill: { date?: string; partySize?: number } = { date: BOOKING_DATE }) {
-  return render(<ManagementTableBookingForm prefill={prefill} twoScreenFlow />)
+  return render(<ManagementTableBookingForm prefill={prefill} />)
 }
 
 async function findATable() {
@@ -264,11 +263,36 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     return { ...fixtureBookingContext(nationsFixture())!, date: BOOKING_DATE, kickoff: '2026-07-07T12:00:00Z', barStartAt: '2026-07-07T11:00:00Z', screeningEndAt: '2026-07-07T14:00:00Z' }
   }
 
+  // Moved from the four-step suite when that journey was deleted: the game's
+  // own summary sits above both journeys' steps alike.
+  it('shows the conditional late finish in the booking summary', async () => {
+    setupFetchMock({ availability: [] })
+    const fixture = approvedNationsFixture(true)
+    fixture.screening.lateFinishPolicy = 'stay_open_if_viewers'
+    fixture.screening.openingLabel = 'Usual pub hours: noon to 10pm. If people are still here watching, we will stay open until the game finishes. Please arrive before our usual closing time.'
+    const context = fixtureBookingContext(fixture)!
+    render(<ManagementTableBookingForm prefill={{ date: context.date }} fixtureContext={context} />)
+    expect(screen.getByText(/If people are still here watching/)).toHaveTextContent('Please arrive before our usual closing time.')
+    expect(screen.queryByText(/Viewing ends at our normal closing time/)).not.toBeInTheDocument()
+    await act(async () => {})
+  })
+
+  it('shows the Sunday roast menu beside actual Sunday kitchen hours in the booking summary', async () => {
+    setupFetchMock({ availability: [] })
+    const context = fixtureBookingContext(sundayNationsFixture())!
+    render(<ManagementTableBookingForm prefill={{ date: context.date }} fixtureContext={context} />)
+    expect(screen.getByRole('link', { name: 'View the Sunday roast menu' })).toHaveAttribute('href', '/sunday-roast')
+    expect(screen.getByText(/Food served 1pm to 6pm/)).toBeVisible()
+    expect(screen.getByText('Pub open noon to 9pm.')).toBeVisible()
+    expect(screen.queryByRole('link', { name: 'View the food menu' })).not.toBeInTheDocument()
+    await act(async () => {})
+  })
+
   it('shows food and partial coverage, books only returned screening slots and tracks confirmed fixture', async () => {
     const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
     const context = rugbyContext()
     setupFetchMock({ availability: DAY_SLOTS, capturePayload, bookingResponse: { state: 'confirmed', table_booking_id: 'tb-rugby', booking_reference: 'TB-RUGBY', fixture_id: context.fixtureId } })
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} />)
     expect(screen.getByText(/The start of the game will be missed/)).toBeInTheDocument()
     expect(screen.getByText(/Food served noon to 7pm/)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'View the food menu' })).toHaveAttribute('href', '/food-menu')
@@ -298,7 +322,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       }
       return fallbackFetch(input, init)
     })
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} />)
     await findATable()
     fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
     fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
@@ -325,7 +349,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
 
   it('clears the game association visibly when the customer changes date', async () => {
     setupFetchMock({ availability: DAY_SLOTS })
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} />)
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-08' } })
     expect(screen.getByText(/now a normal table booking without a game attached/)).toBeInTheDocument()
     expect(screen.queryByLabelText('Your rugby booking')).not.toBeInTheDocument()
@@ -336,7 +360,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS })
     global.fetch = jest.fn((input, init) => input === '/api/nations-championship'
       ? Promise.resolve(jsonResponse(nationsFeed([]))) : fallbackFetch(input, init))
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} />)
     fireEvent(window, new Event('focus'))
     await screen.findByText('We cannot confirm this screening right now. Please check before booking for the game.')
     fireEvent.click(screen.getByRole('button', { name: 'Continue with a normal table booking' }))
@@ -349,7 +373,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS.map(slot => ({ ...slot, available_capacity: 20 })), bookingResponse: { state: 'pending_payment', booking_id: 'tb-paid', booking_reference: 'TB-PAID', deposit_amount: 150, fixture_id: context.fixtureId } })
     global.fetch = jest.fn((input, init) => input === '/api/table-bookings/paypal/create-order'
       ? Promise.resolve(jsonResponse({ success: true, orderId: 'TEST-PAYPAL' })) : fallbackFetch(input, init))
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE, partySize: 15 }} fixtureContext={context} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE, partySize: 15 }} fixtureContext={context} />)
     await findATable()
     fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
     fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
@@ -1412,10 +1436,9 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       it('lands on First Name once a new number is checked, and says so in a region that was already there', async () => {
         setupFetchMock({ availability: DAY_SLOTS })
         await reachDetails()
-        const region = screen
-          .getAllByRole('status')
-          .find((element) => element.closest('.rounded-md') && element.textContent === '')
-        expect(region).toBeDefined()
+        const phoneBox = screen.getByLabelText('Mobile Number').closest('.rounded-md') as HTMLElement
+        const region = within(phoneBox).getByRole('status')
+        expect(region).toBeEmptyDOMElement()
 
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))

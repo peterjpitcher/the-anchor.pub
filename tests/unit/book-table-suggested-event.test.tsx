@@ -127,7 +127,7 @@ function setupFetch(eventDetails: () => Promise<Response>): Mocks {
 const FROZEN_NOW = new Date('2026-07-06T09:00:00.000Z')
 
 async function openSuggestedEvent() {
-  render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} twoScreenFlow />)
+  render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} />)
   fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
   fireEvent.click(await screen.findByRole('button', { name: 'Book this event' }))
 }

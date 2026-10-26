@@ -1,13 +1,13 @@
 import { ACCESS_SHORT_WORDING, ACCESS_WORDING, NGCI_WORDING, ONE_KITCHEN_WORDING, ULEZ_WORDING, DOGS_WORDING } from '@/lib/approved-wording'
-import { resolveFixtureBookingContext } from '@/lib/nations-championship/booking-context'
-import type { FixtureBookingContext } from '@/lib/nations-championship/booking-context-shared'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { InteriorHero } from '@/components/hero'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT, BUS_WORDING, HEATHROW_TIMES, PARKING, DRIVE_TIMES } from '@/lib/constants'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
+import { BookingFormFallback } from '@/components/features/TableBooking/BookingFormFallback'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
 import { WeekHours } from '@/components/WeekHours'
 import { getBusinessHoursSnapshot } from '@/lib/api'
@@ -17,7 +17,6 @@ import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { GROUP_DEPOSIT_REFUND_WORDING, GROUP_DEPOSIT_WORDING } from '@/lib/approved-wording'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { isWebsiteUiFlagEnabled } from '@/lib/flags'
 import { RegretReduction, ValueProofStrip } from '@/components/psychology'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import {
@@ -31,9 +30,12 @@ import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
-// Set to one hour for the walk-in launch in May 2026 and left as it was when the
-// launch banner was removed (8 October 2026). The page reads its search
-// parameters, so it is rendered on every request and this value has no effect.
+// Built once and cached for an hour, like the site's other pages. Until
+// October 2026 it was built afresh for every visitor (0.5 to 1 second to first
+// byte against about 0.35 for a cached page) because it read the address on
+// the server and asked AMS for a flag with caching off. The form now reads the
+// address in the browser, game links included, and the flag went with the
+// four-step journey it switched (review BK-200).
 export const revalidate = 60 * 60
 
 // The approved access block, split around the phone number so the number can be
@@ -68,29 +70,12 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-type BookTablePageProps = {
-  searchParams?: {
-    date?: string
-    time?: string
-    party_size?: string
-    purpose?: string
-    fixture_id?: string
-  }
-}
-
-function parsePartySize(value?: string): number | undefined {
-  if (!value) return undefined
-  const parsed = Number.parseInt(value, 10)
-  if (!Number.isFinite(parsed)) return undefined
-  return Math.min(Math.max(parsed, 1), 20)
-}
-
 function itemPreview(items: MenuPageItem[], limit = 4): MenuPageItem[] {
   return items.slice(0, limit)
 }
 
-export default async function BookPage({ searchParams }: BookTablePageProps) {
-  const [foodMenu, sundayMenu, businessHours, twoScreenFlow] = await Promise.all([
+export default async function BookPage() {
+  const [foodMenu, sundayMenu, businessHours] = await Promise.all([
     getFoodMenuPageData(),
     getSundayLunchMenuPageData(),
     // The week's hours for the box beside the form, rendered on the server.
@@ -98,27 +83,9 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
     // system" and nothing ever replaced it (site review HT-005). The cached
     // snapshot; null if the management app cannot be reached, which WeekHours
     // handles.
-    getBusinessHoursSnapshot(),
-    // The approved two-screen booking journey, behind the runtime flag AMS
-    // holds. Read server-side, cached for 60 seconds, and OFF in every failure
-    // mode, so turning it off is a settings change rather than a deploy.
-    isWebsiteUiFlagEnabled('booking_options_step1')
+    getBusinessHoursSnapshot()
   ])
-  let fixtureContext: FixtureBookingContext | null = null
-  let fixtureMessage: string | undefined
-  if (searchParams?.fixture_id) {
-    try { fixtureContext = await resolveFixtureBookingContext(searchParams.fixture_id) } catch { /* A normal booking stays available without promising a screening. */ }
-    if (!fixtureContext) fixtureMessage = 'We cannot confirm this game right now. You can make a normal table booking below or check the tournament page.'
-  }
   const previewItems = itemPreview(foodMenu?.items ?? [])
-  // Only the explicit drinks value opts into bar seating. Other purpose values
-  // cannot override the live slot's food availability.
-  const prefill = {
-    date: fixtureContext?.date ?? searchParams?.date,
-    time: searchParams?.time,
-    partySize: parsePartySize(searchParams?.party_size),
-    drinksOnly: searchParams?.purpose === 'drinks'
-  }
 
   return (
     <>
@@ -207,15 +174,21 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           air above the section. Measured at 375 x 812 in Chromium and WebKit:
           the section lands 92px down and the first field at about 500px, in
           the first screen. Keep the margin small: a bigger one only pushes the
-          form further down a phone. The id is outside the
-          booking_options_step1 flag, so both layouts have it. */}
+          form further down a phone. */}
       <Section id="booking-form" background="gray" spacing="sm" container className="scroll-mt-4">
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4 space-y-3">
               <RegretReduction variant="table" />
             </div>
-            <ManagementTableBookingForm prefill={prefill} twoScreenFlow={twoScreenFlow} fixtureContext={fixtureContext} fixtureMessage={fixtureMessage} />
+            {/* The form reads the date, time, party size, drinks choice and
+                game from the address itself, in the browser, so this page can
+                be cached (review BK-200). Next.js renders anything that reads
+                the address in the browser only, so the fallback holds its
+                place until it does. */}
+            <Suspense fallback={<BookingFormFallback />}>
+              <ManagementTableBookingForm />
+            </Suspense>
             <p className="mx-auto mt-4 text-center text-sm text-ink-muted">
               Prefer to talk to us? Call{' '}
               <PhoneLink

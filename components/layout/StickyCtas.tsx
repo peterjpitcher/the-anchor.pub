@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { resolveBookingCta, type BookingCta } from '@/lib/booking-cta'
@@ -9,7 +10,18 @@ import { useFloatingLayer, useFloatingLayerShowing } from '@/hooks/useFloatingLa
 import { usePastHero } from '@/hooks/usePastHero'
 import { Utensils, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui'
-import { QuickBookSheet } from '@/components/features/TableBooking/QuickBookSheet'
+
+/**
+ * The quick booking sheet's code is fetched when the booking bar first comes
+ * on screen, not with every page. It used to be in the first load of every
+ * page on the site, including the many where nobody opens it (review BK-199).
+ * Loading it as the bar arrives, rather than on the tap, means the sheet is
+ * already there, closed, when the guest taps, so it still slides open.
+ */
+const QuickBookSheet = dynamic(
+  () => import('@/components/features/TableBooking/QuickBookSheet').then((mod) => mod.QuickBookSheet),
+  { ssr: false }
+)
 import {
   trackTableBookingClick,
   trackMenuView,
@@ -67,6 +79,9 @@ export function StickyCtas() {
   const visible = usePastHero(pathname, !isBookTable)
   const [deviceType, setDeviceType] = useState<DeviceType>('unknown')
   const [quickBookOpen, setQuickBookOpen] = useState(false)
+  // Whether the sheet's code is wanted yet. Once wanted it stays, so closing
+  // and reopening it costs nothing.
+  const [quickBookWanted, setQuickBookWanted] = useState(false)
 
   useEffect(() => {
     setQuickBookOpen(false)
@@ -110,6 +125,9 @@ export function StickyCtas() {
   // tab order whenever it is off the screen, for either reason: not every dialog
   // on the site holds keyboard focus inside itself.
   const barOnScreen = useFloatingLayer('booking-bar', showStickyCtas)
+  useEffect(() => {
+    if (barOnScreen || quickBookOpen) setQuickBookWanted(true)
+  }, [barOnScreen, quickBookOpen])
   const cookieBannerVisible = useFloatingLayerShowing('cookie-banner')
   const barRef = useRef<HTMLDivElement | null>(null)
   const visibleSinceRef = useRef<number | null>(null)
@@ -312,11 +330,13 @@ export function StickyCtas() {
         </a>
       </div>
 
-      <QuickBookSheet
-        open={quickBookOpen}
-        onClose={() => setQuickBookOpen(false)}
-        source="sticky_global"
-      />
+      {quickBookWanted ? (
+        <QuickBookSheet
+          open={quickBookOpen}
+          onClose={() => setQuickBookOpen(false)}
+          source="sticky_global"
+        />
+      ) : null}
     </div>
   )
 }

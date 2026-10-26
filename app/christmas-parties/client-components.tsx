@@ -210,6 +210,13 @@ interface ChristmasEnquiryFormProps {
   facts: ChristmasFactsView
   onContextChange: (updates: Partial<EnquiryContext>) => void
   onSuccess: () => void
+  /**
+   * Whether the guest has opened the drawer this form lives in. The security
+   * check is only started once they have: it used to load Cloudflare's script
+   * and run its challenge for a form in a closed drawer on every visit
+   * (review BK-199).
+   */
+  securityCheckActive: boolean
 }
 
 interface ChristmasLightboxProps {
@@ -621,6 +628,12 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
   const [context, setContext] = useState<EnquiryContext>(DEFAULT_CONTEXT)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  // Once opened, the drawer's security check stays running, so closing and
+  // reopening it does not start the challenge again.
+  const [drawerEverOpened, setDrawerEverOpened] = useState(false)
+  useEffect(() => {
+    if (drawerOpen) setDrawerEverOpened(true)
+  }, [drawerOpen])
   const enquiryRef = useRef<HTMLDivElement | null>(null)
 
   // Only when the window has passed. `season.bookingClosed` covers the last
@@ -1543,6 +1556,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               onSuccess={() => {
                 handleFormSuccess()
               }}
+              securityCheckActive={drawerEverOpened}
             />
           )}
         </div>
@@ -2008,7 +2022,7 @@ function ChristmasMenuAndPricing({
   )
 }
 
-function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSuccess }: ChristmasEnquiryFormProps) {
+export function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSuccess, securityCheckActive }: ChristmasEnquiryFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -2403,7 +2417,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
           <span>I am happy for The Anchor to contact me about this enquiry.</span>
         </label>
 
-        {TURNSTILE_SITE_KEY && (
+        {TURNSTILE_SITE_KEY && securityCheckActive && (
           <TurnstileField
             id="christmas-enquiry-turnstile"
             turnstileRef={turnstileRef}
