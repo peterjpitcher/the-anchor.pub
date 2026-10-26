@@ -4,9 +4,21 @@ import { SECURITY_CHECK_REQUIRED_MESSAGE } from '@/lib/guest-error-messages'
 
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 
+/**
+ * Why a token was not accepted, as a code for the turned-away record (BK-101).
+ * A missing token is the one a guest can hit through no fault of their own: the
+ * widget never loaded, or they pressed the button before it finished.
+ */
+export type TurnstileFailureReason =
+  | 'SECURITY_CHECK_MISSING'
+  | 'SECURITY_CHECK_REJECTED'
+  | 'SECURITY_CHECK_UNAVAILABLE'
+  | 'TURNSTILE_SECRET_MISSING'
+
 type TurnstileVerifyResult = {
   success: boolean
   error?: string
+  reason?: TurnstileFailureReason
 }
 
 export async function verifyTurnstileToken(token: string | null | undefined): Promise<TurnstileVerifyResult> {
@@ -21,6 +33,7 @@ export async function verifyTurnstileToken(token: string | null | undefined): Pr
     await reportFailure({ route: 'lib/turnstile', status: null, reason: 'TURNSTILE_SECRET_MISSING' })
     return {
       success: false,
+      reason: 'TURNSTILE_SECRET_MISSING',
       error: 'We cannot take this online at the moment. Please call 01753 682707 and we will sort it out over the phone.'
     }
   }
@@ -30,6 +43,7 @@ export async function verifyTurnstileToken(token: string | null | undefined): Pr
     // widget has no token to send and nothing they can do about it online.
     return {
       success: false,
+      reason: 'SECURITY_CHECK_MISSING',
       error: SECURITY_CHECK_REQUIRED_MESSAGE
     }
   }
@@ -55,13 +69,14 @@ export async function verifyTurnstileToken(token: string | null | undefined): Pr
       errorCodes: Array.isArray(result?.['error-codes']) ? result['error-codes'] : []
     })
 
-    return { success: false, error: 'Security check failed. Please try again, or call 01753 682707.' }
+    return { success: false, reason: 'SECURITY_CHECK_REJECTED', error: 'Security check failed. Please try again, or call 01753 682707.' }
   } catch (error) {
     // Fail closed, if Turnstile is unreachable, reject the request.
     // Legitimate users can retry; bots are blocked.
     logError('lib/turnstile/verify-unreachable', error)
     return {
       success: false,
+      reason: 'SECURITY_CHECK_UNAVAILABLE',
       error: 'Security verification unavailable. Please try again in a moment, or call 01753 682707.'
     }
   }

@@ -561,6 +561,16 @@ function notCompletedResponse(mapped: MappedUpstreamFailure, status: number, ide
   )
 }
 
+/**
+ * A refusal the website makes itself, before the booking system is asked: logged
+ * and counted with every other refusal (BK-101), so a check that turns real
+ * guests away shows up. The guest's answer is the response passed in, unchanged.
+ */
+async function refuse(reason: string, response: Response, page: string | null): Promise<Response> {
+  await reportFailure({ route: ROUTE, kind: 'refused', status: response.status, reason, page })
+  return response
+}
+
 export async function POST(request: NextRequest) {
   const page = pageFromRequest(request)
   const apiKey = process.env.ANCHOR_API_KEY
@@ -586,7 +596,7 @@ export async function POST(request: NextRequest) {
 
     const normalized = normaliseIncomingPayload(body)
     if (!normalized.payload) {
-      return createApiErrorResponse(normalized.error || 'Invalid booking payload', 400)
+      return refuse('VALIDATION_FAILED', createApiErrorResponse(normalized.error || 'Invalid booking payload', 400), page)
     }
 
     const idempotencyKey =
@@ -615,7 +625,7 @@ export async function POST(request: NextRequest) {
     const replayOnly = request.headers.get('X-Booking-Replay-Only') === 'true'
     if (body.fixture_id !== undefined || replayOnly) {
       if (typeof body.fixture_id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(body.fixture_id)) {
-        return createApiErrorResponse('Please choose the game again from the tournament page.', 400)
+        return refuse('FIXTURE_INVALID', createApiErrorResponse('Please choose the game again from the tournament page.', 400), page)
       }
       const replay = await fetch(`${API_BASE_URL}/table-bookings`, {
         method: 'POST', cache: 'no-store',
@@ -644,7 +654,8 @@ export async function POST(request: NextRequest) {
             status: replay.status,
             reason: replayBody === null ? 'UNREADABLE_RESPONSE' : 'REPLAY_NOT_COMPLETED',
             upstreamCode: mapped.code,
-            page
+            page,
+            answeredByBookingSystem: true
           })
           return notCompletedResponse(mapped, replay.ok ? 502 : replay.status, idempotencyKey)
         }
@@ -661,13 +672,13 @@ export async function POST(request: NextRequest) {
 
     const validationError = validatePayload(normalized.payload)
     if (validationError) {
-      return createApiErrorResponse(validationError, 400)
+      return refuse('VALIDATION_FAILED', createApiErrorResponse(validationError, 400), page)
     }
 
     let fixtureContext: FixtureBookingContext | null = null
     if (body.fixture_id !== undefined) {
       if (typeof body.fixture_id !== 'string' || !body.fixture_id.trim()) {
-        return createApiErrorResponse('Please choose the game again from the tournament page.', 400)
+        return refuse('FIXTURE_INVALID', createApiErrorResponse('Please choose the game again from the tournament page.', 400), page)
       }
       try {
         fixtureContext = await resolveFixtureBookingContext(body.fixture_id)
@@ -676,13 +687,13 @@ export async function POST(request: NextRequest) {
         return screeningUnavailable('We cannot verify this screening right now. Please try again or choose a normal table booking.', 503)
       }
       if (!fixtureContext) {
-        return screeningUnavailable('This game is no longer available to book. Please choose another game or a normal table booking.', 409)
+        return refuse('FIXTURE_UNAVAILABLE', screeningUnavailable('This game is no longer available to book. Please choose another game or a normal table booking.', 409), page)
       }
       if (!isFixtureArrivalAllowed(fixtureContext, normalized.payload.date, normalizeTime(normalized.payload.time))) {
-        return createApiErrorResponse('Please choose an available arrival time on the match date, from pub opening and before the screening ends.', 400)
+        return refuse('OUTSIDE_HOURS', createApiErrorResponse('Please choose an available arrival time on the match date, from pub opening and before the screening ends.', 400), page)
       }
       try { normalized.payload.notes = composeFixtureNotes(fixtureContext, normalized.payload.notes) } catch {
-        return createApiErrorResponse('Your notes are too long with the match details included. Please shorten them.', 400)
+        return refuse('VALIDATION_FAILED', createApiErrorResponse('Your notes are too long with the match details included. Please shorten them.', 400), page)
       }
     }
 
@@ -706,7 +717,7 @@ export async function POST(request: NextRequest) {
         isTimeWithinRanges(bookingTime, serviceWindow.ranges)
 
       if (!canBookTime) {
-        return createApiErrorResponse(serviceWindow.message || buildServiceWindowError(normalized.payload), 400)
+        return refuse('OUTSIDE_HOURS', createApiErrorResponse(serviceWindow.message || buildServiceWindowError(normalized.payload), 400), page)
       }
     } catch (serviceWindowError) {
       await reportFailure({
@@ -781,7 +792,8 @@ export async function POST(request: NextRequest) {
         status: upstream.status,
         reason: parsedRecord === null ? 'UNREADABLE_RESPONSE' : upstream.ok ? 'SUCCESS_FALSE_ON_OK' : 'UPSTREAM_NOT_OK',
         upstreamCode: outcome.code,
-        page
+        page,
+        answeredByBookingSystem: true
       })
       return notCompletedResponse(outcome, status, idempotencyKey)
     }
