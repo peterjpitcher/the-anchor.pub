@@ -318,6 +318,26 @@ const DAYS_AVAILABLE_SUMMARY =
  */
 const PRE_ORDER_DEADLINE_DAYS_FALLBACK = 7
 
+/**
+ * The browser's own checks (a required box left empty, an email address that is not one) stop a
+ * press before submit fires, so a form's submit handler never counts it. The invalid events they
+ * fire instead say the same thing: pressed, and stopped here. Returns the form's onInvalid
+ * handler, which calls `onPress` once per press however many boxes are wrong (BK-190).
+ */
+function useInvalidPressSignal(onPress: () => void): () => void {
+  const signalled = useRef(false)
+  const latest = useRef(onPress)
+  latest.current = onPress
+  return useCallback(() => {
+    if (signalled.current) return
+    signalled.current = true
+    latest.current()
+    setTimeout(() => {
+      signalled.current = false
+    }, 0)
+  }, [])
+}
+
 function preOrderDeadlineDays(facts: ChristmasFactsView): number {
   return facts.preOrderDeadlineDays ?? PRE_ORDER_DEADLINE_DAYS_FALLBACK
 }
@@ -2111,6 +2131,11 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
     setPreferredTime(timeOptions[0].value)
   }, [preferredTime, timeOptions])
 
+  const handleInvalid = useInvalidPressSignal(() => {
+    signal('submit_pressed')
+    signal('blocked', 'missing_fields')
+  })
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     signal('submit_pressed')
@@ -2286,7 +2311,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
         </Alert>
       )}
 
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-6" onSubmit={handleSubmit} onInvalid={handleInvalid}>
         {/* Honeypot: hidden from people, checked server-side by checkSpamProtection. */}
         <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
           <label htmlFor="christmas-website">Leave this field empty</label>
@@ -2684,6 +2709,10 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
   const bookingHref = christmasTableBookingHref({ date: preferredDate, partySize })
   const signal = (stage: 'opened' | 'submit_pressed' | 'blocked' | 'sent', reason?: Parameters<typeof sendChristmasEnquirySignal>[1]['reason']) =>
     sendChristmasEnquirySignal(stage, { form: 'quick', mode: context.mode, reason })
+  const handleInvalid = useInvalidPressSignal(() => {
+    signal('submit_pressed')
+    signal('blocked', 'missing_fields')
+  })
 
   // Counted once each time the pop-up opens (BK-190).
   useEffect(() => {
@@ -2855,7 +2884,7 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
             </Alert>
           )}
 
-          {!submitted && <form className="space-y-3" onSubmit={handleSubmit}>
+          {!submitted && <form className="space-y-3" onSubmit={handleSubmit} onInvalid={handleInvalid}>
             {/* Honeypot: hidden from people, checked server-side by checkSpamProtection. */}
             <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
               <label htmlFor="christmas-lightbox-website">Leave this field empty</label>

@@ -136,4 +136,21 @@ describe('/christmas-parties enquiry signals', () => {
     ])))
     expect(JSON.stringify(signalsSent(beacon))).not.toContain('Jo')
   })
+
+  it("counts a press the browser's own checks stop, once per press", async () => {
+    // A real click, so the required and email checks run and no submit event fires
+    // (fireEvent.submit above skips them).
+    const beacon = installBeacon()
+    await openPartyForm()
+
+    fireEvent.change(screen.getByLabelText('Full name *'), { target: { value: 'Jo Bloggs' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Plan my Christmas party' }))
+
+    const pressed = () => signalsSent(beacon).filter((signal) => signal.stage !== 'opened')
+    await waitFor(() => expect(pressed()).toEqual([
+      { stage: 'submit_pressed', form: 'main', mode: 'party' },
+      { stage: 'blocked', form: 'main', mode: 'party', reason: 'missing_fields' }
+    ]))
+    expect(JSON.stringify(signalsSent(beacon))).not.toContain('Jo')
+  })
 })
