@@ -111,7 +111,10 @@ export default function PrivacyPolicyPage() {
               for each. The accessible table answer is a yes or no only. */}
           <ul>
             <li><strong>When you book a table:</strong> your name, mobile number and email address, the date, time and how many of you there are, and anything you tell us about the booking: allergies, dietary needs, whether you need an accessible table, high chairs, a celebration, and any notes.</li>
-            <li><strong>When you book an event:</strong> your name, mobile number and email address, how many places you want, the names of the people coming where tickets need them, whether you&apos;d like food, and any notes.</li>
+            {/* Guest details: components/features/EventBooking/ManagementEventBookingForm.tsx
+                asks for them when the management app says the event needs them, and the app
+                stores them on the booking (bookings.attendees). BK-017. */}
+            <li><strong>When you book an event:</strong> your name, mobile number and email address, how many places you want, whether you&apos;d like food, and any notes. Where tickets need them, we also ask for the name of each person coming and their answers to the event&apos;s questions, such as allergies. Please only add people who are happy for you to share their details with us.</li>
             <li><strong>When you book airport parking:</strong> your name, mobile number and email address, your dates, and your car&apos;s registration, make, model and colour.</li>
             <li><strong>When you enquire about private hire or a Christmas party:</strong> your name, your contact details and what you tell us about your event.</li>
             <li><strong>Your contact choices:</strong> what you&apos;ve said about marketing by email, text and WhatsApp, when you said it, and which version of our wording you were shown.</li>
@@ -211,6 +214,9 @@ export default function PrivacyPolicyPage() {
           <p>We use it to:</p>
           <ul>
             <li>Take and look after your booking or enquiry</li>
+            {/* The door list, booking sheets and kitchen summary print each guest's answers
+                (owner decision D6, 24 October 2026). */}
+            <li>Look after each guest at an event: their answers go on our kitchen and door lists, so the kitchen knows about any allergy</li>
             <li>Send booking confirmations, reminders, payment links, waitlist updates, and booking changes by phone, email, SMS, or WhatsApp where relevant</li>
             <li>Send you news about the pub: what is on, new menus, offers, and anything that is changing</li>
             <li>See how the website is used and fix what isn&apos;t working</li>
@@ -397,13 +403,18 @@ export default function PrivacyPolicyPage() {
           {/* Only periods a named job enforces, or the owner has decided.
               Management app: communications-retention (weekly) blanks message
               bodies and the page address and browser details on a consent record
-              after 24 months, and deletes pre-order rows 730 days after the
-              booking date; nothing deletes customers or bookings. Website:
+              after 24 months, deletes pre-order rows 730 days after the
+              booking date, and blanks event guest answers 90 days after the
+              event; nothing deletes customers or bookings. Website:
               lib/booking-attribution.ts (90 days), lib/cookies.ts (365 days). */}
           <ul>
             <li><strong>Customer records and bookings:</strong> we don&apos;t delete these automatically. You can ask us to delete yours. See section 9.</li>
             <li><strong>Texts and emails:</strong> we remove the content of a message after 24 months and keep a note that it was sent.</li>
             <li><strong>Food pre-orders:</strong> two years after the date of the booking, we delete each person&apos;s name, what they ordered and any dietary note.</li>
+            {/* Owner decision D6, 24 October 2026. Management app:
+                src/lib/events/guest-details-retention.ts, run by communications-retention
+                (weekly), blanks each ticket's answers and keeps the names. */}
+            <li><strong>Event guest answers:</strong> 90 days after the event, we delete each guest&apos;s answers to the event&apos;s questions. Their names stay with the booking.</li>
             <li><strong>Your contact choices:</strong> we keep the choice. After 24 months we remove the web page and browser details we noted when you made it.</li>
             <li><strong>Job applications:</strong> see section 3.</li>
             <li><strong>CCTV footage:</strong> 1 month.</li>

@@ -1699,6 +1699,22 @@ it('keeps per-person answers separate and requires an explicit yes or no', () =>
   expect(answers[1]).toHaveValue('')
 })
 
+// BK-017: the booker is sharing other people's details, and an answer can be an allergy.
+it('tells the booker, beside the guest details, to add only people happy to share them and when answers are deleted', () => {
+  render(<ManagementEventBookingForm event={{
+    id: 'privacy-fixture', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10,
+    booking_questions: [{ id: 'allergies', label: 'Any allergies?', type: 'text', required: true }],
+  }} />)
+  const section = screen.getByRole('region', { name: 'Ticket holder details' })
+  expect(section).toHaveTextContent('Only add people who are happy to share these details with us.')
+  expect(section).toHaveTextContent('We use their answers for this event only, and delete them 90 days after it.')
+})
+
+it('shows no guest details notice where no guest details are asked for', () => {
+  render(<ManagementEventBookingForm event={{ id: 'arrival-notice-fixture', name: 'Quiz fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'cash_only', price: 3 }} />)
+  expect(screen.queryByText(/Only add people who are happy to share/)).not.toBeInTheDocument()
+})
+
 it('keeps free event booking free of attendee questions', () => {
   render(<ManagementEventBookingForm event={{
     id: 'free-fixture', name: 'Free fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free', is_free: true, price: 0,

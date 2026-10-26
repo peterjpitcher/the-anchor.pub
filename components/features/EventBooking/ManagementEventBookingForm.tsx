@@ -40,7 +40,7 @@ import { confirmationNoticeCopy } from '@/lib/confirmation-notice'
 import { canUseCookieCategory } from '@/lib/cookies'
 import dynamic from 'next/dynamic'
 import type { EventPaymentConversionPayload } from './PayPalEventPaymentSection'
-import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
+import { GUEST_DETAILS_PRIVACY_LINE, reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { GUEST_PHONE, guestMessageForBlockedReason, toGuestMessage } from '@/lib/guest-error-messages'
 import {
@@ -1032,6 +1032,9 @@ export function ManagementEventBookingForm({
               <div>
                 <h3 className="font-semibold text-ink">Who is coming?</h3>
                 <p className="text-sm text-ink-muted">Add a name and answers for each person. You can buy tickets without attending yourself.</p>
+                {/* BK-017: the booker is sharing other people's details, and an answer can be
+                    health data. Owner decision D6: answers go 90 days after the event. */}
+                <p className="text-sm text-ink-muted">{GUEST_DETAILS_PRIVACY_LINE}</p>
               </div>
               {event.online_discount_ends_at ? <p className="text-sm text-ink-muted">{discountExpired ? 'Online discount ended' : 'Online discount ends'} {new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(event.online_discount_ends_at))} (UK time).</p> : null}
               {attendees.map((person, index) => (

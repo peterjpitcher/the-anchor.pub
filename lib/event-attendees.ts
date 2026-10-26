@@ -1,5 +1,14 @@
 import type { EventBookingQuestion } from './api/events'
 
+/**
+ * Shown under "Who is coming?" whenever a booking asks for each guest's details (BK-017,
+ * customer bookings review of 24 October 2026). The booker is sharing other people's details,
+ * and an answer can be health data such as an allergy. Owner decision D6: answers are deleted
+ * 90 days after the event. The privacy policy (section 7) says the same.
+ */
+export const GUEST_DETAILS_PRIVACY_LINE =
+  "Only add people who are happy to share these details with us. We use their answers for this event only, and delete them 90 days after it."
+
 export interface EventAttendee {
   id: string
   name: string
