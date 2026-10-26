@@ -115,6 +115,9 @@ export const StickyDrawer = forwardRef<HTMLDivElement, StickyDrawerProps>(
       if (!open) return
       previousActiveElement.current = document.activeElement as HTMLElement
       const timer = setTimeout(() => {
+        // Content that has already put focus inside (a form's first box, a refusal, a result)
+        // keeps it: taking it back to the first button loses the guest's place.
+        if (drawerRef.current?.contains(document.activeElement)) return
         const firstFocusable = drawerRef.current?.querySelector<HTMLElement>(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         )
