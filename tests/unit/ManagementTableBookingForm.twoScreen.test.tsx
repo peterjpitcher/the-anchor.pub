@@ -1,5 +1,5 @@
 import { fixtureBookingContext, fixtureNotesAllowance } from '@/lib/nations-championship/booking-context-shared'
-import { nationsFixture, nationsFeed } from '../fixtures/nations-championship'
+import { nationsFixture, nationsFeed, sundayNationsFixture, approvedNationsFixture } from '../fixtures/nations-championship'
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { STEP_FREE_TABLE_EXPLANATION } from '@/components/features/TableBooking/TableRefinements'
@@ -7,12 +7,11 @@ import { clearBookingAttributionForTest } from '@/lib/booking-attribution'
 import { analyticsSaleId } from '@/lib/tracking/booking-identifiers'
 
 /**
- * The approved two-screen journey (spec D1), which renders only when the
- * runtime `booking_options_step1` flag is on.
- *
- * The four-step path has its own suite in ManagementTableBookingForm.test.tsx
- * and is untouched by this one: both flows are live at once while the new one
- * is proven, so both need their own coverage.
+ * The booking journey (spec D1): find a table and its time on one screen, then
+ * details and confirm on the next. It ran behind the `booking_options_step1`
+ * flag beside the old four-step journey until October 2026, when the old one
+ * was deleted (review BK-199). ManagementTableBookingForm.test.tsx holds the
+ * rest of the form's behaviour, rewritten for this journey.
  */
 
 const trackTableBookingFunnel = jest.fn()
@@ -231,7 +230,7 @@ const TUESDAY_SITTINGS_HOURS = {
 }
 
 function renderTwoScreen(prefill: { date?: string; partySize?: number } = { date: BOOKING_DATE }) {
-  return render(<ManagementTableBookingForm prefill={prefill} twoScreenFlow />)
+  return render(<ManagementTableBookingForm prefill={prefill} />)
 }
 
 async function findATable() {
@@ -264,11 +263,36 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     return { ...fixtureBookingContext(nationsFixture())!, date: BOOKING_DATE, kickoff: '2026-07-07T12:00:00Z', barStartAt: '2026-07-07T11:00:00Z', screeningEndAt: '2026-07-07T14:00:00Z' }
   }
 
+  // Moved from the four-step suite when that journey was deleted: the game's
+  // own summary sits above both journeys' steps alike.
+  it('shows the conditional late finish in the booking summary', async () => {
+    setupFetchMock({ availability: [] })
+    const fixture = approvedNationsFixture(true)
+    fixture.screening.lateFinishPolicy = 'stay_open_if_viewers'
+    fixture.screening.openingLabel = 'Usual pub hours: noon to 10pm. If people are still here watching, we will stay open until the game finishes. Please arrive before our usual closing time.'
+    const context = fixtureBookingContext(fixture)!
+    render(<ManagementTableBookingForm prefill={{ date: context.date }} fixtureContext={context} />)
+    expect(screen.getByText(/If people are still here watching/)).toHaveTextContent('Please arrive before our usual closing time.')
+    expect(screen.queryByText(/Viewing ends at our normal closing time/)).not.toBeInTheDocument()
+    await act(async () => {})
+  })
+
+  it('shows the Sunday roast menu beside actual Sunday kitchen hours in the booking summary', async () => {
+    setupFetchMock({ availability: [] })
+    const context = fixtureBookingContext(sundayNationsFixture())!
+    render(<ManagementTableBookingForm prefill={{ date: context.date }} fixtureContext={context} />)
+    expect(screen.getByRole('link', { name: 'View the Sunday roast menu' })).toHaveAttribute('href', '/sunday-roast')
+    expect(screen.getByText(/Food served 1pm to 6pm/)).toBeVisible()
+    expect(screen.getByText('Pub open noon to 9pm.')).toBeVisible()
+    expect(screen.queryByRole('link', { name: 'View the food menu' })).not.toBeInTheDocument()
+    await act(async () => {})
+  })
+
   it('shows food and partial coverage, books only returned screening slots and tracks confirmed fixture', async () => {
     const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
     const context = rugbyContext()
     setupFetchMock({ availability: DAY_SLOTS, capturePayload, bookingResponse: { state: 'confirmed', table_booking_id: 'tb-rugby', booking_reference: 'TB-RUGBY', fixture_id: context.fixtureId } })
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} />)
     expect(screen.getByText(/The start of the game will be missed/)).toBeInTheDocument()
     expect(screen.getByText(/Food served noon to 7pm/)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'View the food menu' })).toHaveAttribute('href', '/food-menu')
@@ -298,7 +322,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       }
       return fallbackFetch(input, init)
     })
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={context} />)
     await findATable()
     fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
     fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
@@ -325,7 +349,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
 
   it('clears the game association visibly when the customer changes date', async () => {
     setupFetchMock({ availability: DAY_SLOTS })
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} />)
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-08' } })
     expect(screen.getByText(/now a normal table booking without a game attached/)).toBeInTheDocument()
     expect(screen.queryByLabelText('Your rugby booking')).not.toBeInTheDocument()
@@ -336,7 +360,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS })
     global.fetch = jest.fn((input, init) => input === '/api/nations-championship'
       ? Promise.resolve(jsonResponse(nationsFeed([]))) : fallbackFetch(input, init))
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE }} fixtureContext={rugbyContext()} />)
     fireEvent(window, new Event('focus'))
     await screen.findByText('We cannot confirm this screening right now. Please check before booking for the game.')
     fireEvent.click(screen.getByRole('button', { name: 'Continue with a normal table booking' }))
@@ -349,7 +373,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS.map(slot => ({ ...slot, available_capacity: 20 })), bookingResponse: { state: 'pending_payment', booking_id: 'tb-paid', booking_reference: 'TB-PAID', deposit_amount: 150, fixture_id: context.fixtureId } })
     global.fetch = jest.fn((input, init) => input === '/api/table-bookings/paypal/create-order'
       ? Promise.resolve(jsonResponse({ success: true, orderId: 'TEST-PAYPAL' })) : fallbackFetch(input, init))
-    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE, partySize: 15 }} fixtureContext={context} twoScreenFlow />)
+    render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE, partySize: 15 }} fixtureContext={context} />)
     await findATable()
     fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
     fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
@@ -595,7 +619,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       expect(screen.getByLabelText(/Just drinks, no food/)).toBeInTheDocument()
       expect(screen.getByLabelText(/Outside table, weather permitting/)).toBeInTheDocument()
       expect(screen.getByLabelText(/Step-free, standard-height table/)).toBeInTheDocument()
-      expect(screen.getByRole('radiogroup', { name: 'High chairs' })).toBeInTheDocument()
+      expect(screen.getByRole('group', { name: 'High chairs' })).toBeInTheDocument()
     })
 
     it('offers high chairs as 0, 1 or 2, not a checkbox', async () => {
@@ -603,14 +627,34 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       renderTwoScreen()
       await findATable()
 
-      const group = screen.getByRole('radiogroup', { name: 'High chairs' })
+      const group = screen.getByRole('group', { name: 'High chairs' })
       const options = within(group).getAllByRole('radio')
 
-      expect(options.map((option) => option.textContent)).toEqual(['0', '1', '2'])
-      expect(within(group).getByRole('radio', { name: 'No high chairs' })).toHaveAttribute(
-        'aria-checked',
-        'true'
-      )
+      expect(options.map((option) => option.closest('label')?.textContent)).toEqual(['0', '1', '2'])
+      expect(within(group).getByRole('radio', { name: 'No high chairs' })).toBeChecked()
+    })
+
+    // Review BK-194. They were buttons labelled as radios, so a screen reader
+    // said "radio button, 1 of 3" and the arrow keys then did nothing. Native
+    // radios sharing one name, in a fieldset with a legend, are what give one
+    // Tab stop and the arrow keys; the browser audit presses them for real.
+    it('makes them real radios, one group, so the arrow keys work', async () => {
+      setupFetchMock({ availability: DAY_SLOTS })
+      renderTwoScreen()
+      await findATable()
+
+      const group = screen.getByRole('group', { name: 'High chairs' })
+      expect(group.tagName).toBe('FIELDSET')
+      const radios = within(group).getAllByRole('radio') as HTMLInputElement[]
+      expect(radios.every((radio) => radio.tagName === 'INPUT' && radio.type === 'radio')).toBe(true)
+      expect(new Set(radios.map((radio) => radio.name)).size).toBe(1)
+
+      // The chosen one is filled and ticked, so it does not rest on colour.
+      fireEvent.click(within(group).getByRole('radio', { name: '1 high chair' }))
+      const chosen = within(group).getByRole('radio', { name: '1 high chair' }).closest('label')!
+      expect(chosen.className).toContain('bg-accent')
+      expect(chosen.querySelector('svg')).not.toBeNull()
+      await act(async () => {})
     })
 
     it('reveals the owner-approved step-free copy, word for word', async () => {
@@ -1196,7 +1240,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       expect(screen.queryByText('Anything that changes the table?')).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/outside table/i)).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/high chair/i)).not.toBeInTheDocument()
-      expect(screen.queryByRole('radiogroup', { name: 'High chairs' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('group', { name: 'High chairs' })).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/step-free/i)).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/just drinks/i)).not.toBeInTheDocument()
     })
@@ -1245,6 +1289,101 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       })
     })
 
+    // Review BK-102. Confirm used to put every refusal in one alert at the top
+    // of the card, about a screen above the button on a phone, with nothing
+    // marked and focus left on the button. So it looked as if nothing happened.
+    describe('a refusal on Confirm sits beside its control (BK-102)', () => {
+      async function reachUnlockedDetails() {
+        await reachDetails()
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await screen.findByLabelText('First Name')
+      }
+
+      it('puts focus on the unticked policy box, with the message beside it', async () => {
+        const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+        setupFetchMock({ availability: DAY_SLOTS, capturePayload })
+        await reachUnlockedDetails()
+        fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
+
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        const policy = screen.getByLabelText(/booking and no-show policy/i)
+        await waitFor(() => expect(policy).toHaveFocus())
+        expect(policy).toHaveAttribute('aria-invalid', 'true')
+        expect(policy).toHaveAccessibleDescription(
+          'Please confirm you understand the booking and no-show policy before continuing.'
+        )
+        // Beside the box, not in the alert at the top of the card.
+        expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
+        expect(trackBookingErrorShown).toHaveBeenCalledWith({ code: 'policy_not_accepted' })
+        expect(capturePayload.ref.current).toBeNull()
+
+        // Ticking it clears the message.
+        fireEvent.click(policy)
+        expect(policy).not.toHaveAttribute('aria-invalid')
+        expect(
+          screen.queryByText('Please confirm you understand the booking and no-show policy before continuing.')
+        ).not.toBeInTheDocument()
+      })
+
+      it('marks every missing field at once and focuses the first', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachUnlockedDetails()
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example' } })
+
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        const firstName = screen.getByLabelText('First Name')
+        await waitFor(() => expect(firstName).toHaveFocus())
+        expect(firstName).toHaveAttribute('aria-invalid', 'true')
+        expect(firstName).toHaveAccessibleDescription('Please enter your first name.')
+
+        const email = screen.getByLabelText('Email address')
+        expect(email).toHaveAttribute('aria-invalid', 'true')
+        expect(email).toHaveAccessibleDescription('That email address does not look right. Please check it.')
+
+        const policy = screen.getByLabelText(/booking and no-show policy/i)
+        expect(policy).toHaveAttribute('aria-invalid', 'true')
+        expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
+
+        // Typing in a field clears its own message and leaves the others.
+        fireEvent.change(firstName, { target: { value: 'Sam' } })
+        expect(firstName).not.toHaveAttribute('aria-invalid')
+        expect(email).toHaveAttribute('aria-invalid', 'true')
+      })
+
+      it('announces a refused number under the box and links it to the box', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+        const message = await screen.findByText('Please enter your mobile number first.')
+        expect(message).toHaveAttribute('role', 'alert')
+        const phone = screen.getByLabelText('Mobile Number')
+        expect(phone).toHaveAttribute('aria-invalid', 'true')
+        expect(phone).toHaveAccessibleDescription('Please enter your mobile number first.')
+      })
+
+      it('keeps the top alert for a booking the server refused, and takes the guest to it', async () => {
+        setupFetchMock({
+          availability: DAY_SLOTS,
+          bookingResponse: { state: 'blocked', blocked_reason: 'no_table', reason: null }
+        })
+        await reachDetails()
+        await verifyPhoneAndFillName()
+
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        const title = await screen.findByText('Booking not completed')
+        const alert = title.closest('[role="alert"]') as HTMLElement
+        expect(alert).not.toBeNull()
+        await waitFor(() => expect(alert).toHaveFocus())
+      })
+    })
+
     // The confirmation card is returned BEFORE the wizard element, so the
     // step-change scroll effect cannot reach it: `wizardRef` has unmounted and
     // confirming is not a step change anyway. Without its own scroll the guest
@@ -1280,6 +1419,56 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
 
       expect(await screen.findByRole('heading', { name: 'Choose your time' })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /^1pm,/ })).toHaveAttribute('aria-pressed', 'true')
+      // The Back button went with the screen, so focus is put on the times.
+      expect(screen.getByRole('heading', { name: 'Choose your time' })).toHaveFocus()
+    })
+
+    // Review BK-103. Each of these presses takes away the control that was
+    // pressed, and focus used to fall to the page body with nothing said.
+    describe('focus follows the guest from screen to screen (BK-103)', () => {
+      it('lands on the details heading after Continue', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+
+        expect(screen.getByRole('heading', { name: 'Your details' })).toHaveFocus()
+      })
+
+      it('lands on First Name once a new number is checked, and says so in a region that was already there', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+        const phoneBox = screen.getByLabelText('Mobile Number').closest('.rounded-md') as HTMLElement
+        const region = within(phoneBox).getByRole('status')
+        expect(region).toBeEmptyDOMElement()
+
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+        const firstName = await screen.findByLabelText('First Name')
+        await waitFor(() => expect(firstName).toHaveFocus())
+        expect(region).toHaveTextContent('New customer detected. Please complete your details below.')
+      })
+
+      it('lands on the notes for a number we already know', async () => {
+        setupFetchMock({ availability: DAY_SLOTS, lookupResponse: { known: true } })
+        await reachDetails()
+
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+        const notes = await screen.findByLabelText('Notes (optional)')
+        await waitFor(() => expect(notes).toHaveFocus())
+      })
+
+      it('lands on the confirmation heading once the booking is made', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+        await verifyPhoneAndFillName()
+
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        const heading = await screen.findByRole('heading', { name: /all booked in/i })
+        await waitFor(() => expect(heading).toHaveFocus())
+      })
     })
 
     it('shows two steps in the progress bar, not four', async () => {

@@ -9,30 +9,17 @@ import type { AvailabilitySlot } from '@/lib/table-booking/availability'
  * a guest typed.
  */
 
-export type BookingStep = 'find' | 'choose' | 'details' | 'review'
+/**
+ * The booking journey (spec D1, D7, D8): find a table and its time on one
+ * screen, then details and confirm on the next. The four-step journey before
+ * it (find, choose, details, review) was deleted in October 2026 (review
+ * BK-199, website W4).
+ */
+export type BookingStep = 'find' | 'details'
 
-export const STEP_ORDER: BookingStep[] = ['find', 'choose', 'details', 'review']
+export const STEP_ORDER: BookingStep[] = ['find', 'details']
 
 export const STEP_LABELS: Record<BookingStep, string> = {
-  find: 'Find table',
-  choose: 'Choose time',
-  details: 'Guest details',
-  review: 'Review & book'
-}
-
-/**
- * The approved two-screen journey (spec D1, D7, D8): find a table and its time
- * on one surface, then details and confirm on the next. `choose` and `review`
- * are gone: the slot grid lives on `find`, and the review summary is an inline
- * card on `details`.
- *
- * The four-step vocabulary above stays until the old path is deleted, so both
- * can be rendered from the same state while the runtime flag decides which the
- * guest sees.
- */
-export const TWO_SCREEN_STEP_ORDER: BookingStep[] = ['find', 'details']
-
-export const TWO_SCREEN_STEP_LABELS: Record<'find' | 'details', string> = {
   find: 'Find a table',
   details: 'Your details'
 }
@@ -117,13 +104,23 @@ export function resolveHighChairShortfall(
 }
 
 /**
+ * The details-screen control a refusal is about, so the message can be shown
+ * beside that control and focus moved to it, rather than in an alert a screen
+ * above the button on a phone (review BK-102).
+ */
+export type DetailsStepField = 'phone' | 'firstName' | 'email'
+
+/**
  * Why the guest may not leave the details step yet. `returnToChoose` means the
  * slot context is gone and the message only makes sense on the slot list.
+ * `field` names the control the refusal belongs to; a refusal without one is
+ * about the booking as a whole.
  */
 export type DetailsStepRefusal = {
   code: string
   message: string
   returnToChoose?: boolean
+  field?: DetailsStepField
 }
 
 export type DetailsStepState = {
@@ -166,21 +163,35 @@ function isPlausibleEmail(value: string): boolean {
 }
 
 export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefusal | null {
+  return findDetailsStepRefusals(state)[0] ?? null
+}
+
+/**
+ * Every reason the guest may not leave the details step yet, in screen order.
+ *
+ * A refusal about the booking as a whole (a re-read in flight, no time, a time
+ * that stopped qualifying) is returned alone, because nothing the guest types
+ * fixes it. So is a phone refusal, because the name and email boxes are not on
+ * screen until the number is checked. The name and email refusals come back
+ * together, so a guest who left both empty hears about both at once rather
+ * than one per press of Confirm.
+ */
+export function findDetailsStepRefusals(state: DetailsStepState): DetailsStepRefusal[] {
   // A re-read is in flight because they just changed high chairs or outside seating. Their time
   // may be about to be confirmed or replaced, so do not let them submit against it mid-flight.
   if (state.revalidatingAvailability) {
-    return {
+    return [{
       code: 'availability_revalidating',
       message: 'Just checking that time is still free. One moment.'
-    }
+    }]
   }
 
   if (!state.selectedTime) {
-    return {
+    return [{
       code: 'no_time_selected',
       message: 'Please select a time before continuing.',
       returnToChoose: true
-    }
+    }]
   }
 
   // The last line of defence, using the same rule the grid and the
@@ -188,26 +199,28 @@ export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefu
   // chosen, so send them back to the times rather than book against an answer
   // that no longer stands.
   if (state.selectionRefusedByReading) {
-    return {
+    return [{
       code: 'slot_no_longer_selectable',
       message: 'That time is no longer available with your options. Please choose another.',
       returnToChoose: true
-    }
+    }]
   }
 
   if (!state.phone.trim()) {
-    return { code: 'phone_missing', message: 'Please enter your mobile number.' }
+    return [{ code: 'phone_missing', message: 'Please enter your mobile number.', field: 'phone' }]
   }
 
   if (!state.detailsUnlocked) {
-    return { code: 'phone_not_verified', message: 'Please verify your mobile number first.' }
+    return [{ code: 'phone_not_verified', message: 'Please verify your mobile number first.', field: 'phone' }]
   }
+
+  const fieldRefusals: DetailsStepRefusal[] = []
 
   // Only the first name is required; the surname is optional end to end
   // (spec W2 as corrected by review F09: AMS already stores an empty
   // surname and the proxy already omits a blank one from the payload).
   if (!state.isKnownCustomer && !state.firstName.trim()) {
-    return { code: 'name_missing', message: 'Please enter your first name.' }
+    fieldRefusals.push({ code: 'name_missing', message: 'Please enter your first name.', field: 'firstName' })
   }
 
   // Email became required on 2026-08-19. It was optional from the day the form started
@@ -220,7 +233,11 @@ export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefu
   // holds their address, and the form deliberately submits nothing for them, so demanding
   // one here would block a returning guest over a field that is not on their screen.
   if (!state.isKnownCustomer && !state.email.trim()) {
-    return { code: 'email_missing', message: 'Please enter your email address so we can send your confirmation.' }
+    fieldRefusals.push({
+      code: 'email_missing',
+      message: 'Please enter your email address so we can send your confirmation.',
+      field: 'email'
+    })
   }
 
   // A typed one is checked, because before this anything at all was accepted:
@@ -232,21 +249,27 @@ export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefu
   // addresses, and the cost of a false rejection here (a guest abandons the booking) is
   // far higher than the cost of letting an odd-but-valid address through.
   if (state.email.trim() && !isPlausibleEmail(state.email.trim())) {
-    return { code: 'email_invalid', message: 'That email address does not look right. Please check it.' }
+    fieldRefusals.push({
+      code: 'email_invalid',
+      message: 'That email address does not look right. Please check it.',
+      field: 'email'
+    })
   }
+
+  if (fieldRefusals.length > 0) return fieldRefusals
 
   // A high-chair shortfall needs an explicit tap before the guest can carry
   // on (review F06): information about fewer chairs is not consent to book
   // with fewer chairs.
   if (state.highChairShortfall && !state.highChairShortfallAcknowledged) {
-    return {
+    return [{
       code: 'high_chair_shortfall_unacknowledged',
       message:
         state.highChairShortfall.free === 0
           ? 'Please confirm you are happy to book without a high chair first.'
           : `Please confirm you are happy to book with ${state.highChairShortfall.free} high chair${state.highChairShortfall.free === 1 ? '' : 's'} first.`
-    }
+    }]
   }
 
-  return null
+  return []
 }

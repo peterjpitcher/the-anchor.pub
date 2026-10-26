@@ -76,10 +76,10 @@ function availabilityWith(times: string[]) {
   }
 }
 
-/** Open the sheet, pick 19:00, fill both fields and press Book table. */
+/** Open the sheet, pick 7pm, fill both fields and press Book table. */
 async function bookAtSeven() {
   render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
-  fireEvent.click(await screen.findByRole('button', { name: /19:00/ }))
+  fireEvent.click(await screen.findByRole('button', { name: /^7pm/ }))
   fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700 900123' } })
   fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
   const book = screen.getByRole('button', { name: 'Book table' })
@@ -148,8 +148,8 @@ describe('QuickBookSheet reads the state of the booking, not the status of the r
 
     // Back on the grid: the details form has gone, the other times are there
     // to tap, and the time that was refused is no longer offered.
-    expect(await screen.findByRole('button', { name: /19:30/ })).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: /19:00/ })).not.toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: /^7:30pm/ })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /^7pm/ })).not.toBeInTheDocument()
     expect(screen.queryByLabelText('Mobile number')).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Book table' })).not.toBeInTheDocument()
     expect(mockFetchAvailability).toHaveBeenCalledTimes(2)
@@ -329,7 +329,7 @@ describe('QuickBookSheet reads the state of the booking, not the status of the r
       },
     })
     const { rerender } = render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
-    fireEvent.click(await screen.findByRole('button', { name: /19:00/ }))
+    fireEvent.click(await screen.findByRole('button', { name: /^7pm/ }))
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700 900123' } })
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     await waitFor(() => expect(screen.getByRole('button', { name: 'Book table' })).toBeEnabled())
@@ -342,7 +342,7 @@ describe('QuickBookSheet reads the state of the booking, not the status of the r
     rerender(<QuickBookSheet open={false} onClose={jest.fn()} source="test" />)
     answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed', booking_reference: 'TB-B' } } })
     rerender(<QuickBookSheet open onClose={jest.fn()} source="test" />)
-    fireEvent.click(await screen.findByRole('button', { name: /19:00/ }))
+    fireEvent.click(await screen.findByRole('button', { name: /^7pm/ }))
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700 900123' } })
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     await waitFor(() => expect(screen.getByRole('button', { name: 'Book table' })).toBeEnabled())
@@ -357,7 +357,7 @@ describe('QuickBookSheet reads the state of the booking, not the status of the r
   it('does not promise a text before the booking is made', async () => {
     answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed' } } })
     render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
-    fireEvent.click(await screen.findByRole('button', { name: /19:00/ }))
+    fireEvent.click(await screen.findByRole('button', { name: /^7pm/ }))
 
     expect(screen.getByText('So we can confirm your booking.')).toBeInTheDocument()
     expect(screen.queryByText(/text your confirmation/)).not.toBeInTheDocument()
@@ -442,5 +442,72 @@ describe('QuickBookSheet fails closed when the booking cannot be made', () => {
     expect(failure).not.toHaveTextContent(/failed to fetch/i)
     expectPhoneLink()
     expectNotBooked()
+  })
+})
+
+/**
+ * Review BK-195 and BK-103. The sheet reloads its times on every chip without a
+ * word to a screen reader, printed '13:00' where the full form prints '1pm',
+ * shared one error line between two boxes that were not marked required, and
+ * left focus nowhere once the booking was made.
+ */
+describe('QuickBookSheet says what it is doing, in the full form\'s words', () => {
+  it('prints times the way the full form does, on the buttons and in the summary', async () => {
+    answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed', booking_reference: 'TB-12' } } })
+    render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
+
+    expect(await screen.findByRole('button', { name: /^6:30pm/ })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /^7:30pm/ })).toBeInTheDocument()
+    expect(screen.queryByText('19:00')).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: /^7pm/ }))
+    expect(screen.getByText(/at 7pm\./)).toBeInTheDocument()
+  })
+
+  it('tells a screen reader how many times there are, from a region that was there all along', async () => {
+    render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
+    const region = screen.getAllByRole('status').find((element) => element.className.includes('sr-only'))
+    expect(region).toBeDefined()
+
+    await screen.findByRole('button', { name: /^7pm/ })
+    expect(region).toHaveTextContent('3 times available.')
+
+    mockFetchAvailability.mockResolvedValueOnce(availabilityWith(['19:00']))
+    fireEvent.click(screen.getByRole('button', { name: '4 people' }))
+    await waitFor(() => expect(region).toHaveTextContent('1 time available.'))
+  })
+
+  it('marks both boxes required, and puts each refusal under its own box with focus on the first', async () => {
+    const post = answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed' } } })
+    render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
+    fireEvent.click(await screen.findByRole('button', { name: /^7pm/ }))
+
+    const phone = screen.getByLabelText('Mobile number')
+    const firstName = screen.getByLabelText('First name')
+    expect(phone).toBeRequired()
+    expect(firstName).toBeRequired()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Book table' }))
+
+    await waitFor(() => expect(phone).toHaveFocus())
+    expect(phone).toHaveAttribute('aria-invalid', 'true')
+    expect(phone).toHaveAccessibleDescription('Please enter your mobile number.')
+    expect(firstName).toHaveAttribute('aria-invalid', 'true')
+    expect(firstName).toHaveAccessibleDescription('Please enter your first name.')
+    expect(post).not.toHaveBeenCalled()
+
+    // Fixing one clears its own message and leaves the other.
+    fireEvent.change(phone, { target: { value: '07700 900123' } })
+    expect(phone).not.toHaveAttribute('aria-invalid')
+    expect(firstName).toHaveAttribute('aria-invalid', 'true')
+  })
+
+  it('moves focus to the result once the booking is made', async () => {
+    answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed', booking_reference: 'TB-9' } } })
+
+    await bookAtSeven()
+
+    const outcome = await screen.findByText("You're booked in.")
+    await waitFor(() => expect(outcome).toHaveFocus())
   })
 })

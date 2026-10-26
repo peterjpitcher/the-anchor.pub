@@ -2,6 +2,8 @@
 
 import { useId, useRef, useState, type FormEvent } from 'react'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
+import { SecurityCheckWaitingNote } from '@/components/security/SecurityCheckWaitingNote'
+import { useFocusOnChange } from '@/hooks/useFocusOnChange'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { DEFAULT_COMMUNICATION_CONSENT_STATE, buildCommunicationConsentPayload } from '@/lib/communication-consent'
 import { trackPrivateHireEnquiryStarted, trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
@@ -12,7 +14,9 @@ interface PrivateHireQuickEnquiryProps {
   initialSpaceId?: string
 }
 
-const inputClass = 'block w-full min-w-0 rounded-sm border border-line-strong bg-surface px-3 py-2 text-ink'
+// border-line-field: 3:1 or better against the field in both skins, where
+// border-line-strong measured 1.65:1 light and 2.31:1 dark (review BK-104).
+const inputClass = 'block w-full min-w-0 rounded-sm border border-line-field bg-surface px-3 py-2 text-ink'
 const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHireQuickEnquiryProps): JSX.Element {
@@ -36,6 +40,12 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
   const submitting = useRef(false)
   const loadedAt = useRef(Date.now())
   const turnstileRef = useRef<TurnstileFieldRef>(null)
+  const awaitingSecurityCheck = Boolean(siteKey) && !token
+  // The form, and the Send button with it, is replaced by the answer, so focus
+  // moves to the answer's heading and a screen reader reads it out. Otherwise
+  // a guest cannot tell the enquiry went, and may send it again (review BK-103).
+  const acceptedHeadingRef = useRef<HTMLHeadingElement>(null)
+  useFocusOnChange(acceptedHeadingRef, accepted)
 
   function trackStarted(): void {
     if (started.current) return
@@ -122,8 +132,8 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
   }
 
   if (accepted) return (
-    <div role="status" className="rounded-md border border-line bg-surface p-6">
-      <h3 className="text-xl font-semibold text-ink-strong">{accepted === 'saved' ? 'Enquiry received' : 'Enquiry emailed to our team'}</h3>
+    <div className="rounded-md border border-line bg-surface p-6">
+      <h3 ref={acceptedHeadingRef} tabIndex={-1} className="text-xl font-semibold text-ink-strong">{accepted === 'saved' ? 'Enquiry received' : 'Enquiry emailed to our team'}</h3>
       <p className="mt-3 text-ink">{occasion}, approximately {guests} guests. {undecided ? 'Date undecided.' : `Requested date: ${date.split('-').reverse().join('/')}.`}</p>
       <p className="mt-3 text-ink-muted">{accepted === 'emailed' ? 'Our booking system could not save your enquiry, but the team has received your details by email. ' : ''}The team will reply to discuss availability. This enquiry does not hold your date or confirm a booking.</p>
     </div>
@@ -150,7 +160,22 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
       <CommunicationConsentFields idPrefix={id} value={consent} onChange={setConsent} />
       <div aria-hidden="true" className="hidden"><label htmlFor={`${id}-website`}>Website</label><input id={`${id}-website`} tabIndex={-1} autoComplete="off" value={honeypot} onChange={e => setHoneypot(e.target.value)} /></div>
       {siteKey && <TurnstileField id={`${id}-turnstile`} turnstileRef={turnstileRef} onTokenChange={setToken} />}
-      <button disabled={loading || Boolean(siteKey && !token)} type="submit" className="w-full rounded-pill bg-anchor-gold-dark px-6 py-3 font-semibold text-white disabled:opacity-50">{loading ? 'Sending...' : 'Send enquiry'}</button>
+      {/* Reachable while the security check runs, with the reason under it,
+          rather than greyed out and skipped by the Tab key (review BK-198).
+          Pressing it then does nothing, Enter in a field included. */}
+      <button
+        disabled={loading}
+        aria-disabled={awaitingSecurityCheck || undefined}
+        aria-describedby={`${id}-security-note`}
+        onClick={(event) => {
+          if (awaitingSecurityCheck) event.preventDefault()
+        }}
+        type="submit"
+        className="w-full rounded-pill bg-anchor-gold-dark px-6 py-3 font-semibold text-white disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+      >
+        {loading ? 'Sending...' : 'Send enquiry'}
+      </button>
+      <SecurityCheckWaitingNote id={`${id}-security-note`} waiting={awaitingSecurityCheck} />
     </form>
   )
 }

@@ -272,6 +272,13 @@
   --accent-text: var(--anchor-gold-dark);
   --border: #e2dccf;
   --border-strong: #d2c9b4;
+  /* The edge of a box you type into or a choice you tick. A control's edge
+     needs 3:1 against what is next to it (WCAG 1.4.11). The strong border is
+     1.65:1 on the white surface, fine for dividing a card and too faint for
+     finding where to type (review BK-104). Measured against the field
+     colours, white 4.17:1, sunk 3.57:1 and page cream 3.93:1. The test
+     tests/unit/field-border-contrast.test.ts holds both skins to 3:1. */
+  --border-field: #857b6a;
   --border-gold: rgba(165, 118, 38, 0.35);
   --focus-ring: var(--anchor-gold-dark);
   --link: var(--anchor-green);
@@ -405,6 +412,11 @@
   --accent-text: var(--anchor-gold-bright);
   --border: rgba(201, 160, 32, 0.22);
   --border-strong: rgba(201, 160, 32, 0.45);
+  /* The strong border measured 2.31:1 on the green card, under the 3:1 a
+     control's edge needs (review BK-104). Painted over each dark surface,
+     this is 3.99:1 on the card, 4.73:1 sunk, 4.52:1 on the page green and
+     4.35:1 raised. */
+  --border-field: rgba(201, 160, 32, 0.75);
   --border-gold: rgba(201, 160, 32, 0.55);
   --focus-ring: var(--anchor-gold-bright);
   /* Said again here on purpose. A variable that points at another is worked

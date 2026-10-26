@@ -87,6 +87,20 @@ describe('EventBookingButton', () => {
     })
   })
 
+  // Review BK-196. The tracking source was appended to the link's name, so a
+  // screen reader read out '(event_list_item)' on the main booking button of
+  // every event. It belongs in the click tracking only.
+  it('keeps the tracking source out of the name a screen reader reads', () => {
+    render(<EventBookingButton event={makeEvent({ bookingUrl: null, offers: undefined })} source="event_list_item" />)
+
+    const link = screen.getByRole('link', { name: 'Reserve event table for Test Event' })
+    expect(link).toHaveAccessibleName('Reserve event table for Test Event')
+    expect(link.getAttribute('aria-label')).not.toContain('event_list_item')
+
+    fireEvent.click(link)
+    expect(mockTrackEventBookClick).toHaveBeenCalledWith(expect.objectContaining({ source: 'event_list_item' }))
+  })
+
   it('falls back to the offer URL when booking URL is missing', () => {
     const event = makeEvent({
       bookingUrl: null,

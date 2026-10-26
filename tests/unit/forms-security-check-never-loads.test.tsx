@@ -94,6 +94,17 @@ describe.each(cases)('$label, when the security check never loads', ({ load, sub
     return buttons[0]
   }
 
+  /**
+   * Cannot send. Either disabled outright, or (the private hire enquiry, since
+   * review BK-198) still reachable but announced as unavailable, with the
+   * reason it is waiting as its description.
+   */
+  function expectNotPressable(button: HTMLElement) {
+    if (button.hasAttribute('disabled')) return
+    expect(button).toHaveAttribute('aria-disabled', 'true')
+    expect(button).toHaveAccessibleDescription(expect.stringContaining('Waiting for the security check.'))
+  }
+
   // The form may have live regions of its own; the widget's is the one that
   // ends up holding the heading.
   function recoveryPanel(): HTMLElement | undefined {
@@ -107,7 +118,7 @@ describe.each(cases)('$label, when the security check never loads', ({ load, sub
       jest.advanceTimersByTime(9_999)
     })
 
-    expect(submitButton()).toBeDisabled()
+    expectNotPressable(submitButton())
     expect(recoveryPanel()).toBeUndefined()
   })
 
@@ -127,7 +138,7 @@ describe.each(cases)('$label, when the security check never loads', ({ load, sub
     expect(within(panel).getByRole('button', { name: 'Try the security check again' })).toBeEnabled()
 
     // Still no way to send without a token, and nothing was sent.
-    expect(submitButton()).toBeDisabled()
+    expectNotPressable(submitButton())
     expect(global.fetch).not.toHaveBeenCalled()
   })
 })

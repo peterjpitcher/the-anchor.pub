@@ -25,17 +25,6 @@ export type SlotSelectionContext = {
   partySize: number
   highChairCount: number
   /**
-   * Whether a time with no high chair free at all is off the table.
-   *
-   * Two-screen flow: true. Owner decision D4 hides it, and the guest can set
-   * high chairs back to 0 to see it again.
-   *
-   * Four-step flow: false. That flow has no way to show the guest a hidden
-   * time, and instead offers "no high chairs are free, book anyway?" on its
-   * details step. Deleted along with the rest of the four-step path.
-   */
-  hideWhenNoHighChairFree: boolean
-  /**
    * Whether the guest needs a time the KITCHEN can serve.
    *
    * True when they have accepted a seasonal period: a Christmas lunch is a meal,
@@ -61,21 +50,6 @@ export type SlotVerdict = {
   selectable: boolean
   display: SlotDisplay
   /**
-   * Does this time have at least as many high chairs free as were asked for?
-   *
-   * True when none were asked for, and true when the count is unknown, because
-   * unknown is not a refusal anywhere else in this rule either.
-   *
-   * Stated outright rather than left to be inferred from `highChairsFree` being
-   * absent. That inference reads backwards exactly where it matters: absent
-   * means "no figure worth printing", which is true both of a time that covers
-   * the request AND of a time with nothing free at all. A filter written on it
-   * therefore offered the times with no chairs and withheld the ones with some.
-   * Same lesson as never inferring what a slot may be booked for from
-   * `kitchen_open`: say what you mean, do not leave it to be deduced.
-   */
-  coversHighChairRequest: boolean
-  /**
    * The figure to print, set only when chairs were asked for and this time has
    * fewer free than that but more than none. The time is still offered, with
    * the count on it (D4): a shortfall is information, not a refusal.
@@ -83,25 +57,12 @@ export type SlotVerdict = {
   highChairsFree?: number
 }
 
-const REFUSED_GREY: SlotVerdict = {
-  selectable: false,
-  display: 'grey',
-  // Refused on capacity, so the chairs were never the objection.
-  coversHighChairRequest: true
-}
-const REFUSED_HIDDEN: SlotVerdict = {
-  selectable: false,
-  display: 'hide',
-  coversHighChairRequest: false
-}
-const OFFERED: SlotVerdict = { selectable: true, display: 'offer', coversHighChairRequest: true }
-// A time the reading never mentioned, or no time at all. Refused, but not over
-// chairs, so nothing may read a chair verdict out of this.
-const REFUSED_UNKNOWN_TIME: SlotVerdict = {
-  selectable: false,
-  display: 'hide',
-  coversHighChairRequest: true
-}
+// Refused on capacity: greyed, so the guest can see their change took effect.
+const REFUSED_GREY: SlotVerdict = { selectable: false, display: 'grey' }
+const REFUSED_HIDDEN: SlotVerdict = { selectable: false, display: 'hide' }
+const OFFERED: SlotVerdict = { selectable: true, display: 'offer' }
+// A time the reading never mentioned, or no time at all.
+const REFUSED_UNKNOWN_TIME: SlotVerdict = { selectable: false, display: 'hide' }
 
 export function judgeSlot(slot: AvailabilitySlot, context: SlotSelectionContext): SlotVerdict {
   // The authoritative answer first. Everything below can only narrow it.
@@ -120,19 +81,12 @@ export function judgeSlot(slot: AvailabilitySlot, context: SlotSelectionContext)
   // zero. Refusing on a missing field would take away a table the pub can seat.
   if (chairsFree === undefined) return OFFERED
 
-  if (chairsFree === 0) {
-    return context.hideWhenNoHighChairFree
-      ? REFUSED_HIDDEN
-      : { selectable: true, display: 'offer', coversHighChairRequest: false }
-  }
+  // Owner decision D4: a time with no high chair free at all is hidden, and
+  // the guest can set high chairs back to 0 to see it again.
+  if (chairsFree === 0) return REFUSED_HIDDEN
 
   return chairsFree < context.highChairCount
-    ? {
-        selectable: true,
-        display: 'offer',
-        coversHighChairRequest: false,
-        highChairsFree: chairsFree
-      }
+    ? { selectable: true, display: 'offer', highChairsFree: chairsFree }
     : OFFERED
 }
 
@@ -146,8 +100,7 @@ export function judgeTime(
   time: string,
   context: SlotSelectionContext
 ): SlotVerdict {
-  // No time, or a time nobody affirmed. Neither is a chair problem, so this
-  // refusal says nothing about chairs.
+  // No time, or a time nobody affirmed.
   if (!time) return REFUSED_UNKNOWN_TIME
   const slot = slots.find((candidate) => candidate.time === time)
   return slot ? judgeSlot(slot, context) : REFUSED_UNKNOWN_TIME
@@ -162,9 +115,8 @@ export function selectableSlots(
 }
 
 /**
- * The selectable time nearest the one asked for. Used by the four-step flow to
- * pre-select a slot after a search, and by both flows as the "is there anything
- * at all on this date" signal.
+ * The selectable time nearest the one asked for. Used as the "is there
+ * anything at all on this date" signal after a search.
  */
 export function pickClosestSelectableSlot(
   slots: AvailabilitySlot[],

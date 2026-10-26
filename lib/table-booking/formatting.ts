@@ -57,7 +57,10 @@ export function formatHoldExpiry(value: string | null): string | null {
     month: 'short',
     hour: 'numeric',
     minute: '2-digit',
-    hour12: true,
+    // h12, not `hour12: true`: some ICU builds (Node 20 and the browsers that
+    // share its data) read hour12 as h11 and print noon-and-a-bit as
+    // "0:15 pm" (review BK-210). This one runs in the guest's browser.
+    hourCycle: 'h12',
     timeZone: 'Europe/London'
   })
 }

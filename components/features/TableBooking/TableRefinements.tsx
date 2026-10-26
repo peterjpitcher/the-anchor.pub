@@ -1,5 +1,6 @@
 'use client'
 
+import { Check } from 'lucide-react'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { HIGH_CHAIR_HOUSE_CAP } from '@/lib/table-booking/journey'
@@ -152,44 +153,52 @@ export function TableRefinements({
         </p>
       ) : null}
 
-      <div className="pt-1">
-        <p className="text-sm font-medium text-ink-strong" id="high-chair-label">
-          High chairs
-        </p>
+      {/*
+        Native radio buttons, drawn as pills. The pills used to be buttons
+        labelled as radios, so a screen reader said "radio button, 1 of 3" and
+        the arrow keys then did nothing, with every option a separate Tab stop
+        (review BK-194). Real radios in a fieldset get one Tab stop and arrow
+        keys from the browser. The chosen pill is filled with the accent and
+        carries a tick, so the choice does not rest on colour alone and stands
+        out more than the others, not less (review BK-104).
+      */}
+      <fieldset className="pt-1">
+        <legend className="text-sm font-medium text-ink-strong">High chairs</legend>
         <p className="mt-0.5 text-sm text-ink-muted">
           For babies and toddlers. We have a limited number, reserved first come first served.
         </p>
-        <div
-          role="radiogroup"
-          aria-labelledby="high-chair-label"
-          className="mt-2 flex gap-2"
-        >
+        <div className="mt-2 flex gap-2">
           {chairChoices.map((value) => {
             const isSelected = highChairCount === value
             return (
-              <button
+              <label
                 key={value}
-                type="button"
-                role="radio"
-                aria-checked={isSelected}
-                aria-label={
-                  value === 0
-                    ? 'No high chairs'
-                    : `${value} high chair${value === 1 ? '' : 's'}`
-                }
-                onClick={() => onHighChairCountChange(value)}
-                className={`min-h-12 flex-1 rounded-pill border-[1.5px] px-4 py-3 text-base font-semibold transition-colors ${
+                className={`flex min-h-12 flex-1 cursor-pointer items-center justify-center gap-1 rounded-pill border-[1.5px] px-4 py-3 text-base font-semibold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-text has-[:focus-visible]:ring-offset-2 ${
                   isSelected
-                    ? 'border-anchor-green bg-anchor-green text-white'
-                    : 'border-line-strong bg-surface text-ink hover:border-anchor-gold'
+                    ? 'border-accent bg-accent text-canvas'
+                    : 'border-line-field bg-surface text-ink hover:border-anchor-gold'
                 }`}
               >
-                {value}
-              </button>
+                <input
+                  type="radio"
+                  name="high-chair-count"
+                  value={value}
+                  checked={isSelected}
+                  onChange={() => onHighChairCountChange(value)}
+                  aria-label={
+                    value === 0
+                      ? 'No high chairs'
+                      : `${value} high chair${value === 1 ? '' : 's'}`
+                  }
+                  className="sr-only"
+                />
+                {isSelected ? <Check aria-hidden="true" className="h-4 w-4" /> : null}
+                <span aria-hidden="true">{value}</span>
+              </label>
             )
           })}
         </div>
-      </div>
+      </fieldset>
     </fieldset>
   )
 }

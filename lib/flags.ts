@@ -48,12 +48,17 @@ async function fetchFlags(): Promise<WebsiteUiFlags> {
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
 
   try {
+    // Cached for the same 60 seconds as the copy above, in Next.js's data
+    // cache. It said 60 seconds and asked for no caching at all, and a
+    // no-store fetch makes the page that calls it render on every request
+    // (review BK-200). A flag switched off in AMS still takes effect within a
+    // minute.
     const response = await fetch(`${getManagementApiBaseUrl()}${FLAGS_PATH}`, {
       method: 'GET',
       headers: { 'X-API-Key': apiKey },
-      cache: 'no-store',
+      next: { revalidate: CACHE_TTL_MS / 1000 },
       signal: controller.signal
-    })
+    } as RequestInit & { next: { revalidate: number } })
 
     if (!response.ok) return {}
 

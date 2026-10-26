@@ -282,7 +282,7 @@ export function PrivateBookingInquiryForm({
                                 trackEnquiryStartedOnce()
                                 setPhone(e.target.value)
                             }}
-                            className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10 disabled:opacity-60"
+                            className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10 disabled:opacity-60"
                         />
                     </div>
 
@@ -350,7 +350,7 @@ export function PrivateBookingInquiryForm({
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, customer_first_name: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
 
@@ -366,7 +366,7 @@ export function PrivateBookingInquiryForm({
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, customer_last_name: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
 
@@ -381,7 +381,7 @@ export function PrivateBookingInquiryForm({
                                             trackEnquiryStartedOnce()
                                             setFormData({ ...formData, contact_email: e.target.value })
                                         }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
                         </div>
@@ -397,7 +397,7 @@ export function PrivateBookingInquiryForm({
                                     value={formData.event_date || ''}
                                     onChange={e => setFormData({ ...formData, event_date: e.target.value })}
                                     data-native-date-time="true"
-                                    className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                    className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                 />
                             </div>
 
@@ -410,7 +410,7 @@ export function PrivateBookingInquiryForm({
                                         value={formData.start_time || ''}
                                         onChange={e => setFormData({ ...formData, start_time: e.target.value })}
                                         data-native-date-time="true"
-                                        className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                        className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
                                 <div>
@@ -422,7 +422,7 @@ export function PrivateBookingInquiryForm({
                                         max={300}
                                         value={formData.guest_count || 0}
                                         onChange={e => setFormData({ ...formData, guest_count: Number(e.target.value) })}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     />
                                 </div>
                             </div>
@@ -433,7 +433,7 @@ export function PrivateBookingInquiryForm({
                                     id={`${fieldId}-event-type`}
                                     value={formData.event_type}
                                     onChange={e => setFormData({ ...formData, event_type: e.target.value })}
-                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                 >
                                     <option>Birthday Party</option>
                                     <option>Corporate Event</option>
@@ -450,7 +450,7 @@ export function PrivateBookingInquiryForm({
                                     rows={3}
                                     value={formData.internal_notes || ''}
                                     onChange={e => setFormData({ ...formData, internal_notes: e.target.value })}
-                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-strong text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                     placeholder="Any dietary requirements or special requests?"
                                 />
                             </div>

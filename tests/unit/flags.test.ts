@@ -53,8 +53,11 @@ describe('website UI flags', () => {
     expect(String(url)).toMatch(/\/website\/ui-flags$/)
     expect((init as RequestInit).method).toBe('GET')
     expect((init as RequestInit).headers).toMatchObject({ 'X-API-Key': 'test-api-key' })
-    // A kill switch a cache keeps serving stale is not a kill switch.
-    expect((init as any).cache).toBe('no-store')
+    // Cached for a minute, not uncached: a no-store fetch made the page that
+    // asked render on every request (review BK-200). A minute is still a kill
+    // switch: the flag is read again after it.
+    expect((init as any).cache).toBeUndefined()
+    expect((init as any).next).toEqual({ revalidate: 60 })
   })
 
   it('a flag that is absent from the response is off', async () => {

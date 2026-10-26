@@ -1,6 +1,8 @@
 'use client'
 
+import { useRef } from 'react'
 import { Check } from 'lucide-react'
+import { useFocusOnChange } from '@/hooks/useFocusOnChange'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { formatDateForDisplay, formatTimeForDisplay } from '@/lib/table-booking/formatting'
@@ -39,6 +41,12 @@ export function BookingConfirmedCard({
   const requestedHighChairs = result.high_chair_count ?? 0
   const grantedHighChairs = result.high_chairs_granted
 
+  // The Confirm button the guest pressed has gone with the form, so focus is
+  // put on the news itself and a screen reader reads it out (review BK-103).
+  // Otherwise nothing is announced and a guest may book twice.
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  useFocusOnChange(headingRef, result.booking_reference ?? result.table_booking_id, { onMount: true })
+
   return (
     <div className="mx-auto">
       <Card accent>
@@ -51,7 +59,9 @@ export function BookingConfirmedCard({
               <Check className="h-9 w-9" />
             </span>
             <div>
-              <h3 className="font-display text-h3 text-ink-strong">You&apos;re all booked in, see you soon!</h3>
+              <h3 ref={headingRef} tabIndex={-1} className="font-display text-h3 text-ink-strong">
+                You&apos;re all booked in, see you soon!
+              </h3>
               <p className="mt-2 text-sm text-ink-muted">
                 Reference: <strong className="text-ink-strong">{result.booking_reference || 'Provided shortly'}</strong>. {confirmationDeliveryCopy(result)}
               </p>

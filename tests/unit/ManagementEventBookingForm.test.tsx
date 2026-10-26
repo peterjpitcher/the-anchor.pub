@@ -1365,11 +1365,33 @@ describe('ManagementEventBookingForm security check recovery', () => {
 
   /** The always-present live region the recovery message is announced through. */
   function recoveryRegion(): HTMLElement {
-    return screen.getByRole('status')
+    // By id: the "waiting for the security check" line is a status region too.
+    return document.getElementById('event-booking-turnstile-recovery') as HTMLElement
   }
 
   function submitButton(): HTMLElement {
     return screen.getByRole('button', { name: 'Book a table' })
+  }
+
+  /**
+   * Waiting for a token: still in the Tab order and announced as unavailable,
+   * with the reason it is waiting as its description, and pressing it sends
+   * nothing (review BK-198). It used to be disabled outright, which took it
+   * out of the Tab order with nothing said.
+   */
+  function expectWaitingForSecurityCheck() {
+    const button = submitButton()
+    expect(button).not.toBeDisabled()
+    expect(button).toHaveAttribute('aria-disabled', 'true')
+    expect(button).toHaveAccessibleDescription(expect.stringContaining('Waiting for the security check.'))
+    fireEvent.click(button)
+    expect(global.fetch).not.toHaveBeenCalled()
+  }
+
+  /** A token is in hand: the button is a plain, usable button again. */
+  function expectReadyToBook() {
+    expect(submitButton()).toBeEnabled()
+    expect(submitButton()).not.toHaveAttribute('aria-disabled')
   }
 
   function expectRecoveryPanel(message: string) {
@@ -1397,7 +1419,7 @@ describe('ManagementEventBookingForm security check recovery', () => {
     renderForm()
     fillBookerDetails()
 
-    expect(submitButton()).toBeDisabled()
+    expectWaitingForSecurityCheck()
     // Nothing yet: a slow phone on a weak signal is given room to finish.
     advanceBy(9_000)
     expect(recoveryRegion()).toBeEmptyDOMElement()
@@ -1407,8 +1429,11 @@ describe('ManagementEventBookingForm security check recovery', () => {
     expectRecoveryPanel(RECOVERY_MESSAGE)
     expectDetailsSurvived()
     // Still no way past verification: the button is explained, not unlocked.
-    expect(submitButton()).toBeDisabled()
-    expect(submitButton()).toHaveAttribute('aria-describedby', 'event-booking-turnstile-recovery')
+    expectWaitingForSecurityCheck()
+    expect(submitButton()).toHaveAttribute(
+      'aria-describedby',
+      'event-booking-security-note event-booking-turnstile-recovery'
+    )
     expect(global.fetch).not.toHaveBeenCalled()
   })
 
@@ -1443,8 +1468,10 @@ describe('ManagementEventBookingForm security check recovery', () => {
     emitTurnstile('onSuccess', 'late-token')
 
     expect(recoveryRegion()).toBeEmptyDOMElement()
-    expect(submitButton()).toBeEnabled()
-    expect(submitButton()).not.toHaveAttribute('aria-describedby')
+    expectReadyToBook()
+    // Only the waiting line, now empty, which describes nothing.
+    expect(submitButton()).toHaveAttribute('aria-describedby', 'event-booking-security-note')
+    expect(submitButton()).toHaveAccessibleDescription('')
     expectDetailsSurvived()
   })
 
@@ -1485,7 +1512,7 @@ describe('ManagementEventBookingForm security check recovery', () => {
     advanceBy(30_000)
 
     expect(recoveryRegion()).toBeEmptyDOMElement()
-    expect(submitButton()).toBeEnabled()
+    expectReadyToBook()
   })
 
   it('recovers a token that expires just before submit and books on the retry', async () => {
@@ -1514,11 +1541,11 @@ describe('ManagementEventBookingForm security check recovery', () => {
     renderForm()
     fillBookerDetails()
     emitTurnstile('onSuccess', 'about-to-expire')
-    expect(submitButton()).toBeEnabled()
+    expectReadyToBook()
 
     // The token dies on the doorstep and no replacement arrives.
     emitTurnstile('onExpire', 'about-to-expire')
-    expect(submitButton()).toBeDisabled()
+    expect(submitButton()).toHaveAttribute('aria-disabled', 'true')
     advanceBy(10_000)
     expectRecoveryPanel(RECOVERY_MESSAGE)
     expectDetailsSurvived()

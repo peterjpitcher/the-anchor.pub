@@ -27,7 +27,10 @@ test('undecided enquiry keeps occasion, space, large party and explicit consent 
   expect(payload).not.toHaveProperty('event_date')
   expect(payload).not.toHaveProperty('items')
   expect(payload).not.toHaveProperty('contact_email')
-  expect(screen.getByRole('status')).toHaveTextContent('does not hold your date')
+  expect(screen.getByText(/does not hold your date/)).toBeInTheDocument()
+  // The Send button went with the form, so focus is put on the answer and a
+  // screen reader reads it out (review BK-103).
+  expect(screen.getByRole('heading', { name: 'Enquiry received' })).toHaveFocus()
 })
 
 test('dated enquiry records notes and requested email reply', async () => {
@@ -72,7 +75,8 @@ test('email fallback is distinguished from a saved enquiry', async () => {
   fetchMock.mockResolvedValue({ ok: true, json: async () => ({ success: true, data: { id: null }, state: 'enquiry_emailed' }) })
   render(<PrivateHireQuickEnquiry eventType="Birthday Party" />); fill(); send()
   await screen.findByText('Enquiry emailed to our team')
-  expect(screen.getByRole('status')).toHaveTextContent('could not save your enquiry')
+  expect(screen.getByText(/could not save your enquiry/)).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: 'Enquiry emailed to our team' })).toHaveFocus()
 })
 
 

@@ -46,7 +46,9 @@ function formatTime(dateTime: string): string {
     timeZone: LONDON_TIME_ZONE,
     hour: 'numeric',
     minute: '2-digit',
-    hour12: true
+    // h12, not `hour12: true`, which some ICU builds read as h11 and print
+    // as "0:15 pm" (review BK-210).
+    hourCycle: 'h12'
   }).format(new Date(dateTime)).replace(' ', '')
 }
 

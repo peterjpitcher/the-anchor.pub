@@ -8,6 +8,16 @@ import {
 import { setConsentStatus } from '@/lib/cookies'
 
 /**
+ * The booking form's behaviour: purposes, payments, funnel events, time zones,
+ * idempotency, availability failures and analytics. Written for the four-step
+ * journey and rewritten for the two-screen one when the four-step path was
+ * deleted (review BK-199, website W4): the tests that described only the old
+ * path (the seven-slot window, Preferred Time, the review screen, the details
+ * step's high-chair stepper) went with it. The journey's own shape is covered
+ * in ManagementTableBookingForm.twoScreen.test.tsx.
+ */
+
+/**
  * Capture time for the attribution assertions below.
  *
  * Unlike ManagementEventBookingForm.test.tsx and booking-attribution.test.ts,
@@ -210,6 +220,18 @@ function setupFetchMock(options: {
   return fetchMock
 }
 
+/**
+ * Choose a time on the grid and carry it to the details screen. The grid
+ * offers nothing pre-chosen, so the time is tapped, then its Continue button,
+ * which names it ("Continue with 7pm", or "Book 1pm anyway" at a busy time).
+ */
+async function chooseTime(slot: RegExp | string) {
+  const name = typeof slot === 'string' ? new RegExp(`^${slot.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`) : slot
+  fireEvent.click(screen.getAllByRole('button', { name })[0])
+  fireEvent.click(screen.getByRole('button', { name: /^(Continue with |Book .+ anyway$)/ }))
+  await screen.findByLabelText('Mobile Number')
+}
+
 // jsdom does not implement scrollIntoView natively. The wizard mount-guarded
 // effect calls it on step transitions, so install a no-op for every test.
 beforeAll(() => {
@@ -219,11 +241,10 @@ beforeAll(() => {
 })
 
 // The wizard rejects past dates before it will fetch availability
-// (`isPastLondonDate`), and its default Preferred Time is "London now + 60 min".
-// Both are read from the wall clock, so the hardcoded booking dates used below
-// (2026-07-07 and later) silently rot into the past and the slot-window tests
-// depend on the hour the suite happens to run at. Pin "now" to the day before
-// the earliest booking date so the suite is deterministic in perpetuity.
+// (`isPastLondonDate`), which is read from the wall clock, so the hardcoded
+// booking dates used below (2026-07-07 and later) would silently rot into the
+// past. Pin "now" to the day before the earliest booking date so the suite is
+// deterministic in perpetuity.
 // Nested describes may override this with their own setSystemTime.
 const FROZEN_NOW = new Date('2026-07-06T09:00:00.000Z') // 10:00 BST, Europe/London
 
@@ -266,8 +287,17 @@ describe('ManagementTableBookingForm', () => {
   })
 
   it('prefills an explicit drinks choice in the full form', async () => {
-    await act(async () => { render(<ManagementTableBookingForm prefill={{ drinksOnly: true }} />) })
-    expect(screen.getByRole('checkbox', { name: /^Just drinks/ })).toBeChecked()
+    const captureUrl = { ref: { current: null as string | null } }
+    setupFetchMock({
+      availability: [{ time: '22:00', available: true, available_capacity: 4, kitchen_open: false }],
+      captureUrl
+    })
+    render(<ManagementTableBookingForm prefill={{ date: '2026-07-07', drinksOnly: true }} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+    // Asked about as drinks from the first search, and shown ticked beside the times.
+    await waitFor(() => expect(captureUrl.ref.current).toMatch(/purpose=drinks/))
+    expect(await screen.findByRole('checkbox', { name: /^Just drinks/ })).toBeChecked()
   })
 
   it('does not render the "Booking for" chooser', async () => {
@@ -290,7 +320,12 @@ describe('ManagementTableBookingForm', () => {
   })
 
   it('updates the aircraft overhead note when the booking date and time change', async () => {
-    setupFetchMock({ availability: [] })
+    setupFetchMock({
+      availability: [{ time: '16:00', available: true, available_capacity: 4, kitchen_open: true }]
+    })
+    // The day before, so the date can be searched.
+    jest.setSystemTime(new Date('2026-05-17T10:00:00Z'))
+    // The time the page was opened for, until the guest picks one.
     render(<ManagementTableBookingForm prefill={{ date: '2026-05-18', time: '14:00' }} />)
 
     expect(
@@ -298,7 +333,18 @@ describe('ManagementTableBookingForm', () => {
     ).toBeInTheDocument()
     expect(screen.queryByText(/Plane spotting/i)).not.toBeInTheDocument()
 
-    fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '16:00' } })
+    // Then the time they pick.
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+    fireEvent.click(await screen.findByRole('button', { name: /^4pm,/ }))
+
+    expect(
+      screen.getByText(/Aircraft overhead is usually expected until 3pm on this date/i)
+    ).toBeInTheDocument()
+  })
+
+  it('updates the aircraft overhead note when the date changes', async () => {
+    setupFetchMock({ availability: [] })
+    render(<ManagementTableBookingForm prefill={{ date: '2026-05-18', time: '16:00' }} />)
 
     expect(
       screen.getByText(/Aircraft overhead is usually expected until 3pm on this date/i)
@@ -322,8 +368,8 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -343,14 +389,15 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.click(screen.getByLabelText(/Just drinks/i))
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+    await waitFor(() => expect(captureUrl.ref.current).toMatch(/purpose=food/))
 
-    await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
-    expect(captureUrl.ref.current).toMatch(/purpose=drinks/)
+    // Ticked beside the times, it asks again, for drinks.
+    fireEvent.click(await screen.findByLabelText(/Just drinks, no food/))
+    await waitFor(() => expect(captureUrl.ref.current).toMatch(/purpose=drinks/))
   })
 
   it('asks for an accessible table when the guest needs one', async () => {
@@ -361,14 +408,14 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+    await waitFor(() => expect(captureUrl.ref.current).toMatch(/requires_accessible_table=false/))
 
-    await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
-    expect(captureUrl.ref.current).toMatch(/requires_accessible_table=true/)
+    fireEvent.click(await screen.findByLabelText(/Step-free, standard-height table/))
+    await waitFor(() => expect(captureUrl.ref.current).toMatch(/requires_accessible_table=true/))
   })
 
   it('renders "Drinks & food" caption on kitchen-open slots and "Drinks only" on others', async () => {
@@ -380,8 +427,8 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -404,8 +451,8 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm prefill={{ date: '2026-07-07', time: '13:00' }} />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -437,8 +484,8 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm prefill={{ date: '2026-07-07', time: '13:00' }} />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -453,9 +500,6 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
     expect(screen.getByText('Worth knowing before you confirm')).toBeInTheDocument()
     expect(screen.getByText(/food and drinks may take a little longer/i)).toBeInTheDocument()
     expect(screen.getByText(/slightly earlier or later table may mean a smoother visit/i)).toBeInTheDocument()
@@ -469,8 +513,8 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -488,14 +532,13 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-    fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    await chooseTime(/7pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -504,9 +547,6 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
     fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
     fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -522,14 +562,13 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-    fireEvent.click(screen.getByRole('button', { name: /10pm/ }))
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    await chooseTime(/10pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -538,9 +577,6 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
     fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
     fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -575,8 +611,8 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -592,9 +628,6 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
     fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
     fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -608,14 +641,13 @@ describe('ManagementTableBookingForm', () => {
     })
 
     render(<ManagementTableBookingForm />)
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-    fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    await chooseTime(/7pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -624,9 +656,6 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
     expect(screen.queryByText(/booking for/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/food booking/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/drinks booking/i)).not.toBeInTheDocument()
@@ -636,6 +665,19 @@ describe('ManagementTableBookingForm', () => {
   it('filters Mother’s Day events out of booking-context suggestions', async () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
       const url = typeof input === 'string' ? input : input.toString()
+
+      if (url.startsWith('/api/table-bookings/availability')) {
+        return Promise.resolve(
+          jsonResponse({
+            success: true,
+            data: {
+              date: '2026-03-15',
+              available: true,
+              time_slots: [{ time: '13:00', available: true, available_capacity: 4, bookable_purpose: 'food_or_drinks' }]
+            }
+          })
+        )
+      }
 
       if (url.startsWith('/api/events?')) {
         return Promise.resolve(
@@ -672,7 +714,10 @@ describe('ManagementTableBookingForm', () => {
       return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
     })
 
+    jest.setSystemTime(new Date('2026-03-14T10:00:00Z'))
     render(<ManagementTableBookingForm prefill={{ date: '2026-03-15' }} />)
+    // The events on a date are offered beside its times, after a search.
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     // Both events appear (the "Mother's Day Lunch" filter that used to live in
     // the form has been retired alongside Mother's Day mode); we just assert
@@ -807,15 +852,14 @@ describe('ManagementTableBookingForm', () => {
     // Fifteen, because that is where the deposit starts since 2026-08-09. A party of ten
     // no longer reaches the PayPal step at all, so testing the PayPal recovery state with
     // ten would silently stop testing anything.
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '15' } })
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '15' } })
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-10' } })
 
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-    fireEvent.click(screen.getByRole('button', { name: /1pm/ }))
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    await chooseTime(/1pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -824,9 +868,6 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Guest' } })
-
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
 
     fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
     fireEvent.click(screen.getByRole('button', { name: /Confirm and pay deposit/i }))
@@ -964,18 +1005,17 @@ describe('ManagementTableBookingForm', () => {
     )
 
     // First field interaction fires `start`.
-    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '4' } })
+    fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '4' } })
     expect(trackTableBookingFunnel).toHaveBeenCalledWith(
       expect.objectContaining({ step: 'start', source: 'direct' })
     )
 
-    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.blur(screen.getByLabelText('Party size'))
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
     await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-    fireEvent.click(screen.getByRole('button', { name: /1pm/ }))
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    await chooseTime(/1pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900111' } })
     fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -984,9 +1024,6 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
     fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
     fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -1044,220 +1081,21 @@ describe('ManagementTableBookingForm', () => {
     expect(indexOf('success')).toBeGreaterThan(indexOf('submit'))
   })
 
-  describe('Step 2 slot window + party-size threading', () => {
-    function makeAvailabilitySlots(
-      start: string,
-      count: number,
-      options: { kitchenClosesAt?: string; capacity?: number } = {}
-    ): TimeSlot[] {
-      const { kitchenClosesAt, capacity = 10 } = options
-      const [hh, mm] = start.split(':').map((part) => Number.parseInt(part, 10))
-      const startMinutes = hh * 60 + mm
-      const closeMinutes = kitchenClosesAt
-        ? Number.parseInt(kitchenClosesAt.split(':')[0], 10) * 60 +
-          Number.parseInt(kitchenClosesAt.split(':')[1], 10)
-        : null
-      return Array.from({ length: count }, (_, idx) => {
-        const total = startMinutes + idx * 30
-        const hours = String(Math.floor(total / 60)).padStart(2, '0')
-        const minutes = String(total % 60).padStart(2, '0')
-        const time = `${hours}:${minutes}`
-        const kitchen_open = closeMinutes === null ? true : total < closeMinutes
-        return { time, available: true, available_capacity: capacity, kitchen_open }
-      })
-    }
-
-    async function searchForTable(
-      overrides: { partySize?: string; date?: string; requestedTime?: string } = {}
-    ) {
-      const partySize = overrides.partySize ?? '2'
-      const date = overrides.date ?? '2026-07-07'
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: partySize } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: date } })
-      if (overrides.requestedTime) {
-        fireEvent.change(screen.getByLabelText('Preferred Time'), {
-          target: { value: overrides.requestedTime }
-        })
-      }
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-    }
-
-    function getSlotButtons(): HTMLElement[] {
-      return screen.queryAllByRole('button', { name: /Drinks/i })
-    }
-
-    it('renders only 7 slots centred on the preferred time and shows "See more times"', async () => {
-      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
-
-      render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      // Anchor 19:00 → window 17:30..20:30 = 5:30pm..8:30pm.
-      expect(screen.getByRole('button', { name: /5:30pm/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /6pm/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /6:30pm/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /7pm/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /7:30pm/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /8pm/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /8:30pm/i })).toBeInTheDocument()
-
-      // 12pm and 10:30pm are outside the window.
-      expect(screen.queryByRole('button', { name: /^12pm/i })).not.toBeInTheDocument()
-      expect(screen.queryByRole('button', { name: /10:30pm/i })).not.toBeInTheDocument()
-
-      expect(getSlotButtons()).toHaveLength(7)
-      expect(screen.getByRole('button', { name: /See more times/i })).toBeInTheDocument()
-    })
-
-    it('expanding "See more times" reveals all available slots and hides the expander', async () => {
-      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
-
-      render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
-
-      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /10:30pm/i })).toBeInTheDocument()
-      expect(screen.queryByRole('button', { name: /See more times/i })).not.toBeInTheDocument()
-    })
-
-    it('does not render the expander when 5 or 7 slots are available', async () => {
-      // 5 slots
-      setupFetchMock({ availability: makeAvailabilitySlots('19:00', 5) })
-      const view = render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      expect(getSlotButtons()).toHaveLength(5)
-      expect(screen.queryByRole('button', { name: /See more times/i })).not.toBeInTheDocument()
-
-      view.unmount()
-      jest.clearAllMocks()
-
-      // 7 slots
-      setupFetchMock({ availability: makeAvailabilitySlots('19:00', 7) })
-      render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      expect(getSlotButtons()).toHaveLength(7)
-      expect(screen.queryByRole('button', { name: /See more times/i })).not.toBeInTheDocument()
-    })
-
-    it('expanded grid stays expanded and does not re-centre when selecting a slot', async () => {
-      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
-
-      render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
-      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
-
-      fireEvent.click(screen.getByRole('button', { name: /10:30pm/i }))
-
-      // 12pm still visible because expansion was not collapsed.
-      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
-      expect(screen.queryByRole('button', { name: /See more times/i })).not.toBeInTheDocument()
-      // Continue button surfaces once a slot is selected.
-      expect(screen.getByRole('button', { name: /^Continue$/i })).toBeInTheDocument()
-    })
-
-    it('selecting an edge slot does not re-centre the collapsed window', async () => {
-      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
-
-      render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      // Edge slot at 8:30pm (= 20:30, last in window).
-      fireEvent.click(screen.getByRole('button', { name: /8:30pm/i }))
-
-      // Window still anchored on 19:00 → 5:30pm visible, 9pm not visible.
-      expect(screen.getByRole('button', { name: /5:30pm/i })).toBeInTheDocument()
-      expect(screen.queryByRole('button', { name: /^9pm/i })).not.toBeInTheDocument()
-      // Continue indicates the slot was selected without disturbing the window.
-      expect(screen.getByRole('button', { name: /^Continue$/i })).toBeInTheDocument()
-    })
-
-    it('changing date collapses the expanded grid', async () => {
-      setupFetchMock({
-        availability: (url) => {
-          const params = new URL(url, 'https://t.test').searchParams
-          const date = params.get('date')
-          return { date: date ?? '', time_slots: makeAvailabilitySlots('12:00', 22) }
-        }
-      })
-
-      render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
-      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
-
-      // Back to find step
-      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
-      // Change the date and search again
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-08' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-
-      // Collapsed back to 7-slot window.
-      expect(getSlotButtons()).toHaveLength(7)
-      expect(screen.getByRole('button', { name: /See more times/i })).toBeInTheDocument()
-    })
-
-    it('changing party size collapses the expanded grid', async () => {
-      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
-
-      render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
-      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
-
-      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '4' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-
-      expect(getSlotButtons()).toHaveLength(7)
-      expect(screen.getByRole('button', { name: /See more times/i })).toBeInTheDocument()
-    })
-
-    it('changing preferred time collapses and re-centres the window', async () => {
-      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
-
-      render(<ManagementTableBookingForm />)
-      await searchForTable({ requestedTime: '19:00' })
-
-      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
-      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
-
-      fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '22:00' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-
-      // 22:00 → window 19:30..22:30 = 7:30pm..10:30pm.
-      expect(screen.getByRole('button', { name: /7:30pm/i })).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /10:30pm/i })).toBeInTheDocument()
-      // Earlier slots no longer visible.
-      expect(screen.queryByRole('button', { name: /^12pm/i })).not.toBeInTheDocument()
-      expect(screen.queryByRole('button', { name: /5:30pm/i })).not.toBeInTheDocument()
-    })
-
+  // The seven-slot window and its "See more times" expander belonged to the
+  // four-step journey and went with it (review BK-199). Every time is shown
+  // now; the two-screen suite covers the grid.
+  describe('party-size threading', () => {
     it('uses the freshly-typed party size in the availability URL even without onBlur', async () => {
       const captureUrl = { ref: { current: null as string | null } }
       setupFetchMock({
-        availability: makeAvailabilitySlots('12:00', 22, { capacity: 12 }),
+        availability: [{ time: '19:00', available: true, available_capacity: 12, kitchen_open: true }],
         captureUrl
       })
 
       render(<ManagementTableBookingForm />)
-      // Type 10 but DO NOT blur — onChange fires, but stale-closure paths would still see 2.
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '10' } })
+      // Type 10 but DO NOT blur: a stale-closure path would still ask about 2.
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '10' } })
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-      fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '19:00' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
@@ -1283,14 +1121,6 @@ describe('ManagementTableBookingForm', () => {
       const dateInput = screen.getByLabelText('Date') as HTMLInputElement
       expect(dateInput.min).toBe('2026-04-30')
       expect(dateInput.value).toBe('2026-04-30')
-    })
-
-    it('Preferred Time default is computed from London now (00:30 + 60 → 01:30)', async () => {
-      setupFetchMock({ availability: [] })
-      render(<ManagementTableBookingForm />)
-
-      const timeInput = screen.getByLabelText('Preferred Time') as HTMLInputElement
-      expect(timeInput.value).toBe('01:30')
     })
 
     it('past-date validation uses London today: 2026-04-29 rejected, 2026-04-30 allowed', async () => {
@@ -1336,13 +1166,12 @@ describe('ManagementTableBookingForm', () => {
       render(<ManagementTableBookingForm />)
 
       // Default Date input is London today (2026-04-30); leave it as-is.
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /1pm/i }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/1pm/i)
 
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -1351,9 +1180,6 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -1367,7 +1193,7 @@ describe('ManagementTableBookingForm', () => {
       setupFetchMock({ availability: [] })
       render(<ManagementTableBookingForm />)
 
-      const partySize = screen.getByLabelText('Party Size') as HTMLInputElement
+      const partySize = screen.getByLabelText('Party size') as HTMLInputElement
       expect(partySize.inputMode).toBe('numeric')
       expect(partySize.pattern).toBe('[0-9]*')
     })
@@ -1378,14 +1204,13 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
 
       const phone = screen.getByLabelText('Mobile Number') as HTMLInputElement
       expect(phone.inputMode).toBe('tel')
@@ -1398,14 +1223,13 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
 
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -1431,8 +1255,8 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -1466,8 +1290,8 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -1486,14 +1310,13 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
 
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -1502,9 +1325,6 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
 
       const checkbox = screen.getByRole('checkbox', { name: /I understand The Anchor/i })
       // Walk up to the wrapping <label> and assert min-h-12 is on it (or its inner row).
@@ -1530,28 +1350,25 @@ describe('ManagementTableBookingForm', () => {
       // Initial mount must NOT trigger scrollIntoView.
       expect(scrollSpy).not.toHaveBeenCalled()
 
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      // Entering step 'choose' should fire scrollIntoView once with { block: 'start' }.
-      const calls = scrollSpy.mock.calls
-      expect(calls.length).toBeGreaterThanOrEqual(1)
-      expect(calls[0][0]).toEqual(expect.objectContaining({ block: 'start' }))
+      // The times arrive on the same screen, which is not a step change.
 
-      // Advance to details — another scrollIntoView call.
+      // Advancing to the details screen is, and scrolls it to its top.
       const beforeAdvance = scrollSpy.mock.calls.length
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
       await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
-      expect(scrollSpy.mock.calls.length).toBeGreaterThan(beforeAdvance)
+      const advanceCalls = scrollSpy.mock.calls.slice(beforeAdvance)
+      expect(advanceCalls).toContainEqual([expect.objectContaining({ block: 'start' })])
 
       scrollSpy.mockRestore()
     })
 
-    it('pressing Enter on Preferred Time submits the find-step form', async () => {
+    it('pressing Enter in the Date box submits the find form', async () => {
       const captureUrl = { ref: { current: null as string | null } }
       setupFetchMock({
         availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
@@ -1559,14 +1376,13 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-      fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '13:00' } })
 
-      // Submitting the surrounding <form> via the time input must trigger the search.
-      const timeInput = screen.getByLabelText('Preferred Time') as HTMLInputElement
-      const form = timeInput.closest('form') as HTMLFormElement
+      // Submitting the surrounding <form> from the date box must run the search.
+      const dateInput = screen.getByLabelText('Date') as HTMLInputElement
+      const form = dateInput.closest('form') as HTMLFormElement
       expect(form).not.toBeNull()
       fireEvent.submit(form)
 
@@ -1593,16 +1409,14 @@ describe('ManagementTableBookingForm', () => {
       const phone = options.phone ?? '07700900000'
       const email = options.email ?? 'sam@example.com'
 
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: partySize } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: partySize } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: date } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: slotName }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(slotName)
 
-      await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: phone } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
@@ -1613,9 +1427,6 @@ describe('ManagementTableBookingForm', () => {
       if (options.notes) {
         fireEvent.change(screen.getByLabelText(/Notes \(optional\)/i), { target: { value: options.notes } })
       }
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
     }
 
@@ -1695,7 +1506,7 @@ describe('ManagementTableBookingForm', () => {
       expect(secondKey).not.toBe(firstKey)
     })
 
-    it('reuses Idempotency-Key across Back-to-details and forward-to-review when nothing changes', async () => {
+    it('reuses Idempotency-Key across Back to the times and forward again when nothing changes', async () => {
       const history = {
         ref: {
           current: [] as Array<{ headers: Record<string, string>; body: Record<string, unknown> }>
@@ -1725,12 +1536,11 @@ describe('ManagementTableBookingForm', () => {
         expect(screen.getByText(/We could not process your booking right now/i)).toBeInTheDocument()
       )
 
-      // Back to details, immediately Continue to review (no field changes).
-      const backButtons = screen.getAllByRole('button', { name: 'Back' })
-      fireEvent.click(backButtons[backButtons.length - 1])
+      // Back to the times, and straight on again with the same time (no field
+      // changes). The details typed in are kept.
+      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+      fireEvent.click(await screen.findByRole('button', { name: 'Continue with 1pm' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       // Policy checkbox state is preserved on back-and-forward, do not toggle it.
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       await waitFor(() => expect(history.ref.current.length).toBe(2))
@@ -1741,7 +1551,7 @@ describe('ManagementTableBookingForm', () => {
       expect(secondKey).toBe(firstKey)
     })
 
-    it('issues a new Idempotency-Key when the customer changes notes after backing out of review', async () => {
+    it('issues a new Idempotency-Key when the customer changes notes after going back', async () => {
       const history = {
         ref: {
           current: [] as Array<{ headers: Record<string, string>; body: Record<string, unknown> }>
@@ -1771,15 +1581,13 @@ describe('ManagementTableBookingForm', () => {
         expect(screen.getByText(/We could not process your booking right now/i)).toBeInTheDocument()
       )
 
-      // Back to details, change notes, forward to review, Confirm.
-      const backButtons = screen.getAllByRole('button', { name: 'Back' })
-      fireEvent.click(backButtons[backButtons.length - 1])
+      // Back to the times, on again, change the notes, Confirm.
+      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+      fireEvent.click(await screen.findByRole('button', { name: 'Continue with 1pm' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText(/Notes \(optional\)/i), {
         target: { value: 'Window seat please' }
       })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       // Policy checkbox state is preserved on back-and-forward, do not toggle it.
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       await waitFor(() => expect(history.ref.current.length).toBe(2))
@@ -1835,8 +1643,8 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2027-03-28' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -1846,29 +1654,6 @@ describe('ManagementTableBookingForm', () => {
 
       const dates = altUrls.map((u) => new URL(u, 'https://t.test').searchParams.get('date'))
       expect(dates).toEqual(expect.arrayContaining(['2027-03-29', '2027-03-30', '2027-03-31']))
-    })
-
-    it('default Preferred Time clamps to 23:30 when London now+1h crosses midnight (AB-002 / WF-003)', async () => {
-      // 2026-04-30T22:00:00Z = 2026-04-30 23:00 BST in London. now+60min wraps
-      // past 1440. Prior code returned 00:00 while the date stayed today; the
-      // fix clamps to the last valid 30-min slot of today.
-      jest.useFakeTimers().setSystemTime(new Date('2026-04-30T22:00:00Z'))
-      try {
-        ;(global as any).fetch = jest.fn(() =>
-          Promise.resolve(
-            new Response(
-              JSON.stringify({ success: true, data: { date: '', available: false, time_slots: [] } }),
-              { status: 200, headers: { 'Content-Type': 'application/json' } }
-            )
-          )
-        )
-
-        render(<ManagementTableBookingForm />)
-        const timeInput = screen.getByLabelText('Preferred Time') as HTMLInputElement
-        expect(timeInput.value).toBe('23:30')
-      } finally {
-        jest.useRealTimers()
-      }
     })
 
     it('clears the cached submit-intent key on confirmed booking so a re-attempt with the same payload mints a fresh key (AB-003)', async () => {
@@ -1891,13 +1676,12 @@ describe('ManagementTableBookingForm', () => {
 
       // First booking: same date, same details → fingerprint A → key K1.
       const fillBookingFlow = async () => {
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party size'))
         fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
         fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-        fireEvent.click(screen.getByRole('button', { name: /1pm/i }))
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await chooseTime(/1pm/i)
         await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -1905,8 +1689,6 @@ describe('ManagementTableBookingForm', () => {
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
         fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
         fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       }
@@ -1930,10 +1712,10 @@ describe('ManagementTableBookingForm', () => {
       expect(secondKey).not.toBe(firstKey)
     })
 
-    it('disables the review-step Back button while Confirm is in flight (WF-004)', async () => {
+    it('disables the details-screen Back button while Confirm is in flight (WF-004)', async () => {
       // Hold the booking POST in a deferred promise; assert the Back button
       // is disabled while loading. This prevents the customer from leaving
-      // the review step mid-submission with the request still pending.
+      // the details screen mid-submission with the request still pending.
       // TS narrows the closed-over `null` initialiser, so use a `{ fn? }`
       // wrapper that the test mutates without confusing the inference.
       const release: { fn?: (value: Response) => void } = {}
@@ -1947,13 +1729,12 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /1pm/i }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/1pm/i)
       await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
@@ -1961,8 +1742,6 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
 
       // Before Confirm: Back is enabled.
@@ -2087,8 +1866,8 @@ describe('ManagementTableBookingForm', () => {
       cleanup() // belt-and-braces — make sure no prior render is still mounted
       render(<ManagementTableBookingForm />)
 
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -2128,59 +1907,55 @@ describe('ManagementTableBookingForm', () => {
   // just cleared the slot, which stranded the guest: the summary kept showing the old time, then
   // Continue bounced them to a slot list reading "No online times available" with nothing to pick
   // and no way to search again short of starting over.
-  describe('changing seating options after a time has been chosen', () => {
-    async function reachDetailsWith7pm(availability: AvailabilityHandler) {
-      setupFetchMock({ availability })
-
-      render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-
-      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+  // The refinements sit above the times on the first screen, so they change
+  // under a chosen time, and a second search can overlap a re-read. The
+  // two-screen suite covers a refinement killing the chosen time, a time
+  // tapped from a grid already replaced, and a settled but superseded
+  // answer. These are the cases it does not: a re-read that never settles,
+  // one superseded by another, and searches and re-reads overtaking each
+  // other in either direction, including when the loser fails.
+  describe('changing table options after a time has been chosen', () => {
+    function deferred() {
+      let release: ((value: Response) => void) | undefined
+      let fail: ((reason: unknown) => void) | undefined
+      const promise = new Promise<Response>((resolve, reject) => {
+        release = resolve
+        fail = reject
+      })
+      // Swallow the unhandled rejection when a test rejects a promise the
+      // component has already stopped awaiting; the assertions cover it.
+      promise.catch(() => undefined)
+      return {
+        promise,
+        release: release as (value: Response) => void,
+        reject: fail as (reason: unknown) => void
+      }
     }
 
-    it('lets the guest carry straight on when their time is still free outside', async () => {
-      // Free either way, so they should not be interrupted at all. Asserting that Continue still
-      // works is the point: the old code left selectedTime empty, so Continue threw them back to
-      // the slot list even though nothing was actually wrong with their booking.
-      await reachDetailsWith7pm(() => ({
-        time_slots: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
-      }))
+    function slotsResponseFor(
+      date: string,
+      times: string[],
+      purpose: 'food_or_drinks' | 'drinks_only' = 'food_or_drinks'
+    ) {
+      return jsonResponse({
+        success: true,
+        data: {
+          date,
+          available: true,
+          calculation_state: 'complete',
+          time_slots: times.map((time) => ({
+            time,
+            available: true,
+            available_capacity: 8,
+            kitchen_open: purpose === 'food_or_drinks',
+            bookable_purpose: purpose
+          }))
+        }
+      })
+    }
 
-      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
-      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-
-      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
-      expect(screen.queryByText('Please select a time before continuing.')).not.toBeInTheDocument()
-      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
-    })
-
-    // C2: the pending flag used to be cleared only in an async `finally` guarded
-    // by `if (!cancelled)`. A re-run set cancelled true so that clear was
-    // skipped, and if the re-run then took the effect's early return it never
-    // cleared it either. The flag stuck true for the life of the component and
-    // validateDetailsStep refused every Continue forever, with no spinner and
-    // nothing on screen to explain it.
-    it('does not block Continue forever when one options change supersedes another', async () => {
-      // The outside-seating re-read stalls once and never settles, so only the
-      // supersede path can release the flag. Everything else answers normally,
-      // including the later search, so the journey can be completed.
-      const neverSettles = new Promise<Response>(() => {})
-      let stallUsed = false
-
+    /** Answers every read but availability, which `availability` decides. */
+    function routeFetch(availability: (url: string) => Promise<Response>) {
       ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
         const url = typeof input === 'string' ? input : input.toString()
         if (url.startsWith('/api/events?')) {
@@ -2189,80 +1964,63 @@ describe('ManagementTableBookingForm', () => {
         if (url.startsWith('/api/customers/lookup')) {
           return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
         }
-        if (url.startsWith('/api/table-bookings/availability')) {
-          if (url.includes('outside=true') && !stallUsed) {
-            stallUsed = true
-            return neverSettles
-          }
-          return Promise.resolve(
-            jsonResponse({
-              success: true,
-              data: {
-                date: '2026-07-07',
-                available: true,
-                calculation_state: 'complete',
-                time_slots: [
-                  { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
-                ]
-              }
-            })
-          )
-        }
+        if (url.startsWith('/api/table-bookings/availability')) return availability(url)
         return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+      })
+    }
+
+    async function search(date = '2026-07-07') {
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: date } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+    }
+
+    // C2: the pending flag used to be cleared only in an async `finally`
+    // guarded by `if (!cancelled)`. A re-run set cancelled true so that clear
+    // was skipped, and the flag stuck true for the life of the component, so
+    // every Continue was refused with nothing on screen to explain it.
+    it('does not block Continue forever when one options change supersedes another', async () => {
+      const neverSettles = new Promise<Response>(() => {})
+      let stallUsed = false
+      routeFetch((url) => {
+        if (url.includes('outside=true') && !stallUsed) {
+          stallUsed = true
+          return neverSettles
+        }
+        return Promise.resolve(slotsResponseFor('2026-07-07', ['19:00']))
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      await search()
+      fireEvent.click(screen.getByRole('button', { name: /^7pm,/ }))
 
-      // Options change 1: starts a re-read that never settles, and the guest can
-      // see that something is happening.
-      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      // Options change 1: a re-read that never settles, and the guest can see
+      // that something is happening.
+      fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
       await waitFor(() =>
-        expect(screen.getByText(/Checking that time is still free/i)).toBeInTheDocument()
+        expect(screen.getByText(/Checking which times still work/i)).toBeInTheDocument()
       )
 
-      // Back to the find step, then options change 2, which takes the effect's
-      // early return and supersedes the hanging read.
-      fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
-      await waitFor(() => expect(screen.getByLabelText(/Just drinks/i)).toBeInTheDocument())
-      fireEvent.click(screen.getByLabelText(/Just drinks/i))
-
+      // Options change 2 supersedes the hanging read.
+      fireEvent.click(screen.getByLabelText(/Just drinks, no food/))
       await waitFor(() =>
-        expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+        expect(screen.queryByText(/Checking which times still work/i)).not.toBeInTheDocument()
       )
 
-      // The real consequence: search again, reach details, and Continue must
-      // actually work. With the flag stuck it was refused here every time, for
-      // the rest of the component's life.
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      // The real consequence: Continue works.
+      const carryOn = await screen.findByRole('button', { name: 'Continue with 7pm' })
+      expect(carryOn).toBeEnabled()
+      fireEvent.click(carryOn)
+      await screen.findByLabelText('Mobile Number')
       expect(
         screen.queryByText('Just checking that time is still free. One moment.')
       ).not.toBeInTheDocument()
     })
 
-    it('releases the details step when a re-read never settles, rather than hanging on it', async () => {
-      // Real timers so the component's own timeout can fire; the budget is
-      // advanced with a fake clock inside this test only.
+    it('lets go of the times when a re-read never settles, rather than hanging on it', async () => {
+      // All timers fake here, so the form's own request budget can run out.
       jest.useFakeTimers({ now: FROZEN_NOW })
       try {
         let availabilityCalls = 0
@@ -2271,26 +2029,9 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
-          }
           if (url.startsWith('/api/table-bookings/availability')) {
             availabilityCalls += 1
-            if (availabilityCalls === 1) {
-              return Promise.resolve(
-                jsonResponse({
-                  success: true,
-                  data: {
-                    date: '2026-07-07',
-                    available: true,
-                    calculation_state: 'complete',
-                    time_slots: [
-                      { time: '19:00', available: true, available_capacity: 4, kitchen_open: true }
-                    ]
-                  }
-                })
-              )
-            }
+            if (availabilityCalls === 1) return Promise.resolve(slotsResponseFor('2026-07-07', ['19:00']))
             // Stalled socket: settles only when the request is aborted.
             return new Promise<Response>((_resolve, reject) => {
               init?.signal?.addEventListener('abort', () =>
@@ -2302,20 +2043,12 @@ describe('ManagementTableBookingForm', () => {
         })
 
         render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+        await search()
+        fireEvent.click(screen.getByRole('button', { name: /^7pm,/ }))
 
-        fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+        fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
         await waitFor(() =>
-          expect(screen.getByText(/Checking that time is still free/i)).toBeInTheDocument()
+          expect(screen.getByText(/Checking which times still work/i)).toBeInTheDocument()
         )
 
         // Past the request budget the stalled read is abandoned.
@@ -2324,354 +2057,196 @@ describe('ManagementTableBookingForm', () => {
         })
 
         await waitFor(() =>
-          expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+          expect(screen.queryByText(/Checking which times still work/i)).not.toBeInTheDocument()
         )
+        // Not a confident "full": the guest gets the retry and the number.
+        expect(screen.getByText('We could not check live availability')).toBeInTheDocument()
       } finally {
         jest.useRealTimers()
       }
     })
 
-    // C3: the find-step search was only ever aborted by the NEXT search, and
-    // runAvailabilitySearch had no latest-wins guard, so a search still in
-    // flight when the guest changed a seating option resolved anyway and wrote
-    // its answer to state.
-    describe('an options change during an in-flight search', () => {
-      function deferredSearch() {
-        let release: ((value: Response) => void) | undefined
-        let fail: ((reason: unknown) => void) | undefined
-        const promise = new Promise<Response>((resolve, reject) => {
-          release = resolve
-          fail = reject
-        })
-        // Swallow the unhandled rejection when a test rejects a promise the
-        // component has already stopped awaiting; the assertions cover it.
-        promise.catch(() => undefined)
-        return {
-          promise,
-          release: release as (value: Response) => void,
-          reject: fail as (reason: unknown) => void
-        }
-      }
-
-      function slotsResponseFor(date: string, times: string[]) {
-        return jsonResponse({
-          success: true,
-          data: {
-            date,
-            available: true,
-            calculation_state: 'complete',
-            time_slots: times.map((time) => ({
-              time,
-              available: true,
-              available_capacity: 8,
-              kitchen_open: true,
-              bookable_purpose: 'food_or_drinks'
-            }))
-          }
-        })
-      }
-
-      function slotsResponse(times: string[]) {
-        return slotsResponseFor('2026-07-07', times)
-      }
-
-      it('discards a search that no longer matches the accessibility requirement', async () => {
-        const pending = deferredSearch()
-        const searchUrls: string[] = []
-
-        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
-          const url = typeof input === 'string' ? input : input.toString()
-          if (url.startsWith('/api/events?')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
-          }
-          if (url.startsWith('/api/table-bookings/availability')) {
-            searchUrls.push(url)
-            return pending.promise
-          }
-          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
-        })
-
-        render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-        await waitFor(() => expect(searchUrls.length).toBe(1))
-        expect(searchUrls[0]).toMatch(/requires_accessible_table=false/)
-
-        // Mid-flight, the guest says they need an accessible table.
-        fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
-
-        // The original answer, computed without that requirement, now lands.
-        pending.release(slotsResponse(['19:00', '19:30']))
-        await act(async () => {
-          await Promise.resolve()
-        })
-
-        // It must be thrown away: the guest stays on the find step with the box
-        // still ticked, rather than being dragged to a slot list of times that
-        // were never checked against the accessible requirement.
-        await waitFor(() =>
-          expect(screen.getByLabelText(/I need an accessible table/i)).toBeChecked()
+    // C3: a search still in flight when the guest changed an option used to
+    // resolve anyway and write its answer, so times checked without the
+    // step-free requirement appeared with the box ticked.
+    it('discards a search that no longer matches the step-free requirement', async () => {
+      const heldSearch = deferred()
+      let calls = 0
+      routeFetch((url) => {
+        calls += 1
+        if (calls === 2) return heldSearch.promise
+        return Promise.resolve(
+          slotsResponseFor('2026-07-07', url.includes('requires_accessible_table=true') ? ['20:00'] : ['19:00'])
         )
-        expect(screen.queryByText('Choose your time')).not.toBeInTheDocument()
-        expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
-        // And the find button is usable again rather than stuck loading.
-        expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
       })
 
-      // F1, the other direction. The options effect always aborted an in-flight
-      // SEARCH, but a new search never aborted an in-flight RE-READ: the
-      // re-read's controller was local to the effect and unreachable from
-      // handleFindTable, so the invalidation only ran one way. A re-read could
-      // therefore resolve after a newer search and overwrite it with an answer
-      // for a different date and different options.
-      it('discards an options re-read that a newer search has superseded', async () => {
-        const staleReRead = deferredSearch()
-        // Only the FIRST outside=true request is the re-read we hold open; the
-        // guest still has the box ticked afterwards, so later searches with the
-        // same option must answer normally.
-        let reReadHeld = false
+      render(<ManagementTableBookingForm />)
+      await search()
+      // A second search, held mid-flight, then the guest asks for step-free.
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(calls).toBe(2))
+      fireEvent.click(screen.getByLabelText(/Step-free, standard-height table/))
+      await waitFor(() => expect(screen.getByRole('button', { name: /^8pm,/ })).toBeInTheDocument())
 
-        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
-          const url = typeof input === 'string' ? input : input.toString()
-          if (url.startsWith('/api/events?')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
-          }
-          if (url.startsWith('/api/customers/lookup')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
-          }
-          if (url.startsWith('/api/table-bookings/availability')) {
-            if (url.includes('outside=true') && !reReadHeld) {
-              reReadHeld = true
-              return staleReRead.promise
-            }
-            const date = new URL(url, 'https://t.test').searchParams.get('date')
-            return Promise.resolve(
-              slotsResponseFor(
-                date || '',
-                date === '2026-07-09' ? ['20:00'] : ['19:00']
-              )
-            )
-          }
-          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
-        })
-
-        render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-
-        // Start the re-read and leave it hanging.
-        fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
-        await waitFor(() =>
-          expect(screen.getByText(/Checking that time is still free/i)).toBeInTheDocument()
-        )
-
-        // The guest goes back and searches a different date entirely.
-        fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
-        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-        fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
-        await waitFor(() => expect(screen.getByLabelText('Date')).toBeInTheDocument())
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-09' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-        await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
-
-        // Now the abandoned re-read finally answers, for the OLD date.
-        staleReRead.release(slotsResponseFor('2026-07-07', ['19:00']))
-        await act(async () => {
-          await Promise.resolve()
-        })
-
-        // The newer search still owns the screen.
-        await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
-        expect(screen.queryByRole('button', { name: /7pm/ })).not.toBeInTheDocument()
-        expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+      // The original answer, computed without that requirement, now lands.
+      heldSearch.release(slotsResponseFor('2026-07-07', ['19:00', '19:30']))
+      await act(async () => {
+        await Promise.resolve()
       })
 
-      // G2: the generation check was on the success paths only. abort() on an
-      // already-settled fetch is a no-op, so an error that had already arrived
-      // surfaces as a plain Error rather than an AbortError, and the form's own
-      // timeout throws a plain Error by design. Both catch blocks therefore
-      // wrote state unconditionally, and a superseded FAILURE could overwrite a
-      // newer answer.
-      it('discards a re-read that FAILS after a newer search has taken over', async () => {
-        const staleReRead = deferredSearch()
-        let reReadHeld = false
-
-        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
-          const url = typeof input === 'string' ? input : input.toString()
-          if (url.startsWith('/api/events?')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
-          }
-          if (url.startsWith('/api/customers/lookup')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
-          }
-          if (url.startsWith('/api/table-bookings/availability')) {
-            if (url.includes('outside=true') && !reReadHeld) {
-              reReadHeld = true
-              return staleReRead.promise
-            }
-            const date = new URL(url, 'https://t.test').searchParams.get('date')
-            return Promise.resolve(
-              slotsResponseFor(date || '', date === '2026-07-09' ? ['20:00'] : ['19:00'])
-            )
-          }
-          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
-        })
-
-        render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-
-        fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
-        await waitFor(() =>
-          expect(screen.getByText(/Checking that time is still free/i)).toBeInTheDocument()
-        )
-
-        // A newer search on a different date takes over.
-        fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
-        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-        fireEvent.click(screen.getAllByRole('button', { name: 'Back' })[0])
-        await waitFor(() => expect(screen.getByLabelText('Date')).toBeInTheDocument())
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-09' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-        await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
-
-        // The abandoned re-read now FAILS. Not an AbortError, because it had
-        // already settled by the time anything aborted it.
-        staleReRead.reject(new Error('Network request failed'))
-        await act(async () => {
-          await Promise.resolve()
-        })
-
-        // The newer search still owns the screen: no unknown reading stamped
-        // with the date the guest already left, and no error about it.
-        await waitFor(() => expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument())
-        expect(
-          screen.queryByText(/We could not check that time with those options/i)
-        ).not.toBeInTheDocument()
-        expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
-      })
-
-      it('discards a search that FAILS after an options change has taken over', async () => {
-        const staleSearch = deferredSearch()
-        let firstSearchHeld = false
-
-        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
-          const url = typeof input === 'string' ? input : input.toString()
-          if (url.startsWith('/api/events?')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
-          }
-          if (url.startsWith('/api/table-bookings/availability')) {
-            if (!firstSearchHeld) {
-              firstSearchHeld = true
-              return staleSearch.promise
-            }
-            return Promise.resolve(slotsResponseFor('2026-07-07', ['19:00']))
-          }
-          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
-        })
-
-        render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-        await waitFor(() => expect((global as any).fetch).toHaveBeenCalled())
-
-        // Mid-flight the guest changes an option, which supersedes the search.
-        fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
-
-        // The superseded search then fails.
-        staleSearch.reject(new Error('Network request failed'))
-        await act(async () => {
-          await Promise.resolve()
-        })
-
-        // It must not paint its failure over the state the options change left,
-        // nor strand the guest on an error about a search they abandoned.
-        await waitFor(() =>
-          expect(screen.getByLabelText(/I need an accessible table/i)).toBeChecked()
-        )
-        expect(screen.queryByText('Choose your time')).not.toBeInTheDocument()
-        expect(screen.queryByText(/Network request failed/)).not.toBeInTheDocument()
-        expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
-      })
-
-      it('discards a food-scoped search when the guest switches to drinks mid-flight', async () => {
-        // The Monday shape: the in-flight food search comes back closed. If it
-        // were applied, a guest who has just ticked "Just drinks" would be shown
-        // "No online times available" on a night with drinks slots all evening.
-        const pending = deferredSearch()
-        const searchUrls: string[] = []
-
-        ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
-          const url = typeof input === 'string' ? input : input.toString()
-          if (url.startsWith('/api/events?')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
-          }
-          if (url.startsWith('/api/table-bookings/availability')) {
-            searchUrls.push(url)
-            return pending.promise
-          }
-          return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
-        })
-
-        render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
-        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-        await waitFor(() => expect(searchUrls.length).toBe(1))
-        expect(searchUrls[0]).toMatch(/purpose=food/)
-
-        fireEvent.click(screen.getByLabelText(/Just drinks/i))
-
-        pending.release(
-          jsonResponse({
-            success: true,
-            data: {
-              date: '2026-07-07',
-              available: false,
-              calculation_state: 'complete',
-              time_slots: [],
-              public_reason: 'closed',
-              message: 'We are closed then.'
-            }
-          })
-        )
-        await act(async () => {
-          await Promise.resolve()
-        })
-
-        await waitFor(() => expect(screen.getByLabelText(/Just drinks/i)).toBeChecked())
-        expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
-        expect(screen.queryByText(/We are closed then/)).not.toBeInTheDocument()
-        expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
-      })
+      expect(screen.getByLabelText(/Step-free, standard-height table/)).toBeChecked()
+      expect(screen.getByRole('button', { name: /^8pm,/ })).toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /^7:30pm,/ })).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
     })
 
-    // E2: the re-read's "still free" exit kept the chosen TIME but not the
-    // purpose, so selectedSlotService went on holding a bookable_purpose
-    // captured under the OLD options. resolveSlotBookablePurpose read that
-    // cache first, so a stale value beat the answer the picker had just given
-    // and the guest could be booked for a purpose the fresh answer denied.
+    // F1, the other direction: a re-read must lose to a newer search, or it
+    // overwrites it with an answer for a different date and options.
+    it('discards an options re-read that a newer search has superseded', async () => {
+      const staleReRead = deferred()
+      let reReadHeld = false
+      routeFetch((url) => {
+        if (url.includes('outside=true') && !reReadHeld) {
+          reReadHeld = true
+          return staleReRead.promise
+        }
+        const date = new URL(url, 'https://t.test').searchParams.get('date') || ''
+        return Promise.resolve(slotsResponseFor(date, date === '2026-07-09' ? ['20:00'] : ['19:00']))
+      })
+
+      render(<ManagementTableBookingForm />)
+      await search()
+      fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
+      await waitFor(() =>
+        expect(screen.getByText(/Checking which times still work/i)).toBeInTheDocument()
+      )
+
+      // The guest searches a different date entirely.
+      await search('2026-07-09')
+      await waitFor(() => expect(screen.getByRole('button', { name: /^8pm,/ })).toBeInTheDocument())
+
+      // Now the abandoned re-read answers, for the OLD date.
+      staleReRead.release(slotsResponseFor('2026-07-07', ['19:00']))
+      await act(async () => {
+        await Promise.resolve()
+      })
+
+      expect(screen.getByRole('button', { name: /^8pm,/ })).toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /^7pm,/ })).not.toBeInTheDocument()
+      expect(screen.queryByText(/Checking which times still work/i)).not.toBeInTheDocument()
+    })
+
+    // G2: abort() on an already-settled fetch is a no-op, so a superseded
+    // FAILURE arrives as a plain Error and must not overwrite a newer answer.
+    it('discards a re-read that FAILS after a newer search has taken over', async () => {
+      const staleReRead = deferred()
+      let reReadHeld = false
+      routeFetch((url) => {
+        if (url.includes('outside=true') && !reReadHeld) {
+          reReadHeld = true
+          return staleReRead.promise
+        }
+        const date = new URL(url, 'https://t.test').searchParams.get('date') || ''
+        return Promise.resolve(slotsResponseFor(date, date === '2026-07-09' ? ['20:00'] : ['19:00']))
+      })
+
+      render(<ManagementTableBookingForm />)
+      await search()
+      fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
+      await waitFor(() =>
+        expect(screen.getByText(/Checking which times still work/i)).toBeInTheDocument()
+      )
+      await search('2026-07-09')
+      await waitFor(() => expect(screen.getByRole('button', { name: /^8pm,/ })).toBeInTheDocument())
+
+      staleReRead.reject(new Error('Network request failed'))
+      await act(async () => {
+        await Promise.resolve()
+      })
+
+      expect(screen.getByRole('button', { name: /^8pm,/ })).toBeInTheDocument()
+      expect(screen.queryByText(/We could not check that time with those options/i)).not.toBeInTheDocument()
+      expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
+    })
+
+    it('discards a search that FAILS after an options change has taken over', async () => {
+      const heldSearch = deferred()
+      let calls = 0
+      routeFetch(() => {
+        calls += 1
+        if (calls === 2) return heldSearch.promise
+        return Promise.resolve(slotsResponseFor('2026-07-07', ['19:00']))
+      })
+
+      render(<ManagementTableBookingForm />)
+      await search()
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(calls).toBe(2))
+
+      // Mid-flight the guest changes an option, which supersedes the search,
+      // and the superseded search then fails.
+      fireEvent.click(screen.getByLabelText(/Step-free, standard-height table/))
+      heldSearch.reject(new Error('Network request failed'))
+      await act(async () => {
+        await Promise.resolve()
+      })
+
+      await waitFor(() => expect(screen.getByRole('button', { name: /^7pm,/ })).toBeInTheDocument())
+      expect(screen.getByLabelText(/Step-free, standard-height table/)).toBeChecked()
+      expect(screen.queryByText(/Network request failed/)).not.toBeInTheDocument()
+      expect(screen.queryByText('We could not check live availability')).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Find a table' })).toBeEnabled()
+    })
+
+    it('discards a food-scoped search when the guest switches to drinks mid-flight', async () => {
+      // The Monday shape: the in-flight food search comes back closed. If it
+      // were applied, a guest who has just ticked "Just drinks" would be told
+      // there are no times on a night with drinks slots all evening.
+      const heldSearch = deferred()
+      let calls = 0
+      routeFetch((url) => {
+        calls += 1
+        if (calls === 2) return heldSearch.promise
+        return Promise.resolve(
+          url.includes('purpose=drinks')
+            ? slotsResponseFor('2026-07-07', ['22:00'], 'drinks_only')
+            : slotsResponseFor('2026-07-07', ['19:00'])
+        )
+      })
+
+      render(<ManagementTableBookingForm />)
+      await search()
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(calls).toBe(2))
+      fireEvent.click(screen.getByLabelText(/Just drinks, no food/))
+      await waitFor(() => expect(screen.getByRole('button', { name: /^10pm,/ })).toBeInTheDocument())
+
+      heldSearch.release(
+        jsonResponse({
+          success: true,
+          data: {
+            date: '2026-07-07',
+            available: false,
+            calculation_state: 'complete',
+            time_slots: [],
+            public_reason: 'closed',
+            message: 'We are closed then.'
+          }
+        })
+      )
+      await act(async () => {
+        await Promise.resolve()
+      })
+
+      expect(screen.getByLabelText(/Just drinks, no food/)).toBeChecked()
+      expect(screen.getByRole('button', { name: /^10pm,/ })).toBeInTheDocument()
+      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+      expect(screen.queryByText(/We are closed then/)).not.toBeInTheDocument()
+    })
+
+    // E2: keeping the time but not its purpose left a bookable_purpose from
+    // the OLD options in the cache, which beat the fresh answer, so a guest
+    // could be booked for food the fresh answer had withdrawn.
     it('takes the purpose from the fresh answer when options change under a chosen time', async () => {
       const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
       setupFetchMock({
@@ -2682,7 +2257,7 @@ describe('ManagementTableBookingForm', () => {
               time: '19:00',
               available: true,
               available_capacity: 4,
-              // Food before the guest asked for an outside table; the fresh
+              // Food until the guest asks for an outside table; the fresh
               // answer withdraws food but keeps the time bookable for drinks.
               bookable_purpose: url.includes('outside=true') ? 'drinks_only' : 'food_or_drinks'
             }
@@ -2692,114 +2267,34 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-
-      // Chosen while the answer still said food.
+      await search()
       expect(
-        within(screen.getByRole('button', { name: /7pm/ })).getByText(/drinks & food/i)
+        within(screen.getByRole('button', { name: /^7pm,/ })).getByText(/drinks & food/i)
       ).toBeInTheDocument()
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /^7pm,/ }))
 
       // Now ask for an outside table. The time survives, the food does not.
-      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
       await waitFor(() =>
-        expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
+        expect(screen.queryByText(/Checking which times still work/i)).not.toBeInTheDocument()
       )
+      fireEvent.click(await screen.findByRole('button', { name: 'Continue with 7pm' }))
+      await screen.findByLabelText('Mobile Number')
 
-      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
-
-      // The review summary already tells the truth.
+      // The summary already tells the truth.
       expect(screen.getByText('Drinks only')).toBeInTheDocument()
       expect(screen.queryByText('Table for food')).not.toBeInTheDocument()
 
-      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
-      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
-
-      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
-      expect(capturePayload.ref.current).toMatchObject({
-        purpose: 'drinks',
-        is_outside_seating: true
-      })
-    })
-
-    it('keeps food when the fresh answer still affirms it', async () => {
-      // The same journey where nothing about food changed must not be
-      // downgraded: failing closed has to answer a disagreement, not be a
-      // blanket penalty for changing an option.
-      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
-      setupFetchMock({
-        availability: () => ({
-          date: '2026-07-07',
-          time_slots: [
-            {
-              time: '19:00',
-              available: true,
-              available_capacity: 4,
-              bookable_purpose: 'food_or_drinks' as const
-            }
-          ]
-        }),
-        capturePayload
-      })
-
-      render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-
-      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
-      await waitFor(() =>
-        expect(screen.queryByText(/Checking that time is still free/i)).not.toBeInTheDocument()
-      )
-
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
-      expect(screen.getByText('Table for food')).toBeInTheDocument()
-
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
       await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
-      expect(capturePayload.ref.current).toMatchObject({ purpose: 'food' })
-    })
-
-    it('offers real alternatives when their time is not free outside', async () => {
-      // 7pm indoors, but outside only 8pm is free. They must be told why, and must be given
-      // something to pick, never an empty list.
-      await reachDetailsWith7pm((url: string) =>
-        url.includes('outside=true')
-          ? { time_slots: [{ time: '20:00', available: true, available_capacity: 4, kitchen_open: true }] }
-          : { time_slots: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }] }
-      )
-
-      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
-
-      await waitFor(() =>
-        expect(screen.getByText(/is not available with those options/i)).toBeInTheDocument()
-      )
-      // The slot list carries the outside availability rather than being wiped.
-      expect(screen.getByRole('button', { name: /8pm/ })).toBeInTheDocument()
-      expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
+      expect(capturePayload.ref.current).toMatchObject({ purpose: 'drinks', is_outside_seating: true })
     })
   })
 
@@ -2809,8 +2304,8 @@ describe('ManagementTableBookingForm', () => {
   describe('availability unknown state (T2)', () => {
     async function searchOn(date = '2026-07-07') {
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: date } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -2903,8 +2398,9 @@ describe('ManagementTableBookingForm', () => {
       )
       expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument()
       expect(screen.getAllByText(/01753 682707/).length).toBeGreaterThan(0)
-      // The reason is surfaced rather than swallowed.
-      expect(screen.getByText(/Network request failed/)).toBeInTheDocument()
+      // The reason is surfaced rather than swallowed (by the search form and
+      // by the retry panel, which sit on the same screen).
+      expect(screen.getAllByText(/Network request failed/).length).toBeGreaterThan(0)
       // And it never claims the pub is full.
       expect(screen.queryByText('No online times available')).not.toBeInTheDocument()
       expect(screen.queryByText(/couldn't find an online slot/i)).not.toBeInTheDocument()
@@ -2969,8 +2465,8 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '4' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '4' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -2980,15 +2476,12 @@ describe('ManagementTableBookingForm', () => {
         within(screen.getByRole('button', { name: /7pm/ })).getByText(/drinks only/i)
       ).toBeInTheDocument()
 
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -3006,20 +2499,17 @@ describe('ManagementTableBookingForm', () => {
         setupFetchMock({ availability: [slot], capturePayload })
 
         render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party size'))
         fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
         fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await chooseTime(/7pm/)
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
         fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
         await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
@@ -3055,8 +2545,8 @@ describe('ManagementTableBookingForm', () => {
         })
 
         render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party size'))
         fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
         fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -3134,8 +2624,8 @@ describe('ManagementTableBookingForm', () => {
         const capturedPurpose: { value?: unknown } = {}
 
         render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party size'))
         fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
         fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -3145,15 +2635,12 @@ describe('ManagementTableBookingForm', () => {
           within(screen.getByRole('button', { name: /7pm/ })).getByText(/drinks only/i)
         ).toBeInTheDocument()
 
-        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await chooseTime(/7pm/)
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
         fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -3185,8 +2672,8 @@ describe('ManagementTableBookingForm', () => {
         })
 
         render(<ManagementTableBookingForm />)
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party size'))
         fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
         fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -3199,8 +2686,6 @@ describe('ManagementTableBookingForm', () => {
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
         fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -3250,10 +2735,11 @@ describe('ManagementTableBookingForm', () => {
           return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
         })
 
-        render(<ManagementTableBookingForm />)
-        if (drinksOnly) fireEvent.click(screen.getByLabelText(/Just drinks/i))
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
+        // The drinks choice is asked beside the times, after a search, so a
+        // guest who wants drinks from the start arrives with it in the link.
+        render(<ManagementTableBookingForm prefill={drinksOnly ? { drinksOnly: true } : undefined} />)
+        fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party size'))
         fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
         fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -3315,18 +2801,15 @@ describe('ManagementTableBookingForm', () => {
 
       // Review is where the guest commits, so the warning has to survive to it.
       async function reachReview() {
-        fireEvent.click(screen.getByRole('button', { name: /1pm/ }))
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await chooseTime(/1pm/)
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       }
 
-      it('follows the guest through to the review step', async () => {
+      it('follows the guest through to the details screen they confirm from', async () => {
         await searchWith({ ...drinksOnlyGrid, food_check_unavailable: true })
         await reachReview()
 
@@ -3409,8 +2892,8 @@ describe('ManagementTableBookingForm', () => {
 
         async function bookTheAlternative() {
           render(<ManagementTableBookingForm />)
-          fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-          fireEvent.blur(screen.getByLabelText('Party Size'))
+          fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+          fireEvent.blur(screen.getByLabelText('Party size'))
           fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
           fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
           await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
@@ -3422,8 +2905,6 @@ describe('ManagementTableBookingForm', () => {
           await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
           fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
           fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-          fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-          await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
         }
 
         it('does not warn about a food check that failed on the date they left', async () => {
@@ -3466,22 +2947,20 @@ describe('ManagementTableBookingForm', () => {
       async function reviewWith(slot: TimeSlot, drinksOnly = false) {
         setupFetchMock({ availability: [slot] })
 
-        render(<ManagementTableBookingForm />)
-        if (drinksOnly) fireEvent.click(screen.getByLabelText(/Just drinks/i))
-        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-        fireEvent.blur(screen.getByLabelText('Party Size'))
+        // The drinks choice is asked beside the times, after a search, so a
+        // guest who wants drinks from the start arrives with it in the link.
+        render(<ManagementTableBookingForm prefill={drinksOnly ? { drinksOnly: true } : undefined} />)
+        fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party size'))
         fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
         fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-        fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await chooseTime(/7pm/)
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
         fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       }
 
       it('says "Table for food" when food was affirmed', async () => {
@@ -3545,20 +3024,17 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '4' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '4' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -3597,13 +3073,12 @@ describe('ManagementTableBookingForm', () => {
         ...(capturePayload ? { capturePayload } : {})
       })
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
@@ -3624,11 +3099,6 @@ describe('ManagementTableBookingForm', () => {
 
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
-      // The review summary renders the first name alone, no dangling surname.
-      expect(screen.getByText('Sam')).toBeInTheDocument()
 
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
@@ -3644,9 +3114,9 @@ describe('ManagementTableBookingForm', () => {
 
     it('asks for the first name only when no name is entered', async () => {
       await reachDetailsAt7pm()
-
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       await waitFor(() =>
         expect(screen.getByText('Please enter your first name.')).toBeInTheDocument()
       )
@@ -3656,118 +3126,11 @@ describe('ManagementTableBookingForm', () => {
     })
   })
 
-  // T6: a high-chair request is never silently reduced (review F06). A slot
-  // that cannot cover the request needs an explicit acknowledgement tap, and
-  // the ORIGINAL request is submitted so the server can grant what it truly
-  // has; the confirmation's granted-of-requested copy remains the safety net.
-  describe('high-chair honesty (T6)', () => {
-    const chairSlots: TimeSlot[] = [
-      { time: '19:00', available: true, available_capacity: 4, kitchen_open: true, high_chairs_remaining: 2 },
-      { time: '20:00', available: true, available_capacity: 4, kitchen_open: true, high_chairs_remaining: 1 }
-    ]
-
-    async function reachDetailsRequestingTwoChairs(capturePayload?: {
-      ref: { current: Record<string, unknown> | null }
-    }) {
-      setupFetchMock({
-        availability: chairSlots,
-        ...(capturePayload ? { capturePayload } : {})
-      })
-      render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-      // 7pm has two chairs free, so requesting two raises no flag here.
-      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
-      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
-    }
-
-    async function switchToOneChairSlot() {
-      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /8pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-    }
-
-    it('requires an explicit acknowledgement when the chosen slot cannot cover the request', async () => {
-      await reachDetailsRequestingTwoChairs()
-      await switchToOneChairSlot()
-
-      // The request survives the slot change and the flag is shown.
-      await waitFor(() =>
-        expect(
-          screen.getByText('Only 1 high chair is free at this time. Book with 1?')
-        ).toBeInTheDocument()
-      )
-
-      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-      // Blocked until the shortfall is acknowledged.
-      await waitFor(() =>
-        expect(
-          screen.getByText(/Please confirm you are happy to book with 1 high chair first/)
-        ).toBeInTheDocument()
-      )
-      expect(screen.queryByText('Review your booking')).not.toBeInTheDocument()
-
-      fireEvent.click(screen.getByRole('button', { name: 'Yes, book with 1' }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
-    })
-
-    it('does not ask for acknowledgement when the slot covers the request', async () => {
-      await reachDetailsRequestingTwoChairs()
-
-      expect(screen.queryByText(/Book with/)).not.toBeInTheDocument()
-      expect(screen.queryByText(/Book anyway/)).not.toBeInTheDocument()
-
-      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      // The chair clicks trigger an options-change re-read; while it is in
-      // flight the wizard politely refuses Continue. Retry until it settles,
-      // proving no acknowledgement is ever demanded on this path.
-      await waitFor(() => {
-        if (!screen.queryByText('Review your booking')) {
-          fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-        }
-        expect(screen.getByText('Review your booking')).toBeInTheDocument()
-      })
-      expect(screen.queryByText(/Book with/)).not.toBeInTheDocument()
-    })
-
-    it('submits the original request, not a value clamped to the advisory count', async () => {
-      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
-      await reachDetailsRequestingTwoChairs(capturePayload)
-      await switchToOneChairSlot()
-
-      await waitFor(() =>
-        expect(
-          screen.getByText('Only 1 high chair is free at this time. Book with 1?')
-        ).toBeInTheDocument()
-      )
-
-      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
-      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Yes, book with 1' }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
-      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
-
-      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
-      expect(capturePayload.ref.current).toMatchObject({ high_chair_count: 2 })
-    })
-  })
+  // T6, high-chair honesty: the shortfall acknowledgement on the old details
+  // step went with the four-step journey. The rule now lives on the slot (D4:
+  // a short time carries its count and tapping it is the consent), and the
+  // two-screen suite's "high-chair shortfall (owner decision D4)" block
+  // covers it, including that the original request is what gets submitted.
 
   // T3: the pre-verification lookup identifies nobody. The route returns at
   // most { known: true }, and the form must complete the known-customer flow
@@ -3782,13 +3145,12 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
@@ -3807,9 +3169,6 @@ describe('ManagementTableBookingForm', () => {
       expect(lookups[0][1]?.method).toBe('POST')
       expect(JSON.parse(String(lookups[0][1]?.body))).toEqual({ phone: '07700900000', default_country_code: '44' })
       for (const [input] of requests) expect(String(input)).not.toContain('07700900000')
-
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
@@ -3834,13 +3193,12 @@ describe('ManagementTableBookingForm', () => {
       })
 
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
@@ -3860,16 +3218,15 @@ describe('ManagementTableBookingForm', () => {
           slots ?? [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
       })
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
     }
 
     async function advanceTo7pmDetails() {
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
@@ -3894,9 +3251,8 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      // There is no review screen: the details pass inside Confirm.
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
       expect(trackTableBookingFunnel).toHaveBeenCalledWith(
         expect.objectContaining({
           step: 'details_entered',
@@ -3911,17 +3267,17 @@ describe('ManagementTableBookingForm', () => {
       await searchTo7pmChoose()
 
       expect(trackBookingStepViewed).toHaveBeenCalledWith({ step: 'find' })
-      expect(trackBookingStepViewed).toHaveBeenCalledWith({ step: 'choose' })
+      // The times arrive on the find screen: there is no separate step.
+      expect(trackBookingStepViewed).not.toHaveBeenCalledWith({ step: 'choose' })
 
       await advanceTo7pmDetails()
       expect(trackBookingStepViewed).toHaveBeenCalledWith({ step: 'details' })
     })
 
     it('fires option_toggled for the find-step drinks toggle with the new value and step', async () => {
-      setupFetchMock({ availability: [] })
-      render(<ManagementTableBookingForm />)
+      await searchTo7pmChoose()
 
-      fireEvent.click(screen.getByLabelText(/Just drinks/i))
+      fireEvent.click(screen.getByLabelText(/Just drinks, no food/))
 
       expect(trackOptionToggled).toHaveBeenCalledWith({
         option: 'drinks_only',
@@ -3936,11 +3292,12 @@ describe('ManagementTableBookingForm', () => {
     // a booking reference, so the attribute would be joinable to a named
     // booking. It must never be tracked, by any event, on any step.
     it('never sends the accessible-table request to analytics', async () => {
-      setupFetchMock({ availability: [] })
-      render(<ManagementTableBookingForm />)
+      await searchTo7pmChoose()
+      trackOptionToggled.mockClear()
 
-      fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
-      fireEvent.click(screen.getByLabelText(/I need an accessible table/i))
+      fireEvent.click(screen.getByLabelText(/Step-free, standard-height table/))
+      fireEvent.click(screen.getByLabelText(/Step-free, standard-height table/))
+      await act(async () => {})
 
       expect(trackOptionToggled).not.toHaveBeenCalled()
 
@@ -3959,23 +3316,23 @@ describe('ManagementTableBookingForm', () => {
       }
     })
 
-    it('fires option_toggled for the details-step high chair stepper and outside toggle', async () => {
+    it('fires option_toggled for the high chairs and outside table, from the find screen they sit on', async () => {
       await searchTo7pmChoose()
-      await advanceTo7pmDetails()
 
-      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
+      fireEvent.click(screen.getByRole('radio', { name: '1 high chair' }))
       expect(trackOptionToggled).toHaveBeenCalledWith({
         option: 'high_chair_count',
         value: 1,
-        step: 'details'
+        step: 'find'
       })
 
-      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
       expect(trackOptionToggled).toHaveBeenCalledWith({
         option: 'outside_seating',
         value: true,
-        step: 'details'
+        step: 'find'
       })
+      await act(async () => {})
     })
 
     it('fires slot_flag_shown when a newly chosen slot cannot cover the requested chairs', async () => {
@@ -3983,16 +3340,10 @@ describe('ManagementTableBookingForm', () => {
         { time: '19:00', available: true, available_capacity: 4, kitchen_open: true, high_chairs_remaining: 2 },
         { time: '20:00', available: true, available_capacity: 4, kitchen_open: true, high_chairs_remaining: 1 }
       ])
-      await advanceTo7pmDetails()
 
-      // Ask for two chairs against the 7pm slot (which can advise two)...
-      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
-      fireEvent.click(screen.getByRole('button', { name: 'More high chairs' }))
-
-      // ...then go back and pick the 8pm slot, which only has one left.
-      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /8pm/ }))
+      // Ask for two chairs, then pick the 8pm slot, which only has one left.
+      fireEvent.click(screen.getByRole('radio', { name: '2 high chairs' }))
+      fireEvent.click(await screen.findByRole('button', { name: /^8pm,.*1 high chair free/ }))
 
       await waitFor(() =>
         expect(trackSlotFlagShown).toHaveBeenCalledWith({ chairsFree: 1, chairsRequested: 2 })
@@ -4007,18 +3358,14 @@ describe('ManagementTableBookingForm', () => {
             : { time_slots: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }] }
       })
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /^7pm,/ }))
 
-      fireEvent.click(screen.getByRole('checkbox', { name: /outside table/i }))
+      fireEvent.click(screen.getByLabelText(/Outside table, weather permitting/))
 
       await waitFor(() =>
         expect(screen.getByText(/is not available with those options/i)).toBeInTheDocument()
@@ -4042,21 +3389,18 @@ describe('ManagementTableBookingForm', () => {
         }
       })
       render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party size'))
       fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
       fireEvent.change(screen.getByLabelText('Last name (optional)'), { target: { value: 'Walker' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 

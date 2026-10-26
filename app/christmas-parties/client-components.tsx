@@ -210,6 +210,13 @@ interface ChristmasEnquiryFormProps {
   facts: ChristmasFactsView
   onContextChange: (updates: Partial<EnquiryContext>) => void
   onSuccess: () => void
+  /**
+   * Whether the guest has opened the drawer this form lives in. The security
+   * check is only started once they have: it used to load Cloudflare's script
+   * and run its challenge for a form in a closed drawer on every visit
+   * (review BK-199).
+   */
+  securityCheckActive: boolean
 }
 
 interface ChristmasLightboxProps {
@@ -621,6 +628,12 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
   const [context, setContext] = useState<EnquiryContext>(DEFAULT_CONTEXT)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  // Once opened, the drawer's security check stays running, so closing and
+  // reopening it does not start the challenge again.
+  const [drawerEverOpened, setDrawerEverOpened] = useState(false)
+  useEffect(() => {
+    if (drawerOpen) setDrawerEverOpened(true)
+  }, [drawerOpen])
   const enquiryRef = useRef<HTMLDivElement | null>(null)
 
   // Only when the window has passed. `season.bookingClosed` covers the last
@@ -1543,6 +1556,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               onSuccess={() => {
                 handleFormSuccess()
               }}
+              securityCheckActive={drawerEverOpened}
             />
           )}
         </div>
@@ -2008,7 +2022,7 @@ function ChristmasMenuAndPricing({
   )
 }
 
-function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSuccess }: ChristmasEnquiryFormProps) {
+export function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSuccess, securityCheckActive }: ChristmasEnquiryFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -2277,7 +2291,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               id="christmas-party-format"
               value={partyFormat}
               onChange={event => setPartyFormat(event.target.value)}
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             >
               {/* An empty default rather than pre-selecting a style: a wrong
                   pre-selection misroutes the kitchen conversation, and the
@@ -2300,7 +2314,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               onChange={event => setName(event.target.value)}
               autoComplete="name"
               placeholder="Your full name"
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
           </div>
@@ -2313,7 +2327,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               onChange={event => setEmail(event.target.value)}
               autoComplete="email"
               placeholder="you@example.com"
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
           </div>
@@ -2327,7 +2341,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               autoComplete="tel"
               inputMode="tel"
               placeholder="Best number for a quick call"
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
           </div>
@@ -2341,7 +2355,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               value={partySize}
               onChange={event => setPartySize(event.target.value)}
               placeholder="e.g. 18"
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
             <p className="mt-1 text-xs text-ink-muted">
@@ -2363,7 +2377,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               min={season.minEnquiryDate}
               max={season.maxEnquiryDate}
               data-native-date-time="true"
-              className="mt-1 block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+              className="mt-1 block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
               required
             />
             <p className="mt-1 text-xs text-ink-muted">
@@ -2377,7 +2391,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
               id="christmas-preferred-time"
               value={preferredTime}
               onChange={event => setPreferredTime(event.target.value)}
-              className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+              className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             >
               {timeOptions.map(option => (
                 <option key={option.value} value={option.value}>{option.label}</option>
@@ -2393,7 +2407,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
             rows={4}
             value={notes}
             onChange={event => setNotes(event.target.value)}
-            className="mt-1 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+            className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
             placeholder={context.mode === 'meal' ? 'Share dietary requirements, allergies, accessibility needs or anything else we should know.' : 'Share entertainment ideas, room preferences, dietary needs or anything else we should know.'}
           />
         </div>
@@ -2403,7 +2417,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
           <span>I am happy for The Anchor to contact me about this enquiry.</span>
         </label>
 
-        {TURNSTILE_SITE_KEY && (
+        {TURNSTILE_SITE_KEY && securityCheckActive && (
           <TurnstileField
             id="christmas-enquiry-turnstile"
             turnstileRef={turnstileRef}
@@ -2433,7 +2447,7 @@ function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSucce
   )
 }
 
-function ChristmasLightbox({ suppressed, context, season, facts, onContextChange, onSubmitSuccess }: ChristmasLightboxProps) {
+export function ChristmasLightbox({ suppressed, context, season, facts, onContextChange, onSubmitSuccess }: ChristmasLightboxProps) {
   const [visible, setVisible] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -2732,60 +2746,75 @@ function ChristmasLightbox({ suppressed, context, season, facts, onContextChange
                 onChange={event => setLbHoneypot(event.target.value)}
               />
             </div>
-            <input
-              type="text"
-              aria-label="Full name"
-              placeholder="Full name"
-              value={name}
-              onChange={event => setName(event.target.value)}
-              autoComplete="name"
-              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
-              required
-            />
-            <input
-              type="email"
-              aria-label="Email"
-              placeholder="Email"
-              value={email}
-              onChange={event => setEmail(event.target.value)}
-              autoComplete="email"
-              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
-              required
-            />
-            <input
-              type="tel"
-              aria-label="Mobile"
-              placeholder="Mobile"
-              value={phone}
-              onChange={event => setPhone(event.target.value)}
-              autoComplete="tel"
-              inputMode="tel"
-              className="w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
-              required
-            />
+            {/* Visible labels, as the main form on this page has. Placeholder
+                text was the only label here, and it vanished as soon as a
+                guest typed, with the date box saying only dd/mm/yyyy
+                (review BK-197). */}
+            <div>
+              <label htmlFor="christmas-lightbox-name" className="block text-sm font-medium text-ink-muted">Full name</label>
+              <input
+                id="christmas-lightbox-name"
+                type="text"
+                value={name}
+                onChange={event => setName(event.target.value)}
+                autoComplete="name"
+                className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="christmas-lightbox-email" className="block text-sm font-medium text-ink-muted">Email</label>
+              <input
+                id="christmas-lightbox-email"
+                type="email"
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+                autoComplete="email"
+                className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="christmas-lightbox-phone" className="block text-sm font-medium text-ink-muted">Mobile</label>
+              <input
+                id="christmas-lightbox-phone"
+                type="tel"
+                value={phone}
+                onChange={event => setPhone(event.target.value)}
+                autoComplete="tel"
+                inputMode="tel"
+                className="mt-1 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+                required
+              />
+            </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <input
-                type="number"
-                aria-label="Number of guests"
-                min={facts.minPartySize}
-                max={context.mode === 'meal' ? facts.maxSeated : facts.maxStanding}
-                placeholder="Number of guests"
-                value={partySize}
-                onChange={event => setPartySize(event.target.value)}
-                className="min-w-0 w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
-                required
-              />
-              <input
-                type="date"
-                aria-label="Preferred date"
-                value={preferredDate}
-                onChange={event => setPreferredDate(event.target.value)}
-                min={season.minEnquiryDate}
-                max={season.maxEnquiryDate}
-                data-native-date-time="true"
-                className="block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
-                required
-              />
+              <div className="min-w-0">
+                <label htmlFor="christmas-lightbox-guests" className="block text-sm font-medium text-ink-muted">Number of guests</label>
+                <input
+                  id="christmas-lightbox-guests"
+                  type="number"
+                  min={facts.minPartySize}
+                  max={context.mode === 'meal' ? facts.maxSeated : facts.maxStanding}
+                  value={partySize}
+                  onChange={event => setPartySize(event.target.value)}
+                  className="mt-1 min-w-0 w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+                  required
+                />
+              </div>
+              <div className="min-w-0">
+                <label htmlFor="christmas-lightbox-date" className="block text-sm font-medium text-ink-muted">Preferred date</label>
+                <input
+                  id="christmas-lightbox-date"
+                  type="date"
+                  value={preferredDate}
+                  onChange={event => setPreferredDate(event.target.value)}
+                  min={season.minEnquiryDate}
+                  max={season.maxEnquiryDate}
+                  data-native-date-time="true"
+                  className="mt-1 block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-field bg-surface px-3 py-2 text-sm text-ink-strong focus:border-accent-text focus:outline-none focus:ring-4 focus:ring-accent-text/10"
+                  required
+                />
+              </div>
             </div>
             <div className="flex gap-2">
               {(['party', 'meal'] as EnquiryMode[]).map(mode => (

@@ -296,9 +296,12 @@ describe('AX-011: errors and results are announced', () => {
     expect(source).toMatch(/paypalLoadError \|\| !process\.env\.NEXT_PUBLIC_PAYPAL_CLIENT_ID\) && \(\s*<p role="alert"/)
   })
 
-  it('marks both of the quick booking sheet\'s error lines as alerts', () => {
+  it('marks the quick booking sheet\'s failure line as an alert, and puts field refusals on their fields', () => {
     const source = read('components/features/TableBooking/QuickBookSheet.tsx')
-    expect(source).toContain('<p className="text-sm text-anchor-danger" role="alert">{fieldError}</p>')
+    // Since review BK-195 a refusal sits under its own box, which is marked
+    // invalid and takes focus, rather than on one shared alert line.
+    expect(source).toContain('error={fieldErrors.phone}')
+    expect(source).toContain('error={fieldErrors.firstName}')
     expect(source).toMatch(/<p className="text-sm text-anchor-danger" role="alert">\s*<WithPhoneLink message=\{error\} \/>/)
   })
 

@@ -25,10 +25,11 @@ beforeEach(() => {
   Object.defineProperty(window, 'scrollY', { configurable: true, value: 600 })
 })
 
-test('table action keeps the quick-book modal, and navigation closes it', () => {
+test('table action keeps the quick-book modal, and navigation closes it', async () => {
   const view = render(<StickyCtas />)
   fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
-  expect(screen.getByRole('dialog')).toBeInTheDocument()
+  // The sheet's code arrives on demand (review BK-199), so it is waited for.
+  expect(await screen.findByRole('dialog')).toBeInTheDocument()
   expect(trackTableBookingClick).toHaveBeenCalledWith('sticky_global')
   mockPathname = '/cash-bingo'
   view.rerender(<StickyCtas />)

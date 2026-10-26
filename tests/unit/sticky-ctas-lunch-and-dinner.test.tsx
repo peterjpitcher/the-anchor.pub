@@ -196,14 +196,15 @@ describe('the sticky bar on /lunch-and-dinner', () => {
 })
 
 describe('the sticky bar everywhere else', () => {
-  it('still opens the quick-book sheet from an ordinary page', () => {
+  it('still opens the quick-book sheet from an ordinary page', async () => {
     mockPathname = '/sunday-roast'
     currentHref = 'http://localhost/sunday-roast?utm_campaign=weekday_dinner_a_pizza'
     render(<StickyCtas />)
 
     fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
-    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    // The sheet's code arrives on demand (review BK-199), so it is waited for.
+    expect(await screen.findByRole('dialog')).toBeInTheDocument()
     expect(currentHref).toBe('http://localhost/sunday-roast?utm_campaign=weekday_dinner_a_pizza')
   })
 

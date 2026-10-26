@@ -8,8 +8,7 @@ import { STEP_LABELS, STEP_ORDER, type BookingStep } from '@/lib/table-booking/j
 // Outfit 600 text-sm; pending-step labels hide at 640px and below (numbers
 // always show).
 //
-// `stepKeys` and `stepLabels` default to the four-step journey. The two-screen
-// flow passes its own pair; nothing else about the bar changes.
+// `stepKeys` and `stepLabels` default to the booking journey's own two steps.
 export function BookingProgressBar({
   currentStep,
   totalSteps,
