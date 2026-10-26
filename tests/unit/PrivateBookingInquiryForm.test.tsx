@@ -18,31 +18,26 @@ import { trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
 const mockCreatePrivateBooking = createPrivateBooking as jest.MockedFunction<typeof createPrivateBooking>
 const mockTrack = trackPrivateHireEnquirySubmitted as jest.MockedFunction<typeof trackPrivateHireEnquirySubmitted>
 
-function mockPhoneLookup(known = false) {
-  ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+// The form makes no request of its own before the enquiry is sent: the number
+// is no longer looked up first (review BK-107). Any fetch at all is a failure.
+function failOnAnyFetch(): jest.Mock {
+  const fetchMock = jest.fn((input: RequestInfo | URL) => {
     const url = typeof input === 'string' ? input : input.toString()
-    if (url.includes('/api/customers/lookup')) {
-      return Promise.resolve(
-        new Response(
-          // The lookup identifies nobody: it answers whether the number is
-          // known and nothing else (review F10).
-          JSON.stringify({ success: true, data: { known } }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
-        )
-      )
-    }
     return Promise.reject(new Error(`Unexpected fetch: ${url}`))
   })
+  ;(global as any).fetch = fetchMock
+  return fetchMock
 }
 
-function mockPhoneLookupSuccess() {
-  mockPhoneLookup(false)
+function typePhone(value = '07700900000') {
+  const phoneInput = document.querySelector('input[type="tel"]') as HTMLInputElement
+  fireEvent.change(phoneInput, { target: { value } })
 }
 
 describe('PrivateBookingInquiryForm tracking', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    mockPhoneLookupSuccess()
+    failOnAnyFetch()
   })
 
   it('calls trackPrivateHireEnquirySubmitted when createPrivateBooking returns success', async () => {
@@ -52,28 +47,8 @@ describe('PrivateBookingInquiryForm tracking', () => {
     })
 
     render(<PrivateBookingInquiryForm />)
+    typePhone()
 
-    // Enter a phone number and pass the phone-verification gate.
-    // The label is not associated via htmlFor so we query by display value type.
-    const phoneInput = document.querySelector('input[type="tel"]') as HTMLInputElement
-    fireEvent.change(phoneInput, { target: { value: '07700900000' } })
-
-    const continueButton = screen.getByRole('button', { name: /continue/i })
-    fireEvent.click(continueButton)
-
-    // Wait for lookup to complete and the form details to appear
-    await waitFor(() =>
-      expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
-    )
-
-    // The number is asked about in the body of a POST, never in the address.
-    const lookupCalls = ((global as any).fetch as jest.Mock).mock.calls as Array<[RequestInfo | URL, RequestInit | undefined]>
-    expect(lookupCalls).toHaveLength(1)
-    expect(String(lookupCalls[0][0])).toBe('/api/customers/lookup')
-    expect(lookupCalls[0][1]?.method).toBe('POST')
-    expect(JSON.parse(String(lookupCalls[0][1]?.body))).toEqual({ phone: '07700900000', default_country_code: '44' })
-
-    // Fill required name fields (unknown customer path).
     // Labels have no htmlFor/id so we use placeholder-independent text input order.
     const textInputs = document.querySelectorAll('input[type="text"]')
     fireEvent.change(textInputs[0], { target: { value: 'Jane' } })  // First Name
@@ -100,15 +75,7 @@ describe('PrivateBookingInquiryForm tracking', () => {
     } as any)
 
     render(<PrivateBookingInquiryForm />)
-
-    const phoneInput = document.querySelector('input[type="tel"]') as HTMLInputElement
-    fireEvent.change(phoneInput, { target: { value: '07700900000' } })
-
-    fireEvent.click(screen.getByRole('button', { name: /continue/i }))
-
-    await waitFor(() =>
-      expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
-    )
+    typePhone()
 
     const textInputs = document.querySelectorAll('input[type="text"]')
     fireEvent.change(textInputs[0], { target: { value: 'Jane' } })  // First Name
@@ -124,43 +91,39 @@ describe('PrivateBookingInquiryForm tracking', () => {
   })
 })
 
-// The privacy fix stopped the lookup returning any personal data, but the name
-// and email fields were still hidden for recognised numbers because they used
-// to be prefilled from it. Nothing filled them any more, so a regular whose
-// number the pub already held filed an enquiry as "Guest" with no email to
-// reply to, and AMS stores that verbatim.
-describe('PrivateBookingInquiryForm: recognised numbers still give their details', () => {
+// The form used to look the number up before showing anything else, greet a
+// customer it recognised ("Welcome back") and hold the enquiry back until the
+// lookup answered, which told anyone typing a number whether it belonged to a
+// customer (review BK-107, owner decision D31). Every box is now on screen
+// from the start, nothing is checked, and the management API matches the
+// customer by phone when the enquiry arrives.
+describe('PrivateBookingInquiryForm: no number check', () => {
+  let fetchMock: jest.Mock
+
   beforeEach(() => {
     jest.clearAllMocks()
+    fetchMock = failOnAnyFetch()
   })
 
-  async function verifyPhoneAs(known: boolean) {
-    mockPhoneLookup(known)
+  it('shows the name, email and phone boxes and the send button from the start', () => {
     render(<PrivateBookingInquiryForm />)
 
-    const phoneInput = document.querySelector('input[type="tel"]') as HTMLInputElement
-    fireEvent.change(phoneInput, { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: /continue/i }))
-
-    await waitFor(() =>
-      expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
-    )
-  }
-
-  it('renders the name and email fields for a recognised number', async () => {
-    await verifyPhoneAs(true)
-
+    expect(document.querySelector('input[type="tel"]')).not.toBeDisabled()
     expect(screen.getByText('Personal Details')).toBeInTheDocument()
     expect(screen.getByText(/First Name/)).toBeInTheDocument()
     expect(screen.getByText(/Last Name/)).toBeInTheDocument()
     expect(screen.getByText(/Email \(Optional\)/)).toBeInTheDocument()
     expect(document.querySelector('input[type="email"]')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /^continue$/i })).not.toBeInTheDocument()
+    expect(screen.queryByText(/already in our system/i)).not.toBeInTheDocument()
   })
 
-  it('submits what a recognised guest typed, never a placeholder', async () => {
+  it('sends what the guest typed without looking the number up, and never greets anyone', async () => {
     mockCreatePrivateBooking.mockResolvedValue({ success: true, data: {} as any })
-    await verifyPhoneAs(true)
+    render(<PrivateBookingInquiryForm />)
 
+    typePhone('07700900000')
     const textInputs = document.querySelectorAll('input[type="text"]')
     fireEvent.change(textInputs[0], { target: { value: 'Priya' } })
     fireEvent.change(textInputs[1], { target: { value: 'Kaur' } })
@@ -173,15 +136,20 @@ describe('PrivateBookingInquiryForm: recognised numbers still give their details
     await waitFor(() => expect(mockCreatePrivateBooking).toHaveBeenCalledTimes(1))
     const payload = mockCreatePrivateBooking.mock.calls[0][0] as unknown as Record<string, unknown>
 
+    expect(payload.contact_phone).toBe('07700900000')
     expect(payload.customer_first_name).toBe('Priya')
     expect(payload.customer_last_name).toBe('Kaur')
     expect(payload.contact_email).toBe('priya@example.com')
     expect(JSON.stringify(payload)).not.toContain('Guest')
+    expect(fetchMock).not.toHaveBeenCalled()
+    expect(screen.queryByText(/Welcome back/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/New customer detected/i)).not.toBeInTheDocument()
   })
 
-  it('refuses to submit a recognised number with no name, rather than inventing one', async () => {
+  it('refuses to submit with no name, rather than inventing one', async () => {
     mockCreatePrivateBooking.mockResolvedValue({ success: true, data: {} as any })
-    await verifyPhoneAs(true)
+    render(<PrivateBookingInquiryForm />)
+    typePhone()
 
     fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))
 
@@ -197,20 +165,17 @@ describe('PrivateBookingInquiryForm: recognised numbers still give their details
     expect((textInputs[0] as HTMLInputElement).value).toBe('')
   })
 
-  it('never sends a placeholder name on the unrecognised path either', async () => {
+  it('asks for the number when the guest sends without one', async () => {
     mockCreatePrivateBooking.mockResolvedValue({ success: true, data: {} as any })
-    await verifyPhoneAs(false)
+    render(<PrivateBookingInquiryForm />)
 
     const textInputs = document.querySelectorAll('input[type="text"]')
     fireEvent.change(textInputs[0], { target: { value: 'Sam' } })
     fireEvent.change(textInputs[1], { target: { value: 'Walker' } })
+    // Past the browser's own check, to reach the handler's.
+    fireEvent.submit(screen.getByRole('button', { name: /send inquiry/i }).closest('form') as HTMLFormElement)
 
-    fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))
-
-    await waitFor(() => expect(mockCreatePrivateBooking).toHaveBeenCalledTimes(1))
-    const payload = mockCreatePrivateBooking.mock.calls[0][0] as unknown as Record<string, unknown>
-
-    expect(payload.customer_first_name).toBe('Sam')
-    expect(JSON.stringify(payload)).not.toContain('Guest')
+    expect(await screen.findByText('Please enter your mobile number.')).toBeInTheDocument()
+    expect(mockCreatePrivateBooking).not.toHaveBeenCalled()
   })
 })

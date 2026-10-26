@@ -1,4 +1,4 @@
-import { findDetailsStepRefusal, type DetailsStepState } from '../journey'
+import { findDetailsStepRefusal, findDetailsStepRefusals, type DetailsStepState } from '../journey'
 import {
   GUEST_COMMS_CONSENT_TEXT_VERSION,
   GUEST_TABLE_COMPACT_CONSENT_NOTICE,
@@ -24,8 +24,6 @@ function state(overrides: Partial<DetailsStepState> = {}): DetailsStepState {
     revalidatingAvailability: false,
     selectedTime: '19:00',
     phone: '07700900000',
-    detailsUnlocked: true,
-    isKnownCustomer: false,
     firstName: 'Jane',
     email: '',
     highChairShortfall: null,
@@ -55,16 +53,41 @@ describe('email is required', () => {
     expect(refusal?.message).toMatch(/confirmation/i)
   })
 
-  it('exempts a known customer, who never sees the box', () => {
-    // The management app already holds their address and the form submits nothing for
-    // them, so demanding one would block a returning guest over an off-screen field.
-    expect(findDetailsStepRefusal(state({ isKnownCustomer: true, email: '' }))).toBeNull()
+  it('asks every guest, because the form no longer knows who is returning', () => {
+    // Returning guests used to be exempt because a number check hid the box from them.
+    // That check told anyone typing a number whether it was a customer's, so it went
+    // (review BK-107). There is no longer a state in which the box is hidden.
+    expect(Object.keys(state())).not.toContain('isKnownCustomer')
+    expect(Object.keys(state())).not.toContain('detailsUnlocked')
+    expect(findDetailsStepRefusal(state({ email: '' }))?.code).toBe('email_missing')
+  })
+})
+
+describe('a number the management app cannot text needs an email (review BK-162)', () => {
+  const NON_MOBILE_MESSAGE = 'We can only text UK mobile numbers, so please add an email for your confirmation.'
+
+  it.each([
+    ['01753 682707', 'a UK landline'],
+    ['+1 202 555 0123', 'an American number'],
+    ['+33 6 12 34 56 78', 'a French mobile'],
+  ])('refuses %j (%s) with no email, in its own words', (phone) => {
+    const refusals = findDetailsStepRefusals(state({ phone, email: '' }))
+    expect(refusals).toEqual([
+      { code: 'email_required_for_non_mobile', message: NON_MOBILE_MESSAGE, field: 'email' },
+    ])
   })
 
-  it('still checks a known customer address if one was somehow typed', () => {
-    const refusal = findDetailsStepRefusal(state({ isKnownCustomer: true, email: 'nope' }))
-    expect(refusal?.code).toBe('email_invalid')
+  it('still accepts that number once an email is given, so overseas guests can book', () => {
+    expect(findDetailsStepRefusal(state({ phone: '+1 202 555 0123', email: 'jane@example.com' }))).toBeNull()
+    expect(findDetailsStepRefusal(state({ phone: '01753 682707', email: 'jane@example.com' }))).toBeNull()
   })
+
+  it.each(['07700 900000', '+44 7700 900000', '0044 7700 900000', '+44 (0)7700 900000'])(
+    'treats %j as a UK mobile, so the usual words are used',
+    (phone) => {
+      expect(findDetailsStepRefusal(state({ phone, email: '' }))?.code).toBe('email_missing')
+    }
+  )
 })
 
 describe('a typed email is checked', () => {

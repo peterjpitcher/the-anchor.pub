@@ -73,9 +73,6 @@ function mockRequests(): { sent: SentRequest[]; bookingBodies: Array<Record<stri
         })
       )
     }
-    if (url.startsWith('/api/customers/lookup')) {
-      return Promise.resolve(jsonResponse({ success: true, data: { known: false, lookup_degraded: false } }))
-    }
     if (url === '/api/table-bookings') {
       bookingBodies.push(JSON.parse(String(init?.body || '{}')))
       return Promise.resolve(
@@ -117,7 +114,6 @@ async function bookATable(): Promise<{ payload: Record<string, unknown>; sent: S
   fireEvent.click(screen.getByRole('button', { name: 'Continue with 7pm' }))
 
   fireEvent.change(await screen.findByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-  fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
   await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
   fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })

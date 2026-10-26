@@ -56,7 +56,13 @@
 // Limited is described as based in Stanwell Moor, the one thing its own notice
 // says about where it is. Also written on a branch: if it goes live on a later
 // day, move the date to that day.
-export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-08'
+//
+// 26 October 2026: the paragraph saying a booking form checks whether we already
+// have your details when you type your mobile number was removed, because the
+// forms no longer do (review BK-107, owner decision D31: the website stops
+// saying whether a number is already known). Also written on a branch: if it
+// goes live on a later day, move the date to that day.
+export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-26'
 
 /**
  * SHA-256 of the notice's words as they stood on the date above, with the
@@ -72,4 +78,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-08'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  '36de6b995dae268acd3d9889116875bdc2aad0e87489adb1f235cce5a18d01ce'
+  'a3f6e82c25e3d508fbc3ffa7e64d523780a83d449c642a3b37b426ae7761c632'

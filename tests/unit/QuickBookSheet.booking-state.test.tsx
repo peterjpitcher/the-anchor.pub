@@ -511,3 +511,55 @@ describe('QuickBookSheet says what it is doing, in the full form\'s words', () =
     await waitFor(() => expect(outcome).toHaveFocus())
   })
 })
+
+// Review BK-162. The sheet takes no email, so a number the management app cannot
+// text (a landline, an overseas number) would leave the guest with no confirmation.
+// The guest is stopped under the number and pointed at the full form, which asks
+// for an email.
+describe('QuickBookSheet and a number that cannot take texts', () => {
+  const MESSAGE =
+    'We can only text UK mobile numbers. Please use the full booking form so you can add an email for your confirmation.'
+
+  it('stops a landline before anything is sent, says why under the number, and keeps the way to the full form', async () => {
+    const post = answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed' } } })
+
+    render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
+    fireEvent.click(await screen.findByRole('button', { name: /^7pm/ }))
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '01753 682707' } })
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    const book = screen.getByRole('button', { name: 'Book table' })
+    await waitFor(() => expect(book).toBeEnabled())
+    fireEvent.click(book)
+
+    const phone = screen.getByLabelText('Mobile number')
+    await waitFor(() => expect(phone).toHaveFocus())
+    expect(phone).toHaveAttribute('aria-invalid', 'true')
+    expect(phone).toHaveAccessibleDescription(MESSAGE)
+    expect(post).not.toHaveBeenCalled()
+    expect(screen.getByRole('link', { name: 'Use the full form' })).toHaveAttribute(
+      'href',
+      expect.stringMatching(/^\/book-table\?/)
+    )
+  })
+
+  it("shows the management app's refusal of such a number under the number, not as a booking", async () => {
+    answerBookingWith({
+      status: 400,
+      body: {
+        success: false,
+        code: 'EMAIL_REQUIRED_FOR_NON_MOBILE',
+        error: {
+          code: 'EMAIL_REQUIRED_FOR_NON_MOBILE',
+          message: 'We can only text UK mobile numbers, so please add an email for your confirmation. Call 01753 682707 if you need help.',
+        },
+      },
+    })
+
+    await bookAtSeven()
+
+    const phone = screen.getByLabelText('Mobile number')
+    await waitFor(() => expect(phone).toHaveAccessibleDescription(MESSAGE))
+    expect(phone).toHaveAttribute('aria-invalid', 'true')
+    expectNotBooked()
+  })
+})

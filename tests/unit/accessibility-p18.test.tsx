@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { ReviewsCarousel } from '@/components/reviews/ReviewsCarousel'
 import { PrivateBookingInquiryForm } from '@/components/PrivateBookingInquiryForm'
 import { Alert } from '@/components/ui/feedback/Alert'
@@ -230,27 +230,16 @@ describe('AX-009: the skip link sits above the sticky header', () => {
 })
 
 describe('AX-010 and AX-016: the private hire enquiry fields', () => {
-  beforeEach(() => {
-    ;(global as unknown as { fetch: jest.Mock }).fetch = jest.fn(() =>
-      Promise.resolve(
-        new Response(JSON.stringify({ success: true, data: { known: false } }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        })
-      )
-    )
-  })
-
-  it('names every field by its visible label, and offers autofill on the personal ones', async () => {
+  it('names every field by its visible label, and offers autofill on the personal ones', () => {
     render(<PrivateBookingInquiryForm />)
 
     const mobile = screen.getByLabelText(/Mobile Number/)
     expect(mobile).toHaveAttribute('type', 'tel')
     expect(mobile).toHaveAttribute('autocomplete', 'tel')
 
-    fireEvent.change(mobile, { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: /continue/i }))
-    await waitFor(() => expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument())
+    // Every box is on screen from the start: the number is no longer checked
+    // before the rest appear (review BK-107).
+    expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
 
     expect(screen.getByLabelText(/First Name/)).toHaveAttribute('autocomplete', 'given-name')
     expect(screen.getByLabelText(/Last Name/)).toHaveAttribute('autocomplete', 'family-name')

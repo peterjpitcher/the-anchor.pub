@@ -73,9 +73,6 @@ describe('event booking confirmation', () => {
   function respondWith(bookingData: Record<string, unknown>, capture?: { status: number; body: unknown }): jest.Mock {
     const mock = jest.fn(async (input: RequestInfo | URL) => {
       const url = typeof input === 'string' ? input : String(input)
-      if (url.startsWith('/api/customers/lookup')) {
-        return new Response(JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }), { status: 200 })
-      }
       if (url === '/api/event-bookings') {
         return new Response(JSON.stringify({ success: true, data: bookingData }), { status: 200 })
       }

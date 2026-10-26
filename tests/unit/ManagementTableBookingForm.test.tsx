@@ -101,7 +101,6 @@ function jsonResponse(body: unknown, init: ResponseInit = { status: 200 }): Resp
 function setupFetchMock(options: {
   availability: AvailabilityHandler | TimeSlot[]
   bookingResponse?: { state: string; [k: string]: unknown }
-  lookupResponse?: Record<string, unknown>
   capturePayload?: { ref: { current: Record<string, unknown> | null } }
   captureUrl?: { ref: { current: string | null } }
   captureHeaders?: { ref: { current: Record<string, string> | null } }
@@ -149,15 +148,6 @@ function setupFetchMock(options: {
             ...(result.calculation_state ? { calculation_state: result.calculation_state } : {}),
             ...(result.message ? { message: result.message } : {})
           }
-        })
-      )
-    }
-
-    if (url.startsWith('/api/customers/lookup')) {
-      return Promise.resolve(
-        jsonResponse({
-          success: true,
-          data: options.lookupResponse ?? { known: false, lookup_degraded: false }
         })
       )
     }
@@ -494,7 +484,6 @@ describe('ManagementTableBookingForm', () => {
 
     await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
@@ -541,7 +530,6 @@ describe('ManagementTableBookingForm', () => {
     await chooseTime(/7pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
@@ -571,7 +559,6 @@ describe('ManagementTableBookingForm', () => {
     await chooseTime(/10pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
@@ -622,7 +609,6 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.click(alternativeButton)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
@@ -650,7 +636,6 @@ describe('ManagementTableBookingForm', () => {
     await chooseTime(/7pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
@@ -767,21 +752,6 @@ describe('ManagementTableBookingForm', () => {
         )
       }
 
-      if (url.startsWith('/api/customers/lookup')) {
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              success: true,
-              data: { known: false, lookup_degraded: false }
-            }),
-            {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            }
-          )
-        )
-      }
-
       if (url === '/api/table-bookings') {
         submittedPayload = JSON.parse(String(init?.body || '{}'))
         // Simulate a 15+ booking where the management API set up the booking
@@ -862,7 +832,6 @@ describe('ManagementTableBookingForm', () => {
     await chooseTime(/1pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
@@ -960,15 +929,6 @@ describe('ManagementTableBookingForm', () => {
         )
       }
 
-      if (url.startsWith('/api/customers/lookup')) {
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }),
-            { status: 200, headers: { 'Content-Type': 'application/json' } }
-          )
-        )
-      }
-
       if (url === '/api/table-bookings') {
         return Promise.resolve(
           new Response(
@@ -1018,7 +978,6 @@ describe('ManagementTableBookingForm', () => {
     await chooseTime(/1pm/)
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900111' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
     await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
@@ -1174,7 +1133,6 @@ describe('ManagementTableBookingForm', () => {
       await chooseTime(/1pm/i)
 
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
@@ -1232,7 +1190,6 @@ describe('ManagementTableBookingForm', () => {
       await chooseTime(/7pm/)
 
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
 
@@ -1319,7 +1276,6 @@ describe('ManagementTableBookingForm', () => {
       await chooseTime(/7pm/)
 
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
@@ -1418,7 +1374,6 @@ describe('ManagementTableBookingForm', () => {
       await chooseTime(slotName)
 
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: phone } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: firstName } })
@@ -1618,14 +1573,6 @@ describe('ManagementTableBookingForm', () => {
             })
           )
         }
-        if (url.startsWith('/api/customers/lookup')) {
-          return Promise.resolve(
-            new Response(JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }), {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            })
-          )
-        }
         if (url.startsWith('/api/table-bookings/availability')) {
           const params = new URL(url, 'https://t.test').searchParams
           const date = params.get('date') || ''
@@ -1684,7 +1631,6 @@ describe('ManagementTableBookingForm', () => {
         await chooseTime(/1pm/i)
         await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -1737,7 +1683,6 @@ describe('ManagementTableBookingForm', () => {
       await chooseTime(/1pm/i)
       await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -1960,9 +1905,6 @@ describe('ManagementTableBookingForm', () => {
         const url = typeof input === 'string' ? input : input.toString()
         if (url.startsWith('/api/events?')) {
           return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
-        }
-        if (url.startsWith('/api/customers/lookup')) {
-          return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
         }
         if (url.startsWith('/api/table-bookings/availability')) return availability(url)
         return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
@@ -2286,7 +2228,6 @@ describe('ManagementTableBookingForm', () => {
       expect(screen.queryByText('Table for food')).not.toBeInTheDocument()
 
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -2478,7 +2419,6 @@ describe('ManagementTableBookingForm', () => {
 
       await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -2506,7 +2446,6 @@ describe('ManagementTableBookingForm', () => {
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
         await chooseTime(/7pm/)
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -2579,9 +2518,6 @@ describe('ManagementTableBookingForm', () => {
           if (url.startsWith('/api/events?')) {
             return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
           }
-          if (url.startsWith('/api/customers/lookup')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
-          }
           if (url.startsWith('/api/table-bookings/availability')) {
             return Promise.resolve(
               jsonResponse({
@@ -2637,7 +2573,6 @@ describe('ManagementTableBookingForm', () => {
 
         await chooseTime(/7pm/)
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -2682,7 +2617,6 @@ describe('ManagementTableBookingForm', () => {
         const alternatives = await screen.findAllByRole('button', { name: /8pm/i })
         fireEvent.click(alternatives[0])
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -2708,9 +2642,6 @@ describe('ManagementTableBookingForm', () => {
           }
           if (url.startsWith('/api/table-bookings/availability')) {
             return Promise.resolve(jsonResponse({ success: true, data }))
-          }
-          if (url.startsWith('/api/customers/lookup')) {
-            return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
           }
           if (url === '/api/table-bookings') {
             return Promise.resolve(
@@ -2803,7 +2734,6 @@ describe('ManagementTableBookingForm', () => {
       async function reachReview() {
         await chooseTime(/1pm/)
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -2841,9 +2771,6 @@ describe('ManagementTableBookingForm', () => {
             const url = typeof input === 'string' ? input : input.toString()
             if (url.startsWith('/api/events?')) {
               return Promise.resolve(jsonResponse({ success: true, data: { events: [] } }))
-            }
-            if (url.startsWith('/api/customers/lookup')) {
-              return Promise.resolve(jsonResponse({ success: true, data: { known: false } }))
             }
             if (url.startsWith('/api/table-bookings/availability')) {
               const date = new URL(url, 'https://t.test').searchParams.get('date') || ''
@@ -2901,7 +2828,6 @@ describe('ManagementTableBookingForm', () => {
           const alternatives = await screen.findAllByRole('button', { name: /8pm/i })
           fireEvent.click(alternatives[0])
           fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-          fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
           await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
           fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
           fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -2957,7 +2883,6 @@ describe('ManagementTableBookingForm', () => {
         await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
         await chooseTime(/7pm/)
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -3031,7 +2956,6 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
       await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -3080,7 +3004,6 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
       await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     }
 
@@ -3132,18 +3055,18 @@ describe('ManagementTableBookingForm', () => {
   // two-screen suite's "high-chair shortfall (owner decision D4)" block
   // covers it, including that the original request is what gets submitted.
 
-  // T3: the pre-verification lookup identifies nobody. The route returns at
-  // most { known: true }, and the form must complete the known-customer flow
-  // without any of the removed identity fields.
-  describe('phone lookup privacy (T3)', () => {
-    it('books for a recognised number with nothing identifying in the lookup response', async () => {
-      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
-      setupFetchMock({
-        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }],
-        lookupResponse: { known: true },
-        capturePayload
-      })
+  // Review BK-107 (owner decision D31): the form no longer says whether a number
+  // belongs to a customer. It used to look the number up before showing the name
+  // and email boxes, greet a known one ("Welcome back") and hide those boxes,
+  // which told anyone typing a number whether it was a customer's, and threw
+  // away a returning guest's new email (BK-078). Every box is now on screen from
+  // the start and the typed email always goes with the booking. A number the
+  // management app cannot text needs an email for the confirmation (BK-162).
+  describe('customer records: no number check, and the typed email always sent', () => {
+    const NON_MOBILE_MESSAGE = 'We can only text UK mobile numbers, so please add an email for your confirmation.'
 
+    async function reachDetails(options: Parameters<typeof setupFetchMock>[0]) {
+      setupFetchMock(options)
       render(<ManagementTableBookingForm />)
       fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
       fireEvent.blur(screen.getByLabelText('Party size'))
@@ -3151,61 +3074,108 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
       await chooseTime(/7pm/)
+    }
+
+    function bookingRequests() {
+      return ((global.fetch as jest.Mock).mock.calls as Array<[RequestInfo | URL, RequestInit | undefined]>)
+        .filter(([input]) => String(input) === '/api/table-bookings')
+    }
+
+    it('shows the name and email boxes at once, never checks the number, and sends the typed email', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      await reachDetails({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }],
+        capturePayload
+      })
+
+      // Nothing to press first: every box is there with the number.
+      expect(screen.getByLabelText('First Name')).toBeInTheDocument()
+      expect(screen.getByLabelText('Email address')).toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: 'Continue' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: 'Use Different Number' })).not.toBeInTheDocument()
+
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-
-      // Recognised: greeting shows, but no name is echoed (we do not have one)
-      // and the personal-details inputs stay hidden.
-      await waitFor(() => expect(screen.getByText(/Welcome back/i)).toBeInTheDocument())
-      expect(screen.queryByLabelText('First Name')).not.toBeInTheDocument()
-      expect(screen.queryByLabelText(/Last Name/i)).not.toBeInTheDocument()
-
-      // The number is asked about in the body of a POST. No address the form
-      // requests ever carries it, because addresses are what logs record.
-      const requests = (global.fetch as jest.Mock).mock.calls as Array<[RequestInfo | URL, RequestInit | undefined]>
-      const lookups = requests.filter(([input]) => String(input).includes('/api/customers/lookup'))
-      expect(lookups).toHaveLength(1)
-      expect(String(lookups[0][0])).toBe('/api/customers/lookup')
-      expect(lookups[0][1]?.method).toBe('POST')
-      expect(JSON.parse(String(lookups[0][1]?.body))).toEqual({ phone: '07700900000', default_country_code: '44' })
-      for (const [input] of requests) expect(String(input)).not.toContain('07700900000')
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'new-address@example.com' } })
       fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
       fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
       await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
       const payload = capturePayload.ref.current as Record<string, unknown>
       expect(payload.phone).toBe('07700900000')
-      // The management API resolves the record by phone; the browser holds
-      // and submits no identity data for known customers.
-      expect(payload.first_name).toBeUndefined()
-      expect(payload.last_name).toBeUndefined()
-      expect(payload.email).toBeUndefined()
+      expect(payload.first_name).toBe('Sam')
+      // Sent whoever the number belongs to; the management app keeps it for this booking.
+      expect(payload.email).toBe('new-address@example.com')
       await waitFor(() => expect(screen.getByText(/all booked in/i)).toBeInTheDocument())
+
+      expect(screen.queryByText(/Welcome back/i)).not.toBeInTheDocument()
+      expect(screen.queryByText(/New customer detected/i)).not.toBeInTheDocument()
+      expect(screen.queryByText(/recognise this number/i)).not.toBeInTheDocument()
+      const requests = (global.fetch as jest.Mock).mock.calls as Array<[RequestInfo | URL, RequestInit | undefined]>
+      expect(requests.some(([input]) => String(input).includes('/api/customers/lookup'))).toBe(false)
+      // No address the form requests ever carries the number.
+      for (const [input] of requests) expect(String(input)).not.toContain('07700900000')
     })
 
-    it('treats a legacy response with a customer record as known but uses none of it', async () => {
-      setupFetchMock({
-        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }],
-        lookupResponse: {
-          known: true,
-          customer: { first_name: 'Jane', last_name: 'Doe', full_name: 'Jane Doe', email: 'jane@example.com' }
-        }
+    it.each([
+      ['01753 682707', 'a landline'],
+      ['+1 202 555 0123', 'an overseas number']
+    ])('asks for an email beside the email box for %s (%s), and sends nothing', async (phone) => {
+      await reachDetails({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
       })
 
-      render(<ManagementTableBookingForm />)
-      fireEvent.change(screen.getByLabelText('Party size'), { target: { value: '2' } })
-      fireEvent.blur(screen.getByLabelText('Party size'))
-      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-07-07' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-      await chooseTime(/7pm/)
-      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: phone } })
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
 
-      await waitFor(() => expect(screen.getByText(/Welcome back/i)).toBeInTheDocument())
-      // Nothing from the record is rendered or retained.
-      expect(screen.queryByText(/Jane/)).not.toBeInTheDocument()
-      expect(screen.queryByText(/jane@example.com/)).not.toBeInTheDocument()
+      const emailBox = screen.getByLabelText('Email address')
+      await waitFor(() => expect(emailBox).toHaveAttribute('aria-invalid', 'true'))
+      expect(emailBox).toHaveAccessibleDescription(NON_MOBILE_MESSAGE)
+      await waitFor(() => expect(emailBox).toHaveFocus())
+      expect(bookingRequests()).toHaveLength(0)
+
+      // The same number books once an email is given: overseas guests are still welcome.
+      fireEvent.change(emailBox, { target: { value: 'sam@example.com' } })
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(bookingRequests()).toHaveLength(1))
+      const sent = JSON.parse(String(bookingRequests()[0][1]?.body)) as Record<string, unknown>
+      expect(sent).toMatchObject({ phone, email: 'sam@example.com' })
+    })
+
+    it('shows the management app refusing a number it cannot text beside the email box', async () => {
+      await reachDetails({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }],
+        bookingHandler: () =>
+          jsonResponse(
+            {
+              success: false,
+              code: 'EMAIL_REQUIRED_FOR_NON_MOBILE',
+              error: {
+                code: 'EMAIL_REQUIRED_FOR_NON_MOBILE',
+                message: `${NON_MOBILE_MESSAGE} Call 01753 682707 if you need help.`
+              }
+            },
+            { status: 400 }
+          )
+      })
+
+      // The website's own checks pass here (a UK mobile and an email), so this is the
+      // management app judging the number differently. The guest is still pointed at
+      // the email box, the one place they can put it right.
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      const emailBox = screen.getByLabelText('Email address')
+      await waitFor(() => expect(emailBox).toHaveAccessibleDescription(NON_MOBILE_MESSAGE))
+      expect(emailBox).toHaveAttribute('aria-invalid', 'true')
+      // Beside the box, not in the alert at the top of the card.
+      expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
+      expect(screen.queryByText(/all booked in/i)).not.toBeInTheDocument()
     })
   })
 
@@ -3228,7 +3198,6 @@ describe('ManagementTableBookingForm', () => {
     async function advanceTo7pmDetails() {
       await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
     }
 
@@ -3396,7 +3365,6 @@ describe('ManagementTableBookingForm', () => {
       await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
       await chooseTime(/7pm/)
       fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
       await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
       fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })

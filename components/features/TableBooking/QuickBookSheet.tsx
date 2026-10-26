@@ -35,6 +35,7 @@ import {
   type ManagementTableBookingResult,
 } from '@/lib/table-booking/submission'
 import { toGuestMessage } from '@/lib/guest-error-messages'
+import { QUICK_BOOK_NON_UK_MOBILE_MESSAGE, isEmailRequiredForNonMobileAnswer } from '@/lib/uk-mobile'
 import { wasConfirmationSent, type ConfirmationNotice } from '@/lib/confirmation-notice'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { SecurityCheckWaitingNote } from '@/components/security/SecurityCheckWaitingNote'
@@ -342,6 +343,15 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
       const data = body?.data || body
 
       if (!response.ok || !body || body?.success === false) {
+        // The management app cannot text this number, and this sheet takes no
+        // email, so nothing was booked. Said under the number, the box the
+        // guest has to change, pointing them to the full form.
+        if (isEmailRequiredForNonMobileAnswer(body)) {
+          trackBookingErrorShown({ code: 'quick_book_phone' })
+          setFieldErrors({ phone: QUICK_BOOK_NON_UK_MOBILE_MESSAGE })
+          setTimeout(() => phoneRef.current?.focus(), 0)
+          return
+        }
         // Through the shared mapper: a sentence with the phone number in it,
         // never a code and never the management app's own wording.
         // The sheet adds its own phone link under whatever it shows.

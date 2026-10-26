@@ -76,24 +76,6 @@ describe('ManagementEventBookingForm', () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
       const url = typeof input === 'string' ? input : input.toString()
 
-      if (url.startsWith('/api/customers/lookup')) {
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              success: true,
-              data: {
-                known: false,
-                lookup_degraded: false
-              }
-            }),
-            {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            }
-          )
-        )
-      }
-
       if (url === '/api/event-bookings') {
         return Promise.resolve(
           new Response(
@@ -440,24 +422,6 @@ describe('ManagementEventBookingForm', () => {
   it('submits a prepaid group booking with purchaser and attendee details', async () => {
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
       const url = typeof input === 'string' ? input : input.toString()
-
-      if (url.startsWith('/api/customers/lookup')) {
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              success: true,
-              data: {
-                known: false,
-                lookup_degraded: false
-              }
-            }),
-            {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            }
-          )
-        )
-      }
 
       if (url === '/api/event-bookings') {
         return Promise.resolve(
@@ -1057,7 +1021,7 @@ describe('ManagementEventBookingForm', () => {
     }
 
     /**
-     * Answers the booking POST and the customer lookup, and nothing else.
+     * Answers the booking POST, and nothing else.
      *
      * Local dev and this suite both point at the live management API, so an
      * unexpected URL is a real booking waiting to happen: it throws rather than
@@ -1066,13 +1030,6 @@ describe('ManagementEventBookingForm', () => {
     function respondWith(bookingData: Record<string, unknown>): void {
       ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL) => {
         const url = typeof input === 'string' ? input : String(input)
-
-        if (url.startsWith('/api/customers/lookup')) {
-          return new Response(
-            JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }),
-            { status: 200, headers: { 'Content-Type': 'application/json' } }
-          )
-        }
 
         if (url === '/api/event-bookings') {
           return new Response(JSON.stringify({ success: true, data: bookingData }), {
@@ -1665,6 +1622,24 @@ describe('ManagementEventBookingForm security check recovery', () => {
       expect(mockTurnstileReset).toHaveBeenCalledTimes(2)
     })
 
+    // Review BK-078: the email typed for this booking goes with the waitlist entry,
+    // so a guest whose number cannot take texts still hears when places come free.
+    it('sends the email typed for the booking with the waitlist entry', async () => {
+      const sent = answerFullThenQueued()
+      renderFullNight()
+      fillBookerDetails()
+      emitTurnstile('onSuccess', 'booking-token')
+      fireEvent.click(submitButton())
+
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
+      emitTurnstile('onSuccess', 'waitlist-token')
+      fireEvent.click(screen.getByRole('button', { name: 'Join Waitlist' }))
+
+      await waitFor(() => expect(screen.getByText(/on the waitlist/)).toBeInTheDocument())
+      expect(sent[1].url).toBe('/api/event-waitlist')
+      expect(sent[1].body.email).toBe('jane@example.com')
+    })
+
     it('explains the held button when no fresh token turns up', async () => {
       answerFullThenQueued()
       renderFullNight()
@@ -1758,4 +1733,88 @@ it('shows separately selectable ticket types even when their prices match', () =
   }} />)
   expect(screen.getByText('With alcohol')).toBeInTheDocument()
   expect(screen.getByText('Without alcohol')).toBeInTheDocument()
+})
+
+// Review BK-162. The management app can only text UK mobiles, so a guest booking
+// with a landline or an overseas number and no email would get no confirmation.
+// The email box was already required here; what changed is that such a number is
+// told why, beside the email box, and so is the management app's own refusal.
+describe('ManagementEventBookingForm and a number that cannot take texts', () => {
+  const NON_MOBILE_MESSAGE = 'We can only text UK mobile numbers, so please add an email for your confirmation.'
+  const EVENT = { id: 'event-fixture', name: 'Test event', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' as const }
+  let previousFetch: typeof global.fetch
+
+  beforeEach(() => {
+    previousFetch = global.fetch
+  })
+
+  afterEach(() => {
+    global.fetch = previousFetch
+  })
+
+  function fillWithout(phone: string, email: string) {
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: phone } })
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: email } })
+  }
+
+  it('asks for an email beside the email box for a landline, and sends nothing', async () => {
+    const post = jest.fn()
+    global.fetch = post as unknown as typeof fetch
+    render(<ManagementEventBookingForm event={EVENT} />)
+    fillWithout('01753 682707', '')
+
+    // Past the browser's own check on the required box, to reach the form's.
+    fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+
+    const emailBox = screen.getByLabelText('Email address')
+    await waitFor(() => expect(emailBox).toHaveAccessibleDescription(NON_MOBILE_MESSAGE))
+    expect(emailBox).toHaveAttribute('aria-invalid', 'true')
+    await waitFor(() => expect(emailBox).toHaveFocus())
+    expect(post).not.toHaveBeenCalled()
+    expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
+
+    // Typing an address clears it.
+    fireEvent.change(emailBox, { target: { value: 'jane@example.com' } })
+    expect(emailBox).not.toHaveAttribute('aria-invalid')
+  })
+
+  it('keeps its usual words for a UK mobile with no email', async () => {
+    global.fetch = jest.fn() as unknown as typeof fetch
+    render(<ManagementEventBookingForm event={EVENT} />)
+    fillWithout('07700900000', '')
+
+    fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+
+    expect(await screen.findByText('Please enter your email address so we can send your confirmation.')).toBeInTheDocument()
+    expect(screen.getByLabelText('Email address')).not.toHaveAttribute('aria-invalid')
+  })
+
+  it("shows the management app's refusal of such a number beside the email box", async () => {
+    global.fetch = jest.fn(async (input: RequestInfo | URL) => {
+      if (String(input) === '/api/event-bookings') {
+        return new Response(
+          JSON.stringify({
+            success: false,
+            error: {
+              code: 'EMAIL_REQUIRED_FOR_NON_MOBILE',
+              message: `${NON_MOBILE_MESSAGE} Call 01753 682707 if you need help.`
+            }
+          }),
+          { status: 400 }
+        )
+      }
+      throw new Error(`Unexpected fetch call: ${String(input)}`)
+    }) as unknown as typeof fetch
+    render(<ManagementEventBookingForm event={EVENT} />)
+    fillWithout('07700900000', 'jane@example.com')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
+
+    const emailBox = screen.getByLabelText('Email address')
+    await waitFor(() => expect(emailBox).toHaveAccessibleDescription(NON_MOBILE_MESSAGE))
+    expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
+    expect(screen.queryByText('Event booking confirmed')).not.toBeInTheDocument()
+  })
 })

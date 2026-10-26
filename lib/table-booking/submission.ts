@@ -21,25 +21,6 @@ import { CONFIRMED_BY_A_PERSON_WORDING } from '@/lib/guest-error-messages'
  * fingerprint. A retry of the same booking has to look like the same booking.
  */
 
-export type CustomerLookupState = 'idle' | 'loading' | 'known' | 'unknown'
-
-// The pre-verification lookup deliberately identifies nobody (review F10):
-// the route answers whether the number is known and nothing else. Known
-// customers keep their skip-the-details flow; the management API resolves the
-// customer record server-side from the phone number at booking time.
-export type CustomerLookupResult = {
-  known: boolean
-  lookup_degraded?: boolean
-}
-
-export function parseLookupResponse(payload: any): CustomerLookupResult {
-  const data = payload?.data || payload
-  return {
-    known: Boolean(data?.known),
-    lookup_degraded: Boolean(data?.lookup_degraded)
-  }
-}
-
 export type ManagementTableBookingResult = {
   fixture_id?: string
   state: 'confirmed' | 'pending_payment' | 'blocked'

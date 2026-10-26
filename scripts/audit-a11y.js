@@ -929,8 +929,8 @@ const whatHasFocus = () => {
  * through them in a real browser and checks each one, and checks where focus
  * lands at every step, which is what the review found broken.
  *
- * Nothing is sent. The availability, the number check and the suggested event
- * are answered here with fixtures, every other write to the site's API is
+ * Nothing is sent. The availability and the suggested event are answered
+ * here with fixtures, every other write to the site's API is
  * refused before it leaves the browser, and the refusals are what is being
  * checked, so no booking is ever completed.
  */
@@ -961,9 +961,6 @@ async function mockBookingApis(page) {
       },
     }))
   })
-  await page.route('**/api/customers/lookup', (route) =>
-    route.fulfill(json({ success: true, data: { known: false, lookup_degraded: false } }))
-  )
   // The events on the searched date: one prepaid night with questions per
   // ticket, the case the dated event row could no longer show.
   const fixtureEvent = (date) => ({
@@ -1043,14 +1040,9 @@ async function checkBookingJourney(browser, lists) {
     }
     await axeInto(lists.AxeBuilder, page, where('your details'), 'booking details', lists, '#booking-form')
 
-    // The number check: focus goes where the guest types next.
+    // The number, with nothing pressed after it: the name and email boxes are
+    // already there, because the number is no longer checked first (BK-107).
     await page.getByLabel('Mobile Number').fill('07700900123')
-    await page.getByRole('button', { name: 'Continue', exact: true }).click()
-    await page.getByLabel('First Name').waitFor({ timeout: 5000 })
-    const afterCheck = await focusAfter()
-    if (afterCheck.name !== 'First Name') {
-      problem('your details', `after the number check, focus is on "${afterCheck.name || 'the page'}", not First Name`)
-    }
 
     // Confirm with the fields empty: each refusal beside its field, focus on
     // the first (BK-102). Refused here, so nothing is sent.

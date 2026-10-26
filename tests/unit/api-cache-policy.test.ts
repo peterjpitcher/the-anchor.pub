@@ -33,7 +33,6 @@ describe('middleware: /api reads are not stored by default', () => {
     // Personal, or keyed by something personal.
     '/api/parking/bookings/00000000-0000-4000-8000-000000000000',
     '/api/table-bookings/ABC123?customer_email=guest%40example.com',
-    '/api/customers/lookup?phone=07700900000',
     '/api/booking/payment-return?PayerID=abc',
     // One event, with its live seat count, read by the booking form.
     '/api/events/abc',
@@ -76,7 +75,7 @@ describe('middleware: /api reads are not stored by default', () => {
     // its own public header (reviews, the calendar files) replaces the
     // middleware's Cache-Control but would be left carrying this one, which
     // would silently switch its caching off.
-    for (const path of ['/api/reviews', '/api/calendar/event/quiz-night', '/api/customers/lookup?phone=1']) {
+    for (const path of ['/api/reviews', '/api/calendar/event/quiz-night']) {
       expect(headersFor(path).get('cdn-cache-control')).toBeNull()
     }
   })
@@ -152,31 +151,6 @@ describe('routes that say private, no-store themselves', () => {
     const failed = await GET(new Request('https://www.the-anchor.pub/api/parking/availability'))
     expect(failed.status).toBe(503)
     expect(failed.headers.get('cache-control')).toBe('private, no-store')
-  })
-
-  it('the phone lookup: known, degraded and refused', async () => {
-    const { POST } = await import('@/app/api/customers/lookup/route')
-    const request = (body: Record<string, unknown>, lastOctet = Math.floor(Math.random() * 200) + 1) =>
-      new NextRequest('https://www.the-anchor.pub/api/customers/lookup', {
-        method: 'POST',
-        headers: { 'x-forwarded-for': `203.0.113.${lastOctet}`, 'content-type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-
-    global.fetch = jest.fn().mockResolvedValueOnce(
-      new Response(JSON.stringify({ success: true, data: { known: true } }), { status: 200 })
-    ) as any
-    const known = await POST(request({ phone: '07700900000' }))
-    expect(known.status).toBe(200)
-    expect(known.headers.get('cache-control')).toBe('private, no-store')
-
-    global.fetch = jest.fn().mockRejectedValueOnce(new Error('network')) as any
-    const degraded = await POST(request({ phone: '07700900001' }))
-    expect(degraded.headers.get('cache-control')).toBe('private, no-store')
-
-    const missing = await POST(request({}, 250))
-    expect(missing.status).toBe(400)
-    expect(missing.headers.get('cache-control')).toBe('private, no-store')
   })
 })
 

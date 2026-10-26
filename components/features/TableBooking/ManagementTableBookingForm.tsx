@@ -125,13 +125,16 @@ import {
   applyRequestedExtras,
   buildTableBookingPayload,
   confirmationDeliveryCopy,
-  parseLookupResponse,
   paymentLinkDestination,
   paymentLinkReminderCopy,
-  type CustomerLookupState,
   type ManagementTableBookingResult,
 } from '@/lib/table-booking/submission'
 import { GUEST_PHONE, toGuestMessage } from '@/lib/guest-error-messages'
+import {
+  EMAIL_REQUIRED_FOR_NON_MOBILE_CODE,
+  NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE,
+  isEmailRequiredForNonMobileAnswer,
+} from '@/lib/uk-mobile'
 
 // The booking error alert prints its own "Call 01753 682707" line when the
 // sentence does not carry the number, so sentences are kept as written.
@@ -346,9 +349,6 @@ export function ManagementTableBookingForm({
   } = useAvailabilityRequests()
 
   const [phone, setPhone] = useState('')
-  const [lookupState, setLookupState] = useState<CustomerLookupState>('idle')
-  const [lookupError, setLookupError] = useState<string | null>(null)
-  const [lookupDegraded, setLookupDegraded] = useState(false)
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -947,8 +947,6 @@ export function ManagementTableBookingForm({
   const groupDepositNote = groupDepositRefundNote
     ? `${LARGE_GROUP_DEPOSIT_POLICY_COPY} ${groupDepositRefundNote}`
     : LARGE_GROUP_DEPOSIT_POLICY_COPY
-  const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
-  const isKnownCustomer = lookupState === 'known'
   const selectedDateEvents = suggestedEvents.events
   const selectedDateEventsLoading = suggestedEvents.loading
   const selectedDateEventError = suggestedEvents.error
@@ -1846,69 +1844,6 @@ export function ManagementTableBookingForm({
     )
   }
 
-  async function handlePhoneLookup() {
-    setLookupError(null)
-    setError(null)
-    setLookupDegraded(false)
-
-    if (!phone.trim()) {
-      setLookupError('Please enter your mobile number first.')
-      return
-    }
-
-    setLookupState('loading')
-
-    try {
-      // In the body, never the address: a phone number in a web address is
-      // recorded by every log and history that sees the request.
-      const response = await fetch('/api/customers/lookup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: phone.trim(), default_country_code: '44' }),
-        cache: 'no-store'
-      })
-      const payload = await response.json()
-
-      if (!response.ok || payload?.success === false) {
-        // Never the raw field: it once held the upstream's whole JSON answer.
-        throw new Error(toGuestMessage(payload?.error, 'customer_lookup'))
-      }
-
-      const lookup = parseLookupResponse(payload)
-
-      if (lookup.known) {
-        setLookupState('known')
-        setLookupDegraded(false)
-      } else {
-        setLookupState('unknown')
-        setLookupDegraded(Boolean(lookup.lookup_degraded))
-      }
-      // The Continue button just pressed is replaced by "Use Different
-      // Number", so focus goes where the guest types next: their first name,
-      // or the notes for a number we already know (review BK-103).
-      setFieldFocusRequest((previous) => ({
-        field: lookup.known ? 'notes' : 'firstName',
-        sequence: (previous?.sequence ?? 0) + 1
-      }))
-    } catch (lookupFailure: any) {
-      trackBookingErrorShown({ code: 'lookup_failed' })
-      setLookupState('idle')
-      setLookupError(toGuestMessage(lookupFailure, 'customer_lookup'))
-      setLookupDegraded(false)
-    }
-  }
-
-  function resetPhoneLookup() {
-    setLookupState('idle')
-    setLookupError(null)
-    setLookupDegraded(false)
-    setFirstName('')
-    setLastName('')
-    setEmail('')
-    setError(null)
-    setFieldErrors({})
-  }
-
   /**
    * May the guest leave the details step? `alsoRefusePolicy` adds the policy
    * tick to the field messages when there are others to show, so one press of
@@ -1919,8 +1854,6 @@ export function ManagementTableBookingForm({
       revalidatingAvailability,
       selectedTime,
       phone,
-      detailsUnlocked,
-      isKnownCustomer,
       firstName,
       email,
       highChairShortfall,
@@ -2098,9 +2031,10 @@ export function ManagementTableBookingForm({
     const trimmedPhone = phone.trim()
     const resolvedFirstName = firstName.trim()
     const resolvedLastName = lastName.trim()
-    // Known customers submit no email; the management API already holds their
-    // record and resolves it from the phone number.
-    const resolvedEmail = (isKnownCustomer ? undefined : email.trim()) || undefined
+    // Always the email typed for this booking. Returning customers used to send
+    // none, so a changed address was thrown away and their confirmation went to
+    // the old one (review BK-078); the management app now keeps it per booking.
+    const resolvedEmail = email.trim() || undefined
     const trimmedNotes = notes.trim()
     if (fixtureAttached && (fixtureUnavailable || !activeFixture)) {
       showBookingError('screening_unavailable', 'We cannot confirm this screening. Check the tournament page or choose a normal booking below.')
@@ -2242,6 +2176,18 @@ export function ManagementTableBookingForm({
 
       if (!response.ok || body?.success === false) {
         if (body?.code === 'SCREENING_UNAVAILABLE' && fixtureAttached) setFixtureUnavailable(true)
+        // The management app cannot text this number and has no email to send
+        // the confirmation to, so nothing was booked. Said beside the email box,
+        // where the guest can put it right, rather than in the alert above.
+        if (isEmailRequiredForNonMobileAnswer(body)) {
+          setUncertainAttempt(null)
+          showFieldErrors([{
+            field: 'email',
+            code: EMAIL_REQUIRED_FOR_NON_MOBILE_CODE.toLowerCase(),
+            message: NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE
+          }])
+          return
+        }
         throw new Error(toGuestMessage(body?.error ?? data?.error, 'table_booking', OWN_PHONE_LINE))
       }
 
@@ -2326,8 +2272,6 @@ export function ManagementTableBookingForm({
     suggestedEvents.resetDismissals()
     setSelectedSuggestedEvent(null)
     setPhone('')
-    setLookupState('idle')
-    setLookupError(null)
     setFirstName('')
     setLastName('')
     setEmail('')
@@ -2931,10 +2875,12 @@ export function ManagementTableBookingForm({
               </div>
             ) : null}
 
+            {/* Every box is on screen from the start. The form used to check
+                the number first and then say whether it was a customer, which
+                told anyone typing a number whether it belonged to one (review
+                BK-107). The management app matches the customer by phone when
+                the booking arrives. */}
             <div className="rounded-md border border-line bg-surface-sunk p-4">
-              {/* The number check runs from the button below, so focus stays
-                  there and its refusal is announced as it appears, directly
-                  under the box it is about. */}
               <Input
                 ref={phoneInputRef}
                 id={PHONE_INPUT_ID}
@@ -2945,136 +2891,84 @@ export function ManagementTableBookingForm({
                 autoComplete="tel"
                 required
                 value={phone}
-                disabled={detailsUnlocked}
                 onChange={(event) => {
                   markFunnelStart()
                   setPhone(event.target.value)
-                  setLookupError(null)
                   clearFieldError('phone')
                 }}
                 placeholder="07xxx xxxxxx"
                 helperText="We only use this for booking confirmation and reminders."
-                error={fieldErrors.phone || lookupError || undefined}
-                announceError
+                error={fieldErrors.phone || undefined}
               />
+            </div>
 
-              <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                {!detailsUnlocked ? (
-                  <Button
-                    type="button"
-                    size="md"
-                    className="w-full sm:w-auto min-h-12"
-                    loading={lookupState === 'loading'}
-                    onClick={handlePhoneLookup}
-                  >
-                    Continue
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    size="md"
-                    variant="outline"
-                    className="w-full sm:w-auto min-h-12"
-                    onClick={resetPhoneLookup}
-                  >
-                    Use Different Number
-                  </Button>
-                )}
-              </div>
-
-              {/* Always on the page, and only its words change, so a screen
-                  reader announces the answer to the number check. A region
-                  that arrives already filled is easily missed. */}
-              <div role="status">
-                {isKnownCustomer ? (
-                  <p className="mt-3 text-sm font-medium text-accent-text">
-                    Welcome back. We recognise this number, so we&apos;ve skipped your personal details.
-                  </p>
-                ) : null}
-
-                {lookupState === 'unknown' ? (
-                  <p className="mt-3 text-sm font-medium text-ink">
-                    {lookupDegraded
-                      ? 'We could not verify this number right now. Please continue by entering your details below.'
-                      : 'New customer detected. Please complete your details below.'}
-                  </p>
-                ) : null}
+            <div className="grid gap-4 md:grid-cols-2">
+              <Input
+                ref={firstNameInputRef}
+                label="First Name"
+                type="text"
+                size="lg"
+                autoComplete="given-name"
+                required
+                value={firstName}
+                onChange={(event) => {
+                  setFirstName(event.target.value)
+                  clearFieldError('firstName')
+                }}
+                placeholder="John"
+                error={fieldErrors.firstName}
+              />
+              <Input
+                label="Last name (optional)"
+                type="text"
+                size="lg"
+                autoComplete="family-name"
+                value={lastName}
+                onChange={(event) => setLastName(event.target.value)}
+                placeholder="Smith"
+              />
+              <div className="md:col-span-2">
+                <Input
+                  ref={emailInputRef}
+                  label="Email address"
+                  type="email"
+                  size="lg"
+                  required
+                  inputMode="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value)
+                    clearFieldError('email')
+                  }}
+                  placeholder="name@example.com"
+                  hint="So we can send your confirmation and tell you about any changes."
+                  error={fieldErrors.email}
+                />
               </div>
             </div>
 
-            {detailsUnlocked && !isKnownCustomer ? (
-              <div className="grid gap-4 md:grid-cols-2">
-                <Input
-                  ref={firstNameInputRef}
-                  label="First Name"
-                  type="text"
-                  size="lg"
-                  autoComplete="given-name"
-                  required
-                  value={firstName}
-                  onChange={(event) => {
-                    setFirstName(event.target.value)
-                    clearFieldError('firstName')
-                  }}
-                  placeholder="John"
-                  error={fieldErrors.firstName}
-                />
-                <Input
-                  label="Last name (optional)"
-                  type="text"
-                  size="lg"
-                  autoComplete="family-name"
-                  value={lastName}
-                  onChange={(event) => setLastName(event.target.value)}
-                  placeholder="Smith"
-                />
-                <div className="md:col-span-2">
-                  <Input
-                    ref={emailInputRef}
-                    label="Email address"
-                    type="email"
-                    size="lg"
-                    required
-                    inputMode="email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={(event) => {
-                      setEmail(event.target.value)
-                      clearFieldError('email')
-                    }}
-                    placeholder="name@example.com"
-                    hint="So we can send your confirmation and tell you about any changes."
-                    error={fieldErrors.email}
-                  />
-                </div>
-              </div>
-            ) : null}
+            <Textarea
+              ref={notesInputRef}
+              label="Notes (optional)"
+              value={notes}
+              maxLength={notesAllowance}
+              hint={`${Math.max(0, notesAllowance - notes.length)} characters remaining${activeFixture ? ", match details are included separately" : ""}.`}
+              onChange={(event) => {
+                setNotes(event.target.value)
+                clearFieldError('notes')
+              }}
+              placeholder="Special requests, dietary needs, occasion details..."
+              rows={3}
+              error={fieldErrors.notes}
+            />
 
-            {detailsUnlocked ? (
-              <Textarea
-                ref={notesInputRef}
-                label="Notes (optional)"
-                value={notes}
-                maxLength={notesAllowance}
-                hint={`${Math.max(0, notesAllowance - notes.length)} characters remaining${activeFixture ? ", match details are included separately" : ""}.`}
-                onChange={(event) => {
-                  setNotes(event.target.value)
-                  clearFieldError('notes')
-                }}
-                placeholder="Special requests, dietary needs, occasion details..."
-                rows={3}
-                error={fieldErrors.notes}
-              />
-            ) : null}
-
-            {detailsUnlocked ? (
-              <CommunicationConsentFields
-                value={communicationConsent}
-                onChange={setCommunicationConsent}
-                variant="compact"
-                notice={GUEST_TABLE_COMPACT_CONSENT_NOTICE}
-              />
-            ) : null}
+            <CommunicationConsentFields
+              value={communicationConsent}
+              onChange={setCommunicationConsent}
+              variant="compact"
+              notice={GUEST_TABLE_COMPACT_CONSENT_NOTICE}
+            />
 
             <p className="text-sm text-ink-muted">
               Plans changed?{' '}
@@ -3117,7 +3011,7 @@ export function ManagementTableBookingForm({
                   />
                 </div>
 
-                {detailsUnlocked && !uncertainAttempt && TURNSTILE_SITE_KEY && (
+                {!uncertainAttempt && TURNSTILE_SITE_KEY && (
                   <TurnstileField
                     id="table-booking-turnstile"
                     turnstileRef={turnstileRef}
@@ -3125,32 +3019,30 @@ export function ManagementTableBookingForm({
                   />
                 )}
 
-                {detailsUnlocked ? (
-                  <div>
-                    <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-ink">
-                      <input
-                        ref={policyCheckboxRef}
-                        type="checkbox"
-                        checked={policyAccepted}
-                        aria-invalid={fieldErrors.policy ? true : undefined}
-                        aria-describedby={fieldErrors.policy ? POLICY_ERROR_ID : undefined}
-                        onChange={(event) => {
-                          setPolicyAccepted(event.target.checked)
-                          if (event.target.checked) clearFieldError('policy')
-                        }}
-                        className="mt-1 accent-anchor-green"
-                      />
-                      <span>
-                        I understand The Anchor&apos;s booking and no-show policy, and I agree to continue.
-                      </span>
-                    </label>
-                    {fieldErrors.policy ? (
-                      <p id={POLICY_ERROR_ID} className="text-sm text-anchor-danger">
-                        {fieldErrors.policy}
-                      </p>
-                    ) : null}
-                  </div>
-                ) : null}
+                <div>
+                  <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-ink">
+                    <input
+                      ref={policyCheckboxRef}
+                      type="checkbox"
+                      checked={policyAccepted}
+                      aria-invalid={fieldErrors.policy ? true : undefined}
+                      aria-describedby={fieldErrors.policy ? POLICY_ERROR_ID : undefined}
+                      onChange={(event) => {
+                        setPolicyAccepted(event.target.checked)
+                        if (event.target.checked) clearFieldError('policy')
+                      }}
+                      className="mt-1 accent-anchor-green"
+                    />
+                    <span>
+                      I understand The Anchor&apos;s booking and no-show policy, and I agree to continue.
+                    </span>
+                  </label>
+                  {fieldErrors.policy ? (
+                    <p id={POLICY_ERROR_ID} className="text-sm text-anchor-danger">
+                      {fieldErrors.policy}
+                    </p>
+                  ) : null}
+                </div>
 
                 <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">
                   <Button
@@ -3165,29 +3057,25 @@ export function ManagementTableBookingForm({
                     Back
                   </Button>
 
-                  {detailsUnlocked ? (
-                    <Button
-                      type="button"
-                      variant="primary"
-                      size="lg"
-                      className="w-full sm:w-auto"
-                      loading={loading}
-                      // Reachable while the security check runs, with the
-                      // reason beside it, rather than greyed out and skipped
-                      // by the Tab key with nothing said (review BK-198).
-                      unavailable={awaitingSecurityCheck}
-                      aria-describedby={SECURITY_NOTE_ID}
-                      icon={<Check aria-hidden="true" className="h-4 w-4" />}
-                      iconPosition="right"
-                      onClick={handleConfirmBooking}
-                    >
-                      {requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}
-                    </Button>
-                  ) : null}
+                  <Button
+                    type="button"
+                    variant="primary"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                    loading={loading}
+                    // Reachable while the security check runs, with the
+                    // reason beside it, rather than greyed out and skipped
+                    // by the Tab key with nothing said (review BK-198).
+                    unavailable={awaitingSecurityCheck}
+                    aria-describedby={SECURITY_NOTE_ID}
+                    icon={<Check aria-hidden="true" className="h-4 w-4" />}
+                    iconPosition="right"
+                    onClick={handleConfirmBooking}
+                  >
+                    {requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}
+                  </Button>
                 </div>
-                {detailsUnlocked ? (
-                  <SecurityCheckWaitingNote id={SECURITY_NOTE_ID} waiting={awaitingSecurityCheck} />
-                ) : null}
+                <SecurityCheckWaitingNote id={SECURITY_NOTE_ID} waiting={awaitingSecurityCheck} />
               </>
             )}
           </div>

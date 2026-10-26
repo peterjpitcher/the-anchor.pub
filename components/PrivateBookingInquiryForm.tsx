@@ -14,29 +14,17 @@ import {
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
-type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
-
-// The pre-verification lookup deliberately identifies nobody (review F10): the
-// route answers whether the number is known and nothing else. The management
-// API resolves known customers server-side from the phone number on submit.
-type CustomerLookupResult = {
-    known: boolean
-    lookup_degraded?: boolean
-}
+// Every box is on screen from the start, and nothing is checked before the
+// enquiry is sent. The form used to look the number up first and greet a
+// customer it recognised, which told anyone typing a number whether it
+// belonged to one, and held the enquiry back until the lookup answered
+// (review BK-107). The management API matches the customer by phone on submit.
 
 interface Props {
     initialData?: Partial<PrivateBookingRequest>
     trackingSpaceId?: string
     trackingSpaceName?: string
     onCancel?: () => void
-}
-
-function parseLookupResponse(payload: any): CustomerLookupResult {
-    const data = payload?.data || payload
-    return {
-        known: Boolean(data?.known),
-        lookup_degraded: Boolean(data?.lookup_degraded)
-    }
 }
 
 export function PrivateBookingInquiryForm({
@@ -53,9 +41,6 @@ export function PrivateBookingInquiryForm({
     const fieldId = useId()
     const [error, setError] = useState<string | null>(null)
     const [phone, setPhone] = useState(initialData?.contact_phone || '')
-    const [lookupState, setLookupState] = useState<LookupState>('idle')
-    const [lookupError, setLookupError] = useState<string | null>(null)
-    const [lookupDegraded, setLookupDegraded] = useState(false)
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
     const turnstileRef = useRef<TurnstileFieldRef>(null)
     const [honeypot, setHoneypot] = useState('')
@@ -80,8 +65,6 @@ export function PrivateBookingInquiryForm({
     const bookingItems = initialData?.items || []
     const selectedBookingSpaceId = bookingItems.find((item) => item.item_type === 'space')?.space_id
     const analyticsSpaceId = trackingSpaceId || selectedBookingSpaceId
-    const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
-    const isKnownCustomer = lookupState === 'known'
 
     const trackEnquiryStartedOnce = () => {
         if (enquiryStartedRef.current) return
@@ -95,87 +78,19 @@ export function PrivateBookingInquiryForm({
         })
     }
 
-    const handlePhoneLookup = async () => {
-        setLookupError(null)
-        setError(null)
-        setLookupDegraded(false)
-
-        if (!phone.trim()) {
-            setLookupError('Please enter a mobile number first.')
-            return
-        }
-
-        setLookupState('loading')
-
-        try {
-            // In the body, never the address: a phone number in a web address is
-            // recorded by every log and history that sees the request.
-            const response = await fetch('/api/customers/lookup', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ phone: phone.trim(), default_country_code: '44' }),
-              cache: 'no-store'
-            })
-            const payload = await response.json()
-
-            if (!response.ok || payload?.success === false) {
-                throw new Error(toGuestMessage(payload?.error, 'customer_lookup'))
-            }
-
-            const lookup = parseLookupResponse(payload)
-
-            if (lookup.known) {
-                setLookupState('known')
-                setLookupDegraded(false)
-                // No prefill: the lookup deliberately returns no personal
-                // details (review F10). Recognising the number is therefore
-                // only a greeting, and must NOT hide the name and email fields:
-                // nothing fills them any more, so hiding them submitted an
-                // empty enquiry.
-                setFormData((previous) => ({
-                    ...previous,
-                    contact_phone: phone.trim()
-                }))
-            } else {
-                setLookupState('unknown')
-                setLookupDegraded(Boolean(lookup.lookup_degraded))
-                setFormData((previous) => ({
-                    ...previous,
-                    contact_phone: phone.trim()
-                }))
-            }
-        } catch (lookupFailure: any) {
-            setLookupState('idle')
-            setLookupError(toGuestMessage(lookupFailure, 'customer_lookup'))
-            setLookupDegraded(false)
-        }
-    }
-
-    const resetPhoneLookup = () => {
-        setLookupState('idle')
-        setLookupError(null)
-        setLookupDegraded(false)
-        setError(null)
-        setFormData((previous) => ({
-            ...previous,
-            contact_phone: phone.trim()
-        }))
-    }
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
 
-        if (!detailsUnlocked) {
+        if (!phone.trim()) {
             setLoading(false)
-            setError('Please verify your mobile number first.')
+            setError('Please enter your mobile number.')
             return
         }
 
-        // Applies to recognised numbers too. The lookup no longer supplies a
-        // name, so there is nothing to fall back to: an absent name is a
-        // visible validation error the guest can fix, never a placeholder.
+        // An absent name is a visible validation error the guest can fix,
+        // never a placeholder.
         if (!formData.customer_first_name.trim() || !formData.customer_last_name?.trim()) {
             setLoading(false)
             setError('Please enter your first name and last name.')
@@ -270,14 +185,13 @@ export function PrivateBookingInquiryForm({
                     <h4 className="font-medium text-ink-strong border-b border-line pb-2">Contact Details</h4>
                     <div>
                         <label htmlFor={`${fieldId}-mobile-number`} className="block text-sm font-medium text-ink mb-1">Mobile Number *</label>
-                        <p className="text-xs text-ink-muted mb-1">Enter your mobile so we can confirm your enquiry and check whether you are already in our system.</p>
+                        <p className="text-xs text-ink-muted mb-1">Enter your mobile so we can confirm your enquiry.</p>
                         <input
                             id={`${fieldId}-mobile-number`}
                             autoComplete="tel"
                             required
                             type="tel"
                             value={phone}
-                            disabled={detailsUnlocked}
                             onChange={e => {
                                 trackEnquiryStartedOnce()
                                 setPhone(e.target.value)
@@ -285,217 +199,170 @@ export function PrivateBookingInquiryForm({
                             className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10 disabled:opacity-60"
                         />
                     </div>
-
-                    <div className="flex flex-wrap gap-2">
-                        {!detailsUnlocked ? (
-                            <button
-                                type="button"
-                                onClick={handlePhoneLookup}
-                                disabled={lookupState === 'loading'}
-                                className="px-4 py-2 bg-anchor-gold-dark hover:bg-anchor-green text-white font-semibold rounded-pill disabled:opacity-50"
-                            >
-                                {lookupState === 'loading' ? 'Checking...' : 'Continue'}
-                            </button>
-                        ) : (
-                            <button
-                                type="button"
-                                onClick={resetPhoneLookup}
-                                className="px-4 py-2 border border-line-strong rounded-pill text-ink hover:bg-surface-sunk"
-                            >
-                                Use Different Number
-                            </button>
-                        )}
-                    </div>
-
-                    {lookupError && (
-                        <div className="p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-200">
-                            {lookupError}
-                        </div>
-                    )}
-
-                    {isKnownCustomer && (
-                        <div className="p-3 bg-anchor-green/5 text-accent rounded-lg text-sm border border-anchor-green/20">
-                            Welcome back. Please fill in your details below and we will match them to your record.
-                        </div>
-                    )}
-
-                    {lookupState === 'unknown' && (
-                        <div className="p-3 bg-anchor-gold-dark/10 text-accent-text rounded-lg text-sm border border-anchor-gold-dark/30">
-                            {lookupDegraded
-                                ? 'We could not verify this number right now. Please continue by entering your details below.'
-                                : 'New customer detected. Please enter your personal details below.'}
-                        </div>
-                    )}
                 </div>
 
-                {detailsUnlocked && (
-                    <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Rendered for recognised numbers too. These used to be
-                            hidden because the lookup prefilled them; it no
-                            longer returns any personal data, so hiding them
-                            filed the enquiry under a placeholder name with no
-                            email address to reply to. */}
-                        <div className="space-y-4">
-                                <h4 className="font-medium text-ink-strong border-b border-line pb-2">Personal Details</h4>
-
-                                <div>
-                                    <label htmlFor={`${fieldId}-first-name`} className="block text-sm font-semibold text-ink mb-1">First Name *</label>
-                                    <input
-                                        id={`${fieldId}-first-name`}
-                                        autoComplete="given-name"
-                                        required
-                                        type="text"
-                                        value={formData.customer_first_name}
-                                        onChange={e => {
-                                            trackEnquiryStartedOnce()
-                                            setFormData({ ...formData, customer_first_name: e.target.value })
-                                        }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor={`${fieldId}-last-name`} className="block text-sm font-semibold text-ink mb-1">Last Name *</label>
-                                    <input
-                                        id={`${fieldId}-last-name`}
-                                        autoComplete="family-name"
-                                        required
-                                        type="text"
-                                        value={formData.customer_last_name || ''}
-                                        onChange={e => {
-                                            trackEnquiryStartedOnce()
-                                            setFormData({ ...formData, customer_last_name: e.target.value })
-                                        }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label htmlFor={`${fieldId}-email`} className="block text-sm font-semibold text-ink mb-1">Email (Optional)</label>
-                                    <input
-                                        id={`${fieldId}-email`}
-                                        autoComplete="email"
-                                        type="email"
-                                        value={formData.contact_email || ''}
-                                        onChange={e => {
-                                            trackEnquiryStartedOnce()
-                                            setFormData({ ...formData, contact_email: e.target.value })
-                                        }}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
-                                    />
-                                </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            <h4 className="font-medium text-ink-strong border-b border-line pb-2">Event Details</h4>
+                {/* The name and email boxes are always shown: the management API
+                    matches a returning customer by phone, and keeps what was
+                    typed on the enquiry. */}
+                <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                            <h4 className="font-medium text-ink-strong border-b border-line pb-2">Personal Details</h4>
 
                             <div>
-                                <label htmlFor={`${fieldId}-preferred-date`} className="block text-sm font-semibold text-ink mb-1">Preferred Date</label>
+                                <label htmlFor={`${fieldId}-first-name`} className="block text-sm font-semibold text-ink mb-1">First Name *</label>
                                 <input
-                                    id={`${fieldId}-preferred-date`}
-                                    type="date"
-                                    value={formData.event_date || ''}
-                                    onChange={e => setFormData({ ...formData, event_date: e.target.value })}
+                                    id={`${fieldId}-first-name`}
+                                    autoComplete="given-name"
+                                    required
+                                    type="text"
+                                    value={formData.customer_first_name}
+                                    onChange={e => {
+                                        trackEnquiryStartedOnce()
+                                        setFormData({ ...formData, customer_first_name: e.target.value })
+                                    }}
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor={`${fieldId}-last-name`} className="block text-sm font-semibold text-ink mb-1">Last Name *</label>
+                                <input
+                                    id={`${fieldId}-last-name`}
+                                    autoComplete="family-name"
+                                    required
+                                    type="text"
+                                    value={formData.customer_last_name || ''}
+                                    onChange={e => {
+                                        trackEnquiryStartedOnce()
+                                        setFormData({ ...formData, customer_last_name: e.target.value })
+                                    }}
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor={`${fieldId}-email`} className="block text-sm font-semibold text-ink mb-1">Email (Optional)</label>
+                                <input
+                                    id={`${fieldId}-email`}
+                                    autoComplete="email"
+                                    type="email"
+                                    value={formData.contact_email || ''}
+                                    onChange={e => {
+                                        trackEnquiryStartedOnce()
+                                        setFormData({ ...formData, contact_email: e.target.value })
+                                    }}
+                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                />
+                            </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        <h4 className="font-medium text-ink-strong border-b border-line pb-2">Event Details</h4>
+
+                        <div>
+                            <label htmlFor={`${fieldId}-preferred-date`} className="block text-sm font-semibold text-ink mb-1">Preferred Date</label>
+                            <input
+                                id={`${fieldId}-preferred-date`}
+                                type="date"
+                                value={formData.event_date || ''}
+                                onChange={e => setFormData({ ...formData, event_date: e.target.value })}
+                                data-native-date-time="true"
+                                className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div>
+                                <label htmlFor={`${fieldId}-start-time`} className="block text-sm font-semibold text-ink mb-1">Start Time</label>
+                                <input
+                                    id={`${fieldId}-start-time`}
+                                    type="time"
+                                    value={formData.start_time || ''}
+                                    onChange={e => setFormData({ ...formData, start_time: e.target.value })}
                                     data-native-date-time="true"
                                     className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
                                 />
                             </div>
-
-                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                <div>
-                                    <label htmlFor={`${fieldId}-start-time`} className="block text-sm font-semibold text-ink mb-1">Start Time</label>
-                                    <input
-                                        id={`${fieldId}-start-time`}
-                                        type="time"
-                                        value={formData.start_time || ''}
-                                        onChange={e => setFormData({ ...formData, start_time: e.target.value })}
-                                        data-native-date-time="true"
-                                        className="block w-full min-w-0 max-w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor={`${fieldId}-approx-guests`} className="block text-sm font-semibold text-ink mb-1">Approx Guests</label>
-                                    <input
-                                        id={`${fieldId}-approx-guests`}
-                                        type="number"
-                                        min={1}
-                                        max={300}
-                                        value={formData.guest_count || 0}
-                                        onChange={e => setFormData({ ...formData, guest_count: Number(e.target.value) })}
-                                        className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
-                                    />
-                                </div>
-                            </div>
-
                             <div>
-                                <label htmlFor={`${fieldId}-event-type`} className="block text-sm font-semibold text-ink mb-1">Event Type</label>
-                                <select
-                                    id={`${fieldId}-event-type`}
-                                    value={formData.event_type}
-                                    onChange={e => setFormData({ ...formData, event_type: e.target.value })}
+                                <label htmlFor={`${fieldId}-approx-guests`} className="block text-sm font-semibold text-ink mb-1">Approx Guests</label>
+                                <input
+                                    id={`${fieldId}-approx-guests`}
+                                    type="number"
+                                    min={1}
+                                    max={300}
+                                    value={formData.guest_count || 0}
+                                    onChange={e => setFormData({ ...formData, guest_count: Number(e.target.value) })}
                                     className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
-                                >
-                                    <option>Birthday Party</option>
-                                    <option>Corporate Event</option>
-                                    <option>Wake / Memorial</option>
-                                    <option>Christening / Baby Shower</option>
-                                    <option>Other</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label htmlFor={`${fieldId}-notes-special-requests`} className="block text-sm font-semibold text-ink mb-1">Notes / Special Requests</label>
-                                <textarea
-                                    id={`${fieldId}-notes-special-requests`}
-                                    rows={3}
-                                    value={formData.internal_notes || ''}
-                                    onChange={e => setFormData({ ...formData, internal_notes: e.target.value })}
-                                    className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
-                                    placeholder="Any dietary requirements or special requests?"
                                 />
                             </div>
                         </div>
-                    </div>
-                )}
 
-                {detailsUnlocked && (
-                    <div className="pt-4 border-t border-line space-y-4">
-                        <CommunicationConsentFields
-                            value={communicationConsent}
-                            onChange={setCommunicationConsent}
-                        />
-
-                        {/* Honeypot, hidden from real users, filled by bots */}
-                        <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
-                            <label htmlFor="prv-website">Website</label>
-                            <input
-                                id="prv-website"
-                                name="website"
-                                type="text"
-                                tabIndex={-1}
-                                autoComplete="off"
-                                value={honeypot}
-                                onChange={(e) => setHoneypot(e.target.value)}
-                            />
+                        <div>
+                            <label htmlFor={`${fieldId}-event-type`} className="block text-sm font-semibold text-ink mb-1">Event Type</label>
+                            <select
+                                id={`${fieldId}-event-type`}
+                                value={formData.event_type}
+                                onChange={e => setFormData({ ...formData, event_type: e.target.value })}
+                                className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                            >
+                                <option>Birthday Party</option>
+                                <option>Corporate Event</option>
+                                <option>Wake / Memorial</option>
+                                <option>Christening / Baby Shower</option>
+                                <option>Other</option>
+                            </select>
                         </div>
 
-                        {TURNSTILE_SITE_KEY && (
-                            <TurnstileField
-                                id="private-booking-turnstile"
-                                turnstileRef={turnstileRef}
-                                onTokenChange={setTurnstileToken}
+                        <div>
+                            <label htmlFor={`${fieldId}-notes-special-requests`} className="block text-sm font-semibold text-ink mb-1">Notes / Special Requests</label>
+                            <textarea
+                                id={`${fieldId}-notes-special-requests`}
+                                rows={3}
+                                value={formData.internal_notes || ''}
+                                onChange={e => setFormData({ ...formData, internal_notes: e.target.value })}
+                                className="w-full px-4 py-2 bg-surface border-[1.5px] border-line-field text-ink rounded-sm focus:outline-none focus:border-accent-text focus:ring-4 focus:ring-accent-text/10"
+                                placeholder="Any dietary requirements or special requests?"
                             />
-                        )}
-
-                        <button
-                            type="submit"
-                            disabled={loading || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
-                            className="min-w-0 w-full max-w-full break-words px-6 py-3 bg-anchor-gold-dark hover:bg-anchor-green text-white font-semibold rounded-pill shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors md:w-auto md:px-8"
-                        >
-                            {loading ? 'Submitting...' : 'Send Inquiry'}
-                        </button>
+                        </div>
                     </div>
-                )}
+                </div>
+
+                <div className="pt-4 border-t border-line space-y-4">
+                    <CommunicationConsentFields
+                        value={communicationConsent}
+                        onChange={setCommunicationConsent}
+                    />
+
+                    {/* Honeypot, hidden from real users, filled by bots */}
+                    <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+                        <label htmlFor="prv-website">Website</label>
+                        <input
+                            id="prv-website"
+                            name="website"
+                            type="text"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            value={honeypot}
+                            onChange={(e) => setHoneypot(e.target.value)}
+                        />
+                    </div>
+
+                    {TURNSTILE_SITE_KEY && (
+                        <TurnstileField
+                            id="private-booking-turnstile"
+                            turnstileRef={turnstileRef}
+                            onTokenChange={setTurnstileToken}
+                        />
+                    )}
+
+                    <button
+                        type="submit"
+                        disabled={loading || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
+                        className="min-w-0 w-full max-w-full break-words px-6 py-3 bg-anchor-gold-dark hover:bg-anchor-green text-white font-semibold rounded-pill shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors md:w-auto md:px-8"
+                    >
+                        {loading ? 'Submitting...' : 'Send Inquiry'}
+                    </button>
+                </div>
             </form>
         </div>
     )
