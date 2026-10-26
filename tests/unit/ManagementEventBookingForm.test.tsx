@@ -524,7 +524,9 @@ describe('ManagementEventBookingForm', () => {
         marketing_sms_opt_in: false,
         whatsapp_opt_in: false,
         marketing_whatsapp_opt_in: false,
-        consent_text_version: GUEST_COMMS_CONSENT_TEXT_VERSION
+        consent_text_version: GUEST_COMMS_CONSENT_TEXT_VERSION,
+        // Which notice the guest was shown, so the management app stores those words (BK-080).
+        notice_key: 'event_compact_v6'
       })
     )
     expect(trackEventBookingComplete).toHaveBeenCalledWith(
@@ -1638,6 +1640,24 @@ describe('ManagementEventBookingForm security check recovery', () => {
       await waitFor(() => expect(screen.getByText(/on the waitlist/)).toBeInTheDocument())
       expect(sent[1].url).toBe('/api/event-waitlist')
       expect(sent[1].body.email).toBe('jane@example.com')
+    })
+
+    // Review BK-080: the waitlist is joined from the event form, so its consent record names
+    // the event notice, the words the guest was shown.
+    it('records the event notice with the waitlist entry', async () => {
+      const sent = answerFullThenQueued()
+      renderFullNight()
+      fillBookerDetails()
+      emitTurnstile('onSuccess', 'booking-token')
+      fireEvent.click(submitButton())
+
+      await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
+      emitTurnstile('onSuccess', 'waitlist-token')
+      fireEvent.click(screen.getByRole('button', { name: 'Join Waitlist' }))
+
+      await waitFor(() => expect(screen.getByText(/on the waitlist/)).toBeInTheDocument())
+      expect(sent[0].body.communication_consent).toMatchObject({ notice_key: 'event_compact_v6' })
+      expect(sent[1].body.communication_consent).toMatchObject({ notice_key: 'event_compact_v6' })
     })
 
     it('explains the held button when no fresh token turns up', async () => {

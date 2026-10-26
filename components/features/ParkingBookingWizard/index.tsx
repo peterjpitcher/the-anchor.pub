@@ -415,7 +415,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             start_at: iso(bookingDataRef.current.start),
             end_at: iso(bookingDataRef.current.end),
             notes: bookingDataRef.current.notes || undefined,
-            communication_consent: buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE),
+            communication_consent: buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE, 'service_notice_v6'),
           }),
         })
 

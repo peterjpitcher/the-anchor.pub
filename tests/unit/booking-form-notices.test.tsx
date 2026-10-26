@@ -60,7 +60,7 @@ describe('the event booking notice', () => {
 describe('the consent wording version', () => {
   it('moved to v6 with the event notice', () => {
     expect(GUEST_COMMS_CONSENT_TEXT_VERSION).toBe('guest-comms-consent-v6')
-    expect(buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE).consent_text_version).toBe(
+    expect(buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE, 'event_compact_v6').consent_text_version).toBe(
       'guest-comms-consent-v6'
     )
   })
@@ -92,14 +92,16 @@ describe('the airport parking form', () => {
 
   it('sends every marketing choice as false, with the notice recorded as shown', () => {
     expect(WIZARD).toContain(
-      'communication_consent: buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE)'
+      "communication_consent: buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE, 'service_notice_v6')"
     )
-    expect(buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE)).toMatchObject({
+    expect(buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE, 'service_notice_v6')).toMatchObject({
       service_contact_notice_shown: true,
       marketing_email_opt_in: false,
       marketing_sms_opt_in: false,
       whatsapp_opt_in: false,
-      marketing_whatsapp_opt_in: false
+      marketing_whatsapp_opt_in: false,
+      // The wizard shows GUEST_SERVICE_CONTACT_NOTICE, the words held under this key (BK-080).
+      notice_key: 'service_notice_v6'
     })
   })
 

@@ -110,7 +110,7 @@ export function PrivateBookingInquiryForm({
                 customer_last_name: formData.customer_last_name?.trim() || '',
                 contact_email: formData.contact_email?.trim() || '',
                 items: bookingItems,
-                communication_consent: buildCommunicationConsentPayload(communicationConsent),
+                communication_consent: buildCommunicationConsentPayload(communicationConsent, 'service_notice_v6'),
                 ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
                 ...(honeypot ? { website: honeypot } : {}),
                 _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)

@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/primitives/Input'
 import { StickyDrawer } from '@/components/ui/overlays/StickyDrawer'
 import { useFocusOnChange } from '@/hooks/useFocusOnChange'
 import { formatTimeForDisplay } from '@/lib/table-booking/formatting'
-import { GUEST_TABLE_COMPACT_CONSENT_NOTICE } from '@/lib/communication-consent'
+import { GUEST_QUICK_BOOK_CONSENT_NOTICE } from '@/lib/communication-consent'
 import {
   fetchAvailability,
   NEUTRAL_AVAILABILITY_ANCHOR_TIME,
@@ -603,8 +603,11 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                 </Button>
                 <SecurityCheckWaitingNote id={SECURITY_NOTE_ID} waiting={awaitingSecurityCheck} />
 
+                {/* Its own notice: the table form's talks about an email and an
+                    unsubscribe link, and this sheet asks for no email (BK-079).
+                    buildQuickBookPayload records that these words were shown. */}
                 <p className="text-xs leading-relaxed text-ink-muted">
-                  {GUEST_TABLE_COMPACT_CONSENT_NOTICE}
+                  {GUEST_QUICK_BOOK_CONSENT_NOTICE}
                 </p>
               </div>
             )}

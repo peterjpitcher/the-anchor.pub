@@ -563,3 +563,38 @@ describe('QuickBookSheet and a number that cannot take texts', () => {
     expectNotBooked()
   })
 })
+
+// Review BK-079. The sheet showed the table form's notice, which talks about an
+// email and an unsubscribe link though the sheet asks for no email, and sent no
+// consent record at all.
+describe('QuickBookSheet and the guest notice', () => {
+  const QUICK_NOTICE =
+    'We will use your phone to manage this booking, and to text you the latest from The Anchor: what is on, new menus, offers, and any changes. Reply NOEVENTS to stop those texts. Booking confirmations and reminders carry on either way.'
+
+  it('shows its own notice, which mentions no email', async () => {
+    answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed' } } })
+    render(<QuickBookSheet open onClose={jest.fn()} source="test" />)
+    fireEvent.click(await screen.findByRole('button', { name: /^7pm/ }))
+
+    expect(screen.getByText(QUICK_NOTICE)).toBeInTheDocument()
+    expect(screen.queryByText(/unsubscribe link/)).not.toBeInTheDocument()
+  })
+
+  it('sends a consent record naming that notice with the booking', async () => {
+    const post = answerBookingWith({ status: 201, body: { success: true, data: { state: 'confirmed', booking_reference: 'TB-9' } } })
+
+    await bookAtSeven()
+
+    await waitFor(() => expect(post).toHaveBeenCalledTimes(1))
+    const sent = JSON.parse(String(post.mock.calls[0][1]?.body)) as Record<string, unknown>
+    expect(sent.communication_consent).toEqual({
+      service_contact_notice_shown: true,
+      marketing_email_opt_in: false,
+      marketing_sms_opt_in: false,
+      whatsapp_opt_in: false,
+      marketing_whatsapp_opt_in: false,
+      consent_text_version: 'guest-comms-consent-v6',
+      notice_key: 'table_quick_book_v1',
+    })
+  })
+})

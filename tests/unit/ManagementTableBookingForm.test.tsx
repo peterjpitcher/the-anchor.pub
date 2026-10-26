@@ -893,7 +893,9 @@ describe('ManagementTableBookingForm', () => {
         marketing_sms_opt_in: false,
         whatsapp_opt_in: false,
         marketing_whatsapp_opt_in: false,
-        consent_text_version: GUEST_COMMS_CONSENT_TEXT_VERSION
+        consent_text_version: GUEST_COMMS_CONSENT_TEXT_VERSION,
+        // Which notice the guest was shown, so the management app stores those words (BK-080).
+        notice_key: 'table_compact_v6'
       })
     )
   })

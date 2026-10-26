@@ -140,6 +140,8 @@ describe('PrivateBookingInquiryForm: no number check', () => {
     expect(payload.customer_first_name).toBe('Priya')
     expect(payload.customer_last_name).toBe('Kaur')
     expect(payload.contact_email).toBe('priya@example.com')
+    // The service notice and its tick boxes are what this form shows (review BK-080).
+    expect(payload.communication_consent).toMatchObject({ notice_key: 'service_notice_v6' })
     expect(JSON.stringify(payload)).not.toContain('Guest')
     expect(fetchMock).not.toHaveBeenCalled()
     expect(screen.queryByText(/Welcome back/i)).not.toBeInTheDocument()

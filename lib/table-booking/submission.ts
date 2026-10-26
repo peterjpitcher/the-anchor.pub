@@ -247,7 +247,7 @@ export function buildTableBookingPayload(
     // means.
     ...((input.preorder?.length ?? 0) > 0 ? { preorder: input.preorder } : {}),
     ...(input.christmas_course_counts ? { christmas_course_counts: input.christmas_course_counts } : {}),
-    communication_consent: buildCommunicationConsentPayload(input.communicationConsent),
+    communication_consent: buildCommunicationConsentPayload(input.communicationConsent, 'table_compact_v6'),
     ...input.attribution,
     // Its own nested object, so it can never be mistaken for the consent-gated
     // tags spread in just above: those go on to CheersAI, this goes to the

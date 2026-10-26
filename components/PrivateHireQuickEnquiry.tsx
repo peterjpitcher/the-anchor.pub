@@ -101,7 +101,7 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
             `Requested reply method: ${reply}`,
             notes.trim(),
           ].filter(Boolean).join('\n'),
-          communication_consent: buildCommunicationConsentPayload(consent),
+          communication_consent: buildCommunicationConsentPayload(consent, 'service_notice_v6'),
           turnstile_token: token || undefined, website: honeypot,
           _t: Math.floor((Date.now() - loadedAt.current) / 1000),
         }),

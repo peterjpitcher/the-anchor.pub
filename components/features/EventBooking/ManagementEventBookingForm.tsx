@@ -621,7 +621,7 @@ export function ManagementEventBookingForm({
           event_category_slug: event.category?.slug,
           event_price: getEventUnitPrice(event),
           event_value: totalValue,
-          communication_consent: buildCommunicationConsentPayload(communicationConsent),
+          communication_consent: buildCommunicationConsentPayload(communicationConsent, 'event_compact_v6'),
           ...attribution,
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
@@ -856,7 +856,7 @@ export function ManagementEventBookingForm({
           first_name: firstName.trim(),
           last_name: lastName.trim(),
           requested_seats: seats,
-          communication_consent: buildCommunicationConsentPayload(communicationConsent),
+          communication_consent: buildCommunicationConsentPayload(communicationConsent, 'event_compact_v6'),
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
           _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
