@@ -200,6 +200,19 @@ export function getEventUnitPrice(event: EventBookingPaymentSource): number | nu
   return Math.max(0, Number((ticketPrice - getEventOnlineSaving(event)).toFixed(2)))
 }
 
+/**
+ * What a single-ticket-type booking for `tickets` places costs, in pounds, rounded to pence.
+ *
+ * The management app compares the total the website sends with the booked price exactly. A
+ * pence price multiplied in floating point is not exact (12.95 x 3 is 38.849999999999994), so
+ * some party sizes were refused as "the booking details have changed" on every retry (BK-098,
+ * customer bookings review of 24 October 2026). The multi-type basket already rounded this way.
+ */
+export function calculateEventBookingValue(event: EventBookingPaymentSource, tickets: number): number {
+  const price = getEventUnitPrice(event)
+  return price ? Number((price * tickets).toFixed(2)) : 0
+}
+
 export function getEventTicketPrice(event: EventBookingPaymentSource): number | null {
   // Multi-type events price "from" the lowest active type (already post-discount).
   if (hasMultipleTicketPrices(event)) {

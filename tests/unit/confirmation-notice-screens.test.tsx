@@ -223,3 +223,55 @@ describe('table booking confirmation card', () => {
     expectNoMessageClaimed()
   })
 })
+
+// BK-059: when the food choices sent with a booking did not save, the guest is told, not left
+// believing their dinner choices are in while the kitchen has none.
+describe('table booking confirmation card: food choices', () => {
+  const base: ManagementTableBookingResult = {
+    state: 'confirmed',
+    table_booking_id: 'tb-1',
+    booking_reference: 'TB-FOOD',
+    reason: null,
+    blocked_reason: null,
+    next_step_url: null,
+    hold_expires_at: null,
+    table_name: null,
+  }
+
+  function renderCard(preorder: ManagementTableBookingResult['preorder']): void {
+    render(
+      <BookingConfirmedCard
+        result={{ ...base, preorder }}
+        partySize={4}
+        date="2999-01-01"
+        time="19:00"
+        onBookAnother={jest.fn()}
+      />
+    )
+  }
+
+  const NOT_SAVED = /some or all of your food choices didn't save\. Please add them from the link in your booking confirmation, or give us a ring on 01753 682707\./
+
+  it('says the choices did not save when the booking system says so', () => {
+    renderCard({ requested_covers: 4, saved_covers: 1, saved: false, error: 'x', reason: 'save_failed' })
+
+    expect(screen.getByText("You're all booked in, see you soon!")).toBeInTheDocument()
+    expect(screen.getByText(NOT_SAVED)).toBeInTheDocument()
+  })
+
+  it('reads an older answer with only the flag the same way', () => {
+    renderCard({ requested_covers: 4, saved_covers: 0, saved: false, error: 'x' })
+
+    expect(screen.getByText(NOT_SAVED)).toBeInTheDocument()
+  })
+
+  it.each([
+    ['the choices saved', { requested_covers: 4, saved_covers: 4, saved: true, error: null, reason: 'saved' as const }],
+    ['no choices were sent', null],
+    ['a late booking on 1 course', { requested_covers: 4, saved_covers: 0, saved: false, error: 'x', reason: 'late_one_course' as const }],
+  ])('says nothing about food choices when %s', (_label, preorder) => {
+    renderCard(preorder)
+
+    expect(screen.queryByText(/food choices didn't save/)).not.toBeInTheDocument()
+  })
+})

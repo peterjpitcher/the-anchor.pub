@@ -803,7 +803,10 @@ describe('ManagementTableBookingForm', () => {
                 next_step_url: null,
                 hold_expires_at: null,
                 table_name: null,
-                reason: null
+                reason: null,
+                // BK-059: the food choices failed to save. The deposit screen is where every
+                // Christmas booking lands first, so it must say so.
+                preorder: { requested_covers: 15, saved_covers: 2, saved: false, error: 'x', reason: 'save_failed' }
               }
             }),
             {
@@ -875,6 +878,9 @@ describe('ManagementTableBookingForm', () => {
         screen.getByText("We couldn't open the PayPal payment automatically", { exact: false })
       ).toBeInTheDocument()
     )
+
+    // BK-059: told on the deposit screen that the food choices did not save.
+    expect(screen.getByText(/some or all of your food choices didn't save/)).toBeInTheDocument()
 
     const fallbackLink = await screen.findByRole('link', {
       name: /click here to complete your deposit/i
