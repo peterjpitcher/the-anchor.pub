@@ -77,6 +77,38 @@ export type ManagementTableBookingResult = {
   high_chairs_granted?: number
   high_chair_count?: number
   is_outside_seating?: boolean
+  // What happened to the food choices sent with a seasonal booking, or null
+  // when none were sent. Read through preorderNotSavedCopy below.
+  preorder?: BookingPreorderOutcome | null
+}
+
+/**
+ * The management app's answer about the food choices sent with the booking.
+ * `reason` arrived after `saved` (management app BK-059), so an older build
+ * sends only the flag.
+ */
+export type BookingPreorderOutcome = {
+  requested_covers: number
+  saved_covers: number
+  saved: boolean
+  error: string | null
+  reason?: 'saved' | 'late_one_course' | 'too_many_choices' | 'save_failed'
+}
+
+/**
+ * The line that tells a guest their food choices did not save, or null when
+ * there is nothing to say.
+ *
+ * The booking is confirmed (or held for its deposit) even when the choices
+ * fail, so without this the guest believed their dinner choices were in while
+ * the kitchen had none (BK-059). `late_one_course` is not a failure: the booking
+ * was made after the Christmas pre-order deadline, so every guest is on 1 course
+ * and chooses on the day.
+ */
+export function preorderNotSavedCopy(preorder?: BookingPreorderOutcome | null): string | null {
+  if (!preorder || preorder.saved !== false) return null
+  if (preorder.reason === 'late_one_course') return null
+  return "Your table is booked, but some or all of your food choices didn't save. Please add them from the link in your booking confirmation, or give us a ring on 01753 682707."
 }
 
 export const BLOCKED_REASON_COPY: Record<string, string> = {

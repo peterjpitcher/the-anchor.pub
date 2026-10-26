@@ -90,6 +90,7 @@ import { buildBookingHoursNote } from '@/lib/table-booking/hours-note'
 import { PayPalDepositSection } from './PayPalDepositSection'
 import { GROUP_DEPOSIT_REFUND_WORDING } from '@/lib/approved-wording'
 import { BookingConfirmedCard } from './BookingConfirmedCard'
+import { PreorderNotSavedNotice } from './PreorderNotSavedNotice'
 import { BookingProgressBar } from './BookingProgressBar'
 import { BookingSummaryCard } from './BookingSummaryCard'
 import { SlotPickerGrid } from './SlotPickerGrid'
@@ -1527,6 +1528,9 @@ export function ManagementTableBookingForm({
 
     return (
       <>
+        {/* Every Christmas booking takes a deposit, so this is where a guest
+            whose food choices did not save first lands (BK-059). */}
+        <PreorderNotSavedNotice preorder={result.preorder} />
         {paymentState === 'confirmed' ? (
           <Alert variant="success" title="Deposit paid, booking confirmed!">
             <p>Your deposit has been received. Your table is now secured.</p>
