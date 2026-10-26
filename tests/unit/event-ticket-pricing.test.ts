@@ -6,7 +6,7 @@ import {
   type EventTicketType,
 } from '@/lib/api'
 import { getEventPriceLabel } from '@/lib/event-pricing'
-import { getEventTicketPrice, getEventUnitPrice } from '@/lib/event-booking-experience'
+import { calculateEventBookingValue, getEventTicketPrice, getEventUnitPrice } from '@/lib/event-booking-experience'
 
 function ticketType(overrides: Partial<EventTicketType> & Pick<EventTicketType, 'id' | 'price'>): EventTicketType {
   return {
@@ -76,3 +76,24 @@ describe('multi-type price display', () => {
     expect(getEventPriceLabel(single as Event)).toBe('£3')
   })
 })
+
+// BK-098, customer bookings review of 24 October 2026: the management app compares the total the
+// website sends with the booked price exactly, and a pence price multiplied in floating point is
+// not exact, so some party sizes were refused as "the booking details have changed" every time.
+describe('the total sent with a single-ticket booking', () => {
+  it.each([
+    ['12.95 x 3', { price: 12.95, payment_mode: 'prepaid' }, 3, 38.85],
+    ['4.95 x 3', { price: 4.95, payment_mode: 'prepaid' }, 3, 14.85],
+    ['19.99 x 5', { price: 19.99, payment_mode: 'prepaid' }, 5, 99.95],
+    ['13.00 less 10% online x 3', { ticket_price: 13, online_discount_type: 'percent', online_discount_value: 10, payment_mode: 'prepaid' }, 3, 35.1],
+  ])('is rounded to pence for %s', (_label, event, tickets, expected) => {
+    const total = calculateEventBookingValue(event as Partial<Event> as Event, tickets)
+    expect(total).toBe(expected)
+    expect(String(total)).toBe(String(expected))
+  })
+
+  it('is zero for an event with no price', () => {
+    expect(calculateEventBookingValue({ name: 'Free night' } as Partial<Event> as Event, 2)).toBe(0)
+  })
+})
+
