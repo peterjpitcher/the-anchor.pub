@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
 import { StickyDrawer } from '@/components/ui/overlays/StickyDrawer'
+import { useFocusOnChange } from '@/hooks/useFocusOnChange'
+import { formatTimeForDisplay } from '@/lib/table-booking/formatting'
 import { GUEST_TABLE_COMPACT_CONSENT_NOTICE } from '@/lib/communication-consent'
 import {
   fetchAvailability,
@@ -19,7 +21,7 @@ import {
   buildQuickBookPayload,
   buildQuickBookRequestBody,
   defaultQuickBookState,
-  findQuickBookRefusal,
+  findQuickBookRefusals,
   fullFormHref,
   quickDateChoices,
   resolveEmptyState,
@@ -35,6 +37,7 @@ import {
 import { toGuestMessage } from '@/lib/guest-error-messages'
 import { wasConfirmationSent, type ConfirmationNotice } from '@/lib/confirmation-notice'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
+import { SecurityCheckWaitingNote } from '@/components/security/SecurityCheckWaitingNote'
 import {
   trackTableBookingClick,
   trackFormStart,
@@ -43,6 +46,9 @@ import {
 } from '@/lib/gtm-events'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+const SECURITY_NOTE_ID = 'quick-book-security-note'
+
+type FieldErrors = { phone?: string; firstName?: string }
 
 type QuickBookSheetProps = {
   open: boolean
@@ -103,7 +109,10 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   const [paymentUrl, setPaymentUrl] = useState<string | null>(null)
   // Bumped to ask for the times again without changing what was asked.
   const [availabilityRefresh, setAvailabilityRefresh] = useState(0)
-  const [fieldError, setFieldError] = useState<string | null>(null)
+  // One message per box, shown under that box (review BK-195). They used to
+  // share one line under both fields, so the guest had to work out which box
+  // it meant, and neither box was marked.
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
   const [submitting, setSubmitting] = useState(false)
   const [reference, setReference] = useState<string | null>(null)
   // Whether a confirmation went, and how, as the management app reports it. The
@@ -120,6 +129,12 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
 
   const dateChoices = useMemo(() => quickDateChoices(), [])
   const phoneRef = useRef<HTMLInputElement | null>(null)
+  const firstNameRef = useRef<HTMLInputElement | null>(null)
+  // The outcome line of whichever result screen is showing. Book table goes
+  // with the details screen, so focus moves here and a screen reader reads the
+  // result out rather than nothing at all (review BK-103).
+  const outcomeRef = useRef<HTMLParagraphElement | null>(null)
+  useFocusOnChange(outcomeRef, phase)
   const startedRef = useRef(false)
   // The Idempotency-Key currently standing for this submit intent, held with the
   // fingerprint it was minted for. Same as the full form's cache: a double tap reuses the
@@ -151,7 +166,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
     setError(null)
     setRefusal(null)
     setPaymentUrl(null)
-    setFieldError(null)
+    setFieldErrors({})
     setReference(null)
     setConfirmationNotice(null)
     startedRef.current = false
@@ -223,6 +238,15 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
     () => resolveEmptyState(availability, state.partySize, state.purpose, loading),
     [availability, state.partySize, state.purpose, loading]
   )
+  // What the screen reader hears after a chip changes the question. Empty
+  // while the times load: the grid says "Checking times" on screen.
+  const timesStatus =
+    emptyState === 'loading'
+      ? ''
+      : emptyState === 'none'
+        ? `${slots.length} ${slots.length === 1 ? 'time' : 'times'} available.`
+        : 'No times available online.'
+  const awaitingSecurityCheck = Boolean(TURNSTILE_SITE_KEY) && !turnstileToken
 
   const updateState = useCallback((patch: Partial<QuickBookState>) => {
     // Changing a chip invalidates the chosen time: it belonged to a different question.
@@ -235,17 +259,25 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
   const chooseTime = useCallback((time: string) => {
     setSelectedTime(time)
     setPhase('details')
-    setFieldError(null)
+    setFieldErrors({})
     setRefusal(null)
     // Focus after the phase transition so the keyboard opens straight onto the number.
     setTimeout(() => phoneRef.current?.focus(), 60)
   }, [])
 
   const submit = useCallback(async () => {
-    const invalid = findQuickBookRefusal({ time: selectedTime, phone, firstName })
-    if (invalid) {
-      setFieldError(invalid.message)
-      trackBookingErrorShown({ code: `quick_book_${invalid.field}` })
+    const refusals = findQuickBookRefusals({ time: selectedTime, phone, firstName })
+    if (refusals.length > 0) {
+      for (const refusal of refusals) trackBookingErrorShown({ code: `quick_book_${refusal.field}` })
+      const next: FieldErrors = {}
+      for (const refusal of refusals) {
+        if (refusal.field === 'phone' || refusal.field === 'firstName') next[refusal.field] = refusal.message
+      }
+      setFieldErrors(next)
+      // The first box that needs attention, once it is marked, so it is read
+      // out with its message.
+      const first = refusals[0].field
+      setTimeout(() => (first === 'firstName' ? firstNameRef : phoneRef).current?.focus(), 0)
       return
     }
 
@@ -397,7 +429,9 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
       <div className="space-y-4 px-4 pb-6 pt-2">
         {phase === 'done' ? (
           <div className="space-y-3 text-center">
-            <p className="text-lg font-semibold text-ink-strong">You&apos;re booked in.</p>
+            <p ref={outcomeRef} tabIndex={-1} className="text-lg font-semibold text-ink-strong">
+              You&apos;re booked in.
+            </p>
             <p className="text-sm text-ink-muted">
               {formatConfirmation(state, selectedTime)}
             </p>
@@ -422,7 +456,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
           </div>
         ) : phase === 'payment' ? (
           <div className="space-y-3 text-center">
-            <p className="text-lg font-semibold text-ink-strong">
+            <p ref={outcomeRef} tabIndex={-1} className="text-lg font-semibold text-ink-strong">
               Your table is held, not booked yet.
             </p>
             <p className="text-sm text-ink-muted">
@@ -460,6 +494,13 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
               disabled={submitting}
             />
 
+            {/* Every chip reloads the times. Said by a region that is always
+                here, as the full form does, so a screen reader hears the new
+                count instead of nothing (review BK-195). */}
+            <p role="status" className="sr-only">
+              {phase === 'choose' ? timesStatus : ''}
+            </p>
+
             {phase === 'choose' ? (
               <TimeGrid
                 slots={slots}
@@ -479,7 +520,7 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                     className="underline"
                     onClick={() => {
                       setPhase('choose')
-                      setFieldError(null)
+                      setFieldErrors({})
                     }}
                   >
                     Change
@@ -488,29 +529,39 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
 
                 <Input
                   ref={phoneRef}
+                  id="quick-book-phone"
                   label="Mobile number"
                   type="tel"
                   size="lg"
                   inputMode="tel"
                   autoComplete="tel"
+                  required
                   value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
+                  onChange={(event) => {
+                    setPhone(event.target.value)
+                    setFieldErrors((current) => ({ ...current, phone: undefined }))
+                  }}
                   placeholder="07700 900000"
                   hint="So we can confirm your booking."
+                  error={fieldErrors.phone}
                 />
 
                 <Input
+                  ref={firstNameRef}
+                  id="quick-book-first-name"
                   label="First name"
                   size="lg"
                   autoComplete="given-name"
+                  required
                   value={firstName}
-                  onChange={(event) => setFirstName(event.target.value)}
+                  onChange={(event) => {
+                    setFirstName(event.target.value)
+                    setFieldErrors((current) => ({ ...current, firstName: undefined }))
+                  }}
                   placeholder="Jane"
+                  error={fieldErrors.firstName}
                 />
 
-                {fieldError ? (
-                  <p className="text-sm text-anchor-danger" role="alert">{fieldError}</p>
-                ) : null}
                 {error ? (
                   // A booking that could not be made always comes with another way
                   // to make it.
@@ -532,11 +583,15 @@ export function QuickBookSheet({ open, onClose, source }: QuickBookSheetProps) {
                   size="lg"
                   className="w-full"
                   loading={submitting}
-                  disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
+                  // Reachable while the security check runs, with the reason
+                  // under it (review BK-198).
+                  unavailable={awaitingSecurityCheck}
+                  aria-describedby={SECURITY_NOTE_ID}
                   onClick={submit}
                 >
                   Book table
                 </Button>
+                <SecurityCheckWaitingNote id={SECURITY_NOTE_ID} waiting={awaitingSecurityCheck} />
 
                 <p className="text-xs leading-relaxed text-ink-muted">
                   {GUEST_TABLE_COMPACT_CONSENT_NOTICE}
@@ -598,7 +653,8 @@ function formatConfirmation(state: QuickBookState, time: string | null): string 
     month: 'long',
     timeZone: 'UTC',
   })
-  return time ? `${people}, ${when} at ${time}.` : `${people}, ${when}.`
+  // The same 12-hour times the full form uses ('7pm', '1:30pm'), never '19:00'.
+  return time ? `${people}, ${when} at ${formatTimeForDisplay(time)}.` : `${people}, ${when}.`
 }
 
 function ChipRow({
@@ -649,7 +705,7 @@ function ChipRow({
             value={state.date}
             min={dateChoices[0]?.value}
             onChange={(event) => onChange({ date: event.target.value })}
-            className="rounded-full border border-line bg-surface px-3 py-2 text-sm text-ink"
+            className="rounded-full border border-line-field bg-surface px-3 py-2 text-sm text-ink"
           />
         </div>
       </fieldset>
@@ -797,7 +853,7 @@ function TimeGrid({
               onClick={() => onChoose(slot.time)}
               className="min-h-[48px] rounded-md border border-line bg-surface px-2 py-2 text-sm text-ink transition-colors hover:border-accent hover:bg-surface-sunk"
             >
-              <span className="block font-medium">{slot.time}</span>
+              <span className="block font-medium">{formatTimeForDisplay(slot.time)}</span>
               {caption ? (
                 <span className="block text-[11px] text-ink-muted">{caption}</span>
               ) : null}

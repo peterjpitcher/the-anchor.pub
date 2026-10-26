@@ -1,5 +1,6 @@
 'use client'
 
+import { Check } from 'lucide-react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import type { BookingPeriod, BookingPeriodDeposit } from '@/lib/api/bookings'
 
@@ -60,31 +61,36 @@ export function SeasonalPeriodQuestion({
       </div>
 
       {/* "No" is always available and always books the normal menu at normal
-          terms. It is a first-class answer, not a way out of the question. */}
+          terms. It is a first-class answer, not a way out of the question.
+          The chosen answer is filled with the accent and ticked: the fixed
+          brand green it used to take vanished into the dark skin's green card
+          at 1.55:1 (review BK-104). */}
       <div className="flex flex-wrap gap-2" role="group" aria-label={period.guest_question}>
         <button
           type="button"
           onClick={() => onAnswer(true)}
           aria-pressed={answer === true}
           disabled={Boolean(rejection)}
-          className={`min-h-[44px] flex-1 rounded-md border px-4 py-2 text-sm font-semibold transition ${
+          className={`inline-flex min-h-[44px] flex-1 items-center justify-center gap-1 rounded-md border px-4 py-2 text-sm font-semibold transition ${
             answer === true
-              ? 'border-anchor-green bg-anchor-green text-white'
-              : 'border-line bg-surface text-ink hover:border-anchor-green'
+              ? 'border-accent bg-accent text-canvas'
+              : 'border-line-field bg-surface text-ink hover:border-accent'
           } disabled:cursor-not-allowed disabled:opacity-50`}
         >
+          {answer === true ? <Check aria-hidden="true" className="h-4 w-4" /> : null}
           Yes please
         </button>
         <button
           type="button"
           onClick={() => onAnswer(false)}
           aria-pressed={answer === false}
-          className={`min-h-[44px] flex-1 rounded-md border px-4 py-2 text-sm font-semibold transition ${
+          className={`inline-flex min-h-[44px] flex-1 items-center justify-center gap-1 rounded-md border px-4 py-2 text-sm font-semibold transition ${
             answer === false
-              ? 'border-anchor-green bg-anchor-green text-white'
-              : 'border-line bg-surface text-ink hover:border-anchor-green'
+              ? 'border-accent bg-accent text-canvas'
+              : 'border-line-field bg-surface text-ink hover:border-accent'
           }`}
         >
+          {answer === false ? <Check aria-hidden="true" className="h-4 w-4" /> : null}
           No thanks
         </button>
       </div>

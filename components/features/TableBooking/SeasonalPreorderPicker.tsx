@@ -137,7 +137,7 @@ export function SeasonalPreorderPicker({
                 <div>
                   <label htmlFor={`course-count-${choice.guestIndex}`} className="block text-sm text-ink-strong">Number of courses</label>
                   <select id={`course-count-${choice.guestIndex}`} value={choice.courseCount ?? ''}
-                    className="mt-1 min-h-[44px] w-full rounded-md border border-line bg-surface px-3 py-2 text-sm text-ink"
+                    className="mt-1 min-h-[44px] w-full rounded-md border border-line-field bg-surface px-3 py-2 text-sm text-ink"
                     onChange={(event) => update(choice.guestIndex, {
                       courseCount: event.target.value ? Number(event.target.value) as 1 | 2 | 3 : null,
                       starterId: null, mainId: null, dessertId: null, addonIds: []
@@ -164,7 +164,7 @@ export function SeasonalPreorderPicker({
                       id={selectId}
                       value={choice[CHOICE_KEY[course]] ?? ''}
                       onChange={(event) => update(choice.guestIndex, { [CHOICE_KEY[course]]: event.target.value || null })}
-                      className="mt-1 min-h-[44px] w-full rounded-md border border-line bg-surface px-3 py-2 text-sm text-ink"
+                      className="mt-1 min-h-[44px] w-full rounded-md border border-line-field bg-surface px-3 py-2 text-sm text-ink"
                     >
                       <option value="">{optional ? 'No ' + label.toLowerCase() : 'Please choose...'}</option>
                       {items.map((item) => (

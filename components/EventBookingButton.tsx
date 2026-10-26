@@ -186,7 +186,11 @@ export function EventBookingButton({
             ctaLabel: resolvedLabel
           })
         }}
-        aria-label={`${resolvedLabel} for ${event.name}${source ? ` (${source})` : ''}`}
+        // The event's name only. The tracking source used to be appended, so
+        // a screen reader read out '(event_list_item)' on the main booking
+        // button of every event (review BK-196). It still goes to the click
+        // tracking above.
+        aria-label={`${resolvedLabel} for ${event.name}`}
       >
         {resolvedLabel}
       </a>

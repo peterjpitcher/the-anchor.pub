@@ -78,6 +78,14 @@ export interface ButtonProps
     Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  /**
+   * Not usable yet, but still there. Rendered with aria-disabled instead of
+   * the disabled attribute, so it stays in the Tab order and a keyboard or
+   * screen reader user can reach it and hear why (point aria-describedby at
+   * the reason). Pressing it does nothing, as with `loading`. Use `disabled`
+   * only where there is nothing to explain (review BK-198).
+   */
+  unavailable?: boolean
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -92,12 +100,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     iconPosition = 'left',
     loading = false,
     disabled = false,
+    unavailable = false,
     testId,
     asChild = false,
     onClick,
     ...props
   }, ref) => {
-    const isDisabled = disabled || loading
+    const isDisabled = disabled || loading || unavailable
     const baseClassName = cn(buttonVariants({ variant, size, fullWidth, wrap }), className)
 
     const content = (inner: ReactNode) => {
@@ -170,7 +179,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // nothing when pressed: the click is cancelled before the handler or the
     // form sees it, which also covers Enter in a field of the same form.
     const handleClick: ButtonHTMLAttributes<HTMLButtonElement>['onClick'] = (event) => {
-      if (loading) {
+      if (loading || unavailable) {
         event.preventDefault()
         event.stopPropagation()
         return
@@ -182,7 +191,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         disabled={disabled}
-        aria-disabled={loading || undefined}
+        aria-disabled={loading || unavailable || undefined}
         aria-busy={loading || undefined}
         data-testid={testId}
         className={baseClassName}

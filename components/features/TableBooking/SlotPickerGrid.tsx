@@ -1,5 +1,6 @@
 'use client'
 
+import { Check } from 'lucide-react'
 import { busynessCaption, type AvailabilitySlot } from '@/lib/table-booking/availability'
 import { formatTimeForDisplay } from '@/lib/table-booking/formatting'
 import { highChairFlagLabel, type DisplaySlot, type GroupedSlots } from '@/lib/table-booking/slot-groups'
@@ -49,7 +50,11 @@ function SlotButton({
         isUnavailable
           ? 'cursor-not-allowed border-line bg-surface-sunk text-ink-muted opacity-60'
           : isSelected
-          ? 'border-anchor-green bg-anchor-green text-white'
+          ? // The accent fill the quick booking chips and event seat buttons
+            // use. The fixed brand green vanished into the dark skin's green
+            // card at 1.55:1 and lost the gold outline the other times keep,
+            // so the chosen time looked the least prominent (review BK-104).
+            'border-accent bg-accent text-canvas'
           : servesFood
           ? 'border-line-strong bg-surface text-ink hover:border-anchor-gold'
           : // Drinks-only is the exception, so it is the one that is marked. The
@@ -58,13 +63,17 @@ function SlotButton({
             'border-anchor-gold/60 bg-anchor-gold/10 text-ink hover:border-anchor-gold'
       }`}
     >
-      <span className="block text-base font-semibold">{formatTimeForDisplay(slot.time)}</span>
+      <span className="flex items-center justify-center gap-1 text-base font-semibold">
+        {/* A tick as well as the fill, so the choice does not rest on colour. */}
+        {isSelected ? <Check aria-hidden="true" className="h-4 w-4" /> : null}
+        {formatTimeForDisplay(slot.time)}
+      </span>
       <span
         className={`mt-1 block text-xs ${
           isUnavailable
             ? 'font-normal text-ink-muted'
             : isSelected
-            ? 'font-normal text-white/80'
+            ? 'font-normal text-canvas'
             : servesFood
             ? 'font-normal text-ink-muted'
             : 'font-semibold text-accent-text'
@@ -82,7 +91,7 @@ function SlotButton({
       {chairCaption ? (
         <span
           className={`mt-1 block text-xs font-medium ${
-            isSelected ? 'text-white' : 'text-accent-text'
+            isSelected ? 'text-canvas' : 'text-accent-text'
           }`}
         >
           {chairCaption}
@@ -92,7 +101,7 @@ function SlotButton({
         <span
           className={`mt-1 block text-xs font-medium ${
             isSelected
-              ? 'text-white'
+              ? 'text-canvas'
               : slot.busyness === 'busy'
               ? 'text-accent-text'
               : 'text-ink-muted'

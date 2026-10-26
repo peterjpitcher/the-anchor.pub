@@ -61,8 +61,12 @@ export type DateChoice = { value: string; label: string }
 
 /**
  * The three dates offered as one-tap chips. Sunday is included when it is not already
- * Today or Tomorrow because it is the single busiest booking day: 113 of 308 bookings in
- * the last 90 days, more than Friday and Saturday combined.
+ * Tomorrow because it is the single busiest booking day: 113 of 308 bookings in the last
+ * 90 days, more than Friday and Saturday combined.
+ *
+ * On a Sunday the extra chip is the NEXT Sunday, a week away, and says so. It used to
+ * read "Today, Tomorrow, Sunday" on a Sunday, so a guest on the busiest booking day could
+ * tap "Sunday" meaning today and book a table for a week later (review BK-195).
  */
 export function quickDateChoices(): DateChoice[] {
   const today = londonDatePlusDays(0)
@@ -71,11 +75,13 @@ export function quickDateChoices(): DateChoice[] {
     { value: today, label: 'Today' },
     { value: tomorrow, label: 'Tomorrow' },
   ]
+  // Calendar arithmetic on UTC midnight, never a time: see londonDatePlusDays.
+  const todayIsSunday = new Date(`${today}T00:00:00Z`).getUTCDay() === 0
 
   for (let ahead = 2; ahead <= 7; ahead += 1) {
     const candidate = londonDatePlusDays(ahead)
     if (new Date(`${candidate}T00:00:00Z`).getUTCDay() === 0) {
-      choices.push({ value: candidate, label: 'Sunday' })
+      choices.push({ value: candidate, label: todayIsSunday ? 'Next Sunday' : 'Sunday' })
       break
     }
   }
@@ -196,37 +202,48 @@ export type QuickBookSubmission = {
 
 export type QuickBookRefusal = { field: 'phone' | 'firstName' | 'time'; message: string }
 
+type QuickBookRefusalInput = {
+  time: string | null
+  phone: string
+  firstName: string
+}
+
 /**
  * Validation, in the order the guest filled the fields in. Reporting the last field first
  * makes a form feel like it is arguing back.
  */
-export function findQuickBookRefusal(input: {
-  time: string | null
-  phone: string
-  firstName: string
-}): QuickBookRefusal | null {
+export function findQuickBookRefusal(input: QuickBookRefusalInput): QuickBookRefusal | null {
+  return findQuickBookRefusals(input)[0] ?? null
+}
+
+/**
+ * Every refusal at once, in the same order, so each can be shown under its own field
+ * (review BK-195). A missing time is returned alone: it sends the guest back to the times,
+ * where neither box is on screen.
+ */
+export function findQuickBookRefusals(input: QuickBookRefusalInput): QuickBookRefusal[] {
   if (!input.time) {
-    return { field: 'time', message: 'Please choose a time.' }
+    return [{ field: 'time', message: 'Please choose a time.' }]
   }
 
+  const refusals: QuickBookRefusal[] = []
+
   const phone = input.phone.trim()
-  if (!phone) {
-    return { field: 'phone', message: 'Please enter your mobile number.' }
-  }
   // Loose on purpose. The management API normalises to E.164 and is the authority; this
   // only catches an obviously incomplete number before a round trip. UK mobiles are 11
   // digits, +44 forms are 12, and we accept anything in that region rather than trying to
   // out-parse libphonenumber in the browser.
-  const digits = phone.replace(/\D/g, '')
-  if (digits.length < 10) {
-    return { field: 'phone', message: 'That mobile number looks too short. Please check it.' }
+  if (!phone) {
+    refusals.push({ field: 'phone', message: 'Please enter your mobile number.' })
+  } else if (phone.replace(/\D/g, '').length < 10) {
+    refusals.push({ field: 'phone', message: 'That mobile number looks too short. Please check it.' })
   }
 
   if (!input.firstName.trim()) {
-    return { field: 'firstName', message: 'Please enter your first name.' }
+    refusals.push({ field: 'firstName', message: 'Please enter your first name.' })
   }
 
-  return null
+  return refusals
 }
 
 /**

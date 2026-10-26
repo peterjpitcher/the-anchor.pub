@@ -595,7 +595,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       expect(screen.getByLabelText(/Just drinks, no food/)).toBeInTheDocument()
       expect(screen.getByLabelText(/Outside table, weather permitting/)).toBeInTheDocument()
       expect(screen.getByLabelText(/Step-free, standard-height table/)).toBeInTheDocument()
-      expect(screen.getByRole('radiogroup', { name: 'High chairs' })).toBeInTheDocument()
+      expect(screen.getByRole('group', { name: 'High chairs' })).toBeInTheDocument()
     })
 
     it('offers high chairs as 0, 1 or 2, not a checkbox', async () => {
@@ -603,14 +603,34 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       renderTwoScreen()
       await findATable()
 
-      const group = screen.getByRole('radiogroup', { name: 'High chairs' })
+      const group = screen.getByRole('group', { name: 'High chairs' })
       const options = within(group).getAllByRole('radio')
 
-      expect(options.map((option) => option.textContent)).toEqual(['0', '1', '2'])
-      expect(within(group).getByRole('radio', { name: 'No high chairs' })).toHaveAttribute(
-        'aria-checked',
-        'true'
-      )
+      expect(options.map((option) => option.closest('label')?.textContent)).toEqual(['0', '1', '2'])
+      expect(within(group).getByRole('radio', { name: 'No high chairs' })).toBeChecked()
+    })
+
+    // Review BK-194. They were buttons labelled as radios, so a screen reader
+    // said "radio button, 1 of 3" and the arrow keys then did nothing. Native
+    // radios sharing one name, in a fieldset with a legend, are what give one
+    // Tab stop and the arrow keys; the browser audit presses them for real.
+    it('makes them real radios, one group, so the arrow keys work', async () => {
+      setupFetchMock({ availability: DAY_SLOTS })
+      renderTwoScreen()
+      await findATable()
+
+      const group = screen.getByRole('group', { name: 'High chairs' })
+      expect(group.tagName).toBe('FIELDSET')
+      const radios = within(group).getAllByRole('radio') as HTMLInputElement[]
+      expect(radios.every((radio) => radio.tagName === 'INPUT' && radio.type === 'radio')).toBe(true)
+      expect(new Set(radios.map((radio) => radio.name)).size).toBe(1)
+
+      // The chosen one is filled and ticked, so it does not rest on colour.
+      fireEvent.click(within(group).getByRole('radio', { name: '1 high chair' }))
+      const chosen = within(group).getByRole('radio', { name: '1 high chair' }).closest('label')!
+      expect(chosen.className).toContain('bg-accent')
+      expect(chosen.querySelector('svg')).not.toBeNull()
+      await act(async () => {})
     })
 
     it('reveals the owner-approved step-free copy, word for word', async () => {
@@ -1196,7 +1216,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       expect(screen.queryByText('Anything that changes the table?')).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/outside table/i)).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/high chair/i)).not.toBeInTheDocument()
-      expect(screen.queryByRole('radiogroup', { name: 'High chairs' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('group', { name: 'High chairs' })).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/step-free/i)).not.toBeInTheDocument()
       expect(screen.queryByLabelText(/just drinks/i)).not.toBeInTheDocument()
     })
@@ -1375,6 +1395,57 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
 
       expect(await screen.findByRole('heading', { name: 'Choose your time' })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /^1pm,/ })).toHaveAttribute('aria-pressed', 'true')
+      // The Back button went with the screen, so focus is put on the times.
+      expect(screen.getByRole('heading', { name: 'Choose your time' })).toHaveFocus()
+    })
+
+    // Review BK-103. Each of these presses takes away the control that was
+    // pressed, and focus used to fall to the page body with nothing said.
+    describe('focus follows the guest from screen to screen (BK-103)', () => {
+      it('lands on the details heading after Continue', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+
+        expect(screen.getByRole('heading', { name: 'Your details' })).toHaveFocus()
+      })
+
+      it('lands on First Name once a new number is checked, and says so in a region that was already there', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+        const region = screen
+          .getAllByRole('status')
+          .find((element) => element.closest('.rounded-md') && element.textContent === '')
+        expect(region).toBeDefined()
+
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+        const firstName = await screen.findByLabelText('First Name')
+        await waitFor(() => expect(firstName).toHaveFocus())
+        expect(region).toHaveTextContent('New customer detected. Please complete your details below.')
+      })
+
+      it('lands on the notes for a number we already know', async () => {
+        setupFetchMock({ availability: DAY_SLOTS, lookupResponse: { known: true } })
+        await reachDetails()
+
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+        const notes = await screen.findByLabelText('Notes (optional)')
+        await waitFor(() => expect(notes).toHaveFocus())
+      })
+
+      it('lands on the confirmation heading once the booking is made', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+        await verifyPhoneAndFillName()
+
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        const heading = await screen.findByRole('heading', { name: /all booked in/i })
+        await waitFor(() => expect(heading).toHaveFocus())
+      })
     })
 
     it('shows two steps in the progress bar, not four', async () => {

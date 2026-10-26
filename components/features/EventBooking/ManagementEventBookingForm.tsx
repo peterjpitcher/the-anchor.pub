@@ -4,7 +4,8 @@ import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
-import { Input } from '@/components/ui/primitives/Input'
+import { Input, fieldControlClass } from '@/components/ui/primitives/Input'
+import { SecurityCheckWaitingNote } from '@/components/security/SecurityCheckWaitingNote'
 import {
   TURNSTILE_RECOVERY_DELAY_MS,
   TURNSTILE_RECOVERY_TITLE,
@@ -70,6 +71,9 @@ const TURNSTILE_UNSUPPORTED_MESSAGE =
 
 /** Anchors the submit button's description at the recovery panel. */
 const TURNSTILE_RECOVERY_REGION_ID = 'event-booking-turnstile-recovery'
+
+/** The "waiting for the security check" line under the submit button. */
+const SECURITY_NOTE_ID = 'event-booking-security-note'
 
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
 type EventSeatingPreference = 'seated' | 'standing'
@@ -345,6 +349,8 @@ export function ManagementEventBookingForm({
     !turnstileToken &&
     (turnstileTimedOut || turnstileStatus === 'error' || turnstileStatus === 'unsupported')
   const turnstileRetryable = turnstileStatus !== 'unsupported'
+  // The booking button waits for a token, and says so while it waits.
+  const awaitingSecurityCheck = Boolean(turnstileSiteKey) && !turnstileToken
 
   /**
    * `AddToCalendar` asks for a whole `Event`; this form only ever holds a slice
@@ -1023,10 +1029,13 @@ export function ManagementEventBookingForm({
                   {questions.map(question => (
                     <label key={question.id} className="block space-y-1 text-sm text-ink">
                       <span>{question.label} ({question.required ? 'required' : 'optional'})</span>
+                      {/* The site's one field style, so these boxes are as easy
+                          to find as the name and phone boxes: their own border
+                          was 1.47:1 on the dark card (review BK-104). */}
                       {question.type === 'text' ? (
-                        <textarea className="block w-full rounded-sm border border-line bg-surface p-2" maxLength={2000} required={question.required} value={person.answers[question.id] ?? ''} onChange={e => updateAttendee(person.id, { answers: { ...person.answers, [question.id]: e.target.value } })} />
+                        <textarea className={cn(fieldControlClass, 'min-h-[100px] resize-y')} maxLength={2000} required={question.required} value={person.answers[question.id] ?? ''} onChange={e => updateAttendee(person.id, { answers: { ...person.answers, [question.id]: e.target.value } })} />
                       ) : (
-                        <select className="block min-h-[44px] w-full rounded-sm border border-line bg-surface p-2" required={question.required} value={person.answers[question.id] ?? ''} onChange={e => updateAttendee(person.id, { answers: { ...person.answers, [question.id]: e.target.value } })}>
+                        <select className={fieldControlClass} required={question.required} value={person.answers[question.id] ?? ''} onChange={e => updateAttendee(person.id, { answers: { ...person.answers, [question.id]: e.target.value } })}>
                           <option value="">Choose an answer</option>
                           {(question.type === 'yes_no' ? ['yes', 'no'] : question.options ?? []).map(option => <option key={option} value={option}>{question.type === 'yes_no' ? option === 'yes' ? 'Yes' : 'No' : option}</option>)}
                         </select>
@@ -1193,8 +1202,15 @@ export function ManagementEventBookingForm({
             size="lg"
             wrap
             loading={loading}
-            aria-describedby={turnstileUnavailable ? TURNSTILE_RECOVERY_REGION_ID : undefined}
-            disabled={(turnstileSiteKey ? !turnstileToken : false) || !ticketSelectionValid}
+            aria-describedby={
+              turnstileUnavailable ? `${SECURITY_NOTE_ID} ${TURNSTILE_RECOVERY_REGION_ID}` : SECURITY_NOTE_ID
+            }
+            // Reachable while the security check runs, with the reason under
+            // it, rather than greyed out and skipped by the Tab key with
+            // nothing said (review BK-198). An invalid ticket choice is still
+            // plainly disabled: the choice above it says what is wrong.
+            unavailable={awaitingSecurityCheck}
+            disabled={!ticketSelectionValid}
             onClick={() => {
               trackEventBookingFunnelStep({
                 step: 'cta_click',
@@ -1210,6 +1226,7 @@ export function ManagementEventBookingForm({
               ? 'Book standing tickets'
               : getEventBookingActionLabel(event)}
           </Button>
+          <SecurityCheckWaitingNote id={SECURITY_NOTE_ID} waiting={awaitingSecurityCheck} />
         </form>
 
         {error && (

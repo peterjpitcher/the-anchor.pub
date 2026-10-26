@@ -11,8 +11,9 @@ import type { BaseComponentProps } from '../types'
  * `forms/Select`, `forms/DatePicker` and `forms/Textarea` reuse `fieldControlClass`
  * so every control shares the same border, focus ring and radius.
  *
- * - Control: surface bg, 1.5px strong border, 6px radius, 12px/16px padding,
- *   min-height 48px, base font.
+ * - Control: surface bg, 1.5px field border (3:1 or better against the field in
+ *   both skins, review BK-104), 6px radius, 12px/16px padding, min-height 48px,
+ *   base font.
  * - Focus: accent border + 4px soft-gold glow, plus the theme's focus ring.
  *   The ring comes from app/globals.css, which gives every control that
  *   switches its outline off an outline in --focus-ring. The border and glow
@@ -20,7 +21,7 @@ import type { BaseComponentProps } from '../types'
  * - Invalid: danger border.
  */
 export const fieldControlClass =
-  'block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-strong bg-surface px-4 py-3 text-base text-ink min-h-[48px] ' +
+  'block w-full min-w-0 max-w-full rounded-sm border-[1.5px] border-line-field bg-surface px-4 py-3 text-base text-ink min-h-[48px] ' +
   'placeholder:text-ink-muted transition-colors ' +
   'focus:outline-none focus:border-accent-text focus:shadow-[0_0_0_4px_rgba(139,105,20,0.12)] ' +
   'disabled:opacity-50 disabled:cursor-not-allowed'

@@ -122,7 +122,9 @@ export function formatClockTime(value: string | null | undefined): string | null
     return parsed.toLocaleTimeString('en-GB', {
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true,
+      // h12, not `hour12: true`, which some ICU builds read as h11 and print
+      // as "0:15 pm" (review BK-210).
+      hourCycle: 'h12',
       timeZone: 'Europe/London'
     })
   }

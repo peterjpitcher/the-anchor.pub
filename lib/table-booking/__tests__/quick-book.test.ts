@@ -5,6 +5,7 @@ import {
   buildQuickBookPayload,
   defaultQuickBookState,
   findQuickBookRefusal,
+  findQuickBookRefusals,
   fullFormHref,
   quickDateChoices,
   requiresFullForm,
@@ -293,5 +294,62 @@ describe('the submit-intent fingerprint', () => {
 
   it('ignores whitespace, which is not a different booking', () => {
     expect(fingerprintOf({ phone: '  07700900000 ', firstName: ' Jane ' })).toBe(fingerprintOf())
+  })
+})
+
+/**
+ * Review BK-195. On a Sunday the chips read "Today, Tomorrow, Sunday", where
+ * "Sunday" was next Sunday, so a guest on the busiest booking day could book a
+ * week out by mistake. The clock is frozen on real dates around the end of
+ * British Summer Time (25 October 2026), in London's terms.
+ */
+describe('the date chips never leave "Sunday" ambiguous', () => {
+  afterEach(() => jest.useRealTimers())
+
+  const chipsOn = (iso: string) => {
+    jest.useFakeTimers({ now: new Date(iso) })
+    return quickDateChoices()
+  }
+
+  it('calls the extra chip Next Sunday when today is Sunday', () => {
+    // Sunday 1 November 2026, 10am in London.
+    expect(chipsOn('2026-11-01T10:00:00Z')).toEqual([
+      { value: '2026-11-01', label: 'Today' },
+      { value: '2026-11-02', label: 'Tomorrow' },
+      { value: '2026-11-08', label: 'Next Sunday' },
+    ])
+  })
+
+  it('keeps plain Sunday for the coming Sunday on any other day', () => {
+    // Wednesday 28 October 2026.
+    expect(chipsOn('2026-10-28T10:00:00Z')).toEqual([
+      { value: '2026-10-28', label: 'Today' },
+      { value: '2026-10-29', label: 'Tomorrow' },
+      { value: '2026-11-01', label: 'Sunday' },
+    ])
+  })
+
+  it('reads Sunday from London, not from the server: 11:30pm on Saturday in summer is already Sunday', () => {
+    // 23:30 UTC on Saturday 24 October 2026 is 00:30 BST on Sunday 25 October.
+    expect(chipsOn('2026-10-24T23:30:00Z').map((chip) => chip.label)).toEqual([
+      'Today',
+      'Tomorrow',
+      'Next Sunday',
+    ])
+  })
+})
+
+describe('every refusal at once, each on its own field (BK-195)', () => {
+  it('reports the phone and the name together', () => {
+    expect(findQuickBookRefusals({ time: '19:00', phone: '', firstName: ' ' })).toEqual([
+      { field: 'phone', message: 'Please enter your mobile number.' },
+      { field: 'firstName', message: 'Please enter your first name.' },
+    ])
+  })
+
+  it('reports a missing time alone, because neither box is on screen then', () => {
+    expect(findQuickBookRefusals({ time: null, phone: '', firstName: '' })).toEqual([
+      { field: 'time', message: 'Please choose a time.' },
+    ])
   })
 })

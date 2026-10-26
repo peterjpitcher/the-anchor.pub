@@ -96,7 +96,12 @@ const PAGES = [
   ['/heathrow-parking', 'parking (retargeted)', REVIEWS_CAROUSEL],
   ['/heathrow-hotels-pub', '301 destination for 11 retired pages'],
   ['/private-hire/venue-tour', 'newly indexable'],
-  ['/events/quiz-night-2026-10-07', 'event detail template'],
+  // The event detail template is checked on the next event on sale, found
+  // when the audit runs (see liveEventPage). It used to be a dated row, a quiz
+  // night that had already happened by the time anyone read the result, so
+  // the page said "This event has ended" and had no form to check (review
+  // BK-222). The booking form itself is checked against a fixture event in
+  // checkBookingJourney.
   ['/blog/best-sunday-roast-surrey', 'blog template with related-posts module'],
   ['/private-hire/near/slough-crematorium', 'landmark template'],
   ['/sunday-roast', 'money page'],
@@ -612,8 +617,10 @@ const OPEN_DIALOG = '[role="dialog"][aria-modal="true"]:not([data-state="closed"
  * Open a page and wait for it as the page loop does. Returns the page, or
  * null with the reason pushed onto `settleProblems`.
  */
-async function openSettled(context, pathname, { ready, expectStatus = 200, settleProblems }) {
+async function openSettled(context, pathname, { ready, expectStatus = 200, settleProblems, prepare }) {
   const page = await context.newPage()
+  // Anything that has to be in place before the first request, such as mocks.
+  if (prepare) await prepare(page)
   const requests = trackContentRequests(page)
   const res = await page.goto(BASE + pathname, { waitUntil: 'domcontentloaded' })
   if (!res || res.status() !== expectStatus) {
@@ -801,6 +808,327 @@ const pressInstantQuote = async (page) => {
 }
 
 /**
+ * Runs in the page. Every text field, select and text box on screen whose edge
+ * is under 3:1 against the field, the contrast a control's boundary needs
+ * (WCAG 2.2 SC 1.4.11, non-text contrast). axe does not test it, which is how
+ * every booking form's fields sat at 2.31:1 on the dark skin, and the event
+ * question boxes at 1.47:1, with the audit clean (review BK-104).
+ *
+ * The edge is painted over the field's own background, which is itself
+ * painted over whatever is behind it, because the dark skin's borders are
+ * translucent gold.
+ */
+const faintFieldEdges = () => {
+  const parse = (value) => {
+    let match = /^rgba?\(([^)]+)\)$/.exec(value)
+    if (match) {
+      const parts = match[1].split(/[\s,/]+/).filter(Boolean).map(Number)
+      return [parts[0], parts[1], parts[2], parts.length > 3 ? parts[3] : 1]
+    }
+    // What a colour-mix() token computes to.
+    match = /^color\(srgb ([^)]+)\)$/.exec(value)
+    if (match) {
+      const parts = match[1].split(/[\s/]+/).filter(Boolean).map(Number)
+      return [parts[0] * 255, parts[1] * 255, parts[2] * 255, parts.length > 3 ? parts[3] : 1]
+    }
+    return null
+  }
+  const over = (top, bottom) => [0, 1, 2].map((i) => top[i] * top[3] + bottom[i] * (1 - top[3])).concat(1)
+  const backdrop = (el) => {
+    const layers = []
+    for (let node = el; node && node.nodeType === 1; node = node.parentElement) {
+      const colour = parse(getComputedStyle(node).backgroundColor)
+      if (colour && colour[3] > 0) {
+        layers.push(colour)
+        if (colour[3] >= 1) break
+      }
+    }
+    let painted = [255, 255, 255, 1]
+    for (let i = layers.length - 1; i >= 0; i -= 1) painted = over(layers[i], painted)
+    return painted
+  }
+  const luminance = (colour) => {
+    const [r, g, b] = colour.slice(0, 3).map((v) => {
+      const s = v / 255
+      return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4)
+    })
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+  }
+  const ratio = (a, b) => {
+    const la = luminance(a)
+    const lb = luminance(b)
+    return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05)
+  }
+  const skipTypes = ['hidden', 'checkbox', 'radio', 'submit', 'button', 'reset', 'image', 'range', 'color', 'file']
+  const problems = []
+  for (const el of document.querySelectorAll('input, select, textarea')) {
+    if (skipTypes.includes(el.type)) continue
+    // Not on screen for anyone: a closed drawer is inert and slid off-screen,
+    // and the check that opens it (checkOpened) looks at it there.
+    if (el.closest('[aria-hidden="true"], [inert], [data-state="closed"]')) continue
+    const box = el.getBoundingClientRect()
+    if (box.width < 2 || box.height < 2) continue
+    const style = getComputedStyle(el)
+    if (style.visibility === 'hidden' || (style.opacity !== '' && Number(style.opacity) === 0)) continue
+    // A field drawn with no edge at all is judged by its fill instead, which
+    // axe and a human cover; this check is about edges that are there but faint.
+    if (!parseFloat(style.borderBottomWidth) || style.borderBottomStyle === 'none') continue
+    const edge = parse(style.borderBottomColor)
+    if (!edge) continue
+    const field = backdrop(el)
+    const measured = ratio(over(edge, field), field)
+    if (measured < 3) {
+      const name =
+        el.getAttribute('aria-label') ||
+        (el.labels && el.labels[0] ? el.labels[0].textContent.trim() : '') ||
+        el.name ||
+        el.id ||
+        el.tagName.toLowerCase()
+      problems.push({ name: name.slice(0, 40), ratio: Math.round(measured * 100) / 100 })
+    }
+  }
+  return problems
+}
+
+/** Run faintFieldEdges and file what it finds under `pathname`. */
+async function recordFaintFieldEdges(page, pathname, lists) {
+  for (const field of await page.evaluate(faintFieldEdges)) {
+    lists.fieldEdgeProblems.push({ pathname, ...field })
+  }
+}
+
+/**
+ * Runs in the page. What has focus, as a person using a screen reader would
+ * be told: the control's text or label, whether it is marked invalid, and
+ * what it is described by.
+ */
+const whatHasFocus = () => {
+  const el = document.activeElement
+  if (!el || el === document.body) return { name: '', invalid: null, description: '', missing: false }
+  const label = el.labels && el.labels[0] ? el.labels[0].textContent.trim() : ''
+  const description = (el.getAttribute('aria-describedby') || '')
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((id) => (document.getElementById(id) || {}).textContent || '')
+    .join(' ')
+    .trim()
+  return {
+    name: (el.getAttribute('aria-label') || label || el.textContent || '').trim().slice(0, 60),
+    invalid: el.getAttribute('aria-invalid'),
+    description,
+    missing: Boolean(el.validity && el.validity.valueMissing),
+  }
+}
+
+/**
+ * The booking screens guests actually use (review BK-222).
+ *
+ * The page loop loads /book-table and checks it as it arrives, which is the
+ * empty "Find a table" form and nothing else: the times, the details screen,
+ * its refusals and the event form were never in front of axe. This presses
+ * through them in a real browser and checks each one, and checks where focus
+ * lands at every step, which is what the review found broken.
+ *
+ * Nothing is sent. The availability, the number check and the suggested event
+ * are answered here with fixtures, every other write to the site's API is
+ * refused before it leaves the browser, and the refusals are what is being
+ * checked, so no booking is ever completed.
+ */
+const BOOKING_PAGE = '/book-table'
+const JOURNEY_EVENT_ID = 'a11y-audit-fixture-event'
+
+async function mockBookingApis(page) {
+  const json = (body) => ({ status: 200, contentType: 'application/json', body: JSON.stringify(body) })
+  // First, so the routes below win: Playwright runs the last one registered.
+  await page.route('**/api/**', (route) =>
+    route.request().method() === 'GET' ? route.fallback() : route.abort('blockedbyclient')
+  )
+  await page.route('**/api/table-bookings/availability**', (route) => {
+    const date = new URL(route.request().url()).searchParams.get('date')
+    route.fulfill(json({
+      success: true,
+      data: {
+        date,
+        available: true,
+        calculation_state: 'complete',
+        time_slots: ['12:30', '13:00', '18:00', '19:00'].map((time) => ({
+          time,
+          available: true,
+          available_capacity: 20,
+          bookable_purpose: 'food_or_drinks',
+          high_chairs_remaining: 2,
+        })),
+      },
+    }))
+  })
+  await page.route('**/api/customers/lookup', (route) =>
+    route.fulfill(json({ success: true, data: { known: false, lookup_degraded: false } }))
+  )
+  // The events on the searched date: one prepaid night with questions per
+  // ticket, the case the dated event row could no longer show.
+  const fixtureEvent = (date) => ({
+    id: JOURNEY_EVENT_ID,
+    slug: JOURNEY_EVENT_ID,
+    name: 'Accessibility audit fixture night',
+    startDate: `${date}T12:00:00.000Z`,
+    payment_mode: 'prepaid',
+    booking_mode: 'table',
+    price: 25,
+    offers: { price: '25', priceCurrency: 'GBP' },
+    booking_questions: [
+      { id: 'dietary', label: 'Any dietary needs?', type: 'text', required: true },
+      { id: 'first_visit', label: 'First time with us?', type: 'yes_no', required: true },
+    ],
+  })
+  // The date the form asked about, so the event it opens is the one it listed.
+  let searchedDate = null
+  await page.route('**/api/events?**', (route) => {
+    const date = new URL(route.request().url()).searchParams.get('from_date')
+    if (!date) return route.fallback()
+    searchedDate = date
+    return route.fulfill(json({ success: true, data: { events: [fixtureEvent(date)] } }))
+  })
+  await page.route(`**/api/events/${JOURNEY_EVENT_ID}`, (route) => {
+    if (!searchedDate) return route.abort('blockedbyclient')
+    return route.fulfill(json({ success: true, data: fixtureEvent(searchedDate) }))
+  })
+}
+
+async function checkBookingJourney(browser, lists) {
+  const context = await browser.newContext({ viewport: { width: 1280, height: 900 } })
+  const label = `${BOOKING_PAGE} booking journey`
+  const where = (step) => `${label}: ${step}`
+  const problem = (step, issue) => lists.keyboardProblems.push({ pathname: where(step), issue })
+  const notChecked = (step, issue) => lists.settleProblems.push({ pathname: where(step), issue })
+  let page = null
+  const focusAfter = async () => {
+    await page.waitForTimeout(200)
+    return page.evaluate(whatHasFocus)
+  }
+  try {
+    page = await openSettled(context, BOOKING_PAGE, { settleProblems: lists.settleProblems, prepare: mockBookingApis })
+    if (!page) return
+    const reject = page.locator('button[aria-label="Reject all cookies"]')
+    if (await reject.count()) await reject.first().click()
+
+    // The times.
+    const find = page.getByRole('button', { name: 'Find a table', exact: true })
+    if (!(await find.count())) return notChecked('the times', 'there is no Find a table button, so nothing after it was checked')
+    await find.click()
+    try {
+      await page.getByRole('button', { name: /^7pm,/ }).waitFor({ state: 'visible', timeout: 8000 })
+    } catch {
+      return notChecked('the times', 'the times never appeared, so nothing after them was checked')
+    }
+    await page.waitForTimeout(300)
+    await axeInto(lists.AxeBuilder, page, where('the times'), 'booking times', lists, '#booking-form')
+    await recordFaintFieldEdges(page, where('the times'), lists)
+
+    // High chairs: one Tab stop, and the arrow keys move the choice (BK-194).
+    await page.getByRole('radio', { name: 'No high chairs' }).focus()
+    await page.keyboard.press('ArrowRight')
+    if (!(await page.getByRole('radio', { name: '1 high chair' }).isChecked())) {
+      problem('high chairs', 'ArrowRight on "No high chairs" did not choose 1 high chair')
+    }
+    await page.keyboard.press('ArrowLeft')
+    await page.waitForTimeout(500)
+
+    // Continue: focus on the new screen's heading (BK-103).
+    await page.getByRole('button', { name: /^7pm,/ }).click()
+    await page.getByRole('button', { name: 'Continue with 7pm' }).click()
+    await page.getByRole('heading', { name: 'Your details' }).waitFor({ timeout: 5000 })
+    const atDetails = await focusAfter()
+    if (atDetails.name !== 'Your details') {
+      problem('your details', `after Continue, focus is on "${atDetails.name || 'the page'}", not the Your details heading`)
+    }
+    await axeInto(lists.AxeBuilder, page, where('your details'), 'booking details', lists, '#booking-form')
+
+    // The number check: focus goes where the guest types next.
+    await page.getByLabel('Mobile Number').fill('07700900123')
+    await page.getByRole('button', { name: 'Continue', exact: true }).click()
+    await page.getByLabel('First Name').waitFor({ timeout: 5000 })
+    const afterCheck = await focusAfter()
+    if (afterCheck.name !== 'First Name') {
+      problem('your details', `after the number check, focus is on "${afterCheck.name || 'the page'}", not First Name`)
+    }
+
+    // Confirm with the fields empty: each refusal beside its field, focus on
+    // the first (BK-102). Refused here, so nothing is sent.
+    const confirm = page.getByRole('button', { name: /^Confirm/ })
+    if ((await confirm.getAttribute('aria-disabled')) === 'true') {
+      notChecked('refusals', 'the security check never finished, so Confirm could not be pressed and the refusals were not checked')
+    } else {
+      await confirm.click()
+      const refused = await focusAfter()
+      if (refused.name !== 'First Name' || refused.invalid !== 'true' || !/first name/i.test(refused.description)) {
+        problem('refusals', `Confirm with empty fields left focus on "${refused.name || 'the page'}" (invalid ${refused.invalid}, described as "${refused.description}"), not on First Name with its message`)
+      }
+      if ((await page.getByLabel(/booking and no-show policy/i).getAttribute('aria-invalid')) !== 'true') {
+        problem('refusals', 'the unticked policy box was not marked invalid')
+      }
+      await axeInto(lists.AxeBuilder, page, where('refusals'), 'booking refusals', lists, '#booking-form')
+      await recordFaintFieldEdges(page, where('refusals'), lists)
+    }
+
+    // Back to the times: focus on their heading.
+    await page.getByRole('button', { name: 'Back', exact: true }).click()
+    const backAgain = await focusAfter()
+    if (backAgain.name !== 'Choose your time') {
+      problem('back', `Back left focus on "${backAgain.name || 'the page'}", not the Choose your time heading`)
+    }
+
+    // A prepaid event with a question per ticket, booked from the table page.
+    const bookEvent = page.getByRole('button', { name: 'Book this event' }).first()
+    if (!(await bookEvent.count())) return notChecked('event', 'the suggested event never appeared, so the event form was not checked')
+    await bookEvent.click()
+    try {
+      await page.getByLabel('Ticket 1 full name').waitFor({ timeout: 8000 })
+    } catch {
+      return notChecked('event', 'the event form never loaded, so it was not checked')
+    }
+    const atEvent = await focusAfter()
+    if (atEvent.name !== 'Event booking') {
+      problem('event', `opening the event left focus on "${atEvent.name || 'the page'}", not the Event booking heading`)
+    }
+    await axeInto(lists.AxeBuilder, page, where('event'), 'event booking form', lists, '#booking-form')
+    await recordFaintFieldEdges(page, where('event'), lists)
+
+    // Its booking button with nothing filled in: stopped on the first ticket's
+    // name, which says it is missing. Nothing is sent.
+    await page.locator('#booking-form form button[type="submit"]').last().click()
+    const eventRefused = await focusAfter()
+    if (eventRefused.name !== 'Ticket 1 full name' || !eventRefused.missing) {
+      problem('event refusals', `booking with nothing filled in left focus on "${eventRefused.name || 'the page'}", not the first ticket's name`)
+    }
+    await axeInto(lists.AxeBuilder, page, where('event refusals'), 'event booking refusals', lists, '#booking-form')
+  } catch (error) {
+    notChecked('steps', `a step could not be completed: ${String(error.message).split('\n')[0].slice(0, 120)}`)
+  } finally {
+    await context.close()
+  }
+}
+
+/**
+ * The event detail template, on the next event on sale. A fixed row goes out
+ * of date the day after its event (review BK-222). Asks the site's own events
+ * route, which is what the What's On page reads. Null when nothing is on sale,
+ * which is said in the report rather than failed.
+ */
+async function liveEventPage() {
+  try {
+    const response = await fetch(`${BASE}/api/events?limit=6&available_only=true`)
+    if (!response.ok) return null
+    const body = await response.json()
+    const root = (body && body.data) || body
+    const events = Array.isArray(root && root.events) ? root.events : Array.isArray(root) ? root : []
+    const next = events.find((event) => event && typeof event.slug === 'string' && event.slug)
+    return next ? [`/events/${next.slug}`, 'event detail template (next event on sale)'] : null
+  } catch {
+    return null
+  }
+}
+
+/**
  * Reflow: nothing may be cut off at the right edge of a 320px screen
  * (WCAG 2.2 1.4.10).
  *
@@ -956,17 +1284,29 @@ async function main() {
   const keyboardProblems = []
   const reflowProblems = []
   const settleProblems = []
+  const fieldEdgeProblems = []
   let popupNote = ''
+  let eventPageNote = ''
+
+  const pages = [...PAGES]
 
   try {
+    const eventPage = await liveEventPage()
+    if (eventPage) {
+      pages.push(eventPage)
+      eventPageNote = eventPage[0]
+    } else {
+      eventPageNote = 'no event on sale, so the event detail template was not checked this run'
+    }
+
     // Warm every page first. A dev server compiles routes on first request, so
     // a cold page can answer 500 while still building and be reported as an
     // accessibility failure it is not. This made the result flaky between runs.
-    for (const [pathname] of PAGES) {
+    for (const [pathname] of pages) {
       try { await fetch(BASE + pathname) } catch { /* checked properly below */ }
     }
 
-    for (const [pathname, label, ready] of PAGES) {
+    for (const [pathname, label, ready] of pages) {
       const page = await context.newPage()
       const requests = trackContentRequests(page)
       let res = await page.goto(BASE + pathname, { waitUntil: 'domcontentloaded' })
@@ -1012,6 +1352,7 @@ async function main() {
       for (const v of results.incomplete) {
         incomplete.push({ pathname, id: v.id, help: v.help, nodes: v.nodes.length })
       }
+      await recordFaintFieldEdges(page, pathname, { fieldEdgeProblems })
 
       // Every disclosure control must be a button, not a link.
       //
@@ -1095,7 +1436,7 @@ async function main() {
     popupNote = await auditTimedPopup(browser, AxeBuilder, { violations, incomplete, keyboardProblems })
 
     // ---- Second half: the phone width, and things that have to be opened ----
-    const lists = { AxeBuilder, violations, incomplete, keyboardProblems, settleProblems }
+    const lists = { AxeBuilder, violations, incomplete, keyboardProblems, settleProblems, fieldEdgeProblems }
 
     // Every page again as a phone sees it. A strip that scrolls sideways, a
     // stacked layout and the burger only exist here. Loaded at this width, not
@@ -1103,7 +1444,7 @@ async function main() {
     const phone = await browser.newContext({ viewport: PHONE })
     await alwaysShowEventBanner(phone)
     try {
-      for (const [pathname, label, ready] of PAGES) {
+      for (const [pathname, label, ready] of pages) {
         const page = await openSettled(phone, pathname, { ready, settleProblems })
         if (!page) continue
         await axeInto(AxeBuilder, page, `${pathname} at ${PHONE.width}px`, label, lists)
@@ -1128,14 +1469,17 @@ async function main() {
     await checkPhoneMenu(browser, lists)
     await checkOpened(browser, { pathname: QUICK_BOOK_PAGE, what: 'quick booking sheet', viewport: PHONE, press: pressStickyBookATable }, lists)
     await checkOpened(browser, { pathname: ESTIMATOR_PAGE, what: 'cost estimator', viewport: { width: 1280, height: 900 }, press: pressInstantQuote }, lists)
+    await checkBookingJourney(browser, lists)
   } finally {
     await context.close()
     await browser.close()
   }
 
-  console.log(`checked ${PAGES.length} templates at ${BASE}, at 1280px and at ${PHONE.width}px, WCAG 2.2 AA`)
+  console.log(`checked ${pages.length} templates at ${BASE}, at 1280px and at ${PHONE.width}px, WCAG 2.2 AA`)
   console.log(`timed pop-up on ${POPUP_PAGE}: ${popupNote}`)
-  console.log('also: the not-found page, the skip link at both widths, the phone menu, the quick booking sheet, the cost estimator\n')
+  console.log(`event detail template: ${eventPageNote}`)
+  console.log('also: the not-found page, the skip link at both widths, the phone menu, the quick booking sheet, the cost estimator,')
+  console.log(`the booking journey on ${BOOKING_PAGE} (times, details, refusals, a fixture event), and field edges at 3:1\n`)
 
   const report = (title, list, keyFn, limit = 12) => {
     if (!list.length) return
@@ -1148,8 +1492,9 @@ async function main() {
   report('VIOLATIONS', violations, (v) => `${v.pathname}  [${v.impact || 'n/a'}] ${v.id}: ${v.help} (${v.nodes} node(s))`)
   report('NOT SETTLED (axe may not have seen this content)', settleProblems, (s) => `${s.pathname}  ${s.issue}`)
   report('KEYBOARD', keyboardProblems, (k) => `${k.pathname}  ${k.issue}`)
+  report('FIELD EDGES under 3:1 (WCAG 1.4.11; axe does not test this)', fieldEdgeProblems, (f) => `${f.pathname}  "${f.name}" ${f.ratio}:1`)
   // Every page, not the first twelve: one component can put a line on each.
-  report(`REFLOW at ${REFLOW_WIDTH}px, pages with something cut off at the right edge`, reflowProblems, describeCutOff, PAGES.length)
+  report(`REFLOW at ${REFLOW_WIDTH}px, pages with something cut off at the right edge`, reflowProblems, describeCutOff, pages.length)
   report('NEEDS A HUMAN (axe could not decide)', incomplete, (i) => `${i.pathname}  ${i.id}: ${i.help} (${i.nodes})`)
 
   const other = violations.filter((v) => v.id !== 'color-contrast')
@@ -1170,6 +1515,7 @@ async function main() {
     other.length +
     settleProblems.length +
     keyboardProblems.length +
+    fieldEdgeProblems.length +
     reflowProblems.length +
     (contrast.length > CONTRAST_BASELINE ? contrast.length - CONTRAST_BASELINE : 0)
 
@@ -1207,6 +1553,13 @@ module.exports = {
   nothingMarked,
   POPUP_TAB_PRESSES,
   focusedControlIsOnTop,
+  faintFieldEdges,
+  whatHasFocus,
+  liveEventPage,
+  mockBookingApis,
+  checkBookingJourney,
+  BOOKING_PAGE,
+  JOURNEY_EVENT_ID,
   PHONE,
   NOT_FOUND_PAGE,
   REFLOW_WIDTH,

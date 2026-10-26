@@ -73,7 +73,8 @@ const config: Config = {
         surface: { DEFAULT: mixable('var(--surface)'), raised: mixable('var(--surface-raised)'), sunk: mixable('var(--surface-sunk)'), inverse: mixable('var(--surface-inverse)') },
         ink: { DEFAULT: mixable('var(--text)'), strong: mixable('var(--text-strong)'), muted: mixable('var(--text-muted)'), inverse: mixable('var(--text-inverse)'), 'on-green': mixable('var(--text-on-green)'), 'on-gold': mixable('var(--text-on-gold)') },
         accent: { DEFAULT: mixable('var(--accent)'), text: mixable('var(--accent-text)') },
-        line: { DEFAULT: mixable('var(--border)'), strong: mixable('var(--border-strong)'), gold: mixable('var(--border-gold)') },
+        // `field` is the edge of a form control: 3:1 or better in both skins.
+        line: { DEFAULT: mixable('var(--border)'), strong: mixable('var(--border-strong)'), field: mixable('var(--border-field)'), gold: mixable('var(--border-gold)') },
         // Warm accent tile (icon medallions, sand badges, "today" highlight).
         tile: { DEFAULT: mixable('var(--tile)'), ink: mixable('var(--tile-ink)') },
         // Tailwind's own `current` (currentColor) cannot take a modifier either.

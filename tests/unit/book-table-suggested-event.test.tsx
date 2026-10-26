@@ -244,5 +244,15 @@ describe('booking an event suggested on the table page (BK-099)', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Back to table booking' }))
 
     await waitFor(() => expect(screen.getByRole('heading', { name: 'Find a table' })).toBeInTheDocument())
+    // Back on the times they searched, with focus on their heading (BK-103).
+    await waitFor(() => expect(screen.getByRole('heading', { name: 'Choose your time' })).toHaveFocus())
+  })
+
+  it('puts focus on the event screen as it opens, not on the page body (BK-103)', async () => {
+    setupFetch(() => Promise.resolve(jsonResponse({ success: true, data: FULL_EVENT })))
+    await openSuggestedEvent()
+
+    expect(screen.getByRole('heading', { name: 'Event booking' })).toHaveFocus()
+    await screen.findByLabelText('First name')
   })
 })

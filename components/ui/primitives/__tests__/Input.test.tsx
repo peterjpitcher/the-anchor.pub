@@ -16,7 +16,7 @@ describe('Input', () => {
   it('renders the canonical control styling', () => {
     render(<Input />)
     const input = screen.getByRole('textbox')
-    expect(input).toHaveClass('border-line-strong')
+    expect(input).toHaveClass('border-line-field')
     expect(input).toHaveClass('bg-surface')
     expect(input).toHaveClass('rounded-sm')
   })
@@ -30,11 +30,26 @@ describe('Input', () => {
   it('treats the legacy variant and size props as no-ops', () => {
     const { rerender } = render(<Input variant="error" size="sm" />)
     // Deprecated visual props no longer change the rendered style.
-    expect(screen.getByRole('textbox')).toHaveClass('border-line-strong')
+    expect(screen.getByRole('textbox')).toHaveClass('border-line-field')
     expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-invalid')
 
     rerender(<Input size="lg" />)
-    expect(screen.getByRole('textbox')).toHaveClass('border-line-strong')
+    expect(screen.getByRole('textbox')).toHaveClass('border-line-field')
+  })
+
+  // Review BK-102: an error raised by a button beside the field, where focus
+  // stays on the button, has to announce itself.
+  it('announces an error message only when asked, and only once it is an error', () => {
+    const { rerender } = render(<Input label="Mobile" helperText="For your confirmation." announceError />)
+    expect(screen.getByText('For your confirmation.')).not.toHaveAttribute('role')
+
+    rerender(<Input label="Mobile" helperText="For your confirmation." error="Please enter your mobile number." announceError />)
+    const message = screen.getByText('Please enter your mobile number.')
+    expect(message).toHaveAttribute('role', 'alert')
+    expect(screen.getByLabelText('Mobile')).toHaveAccessibleDescription('Please enter your mobile number.')
+
+    rerender(<Input label="Mobile" error="Please enter your mobile number." />)
+    expect(screen.getByText('Please enter your mobile number.')).not.toHaveAttribute('role')
   })
 
   it('shows error message via the legacy error string alias', () => {

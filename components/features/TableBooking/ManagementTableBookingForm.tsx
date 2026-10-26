@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/primitives/Badge'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
+import { SecurityCheckWaitingNote } from '@/components/security/SecurityCheckWaitingNote'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 import { pickSlotWindow } from '@/lib/table-booking-slot-window'
 import { londonNowParts } from '@/lib/table-booking-service-windows'
@@ -104,6 +105,7 @@ import {
 } from './SeasonalPreorderPicker'
 import { useSuggestedEvents } from './useSuggestedEvents'
 import { SuggestedEventBooking } from './SuggestedEventBooking'
+import { useFocusOnChange } from '@/hooks/useFocusOnChange'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
@@ -169,6 +171,7 @@ type FieldErrorEntry = { field: FieldErrorKey; code: string; message: string }
 
 const PHONE_INPUT_ID = 'table-booking-phone'
 const POLICY_ERROR_ID = 'table-booking-policy-error'
+const SECURITY_NOTE_ID = 'table-booking-security-note'
 
 /**
  * Everything a reading depends on, as one comparable value.
@@ -819,19 +822,6 @@ export function ManagementTableBookingForm({
     control.scrollIntoView?.({ block: 'center' })
   }, [fieldFocusRequest])
 
-  // A failure of the booking itself goes in the top alert, which is a screen
-  // above Confirm on a phone, so the guest is taken to it. Two-screen flow
-  // only: the four-step flow also raises this alert from a background re-read,
-  // where taking focus would pull the guest off whatever they were doing.
-  useEffect(() => {
-    if (errorSequence === 0 || !twoScreenFlow) return
-    const alert = errorAlertRef.current
-    if (!alert) return
-    alert.focus({ preventScroll: true })
-    alert.scrollIntoView?.({ block: 'center' })
-    // Keyed on the sequence alone: it moves every time an error is shown.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errorSequence])
 
   // The chosen time stopped qualifying. In the two-screen flow the guest is
   // already looking at the grid, so this is an inline note beside it rather
@@ -846,6 +836,7 @@ export function ManagementTableBookingForm({
   }
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileFieldRef>(null)
+  const awaitingSecurityCheck = Boolean(TURNSTILE_SITE_KEY) && !turnstileToken
   const [website, setWebsite] = useState('')
   const formLoadedAt = useRef(Date.now())
   const aircraftOverheadNote = useMemo(
@@ -1009,6 +1000,35 @@ export function ManagementTableBookingForm({
     lastStepRef.current = step
     if (previous === 'find' && step === 'choose') chooseHeadingRef.current?.focus()
   }, [step])
+
+  // Two-screen flow: the heading of whichever screen is showing. Continue,
+  // Back, a dropped time and "Back to table booking" each take away the
+  // control the guest pressed, so focus goes to the new screen's heading and
+  // a screen reader announces where they are (review BK-103). The fix above
+  // only ever ran on the retired three-screen order.
+  const screenHeadingRef = useRef<HTMLHeadingElement>(null)
+  const screenKey = selectedSuggestedEvent
+    ? 'event'
+    : result?.state === 'confirmed'
+      ? 'confirmed'
+      : step
+  useFocusOnChange(screenHeadingRef, twoScreenFlow ? screenKey : null)
+
+  // After the screen heading above, on purpose: a refused booking also sends
+  // the guest back to the times, and the alert saying why must win the focus.
+  // A failure of the booking itself goes in the top alert, which is a screen
+  // above Confirm on a phone, so the guest is taken to it. Two-screen flow
+  // only: the four-step flow also raises this alert from a background re-read,
+  // where taking focus would pull the guest off whatever they were doing.
+  useEffect(() => {
+    if (errorSequence === 0 || !twoScreenFlow) return
+    const alert = errorAlertRef.current
+    if (!alert) return
+    alert.focus({ preventScroll: true })
+    alert.scrollIntoView?.({ block: 'center' })
+    // Keyed on the sequence alone: it moves every time an error is shown.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errorSequence])
   const slotHighChairsRemaining = useMemo(
     () => readSlotHighChairsRemaining(selectedSlot),
     [selectedSlot]
@@ -1091,6 +1111,20 @@ export function ManagementTableBookingForm({
   const readingCoversSelection = Boolean(selectedTime) && Boolean(currentReading)
   const selectionRefusedByReading = readingCoversSelection && !selectedTimeVerdict.selectable
   const hasUsableSelection = Boolean(selectedTime) && !selectionRefusedByReading
+
+  // Say WHY Continue is unavailable. A disabled button with no explanation is
+  // how a guest decides the site is broken and rings instead. Names the
+  // guests, not just "the form is incomplete": on a table of twelve, "choose a
+  // main for guest 9" is the difference between a fix and a hunt.
+  const continueBlockedMessage = !hasUsableSelection
+    ? ''
+    : seasonalAnswerRequired
+      ? 'Please answer the question above before continuing.'
+      : !preorderSatisfied
+        ? preorderIncompleteGuests.length === 1
+          ? `Please complete the course choices for guest ${preorderIncompleteGuests[0]} before continuing.`
+          : `Please complete the course choices for guests ${preorderIncompleteGuests.join(', ')} before continuing.`
+        : ''
 
   // Twelve months, the owner's cap on how far ahead we take online bookings.
   // The `max` below is a courtesy for the date picker; the website proxies
@@ -1869,6 +1903,15 @@ export function ManagementTableBookingForm({
         setLookupState('unknown')
         setLookupDegraded(Boolean(lookup.lookup_degraded))
       }
+      // The Continue button just pressed is replaced by "Use Different
+      // Number", so focus goes where the guest types next: their first name,
+      // or the notes for a number we already know (review BK-103).
+      if (twoScreenFlow) {
+        setFieldFocusRequest((previous) => ({
+          field: lookup.known ? 'notes' : 'firstName',
+          sequence: (previous?.sequence ?? 0) + 1
+        }))
+      }
     } catch (lookupFailure: any) {
       trackBookingErrorShown({ code: 'lookup_failed' })
       setLookupState('idle')
@@ -2365,6 +2408,7 @@ export function ManagementTableBookingForm({
   if (selectedSuggestedEvent) {
     // The whole event is loaded before its form appears, so the form prices,
     // words and asks for exactly what the event page would (review BK-099).
+    // The panel puts focus on its own heading as it opens.
     return (
       <SuggestedEventBooking
         suggestion={selectedSuggestedEvent}
@@ -2449,7 +2493,13 @@ export function ManagementTableBookingForm({
               }}
             >
               <div>
-                <h3 className="font-display text-h4 text-ink-strong">Find a table</h3>
+                <h3
+                  ref={currentReading ? undefined : screenHeadingRef}
+                  tabIndex={-1}
+                  className="font-display text-h4 text-ink-strong"
+                >
+                  Find a table
+                </h3>
                 <p className="mt-1 text-sm text-ink-muted">
                   Tell us how many of you there are and when. We will show every time we can take.
                 </p>
@@ -2622,27 +2672,34 @@ export function ManagementTableBookingForm({
                 ) : null}
 
                 <div>
-                  <h3 className="font-display text-h4 text-ink-strong">Choose your time</h3>
+                  <h3 ref={screenHeadingRef} tabIndex={-1} className="font-display text-h4 text-ink-strong">
+                    Choose your time
+                  </h3>
                   <p className="mt-1 text-sm text-ink-muted">
                     {formatDateForDisplay(date)} for {partySize}{' '}
                     {partySize === 1 ? 'guest' : 'guests'}.
                   </p>
                 </div>
 
-                {revalidatingAvailability ? (
-                  <p className="text-sm text-ink-muted" aria-live="polite">
-                    Checking which times still work with your options...
-                  </p>
-                ) : null}
+                {/* Live regions stay on the page and only their contents come
+                    and go, so a screen reader hears the re-check start and
+                    hears a dropped time. One that arrives already filled is
+                    easily missed (review BK-103). Empty, they take no space. */}
+                <div aria-live="polite" className="empty:!mt-0">
+                  {revalidatingAvailability ? (
+                    <p className="text-sm text-ink-muted">
+                      Checking which times still work with your options...
+                    </p>
+                  ) : null}
+                </div>
 
-                {slotDroppedNotice ? (
-                  <div
-                    className="rounded-md border border-anchor-gold bg-surface-raised p-4 text-sm text-ink"
-                    aria-live="polite"
-                  >
-                    <p>{slotDroppedNotice}</p>
-                  </div>
-                ) : null}
+                <div aria-live="polite" className="empty:!mt-0">
+                  {slotDroppedNotice ? (
+                    <div className="rounded-md border border-anchor-gold bg-surface-raised p-4 text-sm text-ink">
+                      <p>{slotDroppedNotice}</p>
+                    </div>
+                  ) : null}
+                </div>
 
                 {foodCheckUnavailable ? renderFoodCheckNotice('grid') : null}
 
@@ -2872,22 +2929,11 @@ export function ManagementTableBookingForm({
                 {/* Say WHY Continue is unavailable. A disabled button with no
                     explanation is how a guest decides the site is broken and
                     rings instead. */}
-                {hasUsableSelection && seasonalAnswerRequired ? (
-                  <p className="text-sm text-ink-muted" aria-live="polite">
-                    Please answer the question above before continuing.
-                  </p>
-                ) : null}
-
-                {/* Names the guests, not just "the form is incomplete": on a
-                    table of twelve, "choose a main for guest 9" is the
-                    difference between a fix and a hunt. */}
-                {hasUsableSelection && !seasonalAnswerRequired && !preorderSatisfied ? (
-                  <p className="text-sm text-ink-muted" aria-live="polite">
-                    {preorderIncompleteGuests.length === 1
-                      ? `Please complete the course choices for guest ${preorderIncompleteGuests[0]} before continuing.`
-                      : `Please complete the course choices for guests ${preorderIncompleteGuests.join(', ')} before continuing.`}
-                  </p>
-                ) : null}
+                <div aria-live="polite" className="empty:!mt-0">
+                  {continueBlockedMessage ? (
+                    <p className="text-sm text-ink-muted">{continueBlockedMessage}</p>
+                  ) : null}
+                </div>
               </div>
             ) : null}
           </div>
@@ -3303,7 +3349,9 @@ export function ManagementTableBookingForm({
         {step === 'details' && twoScreenFlow && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-display text-h4 text-ink-strong">Your details</h3>
+              <h3 ref={screenHeadingRef} tabIndex={-1} className="font-display text-h4 text-ink-strong">
+                Your details
+              </h3>
               <p className="mt-1 text-sm text-ink-muted">
                 Last thing. We need a mobile number so we can confirm your table.
               </p>
@@ -3388,19 +3436,24 @@ export function ManagementTableBookingForm({
                 )}
               </div>
 
-              {isKnownCustomer ? (
-                <p className="mt-3 text-sm font-medium text-accent-text">
-                  Welcome back. We recognise this number, so we&apos;ve skipped your personal details.
-                </p>
-              ) : null}
+              {/* Always on the page, and only its words change, so a screen
+                  reader announces the answer to the number check. A region
+                  that arrives already filled is easily missed. */}
+              <div role="status">
+                {isKnownCustomer ? (
+                  <p className="mt-3 text-sm font-medium text-accent-text">
+                    Welcome back. We recognise this number, so we&apos;ve skipped your personal details.
+                  </p>
+                ) : null}
 
-              {lookupState === 'unknown' ? (
-                <p className="mt-3 text-sm font-medium text-ink">
-                  {lookupDegraded
-                    ? 'We could not verify this number right now. Please continue by entering your details below.'
-                    : 'New customer detected. Please complete your details below.'}
-                </p>
-              ) : null}
+                {lookupState === 'unknown' ? (
+                  <p className="mt-3 text-sm font-medium text-ink">
+                    {lookupDegraded
+                      ? 'We could not verify this number right now. Please continue by entering your details below.'
+                      : 'New customer detected. Please complete your details below.'}
+                  </p>
+                ) : null}
+              </div>
             </div>
 
             {detailsUnlocked && !isKnownCustomer ? (
@@ -3573,7 +3626,11 @@ export function ManagementTableBookingForm({
                       size="lg"
                       className="w-full sm:w-auto"
                       loading={loading}
-                      disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
+                      // Reachable while the security check runs, with the
+                      // reason beside it, rather than greyed out and skipped
+                      // by the Tab key with nothing said (review BK-198).
+                      unavailable={awaitingSecurityCheck}
+                      aria-describedby={SECURITY_NOTE_ID}
                       icon={<Check aria-hidden="true" className="h-4 w-4" />}
                       iconPosition="right"
                       onClick={handleConfirmBooking}
@@ -3582,6 +3639,9 @@ export function ManagementTableBookingForm({
                     </Button>
                   ) : null}
                 </div>
+                {detailsUnlocked ? (
+                  <SecurityCheckWaitingNote id={SECURITY_NOTE_ID} waiting={awaitingSecurityCheck} />
+                ) : null}
               </>
             )}
           </div>
