@@ -38,6 +38,7 @@ import { BRAND, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 import { confirmationNoticeCopy } from '@/lib/confirmation-notice'
 import { canUseCookieCategory } from '@/lib/cookies'
+import { sendEventBookingFormSignal } from '@/lib/booking-form-signal'
 import dynamic from 'next/dynamic'
 import type { EventPaymentConversionPayload } from './PayPalEventPaymentSection'
 import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
@@ -276,6 +277,10 @@ export function ManagementEventBookingForm({
   const formLoadedAt = useRef(Date.now())
   const phoneEnteredTracked = useRef(false)
   const formViewedTracked = useRef(false)
+  // BK-191: no-personal-data signals, so a form people cannot submit shows up.
+  const formSignalOpened = useRef(false)
+  const formSignalCheckBlocked = useRef(false)
+  const submitOutcome = useRef<'sent' | 'server_refused' | 'network' | null>(null)
   const bookingStartTracked = useRef(false)
   const paymentCompleteTracked = useRef(false)
 
@@ -373,6 +378,20 @@ export function ManagementEventBookingForm({
    * is mounted plainly below and never re-gated.
    */
   const calendarEvent = event as Event
+
+  useEffect(() => {
+    if (formSignalOpened.current || salesClosed) return
+    formSignalOpened.current = true
+    sendEventBookingFormSignal('opened')
+  }, [salesClosed])
+
+  // The booking button waits for the security check. When the check cannot
+  // finish, the guest cannot book at all, so that is counted once per visit.
+  useEffect(() => {
+    if (!turnstileUnavailable || formSignalCheckBlocked.current) return
+    formSignalCheckBlocked.current = true
+    sendEventBookingFormSignal('blocked', 'no_security_token')
+  }, [turnstileUnavailable])
 
   useEffect(() => {
     if (formViewedTracked.current) return
@@ -571,6 +590,8 @@ export function ManagementEventBookingForm({
     )
 
     try {
+      // Until the booking system answers, anything that stops this is the connection.
+      submitOutcome.current = 'network'
       const response = await fetch('/api/event-bookings', {
         method: 'POST',
         headers: {
@@ -606,6 +627,7 @@ export function ManagementEventBookingForm({
       const data = body?.data || body
 
       if (!response.ok || body?.success === false) {
+        submitOutcome.current = 'server_refused'
         if (hasErrorCode(body, 'PRICE_CHANGED') || hasErrorCode(body, 'BOOKING_QUESTIONS_CHANGED')) {
           try {
             const refreshed = await fetch(`/api/events/${encodeURIComponent(event.id)}`, { cache: 'no-store' })
@@ -643,6 +665,8 @@ export function ManagementEventBookingForm({
 
       const bookingData = data as EventBookingResult
       setResult(bookingData)
+      submitOutcome.current =
+        bookingData.state === 'confirmed' || bookingData.state === 'pending_payment' ? 'sent' : 'server_refused'
 
       if (bookingData.state === 'pending_payment' && bookingData.booking_id) {
         setPaymentConversionPayload({
@@ -722,6 +746,19 @@ export function ManagementEventBookingForm({
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     }
+  }
+
+  // BK-191: says the form was pressed, then how it ended: sent, refused by the
+  // booking system, lost on the way, or stopped here before sending (a detail
+  // missing or wrong). Codes only; see lib/booking-form-signal.ts.
+  async function handleSubmitWithSignals(formEvent: FormEvent<HTMLFormElement>) {
+    submitOutcome.current = null
+    sendEventBookingFormSignal('submit_pressed')
+    await handleSubmit(formEvent)
+    const outcome = submitOutcome.current
+    if (outcome === 'sent') sendEventBookingFormSignal('sent')
+    else if (outcome) sendEventBookingFormSignal('blocked', outcome)
+    else if (!salesClosed) sendEventBookingFormSignal('blocked', 'missing_fields')
   }
 
   // Reset the widget and put the clock back to the start. Nothing the guest has
@@ -892,7 +929,7 @@ export function ManagementEventBookingForm({
           <p className="text-sm font-semibold leading-snug text-accent-text">{bookingReassurance}</p>
         </div>
 
-        <form onSubmit={handleSubmit} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
+        <form onSubmit={handleSubmitWithSignals} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
           {isMultiTypeEvent ? (
             <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
               <legend className="px-1 text-sm font-semibold text-ink">Choose your tickets</legend>
