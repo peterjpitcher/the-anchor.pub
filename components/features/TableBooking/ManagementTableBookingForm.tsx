@@ -11,7 +11,6 @@ import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Badge } from '@/components/ui/primitives/Badge'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
-import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 import { pickSlotWindow } from '@/lib/table-booking-slot-window'
@@ -104,6 +103,7 @@ import {
   type PreorderChoice
 } from './SeasonalPreorderPicker'
 import { useSuggestedEvents } from './useSuggestedEvents'
+import { SuggestedEventBooking } from './SuggestedEventBooking'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
@@ -145,15 +145,30 @@ import {
   STEP_ORDER,
   TWO_SCREEN_STEP_LABELS,
   TWO_SCREEN_STEP_ORDER,
-  findDetailsStepRefusal,
+  findDetailsStepRefusals,
   isHighChairShortfallAcknowledged,
   readSlotHighChairsRemaining,
   resolveHighChairShortfall,
   type BookingStep,
+  type DetailsStepField,
   type HighChairConsent,
 } from '@/lib/table-booking/journey'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
+
+const POLICY_NOT_ACCEPTED_MESSAGE =
+  'Please confirm you understand the booking and no-show policy before continuing.'
+
+/**
+ * The details-screen controls a refusal can be shown beside: the three the
+ * journey rules name, plus the notes box and the policy tick, which the
+ * Confirm handler checks itself.
+ */
+type FieldErrorKey = DetailsStepField | 'notes' | 'policy'
+type FieldErrorEntry = { field: FieldErrorKey; code: string; message: string }
+
+const PHONE_INPUT_ID = 'table-booking-phone'
+const POLICY_ERROR_ID = 'table-booking-policy-error'
 
 /**
  * Everything a reading depends on, as one comparable value.
@@ -738,12 +753,85 @@ export function ManagementTableBookingForm({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // Bumped with every error shown, so the same message twice still takes the
+  // guest back to it.
+  const [errorSequence, setErrorSequence] = useState(0)
+
   // Every guest-visible booking error also emits booking_error_shown with a
   // stable machine code (never the message, which can carry typed-in data).
   function showBookingError(code: string, message: string) {
     trackBookingErrorShown({ code })
     setError(message)
+    setErrorSequence((sequence) => sequence + 1)
   }
+
+  /*
+   * Refusals that belong to one control are shown beside it, not in the alert
+   * at the top of the card. On a phone that alert sits about a screen above
+   * Confirm, so a guest who pressed Confirm saw nothing happen, and nothing
+   * told a screen reader which box was wrong (review BK-102). Each message
+   * goes under its own control, the control is marked invalid and described by
+   * it, and focus moves to the first one. The top alert is kept for failures
+   * of the booking itself, which have no control to sit beside.
+   */
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldErrorKey, string>>>({})
+  const [fieldFocusRequest, setFieldFocusRequest] = useState<{ field: FieldErrorKey; sequence: number } | null>(null)
+  const phoneInputRef = useRef<HTMLInputElement>(null)
+  const firstNameInputRef = useRef<HTMLInputElement>(null)
+  const emailInputRef = useRef<HTMLInputElement>(null)
+  const notesInputRef = useRef<HTMLTextAreaElement>(null)
+  const policyCheckboxRef = useRef<HTMLInputElement>(null)
+  const errorAlertRef = useRef<HTMLDivElement>(null)
+
+  function showFieldErrors(entries: FieldErrorEntry[]) {
+    if (entries.length === 0) return
+    for (const entry of entries) trackBookingErrorShown({ code: entry.code })
+    setError(null)
+    setFieldErrors(Object.fromEntries(entries.map((entry) => [entry.field, entry.message])))
+    // A sequence, so pressing Confirm twice on the same mistake moves focus
+    // back to it the second time too.
+    setFieldFocusRequest((previous) => ({ field: entries[0].field, sequence: (previous?.sequence ?? 0) + 1 }))
+  }
+
+  function clearFieldError(field: FieldErrorKey) {
+    setFieldErrors((previous) => {
+      if (!previous[field]) return previous
+      const next = { ...previous }
+      delete next[field]
+      return next
+    })
+  }
+
+  // After the render that marked the control invalid, so a screen reader
+  // reading it on focus already hears the message.
+  useEffect(() => {
+    if (!fieldFocusRequest) return
+    const controls: Record<FieldErrorKey, { current: HTMLElement | null }> = {
+      phone: phoneInputRef,
+      firstName: firstNameInputRef,
+      email: emailInputRef,
+      notes: notesInputRef,
+      policy: policyCheckboxRef
+    }
+    const control = controls[fieldFocusRequest.field].current
+    if (!control) return
+    control.focus({ preventScroll: true })
+    control.scrollIntoView?.({ block: 'center' })
+  }, [fieldFocusRequest])
+
+  // A failure of the booking itself goes in the top alert, which is a screen
+  // above Confirm on a phone, so the guest is taken to it. Two-screen flow
+  // only: the four-step flow also raises this alert from a background re-read,
+  // where taking focus would pull the guest off whatever they were doing.
+  useEffect(() => {
+    if (errorSequence === 0 || !twoScreenFlow) return
+    const alert = errorAlertRef.current
+    if (!alert) return
+    alert.focus({ preventScroll: true })
+    alert.scrollIntoView?.({ block: 'center' })
+    // Keyed on the sequence alone: it moves every time an error is shown.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errorSequence])
 
   // The chosen time stopped qualifying. In the two-screen flow the guest is
   // already looking at the grid, so this is an inline note beside it rather
@@ -1797,10 +1885,16 @@ export function ManagementTableBookingForm({
     setLastName('')
     setEmail('')
     setError(null)
+    setFieldErrors({})
   }
 
-  function validateDetailsStep(): boolean {
-    const refusal = findDetailsStepRefusal({
+  /**
+   * May the guest leave the details step? `alsoRefusePolicy` adds the policy
+   * tick to the field messages when there are others to show, so one press of
+   * Confirm points at everything still missing.
+   */
+  function validateDetailsStep(options: { alsoRefusePolicy?: boolean } = {}): boolean {
+    const refusals = findDetailsStepRefusals({
       revalidatingAvailability,
       selectedTime,
       phone,
@@ -1812,7 +1906,24 @@ export function ManagementTableBookingForm({
       highChairShortfallAcknowledged,
       selectionRefusedByReading
     })
-    if (!refusal) return true
+    if (refusals.length === 0) return true
+
+    const [refusal] = refusals
+
+    // Beside the controls, on the two-screen flow where they are all on the
+    // screen being confirmed from. The four-step flow confirms from a review
+    // screen that shows none of them, so it keeps the alert until it goes.
+    if (twoScreenFlow && refusal.field) {
+      showFieldErrors([
+        ...refusals.flatMap((entry) =>
+          entry.field ? [{ field: entry.field, code: entry.code, message: entry.message }] : []
+        ),
+        ...(options.alsoRefusePolicy
+          ? [{ field: 'policy' as const, code: 'policy_not_accepted', message: POLICY_NOT_ACCEPTED_MESSAGE }]
+          : [])
+      ])
+      return false
+    }
 
     // The slot context is gone, so the message only makes sense on the slot
     // list. Move them there first, exactly as the inline checks did.
@@ -1960,8 +2071,10 @@ export function ManagementTableBookingForm({
     }
     setError(null)
     setResult(null)
+    // Every press judges every field afresh.
+    setFieldErrors({})
 
-    if (!validateDetailsStep()) {
+    if (!validateDetailsStep({ alsoRefusePolicy: !policyAccepted })) {
       return
     }
 
@@ -1972,7 +2085,11 @@ export function ManagementTableBookingForm({
     }
 
     if (!policyAccepted) {
-      showBookingError('policy_not_accepted', 'Please confirm you understand the booking and no-show policy before continuing.')
+      if (twoScreenFlow) {
+        showFieldErrors([{ field: 'policy', code: 'policy_not_accepted', message: POLICY_NOT_ACCEPTED_MESSAGE }])
+      } else {
+        showBookingError('policy_not_accepted', POLICY_NOT_ACCEPTED_MESSAGE)
+      }
       return
     }
 
@@ -2000,7 +2117,12 @@ export function ManagementTableBookingForm({
       return
     }
     if (trimmedNotes.length > notesAllowance) {
-      showBookingError('notes_too_long', `Please keep your notes to ${notesAllowance} characters so we can include the match details.`)
+      const notesMessage = `Please keep your notes to ${notesAllowance} characters so we can include the match details.`
+      if (twoScreenFlow) {
+        showFieldErrors([{ field: 'notes', code: 'notes_too_long', message: notesMessage }])
+      } else {
+        showBookingError('notes_too_long', notesMessage)
+      }
       return
     }
     // Submit the ORIGINAL request, never a value clamped to the advisory
@@ -2224,6 +2346,7 @@ export function ManagementTableBookingForm({
     setIsOutsideSeating(false)
     setPolicyAccepted(false)
     setError(null)
+    setFieldErrors({})
     setResult(null)
     setPaypalOrderId(null)
     setBookingIdForPayment(null)
@@ -2240,44 +2363,13 @@ export function ManagementTableBookingForm({
   }
 
   if (selectedSuggestedEvent) {
-    const selectedEventDate = getLondonIsoDate(selectedSuggestedEvent.startDate)
-    const selectedEventDateLabel = selectedEventDate ? formatDateForDisplay(selectedEventDate) : 'Date TBC'
-    const selectedEventTimeLabel = formatEventTimeLabel(selectedSuggestedEvent.startDate)
-
+    // The whole event is loaded before its form appears, so the form prices,
+    // words and asks for exactly what the event page would (review BK-099).
     return (
-      <div className="mx-auto space-y-4">
-        <Card accent>
-          <CardBody className="space-y-3 p-6">
-            <h3 className="font-display text-h4 text-ink-strong">Event booking</h3>
-            <p className="text-sm text-ink-muted">
-              You're booking <strong className="text-ink-strong">{selectedSuggestedEvent.name}</strong> on{' '}
-              <strong className="text-ink-strong">{selectedEventDateLabel}</strong> at <strong className="text-ink-strong">{selectedEventTimeLabel}</strong>.
-            </p>
-            <p className="text-sm text-ink-muted">
-              Complete your event booking below without leaving this page.
-            </p>
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full sm:w-auto min-h-12"
-              onClick={() => setSelectedSuggestedEvent(null)}
-            >
-              Back to table booking
-            </Button>
-          </CardBody>
-        </Card>
-
-        <ManagementEventBookingForm
-          event={{
-            id: selectedSuggestedEvent.id,
-            name: selectedSuggestedEvent.name,
-            slug: selectedSuggestedEvent.slug ?? undefined,
-            startDate: selectedSuggestedEvent.startDate
-          }}
-          title="Reserve event table"
-          compact
-        />
-      </div>
+      <SuggestedEventBooking
+        suggestion={selectedSuggestedEvent}
+        onBack={() => setSelectedSuggestedEvent(null)}
+      />
     )
   }
 
@@ -2335,7 +2427,7 @@ export function ManagementTableBookingForm({
         />
 
         {error && (
-          <Alert variant="error" title="Booking not completed">
+          <Alert ref={errorAlertRef} tabIndex={-1} variant="error" title="Booking not completed">
             <p>{error}</p>
             {/* Every error here carries the number once: in its own sentence
                 when it has one, otherwise on this line. */}
@@ -3246,7 +3338,12 @@ export function ManagementTableBookingForm({
             ) : null}
 
             <div className="rounded-md border border-line bg-surface-sunk p-4">
+              {/* The number check runs from the button below, so focus stays
+                  there and its refusal is announced as it appears, directly
+                  under the box it is about. */}
               <Input
+                ref={phoneInputRef}
+                id={PHONE_INPUT_ID}
                 label="Mobile Number"
                 type="tel"
                 size="lg"
@@ -3258,9 +3355,13 @@ export function ManagementTableBookingForm({
                 onChange={(event) => {
                   markFunnelStart()
                   setPhone(event.target.value)
+                  setLookupError(null)
+                  clearFieldError('phone')
                 }}
                 placeholder="07xxx xxxxxx"
                 helperText="We only use this for booking confirmation and reminders."
+                error={fieldErrors.phone || lookupError || undefined}
+                announceError
               />
 
               <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
@@ -3287,8 +3388,6 @@ export function ManagementTableBookingForm({
                 )}
               </div>
 
-              {lookupError ? <p className="mt-3 text-sm text-anchor-danger">{lookupError}</p> : null}
-
               {isKnownCustomer ? (
                 <p className="mt-3 text-sm font-medium text-accent-text">
                   Welcome back. We recognise this number, so we&apos;ve skipped your personal details.
@@ -3307,14 +3406,19 @@ export function ManagementTableBookingForm({
             {detailsUnlocked && !isKnownCustomer ? (
               <div className="grid gap-4 md:grid-cols-2">
                 <Input
+                  ref={firstNameInputRef}
                   label="First Name"
                   type="text"
                   size="lg"
                   autoComplete="given-name"
                   required
                   value={firstName}
-                  onChange={(event) => setFirstName(event.target.value)}
+                  onChange={(event) => {
+                    setFirstName(event.target.value)
+                    clearFieldError('firstName')
+                  }}
                   placeholder="John"
+                  error={fieldErrors.firstName}
                 />
                 <Input
                   label="Last name (optional)"
@@ -3327,6 +3431,7 @@ export function ManagementTableBookingForm({
                 />
                 <div className="md:col-span-2">
                   <Input
+                    ref={emailInputRef}
                     label="Email address"
                     type="email"
                     size="lg"
@@ -3334,9 +3439,13 @@ export function ManagementTableBookingForm({
                     inputMode="email"
                     autoComplete="email"
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(event) => {
+                      setEmail(event.target.value)
+                      clearFieldError('email')
+                    }}
                     placeholder="name@example.com"
                     hint="So we can send your confirmation and tell you about any changes."
+                    error={fieldErrors.email}
                   />
                 </div>
               </div>
@@ -3344,13 +3453,18 @@ export function ManagementTableBookingForm({
 
             {detailsUnlocked ? (
               <Textarea
+                ref={notesInputRef}
                 label="Notes (optional)"
                 value={notes}
                 maxLength={notesAllowance}
                 hint={`${Math.max(0, notesAllowance - notes.length)} characters remaining${activeFixture ? ", match details are included separately" : ""}.`}
-                onChange={(event) => setNotes(event.target.value)}
+                onChange={(event) => {
+                  setNotes(event.target.value)
+                  clearFieldError('notes')
+                }}
                 placeholder="Special requests, dietary needs, occasion details..."
                 rows={3}
+                error={fieldErrors.notes}
               />
             ) : null}
 
@@ -3413,17 +3527,30 @@ export function ManagementTableBookingForm({
                 )}
 
                 {detailsUnlocked ? (
-                  <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-ink">
-                    <input
-                      type="checkbox"
-                      checked={policyAccepted}
-                      onChange={(event) => setPolicyAccepted(event.target.checked)}
-                      className="mt-1 accent-anchor-green"
-                    />
-                    <span>
-                      I understand The Anchor&apos;s booking and no-show policy, and I agree to continue.
-                    </span>
-                  </label>
+                  <div>
+                    <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-ink">
+                      <input
+                        ref={policyCheckboxRef}
+                        type="checkbox"
+                        checked={policyAccepted}
+                        aria-invalid={fieldErrors.policy ? true : undefined}
+                        aria-describedby={fieldErrors.policy ? POLICY_ERROR_ID : undefined}
+                        onChange={(event) => {
+                          setPolicyAccepted(event.target.checked)
+                          if (event.target.checked) clearFieldError('policy')
+                        }}
+                        className="mt-1 accent-anchor-green"
+                      />
+                      <span>
+                        I understand The Anchor&apos;s booking and no-show policy, and I agree to continue.
+                      </span>
+                    </label>
+                    {fieldErrors.policy ? (
+                      <p id={POLICY_ERROR_ID} className="text-sm text-anchor-danger">
+                        {fieldErrors.policy}
+                      </p>
+                    ) : null}
+                  </div>
                 ) : null}
 
                 <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap sm:justify-between">

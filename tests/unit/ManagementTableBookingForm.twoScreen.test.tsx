@@ -1245,6 +1245,101 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       })
     })
 
+    // Review BK-102. Confirm used to put every refusal in one alert at the top
+    // of the card, about a screen above the button on a phone, with nothing
+    // marked and focus left on the button. So it looked as if nothing happened.
+    describe('a refusal on Confirm sits beside its control (BK-102)', () => {
+      async function reachUnlockedDetails() {
+        await reachDetails()
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await screen.findByLabelText('First Name')
+      }
+
+      it('puts focus on the unticked policy box, with the message beside it', async () => {
+        const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+        setupFetchMock({ availability: DAY_SLOTS, capturePayload })
+        await reachUnlockedDetails()
+        fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
+
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        const policy = screen.getByLabelText(/booking and no-show policy/i)
+        await waitFor(() => expect(policy).toHaveFocus())
+        expect(policy).toHaveAttribute('aria-invalid', 'true')
+        expect(policy).toHaveAccessibleDescription(
+          'Please confirm you understand the booking and no-show policy before continuing.'
+        )
+        // Beside the box, not in the alert at the top of the card.
+        expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
+        expect(trackBookingErrorShown).toHaveBeenCalledWith({ code: 'policy_not_accepted' })
+        expect(capturePayload.ref.current).toBeNull()
+
+        // Ticking it clears the message.
+        fireEvent.click(policy)
+        expect(policy).not.toHaveAttribute('aria-invalid')
+        expect(
+          screen.queryByText('Please confirm you understand the booking and no-show policy before continuing.')
+        ).not.toBeInTheDocument()
+      })
+
+      it('marks every missing field at once and focuses the first', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachUnlockedDetails()
+        fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example' } })
+
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        const firstName = screen.getByLabelText('First Name')
+        await waitFor(() => expect(firstName).toHaveFocus())
+        expect(firstName).toHaveAttribute('aria-invalid', 'true')
+        expect(firstName).toHaveAccessibleDescription('Please enter your first name.')
+
+        const email = screen.getByLabelText('Email address')
+        expect(email).toHaveAttribute('aria-invalid', 'true')
+        expect(email).toHaveAccessibleDescription('That email address does not look right. Please check it.')
+
+        const policy = screen.getByLabelText(/booking and no-show policy/i)
+        expect(policy).toHaveAttribute('aria-invalid', 'true')
+        expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
+
+        // Typing in a field clears its own message and leaves the others.
+        fireEvent.change(firstName, { target: { value: 'Sam' } })
+        expect(firstName).not.toHaveAttribute('aria-invalid')
+        expect(email).toHaveAttribute('aria-invalid', 'true')
+      })
+
+      it('announces a refused number under the box and links it to the box', async () => {
+        setupFetchMock({ availability: DAY_SLOTS })
+        await reachDetails()
+
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+        const message = await screen.findByText('Please enter your mobile number first.')
+        expect(message).toHaveAttribute('role', 'alert')
+        const phone = screen.getByLabelText('Mobile Number')
+        expect(phone).toHaveAttribute('aria-invalid', 'true')
+        expect(phone).toHaveAccessibleDescription('Please enter your mobile number first.')
+      })
+
+      it('keeps the top alert for a booking the server refused, and takes the guest to it', async () => {
+        setupFetchMock({
+          availability: DAY_SLOTS,
+          bookingResponse: { state: 'blocked', blocked_reason: 'no_table', reason: null }
+        })
+        await reachDetails()
+        await verifyPhoneAndFillName()
+
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+        const title = await screen.findByText('Booking not completed')
+        const alert = title.closest('[role="alert"]') as HTMLElement
+        expect(alert).not.toBeNull()
+        await waitFor(() => expect(alert).toHaveFocus())
+      })
+    })
+
     // The confirmation card is returned BEFORE the wizard element, so the
     // step-change scroll effect cannot reach it: `wizardRef` has unmounted and
     // confirming is not a step change anyway. Without its own scroll the guest

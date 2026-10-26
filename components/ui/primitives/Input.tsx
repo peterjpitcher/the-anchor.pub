@@ -72,6 +72,13 @@ export interface InputProps
   helperText?: React.ReactNode
   /** Backward alias: string sets an invalid hint message; boolean toggles invalid. */
   error?: string | boolean
+  /**
+   * Announce the error message the moment it appears (role="alert"). For an
+   * error raised by a button beside the field, where focus stays on the
+   * button. Leave it off where focus moves to the field: the field's
+   * description already reads the message out there.
+   */
+  announceError?: boolean
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
 }
@@ -87,6 +94,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       invalid,
       helperText,
       error,
+      announceError,
       leftIcon,
       rightIcon,
       id,
@@ -140,7 +148,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {hintNode && (
-          <p id={`${inputId}-hint`} className={isInvalid ? hintInvalidClass : hintClass}>
+          <p
+            // A fresh element when the message turns into an error, so an
+            // announcing one is inserted rather than relabelled: an alert
+            // that gains its role and its text at once is easily missed.
+            key={announceError && isInvalid ? 'alert' : 'hint'}
+            id={`${inputId}-hint`}
+            role={announceError && isInvalid ? 'alert' : undefined}
+            className={isInvalid ? hintInvalidClass : hintClass}
+          >
             {hintNode}
           </p>
         )}

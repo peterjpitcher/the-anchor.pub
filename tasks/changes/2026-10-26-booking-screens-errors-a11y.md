@@ -1,0 +1,9 @@
+# Booking screens: event from the table page, field errors, accessibility and speed, 26 October 2026
+
+Branch `fix/booking-screens-errors-a11y`. Release 22 of the customer bookings review (AMS repo, `docs/reviews/2026-10-24-customer-bookings-review.md`), approved by the owner.
+
+## Commit 1: the event-from-table journey and field errors (BK-099, BK-102)
+
+- [x] BK-099. Choosing a suggested event on /book-table now loads the whole event (`GET /api/events/{id}`, no-store) before its form appears, so the form shows the price and total, asks for a name and answers per ticket on a paid night with questions, and names the button and heading from the booking mode (`getEventBookingActionLabel`) instead of "Reserve event table". A short "Getting the latest details" status shows while it loads. If the event cannot be loaded, the guest gets a link to the event's own page and the phone number, never a form that might say the wrong thing. New `components/features/TableBooking/SuggestedEventBooking.tsx`; tests in `tests/unit/book-table-suggested-event.test.tsx`.
+- [x] BK-102. On the live two-screen flow, a refusal on Confirm sits beside its control: first name, email and notes show the message under the box (invalid and described by it), the policy tick gets its own message linked with `aria-describedby`, and focus moves to the first problem and scrolls it into view. Name, email and policy problems are all shown at once. The number check's refusal is announced (`role="alert"`) under the phone box and linked to it. The top alert is kept for failures of the booking itself and now takes focus. `findDetailsStepRefusals` in `lib/table-booking/journey.ts` returns every field refusal with the field it belongs to; tests in `lib/table-booking/__tests__/details-step-refusals.test.ts` and the two-screen suite.
+- Left: the old four-step path keeps the top alert. It is deleted in commit 3.
