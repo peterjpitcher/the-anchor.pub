@@ -105,4 +105,26 @@ describe('event booking form signals', () => {
     await waitFor(() => expect(signals()).toEqual([['opened'], ['submit_pressed'], ['blocked', 'missing_fields']]))
     expect(global.fetch).not.toHaveBeenCalled()
   })
+
+  it("a press the browser's own checks stop: pressed, then blocked as missing_fields, once per press", async () => {
+    // A real click, so the browser's required and email checks run and no submit event fires
+    // (PR 246 review: fireEvent.submit above skips those checks).
+    answerBooking(201, { success: true, data: { state: 'confirmed', booking_id: 'b-1' } })
+    render(<ManagementEventBookingForm event={EVENT} />)
+    fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'not-an-email' } })
+    const book = screen.getByRole('button', { name: 'Book a table' })
+
+    fireEvent.click(book)
+    await waitFor(() => expect(signals()).toEqual([['opened'], ['submit_pressed'], ['blocked', 'missing_fields']]))
+
+    // A second press is a second attempt, however many boxes are still wrong.
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    fireEvent.click(book)
+    await waitFor(() => expect(signals()).toEqual([
+      ['opened'],
+      ['submit_pressed'], ['blocked', 'missing_fields'],
+      ['submit_pressed'], ['blocked', 'missing_fields']
+    ]))
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
 })

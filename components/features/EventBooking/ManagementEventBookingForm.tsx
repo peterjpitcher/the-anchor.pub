@@ -281,6 +281,8 @@ export function ManagementEventBookingForm({
   const formSignalOpened = useRef(false)
   const formSignalCheckBlocked = useRef(false)
   const submitOutcome = useRef<'sent' | 'server_refused' | 'network' | null>(null)
+  // Set while one press's invalid events are being counted (handleInvalidWithSignals).
+  const invalidPressSignalled = useRef(false)
   const bookingStartTracked = useRef(false)
   const paymentCompleteTracked = useRef(false)
 
@@ -761,6 +763,20 @@ export function ManagementEventBookingForm({
     else if (!salesClosed) sendEventBookingFormSignal('blocked', 'missing_fields')
   }
 
+  // The browser's own checks (a required box left empty, an email address that is
+  // not one) stop a press before submit fires, so handleSubmitWithSignals never
+  // runs. The invalid events they fire instead say the same thing: pressed, and
+  // stopped here. One pair per press, however many boxes are wrong.
+  function handleInvalidWithSignals() {
+    if (invalidPressSignalled.current || salesClosed) return
+    invalidPressSignalled.current = true
+    sendEventBookingFormSignal('submit_pressed')
+    sendEventBookingFormSignal('blocked', 'missing_fields')
+    setTimeout(() => {
+      invalidPressSignalled.current = false
+    }, 0)
+  }
+
   // Reset the widget and put the clock back to the start. Nothing the guest has
   // typed is touched, so a retry costs them the click and nothing else.
   function handleTurnstileRetry() {
@@ -929,7 +945,7 @@ export function ManagementEventBookingForm({
           <p className="text-sm font-semibold leading-snug text-accent-text">{bookingReassurance}</p>
         </div>
 
-        <form onSubmit={handleSubmitWithSignals} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
+        <form onSubmit={handleSubmitWithSignals} onInvalid={handleInvalidWithSignals} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
           {isMultiTypeEvent ? (
             <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
               <legend className="px-1 text-sm font-semibold text-ink">Choose your tickets</legend>
