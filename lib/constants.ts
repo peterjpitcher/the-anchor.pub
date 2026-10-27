@@ -135,24 +135,23 @@ export const WAKE_VENUE_DRIVE_MINUTES: Record<string, number> = {
   'slough-crematorium': 15
 }
 
-// Large-group deposit policy: applies to groups at or above the threshold,
-// regardless of booking type. The website does NOT have a state-aware
-// `getCanonicalDeposit` helper, that lives only in the management app
-// (it owns the booking row in the database). The website trusts the
-// management API's response after booking creation. See spec §7.3.
+// Large-group deposit policy, for WORDING ONLY (the approved sentence and the
+// labels that quote it, checked against SSOT by the drift guards). Never work a
+// charge out from these: the deposit a guest is quoted and charged is the figure
+// the management app returns (BK-186), from the one rule it keeps with the
+// database function that charges.
 export const LARGE_GROUP_DEPOSIT_PER_PERSON_GBP = 10
 export const LARGE_GROUP_DEPOSIT_THRESHOLD = 15
 
-export function requiresDeposit(partySize: number): boolean {
-  return partySize >= LARGE_GROUP_DEPOSIT_THRESHOLD
-}
+// The table booking party limit (owner decision D30): the website, staff and
+// guests' own changes all stop at 20, and a bigger group is a private booking.
+// AMS holds the same number in its table_booking_max_party_online setting and
+// refuses a bigger party itself; this is what the form says before it asks.
+export const ONLINE_PARTY_LIMIT = 20
 
-export function computeLargeGroupDepositAmount(partySize: number): number {
-  if (!requiresDeposit(partySize)) return 0
-  const parsedPartySize = Number.isFinite(partySize) ? Math.floor(partySize) : 0
-  const normalizedPartySize = Math.max(0, parsedPartySize)
-  return Number((normalizedPartySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP).toFixed(2))
-}
+// Shown under the party size box, on every screen size, when the number is over
+// the limit. The form also links to the private hire enquiry (BK-146).
+export const OVERSIZE_PARTY_COPY = `For more than ${ONLINE_PARTY_LIMIT} guests, give us a ring on 01753 682707 and we'll look after you as a private booking.`
 
 // The approved sentence, SSOT section 16. It lives in lib/approved-wording.ts.
 export const LARGE_GROUP_DEPOSIT_POLICY_COPY = GROUP_DEPOSIT_WORDING
