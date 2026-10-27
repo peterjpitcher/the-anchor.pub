@@ -1,31 +1,55 @@
-import { CHRISTMAS_PREORDER_CUTOFF_DAYS, christmasMultipleCoursesAvailable } from '@/lib/christmas-course-deadline'
+import { christmasMultipleCoursesAvailable, lateChristmasOneCourseNote } from '@/lib/christmas-course-deadline'
 
 // SSOT §7, owner decision 10 September 2026: two and three courses need everyone's
-// choices by noon London time seven days before the booking, so after that only the
-// 1 course tier can be booked. The management app refuses a late 2 or 3 course booking;
-// this is the website's copy of the same deadline, so forms stop offering it.
+// choices by noon London time a set number of days before the booking. BK-150: the
+// number is the management app's period setting, published as course_policy, so the
+// website reads it rather than keeping its own 7.
 describe('christmasMultipleCoursesAvailable', () => {
-  it('uses the seven day deadline', () => {
-    expect(CHRISTMAS_PREORDER_CUTOFF_DAYS).toBe(7)
+  // 1 December booking with the usual 7 days: noon on 24 November, GMT, so 12:00Z.
+  const policy = { preorder_closes_at: '2026-11-24T12:00:00+00:00', multiple_courses_available: true }
+
+  it('offers two and three courses until the published deadline', () => {
+    expect(christmasMultipleCoursesAvailable(policy, new Date('2026-11-24T11:59:00Z'))).toBe(true)
+    expect(christmasMultipleCoursesAvailable(policy, new Date('2026-11-24T12:00:00Z'))).toBe(false)
   })
 
-  it('offers two and three courses until noon, seven days before', () => {
-    // 1 December booking: the deadline is noon on 24 November. November is GMT, so noon London is 12:00Z.
-    expect(christmasMultipleCoursesAvailable('2026-12-01', new Date('2026-11-24T11:59:00Z'))).toBe(true)
-    expect(christmasMultipleCoursesAvailable('2026-12-01', new Date('2026-11-24T12:00:00Z'))).toBe(false)
+  it('follows a changed setting rather than a fixed 7 days', () => {
+    // A 10-day cutoff for 1 December closes at noon on 21 November.
+    const tenDays = { preorder_closes_at: '2026-11-21T12:00:00+00:00', multiple_courses_available: true }
+    expect(christmasMultipleCoursesAvailable(tenDays, new Date('2026-11-22T09:00:00Z'))).toBe(false)
   })
 
-  it('is one course only for a booking less than a week away', () => {
-    expect(christmasMultipleCoursesAvailable('2026-12-01', new Date('2026-11-28T09:00:00Z'))).toBe(false)
+  it('compares instants, so the change back to GMT needs no special case', () => {
+    // 30 October booking: noon on 23 October is still BST, 11:00Z.
+    const bst = { preorder_closes_at: '2026-10-23T11:00:00+00:00', multiple_courses_available: true }
+    expect(christmasMultipleCoursesAvailable(bst, new Date('2026-10-23T10:59:00Z'))).toBe(true)
+    expect(christmasMultipleCoursesAvailable(bst, new Date('2026-10-23T11:00:00Z'))).toBe(false)
   })
 
-  it('is decided on London time, not the server clock, across the change back to GMT', () => {
-    // 30 October booking: the deadline is noon on 23 October, still BST, so noon London is 11:00Z.
-    expect(christmasMultipleCoursesAvailable('2026-10-30', new Date('2026-10-23T10:59:00Z'))).toBe(true)
-    expect(christmasMultipleCoursesAvailable('2026-10-30', new Date('2026-10-23T11:00:00Z'))).toBe(false)
+  it('uses the published flag when there is no deadline time', () => {
+    expect(christmasMultipleCoursesAvailable({ multiple_courses_available: false })).toBe(false)
   })
 
-  it('leaves an unreadable date to the server', () => {
-    expect(christmasMultipleCoursesAvailable('not-a-date', new Date('2026-11-28T09:00:00Z'))).toBe(true)
+  it('leaves it to the management app when there is no policy', () => {
+    expect(christmasMultipleCoursesAvailable(null)).toBe(true)
+    expect(christmasMultipleCoursesAvailable(undefined)).toBe(true)
+  })
+})
+
+describe('lateChristmasOneCourseNote', () => {
+  it('keeps the usual wording for 7 days', () => {
+    expect(lateChristmasOneCourseNote(7)).toBe(
+      "Your date is less than a week away, so it's the 1 course menu, with no pre-order. Two and three courses need everyone's choices by noon, 7 days before."
+    )
+  })
+
+  it('quotes another setting', () => {
+    expect(lateChristmasOneCourseNote(10)).toContain('less than 10 days away')
+    expect(lateChristmasOneCourseNote(10)).toContain('by noon, 10 days before')
+    expect(lateChristmasOneCourseNote(1)).toContain('by noon, 1 day before')
+  })
+
+  it('names no number when it is not known', () => {
+    expect(lateChristmasOneCourseNote(null)).not.toMatch(/\d+ days?/)
   })
 })

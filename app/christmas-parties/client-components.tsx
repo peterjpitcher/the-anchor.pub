@@ -26,7 +26,8 @@ import { StickyDrawer } from '@/components/ui'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { CONTACT, DRIVE_TIMES, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { toGuestMessage } from '@/lib/guest-error-messages'
-import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
+import { christmasMultipleCoursesAvailable, lateChristmasOneCourseNote } from '@/lib/christmas-course-deadline'
+import { useBookingPeriod } from '@/components/features/TableBooking/useBookingPeriod'
 import { christmasMealBooksOnline, christmasTableBookingHref } from '@/lib/christmas-meal-booking'
 import { sendChristmasEnquirySignal, type ChristmasEnquirySignalForm } from '@/lib/christmas-enquiry-signal'
 
@@ -34,6 +35,20 @@ const CONTACT_EMAIL = CONTACT.email
 const CONTACT_PHONE = CONTACT.phone
 const CONTACT_PHONE_LINK = CONTACT.phoneHref
 const CONTACT_EMAIL_LINK = `mailto:${CONTACT_EMAIL}`
+
+/**
+ * The 2 and 3 course deadline for a Christmas meal date, as the management app publishes it on the
+ * date's Christmas period (BK-150). Only asked for a meal with a date. While it loads, or when it
+ * cannot be read, every tier stays on offer and the management app has the final say.
+ */
+function useChristmasCourseDeadline(preferredDate: string, enabled: boolean): { onlyOneCourse: boolean; note: string } {
+  const { period } = useBookingPeriod(enabled ? preferredDate : '', 1)
+  const christmasPeriod = period?.period_kind === 'christmas' ? period : null
+  return {
+    onlyOneCourse: enabled && !christmasMultipleCoursesAvailable(christmasPeriod?.course_policy),
+    note: lateChristmasOneCourseNote(christmasPeriod?.preorder_cutoff_days),
+  }
+}
 
 // Both Christmas enquiry forms gate on this the same way the booking forms do.
 //
@@ -2107,7 +2122,9 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
     ? facts.buffetMinimumGuests
     : facts.minPartySize
   // Inside the 2 and 3 course deadline only the 1 course menu can be booked (SSOT §7).
-  const onlyOneCourse = context.mode === 'meal' && preferredDate !== '' && !christmasMultipleCoursesAvailable(preferredDate)
+  const courseDeadline = useChristmasCourseDeadline(preferredDate, context.mode === 'meal' && preferredDate !== '')
+  const onlyOneCourse = courseDeadline.onlyOneCourse
+  const lateOneCourseNote = courseDeadline.note
   // A Christmas meal for up to 20 books online as a table, with the deposit and each guest's courses
   // (BK-061, owner decision D22). Only a bigger group sends an enquiry.
   const bookMealOnline = context.mode === 'meal' && christmasMealBooksOnline(partySize, facts.privateHireThreshold)
@@ -2172,7 +2189,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
     if (onlyOneCourse && (context.courseTier === 'two_course' || context.courseTier === 'three_course')) {
       signal('blocked', 'courses')
       setStatus('error')
-      setMessage(`${LATE_CHRISTMAS_ONE_COURSE_NOTE} Please change the courses to 1 course each, or not decided yet.`)
+      setMessage(`${lateOneCourseNote} Please change the courses to 1 course each, or not decided yet.`)
       return
     }
 
@@ -2392,7 +2409,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
                   </option>
                 ))}
               </select>
-              {onlyOneCourse ? <p className="mt-1 text-xs font-semibold">{LATE_CHRISTMAS_ONE_COURSE_NOTE}</p> : null}
+              {onlyOneCourse ? <p className="mt-1 text-xs font-semibold">{lateOneCourseNote}</p> : null}
             </div>
           </div>
         ) : (
@@ -2703,7 +2720,9 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
 
   // The lightbox has no course picker, so inside the 2 and 3 course deadline it sends the only
   // tier that can be booked, and says so beside the date (SSOT §7).
-  const lateOneCourse = context.mode === 'meal' && preferredDate !== '' && !christmasMultipleCoursesAvailable(preferredDate)
+  const courseDeadline = useChristmasCourseDeadline(preferredDate, context.mode === 'meal' && preferredDate !== '')
+  const lateOneCourse = courseDeadline.onlyOneCourse
+  const lateOneCourseNote = courseDeadline.note
   // As on the main form: a meal for up to 20 books online (BK-061, D22).
   const bookMealOnline = context.mode === 'meal' && christmasMealBooksOnline(partySize, facts.privateHireThreshold)
   const bookingHref = christmasTableBookingHref({ date: preferredDate, partySize })
@@ -2988,7 +3007,7 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
                 <p className="text-xs font-semibold text-amber-950">
                   Courses are chosen per person. A main each, starter and dessert optional.
                 </p>
-                {lateOneCourse ? <p className="mt-1 text-xs text-amber-950">{LATE_CHRISTMAS_ONE_COURSE_NOTE}</p> : null}
+                {lateOneCourse ? <p className="mt-1 text-xs text-amber-950">{lateOneCourseNote}</p> : null}
                 <div className="mt-2 grid grid-cols-2 gap-2">
                   {(['lunch', 'dinner'] as MealService[]).map(service => (
                     <button
