@@ -50,7 +50,9 @@ describe('every mapped code renders as a sentence with the phone number', () => 
       'table_booking:customer_conflict',
       'table_booking:UNAUTHORIZED',
       'table_booking:RATE_LIMIT_EXCEEDED',
-      'customer_lookup:VALIDATION_ERROR'
+      'table_booking:EMAIL_REQUIRED_FOR_NON_MOBILE',
+      'event_booking:EMAIL_REQUIRED_FOR_NON_MOBILE',
+      'event_waitlist:EMAIL_REQUIRED_FOR_NON_MOBILE'
     ]) {
       expect(covered).toContain(expected)
     }
@@ -189,6 +191,32 @@ describe('mapUpstreamFailure, for the routes', () => {
     }
   })
 
+  it.each(['table_booking', 'event_booking', 'event_waitlist'] as const)(
+    '%s: a number the management app cannot text, with no email, is a refusal in our own words',
+    (context) => {
+      // The management app's answer from release 20 (review BK-162). Its own sentence is
+      // close to ours but is not ours, so the guest is shown the one the forms use.
+      const mapped = mapUpstreamFailure({
+        status: 400,
+        body: {
+          success: false,
+          error: {
+            code: 'EMAIL_REQUIRED_FOR_NON_MOBILE',
+            message: 'We can only text UK mobile numbers. Please add an email address so we can send your booking confirmation.'
+          }
+        },
+        context,
+        trustValidationSentences: context === 'event_booking'
+      })
+
+      expect(mapped).toEqual({
+        kind: 'refused',
+        code: 'EMAIL_REQUIRED_FOR_NON_MOBILE',
+        message: `We can only text UK mobile numbers, so please add an email for your confirmation. Call ${GUEST_PHONE} if you need help.`
+      })
+    }
+  )
+
   it('keeps the per-phone limit, which the management app writes for the guest', () => {
     const sentence = 'Too many booking attempts for this phone number. Please try again later or call us on 01753 682707.'
     const mapped = mapUpstreamFailure({
@@ -215,7 +243,7 @@ describe('mapUpstreamFailure, for the routes', () => {
     const mapped = mapUpstreamFailure({
       status: 400,
       body: { success: false, error: { code: 'VALIDATION_ERROR', message: 'Please enter a valid phone number' } },
-      context: 'customer_lookup'
+      context: 'table_booking'
     })
 
     expect(mapped.kind).toBe('refused')

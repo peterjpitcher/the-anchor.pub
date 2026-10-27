@@ -57,11 +57,15 @@
 // says about where it is. Also written on a branch: if it goes live on a later
 // day, move the date to that day.
 //
-// 27 October 2026: event bookings that ask for each guest's details. The notice
-// now says we ask for each person's answers to the event's questions (such as
-// allergies), that they go on the kitchen and door lists, and that they are
-// deleted 90 days after the event (owner decision D6, BK-017). Written on a
-// branch: if it goes live on a later day, move the date to that day.
+// 27 October 2026: two changes went live together.
+// - The paragraph saying a booking form checks whether we already have your
+//   details when you type your mobile number was removed, because the forms no
+//   longer do (review BK-107, owner decision D31: the website stops saying
+//   whether a number is already known).
+// - Event bookings that ask for each guest's details. The notice now says we
+//   ask for each person's answers to the event's questions (such as allergies),
+//   that they go on the kitchen and door lists, and that they are deleted 90
+//   days after the event (owner decision D6, BK-017).
 export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-27'
 
 /**
@@ -78,4 +82,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-27'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  '95c846e5a3c98c5bbc30aac9f6272af1b21e70772bca419a2cf0a05237d8502a'
+  '3ad323126a81aa00cf6917573e631980be22ad581153be5fc439d4ba532de0ce'

@@ -71,9 +71,6 @@ function readOnlyFetch(): jest.Mock {
         })
       )
     }
-    if (url.startsWith('/api/customers/lookup')) {
-      return Promise.resolve(jsonResponse({ success: true, data: { known: false, lookup_degraded: false } }))
-    }
     return Promise.reject(new Error(`Nothing may be sent from this test: ${init?.method ?? 'GET'} ${url}`))
   })
   ;(global as any).fetch = mock
@@ -152,7 +149,6 @@ describe('the booking forms wait in the open', () => {
     fireEvent.click(await screen.findByRole('button', { name: /^7pm,/ }))
     fireEvent.click(screen.getByRole('button', { name: 'Continue with 7pm' }))
     fireEvent.change(await screen.findByLabelText('Mobile Number'), { target: { value: '07700900123' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
     await screen.findByLabelText('First Name')
 
     expectWaiting(screen.getByRole('button', { name: 'Confirm booking' }), fetchMock)

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { PrivateBookingInquiryForm } from '@/components/PrivateBookingInquiryForm'
 
 /**
@@ -37,14 +37,6 @@ type Answer = () => Response | Promise<Response>
 function answerEnquiryWith(enquiry: Answer) {
   ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
     const url = typeof input === 'string' ? input : input.toString()
-    if (url.includes('/api/customers/lookup')) {
-      return Promise.resolve(
-        new Response(JSON.stringify({ success: true, data: { known: false } }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        })
-      )
-    }
     if (url.includes('/public/private-booking')) return Promise.resolve().then(enquiry)
     return Promise.reject(new Error(`Unexpected fetch: ${url}`))
   })
@@ -54,14 +46,11 @@ function json(body: unknown, status: number): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } })
 }
 
-async function fillAndSend() {
+function fillAndSend() {
   render(<PrivateBookingInquiryForm />)
 
   const phoneInput = document.querySelector('input[type="tel"]') as HTMLInputElement
   fireEvent.change(phoneInput, { target: { value: '07700900123' } })
-  fireEvent.click(screen.getByRole('button', { name: /continue/i }))
-
-  await waitFor(() => expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument())
 
   const textInputs = document.querySelectorAll('input[type="text"]')
   fireEvent.change(textInputs[0], { target: { value: 'Alice' } })
@@ -135,7 +124,7 @@ describe('the estimator enquiry form when the enquiry cannot be sent', () => {
   ])('shows a sentence and keeps what the guest typed: %s', async (_label, answer, expected) => {
     answerEnquiryWith(answer)
 
-    await fillAndSend()
+    fillAndSend()
 
     const alert = await screen.findByRole('alert')
     expect(alert).toHaveTextContent(expected)
@@ -153,7 +142,7 @@ describe('the estimator enquiry form when the enquiry cannot be sent', () => {
         : json({ success: true, data: { id: 'pb-1', reference: 'PB-1' }, state: 'enquiry_created' }, 200)
     })
 
-    await fillAndSend()
+    fillAndSend()
     await screen.findByRole('alert')
 
     fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))

@@ -1,4 +1,5 @@
 import { BLOCKED_REASON_COPY } from '@/lib/table-booking/submission'
+import { NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE } from '@/lib/uk-mobile'
 
 /**
  * One place that turns an answer from the booking system into a sentence a
@@ -50,7 +51,6 @@ export type GuestErrorContext =
   | 'private_hire'
   | 'christmas_enquiry'
   | 'job_application'
-  | 'customer_lookup'
   | 'spam_check'
 
 /** What the guest is told when nothing more specific is known. */
@@ -74,7 +74,6 @@ export const GUEST_FALLBACK: Record<GuestErrorContext, string> = {
   private_hire: 'We could not submit that enquiry. Please call 01753 682707 and we will take your details.',
   christmas_enquiry: 'We could not send your enquiry. Please call us on 01753 682707 and we will take your details.',
   job_application: 'Sorry, we could not send your application. Please call us on 01753 682707.',
-  customer_lookup: 'We could not check that number right now. Please try again, or call 01753 682707.',
   spam_check:
     'We could not accept that submission. Please try again, or call us on 01753 682707 and we will take your details.'
 }
@@ -130,7 +129,11 @@ const API_CODE_COPY: Record<string, string | null> = {
   PAYMENT_LINK_FAILED:
     'We received your booking, but we could not set up the deposit payment. Please call 01753 682707 before trying again, so you are not booked twice.',
   VALIDATION_ERROR: VALIDATION_FALLBACK,
-  CAPACITY_UNAVAILABLE: 'Those dates are now fully booked. Please choose different dates, or call 01753 682707.'
+  CAPACITY_UNAVAILABLE: 'Those dates are now fully booked. Please choose different dates, or call 01753 682707.',
+  // The table, event and waitlist routes refuse a number they cannot text when
+  // no email came with it (review BK-162). The forms show this beside the email
+  // box; this is the same sentence for anywhere else the code is read.
+  EMAIL_REQUIRED_FOR_NON_MOBILE: NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE
 }
 
 /** Reasons the event booking functions answer with `state: 'blocked'`. */
@@ -272,6 +275,7 @@ const FAILED_CODES: ReadonlySet<string> = new Set([
 const REFUSED_CODES: ReadonlySet<string> = new Set([
   'VALIDATION_ERROR',
   'CAPACITY_UNAVAILABLE',
+  'EMAIL_REQUIRED_FOR_NON_MOBILE',
   'IDEMPOTENCY_KEY_IN_PROGRESS',
   'IDEMPOTENCY_KEY_CONFLICT',
   // Event booking answers the guest can act on.

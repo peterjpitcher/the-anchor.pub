@@ -223,10 +223,6 @@ export default function PrivacyPolicyPage() {
             <li>Answer your questions</li>
             <li>Stop automated abuse of our forms</li>
           </ul>
-          {/* The lookup: app/api/customers/lookup/route.ts, a yes or no only. */}
-          <p>
-            When you type your mobile number into a booking form, we check whether we already have your details, so you don&apos;t have to type them again.
-          </p>
           {/* Who is on the email list is the management app's audience query
               (marketing_email_opt_in, or any event or table booking), and the
               ways out are its /api/unsubscribe route and the keywords in

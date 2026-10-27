@@ -1,4 +1,10 @@
 import { londonNowParts } from '@/lib/table-booking-service-windows'
+import {
+  DEFAULT_COMMUNICATION_CONSENT_STATE,
+  buildCommunicationConsentPayload,
+  type CommunicationConsentPayload,
+} from '@/lib/communication-consent'
+import { QUICK_BOOK_NON_UK_MOBILE_MESSAGE, isUkMobileNumber } from '@/lib/uk-mobile'
 import type { AvailabilityData, AvailabilitySlot } from './availability'
 
 /**
@@ -237,6 +243,11 @@ export function findQuickBookRefusals(input: QuickBookRefusalInput): QuickBookRe
     refusals.push({ field: 'phone', message: 'Please enter your mobile number.' })
   } else if (phone.replace(/\D/g, '').length < 10) {
     refusals.push({ field: 'phone', message: 'That mobile number looks too short. Please check it.' })
+  } else if (!isUkMobileNumber(phone)) {
+    // The management app can only text UK mobiles, and this sheet asks for no email, so a
+    // landline or overseas number would be booked with no way to send the confirmation
+    // (review BK-162). The full form asks for an email, so the guest is sent there.
+    refusals.push({ field: 'phone', message: QUICK_BOOK_NON_UK_MOBILE_MESSAGE })
   }
 
   if (!input.firstName.trim()) {
@@ -258,6 +269,7 @@ export type QuickBookPayload = {
   purpose: QuickBookPurpose
   first_name: string
   default_country_code: string
+  communication_consent: CommunicationConsentPayload
 }
 
 /**
@@ -300,6 +312,11 @@ export function buildQuickBookPayload(submission: QuickBookSubmission): QuickBoo
     // before the request ever left the site: every booking from this sheet failed. The
     // full form in lib/table-booking/submission.ts has always sent '44'.
     default_country_code: '44',
+    // The record that the guest was shown the sheet's notice. The sheet showed one and sent
+    // nothing, so these guests were on the marketing list with no record of having been told
+    // or offered a way out (review BK-079). There are no tick boxes on the sheet, so every
+    // choice is the default, as on the parking wizard; the key says which words were shown.
+    communication_consent: buildCommunicationConsentPayload(DEFAULT_COMMUNICATION_CONSENT_STATE, 'table_quick_book_v1'),
   }
 }
 

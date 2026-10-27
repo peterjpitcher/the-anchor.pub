@@ -45,6 +45,11 @@ import { GUEST_DETAILS_CONFIRM_ERROR, GUEST_DETAILS_CONFIRM_LABEL, GUEST_DETAILS
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { GUEST_PHONE, guestMessageForBlockedReason, toGuestMessage } from '@/lib/guest-error-messages'
 import {
+  NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE,
+  isEmailRequiredForNonMobileAnswer,
+  isUkMobileNumber,
+} from '@/lib/uk-mobile'
+import {
   DEFAULT_COMMUNICATION_CONSENT_STATE,
   buildCommunicationConsentPayload,
   type CommunicationConsentState,
@@ -240,6 +245,12 @@ export function ManagementEventBookingForm({
   }, [event.online_discount_ends_at])
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  // Said beside the email box, not in the alert under the button: the one
+  // refusal here the guest puts right in that box. The management app can
+  // only text UK mobiles, so any other number needs an email for the
+  // confirmation (review BK-162).
+  const [emailError, setEmailError] = useState<string | null>(null)
+  const emailInputRef = useRef<HTMLInputElement>(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [communicationConsent, setCommunicationConsent] = useState<CommunicationConsentState>(
@@ -473,6 +484,15 @@ export function ManagementEventBookingForm({
     trackBookingStartOnce()
   }
 
+  // A number the management app cannot text, with no email to confirm to.
+  function showNonUkMobileEmailError() {
+    setError(null)
+    setEmailError(NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE)
+    // After the render that marks the box invalid, so a screen reader reading
+    // it on focus already hears the message.
+    window.setTimeout(() => emailInputRef.current?.focus(), 0)
+  }
+
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
     formEvent.preventDefault()
     // Defensive: never POST once online sales have closed for this event.
@@ -481,6 +501,7 @@ export function ManagementEventBookingForm({
       return
     }
     setError(null)
+    setEmailError(null)
     setResult(null)
     setPaymentConversionPayload(null)
     paymentCompleteTracked.current = false
@@ -556,9 +577,15 @@ export function ManagementEventBookingForm({
 
     // Required since 2026-08-19. It was optional, and the label said so, which is why
     // roughly half of every month's bookers arrived with no address on file at all. The
-    // confirmation is a real reason to ask, so the field now asks properly.
+    // confirmation is a real reason to ask, so the field now asks properly. A number the
+    // management app cannot text gets its own words, because for that guest the email is
+    // the only way a confirmation can reach them.
     if (!resolvedEmail) {
       setLoading(false)
+      if (!isUkMobileNumber(phone)) {
+        showNonUkMobileEmailError()
+        return
+      }
       setError('Please enter your email address so we can send your confirmation.')
       return
     }
@@ -620,7 +647,7 @@ export function ManagementEventBookingForm({
           event_category_slug: event.category?.slug,
           event_price: getEventUnitPrice(event),
           event_value: totalValue,
-          communication_consent: buildCommunicationConsentPayload(communicationConsent),
+          communication_consent: buildCommunicationConsentPayload(communicationConsent, 'event_compact_v6'),
           ...attribution,
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
@@ -658,6 +685,13 @@ export function ManagementEventBookingForm({
 
         if (response.status === 409 && hasPolicyViolation(body)) {
           setError(toGuestMessage(body?.error?.message || 'This booking cannot be completed. Please contact us for assistance.', 'event_booking', OWN_PHONE_LINE))
+          return
+        }
+
+        // Nothing was booked: the management app cannot text this number and
+        // had no email to confirm to.
+        if (isEmailRequiredForNonMobileAnswer(body)) {
+          showNonUkMobileEmailError()
           return
         }
 
@@ -856,8 +890,10 @@ export function ManagementEventBookingForm({
 
   async function handleJoinWaitlist() {
     setError(null)
+    setEmailError(null)
     setWaitlistLoading(true)
     setWaitlistResult(null)
+    const typedEmail = email.trim()
 
     try {
       const response = await fetch('/api/event-waitlist', {
@@ -868,11 +904,15 @@ export function ManagementEventBookingForm({
         body: JSON.stringify({
           event_id: event.id,
           phone: phone.trim(),
+          // The email typed for this booking goes with the waitlist entry too,
+          // so a guest whose number cannot take texts still hears when places
+          // come free, and a changed address is not lost (review BK-078).
+          ...(typedEmail ? { email: typedEmail } : {}),
           default_country_code: '44',
           first_name: firstName.trim(),
           last_name: lastName.trim(),
           requested_seats: seats,
-          communication_consent: buildCommunicationConsentPayload(communicationConsent),
+          communication_consent: buildCommunicationConsentPayload(communicationConsent, 'event_compact_v6'),
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
           _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
@@ -883,6 +923,10 @@ export function ManagementEventBookingForm({
       const data = body?.data || body
 
       if (!response.ok || body?.success === false) {
+        if (isEmailRequiredForNonMobileAnswer(body)) {
+          showNonUkMobileEmailError()
+          return
+        }
         throw new Error(toGuestMessage(body?.error ?? data?.error, 'event_waitlist', { ...OWN_PHONE_LINE, fallback: 'We could not join the waitlist right now.' }))
       }
 
@@ -1177,13 +1221,18 @@ export function ManagementEventBookingForm({
           />
 
           <Input
+            ref={emailInputRef}
             label="Email address"
             type="email"
             required
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => {
+              setEmail(event.target.value)
+              setEmailError(null)
+            }}
             placeholder="jane@example.com"
             autoComplete="email"
+            error={emailError || undefined}
             // Only a prepaid night is ever followed up for money: the management
             // app holds a booking for payment when payment_mode is prepaid and
             // confirms every other booking outright. A cash-on-arrival night

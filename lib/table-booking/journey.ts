@@ -1,4 +1,5 @@
 import type { AvailabilitySlot } from '@/lib/table-booking/availability'
+import { NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE, isUkMobileNumber } from '@/lib/uk-mobile'
 
 /**
  * The shape of the booking journey: what the steps are, and what has to be true
@@ -128,13 +129,11 @@ export type DetailsStepState = {
   revalidatingAvailability: boolean
   selectedTime: string
   phone: string
-  detailsUnlocked: boolean
-  isKnownCustomer: boolean
   firstName: string
   /**
-   * Optional, and stays optional. Validated only when the guest typed something, because
-   * a typo silently becomes an undeliverable address in the marketing list and there is
-   * no bounce to notice it until a campaign goes out months later.
+   * Required (see findDetailsStepRefusals), and its shape is checked, because a typo
+   * silently becomes an undeliverable address in the marketing list and there is no
+   * bounce to notice it until a campaign goes out months later.
    */
   email: string
   highChairShortfall: HighChairShortfall | null
@@ -171,10 +170,10 @@ export function findDetailsStepRefusal(state: DetailsStepState): DetailsStepRefu
  *
  * A refusal about the booking as a whole (a re-read in flight, no time, a time
  * that stopped qualifying) is returned alone, because nothing the guest types
- * fixes it. So is a phone refusal, because the name and email boxes are not on
- * screen until the number is checked. The name and email refusals come back
- * together, so a guest who left both empty hears about both at once rather
- * than one per press of Confirm.
+ * fixes it. The phone, name and email refusals come back together, so a guest
+ * who left several boxes empty hears about all of them at once rather than one
+ * per press of Confirm. All three boxes are on screen from the start: the form
+ * no longer checks the number before showing the rest (review BK-107).
  */
 export function findDetailsStepRefusals(state: DetailsStepState): DetailsStepRefusal[] {
   // A re-read is in flight because they just changed high chairs or outside seating. Their time
@@ -206,20 +205,17 @@ export function findDetailsStepRefusals(state: DetailsStepState): DetailsStepRef
     }]
   }
 
-  if (!state.phone.trim()) {
-    return [{ code: 'phone_missing', message: 'Please enter your mobile number.', field: 'phone' }]
-  }
-
-  if (!state.detailsUnlocked) {
-    return [{ code: 'phone_not_verified', message: 'Please verify your mobile number first.', field: 'phone' }]
-  }
-
   const fieldRefusals: DetailsStepRefusal[] = []
+  const phone = state.phone.trim()
+
+  if (!phone) {
+    fieldRefusals.push({ code: 'phone_missing', message: 'Please enter your mobile number.', field: 'phone' })
+  }
 
   // Only the first name is required; the surname is optional end to end
   // (spec W2 as corrected by review F09: AMS already stores an empty
   // surname and the proxy already omits a blank one from the payload).
-  if (!state.isKnownCustomer && !state.firstName.trim()) {
+  if (!state.firstName.trim()) {
     fieldRefusals.push({ code: 'name_missing', message: 'Please enter your first name.', field: 'firstName' })
   }
 
@@ -229,15 +225,24 @@ export function findDetailsStepRefusals(state: DetailsStepState): DetailsStepRef
   // field always had a genuine service reason behind it (the confirmation), so the label
   // was telling guests not to bother with something the booking actually wants.
   //
-  // Known customers are exempt because they never see the box. The management app already
-  // holds their address, and the form deliberately submits nothing for them, so demanding
-  // one here would block a returning guest over a field that is not on their screen.
-  if (!state.isKnownCustomer && !state.email.trim()) {
-    fieldRefusals.push({
-      code: 'email_missing',
-      message: 'Please enter your email address so we can send your confirmation.',
-      field: 'email'
-    })
+  // It now applies to every guest. Returning guests used to be exempt because a number
+  // check hid the box from them, but that check told anyone typing a number whether it
+  // belonged to a customer, so it was removed (review BK-107, owner decision D31). The
+  // management app matches the customer by phone on its side and keeps the email typed
+  // for this booking (BK-078).
+  //
+  // A number the management app cannot text (a landline, an overseas number) gets its own
+  // words: without an email that guest would get no confirmation at all (BK-162).
+  if (!state.email.trim()) {
+    fieldRefusals.push(
+      phone && !isUkMobileNumber(phone)
+        ? { code: 'email_required_for_non_mobile', message: NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE, field: 'email' }
+        : {
+            code: 'email_missing',
+            message: 'Please enter your email address so we can send your confirmation.',
+            field: 'email'
+          }
+    )
   }
 
   // A typed one is checked, because before this anything at all was accepted:

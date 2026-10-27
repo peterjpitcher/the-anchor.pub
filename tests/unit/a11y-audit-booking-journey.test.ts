@@ -96,7 +96,7 @@ describe('the booking journey books nothing', () => {
     expect(patterns).not.toContain('**/api/event-bookings')
   })
 
-  it('answers the times for the date asked about, and the number check as a new guest', async () => {
+  it('answers the times for the date asked about', async () => {
     const routes = new Map(await registeredRoutes())
 
     const times = fakeRoute('GET', 'http://localhost:3100/api/table-bookings/availability?date=2026-11-04&party_size=2')
@@ -104,9 +104,9 @@ describe('the booking journey books nothing', () => {
     expect(bodyOf(times).data).toMatchObject({ date: '2026-11-04', calculation_state: 'complete' })
     expect(bodyOf(times).data.time_slots.map((slot: { time: string }) => slot.time)).toContain('19:00')
 
-    const lookup = fakeRoute('POST', 'http://localhost:3100/api/customers/lookup')
-    await routes.get('**/api/customers/lookup')!(lookup)
-    expect(bodyOf(lookup).data.known).toBe(false)
+    // The number is no longer checked before the details, so there is no
+    // lookup to answer (review BK-107).
+    expect(routes.has('**/api/customers/lookup')).toBe(false)
   })
 
   it('suggests a prepaid event with a question per ticket on that date, and opens the same one', async () => {

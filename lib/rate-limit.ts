@@ -40,13 +40,11 @@ const ONE_HOUR_MS = 60 * ONE_MINUTE_MS
 /**
  * The limits in use. The figures for reads and payments are the workspace
  * standard's (20 a minute for an unauthenticated read, 10 payment orders an
- * hour); the form and lookup figures are the ones the site already had.
+ * hour); the form figure is the one the site already had.
  */
 export const RATE_LIMITS = {
   /** Every form submission that goes through checkSpamProtection, counted together. */
   formSubmission: { limit: 5, windowMs: ONE_MINUTE_MS },
-  /** The "is this number known" lookup on the booking forms. */
-  customerLookup: { limit: 6, windowMs: ONE_MINUTE_MS },
   /** A public read or check that spends the management app's shared key. */
   publicRead: { limit: 20, windowMs: ONE_MINUTE_MS },
   /** Analytics and page speed beacons: several per page view, so a higher ceiling. */

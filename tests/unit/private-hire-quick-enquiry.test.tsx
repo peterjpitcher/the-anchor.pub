@@ -21,7 +21,7 @@ test('undecided enquiry keeps occasion, space, large party and explicit consent 
   await screen.findByText('Enquiry received')
   const payload = JSON.parse(fetchMock.mock.calls[0][1].body)
   expect(fetchMock.mock.calls[0][0]).toBe('/api/private-booking-enquiry')
-  expect(payload).toMatchObject({ event_type: 'Birthday Party', guest_count: 250, communication_consent: { marketing_email_opt_in: false, marketing_sms_opt_in: false, service_contact_notice_shown: true } })
+  expect(payload).toMatchObject({ event_type: 'Birthday Party', guest_count: 250, communication_consent: { marketing_email_opt_in: false, marketing_sms_opt_in: false, service_contact_notice_shown: true, notice_key: 'service_notice_v6' } })
   expect(payload.internal_notes).toContain('Space of interest: dining-room')
   expect(payload.internal_notes).toContain('Date undecided')
   expect(payload).not.toHaveProperty('event_date')

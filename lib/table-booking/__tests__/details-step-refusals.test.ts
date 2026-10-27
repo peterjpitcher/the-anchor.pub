@@ -14,8 +14,6 @@ const READY: DetailsStepState = {
   revalidatingAvailability: false,
   selectedTime: '13:00',
   phone: '07700900123',
-  detailsUnlocked: true,
-  isKnownCustomer: false,
   firstName: 'Sam',
   email: 'sam@example.com',
   highChairShortfall: null,
@@ -44,9 +42,17 @@ describe('findDetailsStepRefusals', () => {
     expect(findDetailsStepRefusal({ ...READY, firstName: ' ', email: 'sam@example' })?.code).toBe('name_missing')
   })
 
-  it('returns a phone refusal alone, because the name and email boxes are not on screen yet', () => {
-    expect(findDetailsStepRefusals({ ...READY, detailsUnlocked: false, firstName: '', email: '' })).toEqual([
-      { code: 'phone_not_verified', message: 'Please verify your mobile number first.', field: 'phone' }
+  it('returns the phone refusal with the others, because every box is on screen from the start', () => {
+    // The number used to be checked before the name and email boxes appeared, so a phone
+    // refusal came back alone. That check is gone (review BK-107).
+    expect(findDetailsStepRefusals({ ...READY, phone: ' ', firstName: '', email: '' })).toEqual([
+      { code: 'phone_missing', message: 'Please enter your mobile number.', field: 'phone' },
+      { code: 'name_missing', message: 'Please enter your first name.', field: 'firstName' },
+      {
+        code: 'email_missing',
+        message: 'Please enter your email address so we can send your confirmation.',
+        field: 'email'
+      }
     ])
   })
 

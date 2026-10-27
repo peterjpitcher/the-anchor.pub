@@ -53,12 +53,11 @@ project: the-anchor-pub
 | `/api/reviews` | GET | List recent reviews |
 | `/api/managers-special-image` | GET | Get manager's special image asset |
 
-### Calendar & Customer Routes (2)
+### Calendar Routes (1)
 
 | Route | Methods | Purpose |
 |-------|---------|---------|
 | `/api/calendar/event/[id]` | GET | Get event details for calendar |
-| `/api/customers/lookup` | GET | Tells the booking form whether a mobile number already belongs to a customer (phone only, yes or no) |
 
 ### Enquiry Routes (3)
 
@@ -105,7 +104,6 @@ These routes require `ANCHOR_API_KEY` header (server-side only, never exposed to
 - All payments: `/api/*/paypal/*`, `/api/parking/payment/*`
 - Enquiries: `/api/enquiry/*`, `/api/public/private-booking`
 - Analytics: `/api/tracking/*`, `/api/analytics`, `/api/web-vitals`
-- Lookups: `/api/customers/lookup`
 - Other mutations: `/api/event-bookings`, `/api/event-waitlist`, `/api/careers`
 
 ## Cache Strategy (Middleware)

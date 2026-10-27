@@ -89,7 +89,6 @@ function jsonResponse(body: unknown, init: ResponseInit = { status: 200 }): Resp
 function setupFetchMock(options: {
   availability: AvailabilityHandler | TimeSlot[]
   bookingResponse?: { state: string; [k: string]: unknown }
-  lookupResponse?: Record<string, unknown>
   capturePayload?: { ref: { current: Record<string, unknown> | null } }
   captureUrls?: { ref: { current: string[] } }
 }): jest.Mock {
@@ -123,15 +122,6 @@ function setupFetchMock(options: {
             ...(result.calculation_state ? { calculation_state: result.calculation_state } : {}),
             ...(result.message ? { message: result.message } : {})
           }
-        })
-      )
-    }
-
-    if (url.startsWith('/api/customers/lookup')) {
-      return Promise.resolve(
-        jsonResponse({
-          success: true,
-          data: options.lookupResponse ?? { known: false, lookup_degraded: false }
         })
       )
     }
@@ -238,9 +228,8 @@ async function findATable() {
   await screen.findByRole('button', { name: /^1pm,/ })
 }
 
-async function verifyPhoneAndFillName() {
+async function fillPhoneAndName() {
   fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
-  fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
   await screen.findByLabelText('First Name')
   fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
   fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
@@ -301,7 +290,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
     fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
     await screen.findByLabelText('Mobile Number')
-    await verifyPhoneAndFillName()
+    await fillPhoneAndName()
     expect(screen.getByLabelText('Notes (optional)')).toHaveAttribute('maxLength', String(fixtureNotesAllowance(context)))
     fireEvent.change(screen.getByLabelText('Notes (optional)'), { target: { value: 'Near the screen' } })
     fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
@@ -327,7 +316,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
     fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
     await screen.findByLabelText('Mobile Number')
-    await verifyPhoneAndFillName()
+    await fillPhoneAndName()
     fireEvent.change(screen.getByLabelText('Notes (optional)'), { target: { value: 'Original notes' } })
     fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
     await screen.findByText('Connection lost')
@@ -378,7 +367,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
     fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
     await screen.findByLabelText('Mobile Number')
-    await verifyPhoneAndFillName()
+    await fillPhoneAndName()
     fireEvent.click(screen.getByRole('button', { name: /Confirm and pay deposit/i }))
     const complete = await screen.findByRole('button', { name: 'Complete mock deposit' })
     expect(trackTableBookingFunnel.mock.calls.filter(([event]) => event.step === 'success')).toHaveLength(0)
@@ -861,7 +850,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       fireEvent.click(flagged)
       fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
 
-      await verifyPhoneAndFillName()
+      await fillPhoneAndName()
       // The shortfall is restated where they confirm, so tapping the flagged
       // time was an informed choice rather than a surprise.
       expect(screen.getByText(/2 high chairs requested, 1 high chair free at this time/)).toBeInTheDocument()
@@ -918,7 +907,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
         expect(screen.getByRole('button', { name: '1pm, drinks only' })).toBeInTheDocument()
       })
       fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
-      await verifyPhoneAndFillName()
+      await fillPhoneAndName()
 
       // The fresh answer said drinks, so drinks is what gets booked. The purpose
       // captured before the refinement must not survive it.
@@ -1216,7 +1205,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       fireEvent.click(await screen.findByRole('button', { name: /7pm/ }))
       await screen.findByRole('heading', { name: 'Your details' })
 
-      await verifyPhoneAndFillName()
+      await fillPhoneAndName()
       fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
 
       await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
@@ -1277,7 +1266,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
       setupFetchMock({ availability: DAY_SLOTS, capturePayload })
       await reachDetails()
-      await verifyPhoneAndFillName()
+      await fillPhoneAndName()
 
       expect(screen.getByLabelText('Allergies (optional)')).toBeInTheDocument()
       fireEvent.change(screen.getByLabelText('Allergies (optional)'), { target: { value: 'Peanuts, shellfish' } })
@@ -1294,7 +1283,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
       setupFetchMock({ availability: DAY_SLOTS, capturePayload })
       await reachDetails()
-      await verifyPhoneAndFillName()
+      await fillPhoneAndName()
 
       fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
 
@@ -1306,7 +1295,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
       setupFetchMock({ availability: DAY_SLOTS, capturePayload })
       await reachDetails()
-      await verifyPhoneAndFillName()
+      await fillPhoneAndName()
 
       fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
 
@@ -1324,17 +1313,16 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
     // of the card, about a screen above the button on a phone, with nothing
     // marked and focus left on the button. So it looked as if nothing happened.
     describe('a refusal on Confirm sits beside its control (BK-102)', () => {
-      async function reachUnlockedDetails() {
+      async function reachDetailsWithNumber() {
         await reachDetails()
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
         await screen.findByLabelText('First Name')
       }
 
       it('puts focus on the unticked policy box, with the message beside it', async () => {
         const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
         setupFetchMock({ availability: DAY_SLOTS, capturePayload })
-        await reachUnlockedDetails()
+        await reachDetailsWithNumber()
         fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example.com' } })
 
@@ -1361,7 +1349,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
 
       it('marks every missing field at once and focuses the first', async () => {
         setupFetchMock({ availability: DAY_SLOTS })
-        await reachUnlockedDetails()
+        await reachDetailsWithNumber()
         fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'sam@example' } })
 
         fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
@@ -1385,17 +1373,22 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
         expect(email).toHaveAttribute('aria-invalid', 'true')
       })
 
-      it('announces a refused number under the box and links it to the box', async () => {
+      // The number used to be refused by its own check button, before the name
+      // and email boxes existed. It is now refused on Confirm with the rest
+      // (review BK-107).
+      it('marks a missing number beside its box with the other missing fields, and focuses it first', async () => {
         setupFetchMock({ availability: DAY_SLOTS })
         await reachDetails()
 
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
 
-        const message = await screen.findByText('Please enter your mobile number first.')
-        expect(message).toHaveAttribute('role', 'alert')
         const phone = screen.getByLabelText('Mobile Number')
+        await waitFor(() => expect(phone).toHaveFocus())
         expect(phone).toHaveAttribute('aria-invalid', 'true')
-        expect(phone).toHaveAccessibleDescription('Please enter your mobile number first.')
+        expect(phone).toHaveAccessibleDescription('Please enter your mobile number.')
+        expect(screen.getByLabelText('First Name')).toHaveAttribute('aria-invalid', 'true')
+        expect(screen.getByLabelText('Email address')).toHaveAttribute('aria-invalid', 'true')
+        expect(screen.queryByText('Booking not completed')).not.toBeInTheDocument()
       })
 
       it('keeps the top alert for a booking the server refused, and takes the guest to it', async () => {
@@ -1404,7 +1397,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
           bookingResponse: { state: 'blocked', blocked_reason: 'no_table', reason: null }
         })
         await reachDetails()
-        await verifyPhoneAndFillName()
+        await fillPhoneAndName()
 
         fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
 
@@ -1429,7 +1422,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       try {
         setupFetchMock({ availability: DAY_SLOTS })
         await reachDetails()
-        await verifyPhoneAndFillName()
+        await fillPhoneAndName()
 
         // Only the scroll caused by confirming should count.
         scrollIntoView.mockClear()
@@ -1464,36 +1457,29 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
         expect(screen.getByRole('heading', { name: 'Your details' })).toHaveFocus()
       })
 
-      it('lands on First Name once a new number is checked, and says so in a region that was already there', async () => {
+      // The number used to be checked first, focus moved to First Name (or to the
+      // notes for a number it knew), and a status region said which. That told
+      // anyone typing a number whether it was a customer's (review BK-107).
+      it('has every box on screen with the number, and says nothing about the number', async () => {
         setupFetchMock({ availability: DAY_SLOTS })
         await reachDetails()
+
+        expect(screen.getByLabelText('First Name')).toBeInTheDocument()
+        expect(screen.getByLabelText('Email address')).toBeInTheDocument()
         const phoneBox = screen.getByLabelText('Mobile Number').closest('.rounded-md') as HTMLElement
-        const region = within(phoneBox).getByRole('status')
-        expect(region).toBeEmptyDOMElement()
+        expect(within(phoneBox).queryByRole('status')).not.toBeInTheDocument()
 
         fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
-        const firstName = await screen.findByLabelText('First Name')
-        await waitFor(() => expect(firstName).toHaveFocus())
-        expect(region).toHaveTextContent('New customer detected. Please complete your details below.')
-      })
-
-      it('lands on the notes for a number we already know', async () => {
-        setupFetchMock({ availability: DAY_SLOTS, lookupResponse: { known: true } })
-        await reachDetails()
-
-        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900123' } })
-        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-
-        const notes = await screen.findByLabelText('Notes (optional)')
-        await waitFor(() => expect(notes).toHaveFocus())
+        expect(screen.queryByText(/New customer detected/i)).not.toBeInTheDocument()
+        expect(screen.queryByText(/Welcome back/i)).not.toBeInTheDocument()
+        expect(screen.getByLabelText('Mobile Number')).not.toBeDisabled()
       })
 
       it('lands on the confirmation heading once the booking is made', async () => {
         setupFetchMock({ availability: DAY_SLOTS })
         await reachDetails()
-        await verifyPhoneAndFillName()
+        await fillPhoneAndName()
 
         fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
 
@@ -1610,7 +1596,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
       fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
       await screen.findByRole('heading', { name: 'Your details' })
-      await verifyPhoneAndFillName()
+      await fillPhoneAndName()
       fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
 
       await waitFor(() => {

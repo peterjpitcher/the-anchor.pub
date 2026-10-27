@@ -32,7 +32,6 @@ The website consumes data via API proxy routes. Key data entities:
 | Parking bookings | Yes | Yes | `/api/parking/bookings/*` |
 | Parking rates | Yes | No | `/api/parking/rates` |
 | Reviews | Yes | No | `/api/reviews/*` |
-| Customers | Yes | No | `/api/customers/lookup` |
 | Manager's special | Yes | No | `/api/managers-special` |
 | Private bookings | Yes | Yes | `/api/public/private-booking/*` |
 | Event categories | Yes | No | `/api/event-categories` |

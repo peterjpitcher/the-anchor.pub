@@ -4,7 +4,7 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 import { GUEST_FALLBACK, kindForUpstreamCode, mapUpstreamFailure } from '@/lib/guest-error-messages'
 import { checkSpamProtection } from '@/lib/spam-protection'
-import { sanitizeCommunicationConsent } from '@/lib/communication-consent-server'
+import { consentForIdempotency, sanitizeCommunicationConsent } from '@/lib/communication-consent-server'
 import { sendEnquiryFallbackEmail, escapeHtml } from '@/lib/enquiry-fallback-email'
 import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 
@@ -225,7 +225,16 @@ export async function POST(request: NextRequest) {
             ...(communicationConsent ? { communication_consent: communicationConsent } : {})
         }
 
-        const idempotencyKey = request.headers.get('Idempotency-Key') || createIdempotencyKey(mappedPayload)
+        // The notice key is forwarded but left out of the key, so an enquiry gives the key it
+        // gave before notice keys existed. Overriding an existing property keeps its place, so
+        // the hashed JSON is unchanged for the same enquiry.
+        const idempotencyKey =
+            request.headers.get('Idempotency-Key') ||
+            createIdempotencyKey(
+                communicationConsent
+                    ? { ...mappedPayload, communication_consent: consentForIdempotency(communicationConsent) }
+                    : mappedPayload
+            )
 
         // Token already spent by our own verification above, and the management
         // API's secret belongs to a different widget, so it is not forwarded.

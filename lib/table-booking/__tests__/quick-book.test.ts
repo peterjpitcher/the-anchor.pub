@@ -353,3 +353,26 @@ describe('every refusal at once, each on its own field (BK-195)', () => {
     ])
   })
 })
+
+describe('a number the management app cannot text goes to the full form (review BK-162)', () => {
+  // The sheet asks for no email, so a guest whose number cannot take texts would be booked
+  // with no way to receive the confirmation. The full form asks for an email.
+  const base = { time: '19:00', phone: '07700900000', firstName: 'Jane' }
+  const MESSAGE =
+    'We can only text UK mobile numbers. Please use the full booking form so you can add an email for your confirmation.'
+
+  it.each([
+    ['01753 682707', 'a UK landline'],
+    ['+1 202 555 0123', 'an American number'],
+    ['+33 6 12 34 56 78', 'a French mobile'],
+  ])('refuses %j (%s) under the phone box', (phone) => {
+    expect(findQuickBookRefusals({ ...base, phone })).toEqual([{ field: 'phone', message: MESSAGE }])
+  })
+
+  it.each(['07700 900000', '+44 7700 900000', '0044 7700 900000', '447700900000', '+44 (0)7700 900000'])(
+    'still takes %j, a UK mobile',
+    (phone) => {
+      expect(findQuickBookRefusals({ ...base, phone })).toEqual([])
+    }
+  )
+})

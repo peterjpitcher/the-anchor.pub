@@ -120,6 +120,39 @@ export const GUEST_EVENT_COMPACT_CONSENT_NOTICE =
 export const GUEST_TABLE_COMPACT_CONSENT_NOTICE =
   'We will use your phone and email to manage this booking, and to send you the latest from The Anchor: what is on, new menus, offers, and any changes. Reply NOEVENTS to stop texts, or use the unsubscribe link in any email. Booking confirmations and reminders carry on either way.'
 
+// What the quick-book sheet shows. It exists because the sheet asks for a phone number and
+// no email, and the table notice above talks about "your phone and email" and an
+// unsubscribe link the guest would never receive (review BK-079). Texts only, with the one
+// way out that applies to them.
+//
+// The management app keeps a copy of these exact words under the notice key
+// 'table_quick_book_v1' (COMMUNICATION_CONSENT_NOTICE_KEYS below), so a change here needs a
+// new key and a new copy there, not an edit.
+export const GUEST_QUICK_BOOK_CONSENT_NOTICE =
+  'We will use your phone to manage this booking, and to text you the latest from The Anchor: what is on, new menus, offers, and any changes. Reply NOEVENTS to stop those texts. Booking confirmations and reminders carry on either way.'
+
+// Which notice a guest was shown, sent with every consent record so the management app can
+// store the words that guest actually read rather than the generic service wording it used
+// to record for every website consent (review BK-080). The management app holds a copy of
+// each notice's wording under the same key, which is why no notice above may be reworded in
+// place: new words need a new key there first.
+//
+//   table_compact_v6     GUEST_TABLE_COMPACT_CONSENT_NOTICE: the full table booking form.
+//   event_compact_v6     GUEST_EVENT_COMPACT_CONSENT_NOTICE: the event booking form, which
+//                        also serves the event waitlist.
+//   table_quick_book_v1  GUEST_QUICK_BOOK_CONSENT_NOTICE: the quick-book sheet.
+//   service_notice_v6    GUEST_SERVICE_CONTACT_NOTICE with the explicit tick boxes: the
+//                        private hire enquiry form, the private hire quick enquiry and the
+//                        parking wizard.
+export const COMMUNICATION_CONSENT_NOTICE_KEYS = [
+  'table_compact_v6',
+  'event_compact_v6',
+  'table_quick_book_v1',
+  'service_notice_v6',
+] as const
+
+export type CommunicationConsentNoticeKey = (typeof COMMUNICATION_CONSENT_NOTICE_KEYS)[number]
+
 // ── Newsletter, the website sign-up ─────────────────────────────────────────
 //
 // A separate consent surface from everything above, with its own version lineage, because
@@ -164,11 +197,13 @@ export type CommunicationConsentPayload = {
   whatsapp_opt_in: boolean
   marketing_whatsapp_opt_in: boolean
   consent_text_version: string
+  /** Which notice the guest was shown. See COMMUNICATION_CONSENT_NOTICE_KEYS. */
+  notice_key?: CommunicationConsentNoticeKey
 }
 
 export type CommunicationConsentState = Omit<
   CommunicationConsentPayload,
-  'service_contact_notice_shown' | 'consent_text_version'
+  'service_contact_notice_shown' | 'consent_text_version' | 'notice_key'
 >
 
 export const DEFAULT_COMMUNICATION_CONSENT_STATE: CommunicationConsentState = {
@@ -178,8 +213,13 @@ export const DEFAULT_COMMUNICATION_CONSENT_STATE: CommunicationConsentState = {
   marketing_whatsapp_opt_in: false,
 }
 
+/**
+ * The consent record a form sends. `noticeKey` is required so that no form can
+ * send a record without saying which notice its guest was shown.
+ */
 export function buildCommunicationConsentPayload(
-  state: CommunicationConsentState
+  state: CommunicationConsentState,
+  noticeKey: CommunicationConsentNoticeKey
 ): CommunicationConsentPayload {
   return {
     service_contact_notice_shown: true,
@@ -188,5 +228,6 @@ export function buildCommunicationConsentPayload(
     whatsapp_opt_in: state.whatsapp_opt_in === true,
     marketing_whatsapp_opt_in: state.marketing_whatsapp_opt_in === true,
     consent_text_version: GUEST_COMMS_CONSENT_TEXT_VERSION,
+    notice_key: noticeKey,
   }
 }
