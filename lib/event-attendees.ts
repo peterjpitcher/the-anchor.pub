@@ -7,7 +7,7 @@ import type { EventBookingQuestion } from './api/events'
  * 90 days after the event. The privacy policy (section 7) says the same.
  */
 export const GUEST_DETAILS_PRIVACY_LINE =
-  "Only add people who are happy to share these details with us. We use their answers for this event only, and delete them 90 days after it."
+  "Only add people who are happy to share these details with us. We use their answers and mobile numbers for this event only, and delete them 90 days after it."
 
 /** The booker's confirmation, recorded against each guest with the time it was saved (BK-017). */
 export const GUEST_DETAILS_CONFIRM_LABEL = "Everyone I've added is happy to share these details."
@@ -28,8 +28,35 @@ export interface EventAttendee {
   name: string
   ticket_type_id?: string | null
   answers: Record<string, string>
+  /**
+   * The guest's own mobile, optional (BK-013, owner decision D5). The management app keeps it on
+   * this booking only: it is never texted or used for marketing.
+   */
+  phone?: string
   /** Sent only as true, when the booker ticked the confirmation (BK-017). */
   details_confirmed?: true
+  /** On the form only, never sent: "this ticket is for me" copies the booker's name and mobile. */
+  for_me?: boolean
+}
+
+/** A mobile number someone could have meant: 10 to 15 digits, with spaces, brackets or a +. */
+export function isPlausibleGuestPhone(value: string): boolean {
+  const trimmed = value.trim()
+  if (!/^[+\d\s()-]+$/.test(trimmed)) return false
+  const digits = trimmed.replace(/\D/g, '')
+  return digits.length >= 10 && digits.length <= 15
+}
+
+/**
+ * The guests as they are sent: a ticket marked "for me" takes the booker's name and mobile, a
+ * blank mobile is left out, and the form-only flag is dropped (BK-013).
+ */
+export function resolveAttendeesForSubmit(attendees: EventAttendee[], booker: { firstName: string; lastName: string; phone: string }): EventAttendee[] {
+  return attendees.map(({ for_me: forMe, phone, ...person }) => {
+    const name = forMe ? `${booker.firstName.trim()} ${booker.lastName.trim()}`.trim() : person.name
+    const guestPhone = (forMe ? booker.phone : phone ?? '').trim()
+    return { ...person, name, ...(guestPhone ? { phone: guestPhone } : {}) }
+  })
 }
 
 /** Keep each person's identity and answers attached to their ticket. */
@@ -49,6 +76,7 @@ export function validateEventAttendees(attendees: EventAttendee[], seats: number
   if (attendees.length !== seats) return 'Please enter details for every ticket.'
   for (const [index, person] of attendees.entries()) {
     if (!person.name.trim() || person.name.trim().length > 120) return `Please enter a name for ticket ${index + 1} (up to 120 characters).`
+    if (person.phone?.trim() && !isPlausibleGuestPhone(person.phone)) return `Please check the mobile number for ticket ${index + 1}.`
     for (const question of questions) {
       const answer = person.answers[question.id]?.trim() ?? ''
       if (question.required && !answer) return `Ticket ${index + 1}: please answer “${question.label}”.`

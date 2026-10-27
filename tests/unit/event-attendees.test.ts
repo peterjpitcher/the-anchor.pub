@@ -1,4 +1,4 @@
-import { reconcileAttendees, validateEventAttendees } from '@/lib/event-attendees'
+import { isPlausibleGuestPhone, reconcileAttendees, resolveAttendeesForSubmit, validateEventAttendees } from '@/lib/event-attendees'
 
 const alice = { id: 'alice', name: 'Alice', ticket_type_id: 'adult', answers: { question: 'no' } }
 const bob = { id: 'bob', name: 'Bob', ticket_type_id: 'child', answers: {} }
@@ -23,3 +23,21 @@ it('ends the online saving at the deadline and shows the base price', () => {
   expect(getEventOnlineSaving(event)).toBe(0)
   expect(getEventTicketTypes({ ...event, ticket_types: [{ id: 'type', name: 'Standard', price: 15, base_price: 20, sort_order: 0 }] })[0].price).toBe(20)
 })
+
+// BK-013, owner decision D5: each guest's own mobile, optional.
+it('fills a ticket marked "for me" from the booker and drops blank mobiles', () => {
+  const booker = { firstName: ' Pat ', lastName: 'Booker', phone: '07700 900123' }
+  expect(resolveAttendeesForSubmit([{ ...alice, for_me: true, name: '' }, { ...bob, phone: '  ' }], booker)).toEqual([
+    { ...alice, name: 'Pat Booker', phone: '07700 900123' },
+    bob,
+  ])
+})
+it('accepts a mobile someone could have meant and refuses one they could not', () => {
+  expect(isPlausibleGuestPhone('07700 900123')).toBe(true)
+  expect(isPlausibleGuestPhone('+44 (0)7700 900123')).toBe(true)
+  expect(isPlausibleGuestPhone('12345')).toBe(false)
+  expect(isPlausibleGuestPhone('call me')).toBe(false)
+  expect(validateEventAttendees([{ ...bob, phone: '12345' }], 1, [])).toBe('Please check the mobile number for ticket 1.')
+  expect(validateEventAttendees([{ ...bob, phone: '07700900123' }], 1, [])).toBeNull()
+})
+

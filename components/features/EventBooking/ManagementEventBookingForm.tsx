@@ -41,7 +41,7 @@ import { canUseCookieCategory } from '@/lib/cookies'
 import { sendEventBookingFormSignal } from '@/lib/booking-form-signal'
 import dynamic from 'next/dynamic'
 import type { EventPaymentConversionPayload } from './PayPalEventPaymentSection'
-import { GUEST_DETAILS_CONFIRM_ERROR, GUEST_DETAILS_CONFIRM_LABEL, GUEST_DETAILS_PRIVACY_LINE, eventCollectsGuestDetails, reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
+import { GUEST_DETAILS_CONFIRM_ERROR, GUEST_DETAILS_CONFIRM_LABEL, GUEST_DETAILS_PRIVACY_LINE, eventCollectsGuestDetails, reconcileAttendees, resolveAttendeesForSubmit, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { GUEST_PHONE, guestMessageForBlockedReason, toGuestMessage } from '@/lib/guest-error-messages'
 import {
@@ -542,7 +542,7 @@ export function ManagementEventBookingForm({
     }
 
     if (collectGuestDetails) {
-      const attendeeError = validateEventAttendees(attendees, effectiveSeats, questions)
+      const attendeeError = validateEventAttendees(resolveAttendeesForSubmit(attendees, { firstName, lastName, phone }), effectiveSeats, questions)
       if (attendeeError) { setLoading(false); setError(attendeeError); return }
       if (!guestDetailsConfirmed) { setLoading(false); setError(GUEST_DETAILS_CONFIRM_ERROR); return }
       if (discountExpired && !discountChangeAcknowledged) {
@@ -637,7 +637,7 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
-          ...(collectGuestDetails ? { attendees: attendees.map(person => ({ ...person, answers: Object.fromEntries((event.booking_questions ?? []).map(question => [question.id, person.answers[question.id] ?? ''])), ...(guestDetailsConfirmed ? { details_confirmed: true as const } : {}) })), expected_total: totalValue } : {}),
+          ...(collectGuestDetails ? { attendees: resolveAttendeesForSubmit(attendees, { firstName: resolvedFirstName, lastName: resolvedLastName, phone }).map(person => ({ ...person, answers: Object.fromEntries((event.booking_questions ?? []).map(question => [question.id, person.answers[question.id] ?? ''])), ...(guestDetailsConfirmed ? { details_confirmed: true as const } : {}) })), expected_total: totalValue } : {}),
           ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
           event_slug: event.slug,
@@ -1140,7 +1140,28 @@ export function ManagementEventBookingForm({
               {attendees.map((person, index) => (
                 <fieldset key={person.id} className="space-y-3 rounded-sm border border-line p-3">
                   <legend className="px-1 font-semibold text-ink">Ticket {index + 1}{person.ticket_type_id ? `: ${ticketTypes.find(type => type.id === person.ticket_type_id)?.name ?? ''}` : ''}</legend>
-                  <Input label={`Ticket ${index + 1} full name`} value={person.name} maxLength={120} required onChange={e => updateAttendee(person.id, { name: e.target.value })} />
+                  {/* BK-013: "this ticket is for me" fills the name and mobile from the booker's
+                      own details below, so nobody types them twice. One ticket at most. */}
+                  <label className="flex items-start gap-3 text-sm text-ink">
+                    <input
+                      type="checkbox"
+                      checked={person.for_me === true}
+                      onChange={(changeEvent) => {
+                        const checked = changeEvent.target.checked
+                        setAttendees(previous => previous.map(item => ({ ...item, for_me: item.id === person.id ? checked : false })))
+                      }}
+                      className="mt-1 h-4 w-4 rounded border-line text-accent focus:ring-accent"
+                    />
+                    <span>This ticket is for me</span>
+                  </label>
+                  {person.for_me ? (
+                    <p className="text-sm text-ink-muted">We&apos;ll use the name and mobile number you give below.</p>
+                  ) : (
+                    <>
+                      <Input label={`Ticket ${index + 1} full name`} value={person.name} maxLength={120} required onChange={e => updateAttendee(person.id, { name: e.target.value })} />
+                      <Input label={`Ticket ${index + 1} mobile number (optional)`} type="tel" inputMode="tel" autoComplete="off" value={person.phone ?? ''} maxLength={40} onChange={e => updateAttendee(person.id, { phone: e.target.value })} />
+                    </>
+                  )}
                   {questions.map(question => (
                     <label key={question.id} className="block space-y-1 text-sm text-ink">
                       <span>{question.label} ({question.required ? 'required' : 'optional'})</span>

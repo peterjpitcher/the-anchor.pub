@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage() {
             {/* Guest details: components/features/EventBooking/ManagementEventBookingForm.tsx
                 asks for them when the management app says the event needs them, and the app
                 stores them on the booking (bookings.attendees). BK-017. */}
-            <li><strong>When you book an event:</strong> your name, mobile number and email address, how many places you want, whether you&apos;d like food, and any notes. Where tickets need them, we also ask for the name of each person coming and their answers to the event&apos;s questions, such as allergies. Please only add people who are happy for you to share their details with us.</li>
+            <li><strong>When you book an event:</strong> your name, mobile number and email address, how many places you want, whether you&apos;d like food, and any notes. Where tickets need them, we also ask for the name of each person coming and their answers to the event&apos;s questions, such as allergies, and you can add their own mobile number. Please only add people who are happy for you to share their details with us.</li>
             <li><strong>When you book airport parking:</strong> your name, mobile number and email address, your dates, and your car&apos;s registration, make, model and colour.</li>
             <li><strong>When you enquire about private hire or a Christmas party:</strong> your name, your contact details and what you tell us about your event.</li>
             <li><strong>Your contact choices:</strong> what you&apos;ve said about marketing by email, text and WhatsApp, when you said it, and which version of our wording you were shown.</li>
@@ -216,7 +216,7 @@ export default function PrivacyPolicyPage() {
             <li>Take and look after your booking or enquiry</li>
             {/* The door list, booking sheets and kitchen summary print each guest's answers
                 (owner decision D6, 24 October 2026). */}
-            <li>Look after each guest at an event: their answers go on our kitchen and door lists, so the kitchen knows about any allergy</li>
+            <li>Look after each guest at an event: their answers go on our kitchen and door lists, so the kitchen knows about any allergy. A guest&apos;s own mobile number is only used to reach them about that booking, and never for marketing</li>
             <li>Send booking confirmations, reminders, payment links, waitlist updates, and booking changes by phone, email, SMS, or WhatsApp where relevant</li>
             <li>Send you news about the pub: what is on, new menus, offers, and anything that is changing</li>
             <li>See how the website is used and fix what isn&apos;t working</li>
@@ -410,7 +410,7 @@ export default function PrivacyPolicyPage() {
             {/* Owner decision D6, 24 October 2026. Management app:
                 src/lib/events/guest-details-retention.ts, run by communications-retention
                 (weekly), blanks each ticket's answers and keeps the names. */}
-            <li><strong>Event guest answers:</strong> 90 days after the event, we delete each guest&apos;s answers to the event&apos;s questions. Their names stay with the booking.</li>
+            <li><strong>Event guest answers and mobile numbers:</strong> 90 days after the event, we delete each guest&apos;s answers to the event&apos;s questions and their own mobile number. Their names stay with the booking.</li>
             <li><strong>Your contact choices:</strong> we keep the choice. After 24 months we remove the web page and browser details we noted when you made it.</li>
             <li><strong>Job applications:</strong> see section 3.</li>
             <li><strong>CCTV footage:</strong> 1 month.</li>

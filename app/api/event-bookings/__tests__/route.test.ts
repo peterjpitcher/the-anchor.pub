@@ -373,6 +373,17 @@ describe('structured ticket holder details', () => {
     expect((await POST(buildRequest({ ...VALID_BASE, attendees: confirmed }) as any)).status).toBe(201)
     expect(JSON.parse(String(calls[0].init.body)).attendees).toEqual(confirmed)
   })
+  // BK-013: a guest's own mobile travels with them; the form-only "for me" flag never does.
+  it('forwards a guest mobile, and refuses one with letters or a form-only flag', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+    const phoned = [{ ...attendees[0], phone: '07700 900456' }, attendees[1]]
+    expect((await POST(buildRequest({ ...VALID_BASE, attendees: phoned }) as any)).status).toBe(201)
+    expect(JSON.parse(String(calls[0].init.body)).attendees).toEqual(phoned)
+    expect((await POST(buildRequest({ ...VALID_BASE, attendees: [{ ...attendees[0], phone: 'call me' }, attendees[1]] }) as any)).status).toBe(400)
+    expect((await POST(buildRequest({ ...VALID_BASE, attendees: [{ ...attendees[0], for_me: true }, attendees[1]] }) as any)).status).toBe(400)
+    expect(calls).toHaveLength(1)
+  })
   it('rejects a confirmation that is anything but true, without calling management', async () => {
     const calls = installUpstreamFetch()
     const POST = await getPostHandler()
