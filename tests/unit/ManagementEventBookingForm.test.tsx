@@ -67,6 +67,12 @@ jest.mock('@paypal/react-paypal-js', () => ({
  */
 const CAPTURED_AT = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
 
+// BK-017: a booking that asks for each guest's details needs the booker's confirmation.
+function confirmGuestDetails(): void {
+  const box = screen.queryByLabelText("Everyone I've added is happy to share these details.")
+  if (box && !(box as HTMLInputElement).checked) fireEvent.click(box)
+}
+
 describe('ManagementEventBookingForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -138,6 +144,7 @@ describe('ManagementEventBookingForm', () => {
     render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Test event', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' }} />)
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -168,6 +175,7 @@ describe('ManagementEventBookingForm', () => {
     render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Test event', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free' }} />)
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -257,6 +265,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Add one Child ticket' }))
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -350,6 +359,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.click(screen.getByRole('button', { name: '4' }))
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -375,6 +385,7 @@ describe('ManagementEventBookingForm', () => {
 
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -422,6 +433,7 @@ describe('ManagementEventBookingForm', () => {
 
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -518,6 +530,7 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.queryByText('Who are the tickets for?')).not.toBeInTheDocument()
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -618,6 +631,7 @@ describe('ManagementEventBookingForm', () => {
     render(<ManagementEventBookingForm event={{ id: 'event-fixture', name: 'Music Bingo', startDate: '2999-01-01T19:00:00Z', booking_mode: 'communal', seated_remaining: 2, standing_remaining: 11 }} />)
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -700,6 +714,7 @@ describe('ManagementEventBookingForm', () => {
     // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -788,6 +803,7 @@ describe('ManagementEventBookingForm', () => {
     // own details are the whole form.
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -1012,6 +1028,7 @@ describe('ManagementEventBookingForm', () => {
 
       fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
       fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -1091,6 +1108,7 @@ describe('ManagementEventBookingForm', () => {
       render(<ManagementEventBookingForm event={{ ...UPCOMING_EVENT, ...eventOverrides }} />)
       fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
       fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
       fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -1338,6 +1356,7 @@ describe('ManagementEventBookingForm security check recovery', () => {
   function fillBookerDetails() {
     fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
     screen.queryAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    confirmGuestDetails()
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
@@ -1699,6 +1718,82 @@ it('keeps per-person answers separate and requires an explicit yes or no', () =>
   expect(answers[1]).toHaveValue('')
 })
 
+// BK-017: the booker is sharing other people's details, and an answer can be an allergy.
+it('tells the booker, beside the guest details, to add only people happy to share them and when answers are deleted', () => {
+  render(<ManagementEventBookingForm event={{
+    id: 'privacy-fixture', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10,
+    booking_questions: [{ id: 'allergies', label: 'Any allergies?', type: 'text', required: true }],
+  }} />)
+  const section = screen.getByRole('region', { name: 'Ticket holder details' })
+  expect(section).toHaveTextContent('Only add people who are happy to share these details with us.')
+  expect(section).toHaveTextContent('We use their answers for this event only, and delete them 90 days after it.')
+})
+
+it('shows no guest details notice where no guest details are asked for', () => {
+  render(<ManagementEventBookingForm event={{ id: 'arrival-notice-fixture', name: 'Quiz fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'cash_only', price: 3 }} />)
+  expect(screen.queryByText(/Only add people who are happy to share/)).not.toBeInTheDocument()
+})
+
+// BK-014: the management app says whether to ask, from the event's own setting.
+it('asks for each guest on a pay-on-arrival event the management app says needs them', () => {
+  render(<ManagementEventBookingForm event={{
+    id: 'arrival-on-fixture', name: 'Quiz fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'cash_only', price: 3,
+    guest_details_required: true,
+  }} />)
+  expect(screen.getByText('Who is coming?')).toBeInTheDocument()
+  expect(screen.getAllByLabelText(/ticket \d+ full name/i).length).toBeGreaterThan(0)
+})
+
+it('asks for no guest details on a prepaid event the management app has switched off', async () => {
+  const sent: Record<string, unknown>[] = []
+  global.fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    if (String(input).startsWith('/api/customers/lookup')) return new Response(JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }), { status: 200 })
+    sent.push(JSON.parse(String(init?.body)))
+    return new Response(JSON.stringify({ success: true, data: { state: 'pending_payment', booking_id: 'off-fixture' } }), { status: 201 })
+  })
+  render(<ManagementEventBookingForm event={{
+    id: 'prepaid-off-fixture', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10,
+    guest_details_required: false,
+  }} />)
+  expect(screen.queryByText('Who is coming?')).not.toBeInTheDocument()
+  fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Buyer' } })
+  fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Example' } })
+  fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'buyer@example.com' } })
+  fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+  fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+  await waitFor(() => expect(sent).toHaveLength(1))
+  expect(sent[0].attendees).toBeUndefined()
+})
+
+// BK-017: the booker confirms everyone they added is happy to share their details.
+it('will not send guest details until the booker confirms everyone is happy to share them', async () => {
+  const sent: Record<string, unknown>[] = []
+  global.fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    if (String(input).startsWith('/api/customers/lookup')) return new Response(JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }), { status: 200 })
+    sent.push(JSON.parse(String(init?.body)))
+    return new Response(JSON.stringify({ success: true, data: { state: 'pending_payment', booking_id: 'confirm-fixture' } }), { status: 201 })
+  })
+  render(<ManagementEventBookingForm event={{
+    id: 'confirm-fixture', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10,
+    guest_details_required: true,
+  }} />)
+  screen.getAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Person ${index + 1}` } }))
+  fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Buyer' } })
+  fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Example' } })
+  fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'buyer@example.com' } })
+  fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+  fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+  expect(await screen.findByText("Please confirm everyone you've added is happy to share these details.")).toBeInTheDocument()
+  expect(sent).toHaveLength(0)
+
+  fireEvent.click(screen.getByLabelText("Everyone I've added is happy to share these details."))
+  fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+  await waitFor(() => expect(sent).toHaveLength(1))
+  const people = sent[0].attendees as Array<Record<string, unknown>>
+  expect(people.length).toBeGreaterThan(0)
+  expect(people.every((person) => person.details_confirmed === true)).toBe(true)
+})
+
 it('keeps free event booking free of attendee questions', () => {
   render(<ManagementEventBookingForm event={{
     id: 'free-fixture', name: 'Free fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'free', is_free: true, price: 0,
@@ -1715,6 +1810,7 @@ it('refreshes a changed quote without losing attendee details', async () => {
     : new Response(JSON.stringify({ success: false, error: { code: 'PRICE_CHANGED' } }), { status: 409 }))
   render(<ManagementEventBookingForm event={event} />)
   screen.getAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Person ${index + 1}` } }))
+  confirmGuestDetails()
   fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Buyer' } })
   fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Example' } })
   fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'buyer@example.com' } })
@@ -1743,6 +1839,7 @@ it('drops removed questions from the next submission without losing remaining gu
   })
   render(<ManagementEventBookingForm event={event} />)
   screen.getAllByLabelText(/ticket \d+ full name/i).forEach((input, index) => fireEvent.change(input, { target: { value: `Person ${index + 1}` } }))
+  confirmGuestDetails()
   fireEvent.change(screen.getAllByLabelText('Old question (optional)')[0], { target: { value: 'An answer' } })
   for (const [label, value] of [['First name', 'Buyer'], ['Last name', 'Example'], ['Email address', 'buyer@example.com'], ['Mobile number', '07700900123']]) fireEvent.change(screen.getByLabelText(label), { target: { value } })
   fireEvent.submit(screen.getByLabelText('First name').closest('form')!)

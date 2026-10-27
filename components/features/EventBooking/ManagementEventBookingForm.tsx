@@ -40,7 +40,7 @@ import { confirmationNoticeCopy } from '@/lib/confirmation-notice'
 import { canUseCookieCategory } from '@/lib/cookies'
 import dynamic from 'next/dynamic'
 import type { EventPaymentConversionPayload } from './PayPalEventPaymentSection'
-import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
+import { GUEST_DETAILS_CONFIRM_ERROR, GUEST_DETAILS_CONFIRM_LABEL, GUEST_DETAILS_PRIVACY_LINE, eventCollectsGuestDetails, reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { GUEST_PHONE, guestMessageForBlockedReason, toGuestMessage } from '@/lib/guest-error-messages'
 import {
@@ -126,7 +126,7 @@ interface ManagementEventBookingFormProps {
    * merely undated to that gate, and it would offer the diary entry anyway.
    */
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'waitlist_enabled' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'guest_details_required' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'waitlist_enabled' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
   title?: string
   compact?: boolean
   /**
@@ -230,6 +230,7 @@ export function ManagementEventBookingForm({
   useEffect(() => setEvent(initialEvent), [initialEvent])
   const [discountChangeAcknowledged, setDiscountChangeAcknowledged] = useState(() => Boolean(event.online_discount_ends_at && Date.parse(event.online_discount_ends_at) <= Date.now()))
   const [attendees, setAttendees] = useState<EventAttendee[]>([])
+  const [guestDetailsConfirmed, setGuestDetailsConfirmed] = useState(false)
   const [, tick] = useState(0)
   useEffect(() => {
     if (!event.online_discount_ends_at) return
@@ -302,7 +303,8 @@ export function ManagementEventBookingForm({
    */
   const eventTakesPayment =
     isPaidEvent || isPrepaidEvent(event) || ticketTypes.some((type) => type.price > 0)
-  const collectGuestDetails = eventTakesPayment && (isPrepaidEvent(event) || (event.booking_questions?.length ?? 0) > 0)
+  // BK-014: the event's own setting, sent by the management app as guest_details_required.
+  const collectGuestDetails = eventCollectsGuestDetails(event, { takesPayment: eventTakesPayment, prepaid: isPrepaidEvent(event) })
   // Multi-type derived state.
   const multiTypeTotalSeats = getTotalSeats(ticketQuantities)
   const multiTypeBreakdown = getSelectionBreakdown(ticketTypes, ticketQuantities)
@@ -500,6 +502,7 @@ export function ManagementEventBookingForm({
     if (collectGuestDetails) {
       const attendeeError = validateEventAttendees(attendees, effectiveSeats, questions)
       if (attendeeError) { setLoading(false); setError(attendeeError); return }
+      if (!guestDetailsConfirmed) { setLoading(false); setError(GUEST_DETAILS_CONFIRM_ERROR); return }
       if (discountExpired && !discountChangeAcknowledged) {
         setDiscountChangeAcknowledged(true)
         setLoading(false)
@@ -584,7 +587,7 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
-          ...(collectGuestDetails ? { attendees: attendees.map(person => ({ ...person, answers: Object.fromEntries((event.booking_questions ?? []).map(question => [question.id, person.answers[question.id] ?? ''])) })), expected_total: totalValue } : {}),
+          ...(collectGuestDetails ? { attendees: attendees.map(person => ({ ...person, answers: Object.fromEntries((event.booking_questions ?? []).map(question => [question.id, person.answers[question.id] ?? ''])), ...(guestDetailsConfirmed ? { details_confirmed: true as const } : {}) })), expected_total: totalValue } : {}),
           ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
           event_slug: event.slug,
@@ -1032,6 +1035,9 @@ export function ManagementEventBookingForm({
               <div>
                 <h3 className="font-semibold text-ink">Who is coming?</h3>
                 <p className="text-sm text-ink-muted">Add a name and answers for each person. You can buy tickets without attending yourself.</p>
+                {/* BK-017: the booker is sharing other people's details, and an answer can be
+                    health data. Owner decision D6: answers go 90 days after the event. */}
+                <p className="text-sm text-ink-muted">{GUEST_DETAILS_PRIVACY_LINE}</p>
               </div>
               {event.online_discount_ends_at ? <p className="text-sm text-ink-muted">{discountExpired ? 'Online discount ended' : 'Online discount ends'} {new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(event.online_discount_ends_at))} (UK time).</p> : null}
               {attendees.map((person, index) => (
@@ -1056,6 +1062,17 @@ export function ManagementEventBookingForm({
                   ))}
                 </fieldset>
               ))}
+              <label htmlFor="guest-details-confirmed" className="flex items-start gap-3 text-sm text-ink">
+                <input
+                  id="guest-details-confirmed"
+                  type="checkbox"
+                  required
+                  checked={guestDetailsConfirmed}
+                  onChange={(changeEvent) => setGuestDetailsConfirmed(changeEvent.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-line text-accent focus:ring-accent"
+                />
+                <span>{GUEST_DETAILS_CONFIRM_LABEL}</span>
+              </label>
               <h3 className="font-semibold text-ink">Your contact details</h3>
               <p className="text-sm text-ink-muted">We will send the booking confirmation to you.</p>
             </section>

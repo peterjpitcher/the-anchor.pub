@@ -365,6 +365,21 @@ describe('structured ticket holder details', () => {
     expect((await POST(buildRequest({ ...VALID_BASE, attendees: [attendees[0], attendees[0]] }) as any)).status).toBe(400)
     expect(calls).toHaveLength(0)
   })
+  // BK-017: the booker's confirmation travels with each guest, and is only ever true.
+  it('forwards the booker\'s confirmation with each guest', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+    const confirmed = attendees.map((person) => ({ ...person, details_confirmed: true }))
+    expect((await POST(buildRequest({ ...VALID_BASE, attendees: confirmed }) as any)).status).toBe(201)
+    expect(JSON.parse(String(calls[0].init.body)).attendees).toEqual(confirmed)
+  })
+  it('rejects a confirmation that is anything but true, without calling management', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+    const odd = attendees.map((person) => ({ ...person, details_confirmed: 'yes' }))
+    expect((await POST(buildRequest({ ...VALID_BASE, attendees: odd }) as any)).status).toBe(400)
+    expect(calls).toHaveLength(0)
+  })
 })
 
 /**
