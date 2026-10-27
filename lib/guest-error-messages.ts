@@ -126,8 +126,14 @@ const API_CODE_COPY: Record<string, string | null> = {
     'We are still working on your first attempt. Please wait a moment before trying again, or call 01753 682707.',
   IDEMPOTENCY_KEY_NOT_FOUND:
     'We could not find a previous attempt. Please check your details and try again, or call 01753 682707.',
+  // The management app now cancels a booking whose payment link failed, so
+  // nothing is left in the guest's name and trying again is safe (BK-127).
   PAYMENT_LINK_FAILED:
-    'We received your booking, but we could not set up the deposit payment. Please call 01753 682707 before trying again, so you are not booked twice.',
+    "We couldn't set up the payment, so your booking wasn't made. Please try again, or call 01753 682707.",
+  // The rare case where that cancel failed too: the booking stands and the pub
+  // has been told. The guest must not book again.
+  PAYMENT_LINK_FAILED_BOOKING_HELD:
+    "We've got your booking, but we couldn't set up the payment. We'll be in touch to sort it, so please don't book again. Or call 01753 682707.",
   VALIDATION_ERROR: VALIDATION_FALLBACK,
   CAPACITY_UNAVAILABLE: 'Those dates are now fully booked. Please choose different dates, or call 01753 682707.',
   // The table, event and waitlist routes refuse a number they cannot text when
@@ -260,6 +266,7 @@ const FAILED_CODES: ReadonlySet<string> = new Set([
   'CUSTOMER_RESOLUTION_FAILED',
   'IDEMPOTENCY_KEY_REQUIRED',
   'PAYMENT_LINK_FAILED',
+  'PAYMENT_LINK_FAILED_BOOKING_HELD',
   'CONFIGURATION_MISSING',
   'CONFIGURATION_INVALID',
   'ENDPOINT_RETIRED',
@@ -617,7 +624,7 @@ export function mapUpstreamFailure(input: {
   if (kind === 'failed') {
     // Money may have moved, or a booking may exist without its payment: the
     // specific sentence matters more than the general one for these.
-    const specific = code && (CAPTURE_CONTEXTS.has(context) || code.toUpperCase() === 'PAYMENT_LINK_FAILED' || code.toUpperCase() === 'RATE_LIMIT_EXCEEDED')
+    const specific = code && (CAPTURE_CONTEXTS.has(context) || code.toUpperCase() === 'PAYMENT_LINK_FAILED' || code.toUpperCase() === 'PAYMENT_LINK_FAILED_BOOKING_HELD' || code.toUpperCase() === 'RATE_LIMIT_EXCEEDED')
       ? guestMessageForCode(code, context)
       : null
     return { kind, code: resolvedCode, message: specific ?? fallback }

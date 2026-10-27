@@ -321,15 +321,30 @@ describe('mapUpstreamFailure, for the routes', () => {
     }
   })
 
-  it('warns against booking twice when the booking exists but its payment link failed', () => {
+  it('tells the guest to try again when the payment link failed and the booking was cancelled (BK-127)', () => {
     const mapped = mapUpstreamFailure({
       status: 500,
-      body: { success: false, error: { code: 'PAYMENT_LINK_FAILED', message: 'Booking created but payment link generation failed. Please contact us.' } },
+      body: { success: false, error: { code: 'PAYMENT_LINK_FAILED', message: 'We could not set up the deposit payment, so the booking was not made. Please try again.' } },
       context: 'table_booking'
     })
 
     expect(mapped.kind).toBe('failed')
-    expect(mapped.message).toContain('not booked twice')
+    expect(mapped.message).toContain("wasn't made")
+    expect(mapped.message).toContain('try again')
+    expect(mapped.message).toContain(GUEST_PHONE)
+    expectGuestSentence(mapped.message)
+  })
+
+  it('warns against booking twice when the payment link failed and the booking still stands', () => {
+    const mapped = mapUpstreamFailure({
+      status: 500,
+      body: { success: false, error: { code: 'PAYMENT_LINK_FAILED_BOOKING_HELD', message: 'Your booking was received, but we could not set up the deposit payment.' } },
+      context: 'event_booking'
+    })
+
+    expect(mapped.kind).toBe('failed')
+    expect(mapped.message).toContain("don't book again")
+    expect(mapped.message).toContain(GUEST_PHONE)
     expectGuestSentence(mapped.message)
   })
 })
