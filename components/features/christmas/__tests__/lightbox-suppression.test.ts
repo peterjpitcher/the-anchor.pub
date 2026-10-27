@@ -81,7 +81,6 @@ describe('the lightbox never fires mid-booking', () => {
 describe('it still fires everywhere it should', () => {
   it.each([
     '/',
-    '/sunday-roast',
     '/food-menu',
     '/private-hire',
     '/beer-garden',
@@ -161,5 +160,19 @@ describe('the lightbox never fires over an open dialog', () => {
   it('is not suppressed by a non-modal popover', () => {
     document.body.innerHTML = '<div role="dialog" aria-modal="false">Popover</div>'
     expect(isDialogOpen()).toBe(false)
+  })
+})
+
+// BK-201 and owner decision D22: the Sunday roast page carries its own booking form.
+describe('the Sunday roast page', () => {
+  it.each(['/sunday-roast', '/sunday-roast?utm_source=meta', '/sunday-roast/menu'])(
+    'suppresses the pop-up on %s',
+    (path) => {
+      expect(isLightboxSuppressedRoute(path)).toBe(true)
+    }
+  )
+
+  it('still allows a page that merely starts with the same letters', () => {
+    expect(isLightboxSuppressedRoute('/sunday-roasts-guide')).toBe(false)
   })
 })

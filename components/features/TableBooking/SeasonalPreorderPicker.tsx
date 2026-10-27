@@ -26,6 +26,33 @@ export type PreorderChoice = {
   dessertId: string | null
   /** Extras on top of the meal, paid on the day. */
   addonIds: string[]
+  /** Optional, for every guest, 1 course included: so the kitchen knows who is who. */
+  guestName?: string
+  /** Optional, for every guest: a dietary need tied to this guest rather than the whole table. */
+  dietaryNote?: string
+}
+
+/** The longest name and note the management app keeps for a seat. */
+export const PREORDER_GUEST_NAME_MAX = 100
+export const PREORDER_DIETARY_NOTE_MAX = 200
+
+/**
+ * What a guest is shown for a dish with no allergens recorded. The exact words come from
+ * docs/SSOT.md, "Allergen wording": missing data means unknown, never "no allergens".
+ */
+export const ALLERGEN_FALLBACK = 'See menu or contact us for allergen information'
+
+/**
+ * A dish's allergens as one line, or null when the menu records none. The management app sends
+ * them as text; an array is accepted too, so an older or newer shape still reads.
+ */
+export function formatAllergens(value: unknown): string | null {
+  if (typeof value === 'string') return value.trim() || null
+  if (Array.isArray(value)) {
+    const items = value.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+    return items.length > 0 ? items.map((item) => item.trim()).join(', ') : null
+  }
+  return null
 }
 
 /** The courses a seat picks exactly one of, in menu order. */
@@ -106,6 +133,12 @@ export function SeasonalPreorderPicker({
     onChange(sized.map((choice) => (choice.guestIndex === guestIndex ? { ...choice, ...patch } : choice)))
   }
 
+  function dishAllergens(itemId: string | null): string | null {
+    if (!itemId) return null
+    const item = menu.find((entry) => entry.id === itemId)
+    return item ? formatAllergens(item.allergens) ?? ALLERGEN_FALLBACK : null
+  }
+
   function toggleAddon(guestIndex: number, itemId: string, ticked: boolean) {
     const current = sized.find((choice) => choice.guestIndex === guestIndex)?.addonIds ?? []
     const next = ticked
@@ -123,6 +156,7 @@ export function SeasonalPreorderPicker({
             ? `Choose each guest's number of courses. One course needs no pre-order. Two or three courses need menu choices by noon ${preorderCutoffDays ?? 7} days before your booking.`
             : `Every guest has a main. Add a starter, a dessert, or both. The kitchen needs these ${preorderCutoffDays ?? 7} days before your booking.`}
           {courseAware && !multipleCoursesAvailable ? ' The pre-order deadline has passed for this date. Choose one course or contact the team.' : ''}
+          {" You can add each guest's name and any dietary needs too, so the kitchen knows who's who."}
         </p>
       </div>
 
@@ -133,6 +167,37 @@ export function SeasonalPreorderPicker({
             <legend className="px-1 text-sm font-semibold text-ink-strong">Guest {guestNumber}</legend>
 
             <div className="space-y-3">
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div>
+                  <label htmlFor={`preorder-guest-${choice.guestIndex}-name`} className="block text-sm text-ink-strong">
+                    Name <span className="text-ink-muted">(optional)</span>
+                  </label>
+                  <input
+                    id={`preorder-guest-${choice.guestIndex}-name`}
+                    type="text"
+                    autoComplete="off"
+                    maxLength={PREORDER_GUEST_NAME_MAX}
+                    value={choice.guestName ?? ''}
+                    onChange={(event) => update(choice.guestIndex, { guestName: event.target.value })}
+                    className="mt-1 min-h-[44px] w-full rounded-md border border-line-field bg-surface px-3 py-2 text-sm text-ink"
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`preorder-guest-${choice.guestIndex}-dietary`} className="block text-sm text-ink-strong">
+                    Dietary needs <span className="text-ink-muted">(optional)</span>
+                  </label>
+                  <input
+                    id={`preorder-guest-${choice.guestIndex}-dietary`}
+                    type="text"
+                    autoComplete="off"
+                    maxLength={PREORDER_DIETARY_NOTE_MAX}
+                    placeholder="For example, no dairy"
+                    value={choice.dietaryNote ?? ''}
+                    onChange={(event) => update(choice.guestIndex, { dietaryNote: event.target.value })}
+                    className="mt-1 min-h-[44px] w-full rounded-md border border-line-field bg-surface px-3 py-2 text-sm text-ink"
+                  />
+                </div>
+              </div>
               {courseAware ? (
                 <div>
                   <label htmlFor={`course-count-${choice.guestIndex}`} className="block text-sm text-ink-strong">Number of courses</label>
@@ -164,6 +229,7 @@ export function SeasonalPreorderPicker({
                       id={selectId}
                       value={choice[CHOICE_KEY[course]] ?? ''}
                       onChange={(event) => update(choice.guestIndex, { [CHOICE_KEY[course]]: event.target.value || null })}
+                      aria-describedby={choice[CHOICE_KEY[course]] ? `${selectId}-allergens` : undefined}
                       className="mt-1 min-h-[44px] w-full rounded-md border border-line-field bg-surface px-3 py-2 text-sm text-ink"
                     >
                       <option value="">{optional ? 'No ' + label.toLowerCase() : 'Please choose...'}</option>
@@ -174,6 +240,12 @@ export function SeasonalPreorderPicker({
                         </option>
                       ))}
                     </select>
+                    {/* The chosen dish's allergens, beside the choice, so a guest can check before booking. */}
+                    {choice[CHOICE_KEY[course]] ? (
+                      <p id={`${selectId}-allergens`} className="mt-1 text-xs text-ink-muted">
+                        Allergens: {dishAllergens(choice[CHOICE_KEY[course]])}
+                      </p>
+                    ) : null}
                   </div>
                 )
               })}
@@ -199,6 +271,9 @@ export function SeasonalPreorderPicker({
                         <span>
                           {item.name}
                           {typeof item.price_gbp === 'number' ? ` (${formatPounds(item.price_gbp)})` : ''}
+                          <span className="block text-xs text-ink-muted">
+                            Allergens: {formatAllergens(item.allergens) ?? ALLERGEN_FALLBACK}
+                          </span>
                         </span>
                       </label>
                     )

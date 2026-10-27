@@ -20,6 +20,8 @@ export type TableBookingSubmitIntentFields = {
   partySize: number
   purpose: 'food' | 'drinks'
   notes?: string
+  /** Allergies in their own field. Absent when none were given. */
+  allergies?: string[]
   fixtureId?: string
   highChairCount: number
   isOutsideSeating: boolean
@@ -64,6 +66,9 @@ export function buildSubmitIntentFingerprint(input: TableBookingSubmitIntentFiel
     partySize: input.partySize,
     purpose: input.purpose,
     notes: input.notes?.trim() || '',
+    // AMS hashes allergies, so adding one must mint a new key. Undefined when absent, so a guest who
+    // gives none keeps the fingerprint this form produced before the field existed.
+    allergies: input.allergies?.length ? input.allergies : undefined,
     fixtureId: input.fixtureId || undefined,
     highChairCount: input.highChairCount,
     isOutsideSeating: input.isOutsideSeating,
@@ -93,6 +98,10 @@ export function buildSubmitIntentFingerprint(input: TableBookingSubmitIntentFiel
     christmas_course_counts: input.christmas_course_counts ?? undefined,
     preorder: input.preorder?.length
       ? input.preorder.map((entry) => ({
+          // AMS hashes each seat's name and note too (BK-148). Absent when not given, so a seat
+          // without them fingerprints exactly as before.
+          ...(entry.guest_name ? { guestName: entry.guest_name } : {}),
+          ...(entry.dietary_note ? { dietaryNote: entry.dietary_note } : {}),
           starter: entry.starter_menu_item_id || null,
           main: entry.main_menu_item_id || null,
           dessert: entry.dessert_menu_item_id || null,

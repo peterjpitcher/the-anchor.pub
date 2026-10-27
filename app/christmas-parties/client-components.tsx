@@ -27,6 +27,8 @@ import { TurnstileField, type TurnstileFieldRef } from '@/components/security/Tu
 import { CONTACT, DRIVE_TIMES, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { toGuestMessage } from '@/lib/guest-error-messages'
 import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
+import { christmasMealBooksOnline, christmasTableBookingHref } from '@/lib/christmas-meal-booking'
+import { sendChristmasEnquirySignal, type ChristmasEnquirySignalForm } from '@/lib/christmas-enquiry-signal'
 
 const CONTACT_EMAIL = CONTACT.email
 const CONTACT_PHONE = CONTACT.phone
@@ -315,6 +317,26 @@ const DAYS_AVAILABLE_SUMMARY =
  * without passing the SSOT value through. Owner-confirmed 11 August 2026.
  */
 const PRE_ORDER_DEADLINE_DAYS_FALLBACK = 7
+
+/**
+ * The browser's own checks (a required box left empty, an email address that is not one) stop a
+ * press before submit fires, so a form's submit handler never counts it. The invalid events they
+ * fire instead say the same thing: pressed, and stopped here. Returns the form's onInvalid
+ * handler, which calls `onPress` once per press however many boxes are wrong (BK-190).
+ */
+function useInvalidPressSignal(onPress: () => void): () => void {
+  const signalled = useRef(false)
+  const latest = useRef(onPress)
+  latest.current = onPress
+  return useCallback(() => {
+    if (signalled.current) return
+    signalled.current = true
+    latest.current()
+    setTimeout(() => {
+      signalled.current = false
+    }, 0)
+  }, [])
+}
 
 function preOrderDeadlineDays(facts: ChristmasFactsView): number {
   return facts.preOrderDeadlineDays ?? PRE_ORDER_DEADLINE_DAYS_FALLBACK
@@ -1006,7 +1028,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               onClick={() => {
                 trackCtaClick({
                   id: 'christmas_lunch_enquiry',
-                  label: 'Enquire about Christmas lunch',
+                  label: 'Book Christmas lunch',
                   location: 'meal_process',
                   destination: 'enquiry_form',
                   mode: 'meal'
@@ -1014,7 +1036,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 handleOpenForm('meal', { service: 'lunch' }, 'meal_process')
               }}
             >
-              Enquire about lunch
+              Book Christmas lunch
             </Button>
             <Button
               variant="outline"
@@ -1022,7 +1044,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
               onClick={() => {
                 trackCtaClick({
                   id: 'christmas_dinner_enquiry',
-                  label: 'Enquire about Christmas dinner',
+                  label: 'Book Christmas dinner',
                   location: 'meal_process',
                   destination: 'enquiry_form',
                   mode: 'meal'
@@ -1030,7 +1052,7 @@ export function ChristmasPartiesPageClient({ structuredData, menu, season, facts
                 handleOpenForm('meal', { service: 'dinner' }, 'meal_process')
               }}
             >
-              Enquire about dinner
+              Book Christmas dinner
             </Button>
           </div>
         </Container>
@@ -2022,6 +2044,45 @@ function ChristmasMenuAndPricing({
   )
 }
 
+/** What a guest is told when the security check has not finished, instead of a dead button (BK-190). */
+const SECURITY_CHECK_NOT_READY_MESSAGE = `The security check has not finished yet. Please wait a moment and press the button again. If it keeps happening, call us on ${CONTACT_PHONE}.`
+
+/**
+ * Where a Christmas meal for up to 20 goes: straight to a table booking, with what the guest has
+ * already told us filled in (BK-061, owner decision D22). /book-table asks the Christmas question,
+ * takes the deposit and collects each guest's courses.
+ */
+function ChristmasMealBookOnlinePanel({ href, facts, form }: { href: string; facts: ChristmasFactsView; form: ChristmasEnquirySignalForm }) {
+  return (
+    <div className="rounded-xl border border-line bg-surface-sunk p-4">
+      <p className="text-sm font-semibold text-ink-strong">Book your table online</p>
+      <p className="mt-1 text-sm text-ink-muted">
+        Christmas lunch or dinner for {facts.minPartySize} to {facts.privateHireThreshold} guests books straight away. You&apos;ll
+        choose each guest&apos;s courses and pay the £{facts.depositPerPerson} per person deposit, which comes off your bill.
+      </p>
+      <Button asChild variant="primary" size="md" className="mt-3 w-full sm:w-auto">
+        <Link
+          href={href}
+          onClick={() =>
+            trackCtaClick({
+              id: 'christmas_meal_book_table',
+              label: 'Book a Christmas table',
+              location: form === 'main' ? 'enquiry_form' : 'lightbox',
+              destination: 'book_table',
+              mode: 'meal'
+            })
+          }
+        >
+          Book a Christmas table
+        </Link>
+      </Button>
+      <p className="mt-2 text-xs text-ink-muted">
+        More than {facts.privateHireThreshold} guests? Enter the number above and we&apos;ll arrange it as a private booking.
+      </p>
+    </div>
+  )
+}
+
 export function ChristmasEnquiryForm({ context, season, facts, onContextChange, onSuccess, securityCheckActive }: ChristmasEnquiryFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -2047,22 +2108,53 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
     : facts.minPartySize
   // Inside the 2 and 3 course deadline only the 1 course menu can be booked (SSOT §7).
   const onlyOneCourse = context.mode === 'meal' && preferredDate !== '' && !christmasMultipleCoursesAvailable(preferredDate)
+  // A Christmas meal for up to 20 books online as a table, with the deposit and each guest's courses
+  // (BK-061, owner decision D22). Only a bigger group sends an enquiry.
+  const bookMealOnline = context.mode === 'meal' && christmasMealBooksOnline(partySize, facts.privateHireThreshold)
+  const bookingHref = christmasTableBookingHref({ date: preferredDate, partySize, time: preferredTime })
+  const signal = useCallback(
+    (stage: 'opened' | 'submit_pressed' | 'blocked' | 'sent', reason?: Parameters<typeof sendChristmasEnquirySignal>[1]['reason']) =>
+      sendChristmasEnquirySignal(stage, { form: 'main', mode: context.mode, reason }),
+    [context.mode]
+  )
+
+  // Counted once each time the form is shown, so a form nobody can submit shows up (BK-190).
+  const openedSignalSent = useRef(false)
+  useEffect(() => {
+    if (openedSignalSent.current) return
+    openedSignalSent.current = true
+    signal('opened')
+  }, [signal])
 
   useEffect(() => {
     if (timeOptions.some(option => option.value === preferredTime)) return
     setPreferredTime(timeOptions[0].value)
   }, [preferredTime, timeOptions])
 
+  const handleInvalid = useInvalidPressSignal(() => {
+    signal('submit_pressed')
+    signal('blocked', 'missing_fields')
+  })
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    signal('submit_pressed')
+
+    if (bookMealOnline) {
+      // Enter in a field submits the form: take the guest to the booking, not an enquiry.
+      window.location.assign(bookingHref)
+      return
+    }
 
     if (!name.trim() || !email.trim() || !phone.trim() || !partySize.trim() || !preferredDate.trim()) {
+      signal('blocked', 'missing_fields')
       setStatus('error')
       setMessage('Please complete all required fields before sending your enquiry.')
       return
     }
 
     if (preferredDate < season.minEnquiryDate) {
+      signal('blocked', 'date')
       setStatus('error')
       setMessage(`We need at least ${facts.minNoticeHours} hours notice, so the earliest date we can take is ${season.minEnquiryDate}.`)
       return
@@ -2071,20 +2163,32 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
     // The kitchen is closed on Mondays, so a Monday enquiry can never be served.
     // Catching it here is kinder than letting someone wait for a reply that says no.
     if (isMondayIsoDate(preferredDate)) {
+      signal('blocked', 'date')
       setStatus('error')
       setMessage(MONDAY_UNAVAILABLE_MESSAGE)
       return
     }
 
     if (onlyOneCourse && (context.courseTier === 'two_course' || context.courseTier === 'three_course')) {
+      signal('blocked', 'courses')
       setStatus('error')
       setMessage(`${LATE_CHRISTMAS_ONE_COURSE_NOTE} Please change the courses to 1 course each, or not decided yet.`)
       return
     }
 
     if (!consent) {
+      signal('blocked', 'consent')
       setStatus('error')
       setMessage('Please confirm we can contact you about your enquiry.')
+      return
+    }
+
+    // The button used to stay disabled until the security check passed, so a check that never
+    // loaded left a button nobody could press and sent nothing (BK-190). Now it says so.
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      signal('blocked', 'no_security_token')
+      setStatus('error')
+      setMessage(SECURITY_CHECK_NOT_READY_MESSAGE)
       return
     }
 
@@ -2134,6 +2238,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
       })
 
       if (!response.ok) {
+        signal('blocked', 'server_refused')
         const errorData = await response.json().catch(() => null)
         const errorMessage = toGuestMessage(errorData?.error, 'christmas_enquiry')
         setStatus('error')
@@ -2141,6 +2246,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
         return
       }
 
+      signal('sent')
       markLocalStorage(ENQUIRY_STORAGE_KEYS.submitted, 'true')
       trackFormComplete({
         formName: 'christmas_main_enquiry_form',
@@ -2165,6 +2271,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
       setConsent(false)
       onContextChange({ perks: [], courseTier: 'undecided' })
     } catch (error) {
+      signal('blocked', 'network')
       console.error('Christmas enquiry form submission failed:', error)
       setStatus('error')
       setMessage('Sorry, something went wrong while sending your enquiry. Please call us on 01753 682707.')
@@ -2190,8 +2297,12 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
 
   return (
     <div className="rounded-2xl border border-line bg-surface p-4 sm:p-6">
-      <h3 className="text-2xl font-bold text-ink-strong mb-2">Send your Christmas enquiry</h3>
-      <p className="text-sm text-ink-muted">We will reply with availability, the prices and next steps.</p>
+      <h3 className="text-2xl font-bold text-ink-strong mb-2">{bookMealOnline ? 'Book your Christmas meal' : 'Send your Christmas enquiry'}</h3>
+      <p className="text-sm text-ink-muted">
+        {bookMealOnline
+          ? 'Tell us how many and when, then book your table online.'
+          : 'We will reply with availability, the prices and next steps.'}
+      </p>
       <p className="text-sm text-ink-muted mb-6">Prefer email?{' '}<a href={CONTACT_EMAIL_LINK} className="underline decoration-dotted text-accent-text">{CONTACT_EMAIL}</a></p>
 
       {status === 'error' && (
@@ -2200,7 +2311,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
         </Alert>
       )}
 
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-6" onSubmit={handleSubmit} onInvalid={handleInvalid}>
         {/* Honeypot: hidden from people, checked server-side by checkSpamProtection. */}
         <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
           <label htmlFor="christmas-website">Leave this field empty</label>
@@ -2305,6 +2416,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
         )}
 
         <div className="grid md:grid-cols-2 gap-4">
+          {!bookMealOnline && (<>
           <div>
             <label htmlFor="christmas-name" className="block text-sm font-medium text-ink-muted">Full name *</label>
             <input
@@ -2345,6 +2457,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
               required
             />
           </div>
+          </>)}
           <div>
             <label htmlFor="christmas-party-size" className="block text-sm font-medium text-ink-muted">Number of guests *</label>
             <input
@@ -2400,6 +2513,9 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
           </div>
         </div>
 
+        {bookMealOnline ? (
+          <ChristmasMealBookOnlinePanel href={bookingHref} facts={facts} form="main" />
+        ) : (<>
         <div>
           <label htmlFor="christmas-notes" className="block text-sm font-medium text-ink-muted">Notes / dietary requests</label>
           <textarea
@@ -2431,7 +2547,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
             variant="primary"
             size="lg"
             className="w-full md:w-auto"
-            disabled={submitting || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
+            disabled={submitting}
           >
             {submitting ? 'Sending…' : context.mode === 'meal' ? 'Request my Christmas meal' : 'Plan my Christmas party'}
           </Button>
@@ -2442,6 +2558,7 @@ export function ChristmasEnquiryForm({ context, season, facts, onContextChange, 
             Prefer to chat? Call {CONTACT_PHONE}
           </a>
         </div>
+        </>)}
       </form>
     </div>
   )
@@ -2587,14 +2704,38 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
   // The lightbox has no course picker, so inside the 2 and 3 course deadline it sends the only
   // tier that can be booked, and says so beside the date (SSOT §7).
   const lateOneCourse = context.mode === 'meal' && preferredDate !== '' && !christmasMultipleCoursesAvailable(preferredDate)
+  // As on the main form: a meal for up to 20 books online (BK-061, D22).
+  const bookMealOnline = context.mode === 'meal' && christmasMealBooksOnline(partySize, facts.privateHireThreshold)
+  const bookingHref = christmasTableBookingHref({ date: preferredDate, partySize })
+  const signal = (stage: 'opened' | 'submit_pressed' | 'blocked' | 'sent', reason?: Parameters<typeof sendChristmasEnquirySignal>[1]['reason']) =>
+    sendChristmasEnquirySignal(stage, { form: 'quick', mode: context.mode, reason })
+  const handleInvalid = useInvalidPressSignal(() => {
+    signal('submit_pressed')
+    signal('blocked', 'missing_fields')
+  })
+
+  // Counted once each time the pop-up opens (BK-190).
+  useEffect(() => {
+    if (visible) sendChristmasEnquirySignal('opened', { form: 'quick', mode: context.mode })
+    // Only on opening, not on every change of journey while it is open.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible])
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    signal('submit_pressed')
+    if (bookMealOnline) {
+      window.location.assign(bookingHref)
+      return
+    }
     if (!name.trim() || !email.trim() || !phone.trim() || !partySize.trim() || !preferredDate.trim()) {
+      signal('blocked', 'missing_fields')
       setError('Please fill in all fields so we can confirm availability and prices.')
       return
     }
 
     if (preferredDate < season.minEnquiryDate) {
+      signal('blocked', 'date')
       setError(`We need at least ${facts.minNoticeHours} hours notice, so the earliest date we can take is ${season.minEnquiryDate}.`)
       return
     }
@@ -2602,7 +2743,15 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
     // No Monday sittings: the kitchen is closed. Stop it here rather than
     // taking an enquiry we already know we cannot fulfil.
     if (isMondayIsoDate(preferredDate)) {
+      signal('blocked', 'date')
       setError(MONDAY_UNAVAILABLE_MESSAGE)
+      return
+    }
+
+    // A security check that never loaded used to leave the button disabled for good (BK-190).
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      signal('blocked', 'no_security_token')
+      setError(SECURITY_CHECK_NOT_READY_MESSAGE)
       return
     }
 
@@ -2651,12 +2800,14 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
       })
 
       if (!response.ok) {
+        signal('blocked', 'server_refused')
         const errorData = await response.json().catch(() => null)
         const errorMessage = toGuestMessage(errorData?.error, 'christmas_enquiry')
         setError(errorMessage)
         return
       }
 
+      signal('sent')
       markLocalStorage(ENQUIRY_STORAGE_KEYS.submitted, 'true')
       trackFormComplete({
         formName: 'christmas_seasonal_enquiry_lightbox',
@@ -2679,6 +2830,7 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
         setSubmitted(false)
       }, 2500)
     } catch (err) {
+      signal('blocked', 'network')
       console.error('Christmas lightbox submission failed:', err)
       setError('Sorry, something went wrong. Please call us on 01753 682707 and we will take your enquiry over the phone.')
     } finally {
@@ -2732,7 +2884,7 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
             </Alert>
           )}
 
-          {!submitted && <form className="space-y-3" onSubmit={handleSubmit}>
+          {!submitted && <form className="space-y-3" onSubmit={handleSubmit} onInvalid={handleInvalid}>
             {/* Honeypot: hidden from people, checked server-side by checkSpamProtection. */}
             <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
               <label htmlFor="christmas-lightbox-website">Leave this field empty</label>
@@ -2746,6 +2898,7 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
                 onChange={event => setLbHoneypot(event.target.value)}
               />
             </div>
+            {!bookMealOnline && (<>
             {/* Visible labels, as the main form on this page has. Placeholder
                 text was the only label here, and it vanished as soon as a
                 guest typed, with the date box saying only dd/mm/yyyy
@@ -2787,6 +2940,7 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
                 required
               />
             </div>
+            </>)}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="min-w-0">
                 <label htmlFor="christmas-lightbox-guests" className="block text-sm font-medium text-ink-muted">Number of guests</label>
@@ -2850,7 +3004,8 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
                 </div>
               </div>
             )}
-            {TURNSTILE_SITE_KEY && (
+            {bookMealOnline ? <ChristmasMealBookOnlinePanel href={bookingHref} facts={facts} form="quick" /> : null}
+            {TURNSTILE_SITE_KEY && !bookMealOnline && (
               <TurnstileField
                 id="christmas-lightbox-turnstile"
                 turnstileRef={turnstileRef}
@@ -2859,13 +3014,15 @@ export function ChristmasLightbox({ suppressed, context, season, facts, onContex
             )}
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button
-                type="submit"
-                variant="primary"
-                size="md"
-                className="w-full"
-                disabled={submitting || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
-              >{submitting ? 'Sending…' : 'Send my request'}</Button>
+              {!bookMealOnline && (
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="md"
+                  className="w-full"
+                  disabled={submitting}
+                >{submitting ? 'Sending…' : 'Send my request'}</Button>
+              )}
               <Button
                 type="button"
                 variant="outline"

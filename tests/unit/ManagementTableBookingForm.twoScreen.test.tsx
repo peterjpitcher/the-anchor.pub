@@ -1271,6 +1271,37 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
       expect(screen.getByText('Outside table, weather permitting')).toBeInTheDocument()
     })
 
+    // BK-052: allergies have their own box, sent to their own field, so the management app's
+    // allergy flag, kitchen sheet and floor screens see them instead of finding them in the notes.
+    it('sends allergies from their own box as a list, apart from the notes', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupFetchMock({ availability: DAY_SLOTS, capturePayload })
+      await reachDetails()
+      await verifyPhoneAndFillName()
+
+      expect(screen.getByLabelText('Allergies (optional)')).toBeInTheDocument()
+      fireEvent.change(screen.getByLabelText('Allergies (optional)'), { target: { value: 'Peanuts, shellfish' } })
+      fireEvent.change(screen.getByLabelText('Notes (optional)'), { target: { value: 'Window table please' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+      await waitFor(() => expect(capturePayload.ref.current).toMatchObject({
+        allergies: ['Peanuts', 'shellfish'],
+        notes: 'Window table please',
+      }))
+    })
+
+    it('sends no allergies field when the box is left empty', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupFetchMock({ availability: DAY_SLOTS, capturePayload })
+      await reachDetails()
+      await verifyPhoneAndFillName()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      expect(capturePayload.ref.current).not.toHaveProperty('allergies')
+    })
+
     it('confirms straight from here, in one action', async () => {
       const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
       setupFetchMock({ availability: DAY_SLOTS, capturePayload })
