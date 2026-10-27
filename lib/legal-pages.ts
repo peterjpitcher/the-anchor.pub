@@ -57,12 +57,12 @@
 // says about where it is. Also written on a branch: if it goes live on a later
 // day, move the date to that day.
 //
-// 26 October 2026: event bookings that ask for each guest's details. The notice
+// 27 October 2026: event bookings that ask for each guest's details. The notice
 // now says we ask for each person's answers to the event's questions (such as
 // allergies), that they go on the kitchen and door lists, and that they are
 // deleted 90 days after the event (owner decision D6, BK-017). Written on a
 // branch: if it goes live on a later day, move the date to that day.
-export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-26'
+export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-27'
 
 /**
  * SHA-256 of the notice's words as they stood on the date above, with the
