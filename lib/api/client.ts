@@ -4,7 +4,6 @@ import { logError } from '@/lib/error-handling'
 import { londonIsoDate } from '@/lib/time-london'
 import { toPublicParkingBooking } from './parking'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { computeLargeGroupDepositAmount } from '@/lib/constants'
 
 import type { EventsResponse, EventCategoriesResponse, Event } from './events'
 import { FALLBACK_EVENT_CATEGORIES } from './events'
@@ -87,6 +86,8 @@ type ManagementTableBookingResult = {
   next_step_url: string | null
   hold_expires_at: string | null
   table_name: string | null
+  // What AMS charges (BK-186). The website never works a deposit out itself.
+  deposit_amount?: number | null
   notification_channel?: 'email' | 'whatsapp' | 'sms' | null
   // High chairs actually reserved by the server (may be < requested) and the
   // outside-seating flag echoed back so callers can reflect the granted result.
@@ -338,8 +339,11 @@ export class AnchorAPI {
     const bookingReference = result.booking_reference || result.table_booking_id || bookingId
     const pendingPayment = result.state === 'pending_payment'
     const requiresNextStep = pendingPayment
-    // Deposit is £10/person for groups of 15+ (large-group policy)
-    const depositAmount = pendingPayment ? computeLargeGroupDepositAmount(Number(originalRequest.party_size || 1)) : 0
+    // AMS's figure, the one PayPal will be asked for (BK-186).
+    const depositAmount =
+      pendingPayment && typeof result.deposit_amount === 'number' && Number.isFinite(result.deposit_amount)
+        ? result.deposit_amount
+        : 0
     const duration =
       typeof originalRequest.duration_minutes === 'number'
         ? originalRequest.duration_minutes

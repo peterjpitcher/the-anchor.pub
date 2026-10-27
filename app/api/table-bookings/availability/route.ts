@@ -6,6 +6,7 @@ import {
   type TableAvailabilityPublicReason,
   type TableAvailabilityResponse,
   type TableAvailabilitySlotState,
+  type TableBookingDepositQuote,
   type TableBookingLoadResponse
 } from '@/lib/api'
 import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
@@ -17,6 +18,8 @@ type WebsiteAvailabilityResponse = TableAvailabilityResponse & {
   calculation_state?: 'complete' | 'unknown'
   public_reason?: TableAvailabilityPublicReason
   max_party_size_online?: number
+  // AMS's deposit for this party and date, passed through untouched (BK-186).
+  deposit?: TableBookingDepositQuote | null
   // The food question went unanswered, so this grid is labelled and submitted
   // as drinks even though the guest may want to eat. Deliberately distinct from
   // a genuine kitchen-closed day: this means information is MISSING, not that
@@ -312,6 +315,8 @@ export async function GET(request: Request) {
     if (typeof tableAvailability.max_party_size_online === 'number') {
       fallback.max_party_size_online = tableAvailability.max_party_size_online
     }
+    // The deposit quote does not depend on drinks or food, so the drinks answer carries it.
+    fallback.deposit = drinksLoad?.deposit ?? null
 
     const authoritativeSlots = Array.isArray(tableAvailability.slots) ? tableAvailability.slots : []
 

@@ -43,6 +43,8 @@ export interface TableAvailabilitySlot {
 export type TableAvailabilityPublicReason =
   | 'tables_full'
   | 'kitchen_full'
+  // Too many drinks guests arriving around that time (AMS 20261027193656, BK-144).
+  | 'drinks_full'
   | 'outside_full'
   | 'closed'
   | 'too_late'
@@ -89,8 +91,22 @@ export interface TableAvailability {
   duration_minutes?: number
 }
 
+/**
+ * The deposit AMS will charge this party on this date (BK-186), worked out by the same database
+ * function the booking charges with. The website quotes this and never computes a deposit itself.
+ * Absent from an older AMS, and null when AMS could not work it out: then nothing is quoted.
+ */
+export interface TableBookingDepositQuote {
+  party_size: number
+  required: boolean
+  amount: number
+  rule: string | null
+  reason: string | null
+}
+
 export interface TableBookingLoadResponse {
   date: string
+  deposit?: TableBookingDepositQuote | null
   window_minutes: number
   busy_threshold_covers: number
   filling_threshold_covers: number

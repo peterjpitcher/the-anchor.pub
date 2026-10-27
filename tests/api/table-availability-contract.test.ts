@@ -149,6 +149,7 @@ describe('availability contract (website side)', () => {
           expect([
             'tables_full',
             'kitchen_full',
+            'drinks_full',
             'outside_full',
             'closed',
             'too_late',
