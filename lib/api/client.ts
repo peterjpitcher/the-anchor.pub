@@ -25,6 +25,7 @@ import type {
   ParkingCaptureResponse
 } from './parking'
 import type { MenuItem } from './menu'
+import { getAnchorBookingsApiKey } from '@/lib/anchor-api-keys'
 
 /**
  * How stale a menu price may be, in seconds.
@@ -105,10 +106,15 @@ export interface TableAvailabilityQuery {
 export class AnchorAPI {
   private baseURL: string
   private apiKey: string
+  // Writes (bookings and payments) send their own key with its own allowance in the
+  // management app, so a flood of page reads cannot use up the budget a guest needs
+  // to book or pay (BK-108). Falls back to the read key until the second key is set.
+  private bookingsApiKey: string
 
-  constructor(apiKey?: string) {
+  constructor(apiKey?: string, bookingsApiKey?: string) {
     this.baseURL = API_BASE_URL
     this.apiKey = apiKey || process.env.ANCHOR_API_KEY || ''
+    this.bookingsApiKey = bookingsApiKey || (apiKey ? apiKey : getAnchorBookingsApiKey()) || this.apiKey
 
     // Only warn on server-side where API key is expected
     if (!this.apiKey && typeof window === 'undefined') {
@@ -534,9 +540,12 @@ export class AnchorAPI {
         'Content-Type': 'application/json',
       }
 
-      // Add authentication header (using X-API-Key as recommended)
-      if (this.apiKey) {
-        headers['X-API-Key'] = this.apiKey
+      // Add authentication header (using X-API-Key as recommended). A write uses the
+      // bookings key, a read the read key (BK-108).
+      const isWriteRequest = !['GET', 'HEAD'].includes((options.method ?? 'GET').toUpperCase())
+      const requestKey = isWriteRequest ? this.bookingsApiKey : this.apiKey
+      if (requestKey) {
+        headers['X-API-Key'] = requestKey
       }
 
       // Merge with any provided headers

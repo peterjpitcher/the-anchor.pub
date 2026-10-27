@@ -8,6 +8,7 @@ import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/bo
 import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
+import { getAnchorBookingsApiKey } from '@/lib/anchor-api-keys'
 
 const ROUTE = 'api/table-bookings/paypal/capture-order'
 
@@ -150,7 +151,7 @@ export async function POST(request: NextRequest): Promise<Response> {
   // was missing. Every exit below is reported as a payment failure: money may
   // have moved, so a person should know whatever the status was. Neither the
   // booking id nor the PayPal order id is logged in clear.
-  const apiKey = process.env.ANCHOR_API_KEY
+  const apiKey = getAnchorBookingsApiKey()
   if (!apiKey) {
     await reportFailure({ route: ROUTE, payment: true, status: null, reason: 'API_KEY_MISSING', reference: bookingId, page })
     return jsonNoStore({ success: false, error: CAPTURE_UNAVAILABLE_MESSAGE }, { status: 503 })

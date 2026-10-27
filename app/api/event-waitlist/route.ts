@@ -11,9 +11,11 @@ import {
   communicationConsentIdempotencyPart,
 } from '@/lib/communication-consent-server'
 import type { CommunicationConsentPayload } from '@/lib/communication-consent'
+import { getAnchorBookingsApiKey } from '@/lib/anchor-api-keys'
 
 const API_BASE_URL = getManagementApiBaseUrl()
-const API_KEY = process.env.ANCHOR_API_KEY
+// Bookings and payments have their own key and allowance (BK-108); see lib/anchor-api-keys.ts.
+const API_KEY = getAnchorBookingsApiKey()
 
 const ROUTE = 'api/event-waitlist'
 const WAITLIST_UNAVAILABLE_MESSAGE = GUEST_FALLBACK.event_waitlist

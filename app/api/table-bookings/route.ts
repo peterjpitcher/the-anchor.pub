@@ -27,6 +27,7 @@ import {
 } from '@/lib/communication-consent-server'
 import type { CommunicationConsentPayload } from '@/lib/communication-consent'
 import { sanitisePageSource, type PageSource } from '@/lib/table-booking/page-source'
+import { getAnchorBookingsApiKey } from '@/lib/anchor-api-keys'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 
@@ -573,7 +574,7 @@ async function refuse(reason: string, response: Response, page: string | null): 
 
 export async function POST(request: NextRequest) {
   const page = pageFromRequest(request)
-  const apiKey = process.env.ANCHOR_API_KEY
+  const apiKey = getAnchorBookingsApiKey()
   if (!apiKey) {
     await reportFailure({ route: ROUTE, status: null, reason: 'API_KEY_MISSING', page })
     return createApiErrorResponse(GUEST_FALLBACK.table_booking, 503)

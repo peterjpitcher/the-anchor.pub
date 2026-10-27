@@ -9,6 +9,7 @@ import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-for
 import { gateBookingConversionByConsent } from '@/lib/booking-conversion-consent'
 import { requestAllowsCookieCategory } from '@/lib/cookie-consent-server'
 import { getClientIpAddress, hashEmailForMeta, hashPhoneForMeta } from '@/lib/booking-conversion-signals'
+import { getAnchorBookingsApiKey } from '@/lib/anchor-api-keys'
 
 // The guest has already paid by the time this route runs. A capture we cannot
 // read is not a capture, and it must never be dressed up as one: the phone
@@ -146,7 +147,8 @@ export async function POST(request: NextRequest): Promise<Response> {
   const { bookingId, orderId } = parsed.data
   const page = pageFromRequest(request)
 
-  if (!process.env.ANCHOR_API_KEY) {
+  const apiKey = getAnchorBookingsApiKey()
+  if (!apiKey) {
     await reportFailure({ route: ROUTE, payment: true, status: null, reason: 'API_KEY_MISSING', reference: bookingId, page })
     return jsonNoStore({ error: CAPTURE_UNAVAILABLE_MESSAGE }, { status: 503 })
   }
@@ -157,7 +159,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     const response = await fetch(upstream, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.ANCHOR_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ orderId }),

@@ -4,6 +4,7 @@ import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
 import { PAYMENT_RATE_LIMIT_MESSAGE, RATE_LIMITS, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
+import { getAnchorBookingsApiKey } from '@/lib/anchor-api-keys'
 
 const ROUTE = 'api/event-bookings/paypal/create-order'
 
@@ -38,7 +39,8 @@ export async function POST(request: NextRequest): Promise<Response> {
   const page = pageFromRequest(request)
   const reference = parsed.data.bookingId
 
-  if (!process.env.ANCHOR_API_KEY) {
+  const apiKey = getAnchorBookingsApiKey()
+  if (!apiKey) {
     await reportFailure({ route: ROUTE, payment: true, status: null, reason: 'API_KEY_MISSING', reference, page })
     return jsonNoStore({ error: PAYMENT_UNAVAILABLE_MESSAGE }, { status: 503 })
   }
@@ -49,7 +51,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     const response = await fetch(upstream, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.ANCHOR_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       cache: 'no-store',
