@@ -8,6 +8,14 @@ jest.mock('@/lib/microsoft-graph-mail', () => ({
     text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
 }))
 
+// The count kept by the management app (BK-101) is its own request, tested in
+// tests/lib/booking-funnel-report.test.ts. Stood in for here so the fetch calls
+// counted below are the payment text's alone.
+const mockRecordTurnedAway = jest.fn()
+jest.mock('@/lib/booking-funnel-report', () => ({
+  recordTurnedAway: (...args: unknown[]) => mockRecordTurnedAway(...args)
+}))
+
 import {
   PAYMENT_TEXT_TIMEOUT_MS,
   FAILURE_ALERT_RECIPIENT,
@@ -71,6 +79,8 @@ beforeEach(() => {
   global.fetch = mockFetch as unknown as typeof fetch
   mockSendEmail.mockReset()
   mockSendEmail.mockResolvedValue(undefined)
+  mockRecordTurnedAway.mockReset()
+  mockRecordTurnedAway.mockResolvedValue({ recorded: true, reason: 'recorded' })
   resetFailureAlertsForTests()
   log = captureFailureLog()
 })
@@ -587,5 +597,82 @@ describe('the text for a failed payment', () => {
 
       await expectEmailSentAndTextLogged('http_500')
     })
+  })
+})
+
+describe('the count kept by the management app (BK-101)', () => {
+  it('sends every refusal and failure with the codes from the log line, and nothing personal', async () => {
+    await reportFailure({ route: 'api/table-bookings', kind: 'refused', status: 400, reason: 'OUTSIDE_HOURS', page: `/book-table/${BOOKING_ID}?phone=${PHONE}` })
+    await reportFailure({
+      route: 'api/event-bookings',
+      status: 502,
+      reason: 'UPSTREAM_NOT_OK',
+      upstreamCode: 'INTERNAL_ERROR',
+      reference: REFERENCE,
+      error: new Error(`Failed for ${NAME} on ${PHONE}`)
+    })
+
+    expect(mockRecordTurnedAway.mock.calls.map(([record]) => record)).toEqual([
+      { route: 'api/table-bookings', kind: 'refused', status: 400, reason: 'OUTSIDE_HOURS', page: '/book-table/:id' },
+      { route: 'api/event-bookings', kind: 'failed', status: 502, reason: 'UPSTREAM_NOT_OK', upstreamCode: 'INTERNAL_ERROR' }
+    ])
+    const sent = JSON.stringify(mockRecordTurnedAway.mock.calls)
+    for (const value of PERSONAL) {
+      expect(sent).not.toContain(value)
+    }
+  })
+
+  it('writes a second line when the count could not be kept, and none away from the live site', async () => {
+    mockRecordTurnedAway.mockResolvedValueOnce({ recorded: false, reason: 'http_503' })
+    await reportFailure({ route: 'api/table-bookings', kind: 'refused', status: 400, reason: 'VALIDATION_FAILED' })
+    expect(log.alertLines()).toEqual([{ route: 'api/table-bookings', recorded: false, reason: 'http_503', at: '2026-10-07T18:30:00.000Z' }])
+
+    mockRecordTurnedAway.mockResolvedValueOnce({ recorded: false, reason: 'not_production' })
+    await reportFailure({ route: 'api/table-bookings', kind: 'refused', status: 400, reason: 'VALIDATION_FAILED' })
+    expect(log.alertLines()).toHaveLength(1)
+  })
+
+  it('never lets the count change what happens, even if it throws', async () => {
+    mockRecordTurnedAway.mockRejectedValueOnce(new Error('boom'))
+    await expect(reportFailure({ route: 'api/table-bookings', status: 502, reason: 'X' })).resolves.toBeUndefined()
+    expect(mockSendEmail).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('the booking system refusing what the website accepted (BK-101)', () => {
+  it.each(['VALIDATION_ERROR', 'PRICE_CHANGED', 'BOOKING_QUESTIONS_CHANGED'])(
+    'reports %s from the booking system as a failure and alerts',
+    async (code) => {
+      await reportFailure({
+        route: 'api/event-bookings',
+        kind: 'refused',
+        status: 400,
+        reason: 'UPSTREAM_NOT_OK',
+        upstreamCode: code,
+        answeredByBookingSystem: true
+      })
+
+      expect(log.lines()[0]).toMatchObject({ kind: 'failed', reason: 'CONTRACT_DRIFT', upstreamCode: code, drift: true, alert: 'email' })
+      expect(mockSendEmail).toHaveBeenCalledTimes(1)
+      const email = mockSendEmail.mock.calls[0][0]
+      expect(email.subject).toBe('ACTION NEEDED: the website and the booking system disagree (Event bookings)')
+      for (const part of [email.subject, email.textContent, email.htmlContent]) {
+        expect(part).not.toMatch(/undefined|NaN|Invalid Date/)
+        expect(part).not.toContain(LONG_DASH)
+      }
+    }
+  )
+
+  it.each([
+    ['the website turned it down itself', { route: 'api/event-bookings', upstreamCode: 'VALIDATION_ERROR' }],
+    ['the code is one the guest can act on', { route: 'api/table-bookings', upstreamCode: 'CAPACITY_UNAVAILABLE', answeredByBookingSystem: true }],
+    ['parking hands detail checks to the guest on purpose', { route: 'api/parking/payment/create-order', upstreamCode: 'VALIDATION_ERROR', answeredByBookingSystem: true }],
+    ['a payment route has its own alert', { route: 'api/event-bookings/paypal/create-order', upstreamCode: 'PRICE_CHANGED', answeredByBookingSystem: true, payment: true }]
+  ])('stays a refusal when %s', async (_label, extra) => {
+    await reportFailure({ kind: 'refused', status: 400, reason: 'UPSTREAM_NOT_OK', ...extra })
+
+    expect(log.lines()[0]).toMatchObject({ kind: 'refused', reason: 'UPSTREAM_NOT_OK' })
+    expect(log.lines()[0]).not.toHaveProperty('drift')
+    expect(mockSendEmail).not.toHaveBeenCalled()
   })
 })

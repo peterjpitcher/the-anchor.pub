@@ -490,6 +490,8 @@ type BookingNotCompletedLog = {
   reason?: string | null
   eventId: string | null
   bookingSource: string | null
+  /** The booking system's own answer, after this route's checks passed (BK-101). */
+  answeredByBookingSystem?: boolean
 }
 
 /**
@@ -514,7 +516,8 @@ async function logBookingNotCompleted(kind: 'refused' | 'failed', details: Booki
     upstreamCode: details.code,
     state: details.state,
     eventId: details.eventId,
-    page: details.bookingSource
+    page: details.bookingSource,
+    answeredByBookingSystem: details.answeredByBookingSystem === true
   })
 }
 
@@ -746,7 +749,8 @@ export async function POST(request: NextRequest) {
         code: parsed === null ? 'UNREADABLE_RESPONSE' : mapped.code,
         state: bookingState,
         eventId,
-        bookingSource
+        bookingSource,
+        answeredByBookingSystem: true
       })
       return NextResponse.json(
         { success: false, error: { code: mapped.code, message: mapped.message } },
@@ -762,7 +766,8 @@ export async function POST(request: NextRequest) {
         code: getUpstreamRefusalCode(parsed),
         state: bookingState,
         eventId,
-        bookingSource
+        bookingSource,
+        answeredByBookingSystem: true
       })
     }
 

@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { escapeHtml, sendMicrosoftGraphEmail } from '@/lib/microsoft-graph-mail'
+import { recordTurnedAway } from '@/lib/booking-funnel-report'
 
 /**
  * The one place a public write route says "this did not complete".
@@ -13,14 +14,22 @@ import { escapeHtml, sendMicrosoftGraphEmail } from '@/lib/microsoft-graph-mail'
  * no log call, and nothing anywhere told a person. Private hire enquiries were
  * dead from 11 to 27 August 2026 before a guest's complaint revealed it.
  *
- * reportFailure does three things, in this order:
+ * reportFailure does four things, in this order:
  *
  *   1. writes ONE structured log line with console.error (the production build
  *      strips console.log), naming the route, the upstream status and a short
  *      reason;
- *   2. for a `failed` outcome, emails manager@the-anchor.pub, at most once per
+ *   2. sends the same codes to the management app, which counts every refusal
+ *      and failure and emails one summary a day (BK-101, owner decision D17);
+ *   3. for a `failed` outcome, emails manager@the-anchor.pub, at most once per
  *      route every ten minutes;
- *   3. for a failed payment, asks the management app to text the pub as well.
+ *   4. for a failed payment, asks the management app to text the pub as well.
+ *
+ * A refusal the booking system gave on a booking route, with a code that says
+ * the details were wrong (VALIDATION_ERROR, PRICE_CHANGED,
+ * BOOKING_QUESTIONS_CHANGED), is reported as `failed`: the website had already
+ * checked those details and passed them, so the two systems disagree about the
+ * rules, and every guest may be turned away the same way (BK-101).
  *
  * It never throws and never changes what the guest is told. If the email
  * cannot be sent the log line has already been written, and if the text
@@ -80,6 +89,12 @@ export interface FailureReport {
   reference?: string | null
   /** Whatever was thrown. Its name is logged; its message is scrubbed first. */
   error?: unknown
+  /**
+   * True when this is the booking system's own answer to a request the website
+   * had already checked and passed. A refusal with a code saying the details
+   * were wrong then means the two systems disagree, and is reported as failed.
+   */
+  answeredByBookingSystem?: boolean
 }
 
 export type FailureLogLine = {
@@ -95,9 +110,21 @@ export type FailureLogLine = {
   refHash?: string
   errorName?: string
   errorMessage?: string
+  /** The booking system refused what the website had accepted: the two disagree. */
+  drift?: true
   alert: 'email' | 'throttled' | 'not_production' | 'none'
   at: string
 }
+
+/** Booking system codes that, after the website's own checks passed, mean the two disagree. */
+export const DRIFT_CODES: ReadonlySet<string> = new Set(['VALIDATION_ERROR', 'PRICE_CHANGED', 'BOOKING_QUESTIONS_CHANGED'])
+
+/**
+ * The booking routes whose checks mirror the booking system's. Parking passes
+ * the booking system's detail checks to the guest on purpose, and the payment
+ * routes have their own alert and text, so neither is escalated.
+ */
+export const DRIFT_ROUTES: ReadonlySet<string> = new Set(['api/table-bookings', 'api/event-bookings', 'api/event-waitlist'])
 
 const ROUTE_LABELS: Record<string, string> = {
   'api/table-bookings': 'Table bookings',
@@ -160,6 +187,11 @@ function safePage(value: unknown): string | undefined {
     })
     .join('/')
   return cleaned.slice(0, 120)
+}
+
+/** The same page path the reporter logs, for anything else that records a page (BK-191). */
+export function scrubPagePath(value: unknown): string | undefined {
+  return safePage(value)
 }
 
 function hashReference(value: unknown): string | undefined {
@@ -254,7 +286,9 @@ export function buildFailureAlertEmail(
   const label = ROUTE_LABELS[line.route] ?? line.route
   const subject = line.payment
     ? `ACTION NEEDED: a payment failed on the website (${label})`
-    : `ACTION NEEDED: the website could not complete a request (${label})`
+    : line.drift
+      ? `ACTION NEEDED: the website and the booking system disagree (${label})`
+      : `ACTION NEEDED: the website could not complete a request (${label})`
 
   const statusText = line.status === null ? 'no answer from the booking system' : `HTTP ${line.status}`
 
@@ -269,9 +303,14 @@ export function buildFailureAlertEmail(
   if (line.page) lines.push(`Page the guest was on: ${line.page}`)
   if (line.refHash) lines.push(`Log match key: ${line.refHash}`)
 
-  const guidance: string[] = [
-    `The guest was shown an error and asked to call ${GUEST_PHONE}, unless this was an enquiry or a job application that reached you in a separate email.`
-  ]
+  const guidance: string[] = line.drift
+    ? [
+        'The booking system turned down details the website had already checked and accepted, so the two disagree about the rules, and other guests may be turned away the same way. The guest was shown the booking system\'s answer.',
+        'Please ask for the website and the management app to be checked against each other for this booking type.'
+      ]
+    : [
+        `The guest was shown an error and asked to call ${GUEST_PHONE}, unless this was an enquiry or a job application that reached you in a separate email.`
+      ]
   if (line.payment) {
     guidance.push(
       'This was a payment step, so money may have been taken without a booking being confirmed. Please check PayPal and the management app before the guest pays again.'
@@ -426,10 +465,17 @@ function writeLine(prefix: string, payload: Record<string, unknown>): void {
 export async function reportFailure(report: FailureReport): Promise<void> {
   try {
     const now = new Date()
-    const kind: FailureKind = report.kind === 'refused' ? 'refused' : 'failed'
     const route = safeRoute(report.route)
     const payment = report.payment === true
     const status = typeof report.status === 'number' && Number.isFinite(report.status) ? report.status : null
+    const upstreamCode = safeToken(report.upstreamCode)
+    const drift =
+      report.kind === 'refused' &&
+      report.answeredByBookingSystem === true &&
+      !payment &&
+      DRIFT_ROUTES.has(route) &&
+      Boolean(upstreamCode && DRIFT_CODES.has(upstreamCode.toUpperCase()))
+    const kind: FailureKind = report.kind === 'refused' && !drift ? 'refused' : 'failed'
 
     let alert: FailureLogLine['alert'] = 'none'
     let suppressedBefore = 0
@@ -443,7 +489,6 @@ export async function reportFailure(report: FailureReport): Promise<void> {
       }
     }
 
-    const upstreamCode = safeToken(report.upstreamCode)
     const state = safeToken(report.state)
     const eventId = typeof report.eventId === 'string' && UUID_ONLY.test(report.eventId.trim()) ? report.eventId.trim() : undefined
     const page = safePage(report.page)
@@ -453,7 +498,7 @@ export async function reportFailure(report: FailureReport): Promise<void> {
       route,
       kind,
       status,
-      reason: safeToken(report.reason) ?? 'UNSPECIFIED',
+      reason: drift ? 'CONTRACT_DRIFT' : safeToken(report.reason) ?? 'UNSPECIFIED',
       payment,
       ...(upstreamCode ? { upstreamCode } : {}),
       ...(state ? { state } : {}),
@@ -461,6 +506,7 @@ export async function reportFailure(report: FailureReport): Promise<void> {
       ...(page ? { page } : {}),
       ...(refHash ? { refHash } : {}),
       ...describeError(report.error),
+      ...(drift ? { drift: true as const } : {}),
       alert,
       at: now.toISOString()
     }
@@ -468,7 +514,27 @@ export async function reportFailure(report: FailureReport): Promise<void> {
     // The log line first, so it exists whatever happens to the email.
     writeLine(FAILURE_LOG_PREFIX, line)
 
-    if (alert !== 'email') return
+    // Counted by the management app (BK-101). Runs alongside the email rather
+    // than before it, and gives up after a short wait.
+    const recording = recordTurnedAway({
+      route,
+      kind,
+      status,
+      reason: line.reason,
+      ...(upstreamCode ? { upstreamCode } : {}),
+      ...(page ? { page } : {})
+    })
+      .then((result) => {
+        if (!result.recorded && result.reason !== 'not_production') {
+          writeLine(FAILURE_ALERT_LOG_PREFIX, { route, recorded: false, reason: safeToken(result.reason) ?? 'unknown', at: now.toISOString() })
+        }
+      })
+      .catch(() => undefined)
+
+    if (alert !== 'email') {
+      await recording
+      return
+    }
 
     try {
       const fromUser = process.env.MICROSOFT_USER_EMAIL
@@ -513,6 +579,8 @@ export async function reportFailure(report: FailureReport): Promise<void> {
         writeLine(FAILURE_ALERT_LOG_PREFIX, { route, texted: false, ...describeError(textError), at: now.toISOString() })
       }
     }
+
+    await recording
   } catch {
     // Reporting must never be the reason a guest sees a different answer.
     try {

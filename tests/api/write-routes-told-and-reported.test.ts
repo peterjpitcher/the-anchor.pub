@@ -37,6 +37,14 @@ jest.mock('@/lib/spam-protection', () => ({
   checkSpamProtection: jest.fn(async () => ({ blocked: false }))
 }))
 
+// The count kept by the management app (BK-101) is its own request, tested in
+// tests/lib/booking-funnel-report.test.ts. Left out here so the fetch calls
+// counted below are the routes' own.
+const mockRecordTurnedAway = jest.fn(async (_record: unknown) => ({ recorded: true, reason: 'recorded' }))
+jest.mock('@/lib/booking-funnel-report', () => ({
+  recordTurnedAway: (record: unknown) => mockRecordTurnedAway(record)
+}))
+
 jest.mock('@/lib/booking-conversion-forwarding', () => ({
   forwardBookingConversionToCheersAI: jest.fn(async () => undefined)
 }))
