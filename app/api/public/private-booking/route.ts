@@ -184,6 +184,8 @@ export async function POST(request: NextRequest) {
         const phone = asTrimmedString(pb.contact_phone)
 
         if (!phone) {
+            // Counted with every other refusal (BK-101).
+            await reportFailure({ route: ROUTE, kind: 'refused', status: 400, reason: 'VALIDATION_FAILED', page })
             return NextResponse.json(
                 {
                     success: false,
@@ -199,6 +201,7 @@ export async function POST(request: NextRequest) {
         const groupSize = asPositiveInt(pb.guest_count)
         const notes = toNotes(pb)
         if (notes && notes.length > 2000) {
+            await reportFailure({ route: ROUTE, kind: 'refused', status: 400, reason: 'VALIDATION_FAILED', page })
             return NextResponse.json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'Your enquiry details are too long. Please shorten your notes or call 01753 682707 so we can record every detail.' } }, { status: 400 })
         }
         const communicationConsent = sanitizeCommunicationConsent(pb.communication_consent)

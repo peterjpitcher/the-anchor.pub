@@ -37,6 +37,44 @@ import {
 } from '@/lib/table-booking-service-windows'
 import { BOOKING_HORIZON_MESSAGE, isBeyondBookingHorizon } from '@/lib/table-booking/horizon'
 
+/**
+ * One line per availability answer (BK-101, customer bookings review of 24
+ * October 2026). "No tables" and "could not check" both reach the guest as a
+ * normal answer, so without this nobody could tell them apart from fewer
+ * visitors. No personal data: the outcome, how many times were offered, the
+ * party size, how many days ahead and whether the guest wanted drinks only.
+ * console.warn, because the production build strips console.log and info.
+ */
+const AVAILABILITY_LOG_PREFIX = '[availability-answer]'
+
+function logAvailabilityAnswer(answer: {
+  state: 'complete' | 'unknown' | 'error'
+  slotsOffered: number
+  partySize: number
+  date: string
+  drinksOnly: boolean
+  reason?: string | null
+}): void {
+  try {
+    const today = Date.parse(`${londonNowParts().isoDate}T00:00:00Z`)
+    const requested = Date.parse(`${answer.date}T00:00:00Z`)
+    const daysAhead = Number.isFinite(today) && Number.isFinite(requested) ? Math.round((requested - today) / 86_400_000) : null
+    const reason = typeof answer.reason === 'string' && /^[a-z_]{1,40}$/.test(answer.reason) ? answer.reason : null
+    console.warn(
+      `${AVAILABILITY_LOG_PREFIX} ${JSON.stringify({
+        state: answer.state,
+        slots: answer.slotsOffered,
+        party: answer.partySize,
+        daysAhead,
+        drinksOnly: answer.drinksOnly,
+        ...(reason ? { reason } : {})
+      })}`
+    )
+  } catch {
+    // A log line must never change the guest's answer.
+  }
+}
+
 function parsePositiveInt(value: string | null, fallback: number): number {
   if (!value) return fallback
   const parsed = Number.parseInt(value, 10)
@@ -229,6 +267,14 @@ export async function GET(request: Request) {
         : null
 
     if (!tableAvailability || tableAvailability.calculation_state === 'unknown') {
+      logAvailabilityAnswer({
+        state: 'unknown',
+        slotsOffered: 0,
+        partySize,
+        date,
+        drinksOnly: guestWantsDrinksOnly,
+        reason: tableAvailability ? 'unknown' : 'no_answer'
+      })
       // Never fail open. Whether the load timed out, failed, answered without a
       // table read-out, or answered "unknown": we could not check, so we do not
       // guess. The customer is offered a retry and the phone number rather than
@@ -369,6 +415,15 @@ export async function GET(request: Request) {
       (slot) => slot.available === true || (slot.available_capacity || 0) >= partySize
     )
 
+    logAvailabilityAnswer({
+      state: 'complete',
+      slotsOffered: fallback.time_slots.filter((slot) => slot.available === true).length,
+      partySize,
+      date,
+      drinksOnly: guestWantsDrinksOnly,
+      reason: fallback.time_slots.some((slot) => slot.available === true) ? null : fallback.public_reason ?? null
+    })
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -390,6 +445,7 @@ export async function GET(request: Request) {
       }
     )
   } catch (fallbackError: any) {
+    logAvailabilityAnswer({ state: 'error', slotsOffered: 0, partySize, date, drinksOnly: guestWantsDrinksOnly })
     logError('api/table-bookings/availability-fallback', fallbackError, {
       date,
       time: normalizedTime,

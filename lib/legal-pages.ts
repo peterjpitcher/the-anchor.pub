@@ -57,12 +57,16 @@
 // says about where it is. Also written on a branch: if it goes live on a later
 // day, move the date to that day.
 //
-// 26 October 2026: the paragraph saying a booking form checks whether we already
-// have your details when you type your mobile number was removed, because the
-// forms no longer do (review BK-107, owner decision D31: the website stops
-// saying whether a number is already known). Also written on a branch: if it
-// goes live on a later day, move the date to that day.
-export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-26'
+// 27 October 2026: two changes went live together.
+// - The paragraph saying a booking form checks whether we already have your
+//   details when you type your mobile number was removed, because the forms no
+//   longer do (review BK-107, owner decision D31: the website stops saying
+//   whether a number is already known).
+// - Event bookings that ask for each guest's details. The notice now says we
+//   ask for each person's answers to the event's questions (such as allergies),
+//   that they go on the kitchen and door lists, and that they are deleted 90
+//   days after the event (owner decision D6, BK-017).
+export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-27'
 
 /**
  * SHA-256 of the notice's words as they stood on the date above, with the
@@ -78,4 +82,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-26'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  'a3f6e82c25e3d508fbc3ffa7e64d523780a83d449c642a3b37b426ae7761c632'
+  '3ad323126a81aa00cf6917573e631980be22ad581153be5fc439d4ba532de0ce'

@@ -171,12 +171,15 @@ export async function POST(request: NextRequest) {
 
     const normalized = normalizePayload(body)
 
+    // Refusals the website makes itself are counted with every other refusal (BK-101).
     if (!normalized.payload) {
+      await reportFailure({ route: ROUTE, kind: 'refused', status: 400, reason: 'VALIDATION_FAILED', page })
       return createApiErrorResponse(normalized.error || 'Invalid event waitlist payload', 400)
     }
 
     const validationError = validatePayload(normalized.payload)
     if (validationError) {
+      await reportFailure({ route: ROUTE, kind: 'refused', status: 400, reason: 'VALIDATION_FAILED', page })
       return createApiErrorResponse(validationError, 400)
     }
 
@@ -237,7 +240,8 @@ export async function POST(request: NextRequest) {
         reason: parsed === null ? 'UNREADABLE_RESPONSE' : upstream.ok ? 'SUCCESS_FALSE_ON_OK' : 'UPSTREAM_NOT_OK',
         upstreamCode: mapped.code,
         eventId,
-        page
+        page,
+        answeredByBookingSystem: true
       })
       return NextResponse.json(
         { success: false, error: { code: mapped.code, message: mapped.message } },

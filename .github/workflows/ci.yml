@@ -109,11 +109,15 @@ jobs:
         run: npm run build
 
   # Accessibility in a real browser (WCAG 2.2 AA), against a production build of
-  # this commit. It needs the booking system's key, because a page with no menu,
+  # this commit. It needs a booking system key, because a page with no menu,
   # hours or events on it has nothing to check. The key is the repository secret
-  # ANCHOR_API_KEY. Where it is absent (it is never given to a pull request from
-  # a fork, and it may simply not be set) every step is skipped and the job
-  # passes with a notice, so a missing secret cannot block a merge.
+  # ANCHOR_API_KEY_CI: a read-only key of its own, not the live website's
+  # (BK-193, customer bookings review of 24 October 2026), so the booking system
+  # can tell this traffic from real guests, leaves it out of the booking funnel,
+  # and refuses any write it attempts. Where it is absent (it is never given to a
+  # pull request from a fork, and it may simply not be set) every step is
+  # skipped and the job passes with a notice, so a missing secret cannot block a
+  # merge.
   #
   # The audit loads pages and opens menus and dialogs. It never sends a form.
   accessibility:
@@ -121,7 +125,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      ANCHOR_API_KEY: ${{ secrets.ANCHOR_API_KEY }}
+      ANCHOR_API_KEY: ${{ secrets.ANCHOR_API_KEY_CI }}
     steps:
       - name: Is the key available?
         id: key
@@ -130,7 +134,7 @@ jobs:
             echo "present=true" >> "$GITHUB_OUTPUT"
           else
             echo "present=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Accessibility audit skipped::The ANCHOR_API_KEY secret is not available to this run, so the browser audit did not run."
+            echo "::notice title=Accessibility audit skipped::The ANCHOR_API_KEY_CI secret (the read-only key for tests) is not available to this run, so the browser audit did not run."
           fi
 
       - name: Checkout

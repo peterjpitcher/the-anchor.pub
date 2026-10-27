@@ -153,6 +153,10 @@ export function paymentLinkReminderCopy(notice?: ConfirmationNotice | null): str
  * Position in the array is the seat, so entries are never sorted or filtered.
  */
 export type TableBookingPreorderEntry = {
+  /** Optional, for every guest: so the kitchen knows who is who (BK-148). */
+  guest_name?: string
+  /** Optional, for every guest: a dietary need tied to this guest. Staff and kitchen only. */
+  dietary_note?: string
   starter_menu_item_id?: string
   main_menu_item_id?: string
   dessert_menu_item_id?: string
@@ -171,6 +175,11 @@ export type TableBookingSubmitInput = {
   partySize: number
   purpose: 'food' | 'drinks'
   notes: string
+  /**
+   * Allergies, in their own field so the management app's allergy flag, kitchen sheet and floor
+   * screens see them (BK-052). Omitted when the guest gave none.
+   */
+  allergies?: string[]
   fixtureId?: string
   highChairCount: number
   isOutsideSeating: boolean
@@ -224,6 +233,8 @@ export function buildTableBookingPayload(
     party_size: input.partySize,
     purpose: input.purpose,
     ...(input.notes ? { notes: input.notes } : {}),
+    // Above the volatile section: an allergy changes the booking, and AMS hashes it.
+    ...((input.allergies?.length ?? 0) > 0 ? { allergies: input.allergies } : {}),
     ...(input.fixtureId ? { fixture_id: input.fixtureId } : {}),
     // High-chair request (0 omitted) and outside-seating flag (false omitted).
     // Added before the idempotency key so it varies with them (spec §10).

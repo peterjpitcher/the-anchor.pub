@@ -186,6 +186,8 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       return typeof value.id !== 'string' || !uuid.test(value.id) || typeof value.name !== 'string' || !value.name.trim() || value.name.length > 120 ||
         (value.ticket_type_id != null && (typeof value.ticket_type_id !== 'string' || !uuid.test(value.ticket_type_id))) ||
         !value.answers || typeof value.answers !== 'object' || Array.isArray(value.answers) ||
+        // The booker's confirmation is only ever true; anything else is not ours (BK-017).
+        (value.details_confirmed !== undefined && value.details_confirmed !== true) ||
         Object.entries(value.answers).some(([id, answer]) => !uuid.test(id) || typeof answer !== 'string' || answer.length > 2000)
     }) || new Set(body.attendees.map((person: EventAttendee) => person.id)).size !== body.attendees.length) return { error: 'Please provide valid details for every ticket.' }
   }
@@ -488,6 +490,8 @@ type BookingNotCompletedLog = {
   reason?: string | null
   eventId: string | null
   bookingSource: string | null
+  /** The booking system's own answer, after this route's checks passed (BK-101). */
+  answeredByBookingSystem?: boolean
 }
 
 /**
@@ -512,7 +516,8 @@ async function logBookingNotCompleted(kind: 'refused' | 'failed', details: Booki
     upstreamCode: details.code,
     state: details.state,
     eventId: details.eventId,
-    page: details.bookingSource
+    page: details.bookingSource,
+    answeredByBookingSystem: details.answeredByBookingSystem === true
   })
 }
 
@@ -744,7 +749,8 @@ export async function POST(request: NextRequest) {
         code: parsed === null ? 'UNREADABLE_RESPONSE' : mapped.code,
         state: bookingState,
         eventId,
-        bookingSource
+        bookingSource,
+        answeredByBookingSystem: true
       })
       return NextResponse.json(
         { success: false, error: { code: mapped.code, message: mapped.message } },
@@ -760,7 +766,8 @@ export async function POST(request: NextRequest) {
         code: getUpstreamRefusalCode(parsed),
         state: bookingState,
         eventId,
-        bookingSource
+        bookingSource,
+        answeredByBookingSystem: true
       })
     }
 

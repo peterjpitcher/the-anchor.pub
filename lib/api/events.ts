@@ -132,6 +132,11 @@ export interface Event {
   online_discount_type?: 'fixed' | 'percent' | string | null
   online_discount_ends_at?: string | null
   booking_questions?: EventBookingQuestion[]
+  /**
+   * Whether every ticket needs a name and the event's answers. The management app works this out
+   * from the event's own setting (BK-014); the form reads it instead of guessing from the price.
+   */
+  guest_details_required?: boolean
   online_discount_value?: number | null
   // Multiple ticket options. The management API returns snake_case `ticket_types`;
   // `ticketTypes` is the camelCase alias. Read both via `getEventTicketTypes()`.

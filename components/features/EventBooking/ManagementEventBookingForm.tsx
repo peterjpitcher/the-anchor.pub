@@ -38,9 +38,10 @@ import { BRAND, CONTACT, DIRECTIONS_URL } from '@/lib/constants'
 import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 import { confirmationNoticeCopy } from '@/lib/confirmation-notice'
 import { canUseCookieCategory } from '@/lib/cookies'
+import { sendEventBookingFormSignal } from '@/lib/booking-form-signal'
 import dynamic from 'next/dynamic'
 import type { EventPaymentConversionPayload } from './PayPalEventPaymentSection'
-import { reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
+import { GUEST_DETAILS_CONFIRM_ERROR, GUEST_DETAILS_CONFIRM_LABEL, GUEST_DETAILS_PRIVACY_LINE, eventCollectsGuestDetails, reconcileAttendees, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { GUEST_PHONE, guestMessageForBlockedReason, toGuestMessage } from '@/lib/guest-error-messages'
 import {
@@ -131,7 +132,7 @@ interface ManagementEventBookingFormProps {
    * merely undated to that gate, and it would offer the diary entry anyway.
    */
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'waitlist_enabled' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'ticket_price' | 'price_per_seat' | 'online_discount_type' | 'online_discount_value' | 'online_discount_ends_at' | 'booking_questions' | 'guest_details_required' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining' | 'booking_mode' | 'seated_remaining' | 'standing_remaining' | 'total_remaining' | 'waitlist_enabled' | 'ticketTypes' | 'ticket_types' | 'booking_cutoff_at' | 'eventStatus' | 'event_status' | 'endDate' | 'duration' | 'description' | 'shortDescription' | 'doorTime' | 'doors_time' | 'location' | 'url'>>
   title?: string
   compact?: boolean
   /**
@@ -235,6 +236,7 @@ export function ManagementEventBookingForm({
   useEffect(() => setEvent(initialEvent), [initialEvent])
   const [discountChangeAcknowledged, setDiscountChangeAcknowledged] = useState(() => Boolean(event.online_discount_ends_at && Date.parse(event.online_discount_ends_at) <= Date.now()))
   const [attendees, setAttendees] = useState<EventAttendee[]>([])
+  const [guestDetailsConfirmed, setGuestDetailsConfirmed] = useState(false)
   const [, tick] = useState(0)
   useEffect(() => {
     if (!event.online_discount_ends_at) return
@@ -287,6 +289,12 @@ export function ManagementEventBookingForm({
   const formLoadedAt = useRef(Date.now())
   const phoneEnteredTracked = useRef(false)
   const formViewedTracked = useRef(false)
+  // BK-191: no-personal-data signals, so a form people cannot submit shows up.
+  const formSignalOpened = useRef(false)
+  const formSignalCheckBlocked = useRef(false)
+  const submitOutcome = useRef<'sent' | 'server_refused' | 'network' | null>(null)
+  // Set while one press's invalid events are being counted (handleInvalidWithSignals).
+  const invalidPressSignalled = useRef(false)
   const bookingStartTracked = useRef(false)
   const paymentCompleteTracked = useRef(false)
 
@@ -313,7 +321,8 @@ export function ManagementEventBookingForm({
    */
   const eventTakesPayment =
     isPaidEvent || isPrepaidEvent(event) || ticketTypes.some((type) => type.price > 0)
-  const collectGuestDetails = eventTakesPayment && (isPrepaidEvent(event) || (event.booking_questions?.length ?? 0) > 0)
+  // BK-014: the event's own setting, sent by the management app as guest_details_required.
+  const collectGuestDetails = eventCollectsGuestDetails(event, { takesPayment: eventTakesPayment, prepaid: isPrepaidEvent(event) })
   // Multi-type derived state.
   const multiTypeTotalSeats = getTotalSeats(ticketQuantities)
   const multiTypeBreakdown = getSelectionBreakdown(ticketTypes, ticketQuantities)
@@ -384,6 +393,20 @@ export function ManagementEventBookingForm({
    * is mounted plainly below and never re-gated.
    */
   const calendarEvent = event as Event
+
+  useEffect(() => {
+    if (formSignalOpened.current || salesClosed) return
+    formSignalOpened.current = true
+    sendEventBookingFormSignal('opened')
+  }, [salesClosed])
+
+  // The booking button waits for the security check. When the check cannot
+  // finish, the guest cannot book at all, so that is counted once per visit.
+  useEffect(() => {
+    if (!turnstileUnavailable || formSignalCheckBlocked.current) return
+    formSignalCheckBlocked.current = true
+    sendEventBookingFormSignal('blocked', 'no_security_token')
+  }, [turnstileUnavailable])
 
   useEffect(() => {
     if (formViewedTracked.current) return
@@ -521,6 +544,7 @@ export function ManagementEventBookingForm({
     if (collectGuestDetails) {
       const attendeeError = validateEventAttendees(attendees, effectiveSeats, questions)
       if (attendeeError) { setLoading(false); setError(attendeeError); return }
+      if (!guestDetailsConfirmed) { setLoading(false); setError(GUEST_DETAILS_CONFIRM_ERROR); return }
       if (discountExpired && !discountChangeAcknowledged) {
         setDiscountChangeAcknowledged(true)
         setLoading(false)
@@ -598,6 +622,8 @@ export function ManagementEventBookingForm({
     )
 
     try {
+      // Until the booking system answers, anything that stops this is the connection.
+      submitOutcome.current = 'network'
       const response = await fetch('/api/event-bookings', {
         method: 'POST',
         headers: {
@@ -611,7 +637,7 @@ export function ManagementEventBookingForm({
           first_name: resolvedFirstName,
           last_name: resolvedLastName,
           seats: clampedSeats,
-          ...(collectGuestDetails ? { attendees: attendees.map(person => ({ ...person, answers: Object.fromEntries((event.booking_questions ?? []).map(question => [question.id, person.answers[question.id] ?? ''])) })), expected_total: totalValue } : {}),
+          ...(collectGuestDetails ? { attendees: attendees.map(person => ({ ...person, answers: Object.fromEntries((event.booking_questions ?? []).map(question => [question.id, person.answers[question.id] ?? ''])), ...(guestDetailsConfirmed ? { details_confirmed: true as const } : {}) })), expected_total: totalValue } : {}),
           ...(ticketSelections ? { ticket_selections: ticketSelections } : {}),
           ...(bookingSeatingPreference ? { seating_preference: bookingSeatingPreference } : {}),
           event_slug: event.slug,
@@ -633,6 +659,7 @@ export function ManagementEventBookingForm({
       const data = body?.data || body
 
       if (!response.ok || body?.success === false) {
+        submitOutcome.current = 'server_refused'
         if (hasErrorCode(body, 'PRICE_CHANGED') || hasErrorCode(body, 'BOOKING_QUESTIONS_CHANGED')) {
           try {
             const refreshed = await fetch(`/api/events/${encodeURIComponent(event.id)}`, { cache: 'no-store' })
@@ -677,6 +704,8 @@ export function ManagementEventBookingForm({
 
       const bookingData = data as EventBookingResult
       setResult(bookingData)
+      submitOutcome.current =
+        bookingData.state === 'confirmed' || bookingData.state === 'pending_payment' ? 'sent' : 'server_refused'
 
       if (bookingData.state === 'pending_payment' && bookingData.booking_id) {
         setPaymentConversionPayload({
@@ -756,6 +785,33 @@ export function ManagementEventBookingForm({
       setTurnstileToken(null)
       turnstileRef.current?.reset()
     }
+  }
+
+  // BK-191: says the form was pressed, then how it ended: sent, refused by the
+  // booking system, lost on the way, or stopped here before sending (a detail
+  // missing or wrong). Codes only; see lib/booking-form-signal.ts.
+  async function handleSubmitWithSignals(formEvent: FormEvent<HTMLFormElement>) {
+    submitOutcome.current = null
+    sendEventBookingFormSignal('submit_pressed')
+    await handleSubmit(formEvent)
+    const outcome = submitOutcome.current
+    if (outcome === 'sent') sendEventBookingFormSignal('sent')
+    else if (outcome) sendEventBookingFormSignal('blocked', outcome)
+    else if (!salesClosed) sendEventBookingFormSignal('blocked', 'missing_fields')
+  }
+
+  // The browser's own checks (a required box left empty, an email address that is
+  // not one) stop a press before submit fires, so handleSubmitWithSignals never
+  // runs. The invalid events they fire instead say the same thing: pressed, and
+  // stopped here. One pair per press, however many boxes are wrong.
+  function handleInvalidWithSignals() {
+    if (invalidPressSignalled.current || salesClosed) return
+    invalidPressSignalled.current = true
+    sendEventBookingFormSignal('submit_pressed')
+    sendEventBookingFormSignal('blocked', 'missing_fields')
+    setTimeout(() => {
+      invalidPressSignalled.current = false
+    }, 0)
   }
 
   // Reset the widget and put the clock back to the start. Nothing the guest has
@@ -936,7 +992,7 @@ export function ManagementEventBookingForm({
           <p className="text-sm font-semibold leading-snug text-accent-text">{bookingReassurance}</p>
         </div>
 
-        <form onSubmit={handleSubmit} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
+        <form onSubmit={handleSubmitWithSignals} onInvalid={handleInvalidWithSignals} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
           {isMultiTypeEvent ? (
             <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
               <legend className="px-1 text-sm font-semibold text-ink">Choose your tickets</legend>
@@ -1076,6 +1132,9 @@ export function ManagementEventBookingForm({
               <div>
                 <h3 className="font-semibold text-ink">Who is coming?</h3>
                 <p className="text-sm text-ink-muted">Add a name and answers for each person. You can buy tickets without attending yourself.</p>
+                {/* BK-017: the booker is sharing other people's details, and an answer can be
+                    health data. Owner decision D6: answers go 90 days after the event. */}
+                <p className="text-sm text-ink-muted">{GUEST_DETAILS_PRIVACY_LINE}</p>
               </div>
               {event.online_discount_ends_at ? <p className="text-sm text-ink-muted">{discountExpired ? 'Online discount ended' : 'Online discount ends'} {new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(event.online_discount_ends_at))} (UK time).</p> : null}
               {attendees.map((person, index) => (
@@ -1100,6 +1159,17 @@ export function ManagementEventBookingForm({
                   ))}
                 </fieldset>
               ))}
+              <label htmlFor="guest-details-confirmed" className="flex items-start gap-3 text-sm text-ink">
+                <input
+                  id="guest-details-confirmed"
+                  type="checkbox"
+                  required
+                  checked={guestDetailsConfirmed}
+                  onChange={(changeEvent) => setGuestDetailsConfirmed(changeEvent.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-line text-accent focus:ring-accent"
+                />
+                <span>{GUEST_DETAILS_CONFIRM_LABEL}</span>
+              </label>
               <h3 className="font-semibold text-ink">Your contact details</h3>
               <p className="text-sm text-ink-muted">We will send the booking confirmation to you.</p>
             </section>

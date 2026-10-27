@@ -208,6 +208,8 @@ describe('booking an event suggested on the table page (BK-099)', () => {
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900123' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
 
+    // A paid event that takes guest details asks the booker to confirm everyone is happy to share them.
+    fireEvent.click(screen.getByLabelText("Everyone I've added is happy to share these details."))
     fireEvent.click(screen.getByRole('button', { name: 'Book your places' }))
 
     expect(await screen.findByText('Mock PayPal payment')).toBeInTheDocument()
@@ -217,8 +219,8 @@ describe('booking an event suggested on the table page (BK-099)', () => {
       seats: 2,
       expected_total: 50,
       attendees: [
-        expect.objectContaining({ name: 'Guest 1', answers: { dietary: 'Vegan' } }),
-        expect.objectContaining({ name: 'Guest 2', answers: { dietary: 'None' } })
+        expect.objectContaining({ name: 'Guest 1', answers: { dietary: 'Vegan' }, details_confirmed: true }),
+        expect.objectContaining({ name: 'Guest 2', answers: { dietary: 'None' }, details_confirmed: true })
       ]
     })
   })

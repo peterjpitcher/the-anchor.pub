@@ -62,6 +62,12 @@ const SUPPRESSED_ROUTE_PREFIXES = [
     // in the overlay covered the page they had just been sold, with a
     // different offer. Owner-approved 3 October 2026.
     '/lunch-and-dinner',
+    // The Sunday roast page carries its own booking form (BK-201, owner
+    // decision D22). The pop-up arrived ten seconds in, pushed the booking bar
+    // away, turned a tap meant for the booking sheet into a close, and stopped
+    // the page's own "Save your Sunday roast table" prompt for that visit:
+    // Sunday is the busiest booking day.
+    '/sunday-roast',
 ] as const
 
 export function isLightboxSuppressedRoute(pathname: string | null): boolean {

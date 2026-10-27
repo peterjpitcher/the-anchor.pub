@@ -98,11 +98,14 @@ import { useAvailabilityRequests } from './useAvailabilityRequests'
 import { useBookingPeriod } from './useBookingPeriod'
 import { SeasonalPeriodQuestion } from './SeasonalPeriodQuestion'
 import {
+  PREORDER_DIETARY_NOTE_MAX,
+  PREORDER_GUEST_NAME_MAX,
   SeasonalPreorderPicker,
   preorderGuestsMissingMain,
   resizePreorderChoices,
   type PreorderChoice
 } from './SeasonalPreorderPicker'
+import { parseAllergyList } from '@/lib/table-booking/allergies'
 import { useSuggestedEvents } from './useSuggestedEvents'
 import { SuggestedEventBooking } from './SuggestedEventBooking'
 import { useFocusOnChange } from '@/hooks/useFocusOnChange'
@@ -357,6 +360,8 @@ export function ManagementTableBookingForm({
   // The game this booking was opened for, as first confirmed: handed in, or
   // looked up from the address below. `currentFixture` follows later checks.
   const [baseFixture, setBaseFixture] = useState(fixtureContext)
+  // Its own field, so the kitchen and the floor see it (BK-052). Split on commas when sent.
+  const [allergies, setAllergies] = useState('')
   const [currentFixture, setCurrentFixture] = useState(fixtureContext)
   const [fixtureAttached, setFixtureAttached] = useState(Boolean(fixtureContext))
   const [fixtureUnavailable, setFixtureUnavailable] = useState(false)
@@ -502,6 +507,9 @@ export function ManagementTableBookingForm({
   const preorderPayloadEntries = useMemo(
     () =>
       resizePreorderChoices(preorderChoices, partySize).map((choice) => ({
+        // Optional for every guest, 1 course included (BK-148). Trimmed to what AMS keeps.
+        ...(choice.guestName?.trim() ? { guest_name: choice.guestName.trim().slice(0, PREORDER_GUEST_NAME_MAX) } : {}),
+        ...(choice.dietaryNote?.trim() ? { dietary_note: choice.dietaryNote.trim().slice(0, PREORDER_DIETARY_NOTE_MAX) } : {}),
         ...(choice.starterId ? { starter_menu_item_id: choice.starterId } : {}),
         ...(choice.mainId ? { main_menu_item_id: choice.mainId } : {}),
         ...(choice.dessertId ? { dessert_menu_item_id: choice.dessertId } : {}),
@@ -2036,6 +2044,7 @@ export function ManagementTableBookingForm({
     // the old one (review BK-078); the management app now keeps it per booking.
     const resolvedEmail = email.trim() || undefined
     const trimmedNotes = notes.trim()
+    const allergyList = parseAllergyList(allergies)
     if (fixtureAttached && (fixtureUnavailable || !activeFixture)) {
       showBookingError('screening_unavailable', 'We cannot confirm this screening. Check the tournament page or choose a normal booking below.')
       return
@@ -2076,6 +2085,7 @@ export function ManagementTableBookingForm({
       partySize,
       purpose,
       notes: trimmedNotes,
+      allergies: allergyList.length > 0 ? allergyList : undefined,
       fixtureId: activeFixture?.fixtureId,
       highChairCount: resolvedHighChairCount,
       isOutsideSeating: resolvedOutsideSeating,
@@ -2132,6 +2142,7 @@ export function ManagementTableBookingForm({
         partySize,
         purpose,
         notes: trimmedNotes,
+        allergies: allergyList.length > 0 ? allergyList : undefined,
       fixtureId: activeFixture?.fixtureId,
         highChairCount: resolvedHighChairCount,
         isOutsideSeating: resolvedOutsideSeating,
@@ -2947,6 +2958,15 @@ export function ManagementTableBookingForm({
                 />
               </div>
             </div>
+
+            <Input
+              label="Allergies (optional)"
+              value={allergies}
+              maxLength={600}
+              onChange={(event) => setAllergies(event.target.value)}
+              placeholder="For example, peanuts, shellfish"
+              hint={`So the kitchen sees them. If an allergy is serious, please call us on ${CONTACT.phone} as well, so we can talk it through.`}
+            />
 
             <Textarea
               ref={notesInputRef}

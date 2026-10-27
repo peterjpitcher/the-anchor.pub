@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import { verifyTurnstileToken } from '@/lib/turnstile'
 import { logError } from '@/lib/error-handling'
 import { RATE_LIMITS, RATE_LIMIT_MESSAGE, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
+import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 
 // Minimum seconds a real user needs to fill any form
 const MIN_FORM_DURATION_SECONDS = 3
@@ -27,19 +28,33 @@ const CALL_US_INSTEAD =
  * are logged, so a false positive costs the guest one phone call instead of the
  * whole booking.
  */
-function blockedResponse(reason: string, request: NextRequest | Request, status = 400): { blocked: true; response: Response } {
+function routeOf(request: NextRequest | Request): string {
+  try {
+    return new URL(request.url).pathname.replace(/^\/+/, '')
+  } catch {
+    return 'unknown'
+  }
+}
+
+/** Counted with every other refusal (BK-101), so a check that turns real guests away shows up. */
+async function reportBlocked(request: NextRequest | Request, reason: string, status: number): Promise<void> {
+  await reportFailure({ route: routeOf(request), kind: 'refused', status, reason, page: pageFromRequest(request) })
+}
+
+const BLOCKED_REASON_CODES: Record<string, string> = {
+  honeypot: 'SPAM_HONEYPOT',
+  timing_missing: 'SPAM_TIMING_MISSING',
+  timing_too_fast: 'SPAM_TIMING_TOO_FAST'
+}
+
+async function blockedResponse(reason: string, request: NextRequest | Request, status = 400): Promise<{ blocked: true; response: Response }> {
   // Logged so a false positive is discoverable in Vercel logs rather than
   // silently absorbed. No personal data: the reason and the path only.
   logError('lib/spam-protection/blocked', new Error(`Submission blocked: ${reason}`), {
     reason,
-    path: (() => {
-      try {
-        return new URL(request.url).pathname
-      } catch {
-        return 'unknown'
-      }
-    })()
+    path: `/${routeOf(request)}`
   })
+  await reportBlocked(request, BLOCKED_REASON_CODES[reason] ?? 'SPAM_BLOCKED', status)
 
   return {
     blocked: true,
@@ -77,14 +92,14 @@ export async function checkSpamProtection(
   // 2. Honeypot. Bots fill the hidden field; browser autofill and password
   //    managers occasionally do too, which is why this no longer fakes success.
   if (body?.website || body?.honeypot_field) {
-    return blockedResponse('honeypot', request)
+    return await blockedResponse('honeypot', request)
   }
 
   // 3. Timing, reject if the form was completed implausibly fast, or if the
   //    timing field is missing entirely (the request did not come from our form).
   const formDuration = typeof body?._t === 'number' ? body._t : null
   if (formDuration === null || formDuration < MIN_FORM_DURATION_SECONDS) {
-    return blockedResponse(formDuration === null ? 'timing_missing' : 'timing_too_fast', request)
+    return await blockedResponse(formDuration === null ? 'timing_missing' : 'timing_too_fast', request)
   }
 
   // 4. Turnstile CAPTCHA verification
@@ -101,6 +116,8 @@ export async function checkSpamProtection(
       (body?.turnstile_token as string | null | undefined) ?? null
     )
     if (!turnstile.success) {
+      // The page is recorded too, so a form whose check never loads is visible (BK-191).
+      await reportBlocked(request, turnstile.reason ?? 'SECURITY_CHECK_REJECTED', 403)
       return {
         blocked: true,
         response: Response.json(

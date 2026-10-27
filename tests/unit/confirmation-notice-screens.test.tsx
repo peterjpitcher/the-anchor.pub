@@ -91,6 +91,9 @@ describe('event booking confirmation', () => {
     screen
       .queryAllByLabelText(/ticket \d+ full name/i)
       .forEach((input, index) => fireEvent.change(input, { target: { value: `Guest ${index + 1}` } }))
+    // BK-017: a booking that asks for each guest's details needs the booker's confirmation.
+    const confirmGuests = screen.queryByLabelText("Everyone I've added is happy to share these details.")
+    if (confirmGuests) fireEvent.click(confirmGuests)
     fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
     fireEvent.change(screen.getByLabelText('Email address'), { target: { value: 'jane@example.com' } })
     fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })

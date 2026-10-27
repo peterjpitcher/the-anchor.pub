@@ -418,7 +418,8 @@ describe('timed pop-ups', () => {
   it('never opens two on one page view: the Christmas pop-up at 10 seconds, no Sunday roast prompt at 15', () => {
     jest.useFakeTimers()
     jest.setSystemTime(new Date('2026-10-08T12:00:00Z'))
-    mockPathname = '/sunday-roast'
+    // Any page the Christmas pop-up may open on. /sunday-roast itself no longer allows it (BK-201).
+    mockPathname = '/'
     render(
       <>
         <ChristmasLightbox />
@@ -440,6 +441,32 @@ describe('timed pop-ups', () => {
     expect(promptOpens()).toHaveLength(0)
     // Not shown, so not marked as dismissed: it is free to show on a later visit.
     expect(window.sessionStorage.getItem('sunday_lunch_booking_prompt_dismissed')).toBeNull()
+  })
+
+  // BK-201 and owner decision D22: the Sunday roast page carries its own booking form, so the
+  // Christmas pop-up stays away and the page's own prompt gets its turn.
+  it('on /sunday-roast the Christmas pop-up never opens, and the Sunday roast prompt does', () => {
+    jest.useFakeTimers()
+    jest.setSystemTime(new Date('2026-10-08T12:00:00Z'))
+    mockPathname = '/sunday-roast'
+    render(
+      <>
+        <ChristmasLightbox />
+        <TimedBookingPrompt />
+      </>
+    )
+
+    act(() => {
+      jest.advanceTimersByTime(10_050)
+    })
+    expect(screen.queryByRole('dialog', { name: 'Christmas 2026' })).not.toBeInTheDocument()
+    expect(trackModalOpen).not.toHaveBeenCalledWith(expect.objectContaining({ id: 'christmas_2026_lightbox' }))
+
+    act(() => {
+      jest.advanceTimersByTime(20_000)
+    })
+    expect(promptOpens()).toEqual([[{ event: 'booking_prompt_open', prompt_id: 'sunday_lunch_timed' }]])
+    expect(window.localStorage.getItem('christmas_2026_lightbox_seen')).toBeNull()
   })
 
   it('the Christmas pop-up does not open over the cookie banner, and keeps its one showing', () => {
