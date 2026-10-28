@@ -139,6 +139,24 @@ describe('GET /api/table-bookings/availability: combined contract', () => {
     return response.json()
   }
 
+  // BK-186: AMS's deposit figure reaches the browser untouched, and nothing is
+  // invented when AMS did not send one.
+  describe("the deposit quote is AMS's", () => {
+    it('passes the quote from the load answer through', async () => {
+      const quote = { party_size: 16, required: true, amount: 160, rule: 'group', reason: 'Parties of 15 or more pay GBP 10.00 per guest.' }
+      mockGetTableBookingLoadSafe.mockImplementation((_date: string, query?: { purpose?: string }) =>
+        Promise.resolve(makeLoad(query?.purpose === 'drinks' ? DRINKS_COMPLETE : FOOD_COMPLETE, { deposit: quote }))
+      )
+      const body = await fetchSlots('date=2026-05-05&party_size=16')
+      expect(body.data.deposit).toEqual(quote)
+    })
+
+    it('sends null when AMS sent no quote, so the form quotes nothing', async () => {
+      const body = await fetchSlots('date=2026-05-05&party_size=16')
+      expect(body.data.deposit).toBeNull()
+    })
+  })
+
   // Owner decision 4. The form sets `max` on its date input; this is where the
   // cap actually binds, for any caller at all.
   describe('the twelve-month booking horizon', () => {

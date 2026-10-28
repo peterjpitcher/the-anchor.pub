@@ -44,6 +44,27 @@ export type AvailabilityData = {
   // NOT because the kitchen is shut. Never set on a genuine kitchen-closed day,
   // where drinks only is simply the truth and there is nothing to explain.
   food_check_unavailable?: boolean
+  // AMS's deposit for this party and date (BK-186). Null or absent: quote nothing.
+  deposit?: DepositQuote | null
+}
+
+export type DepositQuote = {
+  required: boolean
+  amount: number
+  rule: string | null
+}
+
+/** A quote AMS sent, or null for anything else, so a malformed answer never prices a booking. */
+export function normalizeDepositQuote(raw: unknown): DepositQuote | null {
+  if (!raw || typeof raw !== 'object') return null
+  const source = raw as Record<string, unknown>
+  const amount = typeof source.amount === 'number' ? source.amount : Number.NaN
+  if (typeof source.required !== 'boolean' || !Number.isFinite(amount) || amount < 0) return null
+  return {
+    required: source.required,
+    amount,
+    rule: typeof source.rule === 'string' ? source.rule : null,
+  }
 }
 
 export type SelectedSlotService = {
@@ -174,7 +195,8 @@ export function normalizeAvailabilityResponse(payload: any): AvailabilityData {
     message: typeof data?.message === 'string' ? data.message : undefined,
     special_notes: typeof data?.special_notes === 'string' ? data.special_notes : undefined,
     ...(calculationState ? { calculation_state: calculationState } : {}),
-    ...(data?.food_check_unavailable === true ? { food_check_unavailable: true } : {})
+    ...(data?.food_check_unavailable === true ? { food_check_unavailable: true } : {}),
+    deposit: normalizeDepositQuote(data?.deposit)
   }
 }
 

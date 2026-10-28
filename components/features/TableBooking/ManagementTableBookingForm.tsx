@@ -71,9 +71,9 @@ import {
 import { analyticsSaleId } from '@/lib/tracking/booking-identifiers'
 import { estimateTableBookingValue } from '@/lib/booking-conversion-value'
 import {
-  LARGE_GROUP_DEPOSIT_PER_PERSON_GBP,
   LARGE_GROUP_DEPOSIT_POLICY_COPY,
-  requiresDeposit,
+  ONLINE_PARTY_LIMIT,
+  OVERSIZE_PARTY_COPY,
 } from '@/lib/constants'
 import {
   formatEventTimeLabel,
@@ -306,12 +306,17 @@ export function ManagementTableBookingForm({
   const today = useMemo(() => londonNowParts().isoDate, [])
   const defaultDate = toIsoDateInputValue(startingPrefill.date) || today
   const defaultRequestedTime = toTimeInputValue(startingPrefill.time) || getDefaultTimeValue()
-  const defaultPartySize = Math.min(Math.max(startingPrefill.partySize || 2, 1), 20)
+  const prefillPartySize = Math.max(startingPrefill.partySize || 2, 1)
+  const defaultPartySize = Math.min(prefillPartySize, ONLINE_PARTY_LIMIT)
 
   const [step, setStep] = useState<BookingStep>('find')
 
   const [partySize, setPartySize] = useState(defaultPartySize)
-  const [partySizeDisplay, setPartySizeDisplay] = useState(String(defaultPartySize))
+  // A bigger number from the link is shown as it was given, with the private
+  // booking line, rather than quietly cut to the limit (BK-146).
+  const [partySizeDisplay, setPartySizeDisplay] = useState(String(prefillPartySize))
+  const typedPartySize = Number.parseInt(partySizeDisplay, 10)
+  const partyOverLimit = Number.isFinite(typedPartySize) && typedPartySize > ONLINE_PARTY_LIMIT
   const [date, setDate] = useState(defaultDate)
   const [selectedTime, setSelectedTime] = useState<string>('')
   // Captured at slot-select time so the submit step can read the slot's
@@ -946,8 +951,6 @@ export function ManagementTableBookingForm({
   // dedicated Mother's Day mode, and the Sunday menu pre-order flow are all
   // retired with the walk-in launch (spec §6, §7.8, §8.1). Sundays are now
   // regular food bookings; deposit gating is purely group-size based (15 or more).
-  const requiresGroupDeposit = requiresDeposit(partySize)
-  const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
   // The refund bands belong to the group deposit only. A Christmas sitting has
   // its own refund rule, which SeasonalPeriodQuestion prints from the
   // management app, so the bands are left off once the guest has accepted one.
@@ -995,6 +998,18 @@ export function ManagementTableBookingForm({
     () => (availability && (availability.date || date) === date ? availability : null),
     [availability, date]
   )
+
+  // The deposit is the figure the management app will charge, never worked out
+  // here (BK-186). With a seasonal offer accepted it is that period's own terms,
+  // from the periods endpoint; otherwise the quote that came with this reading,
+  // for this party and date. Nothing is quoted until AMS has said.
+  const depositQuote =
+    seasonal.answer === true ? seasonal.deposit?.if_accepted ?? null : currentReading?.deposit ?? null
+  const requiresGroupDeposit = Boolean(depositQuote?.required) && (depositQuote?.amount ?? 0) > 0
+  const groupDepositAmount = requiresGroupDeposit && depositQuote ? depositQuote.amount : 0
+  // The group sentence only describes the group rule; a seasonal deposit's terms
+  // are printed by SeasonalPeriodQuestion.
+  const isGroupRuleDeposit = requiresGroupDeposit && depositQuote?.rule === 'group'
 
   // The authoritative check could not run. Distinct from "checked and full":
   // the guest gets a retry and the phone number, never guessed slots (F04).
@@ -1397,12 +1412,30 @@ export function ManagementTableBookingForm({
     }
   }
 
+  // A group over the limit is a private booking, so nothing is searched for it
+  // and nothing it was shown before stays on screen (BK-146).
+  function clearReadingForOversizeParty() {
+    cancelAvailabilityRequests()
+    setAvailability(null)
+    setSelectedTime('')
+    setSelectedSlotService(null)
+    setAlternativeSlots([])
+    setSlotDroppedNotice(null)
+    setStep('find')
+  }
+
   async function handleFindTable() {
     // Sync partySizeDisplay → partySize on submit in case blur hasn't fired.
     // The clamped value is also threaded explicitly through the availability
     // search so the network request sees the freshly-typed size, not stale state.
     const parsedSize = Number.parseInt(partySizeDisplay, 10)
-    const clampedSize = (!Number.isFinite(parsedSize) || parsedSize < 1) ? 1 : Math.min(parsedSize, 20)
+    // Over the limit is a private booking (D30, BK-146): keep what they typed,
+    // ask about nothing, and let the line under the box say what to do.
+    if (Number.isFinite(parsedSize) && parsedSize > ONLINE_PARTY_LIMIT) {
+      clearReadingForOversizeParty()
+      return
+    }
+    const clampedSize = (!Number.isFinite(parsedSize) || parsedSize < 1) ? 1 : parsedSize
     setPartySize(clampedSize)
     setPartySizeDisplay(String(clampedSize))
     // Account for that party size here, because this search is about to ask
@@ -2431,7 +2464,6 @@ export function ManagementTableBookingForm({
                   inputMode="numeric"
                   pattern="[0-9]*"
                   min={1}
-                  max={20}
                   required
                   value={partySizeDisplay}
                   onChange={(event) => {
@@ -2444,7 +2476,12 @@ export function ManagementTableBookingForm({
                   }}
                   onBlur={() => {
                     const parsed = Number.parseInt(partySizeDisplay, 10)
-                    const clamped = !Number.isFinite(parsed) || parsed < 1 ? 1 : Math.min(parsed, 20)
+                    // Over the limit: keep the number and stop asking (BK-146).
+                    if (Number.isFinite(parsed) && parsed > ONLINE_PARTY_LIMIT) {
+                      clearReadingForOversizeParty()
+                      return
+                    }
+                    const clamped = !Number.isFinite(parsed) || parsed < 1 ? 1 : parsed
                     setPartySizeDisplay(String(clamped))
                     if (clamped === partySize) return
                     // A settled change. The invalidation effect re-reads with
@@ -2467,7 +2504,16 @@ export function ManagementTableBookingForm({
                 />
               </div>
 
-              {requiresGroupDeposit ? (
+              {partyOverLimit ? (
+                <p role="status" className="rounded-sm border border-line bg-surface-sunk p-3 text-sm text-ink">
+                  {OVERSIZE_PARTY_COPY}{' '}
+                  <Link href="/private-hire" className="font-medium text-accent-text underline">
+                    Send a private hire enquiry
+                  </Link>
+                </p>
+              ) : null}
+
+              {isGroupRuleDeposit && !partyOverLimit ? (
                 <Badge variant="sand" className="block w-full whitespace-normal text-left leading-snug">
                   {LARGE_GROUP_DEPOSIT_POLICY_COPY}
                 </Badge>
@@ -2870,8 +2916,8 @@ export function ManagementTableBookingForm({
               requiresAccessibleTable={requiresAccessibleTable}
               highChairCount={highChairCount}
               highChairsFreeAtSlot={highChairShortfall?.free}
-              depositAmount={requiresGroupDeposit ? groupDepositAmount : 0}
-              depositNote={groupDepositNote}
+              depositAmount={groupDepositAmount}
+              depositNote={isGroupRuleDeposit ? groupDepositNote : undefined}
             />
 
             {/* Repeated from the grid because this is where the guest commits.
