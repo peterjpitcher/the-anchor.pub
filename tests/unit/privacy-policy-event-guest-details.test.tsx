@@ -34,7 +34,7 @@ function noticeText(): string {
 describe('the privacy notice on event guest details', () => {
   it('says an event booking can ask for each guest\'s answers, such as allergies', () => {
     expect(noticeText()).toContain(
-      "Where tickets need them, we also ask for the name of each person coming and their answers to the event's questions, such as allergies."
+      "Where tickets need them, we also ask for the name of each person coming and their answers to the event's questions, such as allergies, and you can add their own mobile number."
     )
   })
 
@@ -44,7 +44,7 @@ describe('the privacy notice on event guest details', () => {
 
   it('gives the 90 days in the retention list, and keeps the names', () => {
     expect(noticeText()).toContain(
-      "Event guest answers: 90 days after the event, we delete each guest's answers to the event's questions. Their names stay with the booking."
+      "Event guest answers and mobile numbers: 90 days after the event, we delete each guest's answers to the event's questions and their own mobile number. Their names stay with the booking."
     )
   })
 

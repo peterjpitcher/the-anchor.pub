@@ -188,6 +188,9 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
         !value.answers || typeof value.answers !== 'object' || Array.isArray(value.answers) ||
         // The booker's confirmation is only ever true; anything else is not ours (BK-017).
         (value.details_confirmed !== undefined && value.details_confirmed !== true) ||
+        // A guest's own mobile is optional (BK-013); the management app normalises it.
+        (value.phone !== undefined && (typeof value.phone !== 'string' || value.phone.length > 40 || !/^[+\d\s()-]*$/.test(value.phone))) ||
+        (value as { for_me?: unknown }).for_me !== undefined ||
         Object.entries(value.answers).some(([id, answer]) => !uuid.test(id) || typeof answer !== 'string' || answer.length > 2000)
     }) || new Set(body.attendees.map((person: EventAttendee) => person.id)).size !== body.attendees.length) return { error: 'Please provide valid details for every ticket.' }
   }

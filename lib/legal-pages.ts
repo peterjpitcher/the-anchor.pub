@@ -66,6 +66,9 @@
 //   ask for each person's answers to the event's questions (such as allergies),
 //   that they go on the kitchen and door lists, and that they are deleted 90
 //   days after the event (owner decision D6, BK-017).
+// Also 27 October 2026: each guest's own mobile number, optional, used only for
+// that booking and never for marketing, deleted with their answers 90 days after
+// the event (owner decisions D5 and D6, BK-013).
 export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-27'
 
 /**
@@ -82,4 +85,4 @@ export const PRIVACY_POLICY_LAST_UPDATED = '2026-10-27'
  * sees the same notice, update this value and leave the date.
  */
 export const PRIVACY_POLICY_WORDS_FINGERPRINT =
-  '3ad323126a81aa00cf6917573e631980be22ad581153be5fc439d4ba532de0ce'
+  '65c4b31906e97eb105f256f981a1c9a6cefced6662921cbb13dcd7ee9bd518ee'

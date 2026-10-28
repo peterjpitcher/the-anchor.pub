@@ -1721,7 +1721,7 @@ it('tells the booker, beside the guest details, to add only people happy to shar
   }} />)
   const section = screen.getByRole('region', { name: 'Ticket holder details' })
   expect(section).toHaveTextContent('Only add people who are happy to share these details with us.')
-  expect(section).toHaveTextContent('We use their answers for this event only, and delete them 90 days after it.')
+  expect(section).toHaveTextContent('We use their answers and mobile numbers for this event only, and delete them 90 days after it.')
 })
 
 it('shows no guest details notice where no guest details are asked for', () => {
@@ -1842,6 +1842,29 @@ it('drops removed questions from the next submission without losing remaining gu
   fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
   await waitFor(() => expect(sent).toHaveLength(2))
   expect(sent[1].attendees[0]).toEqual(expect.objectContaining({ name: 'Person 1', answers: {} }))
+})
+
+// BK-013, owner decision D5: an optional mobile per ticket, and "this ticket is for me".
+it('sends each guest mobile, and fills a ticket marked "for me" from the booker', async () => {
+  const event = { id: 'phone-fixture', name: 'Ticket fixture', startDate: '2999-01-01T19:00:00Z', payment_mode: 'prepaid', price: 10 }
+  const sent: any[] = []
+  global.fetch = jest.fn(async (url, options) => {
+    if (String(url).startsWith('/api/events/')) return new Response(JSON.stringify({ success: true, data: event }), { status: 200 })
+    sent.push(JSON.parse(String(options?.body)))
+    return new Response(JSON.stringify({ success: false, error: { code: 'PRICE_CHANGED' } }), { status: 409 })
+  })
+  render(<ManagementEventBookingForm event={event} />)
+  fireEvent.click(screen.getAllByLabelText('This ticket is for me')[0])
+  expect(screen.queryByLabelText('Ticket 1 full name')).not.toBeInTheDocument()
+  fireEvent.change(screen.getByLabelText('Ticket 2 full name'), { target: { value: 'Sam Guest' } })
+  fireEvent.change(screen.getByLabelText('Ticket 2 mobile number (optional)'), { target: { value: '07700 900456' } })
+  confirmGuestDetails()
+  for (const [label, value] of [['First name', 'Buyer'], ['Last name', 'Example'], ['Email address', 'buyer@example.com'], ['Mobile number', '07700900123']]) fireEvent.change(screen.getByLabelText(label), { target: { value } })
+  fireEvent.submit(screen.getByLabelText('First name').closest('form')!)
+  await waitFor(() => expect(sent).toHaveLength(1))
+  expect(sent[0].attendees[0]).toEqual(expect.objectContaining({ name: 'Buyer Example', phone: '07700900123' }))
+  expect(sent[0].attendees[0]).not.toHaveProperty('for_me')
+  expect(sent[0].attendees[1]).toEqual(expect.objectContaining({ name: 'Sam Guest', phone: '07700 900456' }))
 })
 
 it('shows separately selectable ticket types even when their prices match', () => {
