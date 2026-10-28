@@ -9,6 +9,7 @@ import {
   type TableBookingLoadResponse
 } from '@/lib/api'
 import { PRIVATE_NO_STORE_HEADERS } from '@/lib/api-cache-policy'
+import { RATE_LIMITS, RATE_LIMIT_MESSAGE, limitByAddress, tooManyRequests } from '@/lib/rate-limit'
 
 // What this route serves the browser: the long-standing website shape plus the
 // two contract fields the form now reads. `calculation_state: 'unknown'` means
@@ -172,6 +173,14 @@ function buildCombinedAvailability(
 }
 
 export async function GET(request: Request) {
+  // Spends the management app's key, and had no limit of its own, so one visitor
+  // could use up the hour for every guest (BK-108). 20 a minute per address, per
+  // server (lib/rate-limit.ts), the same as the booking periods read.
+  const rateLimit = limitByAddress(request, 'table-availability', RATE_LIMITS.publicRead)
+  if (rateLimit.limited) {
+    return tooManyRequests(rateLimit, { success: false, error: RATE_LIMIT_MESSAGE, code: 'RATE_LIMITED' })
+  }
+
   const { searchParams } = new URL(request.url)
   const date = searchParams.get('date')
   const partySizeRaw = searchParams.get('party_size')

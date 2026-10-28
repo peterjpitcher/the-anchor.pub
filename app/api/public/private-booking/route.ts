@@ -7,9 +7,11 @@ import { checkSpamProtection } from '@/lib/spam-protection'
 import { consentForIdempotency, sanitizeCommunicationConsent } from '@/lib/communication-consent-server'
 import { sendEnquiryFallbackEmail, escapeHtml } from '@/lib/enquiry-fallback-email'
 import type { CommunicationConsentPayload } from '@/lib/communication-consent'
+import { getAnchorBookingsApiKey } from '@/lib/anchor-api-keys'
 
 const API_BASE_URL = getManagementApiBaseUrl()
-const API_KEY = process.env.ANCHOR_API_KEY
+// Bookings and payments have their own key and allowance (BK-108); see lib/anchor-api-keys.ts.
+const API_KEY = getAnchorBookingsApiKey()
 const ROUTE = 'api/public/private-booking'
 
 // The management app's answers for "this submission is already here": the same
