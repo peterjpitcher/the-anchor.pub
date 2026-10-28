@@ -10,7 +10,8 @@ import {
   CHRISTMAS_WINDOW_START,
   getLondonIsoDate
 } from '@/lib/christmas-season'
-import { christmasMultipleCoursesAvailable, LATE_CHRISTMAS_ONE_COURSE_NOTE } from '@/lib/christmas-course-deadline'
+import { christmasMultipleCoursesAvailable, lateChristmasOneCourseNote } from '@/lib/christmas-course-deadline'
+import { anchorAPI } from '@/lib/api'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
 import { GUEST_FALLBACK } from '@/lib/guest-error-messages'
 
@@ -608,19 +609,27 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Two and three courses need everyone's choices by noon seven days before the date, so
-    // inside that the 1 course menu is the only one we can do (SSOT §7, owner decision
+    // Two and three courses need everyone's choices by noon a set number of days before the date,
+    // so inside that the 1 course menu is the only one we can do (SSOT §7, owner decision
     // 10 September 2026). Refused rather than quietly changed, so the guest knows before
-    // they wait for a call back.
+    // they wait for a call back. The deadline is the management app's period setting, read from
+    // its published course policy (BK-150); when it cannot be read the enquiry goes through and
+    // the team confirms the courses on the call back.
     if (
       body.mode === 'meal' &&
-      (body.courseTier === 'two_course' || body.courseTier === 'three_course') &&
-      !christmasMultipleCoursesAvailable(body.preferredDate)
+      (body.courseTier === 'two_course' || body.courseTier === 'three_course')
     ) {
-      return NextResponse.json(
-        { success: false, error: `${LATE_CHRISTMAS_ONE_COURSE_NOTE} Please change the courses to 1 course each, or not decided yet.` },
-        { status: 400 }
-      )
+      const periodResult = await anchorAPI.getBookingPeriodSafe(body.preferredDate)
+      const christmasPeriod = periodResult?.period?.period_kind === 'christmas' ? periodResult.period : null
+      if (!christmasMultipleCoursesAvailable(christmasPeriod?.course_policy)) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: `${lateChristmasOneCourseNote(christmasPeriod?.preorder_cutoff_days)} Please change the courses to 1 course each, or not decided yet.`
+          },
+          { status: 400 }
+        )
+      }
     }
 
     if (body.preferredTime && !/^flexible$/i.test(body.preferredTime.trim()) && !normaliseChristmasEnquiryTime(body.preferredTime)) {

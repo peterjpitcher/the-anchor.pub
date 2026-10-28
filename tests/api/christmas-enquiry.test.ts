@@ -6,6 +6,39 @@ jest.mock('@/lib/spam-protection', () => ({
   checkSpamProtection: mockCheckSpamProtection,
 }))
 
+// BK-150: the 2 and 3 course deadline is the management app's period setting, read from the
+// course policy it publishes. The fixture builds that policy the way the management app does:
+// noon London, cutoffDays before the date (these dates are all GMT).
+let mockCutoffDays: number | null = 7
+function shiftIsoDate(isoDate: string, days: number): string {
+  const [year, month, day] = isoDate.split('-').map(Number)
+  const shifted = new Date(Date.UTC(year, month - 1, day + days))
+  return `${shifted.getUTCFullYear()}-${String(shifted.getUTCMonth() + 1).padStart(2, '0')}-${String(shifted.getUTCDate()).padStart(2, '0')}`
+}
+const mockGetBookingPeriodSafe = jest.fn(async (date: string) => {
+  if (mockCutoffDays === null) return null
+  return {
+    date,
+    period: {
+      period_kind: 'christmas',
+      preorder_cutoff_days: mockCutoffDays,
+      course_policy: {
+        version: 1,
+        preorder_closes_at: `${shiftIsoDate(date, -mockCutoffDays)}T12:00:00+00:00`,
+        multiple_courses_available: true,
+      },
+    },
+    deposit: null,
+  }
+})
+jest.mock('@/lib/api', () => {
+  const actual = jest.requireActual('@/lib/api')
+  return {
+    ...actual,
+    anchorAPI: { ...actual.anchorAPI, getBookingPeriodSafe: (date: string) => mockGetBookingPeriodSafe(date) },
+  }
+})
+
 if (typeof (Response as any).json !== 'function') {
   ;(Response as any).json = (body: unknown, init?: ResponseInit) =>
     new Response(JSON.stringify(body), {
@@ -269,6 +302,33 @@ describe('POST /api/enquiry/christmas', () => {
     // 27 November's deadline is noon today, and it is 9am.
     const threeCourses = await post(validPayload({ preferredDate: '2026-11-27', courseTier: 'three_course' }))
     expect(threeCourses.status).toBe(200)
+  })
+
+  it('follows the period setting, not a fixed 7 days (BK-150)', async () => {
+    mockCutoffDays = 10
+    try {
+      // 10 days before 29 November is noon on 19 November, already past.
+      const response = await post(validPayload({ preferredDate: '2026-11-29', courseTier: 'two_course' }))
+      const result = await response.json()
+
+      expect(response.status).toBe(400)
+      expect(result.error).toContain('less than 10 days away')
+      expect(result.error).toContain('by noon, 10 days before')
+      expect(global.fetch).not.toHaveBeenCalled()
+    } finally {
+      mockCutoffDays = 7
+    }
+  })
+
+  it('lets the enquiry through when the period cannot be read, for the team to confirm', async () => {
+    mockCutoffDays = null
+    try {
+      ;(global.fetch as jest.Mock).mockResolvedValue(jsonResponse({ success: true }, 201))
+      const response = await post(validPayload({ preferredDate: '2026-11-26', courseTier: 'three_course' }))
+      expect(response.status).toBe(200)
+    } finally {
+      mockCutoffDays = 7
+    }
   })
 
   it('keeps legacy dinner submissions compatible during rollout', async () => {
