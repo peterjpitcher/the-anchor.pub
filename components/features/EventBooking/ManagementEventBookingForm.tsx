@@ -119,13 +119,6 @@ type EventBookingResult = {
   currency?: string | null
 }
 
-type WaitlistResult = {
-  queued: boolean
-  state: 'queued' | 'not_full' | 'blocked'
-  waitlist_entry_id: string | null
-  reason: string | null
-  seats_remaining: number | null
-}
 
 interface ManagementEventBookingFormProps {
   /**
@@ -276,8 +269,6 @@ export function ManagementEventBookingForm({
   const [result, setResult] = useState<EventBookingResult | null>(null)
   const [latestAvailability, setLatestAvailability] = useState<Pick<EventBookingResult, 'seated_remaining' | 'standing_remaining' | 'seats_remaining'> | null>(null)
   const [paymentConversionPayload, setPaymentConversionPayload] = useState<EventPaymentConversionPayload | null>(null)
-  const [waitlistLoading, setWaitlistLoading] = useState(false)
-  const [waitlistResult, setWaitlistResult] = useState<WaitlistResult | null>(null)
   // Set when a submit-time 409 SALES_CLOSED comes back: the event's online
   // sales cutoff passed between page load and submit. Folds into salesClosed so
   // the same friendly closed panel renders (rather than a generic error).
@@ -360,29 +351,13 @@ export function ManagementEventBookingForm({
   const availableForSelection = isCommunalEvent
     ? (seatingPreference === 'standing' ? standingRemaining : seatedRemaining)
     : normalizeRemaining(event.seats_remaining)
-  /**
-   * A night the page shows as full, on an event that keeps a waitlist.
-   *
-   * The form used to refuse these before sending anything, so the API's
-   * `full_with_waitlist_option` answer and the Join Waitlist button below could
-   * never be reached, while the hubs label the same date "Full, join the
-   * waitlist". The count on the page is also a snapshot, and a cached page can
-   * be hours old. So the request is sent: the management API books any places
-   * that have come free since, or answers full, and the form then offers the
-   * waitlist. An event with no waitlist is still stopped here.
-   */
-  const fullWithWaitlist = !isMultiTypeEvent && availableForSelection === 0 && event.waitlist_enabled === true
-  const selectionOverCapacity = !fullWithWaitlist && availableForSelection !== null && seats > availableForSelection
+  const selectionOverCapacity = availableForSelection !== null && seats > availableForSelection
   const submittedTicketLabel = getBookingTicketLabel(result, submittedSeatingPreference)
   const fellBackToStanding = isCommunalEvent &&
     submittedSeatingPreference === 'seated' &&
     result?.event_seating_type === 'standing'
-  const waitlistPlaceLabel = isCommunalEvent ? 'places' : 'seats'
-  // A fresh token is needed until something has been booked, and on a full
-  // night until the guest is on the waitlist, because joining it is a second
-  // request and every token is spent by the first.
-  const turnstileStillNeeded =
-    !result || (result.state === 'full_with_waitlist_option' && waitlistResult?.state !== 'queued')
+  // A fresh token is needed until something has been booked.
+  const turnstileStillNeeded = !result
   // The security check is standing between the guest and a booking they cannot
   // otherwise make. Say so, rather than leaving a disabled button unexplained.
   const turnstileUnavailable =
@@ -447,7 +422,6 @@ export function ManagementEventBookingForm({
     if (!turnstileSiteKey) return
     // A booking already exists, so the post-submit widget reset behind the
     // confirmation is housekeeping, not a failure the guest needs to hear about.
-    // A full night still needs a token to join the waitlist, so its clock runs.
     if (!turnstileStillNeeded) return
 
     if (turnstileToken || turnstileStatus === 'error' || turnstileStatus === 'unsupported') {
@@ -517,7 +491,6 @@ export function ManagementEventBookingForm({
     paymentCompleteTracked.current = false
     setSubmittedSeatingPreference(null)
     setSubmittedTicketBreakdown([])
-    setWaitlistResult(null)
 
     const clampedSeats = isMultiTypeEvent ? multiTypeTotalSeats : seats
     if (clampedSeats > 6) {
@@ -909,63 +882,6 @@ export function ManagementEventBookingForm({
     })
   }
 
-  async function handleJoinWaitlist() {
-    setError(null)
-    setEmailError(null)
-    setWaitlistLoading(true)
-    setWaitlistResult(null)
-    const typedEmail = email.trim()
-
-    try {
-      const response = await fetch('/api/event-waitlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          event_id: event.id,
-          phone: phone.trim(),
-          // The email typed for this booking goes with the waitlist entry too,
-          // so a guest whose number cannot take texts still hears when places
-          // come free, and a changed address is not lost (review BK-078).
-          ...(typedEmail ? { email: typedEmail } : {}),
-          default_country_code: '44',
-          first_name: firstName.trim(),
-          last_name: lastName.trim(),
-          requested_seats: seats,
-          communication_consent: buildCommunicationConsentPayload(communicationConsent, 'event_compact_v6'),
-          ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
-          ...(honeypot ? { website: honeypot } : {}),
-          _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
-        })
-      })
-
-      const body = await response.json()
-      const data = body?.data || body
-
-      if (!response.ok || body?.success === false) {
-        if (isEmailRequiredForNonMobileAnswer(body)) {
-          showNonUkMobileEmailError()
-          return
-        }
-        throw new Error(toGuestMessage(body?.error ?? data?.error, 'event_waitlist', { ...OWN_PHONE_LINE, fallback: 'We could not join the waitlist right now.' }))
-      }
-
-      if (!data || typeof data !== 'object' || !('state' in data)) {
-        throw new Error('Waitlist response was incomplete. Please try again.')
-      }
-
-      setWaitlistResult(data as WaitlistResult)
-    } catch (joinError: any) {
-      setError(toGuestMessage(joinError, 'event_waitlist', { ...OWN_PHONE_LINE, fallback: 'We could not join the waitlist right now.' }))
-    } finally {
-      setWaitlistLoading(false)
-      // The token was spent on this request, whatever the answer, so a retry
-      // or a fresh booking needs a new one.
-      setTurnstileToken(null)
-      turnstileRef.current?.reset()
-    }
-  }
 
   // Per-type breakdown block for the result alerts (multi-type bookings only).
   const submittedBreakdownBlock = submittedTicketBreakdown.length > 0 ? (
@@ -1102,7 +1018,7 @@ export function ManagementEventBookingForm({
                       key={count}
                       type="button"
                       aria-pressed={selected}
-                      disabled={!fullWithWaitlist && availableForSelection !== null && count > availableForSelection}
+                      disabled={availableForSelection !== null && count > availableForSelection}
                       onClick={() => {
                         setSeats(count)
                         trackBookingStartOnce()
@@ -1131,13 +1047,6 @@ export function ManagementEventBookingForm({
               {availableForSelection === 0
                 ? 'No tickets are available. Please call us for help.'
                 : `Only ${availableForSelection} ${seatingPreference === 'standing' ? 'standing ticket' : 'seat'}${availableForSelection === 1 ? ' remains' : 's remain'}. Please choose fewer tickets or call us.`}
-            </p>
-          ) : null}
-
-          {fullWithWaitlist ? (
-            <p className="rounded-sm border border-line bg-surface-sunk p-2.5 text-sm leading-relaxed text-ink">
-              This night is showing as full. Send your details and we will check again. If it is still
-              full, you can join the waitlist.
             </p>
           ) : null}
 
@@ -1259,7 +1168,7 @@ export function ManagementEventBookingForm({
             }}
             placeholder="07xxx xxxxxx"
             autoComplete="tel"
-            helperText="For your confirmation text."
+            helperText="So we can reach you about your booking."
           />
 
           <Input
@@ -1509,30 +1418,15 @@ export function ManagementEventBookingForm({
           </Alert>
         )}
 
+        {/* The waiting list was removed (owner decision D11, BK-138): nobody had joined it. A
+            night that filled up while the guest was booking is told to call instead. */}
         {result?.state === 'full_with_waitlist_option' && (
-          <Alert variant="info" title="This event is currently full">
-            <p>You can join the waitlist and we will contact you if {waitlistPlaceLabel} become available.</p>
-            <div className="mt-3">
-              {/* Held until the security check hands over a fresh token: the
-                  booking attempt spent the last one, and a request without a
-                  token is refused. The recovery panel explains a long wait. */}
-              <Button
-                type="button"
-                size="sm"
-                loading={waitlistLoading}
-                disabled={turnstileSiteKey ? !turnstileToken : false}
-                aria-describedby={turnstileUnavailable ? TURNSTILE_RECOVERY_REGION_ID : undefined}
-                onClick={handleJoinWaitlist}
-              >
-                Join Waitlist
-              </Button>
-            </div>
-            {waitlistResult?.state === 'queued' && (
-              <p className="mt-3 font-semibold text-anchor-success">You’re on the waitlist. We’ll text you if {waitlistPlaceLabel} open up.</p>
-            )}
-            {waitlistResult && waitlistResult.state !== 'queued' && (
-              <p className="mt-3">{guestMessageForBlockedReason(waitlistResult.reason, 'event_waitlist')}</p>
-            )}
+          <Alert variant="info" title="This event is now full">
+            <p>
+              The last places went while you were booking. Call us on{' '}
+              <PhoneLink phone={CONTACT.phone} source="event_booking_full" showIcon={false} className="font-semibold underline">{CONTACT.phone}</PhoneLink>{' '}
+              and we'll check for space.
+            </p>
           </Alert>
         )}
       </CardBody>

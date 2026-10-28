@@ -48,7 +48,7 @@ interface GameNightBookingProps {
  * paying for an extra hop to reach a form.
  *
  * The form itself is the same `ManagementEventBookingForm` the event pages use,
- * so seats, seating preference, Turnstile, the sold-out waitlist path and the
+ * so seats, seating preference, Turnstile, the sold-out "call us" answer and the
  * UTM/fbclid/gclid capture all come along unchanged. The only new thing here is
  * letting the visitor pick which date they are booking without leaving the page.
  *
@@ -67,8 +67,8 @@ export function GameNightBooking({
 }: GameNightBookingProps) {
   // Dates a visitor could actually book: drafts, cancellations, past dates and
   // events with bookings switched off are not offered at all. Sold-out dates are
-  // deliberately kept, because the form's own submit path offers the waitlist
-  // and a captured lead beats a dead end.
+  // deliberately kept, because the form tells a guest on a full date to call us,
+  // and a call beats a dead end.
   const bookable = useMemo(
     () =>
       events
@@ -213,7 +213,8 @@ export function GameNightBooking({
                 {remaining} {remaining === 1 ? 'place' : 'places'} left
               </Badge>
             )}
-            {isFull && <Badge variant="outline">Full, join the waitlist</Badge>}
+            {/* The waiting list was removed (owner decision D11, BK-138). */}
+            {isFull && <Badge variant="outline">Full, call us to check</Badge>}
           </div>
 
           {/* key forces a fresh form per date: without it the previous date's
