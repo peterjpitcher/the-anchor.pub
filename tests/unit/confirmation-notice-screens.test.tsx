@@ -164,7 +164,7 @@ describe('event booking confirmation', () => {
     )
 
     submitBooking({ payment_mode: 'prepaid', price_per_seat: 6 })
-    await screen.findByText('Your seats are currently on hold.')
+    await screen.findByText('Your seats are on hold. Pay now to confirm your booking.')
     // On hold is not confirmed: nothing about a confirmation message yet.
     expectNoMessageClaimed()
 
