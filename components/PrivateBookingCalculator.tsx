@@ -270,6 +270,9 @@ export function PrivateBookingCalculator({
     const inquiryData = {
         guest_count: guestCount,
         items,
+        // The room and hours as fields, not only inside the items (BK-188).
+        ...(selectedSpace?.id ? { space_id: selectedSpace.id } : {}),
+        hire_hours: hours,
         internal_notes: `Calculated Estimate: ${formatCurrency(total)}`,
         event_type: selectedEventType,
         event_date: selectedDate

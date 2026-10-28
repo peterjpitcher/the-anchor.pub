@@ -55,7 +55,7 @@ describe('PrivateBookingInquiryForm tracking', () => {
     fireEvent.change(textInputs[1], { target: { value: 'Doe' } })   // Last Name
 
     // Submit the form
-    fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))
+    fireEvent.click(screen.getByRole('button', { name: /send enquiry/i }))
 
     await waitFor(() => {
       expect(mockTrack).toHaveBeenCalledTimes(1)
@@ -81,7 +81,7 @@ describe('PrivateBookingInquiryForm tracking', () => {
     fireEvent.change(textInputs[0], { target: { value: 'Jane' } })  // First Name
     fireEvent.change(textInputs[1], { target: { value: 'Doe' } })   // Last Name
 
-    fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))
+    fireEvent.click(screen.getByRole('button', { name: /send enquiry/i }))
 
     await waitFor(() => {
       expect(screen.getByText(/something went wrong/i)).toBeInTheDocument()
@@ -114,7 +114,7 @@ describe('PrivateBookingInquiryForm: no number check', () => {
     expect(screen.getByText(/Last Name/)).toBeInTheDocument()
     expect(screen.getByText(/Email \(Optional\)/)).toBeInTheDocument()
     expect(document.querySelector('input[type="email"]')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /send enquiry/i })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /^continue$/i })).not.toBeInTheDocument()
     expect(screen.queryByText(/already in our system/i)).not.toBeInTheDocument()
   })
@@ -131,7 +131,7 @@ describe('PrivateBookingInquiryForm: no number check', () => {
       target: { value: 'priya@example.com' },
     })
 
-    fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))
+    fireEvent.click(screen.getByRole('button', { name: /send enquiry/i }))
 
     await waitFor(() => expect(mockCreatePrivateBooking).toHaveBeenCalledTimes(1))
     const payload = mockCreatePrivateBooking.mock.calls[0][0] as unknown as Record<string, unknown>
@@ -153,7 +153,7 @@ describe('PrivateBookingInquiryForm: no number check', () => {
     render(<PrivateBookingInquiryForm />)
     typePhone()
 
-    fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))
+    fireEvent.click(screen.getByRole('button', { name: /send enquiry/i }))
 
     // Nothing is sent. The name inputs are marked required, so the browser's
     // own constraint validation stops the submit first; the handler's check is
@@ -175,7 +175,7 @@ describe('PrivateBookingInquiryForm: no number check', () => {
     fireEvent.change(textInputs[0], { target: { value: 'Sam' } })
     fireEvent.change(textInputs[1], { target: { value: 'Walker' } })
     // Past the browser's own check, to reach the handler's.
-    fireEvent.submit(screen.getByRole('button', { name: /send inquiry/i }).closest('form') as HTMLFormElement)
+    fireEvent.submit(screen.getByRole('button', { name: /send enquiry/i }).closest('form') as HTMLFormElement)
 
     expect(await screen.findByText('Please enter your mobile number.')).toBeInTheDocument()
     expect(mockCreatePrivateBooking).not.toHaveBeenCalled()

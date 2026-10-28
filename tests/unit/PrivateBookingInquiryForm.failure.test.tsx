@@ -57,14 +57,15 @@ function fillAndSend() {
   fireEvent.change(textInputs[1], { target: { value: 'Booker' } })
   fireEvent.change(document.querySelector('textarea') as HTMLTextAreaElement, { target: { value: NOTES } })
 
-  fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))
+  fireEvent.click(screen.getByRole('button', { name: /send enquiry/i }))
 }
 
 function expectFormStillFilledIn() {
   // Not the error boundary, and not the success screen.
   expect(screen.queryByText('Something went wrong')).not.toBeInTheDocument()
-  expect(screen.queryByText('Inquiry Received!')).not.toBeInTheDocument()
-  expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
+  expect(screen.queryByText('Enquiry received')).not.toBeInTheDocument()
+  expect(screen.queryByText('Enquiry emailed to our team')).not.toBeInTheDocument()
+  expect(screen.getByRole('button', { name: /send enquiry/i })).toBeInTheDocument()
 
   // Everything the guest typed is still there.
   const textInputs = document.querySelectorAll('input[type="text"]')
@@ -145,9 +146,32 @@ describe('the estimator enquiry form when the enquiry cannot be sent', () => {
     fillAndSend()
     await screen.findByRole('alert')
 
-    fireEvent.click(screen.getByRole('button', { name: /send inquiry/i }))
+    fireEvent.click(screen.getByRole('button', { name: /send enquiry/i }))
 
-    expect(await screen.findByText('Inquiry Received!')).toBeInTheDocument()
+    expect(await screen.findByText('Enquiry received')).toBeInTheDocument()
     expect(trackPrivateHireEnquirySubmitted).toHaveBeenCalledTimes(1)
+  })
+
+  // BK-188: the estimator used to say "Inquiry Received! Expect a text message or call" whatever
+  // happened, and counted an enquiry that only reached a manager by email.
+  it('says so honestly when the enquiry only reached the team by email, and does not count it', async () => {
+    answerEnquiryWith(() => json({ success: true, data: { id: null, reference: null }, state: 'enquiry_emailed' }, 200))
+
+    fillAndSend()
+
+    expect(await screen.findByText('Enquiry emailed to our team')).toBeInTheDocument()
+    expect(screen.getByText(/could not save your enquiry, but the team has your details by email/)).toBeInTheDocument()
+    expect(screen.queryByText(/text message/i)).not.toBeInTheDocument()
+    expect(trackPrivateHireEnquirySubmitted).not.toHaveBeenCalled()
+  })
+
+  it('promises an email or a call, never a text, once the enquiry is saved', async () => {
+    answerEnquiryWith(() => json({ success: true, data: { id: 'pb-1', reference: 'PB-1' }, state: 'enquiry_created' }, 200))
+
+    fillAndSend()
+
+    expect(await screen.findByText('Enquiry received')).toBeInTheDocument()
+    expect(screen.getByText(/We.ll email or call you to talk through availability/)).toBeInTheDocument()
+    expect(screen.queryByText(/text message/i)).not.toBeInTheDocument()
   })
 })
