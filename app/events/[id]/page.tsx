@@ -40,8 +40,10 @@ import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import {
   getEventBookingActionLabel,
   getEventBookingHeroStatement,
-  getEventSeatAvailabilityLabel
+  getEventSeatAvailabilityLabel,
+  isPaidEvent,
 } from '@/lib/event-booking-experience'
+import { ONLINE_BOOKING_CLOSED_MESSAGE } from '@/lib/guest-error-messages'
 import { getEventSeoStrategy, getCategoryPageUrl, isDiscontinuedFormatEvent, getDiscontinuedFormatReplacement, getSafeAccessibilityNotes, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getEventPresentation } from '@/lib/event-presentation'
 import { isEventOver } from '@/lib/event-calendar'
@@ -176,7 +178,7 @@ const EVENT_UNDER_WAY_COPY = {
  */
 const SOLD_OUT_LABEL = 'Sold out'
 
-function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockReason>): {
+function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockReason>, paidNight = false): {
   title: string
   message: string
 } {
@@ -195,6 +197,14 @@ function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockRe
   }
 
   if (reason === 'bookings_disabled') {
+    // "Just turn up" is true only on a free night. On a paid or prepaid night it could send
+    // guests to a full or ticket-only event, so they are given the number instead (BK-187).
+    if (paidNight) {
+      return {
+        title: 'Online booking closed',
+        message: ONLINE_BOOKING_CLOSED_MESSAGE
+      }
+    }
     return {
       title: 'No booking required',
       message: 'No booking is needed for this event, just turn up!'
@@ -503,6 +513,7 @@ export default async function EventPage({ params }: Props) {
       : null
 
   const bookingBlockReason = getEventBookingBlockReason(event)
+  const paidNight = isPaidEvent(event)
   // Online ticket sales cutoff: distinct, friendly "sales closed" panel. Only
   // surfaced when nothing more specific (cancelled / sold out / past) applies.
   const bookingClosedByCutoff = !bookingBlockReason && isEventBookingClosed(event)
@@ -513,9 +524,9 @@ export default async function EventPage({ params }: Props) {
   const bookingDisabledCopy = bookingBlockReason
     ? eventUnderWay
       ? event.bookings_enabled === false
-        ? getBookingDisabledCopy('bookings_disabled')
+        ? getBookingDisabledCopy('bookings_disabled', paidNight)
         : EVENT_UNDER_WAY_COPY
-      : getBookingDisabledCopy(bookingBlockReason)
+      : getBookingDisabledCopy(bookingBlockReason, paidNight)
     : bookingClosedByCutoff
       ? SALES_CLOSED_COPY
       : null

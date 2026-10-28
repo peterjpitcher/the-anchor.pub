@@ -291,6 +291,35 @@ describe('a finished night does not invite anyone (C2-023)', () => {
     ).toBe('sold_out')
   })
 
+  // Review BK-187: switching off bookings on a sold-out night used to win over "Sold out" and tell
+  // guests to just turn up; on a paid night "just turn up" could send them to a ticket-only event.
+  it('says sold out, not "just turn up", on a full night with bookings switched off', () => {
+    expect(
+      getEventBookingBlockReason(
+        makeEvent({ bookings_enabled: false, event_status: 'sold_out', startDate: FUTURE_START }),
+        FIXED_NOW,
+      ),
+    ).toBe('sold_out')
+  })
+
+  it('tells guests online booking is closed on a paid night with bookings switched off', async () => {
+    const container = await renderEventPage(
+      makeEvent({ bookings_enabled: false, startDate: FUTURE_START, payment_mode: 'cash_only' } as Partial<Event>),
+    )
+    const text = visibleText(container)
+
+    expect(text).toContain('Online booking is closed for this event. Call 01753 682707 to check availability.')
+    expect(text).not.toContain('just turn up')
+  })
+
+  it('keeps "just turn up" on a free night with bookings switched off', async () => {
+    const container = await renderEventPage(
+      makeEvent({ bookings_enabled: false, startDate: FUTURE_START, payment_mode: 'free', ticket_price: 0, is_free: true } as Partial<Event>),
+    )
+
+    expect(visibleText(container)).toContain('No booking is needed for this event, just turn up!')
+  })
+
   it('drops "just turn up", the cancellation policy and the arrival badge from an ended page', async () => {
     const container = await renderEventPage(makeEvent({ bookings_enabled: false }))
     const text = visibleText(container)

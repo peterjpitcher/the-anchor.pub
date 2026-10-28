@@ -181,6 +181,20 @@ export function isPrepaidEvent(event: EventBookingPaymentSource): boolean {
   return mode === 'prepaid'
 }
 
+/**
+ * True when the night costs money, taken online or at the door (review BK-187).
+ *
+ * Switching off "Accept bookings" on a free night means walk in, and the page says so. On a paid
+ * or prepaid night "just turn up" could send guests to a full or ticket-only event, so those say
+ * online booking is closed and give the phone number instead.
+ */
+export function isPaidEvent(event: EventBookingPaymentSource): boolean {
+  const mode = typeof event.payment_mode === 'string' ? event.payment_mode.trim().toLowerCase() : ''
+  if (mode === 'prepaid' || mode === 'cash_only') return true
+  const price = getEventUnitPrice(event)
+  return typeof price === 'number' && price > 0
+}
+
 export function getEventUnitPrice(event: EventBookingPaymentSource): number | null {
   // Multi-type events: ticket-type prices are already the final (post-discount)
   // charge, so the discount must not be re-applied — return the lowest directly.

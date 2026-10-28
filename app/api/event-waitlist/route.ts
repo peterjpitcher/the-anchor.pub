@@ -4,7 +4,7 @@ import { createApiErrorResponse } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { safeJsonParse } from '@/lib/upstream-json'
 import { pageFromRequest, reportFailure } from '@/lib/report-failure'
-import { GUEST_FALLBACK, mapUpstreamFailure } from '@/lib/guest-error-messages'
+import { GUEST_FALLBACK, ONLINE_BOOKING_CLOSED_MESSAGE, mapUpstreamFailure } from '@/lib/guest-error-messages'
 import { checkSpamProtection } from '@/lib/spam-protection'
 import {
   sanitizeCommunicationConsent,
@@ -220,11 +220,12 @@ export async function POST(request: NextRequest) {
       return createApiErrorResponse(WAITLIST_UNAVAILABLE_MESSAGE, 502)
     }
 
-    // Handle BOOKINGS_DISABLED rejection from management API
+    // Handle BOOKINGS_DISABLED rejection from management API. A waitlist is only offered on a
+    // full night, so "just turn up" is never right here (review BK-187).
     if (upstream.status === 409 && hasUpstreamErrorCode(parsed, 'BOOKINGS_DISABLED')) {
       await reportFailure({ route: ROUTE, kind: 'refused', status: 409, reason: 'BOOKINGS_DISABLED', upstreamCode: 'BOOKINGS_DISABLED', eventId, page })
       return NextResponse.json(
-        { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed, just turn up!' } },
+        { success: false, error: { code: 'BOOKINGS_DISABLED', message: ONLINE_BOOKING_CLOSED_MESSAGE } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
       )
     }
