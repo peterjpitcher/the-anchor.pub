@@ -906,6 +906,34 @@ export class AnchorAPI {
     throw { message: 'Event not found', status: 404 }
   }
 
+  /**
+   * Where an unknown event address lives now, from the management app's 404 (BK-192): the
+   * event's current address ('renamed'), or the next night of the same name when the event is
+   * gone ('next_in_series'). Null when it has nothing to offer or the call fails, so the caller
+   * answers 'not found' as before. Server-side only: it carries the API key.
+   */
+  async getMovedEventAddress(idOrSlug: string): Promise<{ slug: string; reason: 'renamed' | 'next_in_series' } | null> {
+    const lookupValue = idOrSlug.trim()
+    if (!/^[a-z0-9-]+$/i.test(lookupValue)) return null
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+    if (this.apiKey) headers['X-API-Key'] = this.apiKey
+    try {
+      const options: RequestInit & { next?: { revalidate: number } } = { headers }
+      if (typeof window === 'undefined') options.next = { revalidate: 300 }
+      const response = await fetch(`${this.baseURL}/events/${encodeURIComponent(lookupValue)}`, options)
+      if (response.status !== 404) return null
+      const body = (await response.json().catch(() => null)) as { error?: { details?: { moved_to?: { slug?: unknown; reason?: unknown } } } } | null
+      const moved = body?.error?.details?.moved_to
+      const slug = typeof moved?.slug === 'string' ? moved.slug.trim() : ''
+      const reason = moved?.reason === 'renamed' || moved?.reason === 'next_in_series' ? moved.reason : null
+      if (!slug || !reason || !/^[a-z0-9-]+$/.test(slug) || slug === lookupValue) return null
+      return { slug, reason }
+    } catch (error) {
+      logError('api-get-moved-event-address', error, { idOrSlug: lookupValue })
+      return null
+    }
+  }
+
   async getTodaysEvents(status: string = 'scheduled'): Promise<EventsResponse> {
     const query = new URLSearchParams()
     if (status) query.append('status', status)

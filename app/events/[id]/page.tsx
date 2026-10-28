@@ -2,8 +2,10 @@ import { resolveEventBookingCta } from '@/lib/booking-cta'
 import { Metadata } from 'next'
 import { getEventHeroImage, getEventImage } from '@/lib/event-image'
 import { EventArtworkHero } from '@/components/events/EventArtworkHero'
+import { PassedNightNotice } from '@/components/events/PassedNightNotice'
 import Link from 'next/link'
-import { notFound, permanentRedirect } from 'next/navigation'
+import { Suspense } from 'react'
+import { notFound, permanentRedirect, redirect } from 'next/navigation'
 import { Button, Container, Card, CardBody, Alert, Badge } from '@/components/ui'
 import { CtaBand } from '@/components/CtaBand'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -184,6 +186,13 @@ function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockRe
     return {
       title: 'Booking unavailable',
       message: 'This event has been cancelled.'
+    }
+  }
+
+  if (reason === 'postponed') {
+    return {
+      title: 'Booking unavailable',
+      message: "This event has been postponed. If you've booked, your booking carries over and we'll let you know the new date."
     }
   }
 
@@ -403,6 +412,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+/**
+ * An old event address (renamed, or its date moved) sends the visitor to where the event lives
+ * now, permanently. When the event itself is gone, the visitor is sent, temporarily, to the next
+ * night of the same name, which says the night they wanted has passed (BK-192). Old links, posters
+ * and short links used to land on 'not found'. Returns only when there is nowhere to send them.
+ */
+async function redirectMovedEventAddress(id: string): Promise<void> {
+  const moved = await anchorAPI.getMovedEventAddress(id)
+  if (!moved) return
+  if (moved.reason === 'renamed') {
+    permanentRedirect(`/events/${encodeURIComponent(moved.slug)}`)
+  }
+  redirect(`/events/${encodeURIComponent(moved.slug)}?from=passed`)
+}
+
 export default async function EventPage({ params }: Props) {
   // Retired slugs are decided by the manifest, not by the API, so answer them
   // before any network call. A retirement is the ONE case that justifies a
@@ -425,12 +449,14 @@ export default async function EventPage({ params }: Props) {
     // keep being bounced after the API recovered, with no server round-trip
     // to correct it.
     rethrowIfTransient(error)
-    // Only a definite 404 reaches here: the event genuinely does not exist.
+    // Only a definite 404 reaches here: the event genuinely does not exist at this address.
+    await redirectMovedEventAddress(params.id)
     notFound()
   }
 
   // getEvent returns null rather than throwing when the API reports 404.
   if (!apiEvent) {
+    await redirectMovedEventAddress(params.id)
     notFound()
   }
 
@@ -709,6 +735,9 @@ export default async function EventPage({ params }: Props) {
         hasEnded={presentation.hasEnded}
       />
 
+      <Suspense fallback={null}>
+        <PassedNightNotice />
+      </Suspense>
       {statusNotice ? (
         // Symmetric vertical padding. This was pt-4 with no bottom padding, which
         // left the notice flush against the hero below it with nothing to separate
