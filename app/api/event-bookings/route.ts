@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse } from '@/lib/error-handling'
 import { reportFailure } from '@/lib/report-failure'
-import { GUEST_FALLBACK, mapUpstreamFailure, toGuestMessage, withGuestPhone } from '@/lib/guest-error-messages'
+import { GUEST_FALLBACK, NO_BOOKING_NEEDED_MESSAGE, ONLINE_BOOKING_CLOSED_MESSAGE, mapUpstreamFailure, toGuestMessage, withGuestPhone } from '@/lib/guest-error-messages'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { safeJsonParse } from '@/lib/upstream-json'
 import { checkSpamProtection } from '@/lib/spam-protection'
@@ -672,7 +672,16 @@ export async function POST(request: NextRequest) {
         'Idempotency-Key': idempotencyKey
       },
       cache: 'no-store',
-      body: JSON.stringify(normalized.payload)
+      // skip_customer_sms (review BK-084): the booking form shows PayPal on the page, so a
+      // "seats held, pay here" text mid-checkout only confuses the guest, and one held by quiet
+      // hours could arrive after they had paid. Sent only when inline PayPal can load at all
+      // (a client id is configured); without one the text is the guest's only pay link. The
+      // management API honours it only for a booking that comes back waiting for payment, and
+      // drops it on a build that does not know it. Same pattern as the table-bookings proxy.
+      body: JSON.stringify({
+        ...normalized.payload,
+        skip_customer_sms: Boolean(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID)
+      })
     })
 
     const rawText = await upstream.text()
@@ -682,8 +691,12 @@ export async function POST(request: NextRequest) {
     const bookingsDisabled = upstream.status === 409 && hasErrorCode(parsed, 'BOOKINGS_DISABLED')
     if (bookingsDisabled) {
       await logBookingNotCompleted('refused', { status: 409, code: 'BOOKINGS_DISABLED', eventId, bookingSource })
+      // "Just turn up" only on a free night. The form sends the ticket price and total, so a
+      // paid or prepaid night is told online booking is closed and given the number (BK-187).
+      const paidNight =
+        (normalized.payload.event_price ?? 0) > 0 || (normalized.payload.expected_total ?? 0) > 0
       return NextResponse.json(
-        { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed, just turn up!' } },
+        { success: false, error: { code: 'BOOKINGS_DISABLED', message: paidNight ? ONLINE_BOOKING_CLOSED_MESSAGE : NO_BOOKING_NEEDED_MESSAGE } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
       )
     }

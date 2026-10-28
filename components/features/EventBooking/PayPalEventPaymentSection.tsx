@@ -1,10 +1,11 @@
 'use client'
 
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { BookingAttributionPayload } from '@/lib/booking-attribution'
 import { EVENT_TICKET_REFUND_WORDING } from '@/lib/approved-wording'
 import { GUEST_FALLBACK, toGuestMessage } from '@/lib/guest-error-messages'
+import { formatLondonClockTime } from '@/lib/time-london'
 
 export interface EventPaymentConversionPayload {
   eventId: string
@@ -37,6 +38,8 @@ interface Props {
   /** Per-ticket-type breakdown, shown in the review box for multi-type bookings. */
   bookingBreakdown?: EventPaymentBreakdownLine[]
   fallbackUrl?: string | null
+  /** When the hold ends, shown beside the buttons (review BK-100). */
+  holdExpiresAt?: string | null
   conversionPayload: EventPaymentConversionPayload
   onSuccess: () => void
   onManualReview: () => void
@@ -65,6 +68,7 @@ export function PayPalEventPaymentSection({
   bookingSummary,
   bookingBreakdown,
   fallbackUrl,
+  holdExpiresAt,
   conversionPayload,
   onSuccess,
   onManualReview,
@@ -73,6 +77,13 @@ export function PayPalEventPaymentSection({
   const [paymentState, setPaymentState] = useState<PaymentState>('idle')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [orderId, setOrderId] = useState<string | null>(null)
+  // The deadline the PayPal order step reports wins over the one from the booking answer.
+  const [orderHoldExpiresAt, setOrderHoldExpiresAt] = useState<string | null>(null)
+  // The reason createOrder found, kept where onError can read it. PayPal calls onError straight
+  // after createOrder throws, before React has applied the state set there, so state alone lost
+  // the reason and the guest saw "please try again" for a hold that had already gone (BK-185).
+  const createOrderFailure = useRef<string | null>(null)
+  const holdUntil = formatLondonClockTime(orderHoldExpiresAt ?? holdExpiresAt)
   const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
 
   if (!clientId) {
@@ -173,7 +184,11 @@ export function PayPalEventPaymentSection({
               </div>
             </div>
           ) : null}
-          <p className="mt-2 text-ink-muted">Pay with PayPal to confirm your booking.</p>
+          <p className="mt-2 text-ink-muted">
+            {holdUntil
+              ? `Pay with PayPal by ${holdUntil} to confirm your booking.`
+              : 'Pay with PayPal to confirm your booking.'}
+          </p>
           <p className="mt-2 text-xs text-ink-muted">{EVENT_TICKET_REFUND_WORDING}</p>
         </div>
 
@@ -192,6 +207,7 @@ export function PayPalEventPaymentSection({
             createOrder={async () => {
               setPaymentState('creating')
               setErrorMessage(null)
+              createOrderFailure.current = null
               const response = await fetch('/api/event-bookings/paypal/create-order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -201,10 +217,12 @@ export function PayPalEventPaymentSection({
               const data = await response.json().catch(() => null)
               if (!response.ok || !data?.orderId) {
                 const message = toGuestMessage(data?.error, 'event_payment')
+                createOrderFailure.current = message
                 setErrorMessage(message)
                 setPaymentState('error')
                 throw new Error(message)
               }
+              if (typeof data.holdExpiresAt === 'string') setOrderHoldExpiresAt(data.holdExpiresAt)
               setOrderId(data.orderId)
               setPaymentState('paying')
               return data.orderId
@@ -222,7 +240,9 @@ export function PayPalEventPaymentSection({
             }}
             onCancel={() => setPaymentState('idle')}
             onError={() => {
-              const message = 'PayPal encountered an error. Please try again.'
+              // The reason createOrder found, when it found one; the generic line only otherwise.
+              const message = createOrderFailure.current ?? 'PayPal encountered an error. Please try again.'
+              createOrderFailure.current = null
               setErrorMessage(message)
               setPaymentState('error')
               onError(message)

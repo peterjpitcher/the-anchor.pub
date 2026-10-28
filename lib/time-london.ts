@@ -199,3 +199,18 @@ export function formatLondonLongDate(dateStr: string): string {
     year: 'numeric'
   })
 }
+/**
+ * An instant as "7:42pm" or "8pm" on the London clock, for a short deadline such as how long a
+ * ticket hold lasts (review BK-100). Reads the London wall clock, never the device's, so a phone
+ * set to another zone still sees the pub's time. Null for a missing or broken value.
+ */
+export function formatLondonClockTime(value: string | Date | null | undefined): string | null {
+  if (!value) return null
+  const instant = value instanceof Date ? value : new Date(value)
+  if (!Number.isFinite(instant.getTime())) return null
+  const { hour, minute } = londonWallClock(instant)
+  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return null
+  const suffix = hour < 12 ? 'am' : 'pm'
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12
+  return minute === 0 ? `${hour12}${suffix}` : `${hour12}:${pad2(minute)}${suffix}`
+}

@@ -23,6 +23,13 @@ import { NON_UK_MOBILE_EMAIL_REQUIRED_MESSAGE } from '@/lib/uk-mobile'
 export const GUEST_PHONE = '01753 682707'
 
 /**
+ * Bookings switched off on a paid or prepaid night, or where we cannot tell (review BK-187).
+ * "No booking is needed, just turn up" is said only on a free night, where it is true.
+ */
+export const ONLINE_BOOKING_CLOSED_MESSAGE = `Online booking is closed for this event. Call ${GUEST_PHONE} to check availability.`
+export const NO_BOOKING_NEEDED_MESSAGE = 'Bookings are not available for this event. No booking is needed, just turn up!'
+
+/**
  * Said by the server and by the forms when a submission has no security token.
  * It carries the number because a guest whose browser never loaded the check
  * has no token to send and nothing more they can do online.
@@ -178,7 +185,9 @@ const EVENT_BOOKING_CODE_COPY: Record<string, string> = {
   BOOKING_QUESTIONS_CHANGED: 'The guest questions have changed. Please check the details for each guest.',
   EVENT_DATE_MISMATCH: 'The details of this event have changed. Please refresh the page and check them before booking.',
   SALES_CLOSED: 'Online ticket sales for this event have closed.',
-  BOOKINGS_DISABLED: 'Bookings are not available for this event. No booking is needed, just turn up!'
+  // Without the event in hand this cannot tell a free night from a paid one, so it says the
+  // thing that is true for both (BK-187).
+  BOOKINGS_DISABLED: ONLINE_BOOKING_CLOSED_MESSAGE
 }
 
 /** Reasons the waitlist function answers with. */
