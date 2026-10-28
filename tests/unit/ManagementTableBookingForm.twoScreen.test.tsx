@@ -91,6 +91,8 @@ function setupFetchMock(options: {
   bookingResponse?: { state: string; [k: string]: unknown }
   capturePayload?: { ref: { current: Record<string, unknown> | null } }
   captureUrls?: { ref: { current: string[] } }
+  // AMS's deposit quote for the party (BK-186); absent means AMS quoted nothing.
+  deposit?: Record<string, unknown>
 }): jest.Mock {
   const fetchMock = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
     const url = typeof input === 'string' ? input : input.toString()
@@ -120,7 +122,8 @@ function setupFetchMock(options: {
             available: result.time_slots.some((s) => s.available),
             time_slots: result.time_slots.map(toWireSlot),
             ...(result.calculation_state ? { calculation_state: result.calculation_state } : {}),
-            ...(result.message ? { message: result.message } : {})
+            ...(result.message ? { message: result.message } : {}),
+            ...(options.deposit ? { deposit: options.deposit } : {})
           }
         })
       )
@@ -359,7 +362,7 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
 
   it('retains the server-verified fixture through deposit completion and tracks it once', async () => {
     const context = rugbyContext()
-    const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS.map(slot => ({ ...slot, available_capacity: 20 })), bookingResponse: { state: 'pending_payment', booking_id: 'tb-paid', booking_reference: 'TB-PAID', deposit_amount: 150, fixture_id: context.fixtureId } })
+    const fallbackFetch = setupFetchMock({ availability: DAY_SLOTS.map(slot => ({ ...slot, available_capacity: 20 })), bookingResponse: { state: 'pending_payment', booking_id: 'tb-paid', booking_reference: 'TB-PAID', deposit_amount: 150, fixture_id: context.fixtureId }, deposit: { party_size: 15, required: true, amount: 150, rule: 'group', reason: null } })
     global.fetch = jest.fn((input, init) => input === '/api/table-bookings/paypal/create-order'
       ? Promise.resolve(jsonResponse({ success: true, orderId: 'TEST-PAYPAL' })) : fallbackFetch(input, init))
     render(<ManagementTableBookingForm prefill={{ date: BOOKING_DATE, partySize: 15 }} fixtureContext={context} />)
@@ -1608,6 +1611,69 @@ describe('ManagementTableBookingForm: two-screen flow', () => {
         'find',
         'details'
       ])
+    })
+  })
+
+  // Release 24 of the customer bookings review of 24 October 2026.
+  describe('the deposit and the party limit come from AMS (BK-186, BK-146)', () => {
+    it("quotes AMS's deposit figure, not a sum of its own", async () => {
+      setupFetchMock({
+        availability: DAY_SLOTS.map((slot) => ({ ...slot, available_capacity: 20 })),
+        // Deliberately not 15 x 10, so only AMS's figure can produce it.
+        deposit: { party_size: 15, required: true, amount: 175, rule: 'group', reason: null }
+      })
+      renderTwoScreen({ date: BOOKING_DATE, partySize: 15 })
+      await findATable()
+      fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
+      await screen.findByLabelText('Mobile Number')
+      await fillPhoneAndName()
+
+      expect(await screen.findByText('£175.00')).toBeInTheDocument()
+      expect(screen.queryByText('£150.00')).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /Confirm and pay deposit/i })).toBeInTheDocument()
+    })
+
+    it('quotes no deposit when AMS says none is owed', async () => {
+      setupFetchMock({
+        availability: DAY_SLOTS.map((slot) => ({ ...slot, available_capacity: 20 })),
+        deposit: { party_size: 15, required: false, amount: 0, rule: 'none', reason: null }
+      })
+      renderTwoScreen({ date: BOOKING_DATE, partySize: 15 })
+      await findATable()
+      fireEvent.click(screen.getByRole('button', { name: /^1pm,/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue with 1pm' }))
+      await screen.findByLabelText('Mobile Number')
+      await fillPhoneAndName()
+
+      expect(screen.queryByText('Deposit due now')).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /^Confirm booking/i })).toBeInTheDocument()
+    })
+
+    it('keeps a party over 20, asks about nothing, and points to a call or private hire', async () => {
+      const captureUrls = { ref: { current: [] as string[] } }
+      setupFetchMock({ availability: DAY_SLOTS, captureUrls })
+      renderTwoScreen({ date: BOOKING_DATE })
+      const input = screen.getByLabelText('Party size')
+      fireEvent.change(input, { target: { value: '25' } })
+      fireEvent.blur(input)
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await act(async () => {})
+
+      expect(input).toHaveValue(25)
+      expect(screen.getByText(/For more than 20 guests, give us a ring on 01753 682707/)).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'Send a private hire enquiry' })).toHaveAttribute('href', '/private-hire')
+      expect(captureUrls.ref.current.filter((url) => url.includes('party_size=25'))).toEqual([])
+      expect(screen.queryByRole('button', { name: /^1pm,/ })).not.toBeInTheDocument()
+    })
+
+    it('keeps a bigger number from the link instead of cutting it to 20', async () => {
+      setupFetchMock({ availability: DAY_SLOTS })
+      renderTwoScreen({ date: BOOKING_DATE, partySize: 30 })
+
+      expect(screen.getByLabelText('Party size')).toHaveValue(30)
+      expect(screen.getByText(/For more than 20 guests/)).toBeInTheDocument()
+      await act(async () => {})
     })
   })
 })

@@ -1,82 +1,34 @@
 /**
- * Boundary tests for the website-side large-group deposit helpers.
- *
- * Walk-in launch (spec §6, §7.3): the website-side rule is purely
- * party-size based. There is no Sunday-lunch deposit, no Saturday-1pm
- * cutoff, and no per-day deposit policy on the website. The management
- * app owns the canonical state-aware deposit calculation; the website
- * just gates UI on the party-size threshold.
- *
- * The threshold is set in `lib/constants.ts` via LARGE_GROUP_DEPOSIT_THRESHOLD
- * (10) and the per-person rate via LARGE_GROUP_DEPOSIT_PER_PERSON_GBP (10).
+ * The website keeps the large-group deposit numbers for WORDING ONLY (BK-186,
+ * customer bookings review of 24 October 2026). The figure a guest is quoted and
+ * charged comes from the management app, so there is no local helper that works
+ * a deposit out, and none may come back.
  */
+import * as constants from '@/lib/constants'
 import {
   LARGE_GROUP_DEPOSIT_PER_PERSON_GBP,
   LARGE_GROUP_DEPOSIT_THRESHOLD,
-  computeLargeGroupDepositAmount,
-  requiresDeposit
+  ONLINE_PARTY_LIMIT,
+  OVERSIZE_PARTY_COPY
 } from '@/lib/constants'
 
-describe('Large-group deposit helpers', () => {
-  describe('requiresDeposit', () => {
-    it('returns false at party size 1', () => {
-      expect(requiresDeposit(1)).toBe(false)
-    })
-
-    it('returns false at party size 14 (just below threshold)', () => {
-      expect(requiresDeposit(14)).toBe(false)
-    })
-
-    it('returns true at party size 15 (the boundary)', () => {
-      expect(requiresDeposit(15)).toBe(true)
-    })
-
-    it('returns true at party size 16 (just above threshold)', () => {
-      expect(requiresDeposit(16)).toBe(true)
-    })
-
-    it('returns true at party size 50', () => {
-      expect(requiresDeposit(50)).toBe(true)
-    })
-
-    it('matches the threshold constant', () => {
-      expect(requiresDeposit(LARGE_GROUP_DEPOSIT_THRESHOLD)).toBe(true)
-      expect(requiresDeposit(LARGE_GROUP_DEPOSIT_THRESHOLD - 1)).toBe(false)
-    })
+describe('Large-group deposit wording numbers', () => {
+  it('match the SSOT policy: 15 or more, GBP 10 a head', () => {
+    expect(LARGE_GROUP_DEPOSIT_THRESHOLD).toBe(15)
+    expect(LARGE_GROUP_DEPOSIT_PER_PERSON_GBP).toBe(10)
   })
 
-  describe('computeLargeGroupDepositAmount', () => {
-    it('returns 0 at party size 1 (below threshold)', () => {
-      expect(computeLargeGroupDepositAmount(1)).toBe(0)
-    })
+  it('has no local deposit calculator any more', () => {
+    expect('requiresDeposit' in constants).toBe(false)
+    expect('computeLargeGroupDepositAmount' in constants).toBe(false)
+  })
+})
 
-    it('returns 0 at party size 14 (below threshold)', () => {
-      expect(computeLargeGroupDepositAmount(14)).toBe(0)
-    })
-
-    it('returns £150 at party size 15 (boundary; £10 per person)', () => {
-      expect(computeLargeGroupDepositAmount(15)).toBe(150)
-    })
-
-    it('returns £160 at party size 16', () => {
-      expect(computeLargeGroupDepositAmount(16)).toBe(160)
-    })
-
-    it('returns £500 at party size 50', () => {
-      expect(computeLargeGroupDepositAmount(50)).toBe(500)
-    })
-
-    it('uses the configured per-person rate', () => {
-      // £10 per head currently; this also documents the unit so a future
-      // rate change has to be a deliberate update to this assertion.
-      expect(LARGE_GROUP_DEPOSIT_PER_PERSON_GBP).toBe(10)
-    })
-
-    it('handles non-finite party size defensively (returns 0, no deposit gating)', () => {
-      // computeLargeGroupDepositAmount short-circuits via requiresDeposit
-      // for unreasonable inputs; the contract is "no deposit if not required".
-      expect(computeLargeGroupDepositAmount(Number.NaN)).toBe(0)
-      expect(computeLargeGroupDepositAmount(-1)).toBe(0)
-    })
+describe('the table booking party limit (owner decision D30)', () => {
+  it('is 20, and a bigger group is pointed to a call and a private booking', () => {
+    expect(ONLINE_PARTY_LIMIT).toBe(20)
+    expect(OVERSIZE_PARTY_COPY).toBe(
+      "For more than 20 guests, give us a ring on 01753 682707 and we'll look after you as a private booking."
+    )
   })
 })
