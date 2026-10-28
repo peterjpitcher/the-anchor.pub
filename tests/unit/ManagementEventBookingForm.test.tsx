@@ -1000,7 +1000,7 @@ describe('ManagementEventBookingForm', () => {
       fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
       fireEvent.click(screen.getByRole('button', { name: 'Book a table' }))
 
-      await screen.findByText('Your seats are currently on hold.')
+      await screen.findByText('Your seats are on hold. Pay now to confirm your booking.')
 
       expect(screen.getByTestId('paypal-buttons')).toBeInTheDocument()
       expect(screen.getByText('Pay with PayPal to confirm your booking.')).toBeInTheDocument()
@@ -1158,7 +1158,7 @@ describe('ManagementEventBookingForm', () => {
         })
 
         submitBooking({ payment_mode: 'prepaid', price_per_seat: 6 })
-        await screen.findByText('Your seats are currently on hold.')
+        await screen.findByText('Your seats are on hold. Pay now to confirm your booking.')
 
         // Payment has not cleared, so there is no night to diarise yet.
         expect(queryCalendarLinks()).toHaveLength(0)
@@ -1177,6 +1177,56 @@ describe('ManagementEventBookingForm', () => {
       } finally {
         delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
       }
+    })
+
+    // Review BK-100: the hold deadline and total, and a way back when the hold has run out.
+    it('says how long the seats are held and what is owed', async () => {
+      respondWith({
+        state: 'pending_payment',
+        booking_id: 'booking-held',
+        reason: null,
+        seats_remaining: 4,
+        next_step_url: 'https://management.orangejelly.co.uk/pay/booking-held',
+        manage_booking_url: null,
+        hold_expires_at: '2099-07-03T18:42:00Z',
+        amount_due: 12,
+        currency: 'GBP'
+      })
+
+      submitBooking({ payment_mode: 'prepaid', price_per_seat: 6 })
+
+      expect(await screen.findByText("We're holding your seats until 7:42pm. Pay before then to confirm your booking.")).toBeInTheDocument()
+      expect(screen.getByText('Total to pay: £12.')).toBeInTheDocument()
+    })
+
+    it('holds the seats again under a fresh key once the hold has run out', async () => {
+      const bodies: Array<{ headers: Record<string, string> }> = []
+      ;(global as any).fetch = jest.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const url = typeof input === 'string' ? input : String(input)
+        if (url !== '/api/event-bookings') throw new Error(`Unexpected fetch call: ${url}`)
+        bodies.push({ headers: (init?.headers ?? {}) as Record<string, string> })
+        return new Response(JSON.stringify({
+          success: true,
+          data: {
+            state: 'pending_payment',
+            booking_id: `booking-${bodies.length}`,
+            reason: null,
+            seats_remaining: 4,
+            next_step_url: 'https://management.orangejelly.co.uk/pay/x',
+            manage_booking_url: null,
+            // The first hold has already ended; the second runs on.
+            hold_expires_at: bodies.length === 1 ? '2000-01-01T00:00:00Z' : '2099-07-03T18:42:00Z'
+          }
+        }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+      })
+
+      submitBooking({ payment_mode: 'prepaid', price_per_seat: 6 })
+      fireEvent.click(await screen.findByRole('button', { name: 'Hold them again' }))
+
+      await screen.findByText(/We're holding your seats until 7:42pm/)
+      expect(bodies).toHaveLength(2)
+      expect(bodies[0].headers['Idempotency-Key']).toBeUndefined()
+      expect(bodies[1].headers['Idempotency-Key']).toMatch(/^evt_rehold_/)
     })
 
     it('offers neither when the event is full and only a waitlist is on the table', async () => {

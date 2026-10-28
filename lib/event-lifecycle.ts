@@ -68,8 +68,10 @@ export function getEventBookingBlockReason(
   // this event, just turn up!" under a banner saying it had ended; a finished
   // sold-out night said to call about cancellations (site review C2-023).
   if (isEventInPast(event, now)) return 'past'
-  if (event.bookings_enabled === false) return 'bookings_disabled'
+  // Sold out first: a full night switched off online must never read "just turn up", or guests
+  // arrive at a full room (review BK-187).
   if (status === 'sold_out') return 'sold_out'
+  if (event.bookings_enabled === false) return 'bookings_disabled'
   return null
 }
 

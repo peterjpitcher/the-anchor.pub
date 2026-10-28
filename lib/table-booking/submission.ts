@@ -105,6 +105,11 @@ export const BLOCKED_REASON_COPY: Record<string, string> = {
   // no copy for it, so a genuine pacing refusal fell through to the generic
   // line below and told the guest nothing they could act on.
   slot_full: 'Our kitchen is fully booked around that time. Please try a slightly earlier or later slot, or give us a ring on 01753 682707.',
+  // BK-144: AMS caps how many drinks guests arrive in each half hour, and the
+  // outside tables are a fixed number. Both used to fall through to the
+  // generic line below.
+  drinks_full: "We've got lots of guests arriving for drinks around then. Please try a slightly earlier or later time, or give us a ring on 01753 682707.",
+  outside_full: "Our outside tables are all taken at that time. Please try another time or a table inside, or give us a ring on 01753 682707.",
   blocked: 'This slot is not available for online booking right now.'
 }
 

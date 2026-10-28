@@ -741,7 +741,9 @@ describe('ManagementTableBookingForm', () => {
                     kitchen_open: true,
                     bookable_purpose: 'food_or_drinks'
                   }
-                ]
+                ],
+                // AMS's quote for this party (BK-186); the form no longer works it out.
+                deposit: { party_size: 15, required: true, amount: 150, rule: 'group', reason: null }
               }
             }),
             {

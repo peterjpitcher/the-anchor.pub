@@ -41,6 +41,7 @@ import { canUseCookieCategory } from '@/lib/cookies'
 import { sendEventBookingFormSignal } from '@/lib/booking-form-signal'
 import dynamic from 'next/dynamic'
 import type { EventPaymentConversionPayload } from './PayPalEventPaymentSection'
+import { EventHoldNotice } from './EventHoldNotice'
 import { GUEST_DETAILS_CONFIRM_ERROR, GUEST_DETAILS_CONFIRM_LABEL, GUEST_DETAILS_PRIVACY_LINE, eventCollectsGuestDetails, reconcileAttendees, resolveAttendeesForSubmit, validateEventAttendees, type EventAttendee } from '@/lib/event-attendees'
 import { CommunicationConsentFields } from '@/components/CommunicationConsentFields'
 import { GUEST_PHONE, guestMessageForBlockedReason, toGuestMessage } from '@/lib/guest-error-messages'
@@ -111,6 +112,11 @@ type EventBookingResult = {
   // through lib/confirmation-notice.ts, where a missing field is "not sent".
   notification_sent?: boolean | null
   notification_channel?: 'email' | 'sms' | null
+  // How long a booking waiting for payment is held, and what it owes (review BK-100). Older
+  // booking-system builds leave them out, and the hold notice copes without them.
+  hold_expires_at?: string | null
+  amount_due?: number | null
+  currency?: string | null
 }
 
 type WaitlistResult = {
@@ -295,6 +301,10 @@ export function ManagementEventBookingForm({
   const submitOutcome = useRef<'sent' | 'server_refused' | 'network' | null>(null)
   // Set while one press's invalid events are being counted (handleInvalidWithSignals).
   const invalidPressSignalled = useRef(false)
+  const formRef = useRef<HTMLFormElement>(null)
+  // Set only by "Hold them again": a fresh key, so the booking system makes a new hold instead of
+  // replaying the one that has just ended (the proxy keys a booking by its details otherwise).
+  const holdAgainKey = useRef<string | null>(null)
   const bookingStartTracked = useRef(false)
   const paymentCompleteTracked = useRef(false)
 
@@ -624,10 +634,13 @@ export function ManagementEventBookingForm({
     try {
       // Until the booking system answers, anything that stops this is the connection.
       submitOutcome.current = 'network'
+      const rebookKey = holdAgainKey.current
+      holdAgainKey.current = null
       const response = await fetch('/api/event-bookings', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...(rebookKey ? { 'Idempotency-Key': rebookKey } : {})
         },
         body: JSON.stringify({
           event_id: event.id,
@@ -874,6 +887,14 @@ export function ManagementEventBookingForm({
     setPaymentConversionPayload(null)
   }
 
+  // The hold ran out before payment. The details are still in the form, so it is sent again
+  // under a fresh key, which makes a new 15-minute hold if the seats are still there.
+  function handleHoldAgain() {
+    holdAgainKey.current = `evt_rehold_${typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : Date.now().toString(36)}`
+    setError(null)
+    formRef.current?.requestSubmit()
+  }
+
   function handleEventPaymentManualReview() {
     trackEventBookingFunnelStep({
       step: 'blocked',
@@ -992,7 +1013,7 @@ export function ManagementEventBookingForm({
           <p className="text-sm font-semibold leading-snug text-accent-text">{bookingReassurance}</p>
         </div>
 
-        <form onSubmit={handleSubmitWithSignals} onInvalid={handleInvalidWithSignals} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
+        <form ref={formRef} onSubmit={handleSubmitWithSignals} onInvalid={handleInvalidWithSignals} onChange={handleFormChange} className={compact ? 'space-y-3' : 'space-y-4'}>
           {isMultiTypeEvent ? (
             <fieldset className="space-y-3 rounded-sm border border-line bg-surface-sunk p-3">
               <legend className="px-1 text-sm font-semibold text-ink">Choose your tickets</legend>
@@ -1444,7 +1465,12 @@ export function ManagementEventBookingForm({
 
         {result?.state === 'pending_payment' && (
           <Alert variant="warning" title={`Payment needed to secure your ${submittedTicketLabel}`}>
-            <p>Your {submittedTicketLabel} are currently on hold.</p>
+            <EventHoldNotice
+              holdExpiresAt={result.hold_expires_at}
+              ticketLabel={submittedTicketLabel}
+              amountDue={submittedTicketBreakdown.length > 0 ? null : result.amount_due}
+              onHoldAgain={handleHoldAgain}
+            />
             {submittedBreakdownBlock}
             {fellBackToStanding ? (
               <p className="mt-2">There were not enough seats for your group, so we have held standing tickets. No table seat is included.</p>
@@ -1455,6 +1481,7 @@ export function ManagementEventBookingForm({
                 bookingSummary={`${event.name} · ${paymentConversionPayload.tickets} ${paymentConversionPayload.tickets === 1 ? 'ticket' : 'tickets'}`}
                 bookingBreakdown={submittedTicketBreakdown}
                 fallbackUrl={result.next_step_url}
+                holdExpiresAt={result.hold_expires_at}
                 conversionPayload={paymentConversionPayload}
                 onSuccess={handleEventPaymentSuccess}
                 onManualReview={handleEventPaymentManualReview}
