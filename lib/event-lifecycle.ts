@@ -79,8 +79,10 @@ export function getEventBookingBlockReason(
   // this event, just turn up!" under a banner saying it had ended; a finished
   // sold-out night said to call about cancellations (site review C2-023).
   if (isEventInPast(event, now)) return 'past'
-  if (event.bookings_enabled === false) return 'bookings_disabled'
+  // Sold out first: a full night switched off online must never read "just turn up", or guests
+  // arrive at a full room (review BK-187).
   if (status === 'sold_out') return 'sold_out'
+  if (event.bookings_enabled === false) return 'bookings_disabled'
   // The management app's own answer (BK-035). It closes a night for reasons the fields above do
   // not show, such as a reinstated night still closed or a whole-pub private hire, so the form
   // is hidden whenever a booking would be refused. The sales close time keeps its own panel.

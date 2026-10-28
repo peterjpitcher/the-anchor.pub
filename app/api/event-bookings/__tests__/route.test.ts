@@ -636,3 +636,93 @@ describe('refused and failed bookings are logged without personal data', () => {
     }
   })
 })
+
+// Review BK-084: the form shows PayPal on the page, so the booking system is asked not to text
+// a pay link as well. Only when inline PayPal can load at all.
+describe('skip_customer_sms', () => {
+  const ORIGINAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+  afterEach(() => {
+    if (ORIGINAL_CLIENT_ID === undefined) delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+    else process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = ORIGINAL_CLIENT_ID
+  })
+
+  it('asks for no pay-link text when PayPal buttons can show', async () => {
+    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = 'client-id'
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    await POST(buildRequest({ ...VALID_BASE, event_price: 5 }) as any)
+
+    expect(JSON.parse(String(calls[0].init.body)).skip_customer_sms).toBe(true)
+  })
+
+  it('keeps the text when PayPal cannot load, since it is the only pay link', async () => {
+    delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    await POST(buildRequest({ ...VALID_BASE, event_price: 5 }) as any)
+
+    expect(JSON.parse(String(calls[0].init.body)).skip_customer_sms).toBe(false)
+  })
+
+  it('leaves the flag out of the idempotency key, so a retry is the same booking', async () => {
+    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = 'client-id'
+    const first = installUpstreamFetch()
+    const POST = await getPostHandler()
+    await POST(buildRequest({ ...VALID_BASE, event_price: 5 }) as any)
+    delete process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+    const second = installUpstreamFetch()
+    await POST(buildRequest({ ...VALID_BASE, event_price: 5 }) as any)
+
+    const key = (call: { init: RequestInit }) => (call.init.headers as Record<string, string>)['Idempotency-Key']
+    expect(key(first[0])).toBe(key(second[0]))
+  })
+
+  it('passes a "hold them again" key from the form through unchanged', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+    const request = new Request('http://localhost/api/event-bookings', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'Idempotency-Key': 'evt_rehold_abc' },
+      body: JSON.stringify({ ...VALID_BASE, event_price: 5 }),
+    })
+
+    await POST(request as any)
+
+    expect((calls[0].init.headers as Record<string, string>)['Idempotency-Key']).toBe('evt_rehold_abc')
+  })
+})
+
+// Review BK-187: "just turn up" only on a free night.
+describe('bookings switched off', () => {
+  function installBookingsDisabled() {
+    ;(global as any).fetch = jest.fn(async () =>
+      new Response(JSON.stringify({ success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings disabled' } }), {
+        status: 409,
+        headers: { 'content-type': 'application/json' },
+      })
+    )
+  }
+
+  it('tells a paid-night guest online booking is closed, with the number', async () => {
+    installBookingsDisabled()
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequest({ ...VALID_BASE, event_price: 5 }) as any)
+    const body = await res.json()
+
+    expect(res.status).toBe(409)
+    expect(body.error.message).toBe('Online booking is closed for this event. Call 01753 682707 to check availability.')
+  })
+
+  it('keeps "just turn up" for a free night', async () => {
+    installBookingsDisabled()
+    const POST = await getPostHandler()
+
+    const res = await POST(buildRequest({ ...VALID_BASE }) as any)
+    const body = await res.json()
+
+    expect(body.error.message).toBe('Bookings are not available for this event. No booking is needed, just turn up!')
+  })
+})

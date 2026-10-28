@@ -177,4 +177,44 @@ describe('PayPalEventPaymentSection', () => {
       process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID = previous
     }
   })
+
+  // BK-185: PayPal calls onError straight after createOrder throws. The reason createOrder found
+  // used to be replaced by "PayPal encountered an error. Please try again.", which cannot work for
+  // a hold that has run out.
+  it('passes the hold-expired reason to the form when PayPal reports the failed order', async () => {
+    mockFetch.mockResolvedValueOnce({ ok: false, status: 410, json: async () => ({ success: false, error: 'hold_expired' }) })
+    const props = renderSection()
+
+    fireEvent.click(screen.getByTestId('paypal-create'))
+    await waitFor(() => expect(screen.getByText(/run out/)).toBeInTheDocument())
+    fireEvent.click(screen.getByTestId('paypal-error'))
+
+    expect(props.onError).toHaveBeenCalledTimes(1)
+    const message = (props.onError as jest.Mock).mock.calls[0][0]
+    expect(message).toMatch(/run out/)
+    expect(message).not.toMatch(/PayPal encountered an error/)
+  })
+
+  it('uses the general line only when no order failure explains the error', () => {
+    const props = renderSection()
+
+    fireEvent.click(screen.getByTestId('paypal-error'))
+
+    expect(props.onError).toHaveBeenCalledWith('PayPal encountered an error. Please try again.')
+  })
+
+  // BK-100: the deadline beside the buttons, on the London clock.
+  it('says when to pay by, in London time', () => {
+    renderSection({ holdExpiresAt: '2026-07-03T18:42:00Z' })
+    expect(screen.getByText('Pay with PayPal by 7:42pm to confirm your booking.')).toBeInTheDocument()
+  })
+
+  it('takes the deadline the order step reports', async () => {
+    mockFetch.mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ orderId: 'ORDER-1', holdExpiresAt: '2026-11-20T19:15:00Z' }) })
+    renderSection({ holdExpiresAt: '2026-11-20T19:10:00Z' })
+
+    fireEvent.click(screen.getByTestId('paypal-create'))
+
+    await waitFor(() => expect(screen.getByText('Pay with PayPal by 7:15pm to confirm your booking.')).toBeInTheDocument())
+  })
 })
