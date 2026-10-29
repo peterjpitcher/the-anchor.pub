@@ -32,7 +32,8 @@ export function isFutureEvent(event: Pick<Event, 'startDate' | 'endDate' | 'dura
 }
 
 export function isBookableEvent(
-  event: Pick<Event, 'startDate' | 'endDate' | 'duration' | 'event_status' | 'eventStatus' | 'bookings_enabled'>,
+  event: Pick<Event, 'startDate' | 'endDate' | 'duration' | 'event_status' | 'eventStatus' | 'bookings_enabled'> &
+    Partial<Pick<Event, 'bookable'>>,
   now: number = Date.now()
 ): boolean {
   if (!isFutureEvent(event, now)) return false
@@ -41,6 +42,10 @@ export function isBookableEvent(
   if (rawStatus.includes('cancel')) return false
   if (rawStatus.includes('draft')) return false
   if (rawStatus.includes('sold out')) return false
+  // A postponed night has no date to book (BK-089).
+  if (rawStatus.includes('postpon')) return false
+  // The management app's own answer, when it gives one (BK-035).
+  if (event.bookable === false) return false
 
   return event.bookings_enabled !== false
 }

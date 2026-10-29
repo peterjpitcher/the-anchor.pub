@@ -9,7 +9,15 @@ export type EventStatus =
   | 'sold_out'
   | 'unknown'
 
-export type EventBookingBlockReason = 'draft' | 'cancelled' | 'bookings_disabled' | 'sold_out' | 'past' | null
+export type EventBookingBlockReason =
+  | 'draft'
+  | 'cancelled'
+  | 'postponed'
+  | 'bookings_disabled'
+  | 'sold_out'
+  | 'past'
+  | 'closed'
+  | null
 
 function normalizeText(value: unknown): string {
   return typeof value === 'string' ? value.trim().toLowerCase() : ''
@@ -56,12 +64,15 @@ export function isEventBookingClosed(
 }
 
 export function getEventBookingBlockReason(
-  event: Pick<Event, 'event_status' | 'eventStatus' | 'startDate' | 'bookings_enabled'>,
+  event: Pick<Event, 'event_status' | 'eventStatus' | 'startDate' | 'bookings_enabled'> &
+    Partial<Pick<Event, 'bookable' | 'booking_closed_reason'>>,
   now: number = Date.now()
 ): EventBookingBlockReason {
   const status = normalizeEventStatus(event)
   if (status === 'draft') return 'draft'
   if (status === 'cancelled') return 'cancelled'
+  // A postponed night has no date to book, and the management app refuses it (BK-089).
+  if (status === 'postponed') return 'postponed'
   // Asked before the two reasons below, which only mean something while the
   // night is still to come. A finished night that never took bookings used to
   // answer 'bookings_disabled', and its page said "No booking is needed for
@@ -72,6 +83,12 @@ export function getEventBookingBlockReason(
   // arrive at a full room (review BK-187).
   if (status === 'sold_out') return 'sold_out'
   if (event.bookings_enabled === false) return 'bookings_disabled'
+  // The management app's own answer (BK-035). It closes a night for reasons the fields above do
+  // not show, such as a reinstated night still closed or a whole-pub private hire, so the form
+  // is hidden whenever a booking would be refused. The sales close time keeps its own panel.
+  if (event.bookable === false && event.booking_closed_reason !== 'sales_closed' && event.booking_closed_reason !== 'event_started') {
+    return 'closed'
+  }
   return null
 }
 

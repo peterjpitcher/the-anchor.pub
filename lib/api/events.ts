@@ -162,6 +162,10 @@ export interface Event {
   // Optional absolute instant (ISO-8601) after which ONLINE ticket sales close.
   // null/undefined = no explicit cutoff (sales open until the event starts).
   booking_cutoff_at?: string | null
+  // The management app's answer to "can a guest book this online now?" and, when not, why
+  // (BK-035, BK-089). Absent from older responses, so treat undefined as no answer.
+  bookable?: boolean
+  booking_closed_reason?: 'not_bookable' | 'booking_closed' | 'bookings_disabled' | 'sales_closed' | 'event_started' | null
   cancellation_policy?: string | null
   accessibility_notes?: string | null
   previous_event_summary?: string | null
