@@ -33,6 +33,11 @@ type LegacyPrivateBookingPayload = {
     event_type?: string
     internal_notes?: string
     communication_consent?: CommunicationConsentPayload
+    // What the guest chose, sent on as fields (BK-188).
+    space_id?: string
+    room_name?: string
+    hire_hours?: number
+    reply_preference?: string
     items?: Array<{
         description?: string
         quantity?: number
@@ -104,6 +109,28 @@ function toNotes(payload: LegacyPrivateBookingPayload): string | undefined {
     return lines.join('\n')
 }
 
+const REPLY_PREFERENCES = ['phone', 'email', 'no_preference'] as const
+type ReplyPreference = (typeof REPLY_PREFERENCES)[number]
+
+function asReplyPreference(value: unknown): ReplyPreference | undefined {
+    const text = asTrimmedString(value)?.toLowerCase().replace(/\s+/g, '_')
+    return (REPLY_PREFERENCES as readonly string[]).includes(text ?? '') ? (text as ReplyPreference) : undefined
+}
+
+function replyPreferenceLabel(value: ReplyPreference | undefined): string {
+    if (value === 'phone') return 'Phone'
+    if (value === 'email') return 'Email'
+    return 'No preference'
+}
+
+/** The room the guest asked for: the estimator's space, or the room the short form was opened for. */
+function roomAskedFor(pb: LegacyPrivateBookingPayload): string | undefined {
+    const named = asTrimmedString(pb.room_name)
+    if (named) return named
+    const spaceItem = (Array.isArray(pb.items) ? pb.items : []).find(item => asTrimmedString(item.description))
+    return asTrimmedString(pb.space_id) ? spaceItem?.description?.replace(/ Hire \(.*\)$/, '') : undefined
+}
+
 // These enquiries are worth four figures each, so the management call gets
 // three attempts with short backoff before the email fallback takes over.
 const MANAGEMENT_ATTEMPTS = 3
@@ -135,6 +162,9 @@ function buildPrivateBookingFallbackEmail(
         ['Event date', asTrimmedString(pb.event_date) || 'Not given'],
         ['Start time', asTrimmedString(pb.start_time) || 'Not given'],
         ['Guests', String(asPositiveInt(pb.guest_count) ?? 'Not given')],
+        ['Room asked for', roomAskedFor(pb) || 'Not given'],
+        ['Hire length', asPositiveInt(pb.hire_hours) ? `${asPositiveInt(pb.hire_hours)} hours` : 'Not given'],
+        ['Reply by', replyPreferenceLabel(asReplyPreference(pb.reply_preference))],
         ['Notes', asTrimmedString(pb.internal_notes) || 'None'],
         ['Requested items', (Array.isArray(pb.items) ? pb.items : [])
             .map(item => `${asTrimmedString(item.description) || 'Item'} x${asPositiveInt(item.quantity) || 1}`)
@@ -224,7 +254,13 @@ export async function POST(request: NextRequest) {
             ...(asTrimmedString(pb.start_time) ? { time: asTrimmedString(pb.start_time) } : {}),
             ...(groupSize ? { group_size: groupSize } : {}),
             ...(notes ? { notes } : {}),
-            ...(communicationConsent ? { communication_consent: communicationConsent } : {})
+            ...(communicationConsent ? { communication_consent: communicationConsent } : {}),
+            // BK-188: as fields, so the team does not re-key them from the notes. The management
+            // app ignores fields it does not know, so these are safe to send before it reads them.
+            ...(asTrimmedString(pb.space_id) ? { space_id: asTrimmedString(pb.space_id) } : {}),
+            ...(asTrimmedString(pb.room_name) ? { room_name: asTrimmedString(pb.room_name) } : {}),
+            ...(asPositiveInt(pb.hire_hours) ? { hire_hours: asPositiveInt(pb.hire_hours) } : {}),
+            ...(asReplyPreference(pb.reply_preference) ? { reply_preference: asReplyPreference(pb.reply_preference) } : {})
         }
 
         // The notice key is forwarded but left out of the key, so an enquiry gives the key it
@@ -288,36 +324,43 @@ export async function POST(request: NextRequest) {
             if (!retryable) break
         }
 
-        const upstreamOk = res !== null && res.ok
+        // A success with no booking id we can read is not a saved enquiry we can point to. It takes
+        // the outage path, so the enquiry is emailed to the team rather than lost (BK-188).
+        const upstreamSaved = res !== null && res.ok &&
+            Boolean(asTrimmedString(data?.booking_id) || asTrimmedString(data?.reference))
+        const upstreamOk = upstreamSaved
 
         if (!upstreamOk) {
             const status = res?.status ?? 0
 
+            const unreadableSuccess = res !== null && res.ok
             const mapped = res === null
                 ? { kind: 'failed' as const, code: API_KEY ? 'NO_RESPONSE' : 'API_KEY_MISSING', message: GUEST_FALLBACK.private_hire }
-                : mapUpstreamFailure({ status, body: data, context: 'private_hire', trustValidationSentences: true })
+                : unreadableSuccess
+                    ? { kind: 'failed' as const, code: 'UNREADABLE_SUCCESS', message: GUEST_FALLBACK.private_hire }
+                    : mapUpstreamFailure({ status, body: data, context: 'private_hire', trustValidationSentences: true })
 
             // The management app sends a stable code beside its sentence on
             // this route. Where it is one we know, the code decides what
             // happened; where there is none, the status does, as before.
-            const codeSettlesIt = res !== null && kindForUpstreamCode(mapped.code) !== null
+            const codeSettlesIt = res !== null && !unreadableSuccess && kindForUpstreamCode(mapped.code) !== null
 
             // This exact submission is already in flight or already recorded
             // upstream, so the lead is not lost and must not be emailed again.
-            const isDuplicate = codeSettlesIt ? DUPLICATE_SUBMISSION_CODES.has(mapped.code) : status === 409
+            const isDuplicate = unreadableSuccess ? false : codeSettlesIt ? DUPLICATE_SUBMISSION_CODES.has(mapped.code) : status === 409
 
             // Only a detail the guest typed is theirs to correct. A 401, 403,
             // 404 or 429 used to be shown to them as if they could fix it;
             // those are faults on our side and are reported as such. So is a
             // 400 that is about our request and not their details (a missing
             // idempotency key), which the code now tells apart.
-            const guestCanFixIt = codeSettlesIt ? mapped.code === 'VALIDATION_ERROR' : status === 400 || status === 422
+            const guestCanFixIt = unreadableSuccess ? false : codeSettlesIt ? mapped.code === 'VALIDATION_ERROR' : status === 400 || status === 422
 
             await reportFailure({
                 route: ROUTE,
                 kind: guestCanFixIt || isDuplicate ? 'refused' : 'failed',
                 status: res === null ? null : status,
-                reason: !API_KEY ? 'API_KEY_MISSING' : res === null ? 'NO_RESPONSE' : 'UPSTREAM_NOT_OK',
+                reason: !API_KEY ? 'API_KEY_MISSING' : res === null ? 'NO_RESPONSE' : unreadableSuccess ? 'UPSTREAM_UNREADABLE_SUCCESS' : 'UPSTREAM_NOT_OK',
                 upstreamCode: mapped.code,
                 page,
                 error: transportError ?? undefined
@@ -327,7 +370,7 @@ export async function POST(request: NextRequest) {
                 // The enquiry reached us, so it reaches a human either way.
                 // This is the difference between a bad day and a lost booking.
                 const fallback = await sendEnquiryFallbackEmail(
-                    buildPrivateBookingFallbackEmail(pb, mappedPayload, status || 'network error')
+                    buildPrivateBookingFallbackEmail(pb, mappedPayload, unreadableSuccess ? `${status} with no booking reference` : status || 'network error')
                 )
 
                 // A 400 or a 422 is something the guest can correct, so they
@@ -360,7 +403,7 @@ export async function POST(request: NextRequest) {
             // returned whole, in whatever shape it arrived.
             return NextResponse.json(
                 { success: false, error: { code: mapped.code, message: mapped.message } },
-                { status: status || 502 }
+                { status: unreadableSuccess ? 502 : status || 502 }
             )
         }
 

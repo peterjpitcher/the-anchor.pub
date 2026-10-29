@@ -239,7 +239,7 @@ describe('AX-010 and AX-016: the private hire enquiry fields', () => {
 
     // Every box is on screen from the start: the number is no longer checked
     // before the rest appear (review BK-107).
-    expect(screen.getByRole('button', { name: /send inquiry/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /send enquiry/i })).toBeInTheDocument()
 
     expect(screen.getByLabelText(/First Name/)).toHaveAttribute('autocomplete', 'given-name')
     expect(screen.getByLabelText(/Last Name/)).toHaveAttribute('autocomplete', 'family-name')

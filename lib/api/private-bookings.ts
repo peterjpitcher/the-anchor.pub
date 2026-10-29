@@ -75,6 +75,15 @@ export interface PrivateBookingRequest {
   event_type?: string
   internal_notes?: string
   items?: PrivateBookingItem[]
+  /**
+   * What the guest chose on the form, sent as fields so the team does not re-key them from the
+   * notes (BK-188): the room they would like (it holds nothing), the hours the estimate was priced
+   * on, and how they would like a reply.
+   */
+  space_id?: string
+  room_name?: string
+  hire_hours?: number
+  reply_preference?: 'phone' | 'email' | 'no_preference'
   communication_consent?: CommunicationConsentPayload
   // Spam protection fields, checked server-side, not forwarded upstream
   turnstile_token?: string

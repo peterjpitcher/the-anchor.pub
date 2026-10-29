@@ -34,7 +34,9 @@ export function PrivateBookingInquiryForm({
     onCancel,
 }: Props) {
     const [loading, setLoading] = useState(false)
-    const [success, setSuccess] = useState(false)
+    // 'saved' when the management app holds the enquiry; 'emailed' when it could not take it and
+    // the enquiry reached the team by email instead (BK-188). The two say different things.
+    const [accepted, setAccepted] = useState<'saved' | 'emailed' | null>(null)
     // Ties each label to its control. The labels sat beside the fields with
     // nothing joining them, so a screen reader announced nine unnamed boxes
     // (site review AX-010, 7 October 2026).
@@ -110,14 +112,22 @@ export function PrivateBookingInquiryForm({
                 customer_last_name: formData.customer_last_name?.trim() || '',
                 contact_email: formData.contact_email?.trim() || '',
                 items: bookingItems,
+                // The room and hours as fields (BK-188).
+                ...(initialData?.space_id ? { space_id: initialData.space_id } : {}),
+                ...(initialData?.hire_hours ? { hire_hours: initialData.hire_hours } : {}),
                 communication_consent: buildCommunicationConsentPayload(communicationConsent, 'service_notice_v6'),
                 ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
                 ...(honeypot ? { website: honeypot } : {}),
                 _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
             })
 
+            const emailed = (response as { state?: string }).state === 'enquiry_emailed'
             if (response.success) {
-                setSuccess(true)
+                setAccepted(emailed ? 'emailed' : 'saved')
+            }
+            // Counted only when the enquiry is saved, as the short form does: an emailed one is
+            // our outage, not a submitted enquiry.
+            if (response.success && !emailed) {
                 trackPrivateHireEnquirySubmitted({
                     enquiryType: formData.event_type,
                     guestCount: formData.guest_count,
@@ -125,7 +135,7 @@ export function PrivateBookingInquiryForm({
                     ...(analyticsSpaceId ? { spaceId: analyticsSpaceId } : {}),
                     ...(trackingSpaceName ? { spaceName: trackingSpaceName } : {}),
                 })
-            } else {
+            } else if (!response.success) {
                 // Always a string by the time it reaches state. Whatever shape
                 // the answer took, the form shows a sentence and keeps every
                 // field as the guest left it.
@@ -140,7 +150,7 @@ export function PrivateBookingInquiryForm({
         }
     }
 
-    if (success) {
+    if (accepted) {
         return (
             <div className="bg-surface rounded-md p-8 text-center animate-in fade-in zoom-in duration-300 border border-line shadow-sm">
                 <div className="w-16 h-16 bg-anchor-green/10 text-accent rounded-full flex items-center justify-center mx-auto mb-4">
@@ -148,10 +158,14 @@ export function PrivateBookingInquiryForm({
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                 </div>
-                <h3 className="text-2xl font-semibold text-ink-strong mb-2">Inquiry Received!</h3>
+                <h3 className="text-2xl font-semibold text-ink-strong mb-2">
+                    {accepted === 'saved' ? 'Enquiry received' : 'Enquiry emailed to our team'}
+                </h3>
                 <p className="text-ink-muted mb-6">
-                    We have received your details. Since this is a private booking, we need to confirm availability manually.
-                    Expect a text message or call from us shortly!
+                    {accepted === 'emailed'
+                        ? 'Our booking system could not save your enquiry, but the team has your details by email. '
+                        : ''}
+                    We&apos;ll email or call you to talk through availability. This enquiry doesn&apos;t hold your date or confirm a booking.
                 </p>
                 <button
                     onClick={() => window.location.href = '/'}
@@ -166,7 +180,7 @@ export function PrivateBookingInquiryForm({
     return (
         <div className="bg-surface rounded-md overflow-hidden border border-line shadow-sm">
             <div className="p-6 border-b border-line flex justify-between items-center bg-surface-sunk">
-                <h3 className="text-xl font-semibold text-ink-strong">Complete Your Inquiry</h3>
+                <h3 className="text-xl font-semibold text-ink-strong">Complete Your Enquiry</h3>
                 {onCancel && (
                     <button onClick={onCancel} className="text-ink-muted hover:text-ink">
                         Cancel
@@ -360,7 +374,7 @@ export function PrivateBookingInquiryForm({
                         disabled={loading || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
                         className="min-w-0 w-full max-w-full break-words px-6 py-3 bg-anchor-gold-dark hover:bg-anchor-green text-white font-semibold rounded-pill shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors md:w-auto md:px-8"
                     >
-                        {loading ? 'Submitting...' : 'Send Inquiry'}
+                        {loading ? 'Sending...' : 'Send Enquiry'}
                     </button>
                 </div>
             </form>

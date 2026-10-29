@@ -8,10 +8,11 @@ import { CommunicationConsentFields } from '@/components/CommunicationConsentFie
 import { DEFAULT_COMMUNICATION_CONSENT_STATE, buildCommunicationConsentPayload } from '@/lib/communication-consent'
 import { trackPrivateHireEnquiryStarted, trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
 import { SECURITY_CHECK_REQUIRED_MESSAGE, toGuestMessage } from '@/lib/guest-error-messages'
+import { getEstimatorSpaceNames, type VenueTourSpaceId } from '@/components/private-hire/venue-tour/venue-tour-data'
 
 interface PrivateHireQuickEnquiryProps {
   eventType?: string
-  initialSpaceId?: string
+  initialSpaceId?: VenueTourSpaceId
 }
 
 // border-line-field: 3:1 or better against the field in both skins, where
@@ -21,6 +22,8 @@ const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHireQuickEnquiryProps): JSX.Element {
   const id = useId()
+  // The room by the name the management app knows it by, as the estimator matches it (BK-188).
+  const roomName = initialSpaceId ? getEstimatorSpaceNames(initialSpaceId)[0] : undefined
   const [occasion, setOccasion] = useState(eventType || '')
   const [date, setDate] = useState('')
   const [undecided, setUndecided] = useState(true)
@@ -94,6 +97,9 @@ export function PrivateHireQuickEnquiry({ eventType, initialSpaceId }: PrivateHi
           ...(email.trim() ? { contact_email: email.trim() } : {}),
           event_type: occasion.trim(), guest_count: Number(guests),
           ...(!undecided ? { event_date: date } : {}),
+          // The room and the reply choice as fields, so the team does not re-key them (BK-188).
+          ...(roomName ? { room_name: roomName } : {}),
+          reply_preference: reply === 'Phone' ? 'phone' : reply === 'Email' ? 'email' : 'no_preference',
           internal_notes: [
             `Website short enquiry: ${window.location.pathname}`,
             ...(initialSpaceId ? [`Space of interest: ${initialSpaceId}`] : []),

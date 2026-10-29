@@ -227,3 +227,57 @@ describe('a rejection the guest can act on is shown to them', () => {
     expect(mockSendEnquiryFallbackEmail).not.toHaveBeenCalled()
   })
 })
+
+// BK-188: the room, the hours and the reply choice go on as fields, and a success the route
+// cannot read is not taken as a saved enquiry.
+describe('the choices the forms carry', () => {
+  it('forwards the room, the hire hours and the reply choice as fields', async () => {
+    const { POST, calls } = await loadRoute(() =>
+      new Response(JSON.stringify({ booking_id: 'pb-1', reference: 'PB-1' }), { status: 201 })
+    )
+
+    await POST(post({ ...VALID_BODY, space_id: '18a63e17-3169-40de-bc09-289f44abefa0', hire_hours: 5, reply_preference: 'email' }) as any)
+
+    expect(bodyOf(calls[0])).toMatchObject({
+      space_id: '18a63e17-3169-40de-bc09-289f44abefa0',
+      hire_hours: 5,
+      reply_preference: 'email',
+    })
+  })
+
+  it('forwards the room the short form names, and leaves out a reply choice it does not know', async () => {
+    const { POST, calls } = await loadRoute(() =>
+      new Response(JSON.stringify({ booking_id: 'pb-1' }), { status: 201 })
+    )
+
+    await POST(post({ ...VALID_BODY, room_name: 'The Dining Room', reply_preference: 'carrier pigeon' }) as any)
+
+    const sent = bodyOf(calls[0])
+    expect(sent.room_name).toBe('The Dining Room')
+    expect(sent).not.toHaveProperty('reply_preference')
+  })
+
+  it('sends the enquiry to the team by email when a success carries no booking reference', async () => {
+    const { POST } = await loadRoute(() => new Response(JSON.stringify({ success: true }), { status: 201 }))
+
+    const response = await POST(post({ ...VALID_BODY, room_name: 'The Dining Room', hire_hours: 4, reply_preference: 'phone' }) as any)
+    const body = await response.json()
+
+    expect(mockSendEnquiryFallbackEmail).toHaveBeenCalledTimes(1)
+    const email = mockSendEnquiryFallbackEmail.mock.calls[0][0]
+    expect(email.textContent).toContain('Reason: 201 with no booking reference')
+    expect(email.textContent).toContain('Room asked for: The Dining Room')
+    expect(email.textContent).toContain('Hire length: 4 hours')
+    expect(email.textContent).toContain('Reply by: Phone')
+    expect(body).toMatchObject({ success: true, state: 'enquiry_emailed' })
+  })
+
+  it('does the same when a success is not JSON at all', async () => {
+    const { POST } = await loadRoute(() => new Response('<html>ok</html>', { status: 200 }))
+
+    const body = await (await POST(post() as any)).json()
+
+    expect(mockSendEnquiryFallbackEmail).toHaveBeenCalledTimes(1)
+    expect(body.state).toBe('enquiry_emailed')
+  })
+})
