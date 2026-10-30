@@ -220,9 +220,6 @@ const REMOVED_BY_P11: ReadonlyArray<RemovedClaim> = [
   {
     claim: 'a date that "always books up" or "fills up fast" (C1-029)',
     pattern: /\balways (?:books?|fills?|sells?|gets? booked)(?: \w+)? (?:up|out)\b|\b(?:books?|fills?|sells?|booked) (?:up|out) (?:fast|quickly|early|every year|weeks (?:ahead|in advance))\b|\bbusiest (?:days?|nights?|Sundays?|weekends?|times?) of (?:the|our) year\b/i,
-    // Three booking prompts say "Sunday roast books up fast". They belong to the
-    // floating-layers package, which is deciding which of them survive.
-    except: /^components\/(?:conversion\/|sunday-lunch\/TimedBookingPrompt\.tsx$)/,
   },
   {
     claim: 'a track record in numbers: "hundreds of wakes", "hosted many" (C1-030)',

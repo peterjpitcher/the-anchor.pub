@@ -95,7 +95,7 @@ function getSundayLunchFaqs() {
     },
     {
       question: "Where can I get a Sunday roast near Heathrow Airport?",
-      answer: `The Anchor in Stanwell Moor is around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking, roasts carved when you order and no booking needed.`
+      answer: `The Anchor in Stanwell Moor is around ${HEATHROW_TIMES.terminal5} minutes from Terminal 5, traffic dependent, with free parking and roasts carved when you order. Walk in, or book if you'd rather.`
     },
     {
       question: 'Is there parking, and is it free?',
@@ -175,7 +175,7 @@ export default async function SundayRoastPage() {
             <Badge variant="sand">Roasts {sundayMenu.priceFromLabel}</Badge>
           ) : undefined
         }
-        lead="Choose a time for your Sunday roast, then order at the table. Booking is recommended for groups and peak times. Walk-ins are welcome too, with no pre-order needed."
+        lead="Roasts carved fresh from 1pm to 6pm. Walk in whenever suits you, or book if you're a group or want a set time. There's nothing to order in advance."
         actions={
           <>
             <BookTableButton
@@ -290,10 +290,10 @@ export default async function SundayRoastPage() {
         <div className="container">
           <div className="mx-auto">
             <h2 className="mb-4 text-h3 text-ink-strong">
-              Choose Your Table, Order When You Arrive
+              Walk In or Book, Then Order at the Table
             </h2>
             <p className="mb-6 leading-relaxed text-ink-muted">
-              Book a table for the time that suits your Sunday, especially for a group or a peak slot. There is no pre-order or Saturday cut-off: choose your roast when you arrive. Prefer to decide on the day? Walk-ins are welcome too. Check the booking calendar for available times.
+              Sundays work two ways. Walk in whenever suits you, or book if you&apos;re a group or want a set time. We strongly recommend booking for groups and peak slots, but you don&apos;t have to. There&apos;s no pre-order and no Saturday cut-off, so you choose your roast when you sit down. The booking calendar shows which times are free.
             </p>
             <SundayLunchHowItWorks/>
             <ul className="mt-6 space-y-2 text-base text-ink-muted">
@@ -509,8 +509,8 @@ export default async function SundayRoastPage() {
       />
 
       <CtaBand
-        title="Book your Sunday roast at The Anchor"
-        copy={`Sunday service runs 1pm to 6pm. ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.`}
+        title="Walk in or book your Sunday roast"
+        copy="Sunday service runs 1pm to 6pm in Stanwell Moor, with free parking right outside."
       >
         <BookTableButton
           source="sunday_roast_final_cta"
