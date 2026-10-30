@@ -170,6 +170,13 @@ export const COMMENTARY_WORDING = "The commentary's on for big games and tournam
  */
 export const ULEZ_WORDING = "We're outside the ULEZ zone."
 
+/**
+ * SSOT sections 14, 16 and 17. The /sunday-roast page title only, word for word:
+ * these are the words people search. Never in a heading, copy, a social card or
+ * structured data.
+ */
+export const SUNDAY_ROAST_SEARCH_TITLE = 'Best Sunday Roast Near Heathrow & Staines'
+
 /*
  * Private hire: times, decorating, cakes and slideshows. Every sentence below
  * is in docs/SSOT.md section 16. The facts are the owner's of 7 October 2026

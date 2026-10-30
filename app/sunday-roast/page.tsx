@@ -1,7 +1,7 @@
-import { WELLINGTON_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
+import { SUNDAY_ROAST_SEARCH_TITLE, WELLINGTON_WORDING, ULEZ_WORDING } from '@/lib/approved-wording'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Card, CardBody, SectionHeading } from '@/components/ui'
+import { Badge, Card, CardBody, SectionHeading } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { InteriorHero } from '@/components/hero'
 import { CtaBand } from '@/components/CtaBand'
@@ -27,7 +27,7 @@ import { SundayRoastFeature } from '../food-menu/_components/SundayRoastFeature'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { ChristmasCrossLink } from '@/components/features/christmas/ChristmasCrossLink'
-import { HEATHROW_TIMES, PARKING } from '@/lib/constants'
+import { DRIVE_TIMES, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 
 const SUNDAY_LUNCH_BOOKING_URL = SUNDAY_ROAST.bookingHref
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
@@ -37,13 +37,13 @@ export const revalidate = 60 * 60
 export async function generateMetadata(): Promise<Metadata> {
   const menu = await getSundayLunchMenuPageData()
   const description = menu.menuData
-    ? `Proper Sunday roast ${HEATHROW_TIMES.terminal5} minutes from Heathrow T5. Walk in 1pm to 6pm, no booking and no pre-order needed. Beef, pork, turkey and a vegan option.`
-    : `Sunday roast ${HEATHROW_TIMES.terminal5} minutes from Heathrow T5. Walk in 1pm to 6pm at The Anchor, Stanwell Moor, no booking needed. Call us for the current Sunday dish list.`
+    ? 'Sunday roast in Stanwell Moor, near Staines and Heathrow T5. Walk in 1pm to 6pm or book a table, no pre-order. Beef, pork, turkey and a vegan option.'
+    : 'Sunday roast in Stanwell Moor, near Staines and Heathrow T5. Walk in 1pm to 6pm or book a table, no pre-order. Call us for the current Sunday dish list.'
 
   // Rendered title is this plus the root layout suffix, so keep it short enough
   // that " | The Anchor" still fits inside Google's ~60 character cut-off.
-  const title = 'Sunday Roast Near Heathrow, Walk-Ins Welcome'
-  const socialTitle = 'Sunday Roast Near Heathrow, Walk-Ins Welcome | The Anchor'
+  const title = SUNDAY_ROAST_SEARCH_TITLE
+  const socialTitle = 'Sunday Roast Near Staines & Heathrow, Walk-Ins Welcome | The Anchor'
 
   return {
     title,
@@ -88,6 +88,10 @@ function getSundayLunchFaqs() {
     {
       question: 'Is there a vegan Sunday roast?',
       answer: `Yes, the Beetroot and Butternut Squash Wellington. ${WELLINGTON_WORDING}`
+    },
+    {
+      question: 'Where can I get a Sunday roast near Staines?',
+      answer: `The Anchor in Stanwell Moor is ${DRIVE_TIMES.staines} minutes from Staines, with free parking and roasts carved when you order. Walk in, or book if you'd rather.`
     },
     {
       question: "Where can I get a Sunday roast near Heathrow Airport?",
@@ -165,7 +169,12 @@ export default async function SundayRoastPage() {
         image="/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg"
         crumb="Sunday Roast"
         kicker="The Anchor, Stanwell Moor"
-        title="Sunday Roast Near Heathrow"
+        title="Sunday Roast Near Staines & Heathrow"
+        badges={
+          sundayMenu.priceFromLabel ? (
+            <Badge variant="sand">Roasts {sundayMenu.priceFromLabel}</Badge>
+          ) : undefined
+        }
         lead="Choose a time for your Sunday roast, then order at the table. Booking is recommended for groups and peak times. Walk-ins are welcome too, with no pre-order needed."
         actions={
           <>
@@ -203,10 +212,10 @@ export default async function SundayRoastPage() {
       <section className="bg-canvas py-section-y">
         <div className="container">
           <PageTitle className="text-center text-ink-strong" seo={{ structured: true, speakable: true }}>
-            Sunday Roast Near Heathrow at The Anchor
+            Sunday Roast in Stanwell Moor at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-ink-muted mx-auto">
-            The Anchor serves a proper Sunday roast {roastFrequency} from 1pm to 6pm, {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 in Stanwell Moor. You do not need to book, and you do not need to pre-order. Walk in any time during service, sit down, and order at the table.
+            Sunday is what we live for. You&apos;ll find us in Stanwell Moor, {DRIVE_TIMES.staines} minutes from Staines and {HEATHROW_TIMES.terminal5} from Heathrow Terminal 5. Roasts are on {roastFrequency} from 1pm to 6pm, with last seating at 5:30pm. Just walk in, or book if you&apos;d rather. You order at the table either way.
           </p>
           <ul
             aria-label="At a glance"
@@ -258,11 +267,6 @@ export default async function SundayRoastPage() {
               </CardBody>
             </Card>
           )}
-          <p className="mt-6 text-center text-sm text-ink-muted">
-            Prices are kept current on our{' '}
-            <Link href="/food-menu" className="font-semibold text-accent-text underline">menu page</Link>
-            {' '}rather than here.
-          </p>
         </div>
       </section>
 

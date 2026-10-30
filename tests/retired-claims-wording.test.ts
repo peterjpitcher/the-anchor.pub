@@ -506,8 +506,10 @@ const REMOVED_BY_P12: ReadonlyArray<RemovedClaim> = [
   {
     claim: '"best" as a claim about us in a question or answer (C3-020, SSOT section 14)',
     pattern: /\bbest Sunday roast near\b|\bwhere's the best\b|\bbest (?:pub|restaurant) (?:in|near)\b/i,
-    // Titles keep the search phrase; the link map holds those phrases.
-    except: /^lib\/seo\/organic-search-map\.ts$/,
+    // Titles keep the search phrase; the link map holds those phrases. The
+    // wording file holds the owner-approved lines (SSOT section 16), and the pages
+    // read them from there, so typing one anywhere else still fails.
+    except: /^lib\/(?:seo\/organic-search-map|approved-wording)\.ts$/,
   },
   {
     claim: "what other pubs' roasts do, or a roast that is cooked, not carved, to order (C3-045)",

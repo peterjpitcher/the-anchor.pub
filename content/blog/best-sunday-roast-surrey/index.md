@@ -2,7 +2,7 @@
 title: "Best Sunday Roast in Surrey: 7 Pubs Honestly Compared"
 description: "Seven Surrey pubs for a Sunday roast, from the villages near Heathrow to the Surrey Hills, and what to check before you book. From a team that serves roasts every Sunday."
 date: "2026-04-07"
-updated: '2026-10-08'
+updated: '2026-10-30'
 author: "Billy"
 keywords:
   - best sunday roast surrey
@@ -25,7 +25,7 @@ Surrey does Sunday roasts properly. Whether you're after a roast carved when you
 
 We've pulled together seven Sunday roast pubs across Surrey, from the villages near Heathrow to the Surrey Hills. We can only vouch for our own, so for the other six we've stuck to where they are. Check each pub's own website for its menu, prices and booking before you travel.
 
-> **Looking for a Sunday roast near Heathrow?** See our [Sunday roast menu](/sunday-roast). We're 7 to 12 minutes from any Heathrow terminal.
+> **Looking for a Sunday roast near Staines or Stanwell Moor?** See our [Sunday roast menu](/sunday-roast). We're 8 minutes from Staines and 7 to 12 minutes from any Heathrow terminal.
 
 ## At a Glance: Seven Surrey Pubs for a Sunday Roast
 
