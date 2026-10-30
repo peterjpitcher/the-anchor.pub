@@ -29,8 +29,8 @@ interface HomeHeroProps {
   /**
    * This month's copy, from lib/monthly-copy.ts. Passed in rather than read
    * here so the hero stays presentational and the copy stays unit-testable on
-   * its own. The H1 is deliberately absent: "Eat, Drink, Enjoy." is the brand
-   * motto (SSOT section 1) and never changes.
+   * its own. The H1 is deliberately absent: it says what the pub is and where,
+   * and it doesn't change with the month.
    */
   copy: MonthlyHomepageCopy
 }
@@ -92,12 +92,19 @@ export function HomeHero({ image, imageAlt, focal = '50% 50%', blurDataURL, copy
             className="h-auto w-[clamp(180px,26vw,300px)] drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
           />
 
-          {/* H1 */}
+          {/* The motto stays, as the line above the heading. */}
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-anchor-gold-bright drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
+            Eat, Drink, Enjoy
+          </p>
+
+          {/* H1. Says what we are and where (owner decision, 30 October 2026).
+              The smaller text-h1 size is on purpose: at text-display this wraps
+              to five lines on a phone. */}
           <h1
-            className="font-display text-display text-anchor-cream-text drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]"
-            style={{ lineHeight: 0.95 }}
+            className="font-display text-h1 text-anchor-cream-text drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]"
+            style={{ lineHeight: 1 }}
           >
-            Eat, Drink, Enjoy.
+            Stanwell Moor&apos;s Village Pub and Restaurant
           </h1>
 
           {/* Script line */}
