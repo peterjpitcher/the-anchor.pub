@@ -134,7 +134,7 @@ export function TimedBookingPrompt({
       <ModalBody>
         <p className="text-base text-ink leading-relaxed">
           {sunday.isLive
-            ? `Sundays book up fast at The Anchor. We are ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Walk-ins are welcome 1pm to 6pm, but a quick booking guarantees your table.`
+            ? "Roasts carved fresh from 1pm to 6pm, so walk in whenever suits you. Or book now if you'd like a table held for you."
             : `${sunday.availabilityLong} We are ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and booking ahead is recommended for launch Sundays.`}
         </p>
         <p className="mt-3 text-sm text-ink-muted leading-relaxed">

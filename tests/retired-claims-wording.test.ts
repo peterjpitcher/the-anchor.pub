@@ -220,9 +220,6 @@ const REMOVED_BY_P11: ReadonlyArray<RemovedClaim> = [
   {
     claim: 'a date that "always books up" or "fills up fast" (C1-029)',
     pattern: /\balways (?:books?|fills?|sells?|gets? booked)(?: \w+)? (?:up|out)\b|\b(?:books?|fills?|sells?|booked) (?:up|out) (?:fast|quickly|early|every year|weeks (?:ahead|in advance))\b|\bbusiest (?:days?|nights?|Sundays?|weekends?|times?) of (?:the|our) year\b/i,
-    // Three booking prompts say "Sunday roast books up fast". They belong to the
-    // floating-layers package, which is deciding which of them survive.
-    except: /^components\/(?:conversion\/|sunday-lunch\/TimedBookingPrompt\.tsx$)/,
   },
   {
     claim: 'a track record in numbers: "hundreds of wakes", "hosted many" (C1-030)',
@@ -506,8 +503,10 @@ const REMOVED_BY_P12: ReadonlyArray<RemovedClaim> = [
   {
     claim: '"best" as a claim about us in a question or answer (C3-020, SSOT section 14)',
     pattern: /\bbest Sunday roast near\b|\bwhere's the best\b|\bbest (?:pub|restaurant) (?:in|near)\b/i,
-    // Titles keep the search phrase; the link map holds those phrases.
-    except: /^lib\/seo\/organic-search-map\.ts$/,
+    // Titles keep the search phrase; the link map holds those phrases. The
+    // wording file holds the owner-approved lines (SSOT section 16), and the pages
+    // read them from there, so typing one anywhere else still fails.
+    except: /^lib\/(?:seo\/organic-search-map|approved-wording)\.ts$/,
   },
   {
     claim: "what other pubs' roasts do, or a roast that is cooked, not carved, to order (C3-045)",

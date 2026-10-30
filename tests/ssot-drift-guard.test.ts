@@ -951,7 +951,11 @@ describe('SSOT drift guard — high-risk site copy', () => {
       'i',
     )
     expect(
-      claimSentences(SELF_SUPERLATIVE, { files: SUPERLATIVE_EXEMPT_FILES, sentence: NOT_OUR_CLAIM }),
+      claimSentences(SELF_SUPERLATIVE, {
+        files: SUPERLATIVE_EXEMPT_FILES,
+        // The one owner-approved page title (SSOT sections 14 and 16, 30 October 2026).
+        sentence: new RegExp(`${NOT_OUR_CLAIM.source}|Best Sunday Roast Near Heathrow & Staines`),
+      }),
     ).toEqual([])
   })
 
