@@ -14,7 +14,7 @@ import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BrochureDownload } from '@/components/features/PrivateHire/BrochureDownload'
 import { CtaBand } from '@/components/CtaBand'
-import { CONTACT, BRAND, WAKE_VENUE_DRIVE_MINUTES } from '@/lib/constants'
+import { CONTACT, BRAND, HEATHROW_TIMES, WAKE_VENUE_DRIVE_MINUTES } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesCard } from '@/app/private-hire/_components/CateringPackagesCard'
@@ -23,6 +23,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { getReviewsByTopic } from '@/lib/google-reviews'
 import { ACCESS_AMENITY_FEATURES, ACCESS_WORDING } from '@/lib/approved-wording'
+import { WakePlanningGuide } from './_components/WakePlanningGuide'
 
 const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']
 
@@ -365,6 +366,8 @@ export default async function WakesPage() {
                 </Container>
             </section>
 
+            <WakePlanningGuide />
+
             <section className="py-section-y bg-surface">
                 <Container>
                     <div className="mx-auto">
@@ -435,6 +438,30 @@ export default async function WakesPage() {
                     {
                         question: PRIVATE_HIRE_DIETARY_QUESTION,
                         answer: PRIVATE_HIRE_DIETARY_WORDING
+                    },
+                    {
+                        question: "Do I need to book a wake venue in advance?",
+                        answer: "It's worth calling as soon as you have a rough date, even if the details aren't confirmed. Wakes are often arranged within a week or two, and we can often take a booking at 24 to 48 hours' notice."
+                    },
+                    {
+                        question: "Can I host a wake at a pub?",
+                        answer: "Yes, and many families do. A pub with a private room tends to feel warmer and less formal than a hotel, and the food is usually simpler."
+                    },
+                    {
+                        question: "What food is typical at a wake?",
+                        answer: "Finger buffets are by far the most common: sandwiches, sausage rolls, quiche, crisps and cake. Some families choose a hot buffet or afternoon tea. There's no set expectation, so choose whatever feels right."
+                    },
+                    {
+                        question: "Is there a wake venue near Slough Crematorium?",
+                        answer: `Yes. We're ${WAKE_VENUE_DRIVE_MINUTES['slough-crematorium']} minutes' drive from Slough Crematorium. Call us on ${CONTACT.phone} to talk it through.`
+                    },
+                    {
+                        question: "Can family fly in for a wake?",
+                        answer: `Yes. We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and ${HEATHROW_TIMES.rangeWords} from any Heathrow terminal. There are hotels nearby if people need somewhere to stay.`
+                    },
+                    {
+                        question: "Is The Anchor easy to get around for older relatives?",
+                        answer: `${ACCESS_WORDING} ${PARKING_WORDING}`
                     }
                 ]}
             />

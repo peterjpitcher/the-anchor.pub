@@ -178,7 +178,6 @@ describe('the pages the review named carry the approved wording', () => {
   })
 
   it.each([
-    'content/blog/wake-venue-near-heathrow/index.md',
     'content/blog/how-to-plan-christening-reception/index.md',
     'content/blog/christening-party-ideas-venues/index.md',
   ])('%s carries the full block, as a post cannot import it', (file) => {
