@@ -187,9 +187,8 @@ export const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destinatio
  * Where every "leave a review" ask on the site must point.
  *
  * Owner rule (23 September 2026): review requests only ever go to the feedback
- * page on the management app. It asks how the visit went and sends happy
- * visitors on to Google itself, so the site must never link straight to a
- * Google write-review URL.
+ * page on the management app. It offers everyone Google or a private message,
+ * so the site must never link straight to a Google write-review URL.
  *
  * This replaced `https://g.page/r/CQz1W5fqSTqPEAI/review`, which had been the
  * `/leave-review` destination since August 2025 and encoded the wrong Google
