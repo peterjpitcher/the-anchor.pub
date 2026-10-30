@@ -1009,7 +1009,7 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 - **1866 or 1869 as founding year**, correct year is 1751.
 - **"Since the 1800s"**, too vague; use 1751.
 - **"Community hub since 1995"**, this conflicts with the 1751 established date and weakens trust with Google. Only use 1995 if it refers specifically to the current ownership or operating chapter, and always clarify the distinction.
-- **"Best" or "premier" claims** without substantiation. Say "highly rated" instead, and see §17 for what can be claimed. The one exception is the `/sunday-roast` page title in §16, word for word.
+- **"Best" or "premier" claims** without substantiation. Say "highly rated" instead, and see §17 for what can be claimed. The two exceptions are the `/sunday-roast` page title and the homepage line in §16, word for word.
 
 ### Sunday roast
 - **Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side**, all retired 2026-04-29. Lamb is no longer served anywhere.
@@ -1169,6 +1169,12 @@ Never "we'll book", "we'll call" or "we can arrange" (§2).
 
 The `/sunday-roast` page title only, word for word, because these are the words people search. Never in the page's heading, its copy, its social card, its structured data or a paid ad. It's a test: the read-out compares click-through before and after. See §17.
 
+### The best-roast line
+
+> We reckon it's the best Sunday roast near Heathrow.
+
+Homepage only, word for word, beside the real Google reviews it rests on. Never flat ("the best Sunday roast"), never with another place name, and never in a meta description, structured data or paid ad unless the owner decides otherwise. The only "best" page title is the one above. It comes down while the kitchen is shut for its break. See §17.
+
 ### The Wellington
 
 > Fully vegan as it comes. Ask if you'd like buttered cabbage or a Yorkshire pudding added, both of which make the plate no longer vegan.
@@ -1303,7 +1309,7 @@ Never "doors 6:30pm": the pub is open long before then, and "doors" tells people
 
 ## 17. Claims Register
 
-Claims that are objective, and so need evidence rather than enthusiasm. "We love a Sunday roast" needs none; a flat "the best Sunday roast near Heathrow" needs proof we do not hold. Keep them apart. The one exception is the `/sunday-roast` page title in §16.
+Claims that are objective, and so need evidence rather than enthusiasm. "We love a Sunday roast" needs none; a flat "the best Sunday roast near Heathrow" needs proof we do not hold. Keep them apart. The two exceptions are the `/sunday-roast` page title and the opinion line in §16.
 
 | Claim | Evidence on file | How to use it | Review |
 |---|---|---|---|
@@ -1317,12 +1323,14 @@ Claims that are objective, and so need evidence rather than enthusiasm. "We love
 | Outside the ULEZ | Location | "We're outside the ULEZ zone." | Stable |
 | ULEZ saving figure | Retired 10 September 2026 (owner decision). The charge depends on the vehicle and the route | Never quote one (§14). The claim is "We're outside the ULEZ zone." | Stable |
 | Famous Sunday roasts | Enthusiasm, not a factual claim | Fine as warmth. Never "best" or "premier" (§14) | Stable |
+| "We reckon it's the best Sunday roast near Heathrow" | No comparison with other pubs' roasts. Two real Google reviews support it: Kathryn Barker (May 2026) reports their mum calling the roast the best she has ever had, and IJ (November 2025) calls it the best meal they had in England. Neither compares it with other pubs' roasts. Owner decision, 30 October 2026 | Homepage only, as §16 says. If anyone challenges it, take it down | Each quarter |
 | "Best Sunday Roast Near Heathrow & Staines" as a page title | No comparison with other pubs' roasts. Search wording, owner decision, 30 October 2026 | The `/sunday-roast` title only, as §16 says. If anyone challenges it, take it down | Each quarter |
 
 ## 18. Changelog
 
 Newest first. The rule each entry changed now lives in its section; this is the record of how it got there.
 
+- **30 October 2026, one "best" line for the homepage.** The owner said in chat on 30 October 2026: "I'd like to claim the best sunday roast near heathrow if possible". Near Heathrow, as an opinion, beside two real reviews, on the homepage only (§14, §16, §17). We hold no comparison with other pubs' roasts, and the owner knows that. Every other "best" ban stands, and the guards still stop the line spreading.
 - **30 October 2026, one "best" page title.** The owner approved it in chat on 30 October 2026: the `/sunday-roast` title becomes "Best Sunday Roast Near Heathrow & Staines", in the words people search, as a test. The heading, copy, social card and structured data stay plain. We hold no comparison with other pubs' roasts, and the owner knows that (§14, §16, §17).
 - **15 October 2026, wakes have a dedicated space, not a dedicated entrance.** The owner said in chat on 15 October 2026: "We have the dining room, not a dedicated entrance but a dedicated space." §11 had said "Private entrance area" since before this document's current form, and the wakes page, the wake pages for each crematorium, the private hire page and FAQ, `/llms.txt` and `SSOT.json` all repeated it, with "set apart from the main bar" and "come and go with dignity" added on the crematorium pages. §11 now records the dining room as the dedicated space and bans the entrance wording, and every page says the dining room instead. `tests/ssot-drift-guard.test.ts` fails if a private, own or dedicated entrance comes back.
 

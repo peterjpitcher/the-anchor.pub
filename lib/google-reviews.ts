@@ -132,6 +132,12 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
     author: 'Kathryn Barker',
     date: 'May 2026',
     topics: ['food', 'family-group']
+  },
+  {
+    quote: "It was hands down the best meal we had in England and I think we'd fly to Heathrow again just to experience the Sunday roast again.",
+    author: 'IJ',
+    date: 'November 2025',
+    topics: ['food']
   }
 ]
 
