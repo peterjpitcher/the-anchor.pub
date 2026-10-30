@@ -33,7 +33,7 @@ import { HEATHROW_TIMES } from '@/lib/constants'
  */
 
 export interface MonthlyHomepageCopy {
-  /** The cursive line under the H1. The H1 itself is the motto and never changes. */
+  /** The cursive line under the H1. The H1 doesn't change with the month (see HomeHero). */
   script: string
   /** The hero's supporting paragraph. */
   lead: string

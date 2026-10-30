@@ -532,6 +532,11 @@
     "permanent": true
   },
   {
+    "source": "/blog/wake-venue-near-heathrow",
+    "destination": "/private-hire/wakes",
+    "permanent": true
+  },
+  {
     "source": "/blog/cheap-christmas-parties-heathrow",
     "destination": "/christmas-parties",
     "permanent": true

@@ -68,19 +68,19 @@ export async function generateMetadata(): Promise<Metadata> {
   // (deliberate, owner-confirmed), which left a bare number stranded in the
   // search snippet as "Dishes from 4". Named dishes sell the click instead.
   const description = data
-    ? 'Pub food menu near Heathrow T5 with live prices. Burgers, stone-baked pizzas, pies and fish and chips. Free parking and table booking in Stanwell Moor.'
-    : 'Food near Heathrow Airport at The Anchor. See the live pub menu with current dishes and prices from the kitchen.'
+    ? 'Pub food menu in Stanwell Moor, near Staines and Heathrow T5. Burgers, stone-baked pizzas, pies and fish and chips, with live prices and free parking.'
+    : 'Food in Stanwell Moor, near Staines and Heathrow, at The Anchor. See the live pub menu with current dishes and prices from the kitchen.'
 
   return {
-    title: 'Pub Food Menu & Prices Near Heathrow T5',
+    title: 'Pub Food Menu, Stanwell Moor near Staines',
     description,
     openGraph: {
-      title: 'Pub Food Menu & Prices | Stanwell Moor, Near Heathrow T5',
+      title: 'Pub Food Menu | Stanwell Moor, Near Staines & Heathrow T5',
       description,
       images: [{ url: FOOD_MENU_SHARE_IMAGE, width: 1200, height: 630, alt: FOOD_MENU_SHARE_IMAGE_ALT }],
     },
     twitter: getTwitterMetadata({
-      title: 'Pub Food Menu & Prices | Stanwell Moor, Near Heathrow T5',
+      title: 'Pub Food Menu | Stanwell Moor, Near Staines & Heathrow T5',
       description,
       images: [FOOD_MENU_SHARE_IMAGE]
     }),
@@ -203,7 +203,7 @@ export default async function FoodMenuPage() {
         image={FOOD_MENU_HERO_IMAGE}
         crumb="Food"
         kicker="Eat, Drink, Enjoy"
-        title="Proper pub food, minutes from Heathrow"
+        title="Proper pub food in Stanwell Moor, near Staines"
         lead={`Pub classics, stone-baked pizzas, fish and chips, a dedicated kids menu and a proper Sunday roast in Stanwell Moor, ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 with free parking.`}
         badges={
           <>
