@@ -43,6 +43,11 @@ describe('HomeRoastBand', () => {
     expect(screen.getByRole('link', { name: 'See the Sunday roast' })).toHaveAttribute('href', '/sunday-roast')
   })
 
+  it('lets its buttons wrap, because side by side they are wider than the column on a small laptop', () => {
+    render(<HomeRoastBand />)
+    expect(screen.getByRole('link', { name: 'See the Sunday roast' }).parentElement).toHaveClass('sm:flex-wrap')
+  })
+
   it('carries the closure notice while the break is coming', () => {
     mockState.mockReturnValue('ahead')
     render(<HomeRoastBand />)

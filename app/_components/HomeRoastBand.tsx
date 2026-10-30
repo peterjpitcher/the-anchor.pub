@@ -57,7 +57,7 @@ export function HomeRoastBand(): React.JSX.Element | null {
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <BookTableButton
                 source="homepage_roast_band"
                 context="sunday_roast"
