@@ -171,6 +171,13 @@ export const COMMENTARY_WORDING = "The commentary's on for big games and tournam
 export const ULEZ_WORDING = "We're outside the ULEZ zone."
 
 /**
+ * SSOT sections 14, 16 and 17. Homepage only, word for word, beside the reviews
+ * it rests on. We hold no comparison with other pubs' roasts, so it stays an
+ * opinion, and it never goes in a title, description or structured data.
+ */
+export const BEST_ROAST_CLAIM = "We reckon it's the best Sunday roast near Heathrow"
+
+/**
  * SSOT sections 14, 16 and 17. The /sunday-roast page title only, word for word:
  * these are the words people search. Never in a heading, copy, a social card or
  * structured data.

@@ -15,6 +15,7 @@ import { UpcomingEvents } from '@/components/events/UpcomingEvents'
 import { getBusinessHoursSnapshot, getUpcomingEvents } from '@/lib/api'
 
 import { HomeHero } from './_components/HomeHero'
+import { HomeRoastBand } from './_components/HomeRoastBand'
 import { HomeFaq } from './_components/HomeFaq'
 
 import { BookTableButton } from '@/components/BookTableButton'
@@ -239,6 +240,8 @@ export default async function HomePage() {
 
       {/* 2 — Amenity strip */}
       <AmenityStrip/>
+
+      <HomeRoastBand/>
 
       {/* 3 — Path cards */}
       <section className="bg-canvas py-section-y">
