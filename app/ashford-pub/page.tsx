@@ -15,6 +15,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { HeroBadge } from '@/components/HeroBadge'
+import { LocalRoastBlock } from '@/components/seo/LocalRoastBlock'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
@@ -122,6 +123,12 @@ export default function AshfordPubPage() {
           </div>
         </Container>
       </section>
+
+      <LocalRoastBlock
+        area="Ashford"
+        travelLine="We're a short drive from Ashford."
+        source="ashford_pub_roast_block"
+      />
 
       {/* Welcome Section */}
       <section className="py-section-y bg-canvas">

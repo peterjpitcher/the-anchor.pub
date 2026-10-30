@@ -26,6 +26,7 @@ export const revalidate = 86400
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
+import { LocalRoastBlock } from '@/components/seo/LocalRoastBlock'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export function generateMetadata(): Metadata {
@@ -170,6 +171,12 @@ export default function StainesPubPage() {
           </PageTitle>
         </Container>
       </section>
+
+      <LocalRoastBlock
+        area="Staines"
+        travelLine={`We're ${DRIVE_TIMES.staines} minutes from Staines-upon-Thames.`}
+        source="staines_pub_roast_block"
+      />
 
       {/* Why Choose The Anchor */}
       <section className="py-section-y bg-surface">
