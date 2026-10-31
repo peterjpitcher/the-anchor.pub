@@ -23,7 +23,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 function formatMenuItemPrice(item: MenuPageItem): string {
   const price = item.price.trim()
   if (!price) return ''
-  return ` - ${price.startsWith('£') ? price : `£${price}`}`
+  return ` - ${price}`
 }
 
 export function generateMetadata(): Metadata {
