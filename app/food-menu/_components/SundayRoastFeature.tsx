@@ -9,12 +9,6 @@ interface SundayRoastFeatureProps {
   items?: MenuPageItem[]
 }
 
-function formatDisplayPrice(price: string | undefined): string {
-  const trimmed = price?.trim()
-  if (!trimmed) return ''
-  return trimmed.startsWith('£') ? trimmed : `£${trimmed}`
-}
-
 function dietaryFlag(item: MenuPageItem): string | null {
   if (item.vegan) return 'Vegan'
   if (item.vegetarian) return 'Veg'
@@ -33,12 +27,12 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
       {/* Image first on mobile, left on desktop. */}
       <div className="overflow-hidden rounded-md shadow-sm">
         <Image
-          src="/images/food/sunday-roast/sunday-roast-beef-carved.jpg"
+          src="/images/food/sunday-roast/sunday-roast-beef-sliced.jpg"
           alt="Roast beef being carved for a Sunday roast"
           // The file's real size. Stated as 920 by 690, the box was held at 4:3
           // and jumped to the photo's own shape when it loaded (site review LS-015).
-          width={1448}
-          height={1086}
+          width={1440}
+          height={1080}
           className="h-full w-full object-cover"
           sizes="(max-width: 1024px) 100vw, 50vw"
         />
@@ -66,7 +60,7 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
                       <p className="font-sans font-medium text-ink-strong">
                         {roast.name}
                         <span className="ml-2 whitespace-nowrap font-display text-xl text-accent-text">
-                          {formatDisplayPrice(roast.price)}
+                          {roast.price}
                         </span>
                         {flag && (
                           <span className="font-sans text-sm font-semibold text-accent-text">
