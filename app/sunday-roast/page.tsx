@@ -51,12 +51,12 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: socialTitle,
       description,
-      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
+      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-share.jpg']
     },
     twitter: getTwitterMetadata({
       title: socialTitle,
       description,
-      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
+      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-share.jpg']
     }),
     alternates: {
       canonical: '/sunday-roast'
@@ -166,7 +166,7 @@ export default async function SundayRoastPage() {
       />
 
       <InteriorHero
-        image="/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg"
+        image="/images/food/sunday-roast/the-anchor-sunday-roast-hero-2026.jpg"
         crumb="Sunday Roast"
         kicker="The Anchor, Stanwell Moor"
         title="Sunday Roast Near Staines & Heathrow"

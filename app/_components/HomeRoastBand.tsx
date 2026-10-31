@@ -26,10 +26,10 @@ export function HomeRoastBand(): React.JSX.Element | null {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="overflow-hidden rounded-md shadow-sm">
             <Image
-              src="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
+              src="/images/food/sunday-roast/the-anchor-sunday-roast-homepage.jpg"
               alt="A carved Sunday roast served at The Anchor in Stanwell Moor"
-              width={1920}
-              height={1072}
+              width={1440}
+              height={1080}
               className="h-full w-full object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
