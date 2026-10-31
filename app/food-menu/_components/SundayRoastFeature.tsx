@@ -33,12 +33,12 @@ export function SundayRoastFeature({ items = [] }: SundayRoastFeatureProps) {
       {/* Image first on mobile, left on desktop. */}
       <div className="overflow-hidden rounded-md shadow-sm">
         <Image
-          src="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
-          alt="A carved Sunday roast served at The Anchor in Stanwell Moor"
+          src="/images/food/sunday-roast/sunday-roast-beef-carved.jpg"
+          alt="Roast beef being carved for a Sunday roast"
           // The file's real size. Stated as 920 by 690, the box was held at 4:3
           // and jumped to the photo's own shape when it loaded (site review LS-015).
-          width={1920}
-          height={1072}
+          width={1448}
+          height={1086}
           className="h-full w-full object-cover"
           sizes="(max-width: 1024px) 100vw, 50vw"
         />
